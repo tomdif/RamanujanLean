@@ -20,11 +20,15 @@ We expose it as a hypothesis class until the Hecke infrastructure is in place.
 
 namespace RamanujanTau
 
-/-- Hypothesis class: the Hecke recurrence at every prime. -/
+/-- Hypothesis class: the Hecke recurrence at every prime.
+
+The recurrence is stated for `r ≥ 1` only. At `r = 0` the formula would
+involve `τ(p^{-1})`, which has no meaning; the boundary case is handled
+separately by `τ(p^1) = τ(p)`. -/
 class TauHeckeRecurrence : Prop where
   /-- For every prime `p` and `r ≥ 1`:
       `τ(p^{r+1}) = τ(p) · τ(p^r) - p^{11} · τ(p^{r-1})`. -/
-  hecke : ∀ {p : ℕ}, p.Prime → ∀ r : ℕ,
+  hecke : ∀ {p : ℕ}, p.Prime → ∀ r : ℕ, r ≥ 1 →
     τ (p^(r+1)) = τ p * τ (p^r) - (p : ℤ)^11 * τ (p^(r-1))
 
 /-! ## Numerical sanity checks

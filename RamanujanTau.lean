@@ -2,7 +2,7 @@ import RamanujanTau.Basic
 import RamanujanTau.SmallValues
 import RamanujanTau.Multiplicativity
 import RamanujanTau.HeckeRecurrence
--- import RamanujanTau.HeckeTheory  -- temporarily excluded: pre-existing build failure (unrelated work-in-progress)
+import RamanujanTau.HeckeTheory
 import RamanujanTau.Congruences
 import RamanujanTau.Congruences.Sigma
 import RamanujanTau.Congruences.Mod2
