@@ -1,0 +1,5 @@
+import RamanujanTau.Basic
+import RamanujanTau.SmallValues
+import RamanujanTau.Multiplicativity
+import RamanujanTau.HeckeRecurrence
+import RamanujanTau.Congruences
