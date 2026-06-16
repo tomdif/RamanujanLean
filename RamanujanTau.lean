@@ -7,6 +7,7 @@ import RamanujanTau.Deligne
 import RamanujanTau.Lehmer
 import RamanujanTau.EulerFactor
 import RamanujanTau.HeckePowers
+import RamanujanTau.Gegenbauer
 import RamanujanTau.Congruences
 import RamanujanTau.Congruences.Sigma
 import RamanujanTau.Congruences.Mod2
