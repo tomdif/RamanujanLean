@@ -5,6 +5,7 @@ import RamanujanTau.HeckeRecurrence
 import RamanujanTau.HeckeTheory
 import RamanujanTau.HeckeEigenform
 import RamanujanTau.HeckeOperator
+import RamanujanTau.HeckeConstruction
 import RamanujanTau.Deligne
 import RamanujanTau.Lehmer
 import RamanujanTau.EulerFactor
