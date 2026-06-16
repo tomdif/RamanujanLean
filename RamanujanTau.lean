@@ -3,6 +3,8 @@ import RamanujanTau.SmallValues
 import RamanujanTau.Multiplicativity
 import RamanujanTau.HeckeRecurrence
 import RamanujanTau.HeckeTheory
+import RamanujanTau.Deligne
+import RamanujanTau.Lehmer
 import RamanujanTau.Congruences
 import RamanujanTau.Congruences.Sigma
 import RamanujanTau.Congruences.Mod2
