@@ -10,11 +10,11 @@ Filling a Mathlib gap: Mathlib has the discriminant cusp form
 
 | | |
 |---|---|
-| Files | 5 |
-| Build | `lake build` → **1171 jobs, 0 errors** |
+| Modules | 18 (12 top-level + 6 congruence sub-modules) |
+| Build | `lake build` → **3257 jobs, 0 errors** |
 | `sorry` count | **0** |
 | New `axiom` declarations | **0** |
-| Lean toolchain | Lean 4 + Mathlib master |
+| Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
 
 ## Definition
 
@@ -81,6 +81,47 @@ Hypothesis class `TauHeckeRecurrence`:
 for every prime `p` and `r ≥ 1`. Numerical sanity checks for `(p, r) = (2,1)`,
 `(2,2)`, `(3,1)` are proved by `norm_num`.
 
+### `HeckeTheory.lean`
+A single master hypothesis class `TauHeckeMaster` (the action of `T_p` on the
+q-expansion of the weight-12 eigenform) from which **both** `TauHeckeRecurrence`
+and `TauMultiplicative` are *derived as instances* — full Lean proofs, by induction
+on the prime factorization. One deep input; everything else follows mechanically.
+
+### `EulerFactor.lean`
+The Hecke theory of `τ` at a prime, all **proven** under `TauHeckeRecurrence`:
+- `tau_prime_sq : τ(p²) = τ(p)² − p¹¹` and `tau_prime_cube : τ(p³) = τ(p)³ − 2p¹¹τ(p)`,
+  as general theorems (∀ primes), superseding the earlier numerical checks
+- `euler_factor_coeff` — the three-term recurrence reindexed for all `r ≥ 0`
+- `euler_factor` — the **local Euler factor** of `L(Δ, s)`, as a power-series identity:
+  `(1 − τ(p) X + p¹¹ X²) · Σ_r τ(p^r) X^r = 1` in `ℤ⟦X⟧`
+- `tauArith_eq_prod_factorization` (under `TauMultiplicative`) —
+  `τ(n) = ∏_{p^k ‖ n} τ(p^k)`: `τ` is determined by its prime-power values.
+
+### `HeckePowers.lean`
+Higher prime-power closed forms `τ(p⁴) … τ(p⁷)` as polynomials in `τ(p)` and `p`,
+e.g. `τ(p⁷) = τp⁷ − 6p¹¹τp⁵ + 10p²²τp³ − 4p³³τp`. These were **proposed by an LLM
+generator and verified by the Lean kernel** (each via `rw [recurrence, lower forms]; ring`),
+chained on the verified predecessors — only kernel-certified forms are kept.
+
+### `Gegenbauer.lean`
+The **general** closed form for `τ(p^r)`, via the Gegenbauer / Chebyshev-U polynomial
+family `G_r(s,q)` defined by `G_0 = 1`, `G_1 = s`, `G_{r+2} = s·G_{r+1} − q·G_r`:
+- `tau_ppow_eq_gegen : τ(p^r) = G_r(τ p, p¹¹)` for **all** `r` — one theorem subsuming
+  `τ(p²) … τ(p⁷)`
+- `gegen_eq_sum` — the explicit Gegenbauer/Chebyshev binomial formula
+  `G_r(s,q) = Σ_j (−1)^j C(r−j, j) q^j s^{r−2j}` (proved via Pascal's rule, three boundary cases)
+- `tau_ppow_eq_sum : τ(p^r) = Σ_j (−1)^j C(r−j, j) p^{11j} τ(p)^{r−2j}`
+
+### `Deligne.lean`
+Deligne's bound (a consequence of the Weil conjectures, 1974): class `DeligneBound`
+(`τ(p)² ≤ 4 p¹¹`, i.e. `|τ(p)| ≤ 2 p^{11/2}`), with the bound **verified by
+`native_decide` for every prime `p ≤ 13`**.
+
+### `Lehmer.lean`
+Lehmer's conjecture (open, 1947): class `LehmerConjecture` (`τ(n) ≠ 0 ∀ n ≥ 1`),
+plus kernel-verified finite evidence `lehmer_below_101 : τ(n) ≠ 0` for all
+`1 ≤ n ≤ 100` (`native_decide`). The universal statement is open; the range is certified.
+
 ### `Congruences.lean`
 - `sigma11 (n : ℕ) : ℤ := Σ_{d | n} d^{11}`, with computed values for `n = 1..4`
 - Numerical checks of the mod-691 congruence `τ(n) ≡ σ₁₁(n) (mod 691)` for
@@ -94,9 +135,16 @@ deep theorems are exposed as named typeclasses, never asserted as `axiom`s.
 
 | Class | Statement | Discharge route |
 |---|---|---|
-| `TauMultiplicative` | `τ(mn) = τ(m)τ(n)` for coprime `m,n` | Hecke operators on Δ |
-| `TauHeckeRecurrence` | `τ(p^{r+1}) = τ(p)τ(p^r) − p^{11}τ(p^{r-1})` | Hecke eigenform property |
+| `TauHeckeMaster` | `T_p`-action master identity on the q-expansion of Δ | weight-12 cusp forms are 1-dim ⟹ Δ is a Hecke eigenform |
+| `TauMultiplicative` | `τ(mn) = τ(m)τ(n)` for coprime `m,n` | **derived** from `TauHeckeMaster` |
+| `TauHeckeRecurrence` | `τ(p^{r+1}) = τ(p)τ(p^r) − p^{11}τ(p^{r-1})` | **derived** from `TauHeckeMaster` |
 | `TauMod691` | `τ(n) ≡ σ₁₁(n) (mod 691)` | `691 \| numerator(B_{12})` + `E_{12} = E_4³ − 720 Δ` |
+| `DeligneBound` | `τ(p)² ≤ 4 p^{11}` for all primes `p` | Deligne 1974 (étale cohomology / Weil I) |
+| `LehmerConjecture` | `τ(n) ≠ 0` for all `n ≥ 1` | **open** — no known proof |
+
+Everything in `EulerFactor`, `HeckePowers`, and `Gegenbauer` is fully proven *given*
+`TauHeckeRecurrence` (in turn derived from the single class `TauHeckeMaster`); `Deligne`
+and `Lehmer` certify their statements on a finite range by computation.
 
 ## Bridge to Mathlib
 
@@ -116,15 +164,16 @@ transfer to numerical properties of `tau`.
 
 ## What's next (multi-session)
 
-- **Multiplicativity proof** — formalize Hecke operators on `CuspForm Γ(1) 12`,
-  prove Δ is a Hecke eigenform, conclude `τ(mn) = τ(m)τ(n)` for coprime `m,n`.
-- **Hecke recurrence proof** — same infrastructure; the eigenvalue at `T_p`
-  gives the recurrence directly.
+- **Discharge `TauHeckeMaster`** — formalize Hecke operators on `CuspForm Γ(1) 12`,
+  prove Δ is a Hecke eigenform, and instantiate the master identity. This single
+  step then turns `TauMultiplicative`, `TauHeckeRecurrence`, and every result in
+  `EulerFactor` / `HeckePowers` / `Gegenbauer` into unconditional theorems.
 - **Mod-691 congruence** — Bernoulli number `B_{12}` numerator `= -691 · …`,
   plus Eisenstein-series identity `E_{12} = E_4³ − 720·Δ`.
 - **Bridge to Mathlib's `discriminant`** via the `q`-expansion framework.
-- **Lehmer's conjecture** (open: `τ(n) ≠ 0 ∀ n ≥ 1`) — beyond formalization;
-  state as `LehmerConjecture` class.
+- **Deligne's bound** — discharge `DeligneBound` (or extend the verified range of primes).
+- **Lehmer's conjecture** — the `LehmerConjecture` class and the verified range
+  `n ≤ 100` are in place; the universal statement remains open.
 
 ## Build
 
@@ -144,5 +193,8 @@ MIT.
   *Trans. Cambridge Philos. Soc.* **22**.
 - Mordell, L. J. (1917). Multiplicativity of τ.
 - Deligne, P. (1974). Bound `|τ(p)| ≤ 2 p^{11/2}` (Weil conjectures, weight 1).
+- Lehmer, D. H. (1947). "The vanishing of Ramanujan's function τ(n)." *Duke Math. J.* **14**.
+- Apostol, T. M. *Modular Functions and Dirichlet Series in Number Theory* —
+  Hecke operators, the Euler product of `L(Δ, s)`, and the prime-power recurrence.
 - Diamond & Shurman, *A First Course in Modular Forms*, §1.2.
 - OEIS [A000594](https://oeis.org/A000594) — Ramanujan's τ.
