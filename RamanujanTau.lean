@@ -7,6 +7,7 @@ import RamanujanTau.HeckeEigenform
 import RamanujanTau.HeckeOperator
 import RamanujanTau.HeckeConstruction
 import RamanujanTau.HeckeReps
+import RamanujanTau.OctonionBridge
 import RamanujanTau.Deligne
 import RamanujanTau.Lehmer
 import RamanujanTau.EulerFactor
