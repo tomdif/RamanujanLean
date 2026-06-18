@@ -105,4 +105,19 @@ lemma mtc5_chi0_of_coeff
   ext k
   rw [h k, map_sub, coeff_C_mul, coeff_phi0NegQ]
 
+-- base case sanity: each function's constant term is 1 (the n=0 summand is an empty q-Pochhammer = 1).
+lemma coeff_zero_F0 : coeff 0 F0 = 1 := by
+  rw [coeff_F0 (Nat.le_refl 1), Finset.sum_range_one]; simp [F0term, qpochG, Ring.inverse_one]
+
+lemma coeff_zero_chi0 : coeff 0 chi0 = 1 := by
+  rw [coeff_chi0 (Nat.le_refl 1), Finset.sum_range_one]; simp [chi0term, qpochG, Ring.inverse_one]
+
+lemma coeff_zero_phi0 : coeff 0 phi0 = 1 := by
+  rw [coeff_phi0 (Nat.le_refl 1), Finset.sum_range_one]; simp [phi0term, qpochG]
+
+/-- The relation χ₀ = 2F₀ − φ₀(−q) holds at order 0 (base case), from the formal power-series definitions. -/
+lemma mtc5_chi0_coeff_zero :
+    coeff 0 chi0 = 2 * coeff 0 F0 - (-1) ^ 0 * coeff 0 phi0 := by
+  rw [coeff_zero_chi0, coeff_zero_F0, coeff_zero_phi0]; ring
+
 end MockTheta5.Formal
