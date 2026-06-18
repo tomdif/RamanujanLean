@@ -23,3 +23,4 @@ import RamanujanTau.Congruences.Mod5
 import RamanujanTau.Congruences.Mod7
 import RamanujanTau.Congruences.Mod23
 import RamanujanTau.MathlibBridge
+import RamanujanTau.MockTheta5
