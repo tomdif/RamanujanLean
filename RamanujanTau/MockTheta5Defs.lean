@@ -88,4 +88,21 @@ lemma coeff_phi0 {k M : ℕ} (hM : k + 1 ≤ M) :
   rw [coeff_mk, mt_coeff_sum_eq phi0term k (fun n hn => phi0term_vanish hn) (k + 1) le_rfl,
       mt_coeff_sum_eq phi0term k (fun n hn => phi0term_vanish hn) M hM]
 
+/-- φ₀(−q): the substitution `q → −q` (i.e. `X → −X`); `coeff k = (−1)ᵏ · coeff k φ₀`. -/
+noncomputable def phi0NegQ : PowerSeries ℤ := rescale (-1) phi0
+
+@[simp] lemma coeff_phi0NegQ (k : ℕ) : coeff k phi0NegQ = (-1) ^ k * coeff k phi0 := by
+  unfold phi0NegQ; rw [coeff_rescale]
+
+/-- **Reduction of the 5th-order relation χ₀ = 2F₀ − φ₀(−q) to its coefficient identity.**
+The power-series identity follows from the per-coefficient equality for all `k`; that coefficient identity
+is the genuine combinatorial content (a Bailey-pair argument), left here as the hypothesis. Everything around
+it — the `q → −q` substitution, the coefficient bookkeeping, the `PowerSeries.ext` reduction — is supplied and
+kernel-checked, with no `sorry`. This pins the EXACT remaining goal at the threshold of the Bailey wall. -/
+lemma mtc5_chi0_of_coeff
+    (h : ∀ k, coeff k chi0 = 2 * coeff k F0 - (-1) ^ k * coeff k phi0) :
+    chi0 = C (2 : ℤ) * F0 - phi0NegQ := by
+  ext k
+  rw [h k, map_sub, coeff_C_mul, coeff_phi0NegQ]
+
 end MockTheta5.Formal
