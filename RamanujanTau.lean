@@ -29,3 +29,4 @@ import RamanujanTau.MockTheta5Lemmas
 import RamanujanTau.MockTheta5Defs
 import RamanujanTau.MockTheta5Bailey
 import RamanujanTau.MockTheta5QBinom
+import RamanujanTau.MockTheta5BaileyPair
