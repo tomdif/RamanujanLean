@@ -45,3 +45,4 @@ import RamanujanTau.MockTheta5DurfeeInf
 import RamanujanTau.MockTheta5DurfeeBase
 import RamanujanTau.MockTheta5DurfeeQ
 import RamanujanTau.MockTheta5JacobiAssembly
+import RamanujanTau.MockTheta5CauchySum
