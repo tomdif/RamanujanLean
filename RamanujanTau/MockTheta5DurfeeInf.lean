@@ -57,4 +57,23 @@ lemma inv_qfac_stable {k N : ℕ} (hN : k + 1 ≤ N) :
   rw [map_sub, sub_eq_zero] at hz
   exact hz
 
+/-- If `f - f'` is divisible by `X^{k+1}`, then `coeff k (f·g) = coeff k (f'·g)` — the `k`-th coefficient of
+a product depends only on coefficients `≤ k` of the factors. The tool for replacing `(q;q)_{m-j}⁻¹` by
+`(q;q)_∞⁻¹` inside a product when taking `coeff k`. -/
+lemma coeff_mul_congr_left {k : ℕ} {f f' g : PowerSeries ℤ}
+    (h : (X : PowerSeries ℤ) ^ (k + 1) ∣ (f - f')) :
+    coeff k (f * g) = coeff k (f' * g) := by
+  obtain ⟨c, hc⟩ := h
+  have hd : f * g - f' * g = X ^ (k + 1) * (c * g) := by rw [← sub_mul, hc]; ring
+  have h0 : coeff k (f * g - f' * g) = 0 := by
+    rw [hd]; exact MockTheta5.mt_coeff_Xpow_mul_zero _ (k + 1) k (by omega)
+  rw [map_sub, sub_eq_zero] at h0; exact h0
+
+/-- Divisibility form of inverse stabilization: `X^{k+1} ∣ ((q;q)_N⁻¹ - (q;q)_∞⁻¹)` for `N ≥ k+1`. -/
+lemma inv_qfac_dvd {k N : ℕ} (hN : k + 1 ≤ N) :
+    (X : PowerSeries ℤ) ^ (k + 1) ∣ (Ring.inverse (qfac N) - Ring.inverse qfacInf) := by
+  rw [PowerSeries.X_pow_dvd_iff]
+  intro i hi
+  rw [map_sub, inv_qfac_stable (show i + 1 ≤ N by omega), sub_self]
+
 end MockTheta5.JTP
