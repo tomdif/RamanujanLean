@@ -42,3 +42,4 @@ import RamanujanTau.MockTheta5JacobiCauchy
 import RamanujanTau.MockTheta5JacobiBilateralize
 import RamanujanTau.MockTheta5DurfeeRect
 import RamanujanTau.MockTheta5DurfeeInf
+import RamanujanTau.MockTheta5DurfeeBase
