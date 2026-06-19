@@ -40,3 +40,4 @@ import RamanujanTau.MockTheta5JacobiFinite
 import RamanujanTau.MockTheta5JacobiLimit
 import RamanujanTau.MockTheta5JacobiCauchy
 import RamanujanTau.MockTheta5JacobiBilateralize
+import RamanujanTau.MockTheta5DurfeeRect
