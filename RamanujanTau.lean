@@ -52,3 +52,5 @@ import RamanujanTau.MockTheta5ZConv
 import RamanujanTau.MockTheta5JacobiL8
 -- A Gauss/Jacobi theta evaluation (the z=1 corollary)
 import RamanujanTau.MockTheta5GaussTheta
+-- The alternating Jacobi theta evaluation (the z=-1 corollary)
+import RamanujanTau.MockTheta5AltTheta
