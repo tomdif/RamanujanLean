@@ -54,3 +54,5 @@ import RamanujanTau.MockTheta5JacobiL8
 import RamanujanTau.MockTheta5GaussTheta
 -- The alternating Jacobi theta evaluation (the z=-1 corollary)
 import RamanujanTau.MockTheta5AltTheta
+-- Euler's pentagonal number theorem (statement side; proof = pending substitution build)
+import RamanujanTau.MockTheta5Pentagonal
