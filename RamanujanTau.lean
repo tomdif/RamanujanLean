@@ -50,3 +50,5 @@ import RamanujanTau.MockTheta5ZProj
 import RamanujanTau.MockTheta5ZConv
 -- The bilateral Jacobi triple product (JTP L8 capstone)
 import RamanujanTau.MockTheta5JacobiL8
+-- A Gauss/Jacobi theta evaluation (the z=1 corollary)
+import RamanujanTau.MockTheta5GaussTheta
