@@ -46,3 +46,7 @@ import RamanujanTau.MockTheta5DurfeeBase
 import RamanujanTau.MockTheta5DurfeeQ
 import RamanujanTau.MockTheta5JacobiAssembly
 import RamanujanTau.MockTheta5CauchySum
+import RamanujanTau.MockTheta5ZProj
+import RamanujanTau.MockTheta5ZConv
+-- The bilateral Jacobi triple product (JTP L8 capstone)
+import RamanujanTau.MockTheta5JacobiL8
