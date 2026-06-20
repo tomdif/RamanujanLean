@@ -80,4 +80,35 @@ theorem prodOnePlus_mul_oddPochInf : prodOnePlus * oddPochInf = 1 := by
   rw [prodOnePlus_eq, partitionGF, mul_right_comm, qfac2Inf_mul_oddPochInf,
       Ring.mul_inverse_cancel _ isUnit_qfacInf]
 
+/-! ### Reciprocal forms (both products are units) -/
+
+@[simp] lemma coeff_zero_oddPochInf : coeff 0 oddPochInf = 1 := by
+  rw [coeff_oddPochInf (le_refl 1), oddFac, Finset.prod_range_one]; simp
+
+@[simp] lemma coeff_zero_prodOnePlus : coeff 0 prodOnePlus = 1 := by
+  rw [coeff_prodOnePlus (le_refl 1), qfacPos, Finset.prod_range_one]; simp
+
+lemma isUnit_oddPochInf : IsUnit oddPochInf := by
+  rw [isUnit_iff_constantCoeff, ← coeff_zero_eq_constantCoeff_apply, coeff_zero_oddPochInf]
+  exact isUnit_one
+
+lemma isUnit_prodOnePlus : IsUnit prodOnePlus := by
+  rw [isUnit_iff_constantCoeff, ← coeff_zero_eq_constantCoeff_apply, coeff_zero_prodOnePlus]
+  exact isUnit_one
+
+/-- **`∏(1+qⁿ) = 1/(q;q²)_∞`** literally — the distinct-part generating function is the reciprocal of
+the odd-part Pochhammer. -/
+theorem prodOnePlus_eq_inverse : prodOnePlus = Ring.inverse oddPochInf := by
+  calc prodOnePlus = prodOnePlus * (oddPochInf * Ring.inverse oddPochInf) := by
+            rw [Ring.mul_inverse_cancel _ isUnit_oddPochInf, mul_one]
+    _ = (prodOnePlus * oddPochInf) * Ring.inverse oddPochInf := by ring
+    _ = Ring.inverse oddPochInf := by rw [prodOnePlus_mul_oddPochInf, one_mul]
+
+/-- `(q;q²)_∞ = 1/∏(1+qⁿ)` — the dual reciprocal form. -/
+theorem oddPochInf_eq_inverse : oddPochInf = Ring.inverse prodOnePlus := by
+  calc oddPochInf = (Ring.inverse prodOnePlus * prodOnePlus) * oddPochInf := by
+            rw [Ring.inverse_mul_cancel _ isUnit_prodOnePlus, one_mul]
+    _ = Ring.inverse prodOnePlus * (prodOnePlus * oddPochInf) := by ring
+    _ = Ring.inverse prodOnePlus := by rw [prodOnePlus_mul_oddPochInf, mul_one]
+
 end MockTheta5.JTP
