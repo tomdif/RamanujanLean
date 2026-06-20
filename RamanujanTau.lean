@@ -62,3 +62,5 @@ import RamanujanTau.MockTheta5ThetaCombination
 import RamanujanTau.MockTheta5EulerDistinctOdd
 -- Even/odd factorization of (q;q)_∞ and distinct=odd made manifest
 import RamanujanTau.MockTheta5EvenOdd
+-- Odd-index pairing (distinct odd parts × odd parts)
+import RamanujanTau.MockTheta5OddPairing
