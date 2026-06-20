@@ -60,3 +60,5 @@ import RamanujanTau.MockTheta5Pentagonal
 import RamanujanTau.MockTheta5ThetaCombination
 -- Euler's distinct = odd partition theorem (generating-function form)
 import RamanujanTau.MockTheta5EulerDistinctOdd
+-- Even/odd factorization of (q;q)_∞ and distinct=odd made manifest
+import RamanujanTau.MockTheta5EvenOdd
