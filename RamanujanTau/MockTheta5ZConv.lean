@@ -122,4 +122,52 @@ lemma zProj_SZ_SZinv (N : ℕ) : zProj (N : ℤ) (SZ * SZinv) = X ^ (N ^ 2) * E2
   simp only [Finset.mem_range, not_lt] at hj
   rw [szc_zero pr.2 j (by nlinarith [Nat.le_self_pow (n := 2) (by norm_num : 2 ≠ 0) j]), mul_zero]
 
+/-! ### The `z ↦ z⁻¹` symmetry — the z-Cauchy product at negative z-degree
+
+`SZ` and `SZinv` are exchanged by the Laurent involution `invert` (`z ↦ z⁻¹`), so `SZ · SZinv` is
+`invert`-invariant and `zProj (-M) (SZ·SZinv) = zProj M (SZ·SZinv)`. This delivers the `N ≤ 0` case from
+`zProj_SZ_SZinv` without redoing the assembly. -/
+
+/-- the `z ↦ z⁻¹` involution as a `RingHom` (for use in `PowerSeries.map`). -/
+noncomputable def invertHom : LaurentPolynomial ℤ →+* LaurentPolynomial ℤ :=
+  (LaurentPolynomial.invert (R := ℤ) : LaurentPolynomial ℤ →+* LaurentPolynomial ℤ)
+
+lemma invertHom_apply (g : LaurentPolynomial ℤ) (n : ℤ) : (invertHom g) n = g (-n) :=
+  LaurentPolynomial.invert_apply g n
+
+/-- `map invertHom` flips the z-degree of every projection. -/
+lemma zProj_map_invert (n : ℤ) (φ : PowerSeries (LaurentPolynomial ℤ)) :
+    zProj n (PowerSeries.map invertHom φ) = zProj (-n) φ := by
+  ext m; rw [coeff_zProj, PowerSeries.coeff_map, coeff_zProj]; exact invertHom_apply _ _
+
+lemma invert_single (k a : ℤ) : invertHom (Finsupp.single k a) = Finsupp.single (-k) a := by
+  ext n
+  rw [invertHom_apply, Finsupp.single_apply, Finsupp.single_apply]
+  split_ifs with h1 h2 <;> first | rfl | (exfalso; omega)
+
+/-- `SZ` and `SZinv` are exchanged by `z ↦ z⁻¹`. -/
+lemma map_invert_SZ : PowerSeries.map invertHom SZ = SZinv := by
+  refine PowerSeries.ext fun m => ?_
+  rw [PowerSeries.coeff_map, coeff_SZ (le_refl (m + 1)), coeff_SZinv (le_refl (m + 1)),
+      SZfinite, SZinvFinite]
+  simp only [map_sum]
+  exact Finset.sum_congr rfl fun k _ => by
+    rw [coeff_SZterm_single, coeff_SZinvTerm_single, invert_single]
+
+lemma map_invert_SZinv : PowerSeries.map invertHom SZinv = SZ := by
+  refine PowerSeries.ext fun m => ?_
+  rw [PowerSeries.coeff_map, coeff_SZ (le_refl (m + 1)), coeff_SZinv (le_refl (m + 1)),
+      SZfinite, SZinvFinite]
+  simp only [map_sum]
+  exact Finset.sum_congr rfl fun k _ => by
+    rw [coeff_SZterm_single, coeff_SZinvTerm_single, invert_single, neg_neg]
+
+lemma map_invert_SZmul : PowerSeries.map invertHom (SZ * SZinv) = SZ * SZinv := by
+  rw [map_mul, map_invert_SZ, map_invert_SZinv, mul_comm]
+
+/-- **the z-Cauchy product at z-degree `-M ≤ 0`** — same Durfee-rectangle sum, by `z ↦ z⁻¹` symmetry. -/
+lemma zProj_SZ_SZinv_neg (M : ℕ) :
+    zProj (-(M : ℤ)) (SZ * SZinv) = X ^ (M ^ 2) * E2 (rectInf M) := by
+  rw [← map_invert_SZmul, zProj_map_invert, neg_neg, zProj_SZ_SZinv]
+
 end MockTheta5.JTP
