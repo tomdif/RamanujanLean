@@ -72,3 +72,5 @@ import RamanujanTau.MockTheta5GaussProduct
 import RamanujanTau.MockTheta5AltProduct
 -- Partial-theta representation of the Euler product
 import RamanujanTau.MockTheta5EulerPartialTheta
+-- Partial-theta representation of (-q^2;q^2)_inf
+import RamanujanTau.MockTheta5DistinctEvenTheta
