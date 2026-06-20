@@ -55,4 +55,71 @@ lemma E2_rectTerm (N j : ℕ) :
           (X ^ (j ^ 2) * Ring.inverse (E2 (qfac j))) := by
   rw [rectTerm, map_mul, map_mul, E2_X_pow, E2_inverse_qfac, E2_inverse_qfac]; ring
 
+/-! ### Assembling the z-Cauchy product (z-degree `N ≥ 0`)
+
+The diagonal `k - j = N` collapses (`k = N + j`); extending the `j`-range to a common bound and
+swapping sums identifies the `z^N` coefficient with `coeff m (q^{N²}·E2(rectInf N))` summand-by-summand.
+The single open obstruction `(q²;q²)_∞` will be discharged later by `durfee_rect_base_Q`. -/
+
+lemma szc_zero (p k : ℕ) (h : p < k ^ 2) : szc p k = 0 := by
+  rw [szc]; exact MockTheta5.mt_coeff_Xpow_mul_zero _ _ _ h
+
+/-- collapse the `k`-sum against the diagonal indicator `k - j = N` (so `k = N + j`). -/
+lemma kcollapse (p N j : ℕ) (c : ℤ) :
+    ∑ k ∈ Finset.range (p + 1), (if (k : ℤ) - (j : ℤ) = (N : ℤ) then szc p k * c else 0)
+      = szc p (N + j) * c := by
+  rw [Finset.sum_eq_single (N + j)]
+  · rw [if_pos (by push_cast; ring)]
+  · intro k _ hk; rw [if_neg (by omega)]
+  · intro hk
+    rw [if_pos (by push_cast; ring),
+        szc_zero p (N + j) (by have := Nat.le_self_pow (n := 2) (by norm_num) (N + j)
+                               simp only [Finset.mem_range, not_lt] at hk; omega), zero_mul]
+
+/-- `coeff m (q^{N²}·E2(rectInf N))` as a finite sum over the Durfee-rectangle terms (stabilization). -/
+lemma coeff_rhs (N m : ℕ) :
+    coeff m (X ^ (N ^ 2) * E2 (rectInf N))
+      = ∑ j ∈ Finset.range (m + 1), coeff m (X ^ (N ^ 2) * E2 (rectTerm N j)) := by
+  have hstab : coeff m (X ^ (N ^ 2) * E2 (rectInf N))
+      = coeff m (X ^ (N ^ 2) * E2 (rectPartial N (m + 1))) := by
+    have hdvd : (X : PowerSeries ℤ) ^ (m + 1) ∣ (rectInf N - rectPartial N (m + 1)) := by
+      rw [PowerSeries.X_pow_dvd_iff]; intro i hi
+      rw [map_sub, coeff_rectInf N (show i + 1 ≤ m + 1 by omega), sub_self]
+    obtain ⟨g, hg⟩ := hdvd
+    have hkey : X ^ (N ^ 2) * E2 (rectInf N) - X ^ (N ^ 2) * E2 (rectPartial N (m + 1))
+        = X ^ (N ^ 2 + 2 * (m + 1)) * E2 g := by
+      rw [← mul_sub, ← map_sub, hg, map_mul, E2_X_pow, ← mul_assoc, ← pow_add]
+    have hz : coeff m (X ^ (N ^ 2) * E2 (rectInf N))
+        - coeff m (X ^ (N ^ 2) * E2 (rectPartial N (m + 1))) = 0 := by
+      rw [← map_sub, hkey]; exact MockTheta5.mt_coeff_Xpow_mul_zero _ _ m (by omega)
+    exact sub_eq_zero.mp hz
+  rw [hstab, rectPartial, map_sum, Finset.mul_sum, map_sum]
+
+/-- per-`(p,r)`: the z-Cauchy product coefficient collapses to `Σ_j szc p (N+j) · szc r j`. -/
+lemma prodSZ_collapsed (p r N : ℕ) :
+    (coeff p SZ * coeff r SZinv) (N : ℤ) = ∑ j ∈ Finset.range (r + 1), szc p (N + j) * szc r j := by
+  rw [prodSZ_apply, Finset.sum_comm]
+  exact Finset.sum_congr rfl fun j _ => kcollapse p N j (szc r j)
+
+/-- the `E2(rectTerm)` coefficient as a `szc`-product antidiagonal sum (one `coeff_mul`, defeq fold). -/
+lemma coeff_rhs_szc (N m j : ℕ) :
+    coeff m (X ^ (N ^ 2) * E2 (rectTerm N j))
+      = ∑ pr ∈ Finset.antidiagonal m, szc pr.1 (N + j) * szc pr.2 j := by
+  rw [E2_rectTerm, PowerSeries.coeff_mul]
+  rfl
+
+/-- **the z-Cauchy product** `SZ · SZinv` at z-degree `N ≥ 0` equals `q^{N²}·E2(rectInf N)` — the
+diagonal Durfee-rectangle sum. With `durfee_rect_base_Q` this is `q^{N²}/(q²;q²)_∞`. -/
+lemma zProj_SZ_SZinv (N : ℕ) : zProj (N : ℤ) (SZ * SZinv) = X ^ (N ^ 2) * E2 (rectInf N) := by
+  ext m
+  rw [coeff_zProj, PowerSeries.coeff_mul, laurentSum_apply, coeff_rhs]
+  simp_rw [prodSZ_collapsed, coeff_rhs_szc]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun pr hpr => ?_
+  rw [Finset.mem_antidiagonal] at hpr
+  refine Finset.sum_subset (fun x hx => by simp only [Finset.mem_range] at *; omega)
+    (fun j _ hj => ?_)
+  simp only [Finset.mem_range, not_lt] at hj
+  rw [szc_zero pr.2 j (by nlinarith [Nat.le_self_pow (n := 2) (by norm_num : 2 ≠ 0) j]), mul_zero]
+
 end MockTheta5.JTP
