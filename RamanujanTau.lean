@@ -70,3 +70,5 @@ import RamanujanTau.MockTheta5DistinctSplit
 import RamanujanTau.MockTheta5GaussProduct
 -- Alternating theta in classical product form
 import RamanujanTau.MockTheta5AltProduct
+-- Partial-theta representation of the Euler product
+import RamanujanTau.MockTheta5EulerPartialTheta
