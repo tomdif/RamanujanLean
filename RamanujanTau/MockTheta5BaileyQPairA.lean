@@ -19,6 +19,7 @@ after clearing `(q²;q)`→`(q;q)` and `geom(m)·(1−q) = 1−q^m`) and the top
 form `Σ q^{n²+n}/(q²;q²)_n = (1/(q²;q)_∞)·Σ q^{n²+n} αₙ` (`identityA_transform`). No `sorry`.
 -/
 import RamanujanTau.MockTheta5BaileyQTransform
+import RamanujanTau.MockTheta5DistinctEvenTheta
 
 namespace MockTheta5.Bailey
 open PowerSeries
@@ -176,6 +177,12 @@ theorem isBaileyPairQ_A : IsBaileyPairQ alphaA (fun n => Ring.inverse (q2q2 n)) 
   intro r _
   rw [Fterm, Bfac, ← mul_assoc]
 
+/-- `(q²;q²)_n = E₂((q;q)_n)` (base-change `q ↦ q²`), bridging to the repo's Euler machinery. -/
+lemma q2q2_eq_E2qfac (n : ℕ) : q2q2 n = E2 (qfac n) := by
+  rw [q2q2, qfac, map_prod]
+  exact Finset.prod_congr rfl fun k _ => by
+    rw [map_sub, map_one, map_pow, E2_X, ← pow_mul, show 2 * (k + 1) = 2 * k + 2 from by ring]
+
 end MockTheta5.Bailey
 
 namespace MockTheta5.JTP
@@ -187,5 +194,21 @@ open PowerSeries MockTheta5.Bailey
 theorem identityA_transform :
     tsumQsqQ (fun n => Ring.inverse (q2q2 n)) = (1 - X) * partitionGF * tsumQsqQ alphaA :=
   bailey_transform_q isBaileyPairQ_A
+
+/-- **Identity A, product form**: `Σ_{n≥0} q^{n²+n}/(q²;q²)_n = (−q²;q²)_∞` — the `a=q` Bailey `β`-sum is the
+fifth-order partial-theta sum, which is Euler's `(−q²;q²)_∞` via the repo's `E2prodOnePlus_eq_pthetaPosSum`. -/
+theorem identityA_product :
+    tsumQsqQ (fun n => Ring.inverse (q2q2 n)) = E2 prodOnePlus := by
+  rw [E2prodOnePlus_eq_pthetaPosSum, tsumQsqQ, pthetaPosSum]
+  congr 1; ext m; congr 1
+  apply Finset.sum_congr rfl
+  intro n _
+  rw [pthetaPosTerm, q2q2_eq_E2qfac, show n ^ 2 + n = n * (n + 1) from by ring]
+
+/-- **Identity A, closed form**: `(−q²;q²)_∞ = (1/(q²;q)_∞)·Σ_{n≥0} q^{n²+n}·αₙ` — combining the machinery
+route (`identityA_transform`) with the Euler product (`identityA_product`). -/
+theorem identityA_closed :
+    E2 prodOnePlus = (1 - X) * partitionGF * tsumQsqQ alphaA := by
+  rw [← identityA_product]; exact identityA_transform
 
 end MockTheta5.JTP
