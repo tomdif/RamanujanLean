@@ -108,10 +108,13 @@ theorem ramanujan_f_neg  : pentSeries = qfacInf          --  f(−q) = (q;q)_∞
 theorem phi_product      : phi    = qfac2Inf * negOddPochInf ^ 2  --  φ(q)  = Σ q^{n²} = (q²;q²)_∞(−q;q²)_∞²
 theorem phiNeg_product   : phiNeg = qfac2Inf * oddPochInf ^ 2     --  φ(−q) = Σ(−1)ⁿq^{n²} = (q²;q²)_∞(q;q²)_∞²
 def     psi := qfac2Inf * Ring.inverse oddPochInf        --  ψ(q) = (q²;q²)_∞/(q;q²)_∞  (Ramanujan's ψ)
+theorem psi_eq_series    : psi = psiSum                  --  ψ(q) = Σ_{n≥0} q^{n(n+1)/2}   (Gauss)
 ```
-`φ(q)` is `map ev1 bilateralTheta` (`z=1`), `φ(−q)` is `map evm1 bilateralTheta` (`z=−1`). The Gauss series
-form `ψ(q) = Σ_{n≥0} q^{n(n+1)/2}` follows from a `z=1` corollary of the triangular JTP (a one-sided
-specialization); the closed form and its defining relation `ψ·(q;q²)_∞ = (q²;q²)_∞` are given here.
+`φ(q)` is `map ev1 bilateralTheta` (`z=1`), `φ(−q)` is `map evm1 bilateralTheta` (`z=−1`). Gauss's series form
+`ψ(q) = Σ_{n≥0} q^{n(n+1)/2}` (`MockTheta5PsiSeries.lean`) comes from the `z=1` value of the triangular JTP:
+`triTheta` double-covers the triangular numbers, so `map ev1 triTheta = 2·ψ` matches the product side
+`2·((q;q)_∞·∏(1+qⁿ)²)`; cancelling the `2` (`PowerSeries ℤ` is a domain) and applying the distinct = odd
+algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

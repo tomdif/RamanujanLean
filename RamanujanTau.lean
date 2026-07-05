@@ -141,3 +141,5 @@ import RamanujanTau.MockTheta5PartitionCount
 import RamanujanTau.MockTheta5PentagonalRecurrence
 -- Ramanujan's theta functions φ(q)=Σq^{n²}, φ(−q), ψ(q)=(q²;q²)/(q;q²), f(−q)=(q;q)∞ (JTP specializations)
 import RamanujanTau.MockTheta5RamanujanTheta
+-- Gauss's series form ψ(q) = Σ_{n≥0} q^{n(n+1)/2} (z=1 triangular-JTP double cover, domain-2 cancellation)
+import RamanujanTau.MockTheta5PsiSeries
