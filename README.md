@@ -88,6 +88,17 @@ products converge in the `X`-adic topology) meets `hasProd_genFun` factor-by-fac
 series, giving `genFun 1 · (q;q)_∞ = 1`, hence `partitionGF = genFun 1`. So `p(n) = coeff n partitionGF` **is**
 the honest count of partitions of `n`, and both congruences are restated about it.
 
+### `MockTheta5PentagonalRecurrence.lean` — Euler's recurrence for `p(n)`
+```lean
+theorem partition_pentagonal_recurrence (n : ℕ) (hn : 0 < n) :
+    coeff n partitionGF = ∑ m ∈ Finset.range (n+1), (-1)^m *
+      (p(n − (m+1)(3m+2)/2) + p(n − (m+1)(3m+4)/2))    -- terms with negative argument omitted
+--  p(n) = p(n−1) + p(n−2) − p(n−5) − p(n−7) + p(n−12) + …
+```
+From `pentSeries · partitionGF = 1` (Euler pentagonal ⟹ the pentagonal series is the reciprocal of the
+partition generating function), reading off the coefficient of `q^n`. The generalized pentagonal numbers
+`(m+1)(3m+2)/2`, `(m+1)(3m+4)/2` are `k(3k−1)/2` for `k = m+1` and `k = −(m+1)`.
+
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi
 triple products (`MockTheta5JacobiTriple` / `…Bilateral` / `…ClassicalJTP`), Durfee-rectangle identities

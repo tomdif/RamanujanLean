@@ -137,3 +137,5 @@ import RamanujanTau.PartitionCongruenceMod7
 import RamanujanTau.MockTheta5PartitionCongruence7
 -- Partition-count bridge: coeff n (1/(q;q)∞) = #(Nat.Partition n); congruences for the honest count
 import RamanujanTau.MockTheta5PartitionCount
+-- Euler's pentagonal recurrence p(n) = Σ(−1)ᵐ(p(n−g₁)+p(n−g₂)) from pentSeries·partitionGF = 1
+import RamanujanTau.MockTheta5PentagonalRecurrence
