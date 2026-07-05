@@ -1,5 +1,10 @@
 # The `a=q` Bailey machinery: verified reach map
 
+> **STATUS (2026-07):** historical diagnostic record. The `a=q`/`a=1` Bailey inversions here found that
+> mock-theta summands have no closed-form `α` — a genuine obstruction, not a tooling defect. The repo's
+> headline q-series results (Jacobi triple product, Euler pentagonal, Jacobi cube, `p(5n+4)≡0`) were
+> ultimately reached **without** this Bailey route; see the README.
+
 Machinery built this session (axiom-clean, no `sorry`):
 - `MockTheta5BaileyQ.lean` — `IsBaileyPairQ`, seed, `isBaileyPairQ_chain` (commit `332e78c`)
 - `MockTheta5BaileyQTransform.lean` — `bailey_transform_q`, seed corollary (commit `e003b09`)

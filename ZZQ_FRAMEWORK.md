@@ -1,5 +1,13 @@
 # The `ℤ((q))` bilateral-theta framework — design & roadmap
 
+> **STATUS (2026-07): the headline goal — the pentagonal number theorem — is now PROVED, by a different
+> route.** Rather than land in `ℤ((q))` to evaluate at the non-unit `z = −q`, the proof
+> (`MockTheta5EulerPentagonal.lean`) builds a *shifted base-`q³`* bilateral Jacobi triple product and
+> evaluates at `z = −1` (a **unit** in `PowerSeries ℤ`), sidestepping the non-unit obstruction entirely.
+> So `evalZ` / Piece 1 stands as built, but Piece 2 (the `ℤ((q))` flatten) was **not needed** for
+> pentagonal. See the README and `euler_pentagonal`, `jacobi_cube_identity`, `five_dvd_coeff_partitionGF`.
+> The document below is retained as the original design record.
+
 Goal: evaluate the repo's formal-`z` Jacobi triple product at **non-unit** `z` (= `±q`, `−q²`, …) to close
 the famous *product* identities (pentagonal number theorem, both Rogers–Ramanujan products, Identity A's
 theta form). Blocked in `PowerSeries ℤ` because the bilateral form needs `z⁻¹`, so `z` must be a unit, and

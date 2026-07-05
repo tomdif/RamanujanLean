@@ -85,5 +85,49 @@ import RamanujanTau.MockTheta5BaileyQPairB
 import RamanujanTau.MockTheta5BaileyRR1
 import RamanujanTau.MockTheta5EulerCauchy
 import RamanujanTau.MockTheta5LaurentEval
+-- Ramanujan's partition congruence p(5n+4) ≡ 0 (mod 5): the arithmetic heart (kernel-clean)
+import RamanujanTau.PartitionCongruenceMod5
+-- Jacobi's cube identity (q;q)³ = Σ(−1)ᵐ(2m+1)q^{m(m+1)/2}: statement side + rung-2 check
+import RamanujanTau.MockTheta5JacobiCube
+-- Triangular JTP stone 1: the bilateral theta Σ zⁿ q^{n(n−1)/2} (RHS series of the triangular JTP)
+import RamanujanTau.MockTheta5TriangularTheta
+-- Triangular JTP stone 2: one-sided ∏(1+z qⁱ), projected base-q Cauchy identity zProj_triProdQInf
+import RamanujanTau.MockTheta5TriangularProd
+-- Triangular JTP stone 2b: shifted one-sided ∏_{i≥1}(1+z qⁱ), projected Cauchy q^{C(k+1,2)}/(q;q)_k
+import RamanujanTau.MockTheta5TriangularProd2
+-- Triangular JTP stone 3 (part A): the (1+z) factorization triProdQInf = (1+z)·triProdQ1Inf
+import RamanujanTau.MockTheta5TriangularJTP
+-- Triangular JTP stone 3C stage 1: the Cauchy sum objects TZ, TZ1inv (for the z-convolution)
+import RamanujanTau.MockTheta5TriangularConv
+-- Triangular JTP stone 3 CAPSTONE: the bilateral triangular JTP (q;q)∞·∏(1+zqⁱ)·∏(1+z⁻¹qⁱ) = Σ zⁿq^{n(n−1)/2}
+import RamanujanTau.MockTheta5TriangularBilateral
+-- Jacobi cube stone 4: d/dz|_{z=−1} functional L; series side L(triTheta) = jacobiCubeSum
+import RamanujanTau.MockTheta5JacobiCubeProof
+-- Euler pentagonal stone 1: the shifted theta pentTheta = Σ zⁿ q^{(3n²−n)/2} (RHS of the base-q³ JTP)
+import RamanujanTau.MockTheta5PentTheta
+-- Euler pentagonal engine: E3 dilation (q↦q³) + base-q³ Durfee identity E3(rectInf n)=1/(q³;q³)∞
+import RamanujanTau.MockTheta5PentEngine
+-- Euler pentagonal: finite shifted base-q³ product ∏(1+z q^{3i+1}) = Σ q^{3C(k,2)+k}[n,k]_{q³} zᵏ
+import RamanujanTau.MockTheta5PentProd
+-- Euler pentagonal: z-side product ∏_{i≥0}(1+z q^{3i+1}) in z-outer ring + projected Cauchy zProj_pentProdAInf
+import RamanujanTau.MockTheta5PentProdZ
+-- Euler pentagonal: z⁻¹-side product ∏(1+z q^{3i+2}) + projected Cauchy zProj_pentProdBInf (e(−k) exponent)
+import RamanujanTau.MockTheta5PentProdB
+-- Euler pentagonal: convolution foundation — sum-form Cauchy objects PZ/PZ1inv + Durfee recognition pent_rectTerm
+import RamanujanTau.MockTheta5PentConv
+-- Euler pentagonal: theta-side projection zProj_pentTheta = q^{(3n²−n)/2}
+import RamanujanTau.MockTheta5PentThetaProj
+-- Euler pentagonal CAPSTONE-JTP: (q³;q³)∞·∏(1+zq^{3i+1})·∏(1+z⁻¹q^{3i−1}) = Σ zⁿq^{(3n²−n)/2}
+import RamanujanTau.MockTheta5PentBilateral
+-- Euler pentagonal: z=−1 evaluation (products→residue-class products; theta→pentSeries)
+import RamanujanTau.MockTheta5PentEval
+-- Euler pentagonal CAPSTONE: (q;q)∞ = Σ(−1)ⁿq^{n(3n−1)/2} (euler_pentagonal)
+import RamanujanTau.MockTheta5EulerPentagonal
 -- Fifth-order mock-theta relation R1: infinite statement + engine scoping
 import RamanujanTau.MockTheta5R1
+-- p(5n+4): char-5 Frobenius (q;q)∞⁵ ≡ (q⁵;q⁵)∞
+import RamanujanTau.MockTheta5Frobenius
+-- p(5n+4): (q;q)∞⁴ coefficients at exponent ≡4 (mod 5) vanish mod 5 (the arithmetic heart applied)
+import RamanujanTau.MockTheta5Qfac4
+-- p(5n+4) ≡ 0 (mod 5) CAPSTONE: 5 ∣ coeff(5n+4)(1/(q;q)∞)
+import RamanujanTau.MockTheta5PartitionCongruence

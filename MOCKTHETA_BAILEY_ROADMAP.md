@@ -1,5 +1,12 @@
 # Mock-theta Bailey campaign — roadmap
 
+> **STATUS (2026-07):** the q-series foundation this roadmap calls for is now largely built, and several
+> classical theorems are **proved kernel-clean**: the (bilateral & classical) Jacobi triple product,
+> **Jacobi's cube identity**, **Euler's pentagonal number theorem**, and **Ramanujan's partition congruence
+> `p(5n+4) ≡ 0 (mod 5)`** (see the README). The original campaign target — the infinite 5th-order mock-theta
+> identity `χ₀ = 2·F₀ − φ₀(−q)` — remains **open** (wall: the Bailey-pair coefficient identity). The ladder
+> below is the original plan; the JTP/pentagonal/cube/congruence layer is done.
+
 **Goal:** close the infinite 5th-order identity `χ₀ = 2·F₀ − φ₀(−q)`.
 It reduces (kernel-verified: `MockTheta5.Formal.mtc5_chi0_of_coeff`) to the coefficient identity
 `∀k, coeff k χ₀ = 2·coeff k F₀ − (−1)ᵏ·coeff k φ₀`. That ∀k equality is a Bailey-pair argument.
