@@ -257,7 +257,7 @@ theorem TZ1inv_eq : TZ1inv = PowerSeries.map invertHom triProdQ1Inf := by
   by_cases hκ : κ ≤ 0
   · obtain ⟨j, rfl⟩ : ∃ j : ℕ, κ = -(j : ℤ) := ⟨κ.natAbs, by omega⟩
     rw [zProj_TZ1inv, neg_neg, zProj_triProdQ1Inf]
-  · push_neg at hκ
+  · push Not at hκ
     rw [zProj_TZ1inv_pos hκ, zProj_triProdQ1_neg (show -κ < 0 by omega)]
 
 /-! ### The z-Cauchy product at NEGATIVE z-degree (the products are asymmetric — no free symmetry) -/

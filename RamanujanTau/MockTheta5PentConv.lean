@@ -329,7 +329,7 @@ theorem PZ1inv_eq : PZ1inv = PowerSeries.map invertHom pentProdBInf := by
   by_cases hκ : κ ≤ 0
   · obtain ⟨j, rfl⟩ : ∃ j : ℕ, κ = -(j : ℤ) := ⟨κ.natAbs, by omega⟩
     rw [zProj_PZ1inv, neg_neg, zProj_pentProdBInf]
-  · push_neg at hκ
+  · push Not at hκ
     rw [zProj_PZ1inv_pos hκ, zProj_pentProdB_neg (show -κ < 0 by omega)]
 
 end MockTheta5.JTP

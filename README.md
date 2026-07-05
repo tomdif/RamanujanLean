@@ -14,12 +14,24 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 > The Lean **package** is still named `RamanujanTau` (every module lives under `import RamanujanTau.…`);
 > the repository is `RamanujanLean`.
 
+### Results at a glance (all kernel-clean — `[propext, Classical.choice, Quot.sound]`, no `sorry`)
+
+| Theorem | Statement |
+|---|---|
+| **Euler's pentagonal number theorem** | `(q;q)_∞ = Σ_{n∈ℤ} (−1)ⁿ q^{n(3n−1)/2}` |
+| **Jacobi's cube identity** | `(q;q)_∞³ = Σ_{m≥0} (−1)ᵐ(2m+1) q^{m(m+1)/2}` |
+| **Ramanujan's congruence (mod 5)** | `5 ∣ p(5n+4)` |
+| **Ramanujan's congruence (mod 7)** | `7 ∣ p(7n+5)` |
+| **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
+| **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
+| **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
+
 | | |
 |---|---|
-| Modules | ~90 |
-| Build | `lake build` → **3638 jobs, 0 errors** |
-| `sorry` count | **0** |
-| New `axiom` declarations | **0** (headline q-series theorems: `[propext, Classical.choice, Quot.sound]` only) |
+| Modules | 97 |
+| Build | `lake build` → **3647 jobs, 0 errors, 0 warnings** |
+| `sorry` count | **0** · new `axiom` declarations | **0** |
+| Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
 
 ---
@@ -152,7 +164,14 @@ def tau (n : ℕ) : ℤ :=
 
 Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`, `LehmerConjecture`,
 `TauMod691`), never asserted as `axiom`s — the same discipline as
-[PlonkLean](https://github.com/tomdif/PlonkLean).
+[PlonkLean](https://github.com/tomdif/PlonkLean). The honest status of each:
+`TauHeckeMaster` reduces (`HeckeOperator.HeckeData`) to constructing Hecke operators `T_p` on `CuspForm₁₂`
+— the one piece genuinely absent from Mathlib; `DeligneBound` *is* Deligne's proof of the Weil conjectures
+(out of reach); `LehmerConjecture` is open.
+
+- **`Mod691` (in progress)** — discharging `TauMod691` (`τ(n) ≡ σ₁₁(n) mod 691`) on Mathlib's modular-forms
+  library: `B₁₂ = −691/2730`, the `E₁₂` q-expansion `(65520/691)·σ₁₁` (the 691-carrier), and the `E₄³`
+  coefficients. Remaining: the relation `E₄³ = E₁₂ + (432000/691)Δ` and the `τ ↔ qExpansion(Δ)` bridge.
 
 ---
 

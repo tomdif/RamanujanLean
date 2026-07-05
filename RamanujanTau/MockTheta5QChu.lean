@@ -53,7 +53,7 @@ theorem gaussBinom_ratio (m i : ℕ) :
             rw [hsub]
             linear_combination X ^ (i + 1 + 1) * e2 + e1
               + gaussBinom m (i + 1) * p2 - gaussBinom m (i + 1) * p1
-          · push_neg at hmi
+          · push Not at hmi
             have v1 : gaussBinom m (i + 1) = 0 := gaussBinom_eq_zero_of_lt (by omega)
             have v2 : gaussBinom m (i + 1 + 1) = 0 := gaussBinom_eq_zero_of_lt (by omega)
             rw [gaussBinom_succ_succ, gaussBinom_succ_succ, v1, v2]

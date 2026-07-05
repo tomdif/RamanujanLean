@@ -65,6 +65,6 @@ lemma coeff_one_bilateralTheta : coeff 1 bilateralTheta = T 1 + T (-1) := by
   rw [coeff_bilateralTheta (show 1 + 1 ≤ 2 from le_refl 2), bilatFinite,
       Finset.sum_range_succ, Finset.sum_range_one, map_add, map_add,
       coeff_bilatTerm_zero (show (1 : ℕ) < (1 + 1) ^ 2 by norm_num), bilatTerm]
-  simp [coeff_X_pow_mul']
+  simp
 
 end MockTheta5.JTP

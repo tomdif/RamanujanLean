@@ -45,7 +45,7 @@ lemma coeff_qfacInf {k N : ℕ} (hN : k + 1 ≤ N) : coeff k qfacInf = coeff k (
   rw [qfacInf, coeff_mk, coeff_qfac_stable (Nat.lt_succ_self k) hN]
 
 @[simp] lemma coeff_zero_qfacInf : coeff 0 qfacInf = 1 := by
-  rw [coeff_qfacInf (le_refl 1)]; simp [qfac, Finset.prod_range_one]
+  rw [coeff_qfacInf (le_refl 1)]; simp [qfac]
 
 /-- `(q;q)_∞` is a unit (constant term 1), so `1/(q;q)_∞` — the partition generating function — is a
 genuine formal power series. -/

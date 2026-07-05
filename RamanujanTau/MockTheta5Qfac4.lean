@@ -70,7 +70,7 @@ number: `∃ k : ℤ, k(3k−1) = 2a`. -/
 lemma coeff_pentSeries_support {a : ℕ} (h : coeff a pentSeries ≠ 0) :
     ∃ k : ℤ, k * (3 * k - 1) = 2 * (a : ℤ) := by
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   apply h
   rw [pentSeries, PowerSeries.coeff_map, coeff_pentTheta (le_refl (a + 1)), ← PowerSeries.coeff_map,
       pentFiniteP, map_add, map_one, map_sum, map_add, map_sum]

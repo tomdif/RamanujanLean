@@ -25,7 +25,7 @@ def wt (κ : ℤ) : ℤ := -κ * sgn κ
 lemma sgn_neg (κ : ℤ) : sgn (-κ) = sgn κ := by simp only [sgn, even_neg]
 lemma sgn_succ (κ : ℤ) : sgn (κ + 1) = -sgn κ := by
   unfold sgn
-  by_cases h : Even κ <;> simp [h, Int.even_add_one]
+  by_cases h : Even κ <;> simp [h]
 lemma sgn_natCast (m : ℕ) : sgn (m : ℤ) = (-1 : ℤ) ^ m := by
   simp only [sgn, Int.even_coe_nat]
   by_cases h : Even m
@@ -44,7 +44,7 @@ lemma wt_add_succ (j : ℤ) : wt j + wt (j + 1) = sgn j := by
 noncomputable def D1 : LaurentPolynomial ℤ →+ ℤ where
   toFun p := p.sum (fun κ c => c * wt κ)
   map_zero' := Finsupp.sum_zero_index
-  map_add' p q := Finsupp.sum_add_index' (fun i => zero_mul (wt i)) (fun i a b => add_mul a b (wt i))
+  map_add' _ _ := Finsupp.sum_add_index' (fun i => zero_mul (wt i)) (fun i a b => add_mul a b (wt i))
 
 lemma D1_T (κ : ℤ) : D1 (T κ) = wt κ := by
   rw [show (T κ : LaurentPolynomial ℤ) = LaurentPolynomial.C (1 : ℤ) * T κ by rw [map_one, one_mul],
