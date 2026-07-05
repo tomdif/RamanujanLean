@@ -23,6 +23,8 @@ import RamanujanTau.Congruences.Mod5
 import RamanujanTau.Congruences.Mod7
 import RamanujanTau.Congruences.Mod23
 import RamanujanTau.MathlibBridge
+-- τ(n) ≡ σ₁₁(n) mod 691: modular-forms argument (WIP) — E₁₂ q-expansion carries 691
+import RamanujanTau.Mod691
 import RamanujanTau.MockTheta5
 import RamanujanTau.MockTheta5Series
 import RamanujanTau.MockTheta5Lemmas
