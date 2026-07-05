@@ -143,3 +143,5 @@ import RamanujanTau.MockTheta5PentagonalRecurrence
 import RamanujanTau.MockTheta5RamanujanTheta
 -- Gauss's series form ψ(q) = Σ_{n≥0} q^{n(n+1)/2} (z=1 triangular-JTP double cover, domain-2 cancellation)
 import RamanujanTau.MockTheta5PsiSeries
+-- Relations among theta functions: φ(q)·φ(−q) = φ(−q²)²
+import RamanujanTau.MockTheta5ThetaIdentities

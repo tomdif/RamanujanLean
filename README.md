@@ -114,7 +114,8 @@ theorem psi_eq_series    : psi = psiSum                  --  ψ(q) = Σ_{n≥0} 
 `ψ(q) = Σ_{n≥0} q^{n(n+1)/2}` (`MockTheta5PsiSeries.lean`) comes from the `z=1` value of the triangular JTP:
 `triTheta` double-covers the triangular numbers, so `map ev1 triTheta = 2·ψ` matches the product side
 `2·((q;q)_∞·∏(1+qⁿ)²)`; cancelling the `2` (`PowerSeries ℤ` is a domain) and applying the distinct = odd
-algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`.
+algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean` records the theta relation
+`phi_mul_phiNeg : φ(q)·φ(−q) = φ(−q²)²`.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi
