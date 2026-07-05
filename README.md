@@ -5,10 +5,11 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 1. **Ramanujan's τ function** — the coefficient sequence of the modular discriminant
    `Δ(q) = q·∏(1−qⁿ)²⁴ = Σ τ(n) qⁿ`, extracted as a computable `τ : ℕ → ℤ` with its Hecke theory.
 2. **q-series & partition theory** — a from-scratch formal-power-series framework (Bailey chains,
-   Jacobi triple products, Durfee rectangles, the `d/dz` differentiation trick) culminating in three
+   Jacobi triple products, Durfee rectangles, the `d/dz` differentiation trick) culminating in several
    classical theorems proved **kernel-clean** (no `sorry`, no new axioms, no `native_decide`):
-   Euler's pentagonal number theorem, Jacobi's cube identity, and **Ramanujan's partition congruence
-   `p(5n+4) ≡ 0 (mod 5)`**.
+   Euler's pentagonal number theorem, Jacobi's cube identity, and **Ramanujan's partition congruences
+   `p(5n+4) ≡ 0 (mod 5)` and `p(7n+5) ≡ 0 (mod 7)`** — bridged to Mathlib's combinatorial partition count,
+   so `p(n)` really is `#{partitions of n}`.
 
 > The Lean **package** is still named `RamanujanTau` (every module lives under `import RamanujanTau.…`);
 > the repository is `RamanujanLean`.
@@ -65,6 +66,27 @@ The classical proof, fully formalized:
 - **`MockTheta5PartitionCongruence.lean`** — the capstone, via
   `Ψ₅ partitionGF = Ψ₅((q;q)_∞⁴) · expand₅(Ψ₅ partitionGF)`; the second factor is supported on multiples of
   5, so every `q^{5n+4}` term lands on a vanishing `(q;q)_∞⁴` coefficient. **No induction.**
+
+### `MockTheta5PartitionCongruence7.lean` — Ramanujan's companion congruence
+```lean
+theorem seven_dvd_coeff_partitionGF (n : ℕ) : (7 : ℤ) ∣ coeff (7*n+5) partitionGF
+--  7 ∣ p(7n+5)
+```
+The same pipeline mod 7, using `(q;q)_∞⁶ = ((q;q)_∞³)² = jacobiCubeSum²`: the Cauchy product of Jacobi's
+cube series with itself feeds every triangular pair into a `ZMod 7` heart (`PartitionCongruenceMod7.lean`),
+which forces `(2j+1)(2k+1) ≡ 0` at exponents `≡ 5 (mod 7)`.
+
+### `MockTheta5PartitionCount.lean` — the partition-count bridge
+```lean
+theorem coeff_partitionGF_eq_card (n : ℕ) : coeff n partitionGF = (Fintype.card (Nat.Partition n) : ℤ)
+theorem five_dvd_partition_card  (n : ℕ) : 5 ∣ Fintype.card (Nat.Partition (5*n+4))
+theorem seven_dvd_partition_card (n : ℕ) : 7 ∣ Fintype.card (Nat.Partition (7*n+5))
+```
+Mathlib defines the partition generating function `Nat.Partition.genFun` combinatorially but leaves connecting
+it to `1/(q;q)_∞` as a stated TODO. We close it: `HasProd (fun n ↦ 1 − X^{n+1}) (q;q)_∞` (the partial
+products converge in the `X`-adic topology) meets `hasProd_genFun` factor-by-factor through the geometric
+series, giving `genFun 1 · (q;q)_∞ = 1`, hence `partitionGF = genFun 1`. So `p(n) = coeff n partitionGF` **is**
+the honest count of partitions of `n`, and both congruences are restated about it.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

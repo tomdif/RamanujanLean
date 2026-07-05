@@ -131,3 +131,9 @@ import RamanujanTau.MockTheta5Frobenius
 import RamanujanTau.MockTheta5Qfac4
 -- p(5n+4) ≡ 0 (mod 5) CAPSTONE: 5 ∣ coeff(5n+4)(1/(q;q)∞)
 import RamanujanTau.MockTheta5PartitionCongruence
+-- p(7n+5) ≡ 0 (mod 7): arithmetic heart over ZMod 7
+import RamanujanTau.PartitionCongruenceMod7
+-- p(7n+5) ≡ 0 (mod 7) CAPSTONE: 7 ∣ coeff(7n+5)(1/(q;q)∞), via (q;q)⁶ = jacobiCubeSum²
+import RamanujanTau.MockTheta5PartitionCongruence7
+-- Partition-count bridge: coeff n (1/(q;q)∞) = #(Nat.Partition n); congruences for the honest count
+import RamanujanTau.MockTheta5PartitionCount
