@@ -99,6 +99,20 @@ From `pentSeries · partitionGF = 1` (Euler pentagonal ⟹ the pentagonal series
 partition generating function), reading off the coefficient of `q^n`. The generalized pentagonal numbers
 `(m+1)(3m+2)/2`, `(m+1)(3m+4)/2` are `k(3k−1)/2` for `k = m+1` and `k = −(m+1)`.
 
+### `MockTheta5RamanujanTheta.lean` — Ramanujan's theta functions
+Ramanujan's general theta `f(a,b) = Σ a^{n(n+1)/2}b^{n(n-1)/2} = (−a;ab)_∞(−b;ab)_∞(ab;ab)_∞` specializes
+to the classical one-variable theta functions, recorded here from the square Jacobi triple product
+`bilateralTheta = Σ zⁿ q^{n²}` and Euler pentagonal:
+```lean
+theorem ramanujan_f_neg  : pentSeries = qfacInf          --  f(−q) = (q;q)_∞
+theorem phi_product      : phi    = qfac2Inf * negOddPochInf ^ 2  --  φ(q)  = Σ q^{n²} = (q²;q²)_∞(−q;q²)_∞²
+theorem phiNeg_product   : phiNeg = qfac2Inf * oddPochInf ^ 2     --  φ(−q) = Σ(−1)ⁿq^{n²} = (q²;q²)_∞(q;q²)_∞²
+def     psi := qfac2Inf * Ring.inverse oddPochInf        --  ψ(q) = (q²;q²)_∞/(q;q²)_∞  (Ramanujan's ψ)
+```
+`φ(q)` is `map ev1 bilateralTheta` (`z=1`), `φ(−q)` is `map evm1 bilateralTheta` (`z=−1`). The Gauss series
+form `ψ(q) = Σ_{n≥0} q^{n(n+1)/2}` follows from a `z=1` corollary of the triangular JTP (a one-sided
+specialization); the closed form and its defining relation `ψ·(q;q²)_∞ = (q²;q²)_∞` are given here.
+
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi
 triple products (`MockTheta5JacobiTriple` / `…Bilateral` / `…ClassicalJTP`), Durfee-rectangle identities

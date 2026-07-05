@@ -139,3 +139,5 @@ import RamanujanTau.MockTheta5PartitionCongruence7
 import RamanujanTau.MockTheta5PartitionCount
 -- Euler's pentagonal recurrence p(n) = Σ(−1)ᵐ(p(n−g₁)+p(n−g₂)) from pentSeries·partitionGF = 1
 import RamanujanTau.MockTheta5PentagonalRecurrence
+-- Ramanujan's theta functions φ(q)=Σq^{n²}, φ(−q), ψ(q)=(q²;q²)/(q;q²), f(−q)=(q;q)∞ (JTP specializations)
+import RamanujanTau.MockTheta5RamanujanTheta
