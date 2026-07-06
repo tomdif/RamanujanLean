@@ -63,4 +63,20 @@ lemma qE4cube_coeff_one : ((qExpansion 1 E₄) ^ 3).coeff 1 = 720 := by
       Finset.sum_range_succ, Finset.sum_range_one, hp2_0, hp2_1, h0, h1]
   ring
 
+/-! ### The remaining barrier (honest status)
+
+The next step is the linear relation `E₄³ = E₁₂ + (432000/691)·Δ` in `M₁₂` (`E₄³ − E₁₂` has constant term
+`0`, so it is a cusp form `= c·Δ` by `CuspForm.exists_smul_discriminant_of_weight_eq_twelve`, with `c` pinned
+by the `q¹` coefficients). From it the congruence reads off `65520·σ₁₁(n) + 432000·τ(n) ≡ 0 (mod 691)`.
+
+**This cannot be completed against the current Mathlib.** Pinning `c` requires `qExpansion(Δ).coeff 1 = 1`
+(that `τ(1) = 1` on the *modular* side), and discharging the repo's combinatorial `TauMod691` requires the
+full bridge `qExpansion(Δ).coeff n = τ(n)`. Neither exists in Mathlib: there are **no** q-expansion
+coefficient lemmas for `η`, `η²⁴`, or `Δ` — `discriminant_eq_q_prod` is an analytic `tprod`, not a formal
+`PowerSeries`, and the machinery to expand `∏(1−qⁿ)²⁴` to integer coefficients is itself an unformalized
+TODO in Mathlib. Building that analytic bridge from scratch is a separate project; the milestones above
+(`B₁₂`, the `E₁₂` 691-carrier, the `E₄³` coefficients) are the honest, verified extent of the modular
+argument that Mathlib currently supports. No `sorry`.
+-/
+
 end RamanujanTau.Mod691
