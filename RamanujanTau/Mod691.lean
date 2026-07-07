@@ -12,8 +12,9 @@ Reading off the `qⁿ` coefficient (`n ≥ 1`): `a(n) = (65520/691)σ₁₁(n) +
 integer (`E₄³` has integer q-expansion). Since `65520 + 432000 = 720·691`, clearing `691` gives
 `432000(τ(n) − σ₁₁(n)) ≡ 0 (mod 691)`, and `691 ∤ 432000` yields `τ(n) ≡ σ₁₁(n) (mod 691)`.
 
-This file builds the argument on Mathlib's modular-forms library, and **completes** the linear relation
-`E₄³ = E₁₂ + (432000/691)·Δ` in `M₁₂`, from which the arithmetic heart of the congruence is read off.
+This file formalizes the argument on Mathlib's modular-forms library and proves the congruence
+**unconditionally** (`tau_congruence_mod691_unconditional`): the `M₁₂` relation `E₄³ = E₁₂ + (432000/691)·Δ`
+gives the arithmetic heart, and integrality `τ(n) ∈ ℤ` (`tau_int`) is proved from `1728 ∣ [qⁿ](p₄³ − p₆²)`.
 -/
 import Mathlib.NumberTheory.ModularForms.EisensteinSeries.QExpansion
 import Mathlib.NumberTheory.ModularForms.Discriminant
@@ -209,11 +210,13 @@ theorem tau_smul_eq_coeff (n : ℕ) :
   simpa only [map_sub, PowerSeries.coeff_smul, qExpansion_E4cube, qExpansion_E6sq, smul_eq_mul]
     using h.symm
 
-/-! ### Integrality of the `E₄`, `E₆` q-expansions
+/-! ### Integrality of `E₄`, `E₆`, and of `τ` — closing the congruence unconditionally
 
-`E₄ = 1 + 240·∑σ₃(n)qⁿ` and `E₆ = 1 − 504·∑σ₅(n)qⁿ` have integer q-expansions; integer-coefficient power
-series form a subring, so `E₄³` and `E₆²` do too. This discharges the `[qⁿ]E₄³ ∈ ℤ` input to the congruence,
-and reduces the remaining `τ(n) ∈ ℤ` to the single divisibility `1728 ∣ [qⁿ](E₄³ − E₆²)`. -/
+`E₄ = 1 + 240·∑σ₃(n)qⁿ` and `E₆ = 1 − 504·∑σ₅(n)qⁿ` are the images under `ℤ ↪ ℂ` of explicit integer series
+`p₄`, `p₆`. Since `1728·τ(n) = [qⁿ](E₄³ − E₆²) = [qⁿ](p₄³ − p₆²)` (cast to ℂ), integrality of `τ` reduces to
+`1728 ∣ [qⁿ](p₄³ − p₆²)`. Expanding, the `A²,A³,B²` terms carry an explicit factor `1728`, and the linear
+term is `144·(5σ₃(n) + 7σ₅(n))` with `12 ∣ 5σ₃+7σ₅` — which holds since `12 ∣ 5d³ + 7d⁵` for every divisor
+`d` (decidable in `ZMod 12`). This proves `τ(n) ∈ ℤ`, discharging the last hypothesis. -/
 
 /-- Power series over `ℂ` with integer coefficients: the image of `PowerSeries ℤ`. -/
 noncomputable def intSeries : Subring (PowerSeries ℂ) := (PowerSeries.map (Int.castRingHom ℂ)).range
@@ -223,43 +226,96 @@ lemma coeff_int_of_mem {p : PowerSeries ℂ} (hp : p ∈ intSeries) (n : ℕ) :
   obtain ⟨q, hq⟩ := hp
   exact ⟨PowerSeries.coeff n q, by rw [← hq, PowerSeries.coeff_map]; rfl⟩
 
-lemma E4_mem_intSeries : qExpansion 1 E₄ ∈ intSeries := by
-  refine ⟨PowerSeries.mk (fun n => if n = 0 then 1 else 240 * (σ 3 n : ℤ)), ?_⟩
-  ext n
-  rw [PowerSeries.coeff_map, PowerSeries.coeff_mk,
-      E_qExpansion_coeff (show 3 ≤ 4 by norm_num) ⟨2, rfl⟩ n]
-  by_cases h : n = 0
-  · simp [h]
-  · rw [if_neg h, if_neg h, show bernoulli 4 = -1/30 from by decide +kernel]; simp only [Int.coe_castRingHom]; push_cast; ring
+/-- `∑ σ₃(n) qⁿ` and `∑ σ₅(n) qⁿ` over `ℤ`, and the integer preimages `p₄ = 1 + 240·∑σ₃`, `p₆ = 1 − 504·∑σ₅`
+of the `E₄`, `E₆` q-expansions. -/
+noncomputable def sig3 : PowerSeries ℤ := PowerSeries.mk (fun n => (σ 3 n : ℤ))
+noncomputable def sig5 : PowerSeries ℤ := PowerSeries.mk (fun n => (σ 5 n : ℤ))
+noncomputable def p4 : PowerSeries ℤ := 1 + 240 * sig3
+noncomputable def p6 : PowerSeries ℤ := 1 - 504 * sig5
 
-lemma E6_mem_intSeries : qExpansion 1 E₆ ∈ intSeries := by
-  refine ⟨PowerSeries.mk (fun n => if n = 0 then 1 else -504 * (σ 5 n : ℤ)), ?_⟩
+lemma coeff_intCast_mul (k : ℤ) (Y : PowerSeries ℤ) (n : ℕ) :
+    PowerSeries.coeff n ((k : PowerSeries ℤ) * Y) = k * PowerSeries.coeff n Y := by
+  rw [← zsmul_eq_mul, map_smul, smul_eq_mul]
+
+lemma coeff_p4 (n : ℕ) : PowerSeries.coeff n p4 = if n = 0 then 1 else 240 * (σ 3 n : ℤ) := by
+  rw [p4, map_add, PowerSeries.coeff_one,
+      show (240 : PowerSeries ℤ) = ((240 : ℤ) : PowerSeries ℤ) by push_cast; ring,
+      coeff_intCast_mul, sig3, PowerSeries.coeff_mk]
+  by_cases h : n = 0 <;> simp [h]
+
+lemma coeff_p6 (n : ℕ) : PowerSeries.coeff n p6 = if n = 0 then 1 else -504 * (σ 5 n : ℤ) := by
+  rw [p6, map_sub, PowerSeries.coeff_one,
+      show (504 : PowerSeries ℤ) = ((504 : ℤ) : PowerSeries ℤ) by push_cast; ring,
+      coeff_intCast_mul, sig5, PowerSeries.coeff_mk]
+  by_cases h : n = 0 <;> simp [h]
+
+lemma qExpansion_E4_eq : qExpansion 1 E₄ = PowerSeries.map (Int.castRingHom ℂ) p4 := by
   ext n
-  rw [PowerSeries.coeff_map, PowerSeries.coeff_mk,
-      E_qExpansion_coeff (show 3 ≤ 6 by norm_num) ⟨3, rfl⟩ n]
+  rw [PowerSeries.coeff_map, coeff_p4, E_qExpansion_coeff (show 3 ≤ 4 by norm_num) ⟨2, rfl⟩ n]
   by_cases h : n = 0
   · simp [h]
-  · rw [if_neg h, if_neg h, show bernoulli 6 = 1/42 from by decide +kernel]; simp only [Int.coe_castRingHom]; push_cast; ring
+  · rw [if_neg h, if_neg h, show bernoulli 4 = -1/30 from by decide +kernel]
+    simp only [Int.coe_castRingHom]; push_cast; ring
+
+lemma qExpansion_E6_eq : qExpansion 1 E₆ = PowerSeries.map (Int.castRingHom ℂ) p6 := by
+  ext n
+  rw [PowerSeries.coeff_map, coeff_p6, E_qExpansion_coeff (show 3 ≤ 6 by norm_num) ⟨3, rfl⟩ n]
+  by_cases h : n = 0
+  · simp [h]
+  · rw [if_neg h, if_neg h, show bernoulli 6 = 1/42 from by decide +kernel]
+    simp only [Int.coe_castRingHom]; push_cast; ring
+
+lemma E4_mem_intSeries : qExpansion 1 E₄ ∈ intSeries := ⟨p4, qExpansion_E4_eq.symm⟩
 
 /-- **`[qⁿ]E₄³ ∈ ℤ`** — `E₄` has integer q-expansion, and integer series are closed under products. -/
 lemma E4cube_coeff_int (n : ℕ) : ∃ z : ℤ, ((qExpansion 1 E₄) ^ 3).coeff n = (z : ℂ) :=
   coeff_int_of_mem (pow_mem E4_mem_intSeries 3) n
 
-/-- **`1728·τ(n) ∈ ℤ`** (from `1728·τ(n) = [qⁿ]E₄³ − [qⁿ]E₆²`). Hence `τ(n) ∈ ℤ` is *exactly* the classical
-divisibility `1728 ∣ [qⁿ](E₄³ − E₆²)` — the sole remaining input to the unconditional congruence. -/
-lemma tau_smul_int (n : ℕ) : ∃ z : ℤ, (1728 : ℂ) * (qExpansion 1 Δmod).coeff n = (z : ℂ) := by
-  obtain ⟨a, ha⟩ := E4cube_coeff_int n
-  obtain ⟨b, hb⟩ := coeff_int_of_mem (pow_mem E6_mem_intSeries 2) n
-  exact ⟨a - b, by rw [tau_smul_eq_coeff, ha, hb]; push_cast; ring⟩
+/-- **`12 ∣ 5σ₃(n) + 7σ₅(n)`** — from `12 ∣ 5d³ + 7d⁵` for every divisor `d` (checked in `ZMod 12`). -/
+lemma sigma_dvd (n : ℕ) : (12 : ℤ) ∣ 5 * (σ 3 n : ℤ) + 7 * (σ 5 n : ℤ) := by
+  have hpt : ∀ d : ℤ, (12 : ℤ) ∣ 5 * d ^ 3 + 7 * d ^ 5 := by
+    intro d
+    have h : ∀ x : ZMod 12, 5 * x ^ 3 + 7 * x ^ 5 = 0 := by decide
+    have hz : ((5 * d ^ 3 + 7 * d ^ 5 : ℤ) : ZMod 12) = 0 := by push_cast; exact h _
+    exact_mod_cast (ZMod.intCast_zmod_eq_zero_iff_dvd _ 12).mp hz
+  rw [ArithmeticFunction.sigma_apply, ArithmeticFunction.sigma_apply]
+  push_cast [Finset.mul_sum]
+  rw [← Finset.sum_add_distrib]
+  exact Finset.dvd_sum (fun d _ => hpt _)
 
-/-! ### The literal congruence `τ(n) ≡ σ₁₁(n) (mod 691)` (conditional on `τ(n) ∈ ℤ`)
+/-- **`1728 ∣ [qⁿ](p₄³ − p₆²)`** — the classical integrality of `Δ = (E₄³ − E₆²)/1728`. -/
+theorem key_dvd (n : ℕ) : (1728 : ℤ) ∣ PowerSeries.coeff n (p4 ^ 3 - p6 ^ 2) := by
+  have hexp : p4 ^ 3 - p6 ^ 2
+      = 144 * (5 * sig3 + 7 * sig5) + 1728 * (100 * sig3 ^ 2 + 8000 * sig3 ^ 3 - 147 * sig5 ^ 2) := by
+    rw [p4, p6]; ring
+  rw [hexp, map_add,
+      show (144 : PowerSeries ℤ) = ((144 : ℤ) : PowerSeries ℤ) by push_cast; ring, coeff_intCast_mul,
+      show (1728 : PowerSeries ℤ) = ((1728 : ℤ) : PowerSeries ℤ) by push_cast; ring, coeff_intCast_mul,
+      map_add,
+      show (5 : PowerSeries ℤ) = ((5 : ℤ) : PowerSeries ℤ) by push_cast; ring, coeff_intCast_mul,
+      show (7 : PowerSeries ℤ) = ((7 : ℤ) : PowerSeries ℤ) by push_cast; ring, coeff_intCast_mul,
+      sig3, sig5, PowerSeries.coeff_mk, PowerSeries.coeff_mk]
+  obtain ⟨k, hk⟩ := sigma_dvd n
+  refine Dvd.dvd.add ⟨k, by rw [hk]; ring⟩ ⟨_, rfl⟩
 
-`tau_mod_relation` is an identity in `ℂ`. To read it as a congruence in `ZMod 691` we need its terms to be
-integers. `[qⁿ]E₄³ ∈ ℤ` is now *proved* (`E4cube_coeff_int`), so the **only** remaining hypothesis is
-`τ(n) = [qⁿ]qExpansion(Δ) ∈ ℤ` — integrality of the `η²⁴` q-expansion, which Mathlib does not yet carry.
-Following this repo's discipline (*named hypothesis, never an `axiom`*) it enters as a hypothesis; given it,
-`65520 + 432000 = 720·691` forces `691 ∣ 65520·σ₁₁(n) + 432000·τ(n)`, and `691 ∤ 432000` cancels to
-`τ(n) ≡ σ₁₁(n) (mod 691)`. -/
+/-- **`τ(n) ∈ ℤ`** — integrality of the `η²⁴` q-expansion, proved via `1728·τ(n) = [qⁿ](p₄³ − p₆²)` and
+`key_dvd`. This discharges the final hypothesis of the mod-691 congruence. -/
+theorem tau_int (n : ℕ) : ∃ z : ℤ, (qExpansion 1 Δmod).coeff n = (z : ℂ) := by
+  obtain ⟨m, hm⟩ := key_dvd n
+  refine ⟨m, mul_left_cancel₀ (show (1728 : ℂ) ≠ 0 by norm_num) ?_⟩
+  rw [tau_smul_eq_coeff]
+  have e4 : ((qExpansion 1 E₄) ^ 3).coeff n = ((PowerSeries.coeff n (p4 ^ 3) : ℤ) : ℂ) := by
+    rw [qExpansion_E4_eq, ← map_pow, PowerSeries.coeff_map]; rfl
+  have e6 : ((qExpansion 1 E₆) ^ 2).coeff n = ((PowerSeries.coeff n (p6 ^ 2) : ℤ) : ℂ) := by
+    rw [qExpansion_E6_eq, ← map_pow, PowerSeries.coeff_map]; rfl
+  rw [e4, e6, ← Int.cast_sub, ← map_sub, hm]; push_cast; ring
+
+/-! ### The literal congruence `τ(n) ≡ σ₁₁(n) (mod 691)`
+
+`tau_mod_relation` is an identity in `ℂ`. Read in `ZMod 691` over the integer coefficients (`[qⁿ]E₄³ ∈ ℤ` and
+`τ(n) ∈ ℤ`, both now proved), `65520 + 432000 = 720·691` forces `691 ∣ 65520·σ₁₁(n) + 432000·τ(n)`, and
+`691 ∤ 432000` cancels to `τ(n) ≡ σ₁₁(n) (mod 691)`. `tau_congruence_mod691` states this for the integer
+`t` with `τ(n) = t`; `tau_congruence_mod691_unconditional` supplies that `t` from `tau_int`. -/
 theorem tau_congruence_mod691 {n : ℕ} (hn : n ≠ 0)
     {t : ℤ} (hτ : (qExpansion 1 Δmod).coeff n = (t : ℂ)) :
     (t : ZMod 691) = (σ 11 n : ZMod 691) := by
@@ -282,5 +338,12 @@ theorem tau_congruence_mod691 {n : ℕ} (hn : n ≠ 0)
     (ZMod.intCast_zmod_eq_zero_iff_dvd _ 691).mpr (by exact_mod_cast hdvd2)
   push_cast at hz
   linear_combination hz
+
+/-- **Ramanujan's congruence, unconditionally.** For `n ≥ 1` there is an integer `τ(n)` equal to the `qⁿ`
+coefficient of the modular discriminant's q-expansion, and `τ(n) ≡ σ₁₁(n) (mod 691)`. -/
+theorem tau_congruence_mod691_unconditional (n : ℕ) (hn : n ≠ 0) :
+    ∃ t : ℤ, (qExpansion 1 Δmod).coeff n = (t : ℂ) ∧ (t : ZMod 691) = (σ 11 n : ZMod 691) :=
+  let ⟨t, ht⟩ := tau_int n
+  ⟨t, ht, tau_congruence_mod691 hn ht⟩
 
 end RamanujanTau.Mod691
