@@ -169,9 +169,19 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
 — the one piece genuinely absent from Mathlib; `DeligneBound` *is* Deligne's proof of the Weil conjectures
 (out of reach); `LehmerConjecture` is open.
 
-- **`Mod691` (in progress)** — discharging `TauMod691` (`τ(n) ≡ σ₁₁(n) mod 691`) on Mathlib's modular-forms
-  library: `B₁₂ = −691/2730`, the `E₁₂` q-expansion `(65520/691)·σ₁₁` (the 691-carrier), and the `E₄³`
-  coefficients. Remaining: the relation `E₄³ = E₁₂ + (432000/691)Δ` and the `τ ↔ qExpansion(Δ)` bridge.
+- **`DiscriminantBridge`** — connects Mathlib's analytic discriminant `Δ = η²⁴` to its q-expansion:
+  `coeff 0 = 0` (`Δ` is a cusp form) and `coeff 1 = 1` (`τ(1) = 1`), the latter by identifying `Δ`'s cusp
+  function `q ↦ q·∏'(1−qⁿ⁺¹)²⁴` on the unit disc and differentiating at `0`.
+
+- **`Mod691`** — the modular-forms proof of Ramanujan's `τ(n) ≡ σ₁₁(n) (mod 691)`, carried to its arithmetic
+  heart. `B₁₂ = −691/2730`; the `E₁₂` q-expansion `(65520/691)·σ₁₁` (the 691-carrier); the `E₄³` coefficients;
+  and now **the full weight-12 relation** `E₄³ = E₁₂ + (432000/691)·Δ` (via `exists_smul_discriminant`, with
+  the scalar pinned by `coeff 1 = 1`), giving `691·[qⁿ]E₄³ = 65520·σ₁₁(n) + 432000·τ(n)` for `n ≥ 1`
+  (`tau_mod_relation`). The same machinery proves the **discriminant identity** `E₄³ − E₆² = 1728·Δ`
+  (`qExpansion_E4cube_sub_E6sq`), i.e. `1728·τ(n) = [qⁿ]E₄³ − [qⁿ]E₆²` for every `n` (`tau_smul_eq_coeff`),
+  and the **literal congruence** `τ(n) ≡ σ₁₁(n) (mod 691)` in `ZMod 691` (`tau_congruence_mod691`), stated
+  over the integer coefficients — reducing the entire modular argument to the single classical input Mathlib
+  still lacks: integrality of the `η²⁴` q-expansion (`τ(n) ∈ ℤ`). See `OPEN_QUESTIONS.md`.
 
 ---
 

@@ -23,10 +23,10 @@ import RamanujanTau.Congruences.Mod5
 import RamanujanTau.Congruences.Mod7
 import RamanujanTau.Congruences.Mod23
 import RamanujanTau.MathlibBridge
--- τ(n) ≡ σ₁₁(n) mod 691: modular-forms argument (WIP) — E₁₂ q-expansion carries 691
-import RamanujanTau.Mod691
--- Bridge to Mathlib's modular discriminant: leading q-expansion coefficient (coeff 0 = 0, Δ is a cusp form)
+-- Bridge to Mathlib's modular discriminant: leading q-expansion coefficients (coeff 0 = 0, coeff 1 = 1)
 import RamanujanTau.DiscriminantBridge
+-- τ(n) ≡ σ₁₁(n) mod 691: the M₁₂ relation E₄³ = E₁₂ + (432000/691)·Δ, 691·[qⁿ]E₄³ = 65520σ₁₁ + 432000τ(n)
+import RamanujanTau.Mod691
 import RamanujanTau.MockTheta5
 import RamanujanTau.MockTheta5Series
 import RamanujanTau.MockTheta5Lemmas
