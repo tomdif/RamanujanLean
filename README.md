@@ -179,9 +179,10 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
   the scalar pinned by `coeff 1 = 1`), giving `691·[qⁿ]E₄³ = 65520·σ₁₁(n) + 432000·τ(n)` for `n ≥ 1`
   (`tau_mod_relation`). The same machinery proves the **discriminant identity** `E₄³ − E₆² = 1728·Δ`
   (`qExpansion_E4cube_sub_E6sq`), i.e. `1728·τ(n) = [qⁿ]E₄³ − [qⁿ]E₆²` for every `n` (`tau_smul_eq_coeff`),
-  and the **literal congruence** `τ(n) ≡ σ₁₁(n) (mod 691)` in `ZMod 691` (`tau_congruence_mod691`), stated
-  over the integer coefficients — reducing the entire modular argument to the single classical input Mathlib
-  still lacks: integrality of the `η²⁴` q-expansion (`τ(n) ∈ ℤ`). See `OPEN_QUESTIONS.md`.
+  and the **literal congruence** `τ(n) ≡ σ₁₁(n) (mod 691)` in `ZMod 691` (`tau_congruence_mod691`). `E₄`, `E₆`
+  are proved to have integer q-expansions (`E4_mem_intSeries`/`E6_mem_intSeries`), discharging `[qⁿ]E₄³ ∈ ℤ`
+  and proving `1728·τ(n) ∈ ℤ` (`tau_smul_int`) — so the entire modular argument now rests on the single
+  classical input Mathlib still lacks: `1728 ∣ [qⁿ](E₄³ − E₆²)`, i.e. integrality of `τ`. See `OPEN_QUESTIONS.md`.
 
 ---
 
