@@ -183,6 +183,7 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
   (`tau_congruence_mod691_unconditional`). Integrality `τ(n) ∈ ℤ` (`tau_int`) is *proved*: `E₄`, `E₆` are images
   of explicit integer series, so `1728·τ(n) = [qⁿ](p₄³−p₆²)`, and `key_dvd` proves `1728 ∣ [qⁿ](p₄³−p₆²)` via
   `12 ∣ 5σ₃(n)+7σ₅(n)` — the classical integrality of `Δ = (E₄³−E₆²)/1728`. No hypotheses, no axioms.
+  In Ramanujan's iconic form: `τ(p) ≡ 1 + p¹¹ (mod 691)` for primes (`tau_prime_congruence_mod691`).
   See `OPEN_QUESTIONS.md`.
 
 ---

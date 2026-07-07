@@ -346,4 +346,16 @@ theorem tau_congruence_mod691_unconditional (n : ℕ) (hn : n ≠ 0) :
   let ⟨t, ht⟩ := tau_int n
   ⟨t, ht, tau_congruence_mod691 hn ht⟩
 
+/-- **Ramanujan's congruence in its iconic form:** for a prime `p`, `τ(p) ≡ 1 + p¹¹ (mod 691)`
+(the case `σ₁₁(p) = 1 + p¹¹` of the general congruence). -/
+theorem tau_prime_congruence_mod691 {p : ℕ} (hp : p.Prime) :
+    ∃ t : ℤ, (qExpansion 1 Δmod).coeff p = (t : ℂ) ∧ (t : ZMod 691) = 1 + (p : ZMod 691) ^ 11 := by
+  obtain ⟨t, ht, hcong⟩ := tau_congruence_mod691_unconditional p hp.pos.ne'
+  refine ⟨t, ht, ?_⟩
+  have hσ : σ 11 p = 1 + p ^ 11 := by
+    have h := ArithmeticFunction.sigma_apply_prime_pow (k := 11) (i := 1) hp
+    rw [pow_one] at h
+    rw [h, Finset.sum_range_succ, Finset.sum_range_one]; norm_num
+  rw [hcong, hσ]; push_cast; ring
+
 end RamanujanTau.Mod691
