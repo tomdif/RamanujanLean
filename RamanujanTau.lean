@@ -150,3 +150,5 @@ import RamanujanTau.MockTheta5RamanujanTheta
 import RamanujanTau.MockTheta5PsiSeries
 -- Relations among theta functions: φ(q)·φ(−q) = φ(−q²)²
 import RamanujanTau.MockTheta5ThetaIdentities
+-- Quintuple product identity (in progress): stone 1 — the RHS series Σ(z^{3n}−z^{−3n−1})q^{n(3n+1)/2}
+import RamanujanTau.MockTheta5QuintTheta
