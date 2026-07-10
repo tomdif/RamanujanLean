@@ -154,3 +154,5 @@ import RamanujanTau.MockTheta5ThetaIdentities
 import RamanujanTau.MockTheta5QuintTheta
 -- Quintuple product, stone 2 (base-q side): the signed one-sided products ∏(1−zqⁱ), ∏_{i≥0}(1−zqⁱ)
 import RamanujanTau.MockTheta5QuintProdZ
+-- Quintuple product, stone 2 (z²-side): the base-q² signed product ∏_{i≥0}(1−z²q^{2i+1})
+import RamanujanTau.MockTheta5QuintProdZ2
