@@ -158,3 +158,7 @@ import RamanujanTau.MockTheta5QuintProdZ
 import RamanujanTau.MockTheta5QuintProdZ2
 -- Quintuple product, stone 3 (RHS objects): the two bracket theta series thetaA, thetaB
 import RamanujanTau.MockTheta5QuintBrackets
+-- Quintuple product, stone 3 (Bracket 2, part 1): the signed square Cauchy sums SZ2 = jtp2ProdInf, SZ2inv
+import RamanujanTau.MockTheta5QuintBracketB1
+-- Quintuple product, stone 3 (Bracket 2, part 2): the signed square z-Cauchy convolution
+import RamanujanTau.MockTheta5QuintBracketB2
