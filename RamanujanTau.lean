@@ -152,3 +152,5 @@ import RamanujanTau.MockTheta5PsiSeries
 import RamanujanTau.MockTheta5ThetaIdentities
 -- Quintuple product identity (in progress): stone 1 — the RHS series Σ(z^{3n}−z^{−3n−1})q^{n(3n+1)/2}
 import RamanujanTau.MockTheta5QuintTheta
+-- Quintuple product, stone 2 (base-q side): the signed one-sided products ∏(1−zqⁱ), ∏_{i≥0}(1−zqⁱ)
+import RamanujanTau.MockTheta5QuintProdZ
