@@ -166,3 +166,5 @@ import RamanujanTau.MockTheta5QuintBracketB2
 import RamanujanTau.MockTheta5QuintBracket2
 -- Quintuple product, stone 3 (Bracket 1, part 1): the signed triangular Cauchy sums SZA = qzProdAInf, SZAinv
 import RamanujanTau.MockTheta5QuintBracketA1
+-- Quintuple product, stone 3 (Bracket 1, part 2): the signed triangular z-Cauchy convolution
+import RamanujanTau.MockTheta5QuintBracketA2
