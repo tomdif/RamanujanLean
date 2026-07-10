@@ -156,3 +156,5 @@ import RamanujanTau.MockTheta5QuintTheta
 import RamanujanTau.MockTheta5QuintProdZ
 -- Quintuple product, stone 2 (z²-side): the base-q² signed product ∏_{i≥0}(1−z²q^{2i+1})
 import RamanujanTau.MockTheta5QuintProdZ2
+-- Quintuple product, stone 3 (RHS objects): the two bracket theta series thetaA, thetaB
+import RamanujanTau.MockTheta5QuintBrackets
