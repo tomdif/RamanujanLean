@@ -168,3 +168,5 @@ import RamanujanTau.MockTheta5QuintBracket2
 import RamanujanTau.MockTheta5QuintBracketA1
 -- Quintuple product, stone 3 (Bracket 1, part 2): the signed triangular z-Cauchy convolution
 import RamanujanTau.MockTheta5QuintBracketA2
+-- Quintuple product, stone 3 (Bracket 1, assembly): qfacInfL·P_z·P_{z⁻¹} = thetaA
+import RamanujanTau.MockTheta5QuintBracket1
