@@ -12,6 +12,7 @@ import RamanujanTau.E8Eisenstein
 import RamanujanTau.EllipticHecke
 import RamanujanTau.Deligne
 import RamanujanTau.Lehmer
+import RamanujanTau.LehmerReduction
 import RamanujanTau.EulerFactor
 import RamanujanTau.HeckePowers
 import RamanujanTau.Gegenbauer
