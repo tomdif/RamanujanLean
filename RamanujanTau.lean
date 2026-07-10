@@ -164,3 +164,5 @@ import RamanujanTau.MockTheta5QuintBracketB1
 import RamanujanTau.MockTheta5QuintBracketB2
 -- Quintuple product, stone 3 (Bracket 2, assembly): qfac2InfL·P_{z²}·P_{z⁻²} = thetaB
 import RamanujanTau.MockTheta5QuintBracket2
+-- Quintuple product, stone 3 (Bracket 1, part 1): the signed triangular Cauchy sums SZA = qzProdAInf, SZAinv
+import RamanujanTau.MockTheta5QuintBracketA1
