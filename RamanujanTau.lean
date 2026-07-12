@@ -172,3 +172,5 @@ import RamanujanTau.MockTheta5QuintBracketA2
 import RamanujanTau.MockTheta5QuintBracket1
 -- Quintuple product, stone 3 (capstone infrastructure): z-shift lemmas
 import RamanujanTau.MockTheta5QuintConv
+-- Quintuple product, stone 3 (capstone): the per-term shift formula
+import RamanujanTau.MockTheta5QuintConv2
