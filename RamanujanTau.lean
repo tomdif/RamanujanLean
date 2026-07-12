@@ -174,3 +174,5 @@ import RamanujanTau.MockTheta5QuintBracket1
 import RamanujanTau.MockTheta5QuintConv
 -- Quintuple product, stone 3 (capstone): the per-term shift formula
 import RamanujanTau.MockTheta5QuintConv2
+-- Quintuple product, stone 3 (capstone): the stabilized per-term sum
+import RamanujanTau.MockTheta5QuintConv3
