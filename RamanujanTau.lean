@@ -170,3 +170,5 @@ import RamanujanTau.MockTheta5QuintBracketA1
 import RamanujanTau.MockTheta5QuintBracketA2
 -- Quintuple product, stone 3 (Bracket 1, assembly): qfacInfL·P_z·P_{z⁻¹} = thetaA
 import RamanujanTau.MockTheta5QuintBracket1
+-- Quintuple product, stone 3 (capstone infrastructure): z-shift lemmas
+import RamanujanTau.MockTheta5QuintConv
