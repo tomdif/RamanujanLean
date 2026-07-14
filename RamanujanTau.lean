@@ -192,3 +192,6 @@ import RamanujanTau.MockTheta5QuintCollapse3
 
 -- Quintuple product, stone 3 (capstone): the N=0 pentagonal collapse
 import RamanujanTau.MockTheta5QuintCollapse4
+
+-- Quintuple product, stone 3 (capstone): the general-N per-term
+import RamanujanTau.MockTheta5QuintCollapse5
