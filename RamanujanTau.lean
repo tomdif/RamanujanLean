@@ -186,3 +186,6 @@ import RamanujanTau.SquaringTheCircle
 
 -- Quintuple product, stone 3 (capstone): N=0 per-term in closed form
 import RamanujanTau.MockTheta5QuintCollapse2
+
+-- Quintuple product, stone 3 (capstone): per-term = E2(pentTermP) correspondence
+import RamanujanTau.MockTheta5QuintCollapse3
