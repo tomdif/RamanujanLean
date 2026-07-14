@@ -180,3 +180,6 @@ import RamanujanTau.MockTheta5QuintConv3
 import RamanujanTau.MockTheta5QuintThetaProj
 -- Quintuple product, stone 3 (capstone): pentagonal collapse — sign lemmas
 import RamanujanTau.MockTheta5QuintCollapse
+
+-- Ramanujan (1913), Squaring the Circle: the 355/113 ≈ π accuracy bound
+import RamanujanTau.SquaringTheCircle
