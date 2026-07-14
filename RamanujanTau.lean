@@ -183,3 +183,6 @@ import RamanujanTau.MockTheta5QuintCollapse
 
 -- Ramanujan (1913), Squaring the Circle: the 355/113 ≈ π accuracy bound
 import RamanujanTau.SquaringTheCircle
+
+-- Quintuple product, stone 3 (capstone): N=0 per-term in closed form
+import RamanujanTau.MockTheta5QuintCollapse2
