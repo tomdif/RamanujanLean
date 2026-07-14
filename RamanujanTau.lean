@@ -178,3 +178,5 @@ import RamanujanTau.MockTheta5QuintConv2
 import RamanujanTau.MockTheta5QuintConv3
 -- Quintuple product, stone 3 (capstone): the quintTheta-side projections
 import RamanujanTau.MockTheta5QuintThetaProj
+-- Quintuple product, stone 3 (capstone): pentagonal collapse — sign lemmas
+import RamanujanTau.MockTheta5QuintCollapse
