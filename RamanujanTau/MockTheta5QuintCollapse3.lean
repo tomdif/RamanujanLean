@@ -31,7 +31,7 @@ lemma E2_C (c : ℤ) : E2 (PowerSeries.C c) = PowerSeries.C c := by
     · rfl
 
 /-- `map evm1 (pentTermP m) = (−1)^{m+1}(q^{(m+1)(3m+2)/2} + q^{(m+1)(3m+4)/2})`. -/
-lemma map_evm1_pentTermP (m : ℕ) :
+lemma map_evm1_pentTermP_prodform (m : ℕ) :
     PowerSeries.map evm1 (pentTermP m)
       = PowerSeries.C ((-1 : ℤ) ^ (m + 1))
         * (X ^ ((m + 1) * (3 * m + 2) / 2) + X ^ ((m + 1) * (3 * m + 4) / 2)) := by
@@ -58,7 +58,7 @@ lemma per_term_zero_eq_pent (m : ℕ) :
     rcases Nat.even_or_odd m with ⟨k, rfl⟩ | ⟨k, rfl⟩
     · exact ⟨(2 * k + 1) * (3 * k + 2), by ring⟩
     · exact ⟨(k + 1) * (6 * k + 7), by ring⟩
-  rw [per_term_zero, map_evm1_pentTermP, map_mul, map_add, E2_C, E2_X_pow, E2_X_pow,
+  rw [per_term_zero, map_evm1_pentTermP_prodform, map_mul, map_add, E2_C, E2_X_pow, E2_X_pow,
       Nat.mul_div_cancel' h2, Nat.mul_div_cancel' h4]
 
 end MockTheta5.JTP
