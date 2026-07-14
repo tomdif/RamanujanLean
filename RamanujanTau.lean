@@ -176,3 +176,5 @@ import RamanujanTau.MockTheta5QuintConv
 import RamanujanTau.MockTheta5QuintConv2
 -- Quintuple product, stone 3 (capstone): the stabilized per-term sum
 import RamanujanTau.MockTheta5QuintConv3
+-- Quintuple product, stone 3 (capstone): the quintTheta-side projections
+import RamanujanTau.MockTheta5QuintThetaProj
