@@ -189,3 +189,6 @@ import RamanujanTau.MockTheta5QuintCollapse2
 
 -- Quintuple product, stone 3 (capstone): per-term = E2(pentTermP) correspondence
 import RamanujanTau.MockTheta5QuintCollapse3
+
+-- Quintuple product, stone 3 (capstone): the N=0 pentagonal collapse
+import RamanujanTau.MockTheta5QuintCollapse4
