@@ -204,5 +204,7 @@ import RamanujanTau.MultiQuintuplePochhammer
 import RamanujanTau.MultiQuintupleP7
 -- Infinite all-canonical family: every nonsquare residue vanishes for every odd p >= 5
 import RamanujanTau.MultiQuintupleCanonical
--- Projective J-invariant and exact reflective-lattice certificate for p=71
+-- Short projective roots give general integral Householder reflections of isotropic lattices
+import RamanujanTau.MultiQuintupleRootReflection
+-- Projective J-invariant, short-root explanation, and exact affine certificate for p=71
 import RamanujanTau.MultiQuintuplePaleySpinor

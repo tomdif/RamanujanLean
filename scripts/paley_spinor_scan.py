@@ -28,6 +28,15 @@ where ``sigma2 = i^2*j^2 + j^2*k^2 + k^2*i^2`` and
 conic.  If ``u=(j/i)^2``, then ``-256*J`` is the Legendre elliptic-curve j-invariant at
 ``lambda=-u``.
 
+The automorphism census reveals a sharper arithmetic criterion.  Every reflective class
+through ``p <= 401`` has a centered projective lift
+
+    w = lambda*(i,j,k) (mod p),    ||w||^2 in {p, 2p},
+
+and no nonreflective class has one.  Such a vector gives the Householder reflection
+``x -> x - (2/e)*(x.w/p)*w``, where ``||w||^2=e*p``.  The construction is exact and the
+forward implication is formalized in ``MultiQuintupleRootReflection.lean``.
+
 The scan is experimental as a universal classification, but its affine certificates are exact.
 """
 
@@ -143,6 +152,54 @@ class RestrictedLattice:
     c2: int
     basis: Matrix
     gram: Matrix
+
+
+@dataclass(frozen=True)
+class ShortProjectiveRoot:
+    """A centered lift of the projective normal having norm ``p`` or ``2p``."""
+
+    scalar: int
+    vector: Vector
+    norm_multiplier: int
+
+
+def centered_projective_lift(
+    p: int, scalar: int, indices: tuple[int, int, int]
+) -> Vector:
+    """The unique lift of ``scalar*indices`` whose coordinates lie in ``[-p/2,p/2]``."""
+    return tuple(  # type: ignore[return-value]
+        ((scalar * index + p // 2) % p) - p // 2 for index in indices
+    )
+
+
+def short_projective_roots(
+    p: int, indices: tuple[int, int, int]
+) -> list[ShortProjectiveRoot]:
+    """All projective lifts ``w`` with ``||w||^2`` equal to ``p`` or ``2p``.
+
+    Since either norm is less than ``p^2`` for odd ``p``, centering loses no possible root.
+    The returned list contains both signs when a root exists.
+    """
+    roots: list[ShortProjectiveRoot] = []
+    for scalar in range(1, p):
+        vector = centered_projective_lift(p, scalar, indices)
+        norm = int(dot(vector, vector))
+        if norm in (p, 2 * p):
+            roots.append(ShortProjectiveRoot(scalar, vector, norm // p))
+    return roots
+
+
+def short_root_reflection(root: ShortProjectiveRoot, p: int) -> list[list[Fraction]]:
+    """The exact ambient Householder matrix attached to a short projective root."""
+    coefficient = Fraction(2, root.norm_multiplier * p)
+    return [
+        [
+            Fraction(row == column)
+            - coefficient * root.vector[row] * root.vector[column]
+            for column in range(3)
+        ]
+        for row in range(3)
+    ]
 
 
 def restricted_lattice(p: int, indices: tuple[int, int, int]) -> RestrictedLattice:
@@ -338,11 +395,16 @@ def run_candidate(p: int, indices: tuple[int, ...], depth: int, show_all: bool) 
     invariant = projective_j_invariant(p, triple)
     lattice = restricted_lattice(p, triple)
     automorphisms = lattice_automorphisms(lattice)
+    roots = short_projective_roots(p, triple)
     observed, _ = vanishing_residues(p, triple, depth)
     print(f"J={invariant}; Legendre elliptic j={legendre_elliptic_j(p, triple)}")
     print(f"basis={format_matrix(lattice.basis)}")
     print(f"Gram={format_matrix(lattice.gram)}")
     print(f"|Aut(L)|={len(automorphisms)}; reflective={len(automorphisms) > 2}")
+    print(
+        "short projective roots="
+        + str([(root.scalar, root.vector, root.norm_multiplier) for root in roots])
+    )
     print(f"depth-{depth} candidate zero residues={observed}")
     status = 0
     residues = range(p) if show_all else observed
@@ -368,8 +430,12 @@ def run_candidate(p: int, indices: tuple[int, ...], depth: int, show_all: bool) 
 def run_scan(max_prime: int, depth: int) -> int:
     total_classes = 0
     mismatch_count = 0
+    root_mismatch_count = 0
     uncertified_count = 0
-    print("p  J-classes  reflective  nonreflective  observed-hits  mismatches  uncertified")
+    print(
+        "p  J-classes  reflective  short-root  nonreflective  observed-hits  "
+        "aut/root-mis  hit-mis  uncertified"
+    )
     for p in primes_through(max_prime):
         representatives = isotropic_j_representatives(p)
         if not representatives:
@@ -377,16 +443,21 @@ def run_scan(max_prime: int, depth: int) -> int:
         reflective_count = 0
         hit_count = 0
         prime_mismatches = 0
+        prime_root_mismatches = 0
         prime_uncertified = 0
+        root_count = 0
         for triple in representatives.values():
             lattice = restricted_lattice(p, triple)
             automorphisms = lattice_automorphisms(lattice)
             reflective = len(automorphisms) > 2
+            has_short_root = bool(short_projective_roots(p, triple))
             observed, _ = vanishing_residues(p, triple, depth)
             hit = bool(observed)
             reflective_count += int(reflective)
+            root_count += int(has_short_root)
             hit_count += int(hit)
             prime_mismatches += int(reflective != hit)
+            prime_root_mismatches += int(reflective != has_short_root)
             if hit and any(
                 affine_branch_certificate(lattice, automorphisms, residue) is None
                 for residue in observed
@@ -395,16 +466,19 @@ def run_scan(max_prime: int, depth: int) -> int:
         classes = len(representatives)
         total_classes += classes
         mismatch_count += prime_mismatches
+        root_mismatch_count += prime_root_mismatches
         uncertified_count += prime_uncertified
         print(
-            f"{p:<3}{classes:>11}{reflective_count:>12}{classes-reflective_count:>15}"
-            f"{hit_count:>15}{prime_mismatches:>12}{prime_uncertified:>13}"
+            f"{p:<3}{classes:>11}{reflective_count:>12}{root_count:>12}"
+            f"{classes-reflective_count:>15}{hit_count:>15}{prime_root_mismatches:>14}"
+            f"{prime_mismatches:>9}{prime_uncertified:>13}"
         )
     print(
-        f"total J-classes={total_classes}; reflective/hit mismatches={mismatch_count}; "
+        f"total J-classes={total_classes}; automorphism/short-root mismatches={root_mismatch_count}; "
+        f"reflective/hit mismatches={mismatch_count}; "
         f"observed zeros lacking affine certificates={uncertified_count}"
     )
-    return int(bool(mismatch_count or uncertified_count))
+    return int(bool(root_mismatch_count or mismatch_count or uncertified_count))
 
 
 def build_parser() -> argparse.ArgumentParser:

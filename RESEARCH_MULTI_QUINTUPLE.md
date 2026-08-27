@@ -77,6 +77,58 @@ polynomial identities, not numerical evidence.  A separate all-triples scan thro
 (2,587 distinct canonical isotropic triples) also found that the hit/miss label is constant on
 every projective class.
 
+### Sharpening: reflectivity is a short-lift problem
+
+The automorphism data has an unexpectedly elementary description.  Write
+`v=(i,j,k)` for the projective normal defining the congruence lattice.  Every reflective
+class in the census, and no nonreflective class, has a centered integral lift
+
+```text
+w congruent lambda*v (mod p),       ||w||^2 = p or 2p.
+```
+
+For a lattice point `x`, projective congruence gives `p | x dot w`.  If
+`||w||^2=e*p`, with `(e,c)=(1,2)` or `(2,1)`, then
+
+```text
+R_w(x) = x - c*(x dot w/p)*w
+```
+
+is integral, preserves the norm, preserves the congruence lattice, and squares to the identity.
+`RamanujanTau.MultiQuintupleRootReflection` proves this construction for arbitrary integral
+parameters, without division and without assuming that `p` is prime.  Thus the implication
+
+```text
+short projective root  ==>  noncentral integral reflection
+```
+
+is now a formal theorem.  The converse remains a classification conjecture.
+
+The exact `p <= 401` census splits as follows:
+
+```text
+reflective classes with a short root                     328
+nonreflective classes without a short root                268
+automorphism / short-root mismatches                        0
+reflective / observed-vanishing mismatches                  0
+```
+
+Ordinary reflective classes have exactly two roots, `w` and `-w`, and automorphism group
+of order four.  The special `J=0` classes have six roots and automorphism group of order twelve.
+This is much more concrete than classifying determinant-`p^2` forms from `J`: it turns the
+problem into representation of `p` or `2p` by a prescribed projective residue class.
+
+For the new `p=71` hit, the whole matrix is explained by
+
+```text
+v = (1,11,34),       w = (6,-5,-9),
+w congruent 6*v (mod 71),       ||w||^2 = 142 = 2*71.
+```
+
+The reflection is `x -> x-(x dot w/71)w`.  Written in the scanner's lattice basis, it is
+exactly the previously discovered matrix.  `RamanujanTau.MultiQuintuplePaleySpinor` now
+kernel-checks this root description and its equality with all three rows of that matrix.
+
 Run the census or print the new `p=71` certificate with:
 
 ```bash
@@ -105,10 +157,11 @@ quintuple problem naturally meets the octahedral quotient of the isotropic conic
 moduli; `sigma2`'s quadratic character was only a coarse shadow of this invariant.
 
 `RamanujanTau.MultiQuintuplePaleySpinor` formally proves this elliptic `j` bridge over an arbitrary
-field.  It also kernel-checks the `p=71`, `(1,11,34)`, residue-`61` reflection, its involutivity,
-the eight residue constants, and the four exponent-preserving parity-reversing affine branch
-pairings.  What remains open is the universal reflective-lattice biconditional and an end-to-end
-formal transport from these branch certificates to coefficients of the five-Pochhammer definition.
+field.  It also kernel-checks the `p=71`, `(1,11,34)`, residue-`61` reflection, its short-root origin,
+its involutivity, the eight residue constants, and the four exponent-preserving parity-reversing
+affine branch pairings.  What remains open is the converse from a noncentral lattice automorphism
+to a short root, the universal vanishing biconditional, and an end-to-end formal transport from
+these branch certificates to coefficients of the five-Pochhammer definition.
 
 The first attractive conjecture was:
 
@@ -239,18 +292,20 @@ the product has some identically zero residue class.
 
 ## Next sparse-product proof target
 
-The projective classification and certificate search are now implemented.  The proof frontier is:
+The projective classification, short-root test, and certificate search are now implemented.
+The proof frontier is:
 
-1. prove that a noncentral automorphism of `L_(p;i,j,k)` always supplies the required perfect
-   affine matching of the eight branch cosets;
-2. prove the converse, or identify any possible non-reflective cancellation mechanism;
-3. classify the reflective determinant-`p^2` ternary lattices arithmetically in terms of the
-   octahedral/elliptic `J`-parameter;
+1. prove the converse short-root classification: every noncentral automorphism of the index-`p`
+   congruence lattice comes from a lift `w` with `||w||^2 in {p,2p}`;
+2. prove that such a root always supplies the required perfect affine matching of the eight
+   branch cosets, and derive the target residue directly from `w`;
+3. prove the converse on the cancellation side, or identify any non-reflective mechanism;
 4. finish the reusable formal bridge from the bilateral coefficient model to
    `quintupleSpecialized`, turning emitted certificates directly into Lean coefficient theorems.
 
-The third item is where the elliptic-moduli observation may convert the computational criterion
-into an explicit infinite-family theorem.
+The first two items now look like an arithmetic root-system problem rather than an elliptic-moduli
+classification problem.  The `J`-invariant still organizes projective classes, but the short lift
+is the more direct route to an explicit infinite-family theorem.
 
 ## Sources
 

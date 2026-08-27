@@ -30,8 +30,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 124 |
-| Build | `lake build` → **3835 jobs, 0 errors, 0 warnings** |
+| Modules | 125 |
+| Build | `lake build` → **3836 jobs, 0 errors, 0 warnings** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -148,13 +148,16 @@ all nonsquare residue-class vanishings (all quadratic nonresidues when `p` is pr
 This is a theorem about the actual product rather than a surrogate target.  No unproved general sparse
 vanishing statement is asserted as a theorem.
 
-The sparse-triple investigation has also produced a sharper, explicitly conjectural classification:
-an isotropic triple appears to vanish exactly when its residue-restricted ternary lattice has a
-noncentral integral reflection.  `scripts/paley_spinor_scan.py` finds zero mismatches across 596
-projective classes through `p=401` and emits exact affine branch-pairing certificates for every hit.
-`MultiQuintuplePaleySpinor.lean` proves that the projective invariant is a Legendre elliptic
-`j`-invariant and kernel-checks the new `p=71`, `(1,11,34)`, residue-`61` reflective certificate.
-The universal reflective classification is not yet claimed as a theorem.
+The sparse-triple investigation has also produced a sharper, explicitly conjectural classification.
+An isotropic triple is reflective exactly when its projective normal `(i,j,k)` appears to have an
+integral lift `w` of norm `p` or `2p`.  `scripts/paley_spinor_scan.py` finds zero mismatches across 596
+projective classes through `p=401`; 328 classes have such roots and are reflective/hits, while 268 have
+neither.  `MultiQuintupleRootReflection.lean` proves the general forward theorem: every short projective
+root produces an integral Householder reflection.  For `(p;i,j,k)=(71;1,11,34)`, the opaque matrix is
+simply reflection in `w=(6,-5,-9)`, with `||w||²=2p` and `w≡6(i,j,k) (mod p)`.
+`MultiQuintuplePaleySpinor.lean` also proves that the projective invariant is a Legendre elliptic
+`j`-invariant and kernel-checks the residue-`61` affine branch certificate.  The converse
+reflection-to-root theorem and universal vanishing classification remain conjectural.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

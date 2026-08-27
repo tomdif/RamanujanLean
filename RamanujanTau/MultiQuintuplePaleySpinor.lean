@@ -15,7 +15,7 @@ the doubled exponent of the three bilateral quintuple sums and reverses branch p
 are the algebraic identities consumed by a coefficient-cancellation proof; no numerical
 approximation and no `sorry` are used.
 -/
-import RamanujanTau.MultiQuintupleVanishing
+import RamanujanTau.MultiQuintupleRootReflection
 import Mathlib.Tactic.FieldSimp
 
 namespace Ramanujan.MultiQuintuple
@@ -84,10 +84,80 @@ section Reflective71
 def reflectiveNorm71 (x y z : ℤ) : ℤ :=
   x ^ 2 + y ^ 2 + (48 * x + 31 * y + 71 * z) ^ 2
 
+/-! ### The short projective root behind the reflection -/
+
+/-- The third ambient coordinate of a point in the index-`71` lattice. -/
+def reflectiveAmbientZ71 (x y z : ℤ) : ℤ :=
+  48 * x + 31 * y + 71 * z
+
+/-- The exact quotient of the pairing with the short root `(6,-5,-9)`. -/
+def reflectiveRootQuotient71 (x y z : ℤ) : ℤ :=
+  -6 * x - 4 * y - 9 * z
+
+/-- The apparently complicated reflection comes from the short projective lift
+`w=(6,-5,-9) congruent 6*(1,11,34) (mod 71)`, of norm `2*71`. -/
+theorem reflective71_short_projective_root :
+    ternaryNorm 6 (-5) (-9) = 2 * 71
+      ∧ (6 : ℤ) = 6 * 1 + 71 * 0
+      ∧ (-5 : ℤ) = 6 * 11 + 71 * (-1)
+      ∧ (-9 : ℤ) = 6 * 34 + 71 * (-3) := by
+  norm_num [ternaryNorm]
+
+/-- Every lattice point has the displayed isotropic congruence quotient. -/
+theorem reflective71_ambient_lattice (x y z : ℤ) :
+    ternaryDot 1 11 34 x y (reflectiveAmbientZ71 x y z)
+      = 71 * (23 * x + 15 * y + 34 * z) := by
+  simp [ternaryDot, reflectiveAmbientZ71]
+  ring
+
+/-- Pairing a lattice point with `(6,-5,-9)` is divisible by `71`, exactly as
+the general projective-lift theorem predicts. -/
+theorem reflective71_root_pairing (x y z : ℤ) :
+    ternaryDot x y (reflectiveAmbientZ71 x y z) 6 (-5) (-9)
+      = 71 * reflectiveRootQuotient71 x y z := by
+  simp [ternaryDot, reflectiveAmbientZ71, reflectiveRootQuotient71]
+  ring
+
+/-- The short-root Householder reflection preserves the ambient square norm. -/
+theorem reflective71_short_root_preserves_norm (x y z : ℤ) :
+    ternaryNorm
+        (shortRootReflectCoord 1 (reflectiveRootQuotient71 x y z) 6 x)
+        (shortRootReflectCoord 1 (reflectiveRootQuotient71 x y z) (-5) y)
+        (shortRootReflectCoord 1 (reflectiveRootQuotient71 x y z) (-9)
+          (reflectiveAmbientZ71 x y z))
+      = ternaryNorm x y (reflectiveAmbientZ71 x y z) := by
+  exact shortRootReflect_preserves_norm 71 2 1 (reflectiveRootQuotient71 x y z)
+    6 (-5) (-9) x y (reflectiveAmbientZ71 x y z)
+    (by norm_num [ternaryNorm]) (reflective71_root_pairing x y z) (by norm_num)
+
 /-- Coordinates of the nontrivial integral reflection of the `p=71` lattice. -/
 def reflect71X (x y z : ℤ) : ℤ := 37 * x + 24 * y + 54 * z
 def reflect71Y (x y z : ℤ) : ℤ := -30 * x - 19 * y - 45 * z
 def reflect71Z (x y z : ℤ) : ℤ := -12 * x - 8 * y - 17 * z
+
+/-- The first lattice-coordinate row is exactly the short-root reflection. -/
+theorem reflect71X_eq_shortRoot (x y z : ℤ) :
+    reflect71X x y z
+      = shortRootReflectCoord 1 (reflectiveRootQuotient71 x y z) 6 x := by
+  simp [reflect71X, shortRootReflectCoord, reflectiveRootQuotient71]
+  ring
+
+/-- The second lattice-coordinate row is exactly the short-root reflection. -/
+theorem reflect71Y_eq_shortRoot (x y z : ℤ) :
+    reflect71Y x y z
+      = shortRootReflectCoord 1 (reflectiveRootQuotient71 x y z) (-5) y := by
+  simp [reflect71Y, shortRootReflectCoord, reflectiveRootQuotient71]
+  ring
+
+/-- The third ambient coordinate also agrees, proving that the full integral matrix
+is merely the short-root reflection written in the lattice basis. -/
+theorem reflect71AmbientZ_eq_shortRoot (x y z : ℤ) :
+    reflectiveAmbientZ71 (reflect71X x y z) (reflect71Y x y z) (reflect71Z x y z)
+      = shortRootReflectCoord 1 (reflectiveRootQuotient71 x y z) (-9)
+          (reflectiveAmbientZ71 x y z) := by
+  simp [reflectiveAmbientZ71, reflect71X, reflect71Y, reflect71Z,
+    shortRootReflectCoord, reflectiveRootQuotient71]
+  ring
 
 /-- The discovered reflection is an isometry of the exact integral ternary lattice. -/
 theorem reflect71_preserves_norm (x y z : ℤ) :
