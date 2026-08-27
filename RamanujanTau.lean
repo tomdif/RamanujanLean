@@ -220,3 +220,4 @@ import RamanujanTau.MultiQuintupleBilateralBridge
 import RamanujanTau.MultiQuintupleCancellation
 -- Projective-root transport and end-to-end p=71/residue-61 and p=79/residue-9 vanishings
 import RamanujanTau.MultiQuintupleProjectiveCancellation
+import RamanujanTau.MultiQuintupleRootVanishingEquivalence

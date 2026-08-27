@@ -108,6 +108,18 @@ def inverse_matrix(matrix: Matrix | list[list[int]]) -> list[list[Fraction]]:
     return [row[3:] for row in augmented]
 
 
+def matrix_multiply(
+    left: Matrix | list[list[int | Fraction]],
+    right: Matrix | list[list[int | Fraction]],
+) -> list[list[int | Fraction]]:
+    """Multiply two exact 3-by-3 matrices."""
+    return [
+        [sum(left[row][middle] * right[middle][column] for middle in range(3))
+         for column in range(3)]
+        for row in range(3)
+    ]
+
+
 def canonical_residue(value: int, p: int) -> int:
     residue = value % p
     return min(residue, p - residue)
@@ -200,6 +212,67 @@ def short_root_reflection(root: ShortProjectiveRoot, p: int) -> list[list[Fracti
         ]
         for row in range(3)
     ]
+
+
+def signed_short_root_lattice_matrix(
+    lattice: RestrictedLattice, root: ShortProjectiveRoot, sign: int
+) -> Matrix:
+    """Write ``sign*R_root`` in the integral basis of the congruence lattice."""
+    if sign not in (-1, 1):
+        raise ValueError("reflection sign must be +1 or -1")
+    ambient = [
+        [sign * entry for entry in row]
+        for row in short_root_reflection(root, lattice.p)
+    ]
+    coordinates = matrix_multiply(
+        matrix_multiply(inverse_matrix(lattice.basis), ambient), lattice.basis
+    )
+    if any(entry.denominator != 1 for row in coordinates for entry in row):
+        raise AssertionError("short projective root did not preserve its congruence lattice")
+    return tuple(tuple(int(entry) for entry in row) for row in coordinates)  # type: ignore[return-value]
+
+
+def projective_root_target(root: ShortProjectiveRoot, lattice: RestrictedLattice) -> tuple[int, int]:
+    """Return the signed reflection and its predicted vanishing residue.
+
+    Put ``v=indices``, ``w=root.vector``, and ``u=(v.w)/p``.  For the positive
+    reflection the target law is
+
+        ``2*lambda*r = sum(w)-6*u (mod p)``.
+
+    For the negative reflection, with ``c=2/e``, it is
+
+        ``c*lambda*(2*lambda*r-sum(w)+6*u) = 12 (mod p)``.
+
+    The sign is selected by ``e*p mod 3``.  These formulas are formalized in
+    ``MultiQuintupleRootVanishingEquivalence.lean``.
+    """
+    p = lattice.p
+    scalar = root.scalar
+    e = root.norm_multiplier
+    pairing = int(dot(lattice.indices, root.vector))
+    if pairing % p:
+        raise AssertionError("projective root pairing was not divisible by p")
+    u = pairing // p
+    offset = sum(root.vector) - 6 * u
+    inverse_two_scalar = pow(2 * scalar, -1, p)
+    ep_mod_three = e * p % 3
+    if ep_mod_three == 1:
+        return 1, offset * inverse_two_scalar % p
+    if ep_mod_three == 2:
+        c = 2 // e
+        negative_base = 12 * pow(c * scalar, -1, p) % p
+        return -1, (offset + negative_base) * inverse_two_scalar % p
+    raise ValueError("root transport requires p not divisible by 3")
+
+
+def projective_root_branch_certificate(
+    lattice: RestrictedLattice, root: ShortProjectiveRoot
+) -> tuple[int, int, list[AffineEdge] | None]:
+    """Check the exact affine certificate predicted by one short projective root."""
+    sign, residue = projective_root_target(root, lattice)
+    matrix = signed_short_root_lattice_matrix(lattice, root, sign)
+    return sign, residue, affine_branch_certificate(lattice, [matrix], residue)
 
 
 def restricted_lattice(p: int, indices: tuple[int, int, int]) -> RestrictedLattice:
@@ -481,6 +554,39 @@ def run_scan(max_prime: int, depth: int) -> int:
     return int(bool(root_mismatch_count or mismatch_count or uncertified_count))
 
 
+def run_root_transport_scan(max_prime: int, depth: int) -> int:
+    """Verify the uniform projective-root residue and signed-reflection certificate."""
+    checked = 0
+    missing_certificate = 0
+    missing_observed_zero = 0
+    print("p  triple                 root             sign  residue  affine  observed-zero")
+    for p in primes_through(max_prime):
+        for triple in isotropic_j_representatives(p).values():
+            roots = short_projective_roots(p, triple)
+            if not roots:
+                continue
+            # The opposite root gives the same reflection and target residue.
+            root = roots[0]
+            lattice = restricted_lattice(p, triple)
+            sign, residue, certificate = projective_root_branch_certificate(lattice, root)
+            observed, _ = vanishing_residues(p, triple, depth)
+            affine = certificate is not None
+            observed_zero = residue in observed
+            checked += 1
+            missing_certificate += int(not affine)
+            missing_observed_zero += int(not observed_zero)
+            print(
+                f"{p:<3}{str(triple):<23}{str(root.vector):<17}{sign:>5}"
+                f"{residue:>9}{str(affine):>8}{str(observed_zero):>15}"
+            )
+    print(
+        f"checked reflective classes={checked}; "
+        f"missing exact root certificates={missing_certificate}; "
+        f"predicted residues not observed zero={missing_observed_zero}"
+    )
+    return int(bool(missing_certificate or missing_observed_zero))
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -496,6 +602,11 @@ def build_parser() -> argparse.ArgumentParser:
     scan = subparsers.add_parser("scan", help="compare reflectivity with coefficient scans")
     scan.add_argument("--max-prime", type=int, default=127)
     scan.add_argument("--depth", type=int, default=120)
+    root_scan = subparsers.add_parser(
+        "root-scan", help="verify the uniform projective-root residue transport"
+    )
+    root_scan.add_argument("--max-prime", type=int, default=127)
+    root_scan.add_argument("--depth", type=int, default=120)
     return parser
 
 
@@ -505,6 +616,8 @@ def main() -> int:
         return run_candidate(args.prime, args.indices, args.depth, args.all_residues)
     if args.command == "scan":
         return run_scan(args.max_prime, args.depth)
+    if args.command == "root-scan":
+        return run_root_transport_scan(args.max_prime, args.depth)
     raise AssertionError(f"unhandled command: {args.command}")
 
 

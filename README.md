@@ -159,7 +159,10 @@ simply reflection in `w=(6,-5,-9)`, with `||w||²=2p` and `w≡6(i,j,k) (mod p)`
 `j`-invariant and kernel-checks the residue-`61` affine branch certificate.
 `MultiQuintupleRootConverse.lean` proves the converse for primitive rational Householder
 reflections: the normal has norm `p` or `2p` and is a projective lift.  This does not yet prove
-that every noncentral automorphism is a reflection.  `MultiQuintupleRootBranch.lean` proves the
+the required existential statement that every lattice with a noncentral automorphism contains
+a noncentral reflection; the stronger claim that every noncentral automorphism is itself a
+reflection is false in the order-12 `J=0` classes, which also contain rotations.
+`MultiQuintupleRootBranch.lean` proves the
 universal positive and negative eight-branch matchings for every direct short root.
 `MockTheta5QuintIdentity.lean` proves the full formal quintuple product identity, and
 `MultiQuintupleBilateralBridge.lean` proves the exact coefficient interface
@@ -173,6 +176,11 @@ reusable exponent-involution assembly, transports the non-direct projective root
 `71n+61` coefficient family zero.  It also instantiates the direct norm-`2p` root `(1,6,11)` to
 prove the actual `79n+9` family.  The arbitrary-automorphism classification, uniform transport for
 every projective short root, and the universal vanishing biconditional remain open.
+`MultiQuintupleRootVanishingEquivalence.lean` advances the uniform transport: it proves the exact
+projective quotient and target-residue laws, all negative coordinate congruences, and a universal
+positive eight-branch theorem for any short root whose target pairing is a multiple of `p²`.
+The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
+root reflection, and affine certificate; through `p=251` it passes all 162 reflective classes tested.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

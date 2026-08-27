@@ -107,7 +107,10 @@ converse for a primitive rational Householder reflection: integrality on the thr
 `p*e_i` forces the primitive normal norm to divide `2p`, hence (outside the coordinate cases)
 to equal `p` or `2p`, and preservation of the congruence kernel forces the normal to be a
 projective lift.  What remains conjectural is the extra classification step saying that every
-noncentral lattice automorphism must be such a primitive rational reflection.
+noncentral automorphism group contains such a primitive rational reflection.  The superficially
+stronger statement that every noncentral automorphism is a reflection is false for the order-twelve
+`J=0` groups, which also contain rotations; the Root--Vanishing argument needs existence, not that
+incorrect elementwise classification.
 
 The exact `p <= 401` census splits as follows:
 
@@ -138,9 +141,43 @@ Run the census or print the new `p=71` certificate with:
 
 ```bash
 python3 scripts/paley_spinor_scan.py scan --max-prime 401 --depth 120
+python3 scripts/paley_spinor_scan.py root-scan --max-prime 127 --depth 120
 python3 scripts/paley_spinor_scan.py candidate \
   --prime 71 --indices 1,11,34 --depth 500 --all-residues
 ```
+
+### The uniform projective target law
+
+Write a short root as `w=lambda*v+p*a` and put `u=(v dot w)/p`.  For a branch
+point in coefficient residue `r+p*q`, the exact completed-square pairing is
+
+```text
+Y dot w = p * (2*lambda*r - sum(w) + 6*u
+               + p*(2*lambda*q + 2*A)),
+A = sum a_s*(3*n_s+b_s).
+```
+
+`RamanujanTau.MultiQuintupleRootVanishingEquivalence` proves this identity for arbitrary
+integral parameters.  Consequently the positive target is the single congruence
+
+```text
+2*lambda*r = sum(w)-6*u  (mod p),
+```
+
+while the sign-corrected negative target is
+
+```text
+c*lambda*(2*lambda*r-sum(w)+6*u) = 12  (mod p),   c*e=2.
+```
+
+The same module proves that the positive target closes all eight bilateral branches for every
+short root: the output signs exist, their product reverses, the exponent is preserved, and the
+coordinate map is involutive.  It also proves all three negative coordinate-offset congruences.
+The scanner now derives the signed lattice reflection and residue from these formulas rather than
+searching over all automorphisms.  An exact sweep through `p<=251` checked 162 reflective classes:
+every predicted residue had the root-specific affine certificate and was an observed zero, with
+zero mismatches.  This remains finite evidence for the analytic progression but exact evidence for
+each emitted affine identity.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -329,18 +366,20 @@ the product has some identically zero residue class.
 ## Next sparse-product proof target
 
 The projective classification, primitive-reflection converse, universal direct-short-root branch
-matching, coefficient bridge, finite cancellation assembly, and the explicit `p=71` and `p=79`
-projective certificate transports are now implemented.  The proof frontier is:
+matching, coefficient bridge, finite cancellation assembly, explicit `p=71` and `p=79`
+projective certificate transports, projective target formulas, and uniform positive projective
+branch closure are now implemented.  The proof frontier is:
 
-1. show that every noncentral automorphism of the index-`p` congruence lattice is a primitive
-   rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
-2. generalize the explicit eight-coset `p=71` construction to an arbitrary projective short root
-   and derive its target residue uniformly;
+1. show that every noncentral automorphism group of the index-`p` congruence lattice contains a
+   primitive rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
+2. finish the uniform sign-corrected negative eight-branch theorem and lift both projective branch
+   theorems through the finite coefficient-box involution assembly;
 3. prove the converse on the cancellation side, or identify any non-reflective mechanism.
 
-The first item is now a sharply isolated arithmetic root-system problem.  The two flagship
-projective certificates are complete end to end; the remaining interface problem is a uniform
-projective-root theorem rather than analytic convergence or coefficient specialization.
+The first item is now a sharply isolated existential arithmetic root-system problem.  On the
+forward side, the new quotient law removes the formerly case-specific residue derivation; the
+remaining work is the negative branch closure and deterministic partner assembly, not analytic
+convergence or coefficient specialization.
 
 ## Sources
 
