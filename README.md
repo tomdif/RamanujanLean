@@ -28,8 +28,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 97 |
-| Build | `lake build` → **3647 jobs, 0 errors, 0 warnings** |
+| Modules | 121 |
+| Build | `lake build` → **3832 jobs, 0 errors, 0 warnings** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -128,6 +128,19 @@ theorem psi_eq_series    : psi = psiSum                  --  ψ(q) = Σ_{n≥0} 
 `2·((q;q)_∞·∏(1+qⁿ)²)`; cancelling the `2` (`PowerSeries ℤ` is a domain) and applying the distinct = odd
 algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean` records the theta relation
 `phi_mul_phiNeg : φ(q)·φ(−q) = φ(−q²)²`.
+
+### Multi-quintuple-product vanishing research
+
+[`RESEARCH_MULTI_QUINTUPLE.md`](RESEARCH_MULTI_QUINTUPLE.md) records a reproducible investigation of the
+2026 triple- and quadruple-quintuple-product coefficient-vanishing examples.  The exact integer scanner
+`scripts/quintuple_vanishing_scan.py` reproduces all five published examples and finds the first obstruction
+to the tempting condition `Σ iₛ² ≡ 0 (mod p)`: `(p;i,j,k)=(71;1,4,14)` is isotropic, but every residue class
+has a nonzero coefficient already by `q⁴⁶³`.  `MultiQuintupleVanishing.lean` proves the branch-uniform
+completed-square identity for arbitrary finite products, isolating the quadratic lattice that a future
+sign-reversing affine involution must preserve.  `MultiQuintupleP7.lean` proves the first exact factorized
+triple target: the new `(p;i,j,k)=(7;1,2,3)` case vanishes in the quadratic nonresidues `3,5,6 (mod 7)`.
+The remaining interface is the reusable one-variable `Q`-specialization/product-factor bridge.  No unproved
+general vanishing statement is asserted.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

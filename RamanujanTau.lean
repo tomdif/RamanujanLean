@@ -195,3 +195,8 @@ import RamanujanTau.MockTheta5QuintCollapse4
 
 -- Quintuple product, stone 3 (capstone): the general-N per-term
 import RamanujanTau.MockTheta5QuintCollapse5
+
+-- Multi-quintuple vanishing research: denominator-free completed-square lattice coordinates
+import RamanujanTau.MultiQuintupleVanishing
+-- First exact triple-product target: p=7 factorization vanishes in residues 3, 5, and 6
+import RamanujanTau.MultiQuintupleP7
