@@ -178,6 +178,16 @@ partner stays inside that box, and applies the positive or sign-corrected negati
 fixed-point-free sign-reversing involution.  Thus the resulting entire coefficient progression,
 not merely a surrogate bilateral sum, is formally zero.
 
+`RamanujanTau.MultiQuintupleProjectiveCancellation` now closes the two leading sparse examples.
+It proves a reusable theorem that any exponent-preserving, sign-reversing involution of the
+contributing branch points cancels the coefficient of the actual product.  For
+`(p;i,j,k)=(71;1,11,34)`, it derives the eight residue-coset parameterizations from the target
+coefficient, transports the non-direct short projective root `(6,-5,-9)` through the four affine
+branch pairings and their exact inverses, and proves every `71n+61` coefficient zero.  For
+`(79;1,6,11)`, the index triple itself is the norm-`2p` root, so the direct assembly proves every
+`79n+9` coefficient zero.  Both statements concern the stabilized Pochhammer products, not a
+surrogate bilateral model.
+
 The first attractive conjecture was:
 
 > For distinct canonical indices `0 < i_s < p/2`, the product
@@ -319,20 +329,18 @@ the product has some identically zero residue class.
 ## Next sparse-product proof target
 
 The projective classification, primitive-reflection converse, universal direct-short-root branch
-matching, coefficient bridge, and direct-short-root finite cancellation assembly are now
-implemented.  The proof frontier is:
+matching, coefficient bridge, finite cancellation assembly, and the explicit `p=71` and `p=79`
+projective certificate transports are now implemented.  The proof frontier is:
 
 1. show that every noncentral automorphism of the index-`p` congruence lattice is a primitive
    rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
-2. transport a general projective short root (not necessarily equal to the canonical index triple)
-   through the branch and cancellation interfaces;
-3. derive the target residue uniformly from that projective root and instantiate the assembly for the
-   certified `p=71` and `p=79` examples;
-4. prove the converse on the cancellation side, or identify any non-reflective mechanism.
+2. generalize the explicit eight-coset `p=71` construction to an arbitrary projective short root
+   and derive its target residue uniformly;
+3. prove the converse on the cancellation side, or identify any non-reflective mechanism.
 
-The first item is now a sharply isolated arithmetic root-system problem.  The direct finite
-formal-sum theorem is complete; the next interface problem is projective-root transport rather
-than analytic convergence or coefficient specialization.
+The first item is now a sharply isolated arithmetic root-system problem.  The two flagship
+projective certificates are complete end to end; the remaining interface problem is a uniform
+projective-root theorem rather than analytic convergence or coefficient specialization.
 
 ## Sources
 

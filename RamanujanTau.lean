@@ -218,3 +218,5 @@ import RamanujanTau.MultiQuintupleRootBranch
 import RamanujanTau.MultiQuintupleBilateralBridge
 -- Finite three-factor convolution and positive/negative short-root cancellation
 import RamanujanTau.MultiQuintupleCancellation
+-- Projective-root transport and end-to-end p=71/residue-61 and p=79/residue-9 vanishings
+import RamanujanTau.MultiQuintupleProjectiveCancellation

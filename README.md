@@ -167,9 +167,12 @@ universal positive and negative eight-branch matchings for every direct short ro
 `MultiQuintupleCancellation.lean` now flattens the actual three-factor coefficient into one finite
 bilateral branch box and proves both positive and sign-corrected negative short-root progressions
 vanish by a fixed-point-free sign-reversing involution.  It also gives a reflection-theoretic proof
-of the `7n+3` triple progression.  The arbitrary-automorphism classification, transport of the
-non-direct `p=71`/`p=79` certificates through this assembly, and the universal vanishing
-biconditional remain open.
+of the `7n+3` triple progression.  `MultiQuintupleProjectiveCancellation.lean` then supplies a
+reusable exponent-involution assembly, transports the non-direct projective root
+`(6,-5,-9) ≡ 6(1,11,34) (mod 71)` through all eight affine residue cosets, and proves the actual
+`71n+61` coefficient family zero.  It also instantiates the direct norm-`2p` root `(1,6,11)` to
+prove the actual `79n+9` family.  The arbitrary-automorphism classification, uniform transport for
+every projective short root, and the universal vanishing biconditional remain open.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi
