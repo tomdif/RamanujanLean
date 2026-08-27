@@ -202,3 +202,5 @@ import RamanujanTau.MultiQuintupleVanishing
 import RamanujanTau.MultiQuintuplePochhammer
 -- First exact triple-product theorem: p=7 product vanishes in residues 3, 5, and 6
 import RamanujanTau.MultiQuintupleP7
+-- Infinite all-canonical family: every nonsquare residue vanishes for every odd p >= 5
+import RamanujanTau.MultiQuintupleCanonical

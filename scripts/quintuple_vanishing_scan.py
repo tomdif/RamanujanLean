@@ -201,6 +201,22 @@ def run_candidate(p: int, indices: tuple[int, ...], depth: int) -> int:
     return 0
 
 
+def run_canonical(p: int, depth: int) -> int:
+    """Check the all-canonical product against the proved square-support prediction."""
+    if p < 5 or p % 2 == 0:
+        raise ValueError("canonical family expects an odd modulus p >= 5")
+    indices = tuple(range(1, (p + 1) // 2))
+    residues, _ = vanishing_residues(p, indices, depth)
+    squares = {x * x % p for x in range(p)}
+    predicted = tuple(residue for residue in range(p) if residue not in squares)
+    matched = residues == predicted
+    print(f"p={p} indices=1..{indices[-1]} depth={depth}")
+    print(f"nonsquare residues={predicted}")
+    print(f"candidate vanishing residues={residues}")
+    print("MATCH" if matched else "MISMATCH")
+    return int(not matched)
+
+
 def run_scan(max_prime: int, arity: int, depth: int, allow_repeats: bool) -> int:
     chooser = combinations_with_replacement if allow_repeats else combinations
     print(
@@ -242,6 +258,12 @@ def build_parser() -> argparse.ArgumentParser:
     candidate.add_argument("--indices", type=parse_indices, required=True)
     candidate.add_argument("--depth", type=int, default=120)
 
+    canonical = subparsers.add_parser(
+        "canonical", help="check the proved all-canonical nonsquare family"
+    )
+    canonical.add_argument("--prime", type=int, required=True)
+    canonical.add_argument("--depth", type=int, default=80)
+
     scan = subparsers.add_parser("scan", help="scan sum-of-squares candidates")
     scan.add_argument("--max-prime", type=int, default=97)
     scan.add_argument("--arity", type=int, default=3)
@@ -256,6 +278,8 @@ def main() -> int:
         return run_known(args.depth)
     if args.command == "candidate":
         return run_candidate(args.prime, args.indices, args.depth)
+    if args.command == "canonical":
+        return run_canonical(args.prime, args.depth)
     if args.command == "scan":
         return run_scan(args.max_prime, args.arity, args.depth, args.allow_repeats)
     raise AssertionError(f"unhandled command: {args.command}")

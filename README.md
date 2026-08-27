@@ -25,12 +25,13 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
+| **Canonical quintuple family** | For every odd `p ≥ 5`, `∏_{i=1}^{(p-1)/2}Q(qⁱ,qᵖ)` vanishes in every nonsquare class mod `p` |
 | **Three quintuple products (`p=7`)** | `[q^{7n+r}] Q(q,q⁷)Q(q²,q⁷)Q(q³,q⁷) = 0` for `r=3,5,6` |
 
 | | |
 |---|---|
-| Modules | 122 |
-| Build | `lake build` → **3833 jobs, 0 errors, 0 warnings** |
+| Modules | 123 |
+| Build | `lake build` → **3834 jobs, 0 errors, 0 warnings** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -141,8 +142,11 @@ completed-square identity for arbitrary finite products, isolating the quadratic
 sign-reversing affine involution must preserve.  `MultiQuintupleP7.lean` proves the first exact
 triple theorem: the new `(p;i,j,k)=(7;1,2,3)` case vanishes in the quadratic nonresidues `3,5,6 (mod 7)`.
 `MultiQuintuplePochhammer.lean` supplies the reusable formal `(qᵃ;qᵈ)∞` and the paper's five-factor
-`Q(qⁱ,qᵖ)` specialization, so this theorem is about the actual product rather than a surrogate target.
-No unproved general vanishing statement is asserted.
+`Q(qⁱ,qᵖ)` specialization.  `MultiQuintupleCanonical.lean` proves the symbolic factorization
+`∏_{i=1}^{(p-1)/2} Q(qⁱ,qᵖ) = φ(−q)(qᵖ;qᵖ)∞^((p-5)/2)(q²ᵖ;q²ᵖ)∞` for every odd `p ≥ 5`, and hence
+all nonsquare residue-class vanishings (all quadratic nonresidues when `p` is prime).
+This is a theorem about the actual product rather than a surrogate target.  No unproved general sparse
+vanishing statement is asserted.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

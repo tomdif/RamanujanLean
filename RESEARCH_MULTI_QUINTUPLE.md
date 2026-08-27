@@ -2,9 +2,33 @@
 
 ## Status
 
-This is an experimental research track, not a proved general theorem.  The exact
-coefficient scanner in `scripts/quintuple_vanishing_scan.py` reproduces all five examples
-reported in the March and June 2026 papers and then tests proposed extensions.
+This track now contains a proved infinite family as well as an open classification problem.
+The exact coefficient scanner in `scripts/quintuple_vanishing_scan.py` reproduces all five
+examples reported in the March and June 2026 papers and tests proposed extensions.
+
+## Main theorem: the all-canonical infinite family
+
+For every odd integer `p = 2m+1 >= 5`, collecting the five Pochhammer factors proves
+
+```text
+prod_{i=1}^m Q(q^i,q^p)
+  = phi(-q) (q^p;q^p)_inf^(m-2) (q^(2p);q^(2p))_inf.
+```
+
+The tail is supported on multiples of `p`, while `phi(-q)` is supported on square exponents.
+It follows that every coefficient in every nonsquare residue class modulo `p` vanishes.  For
+prime `p`, these are exactly all quadratic nonresidues, so this gives `(p-1)/2` infinite zero
+progressions at once.  `RamanujanTau.MultiQuintupleCanonical` proves the factorization and the
+coefficient theorem for symbolic `p`; this is not a finite computation or a list of fixed cases.
+
+Check sample expansions against the theorem with, for example:
+
+```bash
+python3 scripts/quintuple_vanishing_scan.py canonical --prime 31 --depth 80
+```
+
+The remaining experimental problem below concerns *sparse* products with only three or four
+factors.  The all-canonical theorem does not classify those sparse vanishings.
 
 The first attractive conjecture was:
 
@@ -132,7 +156,7 @@ The reported zeros are finite experimental evidence unless separately proved.  A
 non-hit with all residues covered is, by contrast, a valid finite disproof of the claim that
 the product has some identically zero residue class.
 
-## Next proof target
+## Next sparse-product proof target
 
 The most useful next step is to classify the isotropic triples projectively.  For each orbit:
 
