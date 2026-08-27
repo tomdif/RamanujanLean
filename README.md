@@ -25,11 +25,12 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
+| **Three quintuple products (`p=7`)** | `[q^{7n+r}] Q(q,q⁷)Q(q²,q⁷)Q(q³,q⁷) = 0` for `r=3,5,6` |
 
 | | |
 |---|---|
-| Modules | 121 |
-| Build | `lake build` → **3832 jobs, 0 errors, 0 warnings** |
+| Modules | 122 |
+| Build | `lake build` → **3833 jobs, 0 errors, 0 warnings** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -137,10 +138,11 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
 to the tempting condition `Σ iₛ² ≡ 0 (mod p)`: `(p;i,j,k)=(71;1,4,14)` is isotropic, but every residue class
 has a nonzero coefficient already by `q⁴⁶³`.  `MultiQuintupleVanishing.lean` proves the branch-uniform
 completed-square identity for arbitrary finite products, isolating the quadratic lattice that a future
-sign-reversing affine involution must preserve.  `MultiQuintupleP7.lean` proves the first exact factorized
-triple target: the new `(p;i,j,k)=(7;1,2,3)` case vanishes in the quadratic nonresidues `3,5,6 (mod 7)`.
-The remaining interface is the reusable one-variable `Q`-specialization/product-factor bridge.  No unproved
-general vanishing statement is asserted.
+sign-reversing affine involution must preserve.  `MultiQuintupleP7.lean` proves the first exact
+triple theorem: the new `(p;i,j,k)=(7;1,2,3)` case vanishes in the quadratic nonresidues `3,5,6 (mod 7)`.
+`MultiQuintuplePochhammer.lean` supplies the reusable formal `(qᵃ;qᵈ)∞` and the paper's five-factor
+`Q(qⁱ,qᵖ)` specialization, so this theorem is about the actual product rather than a surrogate target.
+No unproved general vanishing statement is asserted.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

@@ -198,5 +198,7 @@ import RamanujanTau.MockTheta5QuintCollapse5
 
 -- Multi-quintuple vanishing research: denominator-free completed-square lattice coordinates
 import RamanujanTau.MultiQuintupleVanishing
--- First exact triple-product target: p=7 factorization vanishes in residues 3, 5, and 6
+-- Reusable one-variable (q^a;q^d)_∞ and specialized quintuple product Q(q^i,q^p)
+import RamanujanTau.MultiQuintuplePochhammer
+-- First exact triple-product theorem: p=7 product vanishes in residues 3, 5, and 6
 import RamanujanTau.MultiQuintupleP7

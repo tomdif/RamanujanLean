@@ -62,10 +62,18 @@ The last two factors are supported on multiples of seven, while
 `phi(-q)=sum_n (-1)^n q^(n^2)` is supported modulo seven only at the quadratic residues
 `0,1,2,4`.  Therefore the three quadratic nonresidues `3,5,6` vanish.
 
-`RamanujanTau.MultiQuintupleP7` proves this support argument for the factorized power-series
-target, including all three infinite families of zero coefficients.  The outstanding interface
-lemma is the formal one-variable specialization/product-factor collection that identifies the
-three `Q` factors with that target; it requires a reusable residue-class q-Pochhammer definition.
+`RamanujanTau.MultiQuintuplePochhammer` defines the paper's one-variable specialization
+`quintupleSpecialized p i = Q(q^i,q^p)` from five stabilized residue-class q-Pochhammer factors.
+`RamanujanTau.MultiQuintupleP7` then proves the complete product collection
+
+```text
+quintupleSpecialized 7 1 * quintupleSpecialized 7 2 * quintupleSpecialized 7 3
+  = phi(-q) (q^7;q^7)_inf (q^14;q^14)_inf
+```
+
+and transports the support argument to the actual product.  Thus all three infinite families
+`7n+3`, `7n+5`, and `7n+6` are kernel-checked theorems, with no remaining specialization
+interface and no appeal to numerical experimentation.
 
 ## Exact coefficient model
 
