@@ -204,3 +204,5 @@ import RamanujanTau.MultiQuintuplePochhammer
 import RamanujanTau.MultiQuintupleP7
 -- Infinite all-canonical family: every nonsquare residue vanishes for every odd p >= 5
 import RamanujanTau.MultiQuintupleCanonical
+-- Projective J-invariant and exact reflective-lattice certificate for p=71
+import RamanujanTau.MultiQuintuplePaleySpinor

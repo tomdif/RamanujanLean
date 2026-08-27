@@ -30,6 +30,86 @@ python3 scripts/quintuple_vanishing_scan.py canonical --prime 31 --depth 80
 The remaining experimental problem below concerns *sparse* products with only three or four
 factors.  The all-canonical theorem does not classify those sparse vanishings.
 
+## Breakthrough candidate: the reflective-lattice criterion
+
+For a distinct isotropic triple `(i,j,k)`, define the index-`p` ternary lattice
+
+```text
+L_(p;i,j,k) = {(x,y,c1*x+c2*y+p*z) : x,y,z in Z},
+c1 = -i/k (mod p),  c2 = -j/k (mod p),
+```
+
+with the ordinary sum-of-three-squares norm.  Solving a target residue condition in the
+three bilateral quintuple sums produces this homogeneous lattice, together with eight
+inhomogeneous cosets indexed by the bilateral branch choices.
+
+The data now supports the precise conjecture:
+
+> **Reflective-lattice conjecture.** A distinct isotropic triple product has an identically
+> vanishing residue class if and only if `Aut(L_(p;i,j,k))` is larger than its unavoidable
+> central subgroup `{+I,-I}`.  In the reflective case, every zero progression is explained by
+> affine integral isometries that perfectly match the four even-parity branches with the four
+> odd-parity branches.
+
+This separates the old counterexamples for the right structural reason:
+
+```text
+p=71, (1,11,34): |Aut(L)|=4, zero residue 61, exact affine certificate
+p=71, (1, 4,14): |Aut(L)|=2, no zero residue (every residue has a finite witness)
+p=79, (1, 6,11): |Aut(L)|=4, zero residue 9,  exact affine certificate
+p=79, (1, 9,32): |Aut(L)|=2, no zero residue
+```
+
+The exact scanner `scripts/paley_spinor_scan.py` exhausts the lattice automorphism group by
+enumerating every lattice vector having the three required column norms and checking all Gram
+pairings.  It uses rational/integer arithmetic to solve and verify every affine branch map.
+Through every prime `p <= 401`:
+
+```text
+projective J-classes checked                         596
+reflective-class / observed-hit mismatches             0
+observed zero residues lacking affine certificates      0
+```
+
+The coefficient comparison in this census uses 120 complete progressions and is therefore finite
+evidence for the universal biconditional.  The affine certificates on the hit side are exact
+polynomial identities, not numerical evidence.  A separate all-triples scan through `p <= 127`
+(2,587 distinct canonical isotropic triples) also found that the hit/miss label is constant on
+every projective class.
+
+Run the census or print the new `p=71` certificate with:
+
+```bash
+python3 scripts/paley_spinor_scan.py scan --max-prime 401 --depth 120
+python3 scripts/paley_spinor_scan.py candidate \
+  --prime 71 --indices 1,11,34 --depth 500 --all-residues
+```
+
+### The projective invariant is an elliptic `j`-invariant
+
+The correct symmetric invariant is
+
+```text
+J = (i^2*j^2+j^2*k^2+k^2*i^2)^3 / (i^2*j^2*k^2)^2  (mod p).
+```
+
+It labels the signed-permutation/projective classes in the scan.  More importantly, if
+`u=(j/i)^2` and `i^2+j^2+k^2=0`, then
+
+```text
+-256*J = 256*(1+u+u^2)^3 / (u^2*(1+u)^2),
+```
+
+which is exactly the Legendre elliptic-curve `j`-invariant at `lambda=-u`.  Thus the sparse
+quintuple problem naturally meets the octahedral quotient of the isotropic conic and elliptic
+moduli; `sigma2`'s quadratic character was only a coarse shadow of this invariant.
+
+`RamanujanTau.MultiQuintuplePaleySpinor` formally proves this elliptic `j` bridge over an arbitrary
+field.  It also kernel-checks the `p=71`, `(1,11,34)`, residue-`61` reflection, its involutivity,
+the eight residue constants, and the four exponent-preserving parity-reversing affine branch
+pairings.  What remains open is the universal reflective-lattice biconditional and an end-to-end
+formal transport from these branch certificates to coefficients of the five-Pochhammer definition.
+
 The first attractive conjecture was:
 
 > For distinct canonical indices `0 < i_s < p/2`, the product
@@ -63,8 +143,9 @@ sigma2 = i^2*j^2 + j^2*k^2 + k^2*i^2
 separates the data perfectly: all 35 isotropic tuples with quadratic-residue `sigma2` have a
 candidate vanishing class, while all 70 with non-residue `sigma2` have none.  It is not the
 whole answer: at `p=79`, only 39 of the 78 nonzero quadratic-residue `sigma2` tuples vanish
-(all 13 tuples with `sigma2=0` also vanish).  This points toward a finer projective invariant
-on the conic `i^2+j^2+k^2=0`, together with the mod-6 coset data in Watson's bilateral sum.
+(all 13 tuples with `sigma2=0` also vanish).  The projective `J`-invariant and reflective-lattice
+criterion above now explain this split throughout the much larger census; the old `sigma2`
+observation remains useful as the first coarse signal.
 
 ## First exact target: the p=7 triple
 
@@ -158,14 +239,18 @@ the product has some identically zero residue class.
 
 ## Next sparse-product proof target
 
-The most useful next step is to classify the isotropic triples projectively.  For each orbit:
+The projective classification and certificate search are now implemented.  The proof frontier is:
 
-1. retain the mod-6 branch/sign data of the bilateral expansion;
-2. search for an integral affine isometry of the completed-square lattice;
-3. require it to preserve the target exponent and reverse the branch sign;
-4. emit the matrix and translation as a certificate suitable for Lean.
+1. prove that a noncentral automorphism of `L_(p;i,j,k)` always supplies the required perfect
+   affine matching of the eight branch cosets;
+2. prove the converse, or identify any possible non-reflective cancellation mechanism;
+3. classify the reflective determinant-`p^2` ternary lattices arithmetically in terms of the
+   octahedral/elliptic `J`-parameter;
+4. finish the reusable formal bridge from the bilateral coefficient model to
+   `quintupleSpecialized`, turning emitted certificates directly into Lean coefficient theorems.
 
-This should reveal the missing invariant before attempting a universal theorem.
+The third item is where the elliptic-moduli observation may convert the computational criterion
+into an explicit infinite-family theorem.
 
 ## Sources
 

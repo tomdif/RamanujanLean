@@ -173,7 +173,7 @@ lemma canonicalOddResidues_reassembly (p m : ℕ) (hpm : p = 2 * m + 1) :
   rw [show 2 * m + 1 = m + (m + 1) by omega, Finset.prod_range_add,
     Finset.prod_range_succ']
   simp only [add_assoc, add_comm, add_left_comm, mul_add, mul_one]
-  ring
+  ring_nf
 
 /-! ### Splitting the diagonal residue class -/
 
