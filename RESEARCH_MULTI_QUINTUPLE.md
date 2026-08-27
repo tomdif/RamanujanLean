@@ -171,9 +171,12 @@ branch-parity reversal, residue transport, exponent preservation, and involutivi
 On the q-series side, `RamanujanTau.MockTheta5QuintIdentity` proves the full formal bivariate
 quintuple product identity.  `RamanujanTau.MultiQuintupleBilateralBridge` then proves, for every
 `0 < i` and `2i < p`, that each coefficient of the actual stabilized five-Pochhammer series
-`quintupleSpecialized p i` equals its finite signed Watson bilateral coefficient.  The remaining
-end-to-end step for a sparse triple is therefore the finite convolution/cancellation assembly
-that applies the universal branch matching simultaneously to the three bilateral factors.
+`quintupleSpecialized p i` equals its finite signed Watson bilateral coefficient.
+`RamanujanTau.MultiQuintupleCancellation` completes the direct-short-root end-to-end step: it
+flattens the actual three-factor coefficient into one finite branch box, proves the reflected
+partner stays inside that box, and applies the positive or sign-corrected negative matching as a
+fixed-point-free sign-reversing involution.  Thus the resulting entire coefficient progression,
+not merely a surrogate bilateral sum, is formally zero.
 
 The first attractive conjecture was:
 
@@ -315,19 +318,21 @@ the product has some identically zero residue class.
 
 ## Next sparse-product proof target
 
-The projective classification, primitive-reflection converse, universal short-root branch matching,
-and coefficient bridge are now implemented.  The proof frontier is:
+The projective classification, primitive-reflection converse, universal direct-short-root branch
+matching, coefficient bridge, and direct-short-root finite cancellation assembly are now
+implemented.  The proof frontier is:
 
 1. show that every noncentral automorphism of the index-`p` congruence lattice is a primitive
    rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
-2. assemble the three finite bilateral coefficient sums and the universal branch matching into
-   a reusable sign-reversing convolution theorem for an entire sparse triple product;
-3. derive the target residue uniformly from the short root and instantiate the assembly for the
+2. transport a general projective short root (not necessarily equal to the canonical index triple)
+   through the branch and cancellation interfaces;
+3. derive the target residue uniformly from that projective root and instantiate the assembly for the
    certified `p=71` and `p=79` examples;
 4. prove the converse on the cancellation side, or identify any non-reflective mechanism.
 
-The first item is now a sharply isolated arithmetic root-system problem.  The second is a finite
-formal-sum theorem; the analytic and specialization layers have already been removed.
+The first item is now a sharply isolated arithmetic root-system problem.  The direct finite
+formal-sum theorem is complete; the next interface problem is projective-root transport rather
+than analytic convergence or coefficient specialization.
 
 ## Sources
 

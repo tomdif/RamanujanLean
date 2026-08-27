@@ -216,3 +216,5 @@ import RamanujanTau.MultiQuintupleRootConverse
 import RamanujanTau.MultiQuintupleRootBranch
 -- Exact coefficient bridge from the five Pochhammer factors to Watson's bilateral sum
 import RamanujanTau.MultiQuintupleBilateralBridge
+-- Finite three-factor convolution and positive/negative short-root cancellation
+import RamanujanTau.MultiQuintupleCancellation

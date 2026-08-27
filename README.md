@@ -164,8 +164,12 @@ universal positive and negative eight-branch matchings for every direct short ro
 `MockTheta5QuintIdentity.lean` proves the full formal quintuple product identity, and
 `MultiQuintupleBilateralBridge.lean` proves the exact coefficient interface
 `[q^k] Q(q^i,q^p) = quintBilateralCoeff p i k` for `0<i` and `2i<p`.
-The remaining sparse-triple capstone is the finite three-factor convolution/cancellation assembly;
-the arbitrary-automorphism classification and universal vanishing biconditional remain conjectural.
+`MultiQuintupleCancellation.lean` now flattens the actual three-factor coefficient into one finite
+bilateral branch box and proves both positive and sign-corrected negative short-root progressions
+vanish by a fixed-point-free sign-reversing involution.  It also gives a reflection-theoretic proof
+of the `7n+3` triple progression.  The arbitrary-automorphism classification, transport of the
+non-direct `p=71`/`p=79` certificates through this assembly, and the universal vanishing
+biconditional remain open.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi
