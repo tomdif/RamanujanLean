@@ -156,8 +156,16 @@ neither.  `MultiQuintupleRootReflection.lean` proves the general forward theorem
 root produces an integral Householder reflection.  For `(p;i,j,k)=(71;1,11,34)`, the opaque matrix is
 simply reflection in `w=(6,-5,-9)`, with `||w||²=2p` and `w≡6(i,j,k) (mod p)`.
 `MultiQuintuplePaleySpinor.lean` also proves that the projective invariant is a Legendre elliptic
-`j`-invariant and kernel-checks the residue-`61` affine branch certificate.  The converse
-reflection-to-root theorem and universal vanishing classification remain conjectural.
+`j`-invariant and kernel-checks the residue-`61` affine branch certificate.
+`MultiQuintupleRootConverse.lean` proves the converse for primitive rational Householder
+reflections: the normal has norm `p` or `2p` and is a projective lift.  This does not yet prove
+that every noncentral automorphism is a reflection.  `MultiQuintupleRootBranch.lean` proves the
+universal positive and negative eight-branch matchings for every direct short root.
+`MockTheta5QuintIdentity.lean` proves the full formal quintuple product identity, and
+`MultiQuintupleBilateralBridge.lean` proves the exact coefficient interface
+`[q^k] Q(q^i,q^p) = quintBilateralCoeff p i k` for `0<i` and `2i<p`.
+The remaining sparse-triple capstone is the finite three-factor convolution/cancellation assembly;
+the arbitrary-automorphism classification and universal vanishing biconditional remain conjectural.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

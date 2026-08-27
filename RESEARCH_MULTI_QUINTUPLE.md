@@ -102,7 +102,12 @@ parameters, without division and without assuming that `p` is prime.  Thus the i
 short projective root  ==>  noncentral integral reflection
 ```
 
-is now a formal theorem.  The converse remains a classification conjecture.
+is now a formal theorem.  `RamanujanTau.MultiQuintupleRootConverse` proves the arithmetic
+converse for a primitive rational Householder reflection: integrality on the three vectors
+`p*e_i` forces the primitive normal norm to divide `2p`, hence (outside the coordinate cases)
+to equal `p` or `2p`, and preservation of the congruence kernel forces the normal to be a
+projective lift.  What remains conjectural is the extra classification step saying that every
+noncentral lattice automorphism must be such a primitive rational reflection.
 
 The exact `p <= 401` census splits as follows:
 
@@ -159,9 +164,16 @@ moduli; `sigma2`'s quadratic character was only a coarse shadow of this invarian
 `RamanujanTau.MultiQuintuplePaleySpinor` formally proves this elliptic `j` bridge over an arbitrary
 field.  It also kernel-checks the `p=71`, `(1,11,34)`, residue-`61` reflection, its short-root origin,
 its involutivity, the eight residue constants, and the four exponent-preserving parity-reversing
-affine branch pairings.  What remains open is the converse from a noncentral lattice automorphism
-to a short root, the universal vanishing biconditional, and an end-to-end formal transport from
-these branch certificates to coefficients of the five-Pochhammer definition.
+affine branch pairings.  `RamanujanTau.MultiQuintupleRootBranch` now proves the corresponding
+positive and sign-corrected negative eight-branch matching for every direct short root, including
+branch-parity reversal, residue transport, exponent preservation, and involutivity.
+
+On the q-series side, `RamanujanTau.MockTheta5QuintIdentity` proves the full formal bivariate
+quintuple product identity.  `RamanujanTau.MultiQuintupleBilateralBridge` then proves, for every
+`0 < i` and `2i < p`, that each coefficient of the actual stabilized five-Pochhammer series
+`quintupleSpecialized p i` equals its finite signed Watson bilateral coefficient.  The remaining
+end-to-end step for a sparse triple is therefore the finite convolution/cancellation assembly
+that applies the universal branch matching simultaneously to the three bilateral factors.
 
 The first attractive conjecture was:
 
@@ -265,6 +277,17 @@ The square completion behind the lattice approach is
 identities.  They turn equality of product exponents into preservation of a sum of squares,
 which is the natural starting point for an affine sign-reversing involution.
 
+`RamanujanTau.MultiQuintupleBilateralBridge` closes the coefficient interface exactly:
+
+```text
+coeff k (quintupleSpecialized p i) = quintBilateralCoeff p i k
+```
+
+for `0 < i` and `2*i < p`.  Its proof transports the completed formal quintuple product identity
+through a finite positive-cone diagonal and identifies a common truncation with the five stabilized
+Pochhammer factors.  No analytic convergence or unrestricted substitution of a negative Laurent
+power into a formal power series is used.
+
 ## Reproducing the experiments
 
 Published examples, checked through 160 complete progressions:
@@ -292,20 +315,19 @@ the product has some identically zero residue class.
 
 ## Next sparse-product proof target
 
-The projective classification, short-root test, and certificate search are now implemented.
-The proof frontier is:
+The projective classification, primitive-reflection converse, universal short-root branch matching,
+and coefficient bridge are now implemented.  The proof frontier is:
 
-1. prove the converse short-root classification: every noncentral automorphism of the index-`p`
-   congruence lattice comes from a lift `w` with `||w||^2 in {p,2p}`;
-2. prove that such a root always supplies the required perfect affine matching of the eight
-   branch cosets, and derive the target residue directly from `w`;
-3. prove the converse on the cancellation side, or identify any non-reflective mechanism;
-4. finish the reusable formal bridge from the bilateral coefficient model to
-   `quintupleSpecialized`, turning emitted certificates directly into Lean coefficient theorems.
+1. show that every noncentral automorphism of the index-`p` congruence lattice is a primitive
+   rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
+2. assemble the three finite bilateral coefficient sums and the universal branch matching into
+   a reusable sign-reversing convolution theorem for an entire sparse triple product;
+3. derive the target residue uniformly from the short root and instantiate the assembly for the
+   certified `p=71` and `p=79` examples;
+4. prove the converse on the cancellation side, or identify any non-reflective mechanism.
 
-The first two items now look like an arithmetic root-system problem rather than an elliptic-moduli
-classification problem.  The `J`-invariant still organizes projective classes, but the short lift
-is the more direct route to an explicit infinite-family theorem.
+The first item is now a sharply isolated arithmetic root-system problem.  The second is a finite
+formal-sum theorem; the analytic and specialization layers have already been removed.
 
 ## Sources
 

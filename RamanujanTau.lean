@@ -150,7 +150,7 @@ import RamanujanTau.MockTheta5RamanujanTheta
 import RamanujanTau.MockTheta5PsiSeries
 -- Relations among theta functions: φ(q)·φ(−q) = φ(−q²)²
 import RamanujanTau.MockTheta5ThetaIdentities
--- Quintuple product identity (in progress): stone 1 — the RHS series Σ(z^{3n}−z^{−3n−1})q^{n(3n+1)/2}
+-- Quintuple product identity, stone 1 — the RHS series Σ(z^{3n}−z^{−3n−1})q^{n(3n+1)/2}
 import RamanujanTau.MockTheta5QuintTheta
 -- Quintuple product, stone 2 (base-q side): the signed one-sided products ∏(1−zqⁱ), ∏_{i≥0}(1−zqⁱ)
 import RamanujanTau.MockTheta5QuintProdZ
@@ -195,6 +195,8 @@ import RamanujanTau.MockTheta5QuintCollapse4
 
 -- Quintuple product, stone 3 (capstone): the general-N per-term
 import RamanujanTau.MockTheta5QuintCollapse5
+-- Quintuple product CAPSTONE: full Laurent-coefficient collapse and formal five-factor identity
+import RamanujanTau.MockTheta5QuintIdentity
 
 -- Multi-quintuple vanishing research: denominator-free completed-square lattice coordinates
 import RamanujanTau.MultiQuintupleVanishing
@@ -208,3 +210,9 @@ import RamanujanTau.MultiQuintupleCanonical
 import RamanujanTau.MultiQuintupleRootReflection
 -- Projective J-invariant, short-root explanation, and exact affine certificate for p=71
 import RamanujanTau.MultiQuintuplePaleySpinor
+-- Converse for primitive rational reflections preserving the index-p congruence lattice
+import RamanujanTau.MultiQuintupleRootConverse
+-- Universal positive/negative short-root transport of all eight bilateral branches
+import RamanujanTau.MultiQuintupleRootBranch
+-- Exact coefficient bridge from the five Pochhammer factors to Watson's bilateral sum
+import RamanujanTau.MultiQuintupleBilateralBridge
