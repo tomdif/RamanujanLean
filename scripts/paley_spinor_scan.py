@@ -529,6 +529,69 @@ def dual_character_amplitude_terms(
     )
 
 
+def dual_character_compressed_phase(
+    lattice: RestrictedLattice, residue: int, vector: Vector
+) -> int:
+    """Collapse one supported eight-term amplitude to one ``6p`` phase.
+
+    Projectivity forces every branch difference to be ``2*p*t_s``.  Support
+    says ``t_s`` is ``1`` or ``2`` modulo three, and
+
+    ``1-zeta^(4p) = zeta^p * (1-zeta^(2p))``.
+
+    Hence the full amplitude is
+
+    ``zeta^phase * (1-zeta^(2p))^3``
+
+    with the phase returned here.  The common cubic factor is nonzero, so a
+    shell can be tested using one root of unity per vector instead of eight.
+    """
+    p = lattice.p
+    indices = lattice.indices
+    pairing = int(dot(indices, vector))
+    if pairing % p:
+        raise AssertionError("projective vector did not lie in the integral dual lattice")
+    inverse_3k = pow(3 * indices[2], -1, p)
+    base_phase = (
+        6 * vector[2] * inverse_3k * residue
+        + 6 * (pairing // p)
+        - sum(vector)
+    )
+    conjugate_factors = 0
+    for coordinate, index in zip(vector, indices):
+        reduced_numerator = coordinate - 3 * vector[2] * inverse_3k * index
+        if reduced_numerator % p:
+            raise AssertionError("projective phase difference was not divisible by 2p")
+        cubic_residue = (reduced_numerator // p) % 3
+        if cubic_residue == 0:
+            raise AssertionError("compressed phase requested for an unsupported vector")
+        conjugate_factors += int(cubic_residue == 2)
+    phase = (base_phase + p * conjugate_factors) % (6 * p)
+    if phase % 3:
+        raise AssertionError("compressed projective phase was not divisible by three")
+    return phase
+
+
+def compressed_dual_shell_phase_counter(
+    lattice: RestrictedLattice, residue: int, vectors: tuple[Vector, ...]
+) -> Counter[int]:
+    """The one-phase-per-vector counter of a supported dual shell."""
+    return Counter(
+        dual_character_compressed_phase(lattice, residue, vector)
+        for vector in vectors
+    )
+
+
+def compressed_phase_counter_is_pair_balanced(
+    p: int, phases: Counter[int]
+) -> bool:
+    """Test whether cancellation is entirely by opposite ``6p`` phases."""
+    return all(
+        phases[exponent] == phases[exponent + 3 * p]
+        for exponent in range(3 * p)
+    )
+
+
 def dual_character_amplitude_is_supported(
     lattice: RestrictedLattice, vector: Vector
 ) -> bool:
@@ -625,11 +688,10 @@ def first_dual_character_shells(
 def dual_shell_amplitude_is_zero(
     lattice: RestrictedLattice, residue: int, vectors: tuple[Vector, ...]
 ) -> bool:
-    """Decide one complete dual-shell amplitude exactly."""
-    terms: Counter[int] = Counter()
-    for vector in vectors:
-        terms.update(dual_character_amplitude_terms(lattice, residue, vector))
-    return six_p_cyclotomic_sum_is_zero(lattice.p, terms)
+    """Decide one complete dual-shell amplitude by cubic compression."""
+    return six_p_cyclotomic_sum_is_zero(
+        lattice.p, compressed_dual_shell_phase_counter(lattice, residue, vectors)
+    )
 
 
 def run_dual_shell_candidate(
@@ -672,11 +734,20 @@ def run_dual_shell_candidate(
             {exponent: coefficient for exponent, coefficient in terms.items() if coefficient}
         )
         zero = six_p_cyclotomic_sum_is_zero(p, terms)
+        compressed_phases = compressed_dual_shell_phase_counter(
+            lattice, residue % p, vectors
+        )
+        compressed_zero = six_p_cyclotomic_sum_is_zero(p, compressed_phases)
+        if zero != compressed_zero:
+            raise AssertionError("expanded and compressed shell amplitudes disagree")
         if number <= shell_count:
             common_zero = common_zero and zero
         print(
             f"shell={number}; norm={norm}={norm // p}p; vectors={vectors}; "
-            f"phase-terms={dict(sorted(terms.items()))}; exact-zero={zero}"
+            f"phase-terms={dict(sorted(terms.items()))}; exact-zero={zero}; "
+            f"compressed-phases={dict(sorted(compressed_phases.items()))}; "
+            f"opposite-phase-balanced="
+            f"{compressed_phase_counter_is_pair_balanced(p, compressed_phases)}"
         )
     print(
         f"first-{shell_count}-shells-common-zero={common_zero}; "
@@ -725,10 +796,10 @@ def dual_shell_common_zero_residues(
 ) -> set[int]:
     """Residues on which every supplied complete shell cancels exactly."""
     p = lattice.p
-    affine_shell_terms = [
+    affine_shell_phases = [
         tuple(
             (
-                dual_character_amplitude_terms(lattice, 0, vector),
+                dual_character_compressed_phase(lattice, 0, vector),
                 dual_residue_phase_step(lattice, vector),
             )
             for vector in vectors
@@ -738,15 +809,12 @@ def dual_shell_common_zero_residues(
     common_zeros: set[int] = set()
     for residue in range(p):
         all_shells_zero = True
-        for vector_terms in affine_shell_terms:
-            terms: Counter[int] = Counter()
-            for base_terms, phase_step in vector_terms:
-                terms.update(
-                    shift_cyclotomic_terms(
-                        base_terms, residue * phase_step, 6 * p
-                    )
-                )
-            if not six_p_cyclotomic_sum_is_zero(p, terms):
+        for vector_phases in affine_shell_phases:
+            phases = Counter(
+                (base_phase + residue * phase_step) % (6 * p)
+                for base_phase, phase_step in vector_phases
+            )
+            if not six_p_cyclotomic_sum_is_zero(p, phases):
                 all_shells_zero = False
                 break
         if all_shells_zero:
@@ -807,20 +875,20 @@ def unique_phase_reversing_partners(
     residue: int,
     shells: list[tuple[int, tuple[Vector, ...]]],
 ) -> dict[Vector, Vector] | None:
-    """Recover a unique vector-level negative-amplitude partner per shell."""
+    """Recover a unique vector-level opposite compressed phase per shell."""
     partners: dict[Vector, Vector] = {}
     for _norm, vectors in shells:
-        amplitudes = {
-            vector: dual_character_amplitude_terms(lattice, residue, vector)
+        phases = {
+            vector: dual_character_compressed_phase(lattice, residue, vector)
             for vector in vectors
         }
         for vector in vectors:
-            candidates: list[Vector] = []
-            for candidate in vectors:
-                combined = amplitudes[vector].copy()
-                combined.update(amplitudes[candidate])
-                if six_p_cyclotomic_sum_is_zero(lattice.p, combined):
-                    candidates.append(candidate)
+            candidates = [
+                candidate
+                for candidate in vectors
+                if (phases[candidate] - phases[vector]) % (6 * lattice.p)
+                == 3 * lattice.p
+            ]
             if len(candidates) != 1:
                 return None
             partners[vector] = candidates[0]
@@ -993,6 +1061,10 @@ def run_dual_spanning_rigidity_scan(
     involution_failures = 0
     lattice_preservation_failures = 0
     root_map_failures = 0
+    expanded_compression_failures = 0
+    nonpairing_cyclotomic_cancellations = 0
+    shells_at_or_above_pairing_threshold = 0
+    maximum_compressed_shell_weight = 0
     largest_prefix: tuple[int, tuple[int, tuple[int, int, int], int]] | None = None
     largest_multiplier: tuple[
         int, tuple[int, tuple[int, int, int], int]
@@ -1023,6 +1095,16 @@ def run_dual_spanning_rigidity_scan(
                     f"omitted-lower-bound={omitted_norm_lower_bound}"
                 )
                 continue
+            for _norm, vectors in shells:
+                maximum_compressed_shell_weight = max(
+                    maximum_compressed_shell_weight, len(vectors)
+                )
+                # Every compressed phase is divisible by three, so the shell
+                # is a sum of 2p-th roots.  Shells are antipodally closed and
+                # have even weight.  A non-pairing p-gon must therefore occur
+                # an even number of times, so the first obstruction has
+                # weight 2p.
+                shells_at_or_above_pairing_threshold += int(len(vectors) >= 2 * p)
             prefix_record = (len(shells), (p, triple, last_norm // p))
             if largest_prefix is None or prefix_record > largest_prefix:
                 largest_prefix = prefix_record
@@ -1044,6 +1126,27 @@ def run_dual_spanning_rigidity_scan(
                 )
             if perfect:
                 for residue in common_zeros:
+                    for _norm, vectors in shells:
+                        expanded_terms: Counter[int] = Counter()
+                        for vector in vectors:
+                            expanded_terms.update(
+                                dual_character_amplitude_terms(
+                                    lattice, residue, vector
+                                )
+                            )
+                        expanded_zero = six_p_cyclotomic_sum_is_zero(
+                            p, expanded_terms
+                        )
+                        phases = compressed_dual_shell_phase_counter(
+                            lattice, residue, vectors
+                        )
+                        compressed_zero = six_p_cyclotomic_sum_is_zero(p, phases)
+                        if expanded_zero != compressed_zero:
+                            expanded_compression_failures += 1
+                        if compressed_zero and not compressed_phase_counter_is_pair_balanced(
+                            p, phases
+                        ):
+                            nonpairing_cyclotomic_cancellations += 1
                     partners = unique_phase_reversing_partners(
                         lattice, residue, shells
                     )
@@ -1097,6 +1200,11 @@ def run_dual_spanning_rigidity_scan(
         f"largest {mode} prefix={largest_prefix}; "
         f"largest {mode}-shell multiplier={largest_multiplier}"
     )
+    print(
+        f"maximum compressed shell weight={maximum_compressed_shell_weight}; "
+        f"shells at/above non-pairing threshold 2p="
+        f"{shells_at_or_above_pairing_threshold}"
+    )
     if perfect:
         print(
             f"coherent-phase-maps={coherent_phase_maps}; "
@@ -1106,6 +1214,12 @@ def run_dual_spanning_rigidity_scan(
             f"involution-failures={involution_failures}; "
             f"lattice-preservation-failures={lattice_preservation_failures}; "
             f"root-map-failures={root_map_failures}"
+        )
+        print(
+            f"expanded/compressed-amplitude-failures="
+            f"{expanded_compression_failures}; "
+            f"nonpairing-cyclotomic-cancellations="
+            f"{nonpairing_cyclotomic_cancellations}"
         )
     return int(
         bool(
@@ -1118,6 +1232,8 @@ def run_dual_spanning_rigidity_scan(
             or involution_failures
             or lattice_preservation_failures
             or root_map_failures
+            or expanded_compression_failures
+            or nonpairing_cyclotomic_cancellations
         )
     )
 

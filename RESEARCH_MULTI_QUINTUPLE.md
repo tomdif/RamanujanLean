@@ -378,17 +378,17 @@ projection to eight component identities.
 The new exact command
 
 ```bash
-python3 scripts/paley_spinor_scan.py witness-scan --max-prime 2000 --depth 512
+python3 scripts/paley_spinor_scan.py witness-scan --max-prime 2600 --depth 700
 ```
 
 checks the certificate dichotomy residue by residue.  Its current census is
 
 ```text
-projective classes                                     11,546
-residue problems                                   14,991,476
-projective-root certificates                            3,498
-finite nonzero coefficient witnesses               14,987,978
-latest first witness progression index                    389
+projective classes                                     18,704
+residue problems                                   31,479,496
+projective-root certificates                            4,910
+finite nonzero coefficient witnesses               31,474,586
+latest first witness progression index                    541
 violations of N <= p/4                                      0
 unresolved residues / root-nonzero conflicts             0 / 0
 ```
@@ -404,7 +404,7 @@ if no projective root targets R, then some nonzero coefficient occurs with N <= 
 `AdmissibleQuarterCutoffRootOrProductWitness` formalizes exactly this finite target, and
 `admissibleRootVanishingRigidity_of_quarterCutoff` proves that it closes corrected rigidity for
 each datum.  The scan reports reflective and nonreflective witness profiles separately, exact
-relative maxima, and any quarter-bound violations; none occur through `p<=2000`.  This empirical
+relative maxima, and any quarter-bound violations; none occur through `p<=2600`.  This empirical
 linear bound is substantially sharper than the generic modular-form bounds one would get without
 using the special threefold product character and index-`p` lattice geometry, but it is not promoted to a
 theorem by the computation.
@@ -652,26 +652,92 @@ dual frontier is no longer an unspecified infinite rigidity problem: it is the f
 from an exact cyclotomic multiset equality to one coherent linear pairing.  The new
 `dual-perfect-scan` tests the strengthened cutoff exactly.
 
-The exact reconstruction census through `p<=1500` reports
+The exact reconstruction census through `p<=3000` reports
 
 ```text
-projective classes                                  6,877
-residue problems                                6,763,985
+projective classes                                 24,741
+residue problems                               48,334,107
 missing or incomplete perfect cutoffs                    0
 perfect-shell/root-target mismatches                    0
-coherent phase-reversing maps                         2,361
+coherent phase-reversing maps                         6,039
 nonunique vector phase pairings                           0
 nonlinear/incoherent pairings                             0
 nonorthogonal recovered maps                             0
 noninvolutive recovered maps                             0
 dual-lattice preservation failures                       0
 signed-Householder/root-map mismatches                    0
+maximum compressed shell weight                         24
+shells at/above non-pairing threshold `2p`               0
+expanded/compressed amplitude disagreements              0
+non-pairing cyclotomic cancellations                     0
 ```
 
-The largest perfect prefix uses 35 shells, at `p=1483`, and the largest observed perfect-shell
-norm is `501p`, at `p=1489`.  These are bounded exact results, not the universal phase-pairing
+The largest perfect prefix uses 61 shells, at `p=2963`, and the largest observed perfect-shell
+norm is `993p`, at `p=2971`.  These are bounded exact results, not the universal phase-pairing
 lemma.  They do show that the proposed finite promotion is not merely compatible with the zero
 sets: it reconstructs the already formalized root involution exactly in every tested case.
+
+### Cubic compression: eight phase terms collapse to one
+
+There is a further projective constraint hidden in the factored amplitude.  Write
+
+```text
+w_s = lambda*a_s + p*z_s,       3*q*k = 1 + p*t.
+```
+
+Then direct substitution gives
+
+```text
+delta_s = 2*w_s - 6*w_3*q*a_s
+        = 2*p*(z_s - 3*z_3*q*a_s - lambda*a_s*t).
+```
+
+`RamanujanTau.MultiQuintupleDualCompression` proves this identity and the exact support
+equivalence in Lean.  Once support excludes divisibility by `6p`, the reduced parenthesis is
+`+1` or `-1` modulo three.  Thus each of the three factors is evaluated only at a nontrivial cube
+root.  Since
+
+```text
+1-zeta^(4p) = zeta^p * (1-zeta^(2p)),
+```
+
+the original signed eight-term affine cube is exactly
+
+```text
+zeta^E(w) * (1-zeta^(2p))^3
+```
+
+for a single computable `6p`-phase `E(w)`.  The common cubic factor is nonzero.  Hence a complete
+shell amplitude is zero exactly when the positive sum `sum_w zeta^E(w)` is zero: its cyclotomic
+weight is the number of supported vectors, not eight times that number.
+
+There is one more forced cancellation in the exponent.  Modulo three,
+`w_s = p*t_s`, while the number of conjugate factors is exactly the number of
+`t_s = -1`.  Substitution shows
+
+```text
+3 | E(w).
+```
+
+`MultiQuintupleDualCompression` proves this order reduction in Lean, including the zero-one sign
+encoding and the antipodal law `E(-w)=3p-E(w)`.  Hence the remaining shell sum is a sum of
+`2p`-th roots, not arbitrary `6p`-th roots.  Cubic three-cycles cannot occur at all.  Complete norm
+shells are antipodally closed and therefore have even weight.  Lam--Leung's weight semigroup for
+order `2p` now gives a sharp conclusion: a non-pairing `p`-gon must occur an even number of times,
+so below weight `2p` every vanishing shell is a disjoint union of opposite pairs.  The parity and
+weight argument is also proved directly in Lean as
+`constant_bucket_difference_eq_zero_of_even_weight_lt_two_mul`.
+
+The exact scanner computes this compressed phase directly, verifies it against the original
+expanded amplitude on every common zero, tests whether every zero is completely opposite-phase
+balanced, and then performs the existing linear/orthogonal/lattice/root reconstruction.  The
+remaining finite proof program is correspondingly narrower: establish a universal sub-`2p`
+perfect-prefix shell-weight bound, then promote the forced shellwise opposite-phase matching to one
+linear map.  The recomputed exact census through `p<=3000` records maximum compressed weight `24`;
+no perfect-prefix shell reaches weight `2p`.  Across all 6,039 common-zero residues it finds no
+expanded/compressed disagreement, no non-pairing shell, no ambiguous opposite-phase partner, and
+no failure in the subsequent linear, orthogonal, involutive, lattice-preserving, or
+signed-Householder checks.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -885,8 +951,8 @@ branch, and proves the exact target law; the converse builds the coherent involu
 data.  Hence the one remaining item is a sharply isolated ternary theta-coset spectral problem,
 proved equivalent—not merely sufficient—to corrected rigidity.  The forward Root--Vanishing
 direction is closed.  The finite-witness normal form shows that it is enough to prove an effective
-separation bound for non-root residue classes; the exact census through `p<=2000` gives no exception
-through progression index 512 and in fact finds every first witness by index 389.  The
+separation bound for non-root residue classes; the exact census through `p<=2600` gives no exception
+through progression index 700 and in fact finds every first witness by index 541.  The
 original unrestricted biconditional is false by the `p=9` theorem above.  In the corrected
 prime/distinct/isotropic regime, the missing reverse implication must recover a structural,
 progression-wide cancellation symmetry.  The ternary-character normal form now identifies the
@@ -903,6 +969,10 @@ finite combinatorial obstruction.
 
 ## Sources
 
+- T. Y. Lam, K. H. Leung,
+  [On vanishing sums for roots of unity](https://arxiv.org/abs/math/9511209),
+  for the prime-weight semigroup; for an even antipodally closed sum at root
+  order `2p`, weight `2p` is the first possible non-pairing threshold.
 - T. Daniels, T. Huber, J. McLaughlin, D. Ye,
   [The p-Dissection of a Product of Quintuple Products](https://arxiv.org/abs/2603.04666),
   especially the concluding triple-product examples.

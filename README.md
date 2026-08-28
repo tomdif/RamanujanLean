@@ -244,10 +244,10 @@ admissible residue must have either a finite projective-root certificate or one 
 coefficient witnessing failure of persistent vanishing.  This root-or-witness dichotomy is proved
 equivalent to spectral coherence and corrected Root--Vanishing rigidity, so a universal effective
 witness bound would close the conjecture without reconstructing an isometry from an infinite theta
-identity.  The reproducible `witness-scan` now checks this dichotomy through `p<=2000`: across
-11,546 projective classes and 14,991,476 residue problems it finds 3,498 root certificates and
-14,987,978 coefficient witnesses, with no unresolved residue or root/nonzero conflict; the latest
-first witness occurs at progression index 389, for `p=1933`.  Every first witness in the entire
+identity.  The reproducible `witness-scan` now checks this dichotomy through `p<=2600`: across
+18,704 projective classes and 31,479,496 residue problems it finds 4,910 root certificates and
+31,474,586 coefficient witnesses, with no unresolved residue or root/nonzero conflict; the latest
+first witness occurs at progression index 541, for `p=2557`.  Every first witness in the entire
 census satisfies the clean linear cutoff `N <= p/4`.  The Lean definition
 `AdmissibleQuarterCutoffRootOrProductWitness` now records that precise target and proves that it
 would imply corrected rigidity, while deliberately not asserting the still-unproved universal
@@ -300,7 +300,7 @@ any rational linear map preserving their six norms is proved orthogonal.  Three 
 the union generates the full projective dual lattice.  Thus a finite orthogonal-reconstruction
 window is proved to exist by `6p^2`.  The remaining finite lemma is exact and combinatorial:
 promote aggregate shell phase cancellation in that window to one coherent vector pairing.  The
-exact `dual-perfect-scan` tests that promotion through `p<=1500`: all 2,361 common-zero residues
+exact `dual-perfect-scan` tests that promotion through `p<=3000`: all 6,039 common-zero residues
 have a unique phase-reversing vector pairing, every pairing extends to an orthogonal involution of
 the full dual lattice, and every recovered map is exactly its predicted signed Householder map.
 
@@ -308,6 +308,36 @@ The exact `root-scan` command independently reconstructs the selected sign, pred
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues
 that were merely silent through depth 160 acquire a nonzero witness by depth 256.
+
+`MultiQuintupleDualCompression.lean` now removes the apparent eight-term cyclotomic complexity from
+the dual frontier.  For a projective lift `w_s=lambda*a_s+p*z_s` and
+`3*q*k=1+p*t`, it proves the exact identity
+
+```text
+delta_s = 2*p*(z_s-3*z_3*q*a_s-lambda*a_s*t).
+```
+
+Support is therefore equivalent to the reduced factor being nonzero modulo three, so every
+supported `delta_s` is `+2p` or `-2p` modulo `6p`.  Algebraically, the full amplitude of one vector
+compresses to
+
+```text
+zeta^E(w) * (1-zeta^(2p))^3,
+```
+
+for one explicit phase `E(w)`.  A shell with `V` vectors consequently has roots-of-unity weight
+`V`, not `8V`.  A second Lean theorem proves `3 | E(w)`, so these are actually `2p`-th roots.
+Cubic three-cycles are impossible.  Because every complete shell is antipodally closed, its weight
+is even.  Lam--Leung's theorem (and a new kernel-checked constant-bucket arithmetic lemma) then
+shows that every vanishing shell of weight strictly below `2p` consists entirely of opposite phase
+pairs: non-pairing `p`-gons would have to occur in an even number.  The exact perfect-shell scanner
+now uses this compressed representation and cross-checks it against the original expanded
+amplitudes on every common zero,
+and separately reports any non-pairing cancellation.  Thus the finite frontier has been reduced to
+a universal sub-`2p` shell-weight bound followed by coherence of the forced opposite-phase matching.
+Through `p<=3000`, the largest compressed shell weight is only `24`, no selected shell reaches
+weight `2p`, and all 6,039 common-zero residues have zero expanded/compressed disagreements and zero
+non-pairing cancellations.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

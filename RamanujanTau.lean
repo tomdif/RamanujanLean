@@ -231,6 +231,8 @@ import RamanujanTau.MultiQuintupleDualSpanning
 import RamanujanTau.MultiQuintupleDualPhase
 -- Universal norm-6p² perfect set for reconstruction of an orthogonal dual symmetry
 import RamanujanTau.MultiQuintupleDualPerfect
+-- Projective dual amplitudes compress from eight phases to one phase with cubic factors
+import RamanujanTau.MultiQuintupleDualCompression
 -- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
 import RamanujanTau.MultiQuintupleLocalSupport
 -- Eight shifted ternary-coset components, Walsh inversion, and exact theta reduction
