@@ -261,6 +261,59 @@ zero mismatches.  The sweep remains finite evidence for the proposed converse cl
 forward coefficient progression is now a formal theorem for arbitrary parameters satisfying the
 root and target hypotheses.
 
+### Exact eight-coset theta reduction and the rigidity bottleneck
+
+`RamanujanTau.MultiQuintupleThetaCosets` packages the three bilateral branch bits as eight
+shifted cosets of `(6p Z)^3`.  For branch `b=(b1,b2,b3)`, the base coordinates are
+
+```text
+(6i + sign(b1)p, 6j + sign(b2)p, 6k + sign(b3)p),
+```
+
+and square completion identifies exponent `K` exactly with the common ternary norm shell
+
+```text
+24pK + (6i-p)^2 + (6j-p)^2 + (6k-p)^2.
+```
+
+If `Theta_b` denotes the representation series of branch coset `b`, the actual triple
+quintuple product is proved equal, as a formal power series, to its top-parity Walsh component
+
+```text
+sum_b (-1)^(b1+b2+b3) Theta_b.
+```
+
+The module proves character orthogonality and the integral inversion formula
+
+```text
+8 Theta_b = sum_a chi_a(b) ThetaHat_a.
+```
+
+It also proves that the lone parity projection is not injective.  This is a structural warning:
+one scalar vanishing identity cannot be promoted to equality of the eight component theta series
+without additional modular, Hecke, or twisting information.  All eight Walsh projections would
+be sufficient, and the missing problem is now to manufacture enough of them—or prove an equivalent
+spectral multiplicity-one statement—from the persistent progression identity.
+
+`RamanujanTau.MultiQuintupleThetaRigidity` then proves two geometric facts needed after that
+spectral step.  First, under the canonical odd-modulus hypotheses, the nonnegative progression
+shells exhaust the full affine integral residue fiber; coherence is not being inferred from a
+sparse subset of its points.  Second, every noncentral rational orthogonal involution of ternary
+space has eigenspace dimensions `(2,1)` or `(1,2)` and is exactly a Householder reflection or the
+negative of one.  A coherent involution is proved to pair the complete coefficient support and
+force persistent vanishing.
+
+Thus the reverse Root--Vanishing direction is factored, without axioms, into two explicit claims:
+
+1. **Spectral coherence:** persistent vanishing of the top Walsh component forces one coherent
+   rational orthogonal involution of the eight cosets.
+2. **Arithmetic extraction:** preservation of those integral cosets forces the rational
+   Householder normal to scale to a primitive projective integral vector of norm `p` or `2p`.
+
+The rational geometric classification in the middle is closed.  These two endpoints—especially
+the first, where parity noninjectivity shows exactly why extra spectral structure is necessary—are
+the remaining breakthrough target.
+
 ### The projective invariant is an elliptic `j`-invariant
 
 The correct symmetric invariant is
@@ -453,18 +506,19 @@ and `p=79` certificate transports, projective target formulas, and uniform proje
 vanishing theorem, exact shell-balance converse, and imprimitive counterexample are now
 implemented.  For the corrected prime/distinct/isotropic problem, the proof frontier is:
 
-1. show that every noncentral automorphism group of the index-`p` congruence lattice contains a
-   primitive rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
-2. prove a rigidity theorem on the cancellation side showing that every persistent admissible
-   sparse-triple vanishing supplies a noncentral lattice automorphism, or identify another
-   non-reflective mechanism.
+1. prove spectral coherence: persistent vanishing of the parity Walsh component supplies one
+   noncentral rational orthogonal involution acting on the full affine residue fiber;
+2. extract integrality and projectivity of its Householder normal from preservation of the eight
+   Watson cosets, so that `MultiQuintupleRootConverse` applies.
 
-The first item is a sharply isolated existential arithmetic root-system problem.  The forward
+The rational three-dimensional classification is now proved: every such noncentral orthogonal
+involution is a Householder reflection or its negative.  The first remaining item is a sharply
+isolated ternary theta-coset spectral problem, and the second is its arithmetic descent.  The forward
 Root--Vanishing direction is closed.  The original unrestricted biconditional is false by the
 `p=9` theorem above.  In the corrected prime/distinct/isotropic regime, the missing reverse
 implication must recover a structural, progression-wide cancellation symmetry; current ternary
-lattice-coset theta theory decomposes such series but does not turn an equality of shell counts
-into a termwise affine isometry.
+lattice-coset theta theory decomposes such series but does not automatically turn one signed
+Walsh projection into a termwise affine isometry.
 
 ## Sources
 

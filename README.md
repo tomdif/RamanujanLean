@@ -27,12 +27,12 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
 | **Canonical quintuple family** | For every odd `p ≥ 5`, `∏_{i=1}^{(p-1)/2}Q(qⁱ,qᵖ)` vanishes in every nonsquare class mod `p` |
 | **Three quintuple products (`p=7`)** | `[q^{7n+r}] Q(q,q⁷)Q(q²,q⁷)Q(q³,q⁷) = 0` for `r=3,5,6` |
-| **Root--Vanishing boundary** | Uniform short roots force vanishings; exact scale descent and an odd-divisor local sieve classify the elementary support obstructions |
+| **Root--Vanishing boundary** | Uniform short roots force vanishings; eight-coset theta/Walsh encoding isolates the exact spectral-coherence converse |
 
 | | |
 |---|---|
-| Modules | 140 |
-| Build | `lake build` → **3845 jobs, 0 errors** |
+| Modules | 142 |
+| Build | `lake build` → **3847 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -202,6 +202,20 @@ particular it formally proves the mixed family `Q(q,q^15) Q(q^3,q^15)^2` vanishe
 For prime `p ≥ 5` and nonzero canonical indices this local obstruction is impossible, cleanly
 isolating the corrected prime, pairwise-distinct, isotropic rigidity statement—and the corresponding
 general arbitrary-automorphism classification—as the remaining open problem rather than an assumption.
+`MultiQuintupleThetaCosets.lean` now gives that frontier an exact spectral form.  The eight Watson
+branch choices are shifted cosets of `(6pℤ)^3`; square completion identifies coefficient degree
+`K` with the common norm shell `24pK+Σ(6i_s-p)^2`, and the triple product is exactly the top-parity
+Walsh projection of their eight theta components.  Full Walsh inversion recovers every component
+from all eight character projections, while a separate theorem proves that the single parity
+projection is not injective.  This rules out the tempting but invalid shortcut from one scalar
+theta identity directly to componentwise equality.
+`MultiQuintupleThetaRigidity.lean` proves that the progression shells fill the complete affine
+residue fiber and formalizes the right global object: one rational orthogonal involution acting
+coherently on every shell.  It proves that such an involution forces persistent cancellation and
+completely classifies its rational linear part as a Householder reflection or its negative.  The
+remaining converse is therefore precise: obtain a coherent involution from the signed spectral
+identity, then extract from its coset arithmetic a primitive integral projective normal of norm
+`p` or `2p`.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

@@ -225,3 +225,7 @@ import RamanujanTau.MultiQuintupleRootVanishingEquivalence
 import RamanujanTau.MultiQuintupleRootVanishingClassification
 -- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
 import RamanujanTau.MultiQuintupleLocalSupport
+-- Eight shifted ternary-coset components, Walsh inversion, and exact theta reduction
+import RamanujanTau.MultiQuintupleThetaCosets
+-- Progression-fiber coherence and rational Householder classification
+import RamanujanTau.MultiQuintupleThetaRigidity
