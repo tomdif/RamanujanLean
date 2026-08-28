@@ -159,10 +159,12 @@ simply reflection in `w=(6,-5,-9)`, with `||w||²=2p` and `w≡6(i,j,k) (mod p)`
 `MultiQuintuplePaleySpinor.lean` also proves that the projective invariant is a Legendre elliptic
 `j`-invariant and kernel-checks the residue-`61` affine branch certificate.
 `MultiQuintupleRootConverse.lean` proves the converse for primitive rational Householder
-reflections: the normal has norm `p` or `2p` and is a projective lift.  This does not yet prove
-the required existential statement that every lattice with a noncentral automorphism contains
-a noncentral reflection; the stronger claim that every noncentral automorphism is itself a
-reflection is false in the order-12 `J=0` classes, which also contain rotations.
+reflections: the normal has norm `p` or `2p` and is a projective lift.  The coherent-cancellation
+setting needed here is now handled completely downstream: rational involution classification
+produces a Householder or negative Householder map, and the theta arithmetic forces its primitive
+normal and branch target.  This does not classify arbitrary lattice automorphisms; the stronger
+claim that every noncentral automorphism is itself a reflection is false in the order-12 `J=0`
+classes, which also contain rotations.
 `MultiQuintupleRootBranch.lean` proves the
 universal positive and negative eight-branch matchings for every direct short root.
 `MockTheta5QuintIdentity.lean` proves the full formal quintuple product identity, and
@@ -218,10 +220,15 @@ congruence lattice is a difference of two Watson points in the same affine fiber
 every coherent involution preserves that full lattice integrally, including the three `p e_s`
 test vectors.  Its rational Householder line can always be primitively normalized over the
 integers, with an explicit square-Bézout certificate, and the primitive squared norm is forced to
-be one of `1`, `2`, `p`, or `2p`.  Thus the remaining arithmetic work is sharply finite: exclude
-the signed-coordinate/permutation stabilizers (`1`, `2`), then extract projectivity and the branch
-target law.  The separate spectral problem is still to obtain one coherent involution from
-parity-coset isospectrality.
+be one of `1`, `2`, `p`, or `2p`.  It then excludes the norm-`1` and norm-`2`
+signed-coordinate/permutation stabilizers, sharpens the list to `p` or `2p`, proves that the
+primitive normal is a projective lift of `(i,j,k)`, and uses one coherently transported Watson
+point plus an exhaustive `ZMod 3` theorem to force the correct positive/negative branch and its
+exact target congruence.  Consequently every coherent admissible theta involution now yields a
+complete `ProjectiveRootTargetCertificate`; arithmetic classification is closed.  The sole
+remaining reverse-direction frontier is spectral coherence: obtain one fixed rational orthogonal
+involution from equality of the positive- and negative-parity four-coset representation counts
+along the progression.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

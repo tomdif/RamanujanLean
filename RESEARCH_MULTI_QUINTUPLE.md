@@ -317,21 +317,24 @@ congruence lattice integrally and maps all three `p*e_s` test vectors to integra
 rational Householder classification is also strengthened by clearing denominators: its normal may
 always be chosen as a nonzero integral vector.  It is now primitively normalized with an explicit
 square-Bézout certificate, and integrality on the three `p*e_s` vectors forces its squared norm into
-the exact list `1`, `2`, `p`, or `2p`.  The cases `1` and `2` are the signed-coordinate/permutation
-reflections; excluding their modular stabilizers, then extracting projectivity and the branch
-target congruence, are the remaining arithmetic steps.
+the exact list `1`, `2`, `p`, or `2p`.  It now excludes the norm-`1` and norm-`2`
+signed-coordinate/permutation stabilizers by six explicit canonical support cases, sharpens the
+list to `p` or `2p`, and proves that the primitive normal is a projective lift of `(i,j,k)` modulo
+`p`.  Finally, closure and weight reversal on one Watson point feed an exhaustive `ZMod 3`
+converse: the positive Householder case forces norm class `1`, the negative case forces norm class
+`2`, and the already-proved coordinate-closure necessities give the exact projective target
+congruence.  Thus every coherent admissible theta involution supplies a complete
+`ProjectiveRootTargetCertificate`.
 
-Thus the reverse Root--Vanishing direction is factored, without axioms, into two explicit claims:
+The rational geometric classification and the entire arithmetic extraction are therefore closed,
+without axioms.  The reverse Root--Vanishing direction now has exactly one remaining claim:
 
 1. **Spectral coherence:** persistent vanishing of the top Walsh component forces one coherent
    rational orthogonal involution of the eight cosets.
-2. **Arithmetic extraction:** exclude the two explicitly isolated signed-permutation norm cases,
-   sharpen the proved list `1,2,p,2p` to `p,2p`, then extract projectivity and the branch target
-   congruence.
 
-The rational geometric classification in the middle is closed.  These two endpoints—especially
-the first, where parity noninjectivity shows exactly why extra spectral structure is necessary—are
-the remaining breakthrough target.
+Parity noninjectivity explains why this is genuine extra content: a single scalar Walsh identity
+does not formally determine all eight theta components.  The remaining breakthrough target is a
+rigidity or multiplicity-one theorem for the two parity unions along the selected progression.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -526,20 +529,18 @@ vanishing theorem, exact shell-balance converse, and imprimitive counterexample 
 implemented.  For the corrected prime/distinct/isotropic problem, the proof frontier is:
 
 1. prove spectral coherence: persistent vanishing of the parity Walsh component supplies one
-   noncentral rational orthogonal involution acting on the full affine residue fiber;
-2. exclude the signed-coordinate/permutation cases from the now-proved primitive norm list
-   `1,2,p,2p`, then extract projectivity and the target law.
+   noncentral rational orthogonal involution acting on the full affine residue fiber.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
-involution is a Householder reflection or its negative.  The first remaining item is a sharply
-isolated ternary theta-coset spectral problem.  The second has been reduced to a finite modular
-stabilizer exclusion and target extraction after proving primitive normalization and full
-congruence-lattice preservation.  The forward
-Root--Vanishing direction is closed.  The original unrestricted biconditional is false by the
-`p=9` theorem above.  In the corrected prime/distinct/isotropic regime, the missing reverse
-implication must recover a structural, progression-wide cancellation symmetry; current ternary
-lattice-coset theta theory decomposes such series but does not automatically turn one signed
-Walsh projection into a termwise affine isometry.
+involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
+two integral signed-permutation norms, extracts the short projective lift, selects its mod-three
+branch, and proves the exact target law.  Hence the one remaining item is a sharply isolated
+ternary theta-coset spectral problem.  The forward Root--Vanishing direction is closed.  The
+original unrestricted biconditional is false by the `p=9` theorem above.  In the corrected
+prime/distinct/isotropic regime, the missing reverse implication must recover a structural,
+progression-wide cancellation symmetry; current ternary lattice-coset theta theory decomposes
+such series but does not automatically turn one signed Walsh projection into a termwise affine
+isometry.
 
 ## Sources
 

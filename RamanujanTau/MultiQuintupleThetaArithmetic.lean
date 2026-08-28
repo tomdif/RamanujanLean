@@ -803,6 +803,503 @@ theorem householder_integral_p_basis3_norm_dvd
       (ternaryNorm w.1.1 w.1.2 w.2 : ℚ) * ((p : ℚ) - y.2) by
         linear_combination -hcoord)
 
+/-- An odd prime larger than two positive factors cannot divide twice their
+product when both factors are strictly smaller than the prime. -/
+lemma prime_not_dvd_two_mul_of_lt
+    {p a b : ℕ} (hp : Nat.Prime p)
+    (ha : 0 < a) (hb : 0 < b) (hpa : a < p) (hpb : b < p)
+    (hp2 : 2 < p) :
+    ¬(p : ℤ) ∣ 2 * (a : ℤ) * (b : ℤ) := by
+  intro hdiv
+  have hdivNat : p ∣ (2 * a) * b := by
+    exact_mod_cast hdiv
+  rcases hp.dvd_mul.mp hdivNat with hdiv2a | hdivb
+  · rcases hp.dvd_mul.mp hdiv2a with hdiv2 | hdiva
+    · exact (Nat.not_dvd_of_pos_of_lt (by norm_num) hp2) hdiv2
+    · exact (Nat.not_dvd_of_pos_of_lt ha hpa) hdiva
+  · exact (Nat.not_dvd_of_pos_of_lt hb hpb) hdivb
+
+/-- For `0 < a < b` and `2b < p`, the prime cannot divide the difference
+of the two squares.  This is the modular fact that excludes signed swaps of
+two distinct canonical coordinates. -/
+lemma prime_not_dvd_square_sub_square_of_canonical
+    {p a b : ℕ} (hp : Nat.Prime p)
+    (ha : 0 < a) (hab : a < b) (hpb : 2 * b < p) :
+    ¬(p : ℤ) ∣ (b : ℤ) ^ 2 - (a : ℤ) ^ 2 := by
+  intro hdiv
+  have hfactor :
+      (b : ℤ) ^ 2 - (a : ℤ) ^ 2 =
+        (((b - a) * (b + a) : ℕ) : ℤ) := by
+    rw [Nat.cast_mul, Nat.cast_sub (Nat.le_of_lt hab)]
+    push_cast
+    ring
+  have hdivNat : p ∣ (b - a) * (b + a) := by
+    apply Int.natCast_dvd_natCast.mp
+    simpa [hfactor] using hdiv
+  rcases hp.dvd_mul.mp hdivNat with hminus | hplus
+  · apply (Nat.not_dvd_of_pos_of_lt (Nat.sub_pos_of_lt hab) (by omega)) hminus
+  · apply (Nat.not_dvd_of_pos_of_lt (by omega) (by omega)) hplus
+
+/-- A rational equality with an integral multiplier certifies integer
+divisibility; allowing both signs avoids irrelevant orientation choices in
+the kernel-vector computations below. -/
+lemma int_dvd_of_rat_eq_mul_or_neg (p x q : ℤ)
+    (h : (x : ℚ) = (p : ℚ) * (q : ℚ) ∨
+      (x : ℚ) = -((p : ℚ) * (q : ℚ))) :
+    p ∣ x := by
+  rcases h with h | h
+  · exact ⟨q, by exact_mod_cast h⟩
+  · refine ⟨-q, ?_⟩
+    exact_mod_cast (show (x : ℚ) = (p : ℚ) * (-q : ℚ) by
+      nlinarith [h])
+
+/-- Finite mod-three data for the converse sign-selection calculation. -/
+structure Mod3BranchConverseInput where
+  epc : ZMod 3 × ZMod 3 × ZMod 3
+  root : ZMod 3 × ZMod 3 × ZMod 3
+  output : ZMod 3 × ZMod 3 × ZMod 3
+  bits : Bool × Bool × Bool
+  deriving DecidableEq, Fintype
+
+namespace Mod3BranchConverseInput
+def e (x : Mod3BranchConverseInput) := x.epc.1
+def p (x : Mod3BranchConverseInput) := x.epc.2.1
+def c (x : Mod3BranchConverseInput) := x.epc.2.2
+def w1 (x : Mod3BranchConverseInput) := x.root.1
+def w2 (x : Mod3BranchConverseInput) := x.root.2.1
+def w3 (x : Mod3BranchConverseInput) := x.root.2.2
+def u1 (x : Mod3BranchConverseInput) := x.output.1
+def u2 (x : Mod3BranchConverseInput) := x.output.2.1
+def u3 (x : Mod3BranchConverseInput) := x.output.2.2
+def b1 (x : Mod3BranchConverseInput) := x.bits.1
+def b2 (x : Mod3BranchConverseInput) := x.bits.2.1
+def b3 (x : Mod3BranchConverseInput) := x.bits.2.2
+def t (x : Mod3BranchConverseInput) := x.p *
+  (branchSign3 x.b1 * x.w1 + branchSign3 x.b2 * x.w2 +
+    branchSign3 x.b3 * x.w3)
+end Mod3BranchConverseInput
+
+open Mod3BranchConverseInput
+
+/- The finite core omits the three output coordinates, which are uniquely
+determined by the reflection equations.  This keeps ordinary kernel reduction
+small enough to avoid the soundness axiom used by native evaluation. -/
+structure Mod3BranchCoreInput where
+  epc : ZMod 3 × ZMod 3 × ZMod 3
+  root : ZMod 3 × ZMod 3 × ZMod 3
+  bits : Bool × Bool × Bool
+  deriving DecidableEq, Fintype
+
+namespace Mod3BranchCoreInput
+def e (x : Mod3BranchCoreInput) := x.epc.1
+def p (x : Mod3BranchCoreInput) := x.epc.2.1
+def c (x : Mod3BranchCoreInput) := x.epc.2.2
+def w1 (x : Mod3BranchCoreInput) := x.root.1
+def w2 (x : Mod3BranchCoreInput) := x.root.2.1
+def w3 (x : Mod3BranchCoreInput) := x.root.2.2
+def b1 (x : Mod3BranchCoreInput) := x.bits.1
+def b2 (x : Mod3BranchCoreInput) := x.bits.2.1
+def b3 (x : Mod3BranchCoreInput) := x.bits.2.2
+def t (x : Mod3BranchCoreInput) := x.p *
+  (branchSign3 x.b1 * x.w1 + branchSign3 x.b2 * x.w2 +
+    branchSign3 x.b3 * x.w3)
+def pu1 (x : Mod3BranchCoreInput) :=
+  branchSign3 x.b1 - x.c * x.t * x.w1
+def pu2 (x : Mod3BranchCoreInput) :=
+  branchSign3 x.b2 - x.c * x.t * x.w2
+def pu3 (x : Mod3BranchCoreInput) :=
+  branchSign3 x.b3 - x.c * x.t * x.w3
+def nu1 (x : Mod3BranchCoreInput) := -x.pu1
+def nu2 (x : Mod3BranchCoreInput) := -x.pu2
+def nu3 (x : Mod3BranchCoreInput) := -x.pu3
+end Mod3BranchCoreInput
+
+open Mod3BranchCoreInput
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 2000000 in
+private theorem positive_branch_core_forces_norm_one_mod3 :
+    ∀ x : Mod3BranchCoreInput,
+      (x.e = 1 ∨ x.e = 2) → x.p ≠ 0 → x.c * x.e = 2 →
+      x.w1 ^ 2 + x.w2 ^ 2 + x.w3 ^ 2 = x.e * x.p →
+      x.pu1 ≠ 0 → x.pu2 ≠ 0 → x.pu3 ≠ 0 →
+      x.pu1 * x.pu2 * x.pu3 =
+        -(branchSign3 x.b1 * branchSign3 x.b2 * branchSign3 x.b3) →
+      x.e * x.p = 1 := by
+  decide
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 2000000 in
+private theorem negative_branch_core_forces_norm_two_mod3 :
+    ∀ x : Mod3BranchCoreInput,
+      (x.e = 1 ∨ x.e = 2) → x.p ≠ 0 → x.c * x.e = 2 →
+      x.w1 ^ 2 + x.w2 ^ 2 + x.w3 ^ 2 = x.e * x.p →
+      x.nu1 ≠ 0 → x.nu2 ≠ 0 → x.nu3 ≠ 0 →
+      x.nu1 * x.nu2 * x.nu3 =
+        -(branchSign3 x.b1 * branchSign3 x.b2 * branchSign3 x.b3) →
+      x.e * x.p = 2 := by
+  decide
+
+/-- A positive Householder map that closes even one branch and reverses its
+three-sign product must have root norm `1 mod 3`. -/
+theorem positive_branch_reversal_forces_norm_one_mod3 :
+    ∀ x : Mod3BranchConverseInput,
+      (x.e = 1 ∨ x.e = 2) → x.p ≠ 0 → x.c * x.e = 2 →
+      x.w1 ^ 2 + x.w2 ^ 2 + x.w3 ^ 2 = x.e * x.p →
+      x.u1 = branchSign3 x.b1 - x.c * x.t * x.w1 →
+      x.u2 = branchSign3 x.b2 - x.c * x.t * x.w2 →
+      x.u3 = branchSign3 x.b3 - x.c * x.t * x.w3 →
+      x.u1 ≠ 0 → x.u2 ≠ 0 → x.u3 ≠ 0 →
+      x.u1 * x.u2 * x.u3 =
+        -(branchSign3 x.b1 * branchSign3 x.b2 * branchSign3 x.b3) →
+      x.e * x.p = 1 := by
+  intro x he hp hc hroot h1 h2 h3 hu1 hu2 hu3 hproduct
+  let y : Mod3BranchCoreInput := ⟨x.epc, x.root, x.bits⟩
+  have h1' : x.u1 = y.pu1 := by simpa [y, Mod3BranchCoreInput.pu1,
+    Mod3BranchCoreInput.t, Mod3BranchCoreInput.e, Mod3BranchCoreInput.p,
+    Mod3BranchCoreInput.c, Mod3BranchCoreInput.w1, Mod3BranchCoreInput.w2,
+    Mod3BranchCoreInput.w3, Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+    Mod3BranchCoreInput.b3] using h1
+  have h2' : x.u2 = y.pu2 := by simpa [y, Mod3BranchCoreInput.pu2,
+    Mod3BranchCoreInput.t, Mod3BranchCoreInput.e, Mod3BranchCoreInput.p,
+    Mod3BranchCoreInput.c, Mod3BranchCoreInput.w1, Mod3BranchCoreInput.w2,
+    Mod3BranchCoreInput.w3, Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+    Mod3BranchCoreInput.b3] using h2
+  have h3' : x.u3 = y.pu3 := by simpa [y, Mod3BranchCoreInput.pu3,
+    Mod3BranchCoreInput.t, Mod3BranchCoreInput.e, Mod3BranchCoreInput.p,
+    Mod3BranchCoreInput.c, Mod3BranchCoreInput.w1, Mod3BranchCoreInput.w2,
+    Mod3BranchCoreInput.w3, Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+    Mod3BranchCoreInput.b3] using h3
+  rw [h1'] at hu1 hproduct
+  rw [h2'] at hu2 hproduct
+  rw [h3'] at hu3 hproduct
+  exact positive_branch_core_forces_norm_one_mod3 y
+    (by simpa [y, Mod3BranchCoreInput.e] using he)
+    (by simpa [y, Mod3BranchCoreInput.p] using hp)
+    (by simpa [y, Mod3BranchCoreInput.c, Mod3BranchCoreInput.e] using hc)
+    (by simpa [y, Mod3BranchCoreInput.w1, Mod3BranchCoreInput.w2,
+      Mod3BranchCoreInput.w3, Mod3BranchCoreInput.e,
+      Mod3BranchCoreInput.p] using hroot)
+    hu1 hu2 hu3
+    (by simpa [y, Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+      Mod3BranchCoreInput.b3] using hproduct)
+
+/-- A negative Householder map that closes one sign-reversing branch must
+instead have root norm `2 mod 3`. -/
+theorem negative_branch_reversal_forces_norm_two_mod3 :
+    ∀ x : Mod3BranchConverseInput,
+      (x.e = 1 ∨ x.e = 2) → x.p ≠ 0 → x.c * x.e = 2 →
+      x.w1 ^ 2 + x.w2 ^ 2 + x.w3 ^ 2 = x.e * x.p →
+      x.u1 = -(branchSign3 x.b1 - x.c * x.t * x.w1) →
+      x.u2 = -(branchSign3 x.b2 - x.c * x.t * x.w2) →
+      x.u3 = -(branchSign3 x.b3 - x.c * x.t * x.w3) →
+      x.u1 ≠ 0 → x.u2 ≠ 0 → x.u3 ≠ 0 →
+      x.u1 * x.u2 * x.u3 =
+        -(branchSign3 x.b1 * branchSign3 x.b2 * branchSign3 x.b3) →
+      x.e * x.p = 2 := by
+  intro x he hp hc hroot h1 h2 h3 hu1 hu2 hu3 hproduct
+  let y : Mod3BranchCoreInput := ⟨x.epc, x.root, x.bits⟩
+  have h1' : x.u1 = y.nu1 := by simpa [y, Mod3BranchCoreInput.nu1,
+    Mod3BranchCoreInput.pu1, Mod3BranchCoreInput.t,
+    Mod3BranchCoreInput.p, Mod3BranchCoreInput.c, Mod3BranchCoreInput.w1,
+    Mod3BranchCoreInput.w2, Mod3BranchCoreInput.w3,
+    Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+    Mod3BranchCoreInput.b3] using h1
+  have h2' : x.u2 = y.nu2 := by simpa [y, Mod3BranchCoreInput.nu2,
+    Mod3BranchCoreInput.pu2, Mod3BranchCoreInput.t,
+    Mod3BranchCoreInput.p, Mod3BranchCoreInput.c, Mod3BranchCoreInput.w1,
+    Mod3BranchCoreInput.w2, Mod3BranchCoreInput.w3,
+    Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+    Mod3BranchCoreInput.b3] using h2
+  have h3' : x.u3 = y.nu3 := by simpa [y, Mod3BranchCoreInput.nu3,
+    Mod3BranchCoreInput.pu3, Mod3BranchCoreInput.t,
+    Mod3BranchCoreInput.p, Mod3BranchCoreInput.c, Mod3BranchCoreInput.w1,
+    Mod3BranchCoreInput.w2, Mod3BranchCoreInput.w3,
+    Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+    Mod3BranchCoreInput.b3] using h3
+  rw [h1'] at hu1 hproduct
+  rw [h2'] at hu2 hproduct
+  rw [h3'] at hu3 hproduct
+  exact negative_branch_core_forces_norm_two_mod3 y
+    (by simpa [y, Mod3BranchCoreInput.e] using he)
+    (by simpa [y, Mod3BranchCoreInput.p] using hp)
+    (by simpa [y, Mod3BranchCoreInput.c, Mod3BranchCoreInput.e] using hc)
+    (by simpa [y, Mod3BranchCoreInput.w1, Mod3BranchCoreInput.w2,
+      Mod3BranchCoreInput.w3, Mod3BranchCoreInput.e,
+      Mod3BranchCoreInput.p] using hroot)
+    hu1 hu2 hu3
+    (by simpa [y, Mod3BranchCoreInput.b1, Mod3BranchCoreInput.b2,
+      Mod3BranchCoreInput.b3] using hproduct)
+
+lemma zmod3_square_eq_one_of_ne_zero (u : ZMod 3) (hu : u ≠ 0) :
+    u * u = 1 := by
+  have hall : ∀ v : ZMod 3, v ≠ 0 → v * v = 1 := by decide
+  exact hall u hu
+
+lemma quintLatticeCoord_cast_zmod3
+    (b : Bool) (p i n : ℤ) :
+    ((quintLatticeCoord b p i n : ℤ) : ZMod 3) =
+      (p : ZMod 3) * branchSign3 b := by
+  cases b
+  · simp only [quintLatticeCoord, branchSign3]
+    push_cast
+    ring_nf
+    change -(p : ZMod 3) + (p : ZMod 3) * (n : ZMod 3) * (6 : ZMod 3) +
+        (i : ZMod 3) * (6 : ZMod 3) = -(p : ZMod 3)
+    rw [show (6 : ZMod 3) = 0 by decide]
+    ring
+  · simp only [quintLatticeCoord, branchSign3, if_true]
+    push_cast
+    ring_nf
+    change (p : ZMod 3) + (p : ZMod 3) * (n : ZMod 3) * (6 : ZMod 3) +
+        (i : ZMod 3) * (6 : ZMod 3) = (p : ZMod 3)
+    rw [show (6 : ZMod 3) = 0 by decide]
+    ring
+
+/-- Positive integral branch closure, divided by the nonzero modulus class,
+in the exact form consumed by the finite converse. -/
+lemma positive_shortRoot_branch_closure_mod3
+    (b b' : Bool) (p c t w i n n' : ℤ)
+    (hp3 : (p : ZMod 3) ≠ 0)
+    (hclosure : quintLatticeCoord b' p i n' =
+      shortRootReflectCoord c t w (quintLatticeCoord b p i n)) :
+    branchSign3 b' = branchSign3 b -
+      (c : ZMod 3) * ((p : ZMod 3) * (t : ZMod 3)) * (w : ZMod 3) := by
+  have hcast := congrArg (fun z : ℤ => (z : ZMod 3)) hclosure
+  change ((quintLatticeCoord b' p i n' : ℤ) : ZMod 3) =
+    ((shortRootReflectCoord c t w (quintLatticeCoord b p i n) : ℤ) : ZMod 3)
+      at hcast
+  simp only [shortRootReflectCoord] at hcast
+  push_cast at hcast
+  rw [quintLatticeCoord_cast_zmod3,
+    quintLatticeCoord_cast_zmod3] at hcast
+  change (p : ZMod 3) * branchSign3 b' =
+    (p : ZMod 3) * branchSign3 b - (c : ZMod 3) * t * w at hcast
+  have hpSq := zmod3_square_eq_one_of_ne_zero (p : ZMod 3) hp3
+  calc
+    branchSign3 b' = 1 * branchSign3 b' := by simp
+    _ = ((p : ZMod 3) * p) * branchSign3 b' := by rw [hpSq]
+    _ = (p : ZMod 3) * ((p : ZMod 3) * branchSign3 b') := by ring
+    _ = (p : ZMod 3) *
+        ((p : ZMod 3) * branchSign3 b - (c : ZMod 3) * t * w) := by rw [hcast]
+    _ = ((p : ZMod 3) * p) * branchSign3 b -
+        (c : ZMod 3) * ((p : ZMod 3) * t) * w := by ring
+    _ = branchSign3 b -
+        (c : ZMod 3) * ((p : ZMod 3) * t) * w := by rw [hpSq]; ring
+
+/-- The corresponding mod-three formula for negative Householder closure. -/
+lemma negative_shortRoot_branch_closure_mod3
+    (b b' : Bool) (p c t w i n n' : ℤ)
+    (hp3 : (p : ZMod 3) ≠ 0)
+    (hclosure : quintLatticeCoord b' p i n' =
+      -shortRootReflectCoord c t w (quintLatticeCoord b p i n)) :
+    branchSign3 b' = -(branchSign3 b -
+      (c : ZMod 3) * ((p : ZMod 3) * (t : ZMod 3)) * (w : ZMod 3)) := by
+  have hcast := congrArg (fun z : ℤ => (z : ZMod 3)) hclosure
+  change ((quintLatticeCoord b' p i n' : ℤ) : ZMod 3) =
+    ((-shortRootReflectCoord c t w (quintLatticeCoord b p i n) : ℤ) : ZMod 3)
+      at hcast
+  simp only [shortRootReflectCoord] at hcast
+  push_cast at hcast
+  rw [quintLatticeCoord_cast_zmod3,
+    quintLatticeCoord_cast_zmod3] at hcast
+  change (p : ZMod 3) * branchSign3 b' =
+    -((p : ZMod 3) * branchSign3 b - (c : ZMod 3) * t * w) at hcast
+  have hpSq := zmod3_square_eq_one_of_ne_zero (p : ZMod 3) hp3
+  calc
+    branchSign3 b' = 1 * branchSign3 b' := by simp
+    _ = ((p : ZMod 3) * p) * branchSign3 b' := by rw [hpSq]
+    _ = (p : ZMod 3) * ((p : ZMod 3) * branchSign3 b') := by ring
+    _ = (p : ZMod 3) *
+        (-((p : ZMod 3) * branchSign3 b - (c : ZMod 3) * t * w)) := by rw [hcast]
+    _ = -(((p : ZMod 3) * p) * branchSign3 b -
+        (c : ZMod 3) * ((p : ZMod 3) * t) * w) := by ring
+    _ = -(branchSign3 b -
+        (c : ZMod 3) * ((p : ZMod 3) * t) * w) := by rw [hpSq]; ring
+
+lemma branchSign_cast_zmod3 (b : Bool) :
+    ((branchSign b : ℤ) : ZMod 3) = branchSign3 b := by
+  cases b <;> simp [branchSign, branchSign3]
+
+/-- Integer branch closure for one positive short-root reflection already
+selects the norm-`1 mod 3` case.  This is the bridge from the exhaustive
+finite calculation to the coherent integral Householder map. -/
+theorem positive_integral_branch_reversal_forces_norm_one_mod3
+    (b1 b2 b3 b1' b2' b3' : Bool)
+    (p e c t w1 w2 w3 i j k n1 n2 n3 n1' n2' n3' : ℤ)
+    (he : e = 1 ∨ e = 2) (hp3 : (p : ZMod 3) ≠ 0)
+    (hcoefficient : c * e = 2)
+    (hroot : ternaryNorm w1 w2 w3 = e * p)
+    (hdot : ternaryDot
+      (quintLatticeCoord b1 p i n1)
+      (quintLatticeCoord b2 p j n2)
+      (quintLatticeCoord b3 p k n3) w1 w2 w3 = p * t)
+    (hclosure1 : quintLatticeCoord b1' p i n1' =
+      shortRootReflectCoord c t w1 (quintLatticeCoord b1 p i n1))
+    (hclosure2 : quintLatticeCoord b2' p j n2' =
+      shortRootReflectCoord c t w2 (quintLatticeCoord b2 p j n2))
+    (hclosure3 : quintLatticeCoord b3' p k n3' =
+      shortRootReflectCoord c t w3 (quintLatticeCoord b3 p k n3))
+    (hweight : branchSign b1' * branchSign b2' * branchSign b3' =
+      -(branchSign b1 * branchSign b2 * branchSign b3)) :
+    (((e * p : ℤ) : ZMod 3)) = 1 := by
+  let z : Mod3BranchConverseInput :=
+    ⟨((e : ZMod 3), (p : ZMod 3), (c : ZMod 3)),
+      ((w1 : ZMod 3), (w2 : ZMod 3), (w3 : ZMod 3)),
+      (branchSign3 b1', branchSign3 b2', branchSign3 b3'),
+      (b1, b2, b3)⟩
+  have hdot3 := congrArg (fun q : ℤ => (q : ZMod 3)) hdot
+  simp only [ternaryDot] at hdot3
+  push_cast at hdot3
+  rw [quintLatticeCoord_cast_zmod3, quintLatticeCoord_cast_zmod3,
+    quintLatticeCoord_cast_zmod3] at hdot3
+  have ht : (p : ZMod 3) * (t : ZMod 3) = (p : ZMod 3) *
+      (branchSign3 b1 * (w1 : ZMod 3) + branchSign3 b2 * w2 +
+        branchSign3 b3 * w3) := by
+    calc
+      (p : ZMod 3) * (t : ZMod 3) =
+          (p : ZMod 3) * branchSign3 b1 * w1 +
+            (p : ZMod 3) * branchSign3 b2 * w2 +
+            (p : ZMod 3) * branchSign3 b3 * w3 := hdot3.symm
+      _ = (p : ZMod 3) *
+          (branchSign3 b1 * w1 + branchSign3 b2 * w2 +
+            branchSign3 b3 * w3) := by ring
+  push_cast
+  change z.e * z.p = 1
+  apply positive_branch_reversal_forces_norm_one_mod3 z
+  · rcases he with rfl | rfl <;> simp [z, Mod3BranchConverseInput.e]
+  · simpa [z, Mod3BranchConverseInput.p] using hp3
+  · dsimp [z, Mod3BranchConverseInput.c, Mod3BranchConverseInput.e]
+    have h := congrArg (fun q : ℤ => (q : ZMod 3)) hcoefficient
+    push_cast at h
+    exact h
+  · dsimp [z, Mod3BranchConverseInput.w1, Mod3BranchConverseInput.w2,
+      Mod3BranchConverseInput.w3, Mod3BranchConverseInput.e,
+      Mod3BranchConverseInput.p]
+    have h := congrArg (fun q : ℤ => (q : ZMod 3))
+      (by simpa [ternaryNorm] using hroot)
+    push_cast at h
+    exact h
+  · dsimp [z, Mod3BranchConverseInput.u1, Mod3BranchConverseInput.b1,
+      Mod3BranchConverseInput.c, Mod3BranchConverseInput.w1,
+      Mod3BranchConverseInput.t, Mod3BranchConverseInput.p,
+      Mod3BranchConverseInput.w2, Mod3BranchConverseInput.w3,
+      Mod3BranchConverseInput.b2, Mod3BranchConverseInput.b3]
+    rw [positive_shortRoot_branch_closure_mod3 b1 b1' p c t w1 i n1 n1'
+      hp3 hclosure1, ← ht]
+  · dsimp [z, Mod3BranchConverseInput.u2, Mod3BranchConverseInput.b2,
+      Mod3BranchConverseInput.c, Mod3BranchConverseInput.w2,
+      Mod3BranchConverseInput.t, Mod3BranchConverseInput.p,
+      Mod3BranchConverseInput.w1, Mod3BranchConverseInput.w3,
+      Mod3BranchConverseInput.b1, Mod3BranchConverseInput.b3]
+    rw [positive_shortRoot_branch_closure_mod3 b2 b2' p c t w2 j n2 n2'
+      hp3 hclosure2, ← ht]
+  · dsimp [z, Mod3BranchConverseInput.u3, Mod3BranchConverseInput.b3,
+      Mod3BranchConverseInput.c, Mod3BranchConverseInput.w3,
+      Mod3BranchConverseInput.t, Mod3BranchConverseInput.p,
+      Mod3BranchConverseInput.w1, Mod3BranchConverseInput.w2,
+      Mod3BranchConverseInput.b1, Mod3BranchConverseInput.b2]
+    rw [positive_shortRoot_branch_closure_mod3 b3 b3' p c t w3 k n3 n3'
+      hp3 hclosure3, ← ht]
+  · cases b1' <;> simp [z, Mod3BranchConverseInput.u1, branchSign3]
+  · cases b2' <;> simp [z, Mod3BranchConverseInput.u2, branchSign3]
+  · cases b3' <;> simp [z, Mod3BranchConverseInput.u3, branchSign3]
+  · have hweight3 := congrArg (fun q : ℤ => (q : ZMod 3)) hweight
+    push_cast at hweight3
+    simpa [z, Mod3BranchConverseInput.u1, Mod3BranchConverseInput.u2,
+      Mod3BranchConverseInput.u3, Mod3BranchConverseInput.b1,
+      Mod3BranchConverseInput.b2, Mod3BranchConverseInput.b3,
+      branchSign_cast_zmod3] using hweight3
+
+/-- The same integer bridge for a negative Householder map selects the
+norm-`2 mod 3` case. -/
+theorem negative_integral_branch_reversal_forces_norm_two_mod3
+    (b1 b2 b3 b1' b2' b3' : Bool)
+    (p e c t w1 w2 w3 i j k n1 n2 n3 n1' n2' n3' : ℤ)
+    (he : e = 1 ∨ e = 2) (hp3 : (p : ZMod 3) ≠ 0)
+    (hcoefficient : c * e = 2)
+    (hroot : ternaryNorm w1 w2 w3 = e * p)
+    (hdot : ternaryDot
+      (quintLatticeCoord b1 p i n1)
+      (quintLatticeCoord b2 p j n2)
+      (quintLatticeCoord b3 p k n3) w1 w2 w3 = p * t)
+    (hclosure1 : quintLatticeCoord b1' p i n1' =
+      -shortRootReflectCoord c t w1 (quintLatticeCoord b1 p i n1))
+    (hclosure2 : quintLatticeCoord b2' p j n2' =
+      -shortRootReflectCoord c t w2 (quintLatticeCoord b2 p j n2))
+    (hclosure3 : quintLatticeCoord b3' p k n3' =
+      -shortRootReflectCoord c t w3 (quintLatticeCoord b3 p k n3))
+    (hweight : branchSign b1' * branchSign b2' * branchSign b3' =
+      -(branchSign b1 * branchSign b2 * branchSign b3)) :
+    (((e * p : ℤ) : ZMod 3)) = 2 := by
+  let z : Mod3BranchConverseInput :=
+    ⟨((e : ZMod 3), (p : ZMod 3), (c : ZMod 3)),
+      ((w1 : ZMod 3), (w2 : ZMod 3), (w3 : ZMod 3)),
+      (branchSign3 b1', branchSign3 b2', branchSign3 b3'),
+      (b1, b2, b3)⟩
+  have hdot3 := congrArg (fun q : ℤ => (q : ZMod 3)) hdot
+  simp only [ternaryDot] at hdot3
+  push_cast at hdot3
+  rw [quintLatticeCoord_cast_zmod3, quintLatticeCoord_cast_zmod3,
+    quintLatticeCoord_cast_zmod3] at hdot3
+  have ht : (p : ZMod 3) * (t : ZMod 3) = (p : ZMod 3) *
+      (branchSign3 b1 * (w1 : ZMod 3) + branchSign3 b2 * w2 +
+        branchSign3 b3 * w3) := by
+    calc
+      (p : ZMod 3) * (t : ZMod 3) =
+          (p : ZMod 3) * branchSign3 b1 * w1 +
+            (p : ZMod 3) * branchSign3 b2 * w2 +
+            (p : ZMod 3) * branchSign3 b3 * w3 := hdot3.symm
+      _ = (p : ZMod 3) *
+          (branchSign3 b1 * w1 + branchSign3 b2 * w2 +
+            branchSign3 b3 * w3) := by ring
+  push_cast
+  change z.e * z.p = 2
+  apply negative_branch_reversal_forces_norm_two_mod3 z
+  · rcases he with rfl | rfl <;> simp [z, Mod3BranchConverseInput.e]
+  · simpa [z, Mod3BranchConverseInput.p] using hp3
+  · dsimp [z, Mod3BranchConverseInput.c, Mod3BranchConverseInput.e]
+    have h := congrArg (fun q : ℤ => (q : ZMod 3)) hcoefficient
+    push_cast at h
+    exact h
+  · dsimp [z, Mod3BranchConverseInput.w1, Mod3BranchConverseInput.w2,
+      Mod3BranchConverseInput.w3, Mod3BranchConverseInput.e,
+      Mod3BranchConverseInput.p]
+    have h := congrArg (fun q : ℤ => (q : ZMod 3))
+      (by simpa [ternaryNorm] using hroot)
+    push_cast at h
+    exact h
+  · dsimp [z, Mod3BranchConverseInput.u1, Mod3BranchConverseInput.b1,
+      Mod3BranchConverseInput.c, Mod3BranchConverseInput.w1,
+      Mod3BranchConverseInput.t, Mod3BranchConverseInput.p,
+      Mod3BranchConverseInput.w2, Mod3BranchConverseInput.w3,
+      Mod3BranchConverseInput.b2, Mod3BranchConverseInput.b3]
+    rw [negative_shortRoot_branch_closure_mod3 b1 b1' p c t w1 i n1 n1'
+      hp3 hclosure1, ← ht]
+  · dsimp [z, Mod3BranchConverseInput.u2, Mod3BranchConverseInput.b2,
+      Mod3BranchConverseInput.c, Mod3BranchConverseInput.w2,
+      Mod3BranchConverseInput.t, Mod3BranchConverseInput.p,
+      Mod3BranchConverseInput.w1, Mod3BranchConverseInput.w3,
+      Mod3BranchConverseInput.b1, Mod3BranchConverseInput.b3]
+    rw [negative_shortRoot_branch_closure_mod3 b2 b2' p c t w2 j n2 n2'
+      hp3 hclosure2, ← ht]
+  · dsimp [z, Mod3BranchConverseInput.u3, Mod3BranchConverseInput.b3,
+      Mod3BranchConverseInput.c, Mod3BranchConverseInput.w3,
+      Mod3BranchConverseInput.t, Mod3BranchConverseInput.p,
+      Mod3BranchConverseInput.w1, Mod3BranchConverseInput.w2,
+      Mod3BranchConverseInput.b1, Mod3BranchConverseInput.b2]
+    rw [negative_shortRoot_branch_closure_mod3 b3 b3' p c t w3 k n3 n3'
+      hp3 hclosure3, ← ht]
+  · cases b1' <;> simp [z, Mod3BranchConverseInput.u1, branchSign3]
+  · cases b2' <;> simp [z, Mod3BranchConverseInput.u2, branchSign3]
+  · cases b3' <;> simp [z, Mod3BranchConverseInput.u3, branchSign3]
+  · have hweight3 := congrArg (fun q : ℤ => (q : ZMod 3)) hweight
+    push_cast at hweight3
+    simpa [z, Mod3BranchConverseInput.u1, Mod3BranchConverseInput.u2,
+      Mod3BranchConverseInput.u3, Mod3BranchConverseInput.b1,
+      Mod3BranchConverseInput.b2, Mod3BranchConverseInput.b3,
+      branchSign_cast_zmod3] using hweight3
+
 /-- Full denominator classification obtained from coherence.  Before the
 coordinate/permutation cases are excluded, the primitive normal norm is one
 of `1`, `2`, `p`, or `2p`. -/
@@ -878,13 +1375,518 @@ theorem primitive_householder_norm_cases_of_coherent
         _ = ((2 * p : ℕ) : ℤ) := by exact_mod_cast hn
         _ = 2 * (p : ℤ) := by push_cast; rfl)))
 
+set_option maxHeartbeats 1000000 in
+/-- Canonical nonzero, pairwise-distinct indices exclude every globally
+integral signed-coordinate or signed-swap Householder symmetry.  Coherence
+maps the three elementary kernel vectors to the same congruence lattice;
+the norm-one and norm-two reflections would respectively force `p` to divide
+`2ab` or `b²-a²` for canonical coordinates `0 < a < b < p/2`. -/
+theorem CoherentThetaInvolution.primitive_householder_norm_ne_one_two
+    {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p)
+    (w : TernaryIntIndex)
+    (hT : (∀ x, T.linear x =
+        ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+      (∀ x, T.linear x =
+        -ternaryRatHouseholder (ternaryIntIndexToRat w) x)) :
+    ternaryNorm w.1.1 w.1.2 w.2 ≠ 1 ∧
+      ternaryNorm w.1.1 w.1.2 w.2 ≠ 2 := by
+  rcases hadmissible with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hj : 0 < j := by omega
+  have hk : 0 < k := by omega
+  have hip : i < p := by omega
+  have hjp : j < p := by omega
+  have hkp : k < p := by omega
+  have hp2 : 2 < p := by omega
+  have hnot12prod : ¬(p : ℤ) ∣ 2 * (i : ℤ) * (j : ℤ) :=
+    prime_not_dvd_two_mul_of_lt hp hi hj hip hjp hp2
+  have hnot13prod : ¬(p : ℤ) ∣ 2 * (i : ℤ) * (k : ℤ) :=
+    prime_not_dvd_two_mul_of_lt hp hi hk hip hkp hp2
+  have hnot23prod : ¬(p : ℤ) ∣ 2 * (j : ℤ) * (k : ℤ) :=
+    prime_not_dvd_two_mul_of_lt hp hj hk hjp hkp hp2
+  have hnot12diff : ¬(p : ℤ) ∣ (j : ℤ) ^ 2 - (i : ℤ) ^ 2 :=
+    prime_not_dvd_square_sub_square_of_canonical hp hi hij (by omega)
+  have hik : i < k := by omega
+  have hnot13diff : ¬(p : ℤ) ∣ (k : ℤ) ^ 2 - (i : ℤ) ^ 2 :=
+    prime_not_dvd_square_sub_square_of_canonical hp hi hik hpk
+  have hnot23diff : ¬(p : ℤ) ∣ (k : ℤ) ^ 2 - (j : ℤ) ^ 2 :=
+    prime_not_dvd_square_sub_square_of_canonical hp hj hjk hpk
+  let d12 : TernaryIntIndex := (((j : ℤ), -(i : ℤ)), 0)
+  let d13 : TernaryIntIndex := (((k : ℤ), 0), -(i : ℤ))
+  let d23 : TernaryIntIndex := ((0, (k : ℤ)), -(j : ℤ))
+  have hd12 : InThetaIndexLattice p i j k d12 := by
+    refine ⟨0, ?_⟩
+    simp [d12, affineIndexDot]
+    ring
+  have hd13 : InThetaIndexLattice p i j k d13 := by
+    refine ⟨0, ?_⟩
+    simp [d13, affineIndexDot]
+    ring
+  have hd23 : InThetaIndexLattice p i j k d23 := by
+    refine ⟨0, ?_⟩
+    simp [d23, affineIndexDot]
+    ring
+  obtain ⟨z12, ⟨q12, hq12⟩, hmap12⟩ :=
+    T.maps_admissible_thetaIndexLattice
+      ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩ hR d12 hd12
+  obtain ⟨z13, ⟨q13, hq13⟩, hmap13⟩ :=
+    T.maps_admissible_thetaIndexLattice
+      ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩ hR d13 hd13
+  obtain ⟨z23, ⟨q23, hq23⟩, hmap23⟩ :=
+    T.maps_admissible_thetaIndexLattice
+      ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩ hR d23 hd23
+  have hdot12 :
+      (i : ℚ) * (T.linear (ternaryIntIndexToRat d12)).1.1 +
+          (j : ℚ) * (T.linear (ternaryIntIndexToRat d12)).1.2 +
+          (k : ℚ) * (T.linear (ternaryIntIndexToRat d12)).2 =
+        (p : ℚ) * (q12 : ℚ) := by
+    rw [hmap12]
+    simp only [ternaryIntIndexToRat]
+    exact_mod_cast hq12
+  have hdot13 :
+      (i : ℚ) * (T.linear (ternaryIntIndexToRat d13)).1.1 +
+          (j : ℚ) * (T.linear (ternaryIntIndexToRat d13)).1.2 +
+          (k : ℚ) * (T.linear (ternaryIntIndexToRat d13)).2 =
+        (p : ℚ) * (q13 : ℚ) := by
+    rw [hmap13]
+    simp only [ternaryIntIndexToRat]
+    exact_mod_cast hq13
+  have hdot23 :
+      (i : ℚ) * (T.linear (ternaryIntIndexToRat d23)).1.1 +
+          (j : ℚ) * (T.linear (ternaryIntIndexToRat d23)).1.2 +
+          (k : ℚ) * (T.linear (ternaryIntIndexToRat d23)).2 =
+        (p : ℚ) * (q23 : ℚ) := by
+    rw [hmap23]
+    simp only [ternaryIntIndexToRat]
+    exact_mod_cast hq23
+  rcases w with ⟨⟨w1, w2⟩, w3⟩
+  have hsmall_impossible :
+      ternaryNorm w1 w2 w3 = 1 ∨ ternaryNorm w1 w2 w3 = 2 → False := by
+    intro hsmall
+    have hsquares : w1 ^ 2 + w2 ^ 2 + w3 ^ 2 ≤ 2 := by
+      rcases hsmall with hnorm | hnorm <;>
+        simp only [ternaryNorm] at hnorm <;> omega
+    have hw1lo : -2 < w1 := by nlinarith [sq_nonneg w2, sq_nonneg w3]
+    have hw1hi : w1 < 2 := by nlinarith [sq_nonneg w2, sq_nonneg w3]
+    have hw2lo : -2 < w2 := by nlinarith [sq_nonneg w1, sq_nonneg w3]
+    have hw2hi : w2 < 2 := by nlinarith [sq_nonneg w1, sq_nonneg w3]
+    have hw3lo : -2 < w3 := by nlinarith [sq_nonneg w1, sq_nonneg w2]
+    have hw3hi : w3 < 2 := by nlinarith [sq_nonneg w1, sq_nonneg w2]
+    have hsupport :
+        (w2 = 0 ∧ w3 = 0 ∧ ternaryNorm w1 w2 w3 = 1) ∨
+        (w1 = 0 ∧ w3 = 0 ∧ ternaryNorm w1 w2 w3 = 1) ∨
+        (w1 = 0 ∧ w2 = 0 ∧ ternaryNorm w1 w2 w3 = 1) ∨
+        (w3 = 0 ∧ ternaryNorm w1 w2 w3 = 2) ∨
+        (w2 = 0 ∧ ternaryNorm w1 w2 w3 = 2) ∨
+        (w1 = 0 ∧ ternaryNorm w1 w2 w3 = 2) := by
+      interval_cases w1 <;> interval_cases w2 <;> interval_cases w3
+      all_goals norm_num [ternaryNorm] at hsmall
+      all_goals norm_num [ternaryNorm]
+    obtain ⟨r12, r13, r23, hHdot12, hHdot13, hHdot23⟩ :
+        ∃ r12 r13 r23 : ℤ,
+          (i : ℚ) * (ternaryRatHouseholder
+              (ternaryIntIndexToRat ((w1, w2), w3))
+              (ternaryIntIndexToRat d12)).1.1 +
+              (j : ℚ) * (ternaryRatHouseholder
+                (ternaryIntIndexToRat ((w1, w2), w3))
+                (ternaryIntIndexToRat d12)).1.2 +
+              (k : ℚ) * (ternaryRatHouseholder
+                (ternaryIntIndexToRat ((w1, w2), w3))
+                (ternaryIntIndexToRat d12)).2 = (p : ℚ) * r12 ∧
+          (i : ℚ) * (ternaryRatHouseholder
+              (ternaryIntIndexToRat ((w1, w2), w3))
+              (ternaryIntIndexToRat d13)).1.1 +
+              (j : ℚ) * (ternaryRatHouseholder
+                (ternaryIntIndexToRat ((w1, w2), w3))
+                (ternaryIntIndexToRat d13)).1.2 +
+              (k : ℚ) * (ternaryRatHouseholder
+                (ternaryIntIndexToRat ((w1, w2), w3))
+                (ternaryIntIndexToRat d13)).2 = (p : ℚ) * r13 ∧
+          (i : ℚ) * (ternaryRatHouseholder
+              (ternaryIntIndexToRat ((w1, w2), w3))
+              (ternaryIntIndexToRat d23)).1.1 +
+              (j : ℚ) * (ternaryRatHouseholder
+                (ternaryIntIndexToRat ((w1, w2), w3))
+                (ternaryIntIndexToRat d23)).1.2 +
+              (k : ℚ) * (ternaryRatHouseholder
+                (ternaryIntIndexToRat ((w1, w2), w3))
+                (ternaryIntIndexToRat d23)).2 = (p : ℚ) * r23 := by
+      rcases hT with hpositive | hnegative
+      · exact ⟨q12, q13, q23,
+          by simpa only [hpositive] using hdot12,
+          by simpa only [hpositive] using hdot13,
+          by simpa only [hpositive] using hdot23⟩
+      · rw [hnegative] at hdot12 hdot13 hdot23
+        refine ⟨-q12, -q13, -q23, ?_, ?_, ?_⟩ <;>
+          simp at hdot12 hdot13 hdot23 ⊢ <;> nlinarith
+    rcases hsupport with haxis1 | haxis2 | haxis3 | hpair12 | hpair13 | hpair23
+    · rcases haxis1 with ⟨rfl, rfl, hnorm⟩
+      interval_cases w1 <;> norm_num [ternaryNorm] at hnorm <;>
+        norm_num [d12, ternaryRatHouseholder, ternaryIntIndexToRat,
+          ternaryRatDot, ternaryRatNorm] at hHdot12 <;>
+        apply hnot12prod <;>
+        apply int_dvd_of_rat_eq_mul_or_neg (p : ℤ)
+          (2 * (i : ℤ) * (j : ℤ)) r12 <;>
+        first
+        | left; push_cast; nlinarith only [hHdot12]
+        | right; push_cast; nlinarith only [hHdot12]
+    · rcases haxis2 with ⟨rfl, rfl, hnorm⟩
+      interval_cases w2 <;> norm_num [ternaryNorm] at hnorm <;>
+        norm_num [d12, ternaryRatHouseholder, ternaryIntIndexToRat,
+          ternaryRatDot, ternaryRatNorm] at hHdot12 <;>
+        apply hnot12prod <;>
+        apply int_dvd_of_rat_eq_mul_or_neg (p : ℤ)
+          (2 * (i : ℤ) * (j : ℤ)) r12 <;>
+        left <;> push_cast <;> nlinarith only [hHdot12]
+    · rcases haxis3 with ⟨rfl, rfl, hnorm⟩
+      interval_cases w3 <;> norm_num [ternaryNorm] at hnorm <;>
+        norm_num [d13, ternaryRatHouseholder, ternaryIntIndexToRat,
+          ternaryRatDot, ternaryRatNorm] at hHdot13 <;>
+        apply hnot13prod <;>
+        apply int_dvd_of_rat_eq_mul_or_neg (p : ℤ)
+          (2 * (i : ℤ) * (k : ℤ)) r13 <;>
+        left <;> push_cast <;> nlinarith only [hHdot13]
+    · rcases hpair12 with ⟨rfl, hnorm⟩
+      interval_cases w1 <;> interval_cases w2 <;>
+        norm_num [ternaryNorm] at hnorm <;>
+        norm_num [d12, ternaryRatHouseholder, ternaryIntIndexToRat,
+          ternaryRatDot, ternaryRatNorm] at hHdot12 <;>
+        apply hnot12diff <;>
+        apply int_dvd_of_rat_eq_mul_or_neg (p : ℤ)
+          ((j : ℤ) ^ 2 - (i : ℤ) ^ 2) r12 <;>
+        first
+        | left; push_cast; nlinarith only [hHdot12]
+        | right; push_cast; nlinarith only [hHdot12]
+    · rcases hpair13 with ⟨rfl, hnorm⟩
+      interval_cases w1 <;> interval_cases w3 <;>
+        norm_num [ternaryNorm] at hnorm <;>
+        norm_num [d13, ternaryRatHouseholder, ternaryIntIndexToRat,
+          ternaryRatDot, ternaryRatNorm] at hHdot13 <;>
+        apply hnot13diff <;>
+        apply int_dvd_of_rat_eq_mul_or_neg (p : ℤ)
+          ((k : ℤ) ^ 2 - (i : ℤ) ^ 2) r13 <;>
+        first
+        | left; push_cast; nlinarith only [hHdot13]
+        | right; push_cast; nlinarith only [hHdot13]
+    · rcases hpair23 with ⟨rfl, hnorm⟩
+      interval_cases w2 <;> interval_cases w3 <;>
+        norm_num [ternaryNorm] at hnorm <;>
+        norm_num [d23, ternaryRatHouseholder, ternaryIntIndexToRat,
+          ternaryRatDot, ternaryRatNorm] at hHdot23 <;>
+        apply hnot23diff <;>
+        apply int_dvd_of_rat_eq_mul_or_neg (p : ℤ)
+          ((k : ℤ) ^ 2 - (j : ℤ) ^ 2) r23 <;>
+        first
+        | left; push_cast; nlinarith only [hHdot23]
+        | right; push_cast; nlinarith only [hHdot23]
+  constructor
+  · intro hnorm
+    exact hsmall_impossible (Or.inl hnorm)
+  · intro hnorm
+    exact hsmall_impossible (Or.inr hnorm)
+
+/-- The finite stabilizer exclusion sharpens the denominator list to the two
+short-root norms. -/
+theorem CoherentThetaInvolution.primitive_householder_norm_eq_prime_or_two_prime
+    {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p)
+    (w : TernaryIntIndex) (hw : w ≠ 0) (b1 b2 b3 : ℤ)
+    (hprimitive :
+      b1 * w.1.1 ^ 2 + b2 * w.1.2 ^ 2 + b3 * w.2 ^ 2 = 1)
+    (hT : (∀ x, T.linear x =
+        ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+      (∀ x, T.linear x =
+        -ternaryRatHouseholder (ternaryIntIndexToRat w) x)) :
+    ternaryNorm w.1.1 w.1.2 w.2 = p ∨
+      ternaryNorm w.1.1 w.1.2 w.2 = 2 * p := by
+  have hcases := primitive_householder_norm_cases_of_coherent T
+    hadmissible hR w hw b1 b2 b3 hprimitive hT
+  have hsmall := T.primitive_householder_norm_ne_one_two
+    hadmissible hR w hT
+  rcases hcases with hnorm | hnorm | hnorm | hnorm
+  · exact (hsmall.1 hnorm).elim
+  · exact (hsmall.2 hnorm).elim
+  · exact Or.inl hnorm
+  · exact Or.inr hnorm
+
+/-- If a primitive integral Householder image is integral, the squared norm
+of the normal divides twice its dot product with the source vector.  The
+square-Bézout certificate combines the three coordinate integrality equations
+without any coprimality black box. -/
+theorem householder_integral_image_norm_dvd_two_dot
+    (w x y : TernaryIntIndex) (hw : w ≠ 0) (b1 b2 b3 : ℤ)
+    (hprimitive :
+      b1 * w.1.1 ^ 2 + b2 * w.1.2 ^ 2 + b3 * w.2 ^ 2 = 1)
+    (hmap : ternaryRatHouseholder (ternaryIntIndexToRat w)
+        (ternaryIntIndexToRat x) = ternaryIntIndexToRat y) :
+    ternaryNorm w.1.1 w.1.2 w.2 ∣
+      2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 := by
+  have hcast_ne : ternaryIntIndexToRat w ≠ 0 := by
+    intro hzero
+    apply hw
+    apply ternaryIntIndexToRat_injective
+    simpa using hzero
+  have hnormq : (ternaryNorm w.1.1 w.1.2 w.2 : ℚ) ≠ 0 := by
+    rw [← ternaryRatNorm_intIndexToRat]
+    exact ne_of_gt (ternaryRatNorm_pos hcast_ne)
+  have hnormexpand :
+      ((w.1.1 : ℚ) ^ 2 + (w.1.2 : ℚ) ^ 2 + (w.2 : ℚ) ^ 2) =
+        (ternaryNorm w.1.1 w.1.2 w.2 : ℚ) := by
+    simp [ternaryNorm]
+  have hcoord1 := congrArg (fun z : TernaryRatPoint => z.1.1) hmap
+  have hcoord2 := congrArg (fun z : TernaryRatPoint => z.1.2) hmap
+  have hcoord3 := congrArg (fun z : TernaryRatPoint => z.2) hmap
+  simp [ternaryRatHouseholder, ternaryIntIndexToRat,
+    ternaryRatDot, ternaryRatNorm] at hcoord1 hcoord2 hcoord3
+  rw [hnormexpand] at hcoord1 hcoord2 hcoord3
+  field_simp [hnormq] at hcoord1 hcoord2 hcoord3
+  have hdiv1 :
+      2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 * w.1.1 =
+        ternaryNorm w.1.1 w.1.2 w.2 * (x.1.1 - y.1.1) := by
+    exact_mod_cast (show
+      2 * ((w.1.1 : ℚ) * x.1.1 + (w.1.2 : ℚ) * x.1.2 +
+          (w.2 : ℚ) * x.2) * w.1.1 =
+        (ternaryNorm w.1.1 w.1.2 w.2 : ℚ) * (x.1.1 - y.1.1) by
+          linear_combination -hcoord1)
+  have hdiv2 :
+      2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 * w.1.2 =
+        ternaryNorm w.1.1 w.1.2 w.2 * (x.1.2 - y.1.2) := by
+    exact_mod_cast (show
+      2 * ((w.1.1 : ℚ) * x.1.1 + (w.1.2 : ℚ) * x.1.2 +
+          (w.2 : ℚ) * x.2) * w.1.2 =
+        (ternaryNorm w.1.1 w.1.2 w.2 : ℚ) * (x.1.2 - y.1.2) by
+          linear_combination -hcoord2)
+  have hdiv3 :
+      2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 * w.2 =
+        ternaryNorm w.1.1 w.1.2 w.2 * (x.2 - y.2) := by
+    exact_mod_cast (show
+      2 * ((w.1.1 : ℚ) * x.1.1 + (w.1.2 : ℚ) * x.1.2 +
+          (w.2 : ℚ) * x.2) * w.2 =
+        (ternaryNorm w.1.1 w.1.2 w.2 : ℚ) * (x.2 - y.2) by
+          linear_combination -hcoord3)
+  refine ⟨b1 * w.1.1 * (x.1.1 - y.1.1) +
+      b2 * w.1.2 * (x.1.2 - y.1.2) +
+      b3 * w.2 * (x.2 - y.2), ?_⟩
+  calc
+    2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 =
+        2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 *
+          (b1 * w.1.1 ^ 2 + b2 * w.1.2 ^ 2 + b3 * w.2 ^ 2) := by
+            rw [hprimitive]
+            ring
+    _ = b1 * w.1.1 *
+          (2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 * w.1.1) +
+        b2 * w.1.2 *
+          (2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 * w.1.2) +
+        b3 * w.2 *
+          (2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 * w.2) := by ring
+    _ = ternaryNorm w.1.1 w.1.2 w.2 *
+        (b1 * w.1.1 * (x.1.1 - y.1.1) +
+          b2 * w.1.2 * (x.1.2 - y.1.2) +
+          b3 * w.2 * (x.2 - y.2)) := by
+            rw [hdiv1, hdiv2, hdiv3]
+            ring
+
+/-- On a short root, the rational Householder formula is exactly the
+division-free integral reflection in all three coordinates. -/
+theorem ternaryRatHouseholder_int_eq_shortRootReflect
+    (p e c t : ℤ) (w x : TernaryIntIndex) (hp : p ≠ 0)
+    (hroot : ternaryNorm w.1.1 w.1.2 w.2 = e * p)
+    (hdot : ternaryDot x.1.1 x.1.2 x.2 w.1.1 w.1.2 w.2 = p * t)
+    (hcoefficient : c * e = 2) :
+    ternaryRatHouseholder (ternaryIntIndexToRat w)
+        (ternaryIntIndexToRat x) =
+      ternaryIntIndexToRat
+        ((shortRootReflectCoord c t w.1.1 x.1.1,
+          shortRootReflectCoord c t w.1.2 x.1.2),
+          shortRootReflectCoord c t w.2 x.2) := by
+  have he : e ≠ 0 := by
+    intro hezero
+    rw [hezero] at hcoefficient
+    norm_num at hcoefficient
+  have hpq : (p : ℚ) ≠ 0 := by exact_mod_cast hp
+  have heq : (e : ℚ) ≠ 0 := by exact_mod_cast he
+  have hdotq : ternaryRatDot (ternaryIntIndexToRat x)
+      (ternaryIntIndexToRat w) = (p : ℚ) * (t : ℚ) := by
+    rcases w with ⟨⟨w1, w2⟩, w3⟩
+    rcases x with ⟨⟨x1, x2⟩, x3⟩
+    simp only [ternaryDot] at hdot
+    simp [ternaryRatDot, ternaryIntIndexToRat]
+    exact_mod_cast hdot
+  have hnormq : ternaryRatNorm (ternaryIntIndexToRat w) =
+      (e : ℚ) * (p : ℚ) := by
+    rw [ternaryRatNorm_intIndexToRat]
+    exact_mod_cast hroot
+  have hcoefficientq : (c : ℚ) * (e : ℚ) = 2 := by
+    exact_mod_cast hcoefficient
+  have hscalar :
+      2 * ternaryRatDot (ternaryIntIndexToRat x) (ternaryIntIndexToRat w) /
+          ternaryRatNorm (ternaryIntIndexToRat w) = (c : ℚ) * t := by
+    rw [hdotq, hnormq, div_eq_iff (mul_ne_zero heq hpq)]
+    rw [← hcoefficientq]
+    ring
+  rw [ternaryRatHouseholder, hscalar]
+  rcases w with ⟨⟨w1, w2⟩, w3⟩
+  rcases x with ⟨⟨x1, x2⟩, x3⟩
+  simp [ternaryIntIndexToRat, shortRootReflectCoord]
+
+/-- Bézout inverses modulo the same modulus multiply constructively. -/
+lemma bezout_product_modulus
+    (p a b ap aa bp bb : ℤ)
+    (ha : ap * p + aa * a = 1) (hb : bp * p + bb * b = 1) :
+    (ap + aa * a * bp) * p + (aa * bb) * (a * b) = 1 := by
+  linear_combination ha + aa * a * hb
+
+/-- A primitive projective lift has projective scalar invertible modulo the
+modulus.  The primitive square certificate gives the inverse explicitly. -/
+lemma primitive_projective_lift_lambda_bezout
+    (p lambda i j k w1 w2 w3 a1 a2 a3 b1 b2 b3 : ℤ)
+    (hw1 : w1 = lambda * i + p * a1)
+    (hw2 : w2 = lambda * j + p * a2)
+    (hw3 : w3 = lambda * k + p * a3)
+    (hprimitive : b1 * w1 ^ 2 + b2 * w2 ^ 2 + b3 * w3 ^ 2 = 1) :
+    ∃ bp bl : ℤ, bp * p + bl * lambda = 1 := by
+  refine ⟨2 * lambda * (b1 * i * a1 + b2 * j * a2 + b3 * k * a3) +
+      p * (b1 * a1 ^ 2 + b2 * a2 ^ 2 + b3 * a3 ^ 2),
+    lambda * (b1 * i ^ 2 + b2 * j ^ 2 + b3 * k ^ 2), ?_⟩
+  rw [hw1, hw2, hw3] at hprimitive
+  nlinarith [hprimitive]
+
+/-- On admissible data, either short-root coefficient (`2` for norm `p`,
+`1` for norm `2p`) is invertible modulo `p`. -/
+lemma short_root_coefficient_bezout
+    {p : ℕ} (hp : Nat.Prime p) (hp2 : p ≠ 2) (e c : ℤ)
+    (he : e = 1 ∨ e = 2) (hcoefficient : c * e = 2) :
+    ∃ bp bc : ℤ, bp * (p : ℤ) + bc * c = 1 := by
+  have hpoddNat : Odd p := hp.odd_of_ne_two hp2
+  have hpodd : Odd (p : ℤ) := by exact_mod_cast hpoddNat
+  rcases he with rfl | rfl
+  · have hc : c = 2 := by omega
+    obtain ⟨z, hz⟩ := hpodd
+    refine ⟨1, -z, ?_⟩
+    rw [hc]
+    omega
+  · have hc : c = 1 := by omega
+    exact ⟨0, 1, by simp [hc]⟩
+
+lemma admissible_modulus_ne_zero_zmod3
+    {p i j k : ℕ} (hadmissible : AdmissibleSparseTriple p i j k) :
+    ((p : ℤ) : ZMod 3) ≠ 0 := by
+  rcases hadmissible with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  intro hzero
+  have hdivInt := (ZMod.intCast_zmod_eq_zero_iff_dvd (p : ℤ) 3).mp hzero
+  have hdivNat : 3 ∣ p := by exact_mod_cast hdivInt
+  rcases (Nat.dvd_prime hp).mp hdivNat with hthreeone | hthreep
+  · norm_num at hthreeone
+  · exact hp3 hthreep.symm
+
+/-- Every admissible progression residue has at least one Watson branch point
+in its complete affine fiber. -/
+lemma admissible_exists_theta_residue_point
+    {p i j k R : ℕ} (hadmissible : AdmissibleSparseTriple p i j k) :
+    ∃ x : TripleQuintBranchIndex, InThetaResidueFiber p i j k R x := by
+  obtain ⟨bp, bv, hunit⟩ :=
+    admissibleSparseTriple_exists_three_i_bezout hadmissible
+  have hzero : InThetaIndexLattice p i j k (0 : TernaryIntIndex) := by
+    exact ⟨0, by simp [affineIndexDot]⟩
+  obtain ⟨x, y, hx, hy, hxy⟩ :=
+    thetaIndexLattice_difference_spanning_of_bezout
+      p i j k R (0 : TernaryIntIndex) bp bv hunit hzero
+  exact ⟨x, hx⟩
+
+/-- For a coherent short reflection, every vector in the index-`p` kernel
+has dot product divisible by `p` against the primitive normal.  The short
+norm contributes a factor `p`; oddness cancels the remaining factor two. -/
+theorem CoherentThetaInvolution.short_normal_dot_dvd_on_thetaIndexLattice
+    {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p)
+    (w : TernaryIntIndex) (hw : w ≠ 0) (b1 b2 b3 e : ℤ)
+    (hprimitive :
+      b1 * w.1.1 ^ 2 + b2 * w.1.2 ^ 2 + b3 * w.2 ^ 2 = 1)
+    (hnorm : ternaryNorm w.1.1 w.1.2 w.2 = e * (p : ℤ))
+    (hT : (∀ x, T.linear x =
+        ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+      (∀ x, T.linear x =
+        -ternaryRatHouseholder (ternaryIntIndexToRat w) x))
+    (x : TernaryIntIndex) (hx : InThetaIndexLattice p i j k x) :
+    (p : ℤ) ∣ ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 := by
+  obtain ⟨y, hy, hmap⟩ :=
+    T.maps_admissible_thetaIndexLattice hadmissible hR x hx
+  obtain ⟨z, hhouse⟩ : ∃ z : TernaryIntIndex,
+      ternaryRatHouseholder (ternaryIntIndexToRat w)
+          (ternaryIntIndexToRat x) = ternaryIntIndexToRat z := by
+    rcases hT with hpositive | hnegative
+    · exact ⟨y, (hpositive _).symm.trans hmap⟩
+    · have hneg := congrArg Neg.neg ((hnegative _).symm.trans hmap)
+      exact ⟨-y, by simpa [ternaryIntIndexToRat] using hneg⟩
+  have hdiv := householder_integral_image_norm_dvd_two_dot
+    w x z hw b1 b2 b3 hprimitive hhouse
+  obtain ⟨q, hq⟩ := hdiv
+  have hpdiv : (p : ℤ) ∣
+      2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 := by
+    refine ⟨e * q, ?_⟩
+    calc
+      2 * ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2 =
+          ternaryNorm w.1.1 w.1.2 w.2 * q := hq
+      _ = (p : ℤ) * (e * q) := by rw [hnorm]; ring
+  rcases hadmissible with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hpoddNat : Odd p := hp.odd_of_ne_two (by omega)
+  have hpodd : Odd (p : ℤ) := by exact_mod_cast hpoddNat
+  exact int_dvd_of_dvd_two_mul_of_odd (p : ℤ)
+    (ternaryDot w.1.1 w.1.2 w.2 x.1.1 x.1.2 x.2) hpodd hpdiv
+
+/-- **Projective extraction from coherence.**  A primitive coherent normal
+of norm `p` or `2p` is forced to be a projective lift of the original
+isotropic index vector. -/
+theorem CoherentThetaInvolution.primitive_short_normal_projective_lift
+    {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p)
+    (w : TernaryIntIndex) (hw : w ≠ 0) (b1 b2 b3 : ℤ)
+    (hprimitive :
+      b1 * w.1.1 ^ 2 + b2 * w.1.2 ^ 2 + b3 * w.2 ^ 2 = 1)
+    (hnorm : ternaryNorm w.1.1 w.1.2 w.2 = p ∨
+      ternaryNorm w.1.1 w.1.2 w.2 = 2 * p)
+    (hT : (∀ x, T.linear x =
+        ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+      (∀ x, T.linear x =
+        -ternaryRatHouseholder (ternaryIntIndexToRat w) x)) :
+    ∃ e lambda a1 a2 a3 : ℤ,
+      (e = 1 ∨ e = 2) ∧
+      ternaryNorm w.1.1 w.1.2 w.2 = e * p ∧
+      w.1.1 = lambda * i + p * a1 ∧
+      w.1.2 = lambda * j + p * a2 ∧
+      w.2 = lambda * k + p * a3 := by
+  obtain ⟨e, he, hnorme⟩ : ∃ e : ℤ, (e = 1 ∨ e = 2) ∧
+      ternaryNorm w.1.1 w.1.2 w.2 = e * p := by
+    rcases hnorm with hnorm | hnorm
+    · exact ⟨1, Or.inl rfl, by simpa using hnorm⟩
+    · exact ⟨2, Or.inr rfl, by simpa using hnorm⟩
+  obtain ⟨bp, bv, hunit3⟩ :=
+    admissibleSparseTriple_exists_three_i_bezout hadmissible
+  have hunit : bp * (p : ℤ) + (3 * bv) * (i : ℤ) = 1 := by
+    linear_combination hunit3
+  have hkernel : ∀ x1 x2 x3 : ℤ,
+      (p : ℤ) ∣ ternaryDot i j k x1 x2 x3 →
+        (p : ℤ) ∣ ternaryDot w.1.1 w.1.2 w.2 x1 x2 x3 := by
+    intro x1 x2 x3 hx
+    let x : TernaryIntIndex := ((x1, x2), x3)
+    have hxL : InThetaIndexLattice p i j k x := by
+      obtain ⟨q, hq⟩ := hx
+      refine ⟨q, ?_⟩
+      simpa [x, affineIndexDot, ternaryDot] using hq
+    simpa [x] using T.short_normal_dot_dvd_on_thetaIndexLattice
+      hadmissible hR w hw b1 b2 b3 e hprimitive hnorme hT x hxL
+  obtain ⟨lambda, a1, a2, a3, hw1, hw2, hw3⟩ :=
+    congruence_kernel_forces_projective_lift (p : ℤ)
+      i j k w.1.1 w.1.2 w.2 bp (3 * bv) hunit hkernel
+  exact ⟨e, lambda, a1, a2, a3, he, hnorme, hw1, hw2, hw3⟩
+
 /-- **Primitive arithmetic extraction from coherence.**  Every coherent theta
 involution has a primitive integral Householder normal, its linear part is the
 corresponding reflection or negative reflection, and the squared norm of that
 normal is forced into the sharp denominator list `1, 2, p, 2p`.
 
 The first two cases are precisely the integral signed-coordinate/permutation
-reflections.  Excluding their stabilizers is a separate modular rigidity step;
+reflections.  The theorem below excludes their stabilizers under admissibility;
 the denominator argument itself makes no hidden genericity assumption. -/
 theorem CoherentThetaInvolution.exists_primitive_householder_with_norm_cases
     {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
@@ -910,5 +1912,301 @@ theorem CoherentThetaInvolution.exists_primitive_householder_with_norm_cases
     have hcases := primitive_householder_norm_cases_of_coherent T
       hadmissible hR w hw b1 b2 b3 hprimitive (Or.inr hT)
     exact ⟨w, hw, b1, b2, b3, hprimitive, hcases, Or.inr hT⟩
+
+/-- **Short projective-root extraction from coherence.**  This packages the
+closed arithmetic converse: a coherent theta involution supplies a primitive
+integral normal of norm `p` or `2p`, projectively congruent to `(i,j,k)`
+modulo `p`, and realizes the involution as its Householder reflection or
+negative reflection. -/
+theorem CoherentThetaInvolution.exists_primitive_short_projective_householder
+    {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p) :
+    ∃ w : TernaryIntIndex, w ≠ 0 ∧
+      ∃ b1 b2 b3 e lambda a1 a2 a3 : ℤ,
+        b1 * w.1.1 ^ 2 + b2 * w.1.2 ^ 2 + b3 * w.2 ^ 2 = 1 ∧
+        (e = 1 ∨ e = 2) ∧
+        ternaryNorm w.1.1 w.1.2 w.2 = e * p ∧
+        w.1.1 = lambda * i + p * a1 ∧
+        w.1.2 = lambda * j + p * a2 ∧
+        w.2 = lambda * k + p * a3 ∧
+        ((∀ x, T.linear x =
+            ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+          (∀ x, T.linear x =
+            -ternaryRatHouseholder (ternaryIntIndexToRat w) x)) := by
+  rcases T.exists_primitive_integral_householder_or_neg with
+    hpositive | hnegative
+  · obtain ⟨w, hw, b1, b2, b3, hprimitive, hT⟩ := hpositive
+    have hsign :
+        (∀ x, T.linear x =
+          ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+        (∀ x, T.linear x =
+          -ternaryRatHouseholder (ternaryIntIndexToRat w) x) := Or.inl hT
+    have hnorm := T.primitive_householder_norm_eq_prime_or_two_prime
+      hadmissible hR w hw b1 b2 b3 hprimitive hsign
+    obtain ⟨e, lambda, a1, a2, a3, he, hroot, hw1, hw2, hw3⟩ :=
+      T.primitive_short_normal_projective_lift hadmissible hR
+        w hw b1 b2 b3 hprimitive hnorm hsign
+    exact ⟨w, hw, b1, b2, b3, e, lambda, a1, a2, a3,
+      hprimitive, he, hroot, hw1, hw2, hw3, hsign⟩
+  · obtain ⟨w, hw, b1, b2, b3, hprimitive, hT⟩ := hnegative
+    have hsign :
+        (∀ x, T.linear x =
+          ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+        (∀ x, T.linear x =
+          -ternaryRatHouseholder (ternaryIntIndexToRat w) x) := Or.inr hT
+    have hnorm := T.primitive_householder_norm_eq_prime_or_two_prime
+      hadmissible hR w hw b1 b2 b3 hprimitive hsign
+    obtain ⟨e, lambda, a1, a2, a3, he, hroot, hw1, hw2, hw3⟩ :=
+      T.primitive_short_normal_projective_lift hadmissible hR
+        w hw b1 b2 b3 hprimitive hnorm hsign
+    exact ⟨w, hw, b1, b2, b3, e, lambda, a1, a2, a3,
+      hprimitive, he, hroot, hw1, hw2, hw3, hsign⟩
+
+/-- **Branch-target extraction from coherence.**  Once the primitive short
+projective normal has been extracted, closure of one actual Watson point and
+weight reversal force the correct mod-three sign and the corresponding exact
+positive or negative projective target congruence. -/
+theorem CoherentThetaInvolution.short_projective_householder_target_case
+    {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p)
+    (w : TernaryIntIndex) (b1 b2 b3 e lambda a1 a2 a3 : ℤ)
+    (hprimitive :
+      b1 * w.1.1 ^ 2 + b2 * w.1.2 ^ 2 + b3 * w.2 ^ 2 = 1)
+    (he : e = 1 ∨ e = 2)
+    (hroot : ternaryNorm w.1.1 w.1.2 w.2 = e * p)
+    (hw1 : w.1.1 = lambda * i + p * a1)
+    (hw2 : w.1.2 = lambda * j + p * a2)
+    (hw3 : w.2 = lambda * k + p * a3)
+    (hT : (∀ x, T.linear x =
+        ternaryRatHouseholder (ternaryIntIndexToRat w) x) ∨
+      (∀ x, T.linear x =
+        -ternaryRatHouseholder (ternaryIntIndexToRat w) x)) :
+    ∃ c u : ℤ,
+      c * e = 2 ∧
+      ternaryDot i j k w.1.1 w.1.2 w.2 = p * u ∧
+      (((((e * (p : ℤ) : ℤ) : ZMod 3) = 1) ∧
+          ∃ h : ℤ, 2 * lambda * R =
+            w.1.1 + w.1.2 + w.2 - 6 * u + p * h) ∨
+        ((((e * (p : ℤ) : ℤ) : ZMod 3) = 2) ∧
+          ∃ base h : ℤ,
+            base = 2 * lambda * R - (w.1.1 + w.1.2 + w.2) + 6 * u ∧
+            c * lambda * base = 12 + p * h)) := by
+  let c : ℤ := 3 - e
+  have hcoefficient : c * e = 2 := by
+    rcases he with rfl | rfl <;> simp [c]
+  obtain ⟨isotropicQ, hisotropicQ⟩ := hadmissible.2.2.2.2.2.2
+  let u : ℤ := lambda * isotropicQ + ternaryDot i j k a1 a2 a3
+  have hvw : ternaryDot i j k w.1.1 w.1.2 w.2 = p * u := by
+    exact projectiveLift_is_in_lattice p lambda i j k w.1.1 w.1.2 w.2
+      a1 a2 a3 isotropicQ hw1 hw2 hw3 hisotropicQ
+  obtain ⟨x, hxfiber⟩ := admissible_exists_theta_residue_point
+    (R := R) hadmissible
+  have had := hadmissible
+  rcases had with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hpi : 2 * i < p := by omega
+  have hj : 0 < j := by omega
+  have hpj : 2 * j < p := by omega
+  have hk : 0 < k := by omega
+  have hpoddNat : Odd p := hp.odd_of_ne_two (by omega)
+  have hpodd : Odd (p : ℤ) := by exact_mod_cast hpoddNat
+  have hxprog := (onThetaProgression_iff_inThetaResidueFiber
+    p i j k R x hi hpi hj hpj hk hpk hpodd hR).mpr hxfiber
+  obtain ⟨q, hresidue⟩ := hxfiber
+  let base : ℤ :=
+    2 * lambda * R - (w.1.1 + w.1.2 + w.2) + 6 * u
+  let m : ℤ := 2 * lambda * q +
+    2 * projectiveLiftBranchCorrection
+      (pointB1 x) (pointB2 x) (pointB3 x) a1 a2 a3
+      (pointN1 x) (pointN2 x) (pointN3 x)
+  have hdot : ternaryDot
+      (pointCoord1 p i x) (pointCoord2 p j x) (pointCoord3 p k x)
+      w.1.1 w.1.2 w.2 = p * (base + p * m) := by
+    have hquot := projectiveRoot_reflection_quotient
+      (pointB1 x) (pointB2 x) (pointB3 x)
+      p lambda i j k w.1.1 w.1.2 w.2 a1 a2 a3 u
+      (pointN1 x) (pointN2 x) (pointN3 x) R q
+      hw1 hw2 hw3 hvw (by simpa [pointLinearResidue] using hresidue)
+    simpa [pointCoord1, pointCoord2, pointCoord3, base, m] using hquot
+  have hhouse := ternaryRatHouseholder_int_eq_shortRootReflect
+    p e c (base + p * m) w (pointThetaVector p i j k x)
+    (by omega) hroot (by simpa [pointThetaVector, ternaryDot] using hdot)
+    hcoefficient
+  let y := T.partner x
+  have hweightReverse := T.weight_reverse x hxprog
+  have hweight : branchSign (pointB1 y) * branchSign (pointB2 y) *
+      branchSign (pointB3 y) =
+      -(branchSign (pointB1 x) * branchSign (pointB2 x) *
+        branchSign (pointB3 x)) := by
+    dsimp [y] at hweightReverse ⊢
+    simp only [pointBranchWeight] at hweightReverse
+    linear_combination -hweightReverse
+  have hpmod3 : ((p : ℤ) : ZMod 3) ≠ 0 :=
+    admissible_modulus_ne_zero_zmod3 hadmissible
+  obtain ⟨bpi, bi3, hi3unit⟩ :=
+    admissibleSparseTriple_exists_three_i_bezout hadmissible
+  have hiunit : bpi * (p : ℤ) + (3 * bi3) * (i : ℤ) = 1 := by
+    linear_combination hi3unit
+  rcases hT with hpositive | hnegative
+  · have hcast : ternaryIntIndexToRat (pointThetaVector p i j k y) =
+        ternaryIntIndexToRat
+          ((shortRootReflectCoord c (base + p * m) w.1.1 (pointCoord1 p i x),
+            shortRootReflectCoord c (base + p * m) w.1.2 (pointCoord2 p j x)),
+            shortRootReflectCoord c (base + p * m) w.2 (pointCoord3 p k x)) := by
+      calc
+        ternaryIntIndexToRat (pointThetaVector p i j k y) =
+            T.linear (pointThetaVectorRat p i j k x) :=
+          (T.coordinate_transport x hxprog).symm
+        _ = ternaryRatHouseholder (ternaryIntIndexToRat w)
+            (pointThetaVectorRat p i j k x) := hpositive _
+        _ = _ := by simpa [pointThetaVectorRat, pointThetaVector] using hhouse
+    have hint := ternaryIntIndexToRat_injective hcast
+    have hclosure1 : pointCoord1 p i y =
+        shortRootReflectCoord c (base + p * m) w.1.1 (pointCoord1 p i x) :=
+      congrArg (fun z : TernaryIntIndex => z.1.1) hint
+    have hclosure2 : pointCoord2 p j y =
+        shortRootReflectCoord c (base + p * m) w.1.2 (pointCoord2 p j x) :=
+      congrArg (fun z : TernaryIntIndex => z.1.2) hint
+    have hclosure3 : pointCoord3 p k y =
+        shortRootReflectCoord c (base + p * m) w.2 (pointCoord3 p k x) :=
+      congrArg (fun z : TernaryIntIndex => z.2) hint
+    have hmod := positive_integral_branch_reversal_forces_norm_one_mod3
+      (pointB1 x) (pointB2 x) (pointB3 x)
+      (pointB1 y) (pointB2 y) (pointB3 y)
+      p e c (base + p * m) w.1.1 w.1.2 w.2 i j k
+      (pointN1 x) (pointN2 x) (pointN3 x)
+      (pointN1 y) (pointN2 y) (pointN3 y)
+      he hpmod3 hcoefficient hroot
+      (by simpa [pointCoord1, pointCoord2, pointCoord3] using hdot)
+      (by simpa [pointCoord1] using hclosure1)
+      (by simpa [pointCoord2] using hclosure2)
+      (by simpa [pointCoord3] using hclosure3) hweight
+    obtain ⟨bpl, bl, hlunit⟩ := primitive_projective_lift_lambda_bezout
+      p lambda i j k w.1.1 w.1.2 w.2 a1 a2 a3 b1 b2 b3
+      hw1 hw2 hw3 hprimitive
+    obtain ⟨bpc, bc, hcunit⟩ := short_root_coefficient_bezout hp
+      (by omega) e c he hcoefficient
+    have hclunit := bezout_product_modulus (p : ℤ) c lambda
+      bpc bc bpl bl hcunit hlunit
+    have hcliunit := bezout_product_modulus (p : ℤ) (c * lambda) i
+      (bpc + bc * c * bpl) (bc * bl) bpi (3 * bi3) hclunit hiunit
+    obtain ⟨h, hbase⟩ :=
+      projectiveRoot_positive_target_necessary_of_coordinate_closure
+        (pointB1 x) (pointB1 y) p c lambda base i w.1.1 a1 m
+        (pointN1 x) (pointN1 y)
+        (bpc + bc * c * bpl + (bc * bl) * (c * lambda) * bpi)
+        ((bc * bl) * (3 * bi3)) hw1 hcliunit
+        (by simpa [pointCoord1] using hclosure1)
+    refine ⟨c, u, hcoefficient, hvw, Or.inl ⟨hmod, ?_⟩⟩
+    exact ⟨h, by dsimp [base] at hbase; linear_combination hbase⟩
+  · have hcast : ternaryIntIndexToRat (pointThetaVector p i j k y) =
+        ternaryIntIndexToRat
+          (-((shortRootReflectCoord c (base + p * m) w.1.1 (pointCoord1 p i x),
+            shortRootReflectCoord c (base + p * m) w.1.2 (pointCoord2 p j x)),
+            shortRootReflectCoord c (base + p * m) w.2 (pointCoord3 p k x))) := by
+      calc
+        ternaryIntIndexToRat (pointThetaVector p i j k y) =
+            T.linear (pointThetaVectorRat p i j k x) :=
+          (T.coordinate_transport x hxprog).symm
+        _ = -ternaryRatHouseholder (ternaryIntIndexToRat w)
+            (pointThetaVectorRat p i j k x) := hnegative _
+        _ = _ := by
+          change -ternaryRatHouseholder (ternaryIntIndexToRat w)
+              (ternaryIntIndexToRat (pointThetaVector p i j k x)) =
+            ternaryIntIndexToRat
+              (-((shortRootReflectCoord c (base + p * m) w.1.1
+                    (pointThetaVector p i j k x).1.1,
+                  shortRootReflectCoord c (base + p * m) w.1.2
+                    (pointThetaVector p i j k x).1.2),
+                shortRootReflectCoord c (base + p * m) w.2
+                  (pointThetaVector p i j k x).2))
+          rw [hhouse]
+          simp [ternaryIntIndexToRat]
+    have hint := ternaryIntIndexToRat_injective hcast
+    have hclosure1 : pointCoord1 p i y =
+        -shortRootReflectCoord c (base + p * m) w.1.1 (pointCoord1 p i x) :=
+      congrArg (fun z : TernaryIntIndex => z.1.1) hint
+    have hclosure2 : pointCoord2 p j y =
+        -shortRootReflectCoord c (base + p * m) w.1.2 (pointCoord2 p j x) :=
+      congrArg (fun z : TernaryIntIndex => z.1.2) hint
+    have hclosure3 : pointCoord3 p k y =
+        -shortRootReflectCoord c (base + p * m) w.2 (pointCoord3 p k x) :=
+      congrArg (fun z : TernaryIntIndex => z.2) hint
+    have hmod := negative_integral_branch_reversal_forces_norm_two_mod3
+      (pointB1 x) (pointB2 x) (pointB3 x)
+      (pointB1 y) (pointB2 y) (pointB3 y)
+      p e c (base + p * m) w.1.1 w.1.2 w.2 i j k
+      (pointN1 x) (pointN2 x) (pointN3 x)
+      (pointN1 y) (pointN2 y) (pointN3 y)
+      he hpmod3 hcoefficient hroot
+      (by simpa [pointCoord1, pointCoord2, pointCoord3] using hdot)
+      (by simpa [pointCoord1] using hclosure1)
+      (by simpa [pointCoord2] using hclosure2)
+      (by simpa [pointCoord3] using hclosure3) hweight
+    obtain ⟨h, htarget⟩ :=
+      projectiveRoot_negative_target_necessary_of_coordinate_closure
+        (pointB1 x) (pointB1 y) p c lambda base i w.1.1 a1 m
+        (pointN1 x) (pointN1 y) bpi (3 * bi3) hw1 hiunit
+        (by simpa [pointCoord1] using hclosure1)
+    refine ⟨c, u, hcoefficient, hvw, Or.inr ⟨hmod, base, h, rfl, htarget⟩⟩
+
+/-- **Arithmetic classification is closed.**  Every coherent theta
+involution on admissible Watson data produces the complete short projective
+root certificate, including the forced branch target law. -/
+theorem CoherentThetaInvolution.hasProjectiveRootTarget
+    {p i j k R : ℕ} (T : CoherentThetaInvolution p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p) :
+    HasProjectiveRootTarget p i j k R := by
+  obtain ⟨w, hw, b1, b2, b3, e, lambda, a1, a2, a3,
+    hprimitive, he, hroot, hw1, hw2, hw3, hT⟩ :=
+      T.exists_primitive_short_projective_householder hadmissible hR
+  obtain ⟨c, u, hcoefficient, hvw, hcase⟩ :=
+    T.short_projective_householder_target_case hadmissible hR w
+      b1 b2 b3 e lambda a1 a2 a3 hprimitive he hroot hw1 hw2 hw3 hT
+  exact ⟨{
+    lambda := lambda
+    e := e
+    c := c
+    w1 := w.1.1
+    w2 := w.1.2
+    w3 := w.2
+    a1 := a1
+    a2 := a2
+    a3 := a3
+    u := u
+    he := he
+    hw1 := hw1
+    hw2 := hw2
+    hw3 := hw3
+    hvw := hvw
+    hroot := hroot
+    hcoefficient := hcoefficient
+    hcase := hcase }⟩
+
+/-- The arithmetic-classification proposition isolated upstream is now a
+theorem, not a remaining hypothesis. -/
+theorem admissibleThetaInvolutionClassification_proved
+    (p i j k R : ℕ) :
+    AdmissibleThetaInvolutionClassification p i j k R := by
+  intro hadmissible hR hT
+  exact hT.some.hasProjectiveRootTarget hadmissible hR
+
+/-- **One-frontier reduction.**  With arithmetic classification closed,
+spectral coherence alone implies admissible theta-coset rigidity. -/
+theorem admissibleThetaCosetRigidity_of_geometricCoherence
+    (p i j k R : ℕ)
+    (hcoherence : AdmissibleThetaGeometricCoherence p i j k R) :
+    AdmissibleThetaCosetRigidity p i j k R :=
+  admissibleThetaCosetRigidity_of_geometricCoherence_of_classification
+    p i j k R hcoherence
+      (admissibleThetaInvolutionClassification_proved p i j k R)
+
+/-- Consequently spectral coherence is the sole remaining implication needed
+for the corrected admissible Root--Vanishing equivalence. -/
+theorem admissibleRootVanishingRigidity_of_geometricCoherence
+    (p i j k R : ℕ)
+    (hcoherence : AdmissibleThetaGeometricCoherence p i j k R) :
+    AdmissibleRootVanishingRigidity p i j k R :=
+  admissibleRootVanishingRigidity_of_theta_geometry p i j k R hcoherence
+    (admissibleThetaInvolutionClassification_proved p i j k R)
 
 end Ramanujan.MultiQuintuple

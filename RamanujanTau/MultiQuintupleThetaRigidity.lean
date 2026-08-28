@@ -8,14 +8,15 @@ then glued.  The genuinely geometric object is one fixed rational orthogonal
 linear involution acting on the completed-square coordinates on every shell.
 
 This file defines that object, proves that it produces persistent vanishing,
-and factors the remaining Root--Vanishing theorem into two explicit research
-claims:
+and factors the reverse Root--Vanishing theorem through two explicit
+interfaces:
 
 1. spectral equality forces a coherent rational orthogonal involution;
 2. every such admissible involution is one of the projective short-root maps.
 
-No unproved claim is assumed.  The factorization identifies the exact theorem
-to which ternary lattice-coset theta rigidity must be applied.
+No unproved claim is assumed.  `MultiQuintupleThetaArithmetic` discharges the
+second interface; the first is the exact theorem to which ternary
+lattice-coset theta rigidity must be applied.
 -/
 import RamanujanTau.MultiQuintupleThetaCosets
 
@@ -631,7 +632,7 @@ theorem coherentThetaInvolution_implies_persistentThetaCosetVanishing
   · intro x hexp
     exact T.partner_involutive (by omega) x ⟨N, hexp⟩
 
-/-! ### The two precise remaining research claims -/
+/-! ### The spectral and arithmetic interfaces -/
 
 /-- Spectral coherence: a persistent identity between the eight ternary-coset
 theta components is induced by one rational orthogonal involution. -/
@@ -640,9 +641,10 @@ def AdmissibleThetaGeometricCoherence (p i j k R : ℕ) : Prop :=
     PersistentThetaCosetVanishing p i j k R →
       Nonempty (CoherentThetaInvolution p i j k R)
 
-/-- Arithmetic classification: every coherent involution on admissible Watson
-cosets yields an integral projective short-root target.  The rational
-Householder-or-negative-Householder classification itself is proved above. -/
+/-- Arithmetic classification interface: every coherent involution on
+admissible Watson cosets yields an integral projective short-root target.  The
+rational Householder-or-negative-Householder classification itself is proved
+above, and `MultiQuintupleThetaArithmetic` proves this full interface. -/
 def AdmissibleThetaInvolutionClassification (p i j k R : ℕ) : Prop :=
   AdmissibleSparseTriple p i j k → R < p →
     Nonempty (CoherentThetaInvolution p i j k R) →
