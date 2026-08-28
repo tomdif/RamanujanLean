@@ -276,8 +276,20 @@ empty, there is no short-root target, and the fifth shell is nonzero.  The repro
 `dual-candidate` command prints the complete vectors and exact phase counters, while
 `MultiQuintupleDualShellCounterexample.lean` kernel-checks primality, isotropy, and the absence of
 every norm-`p` or norm-`2p` projective lift.  Thus the valid Poisson route requires a
-parameter-dependent separation bound or a global all-shell rigidity argument; no fixed small shell
-count is promoted as a breakthrough theorem.
+parameter-dependent separation bound; no fixed small shell count is promoted as a breakthrough
+theorem.
+
+The corrected candidate is **spanning-shell rigidity**.  Order the complete supported dual norm
+shells and stop at the first shell whose cumulative vectors span rational three-space.  Common
+cancellation through that datum-dependent shell should force a projective-root target.  This rule
+explains every fixed-cutoff failure: its cancelling prefix is still confined to a line or plane,
+and the first spanning shell detects the false zero.  The exact `dual-span-scan` finds no mismatch
+through `p<=1500` (6,877 projective classes and 6,763,985 residues), including all classes at
+`p=1439` and `p=1523`.  More importantly, the stopping shell is unconditionally finite:
+`MultiQuintupleDualSpanning.lean` proves that `(p,p,p)`, `(p,p,-p)`, and `(p,-p,p)` are always
+supported, have norm `3p^2`, and determinant `-4p^3`.  Hence supported vectors span by norm
+`3p^2`.  The existence and bound are theorems; the rigidity implication and analytic Poisson bridge
+remain the exact proof frontier.
 
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172

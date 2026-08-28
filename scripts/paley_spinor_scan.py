@@ -684,6 +684,71 @@ def shift_cyclotomic_terms(
     return shifted
 
 
+def dual_shell_common_zero_residues(
+    lattice: RestrictedLattice,
+    shells: list[tuple[int, tuple[Vector, ...]]],
+) -> set[int]:
+    """Residues on which every supplied complete shell cancels exactly."""
+    p = lattice.p
+    affine_shell_terms = [
+        tuple(
+            (
+                dual_character_amplitude_terms(lattice, 0, vector),
+                dual_residue_phase_step(lattice, vector),
+            )
+            for vector in vectors
+        )
+        for _norm, vectors in shells
+    ]
+    common_zeros: set[int] = set()
+    for residue in range(p):
+        all_shells_zero = True
+        for vector_terms in affine_shell_terms:
+            terms: Counter[int] = Counter()
+            for base_terms, phase_step in vector_terms:
+                terms.update(
+                    shift_cyclotomic_terms(
+                        base_terms, residue * phase_step, 6 * p
+                    )
+                )
+            if not six_p_cyclotomic_sum_is_zero(p, terms):
+                all_shells_zero = False
+                break
+        if all_shells_zero:
+            common_zeros.add(residue)
+    return common_zeros
+
+
+def first_spanning_dual_character_shells(
+    lattice: RestrictedLattice, maximum_shells: int, shift_radius: int
+) -> tuple[list[tuple[int, tuple[Vector, ...]]], int]:
+    """Stop at the first supported shell whose cumulative vectors span Q^3."""
+    shells, omitted_norm_lower_bound = first_dual_character_shells(
+        lattice, maximum_shells, shift_radius
+    )
+    basis: list[Vector] = []
+    selected: list[tuple[int, tuple[Vector, ...]]] = []
+    for shell in shells:
+        selected.append(shell)
+        for vector in shell[1]:
+            if not basis:
+                basis.append(vector)
+            elif len(basis) == 1:
+                first = basis[0]
+                cross = (
+                    first[1] * vector[2] - first[2] * vector[1],
+                    first[2] * vector[0] - first[0] * vector[2],
+                    first[0] * vector[1] - first[1] * vector[0],
+                )
+                if any(cross):
+                    basis.append(vector)
+            elif determinant((basis[0], basis[1], vector)):
+                basis.append(vector)
+            if len(basis) == 3:
+                return selected, omitted_norm_lower_bound
+    return [], omitted_norm_lower_bound
+
+
 def run_dual_shell_rigidity_scan(
     max_prime: int, shell_count: int, shift_radius: int, min_prime: int = 5
 ) -> int:
@@ -731,32 +796,7 @@ def run_dual_shell_rigidity_scan(
             shell_norm_profiles[
                 tuple(norm // p for norm, _vectors in shells)
             ] += 1
-            affine_shell_terms = [
-                tuple(
-                    (
-                        dual_character_amplitude_terms(lattice, 0, vector),
-                        dual_residue_phase_step(lattice, vector),
-                    )
-                    for vector in vectors
-                )
-                for _norm, vectors in shells
-            ]
-            common_zeros: set[int] = set()
-            for residue in range(p):
-                all_shells_zero = True
-                for vector_terms in affine_shell_terms:
-                    terms: Counter[int] = Counter()
-                    for base_terms, phase_step in vector_terms:
-                        terms.update(
-                            shift_cyclotomic_terms(
-                                base_terms, residue * phase_step, 6 * p
-                            )
-                        )
-                    if not six_p_cyclotomic_sum_is_zero(p, terms):
-                        all_shells_zero = False
-                        break
-                if all_shells_zero:
-                    common_zeros.add(residue)
+            common_zeros = dual_shell_common_zero_residues(lattice, shells)
             root_targets = {
                 projective_root_target(root, lattice)[1]
                 for root in short_projective_roots(p, triple)
@@ -786,6 +826,80 @@ def run_dual_shell_rigidity_scan(
         f"largest selected-shell multiplier={maximum_last_multiplier}"
     )
     return int(bool(incomplete_classes or mismatches))
+
+
+def run_dual_spanning_rigidity_scan(
+    max_prime: int, maximum_shells: int, shift_radius: int, min_prime: int = 5
+) -> int:
+    """Test the adaptive spanning-shell replacement for a fixed shell cutoff.
+
+    For each lattice, stop at the first supported norm shell for which all
+    vectors seen so far span three-dimensional rational space.  Compare exact
+    common cancellation through that shell with the short-root targets.
+    """
+    classes = 0
+    residues = 0
+    incomplete_classes = 0
+    missing_spanning_shell = 0
+    mismatches = 0
+    largest_prefix: tuple[int, tuple[int, tuple[int, int, int], int]] | None = None
+    largest_multiplier: tuple[
+        int, tuple[int, tuple[int, int, int], int]
+    ] | None = None
+    for p in primes_through(max_prime):
+        if p < min_prime or p == 3:
+            continue
+        for triple in isotropic_j_representatives(p).values():
+            classes += 1
+            residues += p
+            lattice = restricted_lattice(p, triple)
+            shells, omitted_norm_lower_bound = first_spanning_dual_character_shells(
+                lattice, maximum_shells, shift_radius
+            )
+            if not shells:
+                missing_spanning_shell += 1
+                print(
+                    f"NO SPANNING SHELL: p={p} triple={triple} "
+                    f"searched-shells={maximum_shells}"
+                )
+                continue
+            last_norm = shells[-1][0]
+            if 4 * last_norm >= ((2 * shift_radius + 1) * p) ** 2:
+                incomplete_classes += 1
+                print(
+                    f"INCOMPLETE: p={p} triple={triple} shells={len(shells)} "
+                    f"last-norm={last_norm} "
+                    f"omitted-lower-bound={omitted_norm_lower_bound}"
+                )
+                continue
+            prefix_record = (len(shells), (p, triple, last_norm // p))
+            if largest_prefix is None or prefix_record > largest_prefix:
+                largest_prefix = prefix_record
+            multiplier_record = (last_norm // p, (p, triple, len(shells)))
+            if largest_multiplier is None or multiplier_record > largest_multiplier:
+                largest_multiplier = multiplier_record
+            common_zeros = dual_shell_common_zero_residues(lattice, shells)
+            root_targets = {
+                projective_root_target(root, lattice)[1]
+                for root in short_projective_roots(p, triple)
+            }
+            if common_zeros != root_targets:
+                mismatches += 1
+                print(
+                    f"MISMATCH: p={p} triple={triple} shells={len(shells)} "
+                    f"last-multiplier={last_norm // p} root-targets="
+                    f"{tuple(sorted(root_targets))} common-zeros="
+                    f"{tuple(sorted(common_zeros))}"
+                )
+    print(
+        f"classes={classes}; residues={residues}; incomplete={incomplete_classes}; "
+        f"missing-spanning-shell={missing_spanning_shell}; mismatches={mismatches}"
+    )
+    print(
+        f"largest spanning prefix={largest_prefix}; "
+        f"largest spanning-shell multiplier={largest_multiplier}"
+    )
+    return int(bool(incomplete_classes or missing_spanning_shell or mismatches))
 
 
 @dataclass(frozen=True)
@@ -1232,6 +1346,14 @@ def build_parser() -> argparse.ArgumentParser:
     dual_shell_scan.add_argument("--min-prime", type=int, default=5)
     dual_shell_scan.add_argument("--shells", type=int, default=4)
     dual_shell_scan.add_argument("--shift-radius", type=int, default=1)
+    dual_span_scan = subparsers.add_parser(
+        "dual-span-scan",
+        help="compare root targets through the first rationally spanning dual shell",
+    )
+    dual_span_scan.add_argument("--max-prime", type=int, default=1000)
+    dual_span_scan.add_argument("--min-prime", type=int, default=5)
+    dual_span_scan.add_argument("--max-shells", type=int, default=64)
+    dual_span_scan.add_argument("--shift-radius", type=int, default=1)
     dual_candidate = subparsers.add_parser(
         "dual-candidate", help="print one exact Poisson-dual shell certificate"
     )
@@ -1258,6 +1380,13 @@ def main() -> int:
     if args.command == "dual-shell-scan":
         return run_dual_shell_rigidity_scan(
             args.max_prime, args.shells, args.shift_radius, args.min_prime
+        )
+    if args.command == "dual-span-scan":
+        return run_dual_spanning_rigidity_scan(
+            args.max_prime,
+            args.max_shells,
+            args.shift_radius,
+            args.min_prime,
         )
     if args.command == "dual-candidate":
         return run_dual_shell_candidate(

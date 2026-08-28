@@ -508,8 +508,70 @@ forces a short-projective-root target.
 The amplitude factorization, affine residue law, exact cyclotomic decision, shell completeness
 certificate, bounded four-shell agreement through `p<=1000`, and the fixed-cutoff counterexamples
 above are established exactly.  Four-shell rigidity is false, and merely replacing four by five is
-also false.  The remaining legitimate targets are a parameter-dependent effective separation
-theorem, a global all-shell rigidity theorem, and a Lean formalization of the Poisson bridge.
+also false.
+
+#### The adaptive correction: stop at the first spanning shell
+
+The failures reveal a sharper invariant than shell count.  Accumulate the complete supported dual
+norm shells in increasing order, and let `rho_span` be the norm of the first shell for which their
+vectors span `Q^3`.  In the hard examples the entire falsely cancelling prefix has rank at most two:
+
+```text
+p=709:   the first rank-three shell detects the three-shell false zero
+p=1439:  the first four cancelling shells span only a plane; shell five spans and detects
+p=1523:  the first five cancelling shells span only a plane; shell six spans and detects
+```
+
+This leads to the precise replacement for every fixed-shell conjecture:
+
+```text
+Spanning-Shell Rigidity (conjecture).
+For prime, pairwise-distinct, isotropic (p;i,j,k), if every complete supported
+dual shell of norm at most rho_span cancels at R, then R is a short-projective-root target.
+```
+
+It is finite for a theorem-level reason.  For any nonzero `p`, any indices, and any choice of the
+inverse parameter in the phase formula, the scalar-zero dual vectors
+
+```text
+v1=(p,p,p),  v2=(p,p,-p),  v3=(p,-p,p)
+```
+
+are supported: each phase difference is `p*(+/-2 mod 6)`, so it is not divisible by `6p`.
+Furthermore
+
+```text
+||v1||^2=||v2||^2=||v3||^2=3p^2,    det(v1,v2,v3)=-4p^3.
+```
+
+Consequently `rho_span <= 3p^2`.  This universal supported-spanning certificate is kernel-checked
+in `RamanujanTau.MultiQuintupleDualSpanning`; unlike spanning-shell rigidity itself, it is a proved
+theorem and needs no primality or isotropy hypothesis.
+
+The reproducible adaptive scan is
+
+```bash
+python3 scripts/paley_spinor_scan.py dual-span-scan \
+  --max-prime 1500 --max-shells 64 --shift-radius 1
+```
+
+It compares the exact common cyclotomic zero set through `rho_span` with the exact short-root target
+set.  The census gives
+
+```text
+projective classes                                  6,877
+residue problems                                6,763,985
+incomplete selected shells                              0
+missing spanning shells                                 0
+spanning-shell/root-target mismatches                    0
+```
+
+The same command restricted to `p=1439` and `p=1523` checks all 60 and 63 projective classes,
+respectively, with no mismatch.  These computations are exact bounded evidence, not a proof of the
+rigidity conjecture.  The corrected Poisson route is now sharply separated into two remaining
+steps: prove spanning-shell rigidity, and formalize the analytic bridge from persistent primal
+vanishing to cancellation on every complete dual shell.  Together with `rho_span <= 3p^2`, those
+steps would yield a universal finite Root--Vanishing decision theorem.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -710,8 +772,9 @@ For the corrected prime/distinct/isotropic problem, the proof frontier is:
      noncentral rational orthogonal involution acting on the full affine residue fiber; or
    - effective separation: every residue without a projective-root target has a finite nonzero
      coefficient witness, ideally below an explicit geometry-of-numbers or modular bound; or
-   - effective dual separation: derive a parameter-dependent shell bound after which common
-     Poisson-dual cancellation forces a projective-root target.
+   - spanning-shell rigidity: prove that common Poisson-dual cancellation through the first shell
+     whose supported vectors span `Q^3` forces a projective-root target.  The stopping norm exists
+     and is at most `3p^2` by the proved scalar-zero spanning certificate.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
@@ -729,8 +792,9 @@ precise scalar theta lift whose kernel must be classified; current ternary latti
 theory decomposes such series but does not automatically turn one signed character projection into
 a termwise affine isometry.  The exact dual-shell census supplies a third finite normal form, but
 the counterexamples at `p=1439` and `p=1523` prove that four- and five-shell cutoffs are not
-universal.  Any successful dual proof must exploit a parameter-dependent bound or all-shell
-structure rather than a fixed small number of initial shells.
+universal.  Their low shells remain rank-deficient, while the first spanning shell detects the
+false zero.  The supported-spanning theorem bounds that adaptive shell by `3p^2`; the remaining
+dual problem is the colored ternary rigidity implication at this first full-rank threshold.
 
 ## Sources
 

@@ -225,6 +225,8 @@ import RamanujanTau.MultiQuintupleRootVanishingEquivalence
 import RamanujanTau.MultiQuintupleRootVanishingClassification
 -- Kernel-checked root exclusion for the first fixed four-dual-shell counterexample
 import RamanujanTau.MultiQuintupleDualShellCounterexample
+-- Universal norm-3p² certificate that supported Poisson-dual vectors span three-space
+import RamanujanTau.MultiQuintupleDualSpanning
 -- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
 import RamanujanTau.MultiQuintupleLocalSupport
 -- Eight shifted ternary-coset components, Walsh inversion, and exact theta reduction
