@@ -223,6 +223,8 @@ import RamanujanTau.MultiQuintupleProjectiveCancellation
 import RamanujanTau.MultiQuintupleRootVanishingEquivalence
 -- Exact coefficient/shell-balance converse and the isolated rigidity boundary
 import RamanujanTau.MultiQuintupleRootVanishingClassification
+-- Kernel-checked root exclusion for the first fixed four-dual-shell counterexample
+import RamanujanTau.MultiQuintupleDualShellCounterexample
 -- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
 import RamanujanTau.MultiQuintupleLocalSupport
 -- Eight shifted ternary-coset components, Walsh inversion, and exact theta reduction

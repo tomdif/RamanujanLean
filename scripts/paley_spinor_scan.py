@@ -42,8 +42,9 @@ Finite coefficient silence is reported separately and is never treated as a proo
 
 The ``dual-shell-scan`` command supplies a separate Poisson-dual diagnostic.  It factors each
 individual Watson-character amplitude, enumerates certified-complete short norm shells, and decides
-their ``6p``-th-root amplitudes exactly in ``Q(zeta_3)(zeta_p)``.  Its bounded agreement with the
-short-root targets remains evidence for, rather than a proof of, universal dual-shell rigidity.
+their ``6p``-th-root amplitudes exactly in ``Q(zeta_3)(zeta_p)``.  It also exposes exact
+counterexamples to fixed finite-shell cutoffs; bounded agreement is never treated as a universal
+rigidity proof.
 """
 
 from __future__ import annotations
@@ -596,6 +597,70 @@ def dual_shell_amplitude_is_zero(
     return six_p_cyclotomic_sum_is_zero(lattice.p, terms)
 
 
+def run_dual_shell_candidate(
+    p: int,
+    indices: tuple[int, ...],
+    residue: int,
+    shell_count: int,
+    shift_radius: int,
+) -> int:
+    """Print an exact, auditable dual-shell certificate for one residue."""
+    triple = validate_candidate(p, indices)
+    if p not in primes_through(p):
+        print(f"p={p} is not prime; the cyclotomic certificate requires a prime")
+        return 1
+    if sum_of_squares(triple) % p:
+        print(f"p={p} triple={triple} is not isotropic")
+        return 1
+    lattice = restricted_lattice(p, triple)
+    roots = short_projective_roots(p, triple)
+    root_targets = sorted(
+        {projective_root_target(root, lattice)[1] for root in roots}
+    )
+    shells, omitted_norm_lower_bound = first_dual_character_shells(
+        lattice, shell_count + 1, shift_radius
+    )
+    complete = bool(shells) and (
+        4 * shells[-1][0] < ((2 * shift_radius + 1) * p) ** 2
+    )
+    print(
+        f"p={p} triple={triple} residue={residue % p}; "
+        f"root-targets={root_targets}; omitted-norm-lower-bound="
+        f"{omitted_norm_lower_bound}; listed-shells-complete={complete}"
+    )
+    common_zero = True
+    for number, (norm, vectors) in enumerate(shells, 1):
+        terms: Counter[int] = Counter()
+        for vector in vectors:
+            terms.update(dual_character_amplitude_terms(lattice, residue % p, vector))
+        terms = Counter(
+            {exponent: coefficient for exponent, coefficient in terms.items() if coefficient}
+        )
+        zero = six_p_cyclotomic_sum_is_zero(p, terms)
+        if number <= shell_count:
+            common_zero = common_zero and zero
+        print(
+            f"shell={number}; norm={norm}={norm // p}p; vectors={vectors}; "
+            f"phase-terms={dict(sorted(terms.items()))}; exact-zero={zero}"
+        )
+    print(
+        f"first-{shell_count}-shells-common-zero={common_zero}; "
+        f"residue-is-root-target={residue % p in root_targets}"
+    )
+    coefficient_limit = p * (p // 4) + p - 1
+    coefficients = product_coefficients(p, triple, coefficient_limit)
+    product_witness = next(
+        (
+            (exponent // p, exponent, coefficient)
+            for exponent, coefficient in sorted(coefficients.items())
+            if exponent % p == residue % p and coefficient
+        ),
+        None,
+    )
+    print(f"first-product-witness-through-N<=p/4={product_witness}")
+    return int(not complete)
+
+
 def dual_residue_phase_step(lattice: RestrictedLattice, vector: Vector) -> int:
     """The common ``6p``-phase increment when the target residue increases by one.
 
@@ -631,8 +696,9 @@ def run_dual_shell_rigidity_scan(
     exact.  The finite vector box is accepted only when a geometric lower bound
     proves that all selected shells are complete.
 
-    Agreement is experimental evidence for the missing universal rigidity
-    lemma, not a proof beyond the requested prime bound.
+    Agreement is only a bounded result.  A mismatch is an exact counterexample
+    to the requested fixed shell cutoff; four shells first fail at ``p=1439``
+    and five first fail at ``p=1523``.
     """
     classes = 0
     residues = 0
@@ -1166,6 +1232,14 @@ def build_parser() -> argparse.ArgumentParser:
     dual_shell_scan.add_argument("--min-prime", type=int, default=5)
     dual_shell_scan.add_argument("--shells", type=int, default=4)
     dual_shell_scan.add_argument("--shift-radius", type=int, default=1)
+    dual_candidate = subparsers.add_parser(
+        "dual-candidate", help="print one exact Poisson-dual shell certificate"
+    )
+    dual_candidate.add_argument("--prime", type=int, required=True)
+    dual_candidate.add_argument("--indices", type=parse_indices, required=True)
+    dual_candidate.add_argument("--residue", type=int, required=True)
+    dual_candidate.add_argument("--shells", type=int, default=4)
+    dual_candidate.add_argument("--shift-radius", type=int, default=1)
     return parser
 
 
@@ -1184,6 +1258,14 @@ def main() -> int:
     if args.command == "dual-shell-scan":
         return run_dual_shell_rigidity_scan(
             args.max_prime, args.shells, args.shift_radius, args.min_prime
+        )
+    if args.command == "dual-candidate":
+        return run_dual_shell_candidate(
+            args.prime,
+            args.indices,
+            args.residue,
+            args.shells,
+            args.shift_radius,
         )
     raise AssertionError(f"unhandled command: {args.command}")
 

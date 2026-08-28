@@ -454,27 +454,62 @@ incomplete selected shells                              0
 four-shell/root-target mismatches                       0
 ```
 
-The number four is not cosmetic.  The first shell has a non-root false zero at
-`p=71, (i,j,k)=(1,4,14), R=36`.  The first two share a non-root false zero at
-`p=191, (1,17,61), R=22`.  The first three share non-root false zeros beginning at
-`p=709`, including `(1,34,286), R=675`; in each case the next shell separates the residue.
-
-Analytically, persistent primal vanishing implies that every complete dual norm shell has zero
-amplitude: apply Poisson summation to the Gaussian specialization and separate successive dual
-norms as the Gaussian parameter tends to zero.  Consequently the following statement would close
-the corrected Root--Vanishing converse:
+That bounded agreement does **not** extend to a universal four-shell theorem.  The exact hierarchy
+of first failures begins as follows:
 
 ```text
-Four-dual-shell rigidity:
-for every admissible prime/distinct/isotropic datum, a residue on which the first four complete
-Watson-supported dual shells all cancel is a short-projective-root target.
+one shell    p=71,   (i,j,k)=(1,4,14),    R=36
+two shells   p=191,  (i,j,k)=(1,17,61),   R=22
+three shells p=709,  (i,j,k)=(1,34,286),  R=675
+four shells  p=1439, (i,j,k)=(1,63,391),  R=229
+five shells  p=1523, (i,j,k)=(1,147,468), R=572
+```
+
+The four-shell counterexample is especially transparent.  There is no short projective root, and
+the first five complete supported shells are
+
+```text
+norm 3p:  +/-(-22,  53,  32)                         zero at R=229
+norm 12p: +/-(-44, 106,  64)                         zero at R=229
+norm 48p: +/-(-88, 212, 128)                         zero at R=229
+norm 66p: +/-(-298,-67,41), +/-(-254,-173,-23)       zero at R=229
+norm 69p: +/-(-89,149,-263)                          nonzero at R=229
+```
+
+For each of the first four shells the signed phase counter is literally empty before any
+cyclotomic relation is used.  The fifth counter is
+`{2221:-3, 3535:3, 5099:3, 6413:-3}` modulo `6p=8634`, hence is nonzero by the exact
+`Q(zeta_3)(zeta_p)` test.  Every omitted shift has norm at least `4,659,122`, while the fifth norm is
+only `99,291`, certifying that all five displayed shells are complete.  The same residue has the
+actual nonzero product witness `[q^37643]=1`, with progression index `N=26`; it is a counterexample
+to the fixed four-shell diagnostic, not to Root--Vanishing rigidity.  Reproduce the certificate with
+
+```bash
+python3 scripts/paley_spinor_scan.py dual-candidate \
+  --prime 1439 --indices 1,63,391 --residue 229 --shells 4
+```
+
+`RamanujanTau.MultiQuintupleDualShellCounterexample` independently kernel-checks that `1439` is
+prime, that `(1,63,391)` is isotropic, and that no projective lift can have norm `p` or `2p`.
+The proof bounds all root coordinates by `53` and exhausts the resulting congruence box, leaving
+only `0` and `+/-(-22,53,32)`, whose nonzero norm is `3p`.
+
+Analytically, persistent primal vanishing implies that **every** complete dual norm shell has zero
+amplitude: apply Poisson summation to the Gaussian specialization and separate successive dual
+norms as the Gaussian parameter tends to zero.  A valid finite version must therefore use a
+datum-dependent bound:
+
+```text
+Effective dual-shell rigidity:
+produce B(p,i,j,k) such that cancellation through all complete supported shells of norm <= B
+forces a short-projective-root target.
 ```
 
 The amplitude factorization, affine residue law, exact cyclotomic decision, shell completeness
-certificate, and bounded theorem through `p<=1000` are established computationally.  The universal
-four-shell rigidity statement—and a Lean formalization of the Poisson bridge—remain open.  This is
-therefore a more structured proof target, not a declaration that the universal converse has already
-been proved.
+certificate, bounded four-shell agreement through `p<=1000`, and the fixed-cutoff counterexamples
+above are established exactly.  Four-shell rigidity is false, and merely replacing four by five is
+also false.  The remaining legitimate targets are a parameter-dependent effective separation
+theorem, a global all-shell rigidity theorem, and a Lean formalization of the Poisson bridge.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -675,8 +710,8 @@ For the corrected prime/distinct/isotropic problem, the proof frontier is:
      noncentral rational orthogonal involution acting on the full affine residue fiber; or
    - effective separation: every residue without a projective-root target has a finite nonzero
      coefficient witness, ideally below an explicit geometry-of-numbers or modular bound; or
-   - four-dual-shell rigidity: common cancellation on the first four complete supported Poisson-dual
-     shells already forces a projective-root target.
+   - effective dual separation: derive a parameter-dependent shell bound after which common
+     Poisson-dual cancellation forces a projective-root target.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
@@ -692,9 +727,10 @@ prime/distinct/isotropic regime, the missing reverse implication must recover a 
 progression-wide cancellation symmetry.  The ternary-character normal form now identifies the
 precise scalar theta lift whose kernel must be classified; current ternary lattice-coset theta
 theory decomposes such series but does not automatically turn one signed character projection into
-a termwise affine isometry.  The exact dual-shell census through `p<=1000` supplies a third finite
-normal form with zero mismatches; proving its four-shell separation statement would bypass direct
-reconstruction of that isometry.
+a termwise affine isometry.  The exact dual-shell census supplies a third finite normal form, but
+the counterexamples at `p=1439` and `p=1523` prove that four- and five-shell cutoffs are not
+universal.  Any successful dual proof must exploit a parameter-dependent bound or all-shell
+structure rather than a fixed small number of initial shells.
 
 ## Sources
 

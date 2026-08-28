@@ -31,8 +31,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 143 |
-| Build | `lake build` → **3848 jobs, 0 errors** |
+| Modules | 146 |
+| Build | `lake build` → **3851 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -268,10 +268,16 @@ one explicit affine phase.  Poisson separation says that a persistently vanishin
 cancel on every complete supported dual norm shell.  The exact census through `p<=1000` finds that
 the common zeros of the first four such shells are precisely the projective-root targets: 3,172
 projective classes and 2,055,986 residues, with no mismatch or incomplete shell.  Fewer shells are
-provably inadequate as a diagnostic: false common zeros occur with one shell at `p=71`, two at
-`p=191`, and three at `p=709`; the fourth shell removes all of them in the census.  This isolates a
-new finite-looking breakthrough target—prove universal four-dual-shell rigidity—but the bounded
-calculation is not asserted as that proof.
+exactly inadequate as a diagnostic: false common zeros occur with one shell at `p=71`, two at
+`p=191`, and three at `p=709`.  Extending the search decisively disproves the tempting universal
+four-shell conjecture at `p=1439`, and the five-shell replacement already fails at `p=1523`.
+For `(p;i,j,k;R)=(1439;1,63,391;229)`, the first four complete shell phase counters are literally
+empty, there is no short-root target, and the fifth shell is nonzero.  The reproducible
+`dual-candidate` command prints the complete vectors and exact phase counters, while
+`MultiQuintupleDualShellCounterexample.lean` kernel-checks primality, isotropy, and the absence of
+every norm-`p` or norm-`2p` projective lift.  Thus the valid Poisson route requires a
+parameter-dependent separation bound or a global all-shell rigidity argument; no fixed small shell
+count is promoted as a breakthrough theorem.
 
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
