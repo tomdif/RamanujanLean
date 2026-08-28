@@ -31,8 +31,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 142 |
-| Build | `lake build` → **3847 jobs, 0 errors** |
+| Modules | 143 |
+| Build | `lake build` → **3848 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -213,9 +213,15 @@ theta identity directly to componentwise equality.
 residue fiber and formalizes the right global object: one rational orthogonal involution acting
 coherently on every shell.  It proves that such an involution forces persistent cancellation and
 completely classifies its rational linear part as a Householder reflection or its negative.  The
-remaining converse is therefore precise: obtain a coherent involution from the signed spectral
-identity, then extract from its coset arithmetic a primitive integral projective normal of norm
-`p` or `2p`.
+new `MultiQuintupleThetaArithmetic.lean` proves that every vector of the homogeneous index-`p`
+congruence lattice is a difference of two Watson points in the same affine fiber.  Consequently
+every coherent involution preserves that full lattice integrally, including the three `p e_s`
+test vectors.  Its rational Householder line can always be primitively normalized over the
+integers, with an explicit square-Bézout certificate, and the primitive squared norm is forced to
+be one of `1`, `2`, `p`, or `2p`.  Thus the remaining arithmetic work is sharply finite: exclude
+the signed-coordinate/permutation stabilizers (`1`, `2`), then extract projectivity and the branch
+target law.  The separate spectral problem is still to obtain one coherent involution from
+parity-coset isospectrality.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

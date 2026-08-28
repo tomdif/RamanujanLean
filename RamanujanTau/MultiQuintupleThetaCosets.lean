@@ -118,6 +118,32 @@ noncomputable def signedWatsonCosetTheta
   ∑ b : TripleBranchBits,
     PowerSeries.C (tripleBranchWeight b) * branchThetaComponent p i j k b
 
+/-- The unsigned union of the four positive-parity Watson cosets. -/
+noncomputable def positiveWatsonCosetTheta
+    (p i j k : ℕ) : PowerSeries ℤ :=
+  ∑ b : TripleBranchBits,
+    if tripleBranchWeight b = 1 then branchThetaComponent p i j k b else 0
+
+/-- The unsigned union of the four negative-parity Watson cosets. -/
+noncomputable def negativeWatsonCosetTheta
+    (p i j k : ℕ) : PowerSeries ℤ :=
+  ∑ b : TripleBranchBits,
+    if tripleBranchWeight b = -1 then branchThetaComponent p i j k b else 0
+
+/-- The signed theta series is exactly the difference of two honest,
+nonnegative representation series, each a union of four shifted cosets. -/
+theorem signedWatsonCosetTheta_eq_positive_sub_negative
+    (p i j k : ℕ) :
+    signedWatsonCosetTheta p i j k =
+      positiveWatsonCosetTheta p i j k - negativeWatsonCosetTheta p i j k := by
+  rw [signedWatsonCosetTheta, positiveWatsonCosetTheta, negativeWatsonCosetTheta,
+    ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro b hb
+  rcases b with ⟨⟨b1, b2⟩, b3⟩
+  cases b1 <;> cases b2 <;> cases b3 <;>
+    simp [tripleBranchWeight, branchSign]
+
 lemma coeff_signedWatsonCosetTheta
     (p i j k K : ℕ) :
     coeff K (signedWatsonCosetTheta p i j k) =
@@ -392,6 +418,18 @@ theorem branchExponentShell_eq_branchThetaNormShell
 progression. -/
 def PersistentThetaCosetVanishing (p i j k R : ℕ) : Prop :=
   ∀ N : ℕ, coeff (p * N + R) (signedWatsonCosetTheta p i j k) = 0
+
+/-- Persistent signed vanishing is precisely isospectrality, along the
+selected norm progression, of the positive and negative four-coset unions. -/
+theorem persistentThetaCosetVanishing_iff_parityCosets_isospectral
+    (p i j k R : ℕ) :
+    PersistentThetaCosetVanishing p i j k R ↔
+      ∀ N : ℕ,
+        coeff (p * N + R) (positiveWatsonCosetTheta p i j k) =
+          coeff (p * N + R) (negativeWatsonCosetTheta p i j k) := by
+  rw [PersistentThetaCosetVanishing]
+  simp_rw [signedWatsonCosetTheta_eq_positive_sub_negative,
+    map_sub, sub_eq_zero]
 
 /-- Persistent product vanishing and persistent vanishing of the signed
 eight-coset theta projection are definitionally the same after the exact

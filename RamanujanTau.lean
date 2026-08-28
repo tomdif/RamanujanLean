@@ -229,3 +229,5 @@ import RamanujanTau.MultiQuintupleLocalSupport
 import RamanujanTau.MultiQuintupleThetaCosets
 -- Progression-fiber coherence and rational Householder classification
 import RamanujanTau.MultiQuintupleThetaRigidity
+-- Affine-index spanning, lattice preservation, and primitive norm classification
+import RamanujanTau.MultiQuintupleThetaArithmetic

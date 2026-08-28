@@ -294,6 +294,11 @@ one scalar vanishing identity cannot be promoted to equality of the eight compon
 without additional modular, Hecke, or twisting information.  All eight Walsh projections would
 be sufficient, and the missing problem is now to manufacture enough of them—or prove an equivalent
 spectral multiplicity-one statement—from the persistent progression identity.
+More precisely, the signed series is now proved to be the difference of the two nonnegative
+representation series formed by the four positive- and four negative-parity cosets.  Persistent
+vanishing is exactly equality of those two representation counts along the progression.  Thus the
+spectral question is an isospectral-unions problem, not equality of two individual ternary forms;
+Schiemann's individual-form rigidity cannot be applied without an additional argument.
 
 `RamanujanTau.MultiQuintupleThetaRigidity` then proves two geometric facts needed after that
 spectral step.  First, under the canonical odd-modulus hypotheses, the nonnegative progression
@@ -303,12 +308,26 @@ space has eigenspace dimensions `(2,1)` or `(1,2)` and is exactly a Householder 
 negative of one.  A coherent involution is proved to pair the complete coefficient support and
 force persistent vanishing.
 
+`RamanujanTau.MultiQuintupleThetaArithmetic` proves the next arithmetic bridge.  In affine indices
+`m_s=3n_s+b_s`, every completed coordinate is `(6i_s-p)+2p*m_s`, and the progression fiber is
+`i*m_1+j*m_2+k*m_3=R (mod p)`.  Despite each `m_s` using only residues zero and one modulo three,
+every vector of the homogeneous index-`p` congruence lattice is constructively a difference of two
+Watson points in the same fiber.  Therefore a coherent rational involution maps the entire
+congruence lattice integrally and maps all three `p*e_s` test vectors to integral vectors.  The
+rational Householder classification is also strengthened by clearing denominators: its normal may
+always be chosen as a nonzero integral vector.  It is now primitively normalized with an explicit
+square-Bézout certificate, and integrality on the three `p*e_s` vectors forces its squared norm into
+the exact list `1`, `2`, `p`, or `2p`.  The cases `1` and `2` are the signed-coordinate/permutation
+reflections; excluding their modular stabilizers, then extracting projectivity and the branch
+target congruence, are the remaining arithmetic steps.
+
 Thus the reverse Root--Vanishing direction is factored, without axioms, into two explicit claims:
 
 1. **Spectral coherence:** persistent vanishing of the top Walsh component forces one coherent
    rational orthogonal involution of the eight cosets.
-2. **Arithmetic extraction:** preservation of those integral cosets forces the rational
-   Householder normal to scale to a primitive projective integral vector of norm `p` or `2p`.
+2. **Arithmetic extraction:** exclude the two explicitly isolated signed-permutation norm cases,
+   sharpen the proved list `1,2,p,2p` to `p,2p`, then extract projectivity and the branch target
+   congruence.
 
 The rational geometric classification in the middle is closed.  These two endpoints—especially
 the first, where parity noninjectivity shows exactly why extra spectral structure is necessary—are
@@ -508,12 +527,14 @@ implemented.  For the corrected prime/distinct/isotropic problem, the proof fron
 
 1. prove spectral coherence: persistent vanishing of the parity Walsh component supplies one
    noncentral rational orthogonal involution acting on the full affine residue fiber;
-2. extract integrality and projectivity of its Householder normal from preservation of the eight
-   Watson cosets, so that `MultiQuintupleRootConverse` applies.
+2. exclude the signed-coordinate/permutation cases from the now-proved primitive norm list
+   `1,2,p,2p`, then extract projectivity and the target law.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The first remaining item is a sharply
-isolated ternary theta-coset spectral problem, and the second is its arithmetic descent.  The forward
+isolated ternary theta-coset spectral problem.  The second has been reduced to a finite modular
+stabilizer exclusion and target extraction after proving primitive normalization and full
+congruence-lattice preservation.  The forward
 Root--Vanishing direction is closed.  The original unrestricted biconditional is false by the
 `p=9` theorem above.  In the corrected prime/distinct/isotropic regime, the missing reverse
 implication must recover a structural, progression-wide cancellation symmetry; current ternary
