@@ -27,6 +27,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
 | **Canonical quintuple family** | For every odd `p ≥ 5`, `∏_{i=1}^{(p-1)/2}Q(qⁱ,qᵖ)` vanishes in every nonsquare class mod `p` |
 | **Three quintuple products (`p=7`)** | `[q^{7n+r}] Q(q,q⁷)Q(q²,q⁷)Q(q³,q⁷) = 0` for `r=3,5,6` |
+| **Root--Vanishing boundary** | Uniform short roots force vanishings; the unrestricted converse is disproved by the exact `p=9` imprimitive family |
 
 | | |
 |---|---|
@@ -185,8 +186,12 @@ its positive and negative finite branch supports have equal size, equivalently w
 sign-reversing support bijection exists.  Persistent progression vanishing is exactly shellwise
 sign balance, and the full bare Root--Vanishing biconditional is reduced to one explicitly named
 rigidity proposition: every such abstract shellwise balance must arise from one coherent short-root
-involution.  That global rigidity statement, and the general arbitrary-automorphism classification,
-remain open rather than being assumed.
+involution.  The unrestricted proposition is now formally disproved: `Q(q^3,q^9)^3` is supported
+only on exponents divisible by three, hence vanishes throughout `9N+1`, but no projective-root
+target can exist at `p=9`.  More generally, a new theorem proves this imprimitive-scale vanishing
+mechanism whenever the modulus and all three indices have a common divisor not dividing the target
+residue.  The corrected prime, pairwise-distinct, isotropic rigidity statement—and the corresponding
+general arbitrary-automorphism classification—remain open rather than being assumed.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

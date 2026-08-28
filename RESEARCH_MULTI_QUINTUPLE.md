@@ -206,7 +206,20 @@ Progression-wise, persistent vanishing is therefore exactly shellwise sign balan
 root supplies one coherent affine involution on every shell.  The desired bare
 Root--Vanishing biconditional is proved equivalent to a single named rigidity proposition:
 every abstract shellwise balance is induced by a short projective-root target.  That rigidity
-proposition is not smuggled in as an axiom; it is the remaining open mathematical statement.
+proposition is not smuggled in as an axiom—and the unrestricted version is now formally
+**disproved**.  The counterexample is
+
+```text
+p=9, (i,j,k)=(3,3,3), R=1:
+Q(q^3,q^9)^3 is supported on multiples of 3, so every coefficient q^(9N+1) is zero;
+no projective-root target exists because e*p is 0, never 1 or 2, modulo 3.
+```
+
+This is an exact power-series proof, not a scan.  More generally, the same module proves an
+imprimitive-scale family: if a common factor `g` divides the modulus and all three indices but
+does not divide `R`, the entire `pN+R` progression vanishes by support.  The corrected frontier is
+therefore explicitly restricted to prime, pairwise-distinct, isotropic triples and canonical
+residues; `AdmissibleRootVanishingRigidity` records that statement.
 The scanner now derives the signed lattice reflection and residue from these formulas rather than
 searching over all automorphisms.  An exact sweep through `p<=251` checked 162 reflective classes:
 every predicted residue had the root-specific affine certificate and was an observed zero, with
@@ -403,17 +416,21 @@ the product has some identically zero residue class.
 The projective classification, primitive-reflection converse, universal positive and negative
 projective branch matching, coefficient bridge, finite cancellation assembly, explicit `p=71`
 and `p=79` certificate transports, projective target formulas, and uniform projective-root-to-
-vanishing theorem are now implemented.  The proof frontier is:
+vanishing theorem, exact shell-balance converse, and imprimitive counterexample are now
+implemented.  For the corrected prime/distinct/isotropic problem, the proof frontier is:
 
 1. show that every noncentral automorphism group of the index-`p` congruence lattice contains a
    primitive rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
-2. prove a rigidity theorem on the cancellation side showing that every persistent sparse-triple
-   vanishing supplies a noncentral lattice automorphism, or identify a non-reflective mechanism.
+2. prove a rigidity theorem on the cancellation side showing that every persistent admissible
+   sparse-triple vanishing supplies a noncentral lattice automorphism, or identify another
+   non-reflective mechanism.
 
 The first item is a sharply isolated existential arithmetic root-system problem.  The forward
-Root--Vanishing direction is closed.  A literal biconditional with a bare zero coefficient would
-be too weakly stated: the missing reverse implication must recover a structural, progression-wide
-cancellation symmetry rather than infer a root from one possibly accidental zero.
+Root--Vanishing direction is closed.  The original unrestricted biconditional is false by the
+`p=9` theorem above.  In the corrected prime/distinct/isotropic regime, the missing reverse
+implication must recover a structural, progression-wide cancellation symmetry; current ternary
+lattice-coset theta theory decomposes such series but does not turn an equality of shell counts
+into a termwise affine isometry.
 
 ## Sources
 

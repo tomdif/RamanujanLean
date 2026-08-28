@@ -13,9 +13,13 @@ certificate implies shell balance and persistent vanishing.  Finally we show
 that the desired bare Root--Vanishing biconditional is logically equivalent to
 one sharply isolated rigidity statement: every shellwise balance must admit a
 short projective-root certificate.  No such rigidity claim is assumed here.
+The final section proves that the unrestricted version is false, exhibits the
+separate imprimitive-scale mechanism, and states the corrected
+prime/distinct/isotropic frontier.
 -/
 import RamanujanTau.MultiQuintupleRootVanishingEquivalence
 import RamanujanTau.MultiQuintupleRootConverse
+import RamanujanTau.MultiQuintupleCanonical
 
 namespace Ramanujan.MultiQuintuple
 open PowerSeries
@@ -205,17 +209,18 @@ theorem hasProjectiveRootTarget_implies_shellwiseSignBalance
       (hasProjectiveRootTarget_implies_persistentTripleVanishing p i j k R
         hi hpi hj hpj hk hpk hpodd hroot)
 
-/-- The one missing rigidity assertion, isolated as a named proposition.  It
-says that arbitrary shellwise cardinality balance must come from one coherent
-short projective root. -/
+/-- The candidate unrestricted rigidity assertion, isolated as a named
+proposition.  It says that arbitrary shellwise cardinality balance must come
+from one coherent short projective root.  A counterexample is proved below;
+the admissible replacement appears at the end of the file. -/
 def RootVanishingRigidity (p i j k R : ℕ) : Prop :=
   ShellwiseSignBalance p i j k R → HasProjectiveRootTarget p i j k R
 
 /-- **Exact reduction of Root--Vanishing Equivalence.**
 
-Because the root-to-vanishing implication is proved, the desired biconditional
-is equivalent to `RootVanishingRigidity`.  This theorem prevents the remaining
-research problem from being obscured by coefficient or finite-support details. -/
+Because the root-to-vanishing implication is proved, the unrestricted
+biconditional is equivalent to `RootVanishingRigidity`.  This theorem makes the
+later counterexample disprove both formulations at once. -/
 theorem rootVanishingEquivalence_iff_rigidity
     (p i j k R : ℕ)
     (hi : 0 < i) (hpi : 2 * i < p)
@@ -236,5 +241,182 @@ theorem rootVanishingEquivalence_iff_rigidity
       apply hrigidity
       exact (persistentTripleVanishing_iff_shellwiseSignBalance
         p i j k R hi hpi hj hpj hk hpk).mp hvanishing
+
+/-! ### The unrestricted rigidity statement is false
+
+The preceding reduction was intentionally stated without asserting rigidity.
+There is a genuine obstruction if the modulus and the Watson branch modulus
+share a factor.  The example below is fully symbolic, not a finite coefficient
+scan: every factor of `Q(q^3,q^9)` is supported on powers divisible by three,
+so its cube vanishes in the progression `9N+1`.  A projective-root target is
+impossible because both root norm classes are zero modulo three when `p=9`.
+-/
+
+/-- Scaling both Pochhammer parameters by `g` scales every exponent by `g`. -/
+lemma pochhammerFinite_scale (g a d N : ℕ) (hg : 0 < g) :
+    pochhammerFinite (g * a) (g * d) N =
+      PowerSeries.expand g hg.ne' (pochhammerFinite a d N) := by
+  rw [pochhammerFinite, pochhammerFinite, map_prod]
+  refine Finset.prod_congr rfl fun n _ => ?_
+  rw [map_sub, map_one, map_pow, PowerSeries.expand_X, ← pow_mul]
+  congr 2
+  ring
+
+/-- Hence a scaled infinite Pochhammer product is supported on multiples of
+its scaling factor. -/
+lemma supportedOnMultiples_pochhammerInf_scale
+    (g a d : ℕ) (hg : 0 < g) (ha : 0 < a) (hd : 0 < d) :
+    SupportedOnMultiples g (pochhammerInf (g * a) (g * d)) := by
+  intro n hn
+  rw [coeff_pochhammerInf (Nat.mul_pos hg ha) (Nat.mul_pos hg hd)
+    (le_refl (n + 1)), pochhammerFinite_scale g a d (n + 1) hg]
+  exact PowerSeries.coeff_expand_of_not_dvd g hg.ne' _ hn
+
+/-- Scaling both parameters of a specialized quintuple product scales its
+entire exponent support. -/
+theorem quintupleSpecialized_scale_supported
+    (g p i : ℕ) (hg : 0 < g) (hi : 0 < i) (hpi : 2 * i < p) :
+    SupportedOnMultiples g (quintupleSpecialized (g * p) (g * i)) := by
+  have hp : 0 < p := by omega
+  have hpi1 : 0 < p - i := by omega
+  have hpi2 : 0 < p - 2 * i := by omega
+  have h1 := supportedOnMultiples_pochhammerInf_scale g i p hg hi hp
+  have h2 := supportedOnMultiples_pochhammerInf_scale g (p - i) p hg hpi1 hp
+  have h3 := supportedOnMultiples_pochhammerInf_scale g p p hg hp hp
+  have h4 := supportedOnMultiples_pochhammerInf_scale g (p + 2 * i) (2 * p)
+    hg (by omega) (by omega)
+  have h5 := supportedOnMultiples_pochhammerInf_scale g (p - 2 * i) (2 * p)
+    hg hpi2 (by omega)
+  have hsub1 : g * p - g * i = g * (p - i) := by
+    rw [Nat.mul_sub_left_distrib]
+  have hadd : g * p + 2 * (g * i) = g * (p + 2 * i) := by ring
+  have hsub2 : g * p - 2 * (g * i) = g * (p - 2 * i) := by
+    rw [show 2 * (g * i) = g * (2 * i) by ring, Nat.mul_sub_left_distrib]
+  have hdouble : 2 * (g * p) = g * (2 * p) := by ring
+  simpa [quintupleSpecialized, pochhammerProductInf, hsub1, hadd, hsub2, hdouble]
+    using supportedOnMultiples_mul h1
+      (supportedOnMultiples_mul h2
+        (supportedOnMultiples_mul h3 (supportedOnMultiples_mul h4 h5)))
+
+/-- The single specialized factor `Q(q^3,q^9)` has only exponents divisible
+by three. -/
+lemma quintupleSpecialized_nine_three_supported :
+    SupportedOnMultiples 3 (quintupleSpecialized 9 3) := by
+  simpa using quintupleSpecialized_scale_supported 3 3 1
+    (by norm_num) (by norm_num) (by norm_num)
+
+/-- **Imprimitive-scale vanishing family.**  If a common scale `g` divides
+all three indices and the modulus but not the chosen residue, the complete
+progression vanishes for the elementary reason that every exponent is a
+multiple of `g`. -/
+theorem persistentTripleVanishing_of_common_scale
+    (g p i j k R : ℕ)
+    (hg : 0 < g)
+    (hi : 0 < i) (hpi : 2 * i < p)
+    (hj : 0 < j) (hpj : 2 * j < p)
+    (hk : 0 < k) (hpk : 2 * k < p)
+    (hR : ¬g ∣ R) :
+    PersistentTripleVanishing (g * p) (g * i) (g * j) (g * k) R := by
+  have hiSupport := quintupleSpecialized_scale_supported g p i hg hi hpi
+  have hjSupport := quintupleSpecialized_scale_supported g p j hg hj hpj
+  have hkSupport := quintupleSpecialized_scale_supported g p k hg hk hpk
+  have hproduct : SupportedOnMultiples g
+      (quintupleSpecialized (g * p) (g * i) *
+        quintupleSpecialized (g * p) (g * j) *
+        quintupleSpecialized (g * p) (g * k)) :=
+    supportedOnMultiples_mul (supportedOnMultiples_mul hiSupport hjSupport) hkSupport
+  intro N
+  apply hproduct
+  intro hdvd
+  apply hR
+  have hterm : g ∣ (g * p) * N := ⟨p * N, by ring⟩
+  exact (Nat.dvd_add_iff_right hterm).mpr hdvd
+
+/-- A fully proved persistent vanishing outside the prime/distinct regime. -/
+theorem persistentTripleVanishing_nine_three_three_three_one :
+    PersistentTripleVanishing 9 3 3 3 1 := by
+  have hfactor := quintupleSpecialized_nine_three_supported
+  have hproduct : SupportedOnMultiples 3
+      (quintupleSpecialized 9 3 * quintupleSpecialized 9 3 *
+        quintupleSpecialized 9 3) :=
+    supportedOnMultiples_mul (supportedOnMultiples_mul hfactor hfactor) hfactor
+  intro N
+  apply hproduct
+  rintro ⟨d, hd⟩
+  omega
+
+/-- No projective-root certificate can exist at modulus nine: its required
+mod-three root class would say `0=1` or `0=2`. -/
+theorem not_hasProjectiveRootTarget_nine_three_three_three_one :
+    ¬HasProjectiveRootTarget 9 3 3 3 1 := by
+  rintro ⟨root⟩
+  rcases root.hcase with ⟨hmod, _⟩ | ⟨hmod, _⟩
+  · have hzero : (((9 : ℤ) : ZMod 3)) = 0 := by decide
+    have : (0 : ZMod 3) = 1 := by
+      simpa only [Int.cast_mul, hzero, mul_zero] using hmod
+    exact (by decide : (0 : ZMod 3) ≠ 1) this
+  · have hzero : (((9 : ℤ) : ZMod 3)) = 0 := by decide
+    have : (0 : ZMod 3) = 2 := by
+      simpa only [Int.cast_mul, hzero, mul_zero] using hmod
+    exact (by decide : (0 : ZMod 3) ≠ 2) this
+
+/-- **Counterexample to unrestricted Root--Vanishing Equivalence.** -/
+theorem not_rootVanishingEquivalence_unrestricted :
+    ¬(HasProjectiveRootTarget 9 3 3 3 1 ↔
+      PersistentTripleVanishing 9 3 3 3 1) := by
+  intro hequiv
+  exact not_hasProjectiveRootTarget_nine_three_three_three_one
+    (hequiv.mpr persistentTripleVanishing_nine_three_three_three_one)
+
+/-- Consequently the unrestricted rigidity proposition itself is false. -/
+theorem not_rootVanishingRigidity_unrestricted :
+    ¬RootVanishingRigidity 9 3 3 3 1 := by
+  intro hrigidity
+  apply not_hasProjectiveRootTarget_nine_three_three_three_one
+  apply hrigidity
+  exact (persistentTripleVanishing_iff_shellwiseSignBalance 9 3 3 3 1
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num)).mp
+      persistentTripleVanishing_nine_three_three_three_one
+
+/-! ### Correct prime/distinct/isotropic frontier -/
+
+/-- The hypotheses of the genuine sparse-triple classification problem.
+Ordering loses no products because multiplication is commutative, and makes
+pairwise distinctness explicit. -/
+def AdmissibleSparseTriple (p i j k : ℕ) : Prop :=
+  Nat.Prime p ∧ p ≠ 3 ∧
+    0 < i ∧ i < j ∧ j < k ∧ 2 * k < p ∧
+    (p : ℤ) ∣ ternaryNorm i j k
+
+/-- The corrected rigidity conjecture excludes the proved imprimitive
+counterexample and states exactly the remaining research frontier. -/
+def AdmissibleRootVanishingRigidity (p i j k R : ℕ) : Prop :=
+  AdmissibleSparseTriple p i j k → R < p →
+    ShellwiseSignBalance p i j k R → HasProjectiveRootTarget p i j k R
+
+/-- For an admissible triple and canonical residue, the corrected
+Root--Vanishing biconditional is equivalent to precisely the corrected
+rigidity conjecture. -/
+theorem admissibleRootVanishingEquivalence_iff_rigidity
+    (p i j k R : ℕ) (hadmissible : AdmissibleSparseTriple p i j k)
+    (hR : R < p) :
+    (HasProjectiveRootTarget p i j k R ↔ PersistentTripleVanishing p i j k R) ↔
+      AdmissibleRootVanishingRigidity p i j k R := by
+  rcases hadmissible with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hpi : 2 * i < p := by omega
+  have hj : 0 < j := by omega
+  have hpj : 2 * j < p := by omega
+  have hk : 0 < k := by omega
+  have hpoddNat : Odd p := hp.odd_of_ne_two (by omega)
+  have hpodd : Odd (p : ℤ) := by exact_mod_cast hpoddNat
+  rw [rootVanishingEquivalence_iff_rigidity p i j k R
+    hi hpi hj hpj hk hpk hpodd]
+  constructor
+  · intro hrigidity _ _
+    exact hrigidity
+  · intro hrigidity hbalance
+    exact hrigidity
+      ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩ hR hbalance
 
 end Ramanujan.MultiQuintuple
