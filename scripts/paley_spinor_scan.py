@@ -29,7 +29,7 @@ conic.  If ``u=(j/i)^2``, then ``-256*J`` is the Legendre elliptic-curve j-invar
 ``lambda=-u``.
 
 The automorphism census reveals a sharper arithmetic criterion.  Every reflective class
-through ``p <= 401`` has a centered projective lift
+through ``p <= 1000`` has a centered projective lift
 
     w = lambda*(i,j,k) (mod p),    ||w||^2 in {p, 2p},
 
@@ -38,11 +38,13 @@ and no nonreflective class has one.  Such a vector gives the Householder reflect
 forward implication is formalized in ``MultiQuintupleRootReflection.lean``.
 
 The scan is experimental as a universal classification, but its affine certificates are exact.
+Finite coefficient silence is reported separately and is never treated as a proof of vanishing.
 """
 
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 from dataclasses import dataclass
 from fractions import Fraction
 from itertools import product
@@ -118,6 +120,22 @@ def matrix_multiply(
          for column in range(3)]
         for row in range(3)
     ]
+
+
+def matrix_key(matrix: Matrix | list[list[int | Fraction]]) -> tuple[Fraction, ...]:
+    """Hashable exact key for a 3-by-3 matrix."""
+    return tuple(Fraction(entry) for row in matrix for entry in row)
+
+
+def is_plane_reflection(matrix: Matrix) -> bool:
+    """Recognize an exact three-dimensional plane reflection."""
+    identity = [[Fraction(row == column) for column in range(3)] for row in range(3)]
+    square = matrix_multiply(matrix, matrix)
+    return (
+        determinant(matrix) == -1
+        and sum(matrix[index][index] for index in range(3)) == 1
+        and square == identity
+    )
 
 
 def canonical_residue(value: int, p: int) -> int:
@@ -470,6 +488,7 @@ def run_candidate(p: int, indices: tuple[int, ...], depth: int, show_all: bool) 
     automorphisms = lattice_automorphisms(lattice)
     roots = short_projective_roots(p, triple)
     observed, _ = vanishing_residues(p, triple, depth)
+    predicted = tuple(sorted({projective_root_target(root, lattice)[1] for root in roots}))
     print(f"J={invariant}; Legendre elliptic j={legendre_elliptic_j(p, triple)}")
     print(f"basis={format_matrix(lattice.basis)}")
     print(f"Gram={format_matrix(lattice.gram)}")
@@ -478,9 +497,10 @@ def run_candidate(p: int, indices: tuple[int, ...], depth: int, show_all: bool) 
         "short projective roots="
         + str([(root.scalar, root.vector, root.norm_multiplier) for root in roots])
     )
-    print(f"depth-{depth} candidate zero residues={observed}")
+    print(f"root-predicted residues={predicted}")
+    print(f"depth-{depth} finite-silent residues={observed}")
     status = 0
-    residues = range(p) if show_all else observed
+    residues = range(p) if show_all else sorted(set(observed) | set(predicted))
     certified: list[int] = []
     for residue in residues:
         certificate = affine_branch_certificate(lattice, automorphisms, residue)
@@ -494,20 +514,33 @@ def run_candidate(p: int, indices: tuple[int, ...], depth: int, show_all: bool) 
                 f"c={edge.translation}"
             )
     print(f"affine-certified residues={tuple(certified)}")
-    if any(residue not in certified for residue in observed):
-        print("ERROR: an observed candidate zero has no affine certificate")
+    if any(residue not in certified for residue in predicted):
+        print("ERROR: a root-predicted residue has no affine certificate")
         status = 1
+    if any(residue not in observed for residue in predicted):
+        print("ERROR: a root-predicted residue has a finite nonzero witness")
+        status = 1
+    finite_extras = tuple(sorted(set(observed) - set(predicted)))
+    if finite_extras:
+        print(
+            "NOTE: finite-depth silence without a root is not classified as vanishing; "
+            f"unresolved residues={finite_extras}"
+        )
     return status
 
 
-def run_scan(max_prime: int, depth: int) -> int:
+def run_scan(max_prime: int, depth: int, confirmation_depth: int) -> int:
     total_classes = 0
     mismatch_count = 0
     root_mismatch_count = 0
-    uncertified_count = 0
+    missing_certificate_count = 0
+    missing_prediction_count = 0
+    finite_extra_count = 0
+    delayed_witness_count = 0
+    unresolved_extra_count = 0
     print(
-        "p  J-classes  reflective  short-root  nonreflective  observed-hits  "
-        "aut/root-mis  hit-mis  uncertified"
+        "p  J-classes  reflective  short-root  nonreflective  predicted-hits "
+        "aut/root-mis  hit-mis  root-cert-mis  finite-extra  delayed  unresolved"
     )
     for p in primes_through(max_prime):
         representatives = isotropic_j_representatives(p)
@@ -517,41 +550,69 @@ def run_scan(max_prime: int, depth: int) -> int:
         hit_count = 0
         prime_mismatches = 0
         prime_root_mismatches = 0
-        prime_uncertified = 0
+        prime_missing_certificate = 0
+        prime_missing_prediction = 0
+        prime_finite_extra = 0
+        prime_delayed = 0
+        prime_unresolved = 0
         root_count = 0
         for triple in representatives.values():
             lattice = restricted_lattice(p, triple)
             automorphisms = lattice_automorphisms(lattice)
             reflective = len(automorphisms) > 2
-            has_short_root = bool(short_projective_roots(p, triple))
+            roots = short_projective_roots(p, triple)
+            has_short_root = bool(roots)
+            predicted = {projective_root_target(root, lattice)[1] for root in roots}
             observed, _ = vanishing_residues(p, triple, depth)
-            hit = bool(observed)
+            observed_set = set(observed)
+            missing_prediction = predicted - observed_set
+            finite_extra = observed_set - predicted
+            unresolved = set(finite_extra)
+            if finite_extra and confirmation_depth > depth:
+                confirmed, _ = vanishing_residues(p, triple, confirmation_depth)
+                unresolved.intersection_update(confirmed)
+            delayed = finite_extra - unresolved
+            hit = bool(predicted)
             reflective_count += int(reflective)
             root_count += int(has_short_root)
             hit_count += int(hit)
             prime_mismatches += int(reflective != hit)
             prime_root_mismatches += int(reflective != has_short_root)
-            if hit and any(
+            prime_missing_prediction += len(missing_prediction)
+            prime_finite_extra += len(finite_extra)
+            prime_delayed += len(delayed)
+            prime_unresolved += len(unresolved)
+            if predicted and any(
                 affine_branch_certificate(lattice, automorphisms, residue) is None
-                for residue in observed
+                for residue in predicted
             ):
-                prime_uncertified += 1
+                prime_missing_certificate += 1
         classes = len(representatives)
         total_classes += classes
         mismatch_count += prime_mismatches
         root_mismatch_count += prime_root_mismatches
-        uncertified_count += prime_uncertified
+        missing_certificate_count += prime_missing_certificate
+        missing_prediction_count += prime_missing_prediction
+        finite_extra_count += prime_finite_extra
+        delayed_witness_count += prime_delayed
+        unresolved_extra_count += prime_unresolved
         print(
             f"{p:<3}{classes:>11}{reflective_count:>12}{root_count:>12}"
             f"{classes-reflective_count:>15}{hit_count:>15}{prime_root_mismatches:>14}"
-            f"{prime_mismatches:>9}{prime_uncertified:>13}"
+            f"{prime_mismatches:>9}{prime_missing_certificate:>15}"
+            f"{prime_finite_extra:>14}{prime_delayed:>9}{prime_unresolved:>12}"
         )
     print(
         f"total J-classes={total_classes}; automorphism/short-root mismatches={root_mismatch_count}; "
-        f"reflective/hit mismatches={mismatch_count}; "
-        f"observed zeros lacking affine certificates={uncertified_count}"
+        f"reflective/predicted-hit mismatches={mismatch_count}; "
+        f"predicted residues missing from finite scan={missing_prediction_count}; "
+        f"predicted residues lacking affine certificates={missing_certificate_count}; "
+        f"finite-depth extra silent residues={finite_extra_count}; "
+        f"delayed nonzero witnesses by depth {confirmation_depth}={delayed_witness_count}; "
+        f"unresolved finite-depth extras={unresolved_extra_count}"
     )
-    return int(bool(root_mismatch_count or mismatch_count or uncertified_count))
+    return int(bool(root_mismatch_count or mismatch_count or missing_prediction_count
+                    or missing_certificate_count))
 
 
 def run_root_transport_scan(max_prime: int, depth: int) -> int:
@@ -587,6 +648,54 @@ def run_root_transport_scan(max_prime: int, depth: int) -> int:
     return int(bool(missing_certificate or missing_observed_zero))
 
 
+def run_converse_scan(max_prime: int) -> int:
+    """Compare noncentral automorphisms, plane reflections, and short roots.
+
+    This is an exact bounded census of the missing structural implication
+    ``Aut(L) > {±I} => L has a reflection``.  It also checks equality between
+    the full reflection set and the Householder maps supplied by short roots.
+    """
+    classes = 0
+    reflective_classes = 0
+    missing_reflection = 0
+    reflection_root_mismatch = 0
+    group_types: Counter[tuple[int, int, int]] = Counter()
+    for p in primes_through(max_prime):
+        for triple in isotropic_j_representatives(p).values():
+            classes += 1
+            lattice = restricted_lattice(p, triple)
+            automorphisms = lattice_automorphisms(lattice)
+            reflections = {
+                matrix_key(matrix) for matrix in automorphisms if is_plane_reflection(matrix)
+            }
+            roots = short_projective_roots(p, triple)
+            root_reflections = {
+                matrix_key(signed_short_root_lattice_matrix(lattice, root, 1))
+                for root in roots
+            }
+            group_types[(len(automorphisms), len(reflections), len(root_reflections))] += 1
+            if len(automorphisms) > 2:
+                reflective_classes += 1
+                if not reflections:
+                    missing_reflection += 1
+                    print(f"NO REFLECTION: p={p} triple={triple} |Aut|={len(automorphisms)}")
+            if reflections != root_reflections:
+                reflection_root_mismatch += 1
+                print(
+                    f"REFLECTION/ROOT MISMATCH: p={p} triple={triple} "
+                    f"reflections={len(reflections)} root-reflections={len(root_reflections)}"
+                )
+    print("(|Aut|, plane reflections, distinct root reflections) -> class count")
+    for group_type, count in sorted(group_types.items()):
+        print(f"  {group_type} -> {count}")
+    print(
+        f"classes={classes}; noncentral classes={reflective_classes}; "
+        f"noncentral classes without a reflection={missing_reflection}; "
+        f"reflection/root-set mismatches={reflection_root_mismatch}"
+    )
+    return int(bool(missing_reflection or reflection_root_mismatch))
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -602,11 +711,19 @@ def build_parser() -> argparse.ArgumentParser:
     scan = subparsers.add_parser("scan", help="compare reflectivity with coefficient scans")
     scan.add_argument("--max-prime", type=int, default=127)
     scan.add_argument("--depth", type=int, default=120)
+    scan.add_argument(
+        "--confirmation-depth", type=int, default=256,
+        help="recheck finite-silent residues not predicted by roots at this deeper cutoff",
+    )
     root_scan = subparsers.add_parser(
         "root-scan", help="verify the uniform projective-root residue transport"
     )
     root_scan.add_argument("--max-prime", type=int, default=127)
     root_scan.add_argument("--depth", type=int, default=120)
+    converse_scan = subparsers.add_parser(
+        "converse-scan", help="compare noncentral automorphisms, reflections, and roots"
+    )
+    converse_scan.add_argument("--max-prime", type=int, default=401)
     return parser
 
 
@@ -615,9 +732,11 @@ def main() -> int:
     if args.command == "candidate":
         return run_candidate(args.prime, args.indices, args.depth, args.all_residues)
     if args.command == "scan":
-        return run_scan(args.max_prime, args.depth)
+        return run_scan(args.max_prime, args.depth, args.confirmation_depth)
     if args.command == "root-scan":
         return run_root_transport_scan(args.max_prime, args.depth)
+    if args.command == "converse-scan":
+        return run_converse_scan(args.max_prime)
     raise AssertionError(f"unhandled command: {args.command}")
 
 

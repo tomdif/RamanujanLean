@@ -221,3 +221,5 @@ import RamanujanTau.MultiQuintupleCancellation
 -- Projective-root transport, uniform Root-to-Vanishing, and the p=71/p=79 instances
 import RamanujanTau.MultiQuintupleProjectiveCancellation
 import RamanujanTau.MultiQuintupleRootVanishingEquivalence
+-- Exact coefficient/shell-balance converse and the isolated rigidity boundary
+import RamanujanTau.MultiQuintupleRootVanishingClassification

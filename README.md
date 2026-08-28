@@ -30,8 +30,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 125 |
-| Build | `lake build` → **3836 jobs, 0 errors, 0 warnings** |
+| Modules | 139 |
+| Build | `lake build` → **3844 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -178,10 +178,19 @@ prove the actual `79n+9` family.  `MultiQuintupleRootVanishingEquivalence.lean` 
 transport for every projective short root: the exact quotient and target-residue laws, positive
 and sign-corrected negative eight-branch closure, two abstract pairing-to-coefficient bridges,
 and a unified theorem making the entire predicted progression of the actual triple product zero.
-The arbitrary-automorphism classification and the converse from a bare vanishing to a reflective
-cancellation mechanism remain open.
+It also proves that the positive and negative target congruences are necessary for projective
+coordinate closure under explicit Bezout invertibility hypotheses.  The new
+`MultiQuintupleRootVanishingClassification.lean` proves that a coefficient vanishes exactly when
+its positive and negative finite branch supports have equal size, equivalently when an abstract
+sign-reversing support bijection exists.  Persistent progression vanishing is exactly shellwise
+sign balance, and the full bare Root--Vanishing biconditional is reduced to one explicitly named
+rigidity proposition: every such abstract shellwise balance must arise from one coherent short-root
+involution.  That global rigidity statement, and the general arbitrary-automorphism classification,
+remain open rather than being assumed.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
-root reflection, and affine certificate; through `p=251` it passes all 162 reflective classes tested.
+root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
+projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues
+that were merely silent through depth 160 acquire a nonzero witness by depth 256.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

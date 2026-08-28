@@ -63,17 +63,24 @@ p=79, (1, 9,32): |Aut(L)|=2, no zero residue
 The exact scanner `scripts/paley_spinor_scan.py` exhausts the lattice automorphism group by
 enumerating every lattice vector having the three required column norms and checking all Gram
 pairings.  It uses rational/integer arithmetic to solve and verify every affine branch map.
-Through every prime `p <= 401`:
+The strengthened scan separates theorem-predicted residues from finite-depth
+silence and rechecks every extra silent residue at a larger depth.  Through
+every prime `p <= 1000`:
 
 ```text
-projective J-classes checked                         596
-reflective-class / observed-hit mismatches             0
-observed zero residues lacking affine certificates      0
+projective J-classes checked                            3172
+automorphism / short-root mismatches                       0
+reflective / root-predicted-hit mismatches                  0
+predicted residues missing by depth 160                    0
+predicted residues lacking affine certificates             0
+extra finite-silent residues at depth 160                  88
+extras with a nonzero witness by depth 256                 88
+unresolved finite-depth extras                              0
 ```
 
-The coefficient comparison in this census uses 120 complete progressions and is therefore finite
-evidence for the universal biconditional.  The affine certificates on the hit side are exact
-polynomial identities, not numerical evidence.  A separate all-triples scan through `p <= 127`
+The coefficient comparison is finite evidence for the universal biconditional; finite silence is
+never labeled a vanishing.  The affine certificates on the hit side are exact polynomial
+identities, not numerical evidence.  A separate all-triples scan through `p <= 127`
 (2,587 distinct canonical isotropic triples) also found that the hit/miss label is constant on
 every projective class.
 
@@ -106,8 +113,11 @@ is now a formal theorem.  `RamanujanTau.MultiQuintupleRootConverse` proves the a
 converse for a primitive rational Householder reflection: integrality on the three vectors
 `p*e_i` forces the primitive normal norm to divide `2p`, hence (outside the coordinate cases)
 to equal `p` or `2p`, and preservation of the congruence kernel forces the normal to be a
-projective lift.  What remains conjectural is the extra classification step saying that every
-noncentral automorphism group contains such a primitive rational reflection.  The superficially
+projective lift.  What remains conjectural as a general theorem is the extra classification step
+saying that every noncentral automorphism group contains such a primitive rational reflection.
+The exact `converse-scan` command checks the stronger set-level statement through `p <= 401`: all
+328 noncentral classes contain a plane reflection, and the distinct plane-reflection matrices
+agree exactly with the Householder matrices obtained from the short roots.  The superficially
 stronger statement that every noncentral automorphism is a reflection is false for the order-twelve
 `J=0` groups, which also contain rotations; the Root--Vanishing argument needs existence, not that
 incorrect elementwise classification.
@@ -140,8 +150,9 @@ kernel-checks this root description and its equality with all three rows of that
 Run the census or print the new `p=71` certificate with:
 
 ```bash
-python3 scripts/paley_spinor_scan.py scan --max-prime 401 --depth 120
+python3 scripts/paley_spinor_scan.py scan --max-prime 1000 --depth 160 --confirmation-depth 256
 python3 scripts/paley_spinor_scan.py root-scan --max-prime 127 --depth 120
+python3 scripts/paley_spinor_scan.py converse-scan --max-prime 401
 python3 scripts/paley_spinor_scan.py candidate \
   --prime 71 --indices 1,11,34 --depth 500 --all-residues
 ```
@@ -176,6 +187,26 @@ or sign-corrected negative coordinate map is involutive.  Two general pairing-to
 then turn those local branch maps into fixed-point-free involutions of the complete coefficient
 support.  The resulting unified projective-root theorem proves every coefficient in the predicted
 progression of the actual stabilized three-factor Pochhammer product is zero.
+The target laws are now necessary inside this mechanism as well as sufficient.  If one positive
+reflected coordinate closes on a quintuple branch, its affine base is divisible by `p` whenever
+`c*lambda*i` is invertible modulo `p`; if one sign-corrected negative coordinate closes, it forces
+`c*lambda*base = 12 (mod p)` whenever `i` is invertible.  The Lean theorems use explicit Bezout
+identities, so neither result hides a primality or division assumption.
+
+`RamanujanTau.MultiQuintupleRootVanishingClassification` isolates the exact global boundary.  For
+each actual coefficient it proves
+
+```text
+coefficient = 0
+  <==> #positive branch points = #negative branch points
+  <==> a sign-reversing bijection of the two finite supports exists.
+```
+
+Progression-wise, persistent vanishing is therefore exactly shellwise sign balance.  A projective
+root supplies one coherent affine involution on every shell.  The desired bare
+Root--Vanishing biconditional is proved equivalent to a single named rigidity proposition:
+every abstract shellwise balance is induced by a short projective-root target.  That rigidity
+proposition is not smuggled in as an axiom; it is the remaining open mathematical statement.
 The scanner now derives the signed lattice reflection and residue from these formulas rather than
 searching over all automorphisms.  An exact sweep through `p<=251` checked 162 reflective classes:
 every predicted residue had the root-specific affine certificate and was an observed zero, with

@@ -111,6 +111,63 @@ theorem projectiveRoot_negative_coordinate_offsets
   · rw [hw3]
     linear_combination k * htarget
 
+/-! ### Necessity of the two projective target laws -/
+
+/-- **Positive target necessity from one closed coordinate.**
+
+The congruence used to close the positive projective reflection is not an
+ad-hoc sufficient hypothesis.  If even one reflected quintuple coordinate
+lands in a quintuple branch with the same index `i`, then `p` divides the
+affine base, provided the visible scalar `c * lambda * i` is invertible modulo
+`p`.  The Bezout hypothesis records that invertibility without requiring a
+primality API. -/
+theorem projectiveRoot_positive_target_necessary_of_coordinate_closure
+    (b b' : Bool)
+    (p c lambda base i w a m n n' bp bv : ℤ)
+    (hw : w = lambda * i + p * a)
+    (hunit : bp * p + bv * (c * lambda * i) = 1)
+    (hclosure :
+      quintLatticeCoord b' p i n' =
+        shortRootReflectCoord c (base + p * m) w
+          (quintLatticeCoord b p i n)) :
+    ∃ h : ℤ, base = p * h := by
+  have hdiv : p ∣ c * lambda * i * base := by
+    refine ⟨6 * (n - n') + branchSign b - branchSign b'
+      - c * a * base - c * m * lambda * i - c * p * m * a, ?_⟩
+    rw [quintLatticeCoord_eq_branchSign, quintLatticeCoord_eq_branchSign,
+      hw] at hclosure
+    dsimp [shortRootReflectCoord] at hclosure
+    linear_combination hclosure
+  rcases hdiv with ⟨q, hq⟩
+  refine ⟨bp * base + bv * q, ?_⟩
+  linear_combination -base * hunit + bv * hq
+
+/-- **Negative target necessity from one closed coordinate.**
+
+For the sign-corrected reflection, branch closure forces the exact offset
+`c * lambda * base = 12 (mod p)`.  Again the only cancellation hypothesis is
+an explicit Bezout inverse, now for the quintuple index `i` modulo `p`. -/
+theorem projectiveRoot_negative_target_necessary_of_coordinate_closure
+    (b b' : Bool)
+    (p c lambda base i w a m n n' bp bi : ℤ)
+    (hw : w = lambda * i + p * a)
+    (hunit : bp * p + bi * i = 1)
+    (hclosure :
+      quintLatticeCoord b' p i n' =
+        -shortRootReflectCoord c (base + p * m) w
+          (quintLatticeCoord b p i n)) :
+    ∃ h : ℤ, c * lambda * base = 12 + p * h := by
+  have hdiv : p ∣ i * (c * lambda * base - 12) := by
+    refine ⟨6 * n' + branchSign b' + (6 * n + branchSign b)
+      - c * a * base - c * m * lambda * i - c * p * m * a, ?_⟩
+    rw [quintLatticeCoord_eq_branchSign, quintLatticeCoord_eq_branchSign,
+      hw] at hclosure
+    dsimp [shortRootReflectCoord] at hclosure
+    linear_combination -hclosure
+  rcases hdiv with ⟨q, hq⟩
+  refine ⟨bp * (c * lambda * base - 12) + bi * q, ?_⟩
+  linear_combination -(c * lambda * base - 12) * hunit + bi * hq
+
 /-! ### Uniform positive branch closure -/
 
 /-- Finite mod-3 data for a short-root branch reflection. -/
