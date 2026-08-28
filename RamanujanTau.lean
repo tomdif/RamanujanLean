@@ -223,3 +223,5 @@ import RamanujanTau.MultiQuintupleProjectiveCancellation
 import RamanujanTau.MultiQuintupleRootVanishingEquivalence
 -- Exact coefficient/shell-balance converse and the isolated rigidity boundary
 import RamanujanTau.MultiQuintupleRootVanishingClassification
+-- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
+import RamanujanTau.MultiQuintupleLocalSupport

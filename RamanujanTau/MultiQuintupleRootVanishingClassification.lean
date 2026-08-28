@@ -262,6 +262,23 @@ lemma pochhammerFinite_scale (g a d N : ℕ) (hg : 0 < g) :
   congr 2
   ring
 
+/-- The finite scaling identity survives coefficient stabilization: scaling
+both Pochhammer parameters is exactly the power-series substitution
+`q ↦ q^g`. -/
+theorem pochhammerInf_scale
+    (g a d : ℕ) (hg : 0 < g) (ha : 0 < a) (hd : 0 < d) :
+    pochhammerInf (g * a) (g * d) =
+      PowerSeries.expand g hg.ne' (pochhammerInf a d) := by
+  ext n
+  rw [coeff_pochhammerInf (Nat.mul_pos hg ha) (Nat.mul_pos hg hd)
+    (le_refl (n + 1)), pochhammerFinite_scale g a d (n + 1) hg,
+    PowerSeries.coeff_expand, PowerSeries.coeff_expand]
+  by_cases hn : g ∣ n
+  · rw [if_pos hn, if_pos hn,
+      coeff_pochhammerInf ha hd
+        (Nat.succ_le_succ (Nat.div_le_self n g))]
+  · rw [if_neg hn, if_neg hn]
+
 /-- Hence a scaled infinite Pochhammer product is supported on multiples of
 its scaling factor. -/
 lemma supportedOnMultiples_pochhammerInf_scale
@@ -271,6 +288,97 @@ lemma supportedOnMultiples_pochhammerInf_scale
   rw [coeff_pochhammerInf (Nat.mul_pos hg ha) (Nat.mul_pos hg hd)
     (le_refl (n + 1)), pochhammerFinite_scale g a d (n + 1) hg]
   exact PowerSeries.coeff_expand_of_not_dvd g hg.ne' _ hn
+
+/-- **Exact quintuple-product scaling law.**
+
+The imprimitive specialization is not merely supported on scaled exponents;
+it is exactly the primitive specialization after `q ↦ q^g`. -/
+theorem quintupleSpecialized_scale
+    (g p i : ℕ) (hg : 0 < g) (hi : 0 < i) (hpi : 2 * i < p) :
+    quintupleSpecialized (g * p) (g * i) =
+      PowerSeries.expand g hg.ne' (quintupleSpecialized p i) := by
+  have hp : 0 < p := by omega
+  have hpi1 : 0 < p - i := by omega
+  have hpi2 : 0 < p - 2 * i := by omega
+  have hsub1 : g * p - g * i = g * (p - i) := by
+    rw [Nat.mul_sub_left_distrib]
+  have hadd : g * p + 2 * (g * i) = g * (p + 2 * i) := by ring
+  have hsub2 : g * p - 2 * (g * i) = g * (p - 2 * i) := by
+    rw [show 2 * (g * i) = g * (2 * i) by ring, Nat.mul_sub_left_distrib]
+  have hdouble : 2 * (g * p) = g * (2 * p) := by ring
+  simp only [quintupleSpecialized, pochhammerProductInf, List.map_cons,
+    List.map_nil, List.prod_cons, List.prod_nil]
+  rw [hsub1, hadd, hsub2, hdouble,
+    pochhammerInf_scale g i p hg hi hp,
+    pochhammerInf_scale g (p - i) p hg hpi1 hp,
+    pochhammerInf_scale g p p hg hp hp,
+    pochhammerInf_scale g (p + 2 * i) (2 * p) hg (by omega) (by omega),
+    pochhammerInf_scale g (p - 2 * i) (2 * p) hg hpi2 (by omega),
+    map_mul, map_mul, map_mul, map_mul, map_mul, map_one]
+
+/-- Scaling a triple product is the same single power-series expansion of its
+primitive triple product. -/
+theorem tripleQuintupleSpecialized_scale
+    (g p i j k : ℕ) (hg : 0 < g)
+    (hi : 0 < i) (hpi : 2 * i < p)
+    (hj : 0 < j) (hpj : 2 * j < p)
+    (hk : 0 < k) (hpk : 2 * k < p) :
+    quintupleSpecialized (g * p) (g * i) *
+        quintupleSpecialized (g * p) (g * j) *
+        quintupleSpecialized (g * p) (g * k) =
+      PowerSeries.expand g hg.ne'
+        (quintupleSpecialized p i * quintupleSpecialized p j *
+          quintupleSpecialized p k) := by
+  rw [quintupleSpecialized_scale g p i hg hi hpi,
+    quintupleSpecialized_scale g p j hg hj hpj,
+    quintupleSpecialized_scale g p k hg hk hpk,
+    map_mul, map_mul]
+
+/-- **Exact coefficient descent.**  A scaled triple coefficient is zero off
+multiples of `g`; on a multiple it equals the corresponding primitive
+coefficient. -/
+theorem coeff_tripleQuintupleSpecialized_scale
+    (g p i j k n : ℕ) (hg : 0 < g)
+    (hi : 0 < i) (hpi : 2 * i < p)
+    (hj : 0 < j) (hpj : 2 * j < p)
+    (hk : 0 < k) (hpk : 2 * k < p) :
+    coeff n
+        (quintupleSpecialized (g * p) (g * i) *
+          quintupleSpecialized (g * p) (g * j) *
+          quintupleSpecialized (g * p) (g * k)) =
+      if g ∣ n then
+        coeff (n / g)
+          (quintupleSpecialized p i * quintupleSpecialized p j *
+            quintupleSpecialized p k)
+      else 0 := by
+  rw [tripleQuintupleSpecialized_scale g p i j k hg
+    hi hpi hj hpj hk hpk, PowerSeries.coeff_expand]
+
+/-- Persistent vanishing on a residue divisible by the scale is exactly
+persistent vanishing of the divided residue for the primitive product. -/
+theorem persistentTripleVanishing_scale_iff
+    (g p i j k R : ℕ) (hg : 0 < g)
+    (hi : 0 < i) (hpi : 2 * i < p)
+    (hj : 0 < j) (hpj : 2 * j < p)
+    (hk : 0 < k) (hpk : 2 * k < p) :
+    PersistentTripleVanishing (g * p) (g * i) (g * j) (g * k) (g * R) ↔
+      PersistentTripleVanishing p i j k R := by
+  constructor <;> intro hvanishing N
+  · have hzero := hvanishing N
+    rw [tripleQuintupleSpecialized_scale g p i j k hg
+      hi hpi hj hpj hk hpk] at hzero
+    have hindex : (g * p) * N + g * R = g * (p * N + R) := by ring
+    rw [hindex, PowerSeries.coeff_expand,
+      if_pos (show g ∣ g * (p * N + R) from ⟨p * N + R, rfl⟩)] at hzero
+    rw [Nat.mul_div_cancel_left (p * N + R) hg] at hzero
+    exact hzero
+  · rw [tripleQuintupleSpecialized_scale g p i j k hg
+      hi hpi hj hpj hk hpk]
+    have hindex : (g * p) * N + g * R = g * (p * N + R) := by ring
+    rw [hindex, PowerSeries.coeff_expand,
+      if_pos (show g ∣ g * (p * N + R) from ⟨p * N + R, rfl⟩)]
+    rw [Nat.mul_div_cancel_left (p * N + R) hg]
+    exact hvanishing N
 
 /-- Scaling both parameters of a specialized quintuple product scales its
 entire exponent support. -/
@@ -331,6 +439,40 @@ theorem persistentTripleVanishing_of_common_scale
   apply hR
   have hterm : g ∣ (g * p) * N := ⟨p * N, by ring⟩
   exact (Nat.dvd_add_iff_right hterm).mpr hdvd
+
+/-- **Complete imprimitive descent dichotomy.**
+
+Every scaled persistent vanishing is exactly one of two things:
+
+* an automatic support zero because the scale does not divide the residue; or
+* the lift of a persistent vanishing for the divided primitive product.
+
+There is no third imprimitive mechanism. -/
+theorem persistentTripleVanishing_scaled_iff_automatic_or_primitive
+    (g p i j k R : ℕ) (hg : 0 < g)
+    (hi : 0 < i) (hpi : 2 * i < p)
+    (hj : 0 < j) (hpj : 2 * j < p)
+    (hk : 0 < k) (hpk : 2 * k < p) :
+    PersistentTripleVanishing (g * p) (g * i) (g * j) (g * k) R ↔
+      ¬g ∣ R ∨
+        (g ∣ R ∧ PersistentTripleVanishing p i j k (R / g)) := by
+  constructor
+  · intro hvanishing
+    by_cases hdiv : g ∣ R
+    · right
+      refine ⟨hdiv, ?_⟩
+      apply (persistentTripleVanishing_scale_iff g p i j k (R / g) hg
+        hi hpi hj hpj hk hpk).mp
+      rw [Nat.mul_div_cancel' hdiv]
+      exact hvanishing
+    · exact Or.inl hdiv
+  · intro hcase
+    rcases hcase with hautomatic | ⟨hdiv, hprimitive⟩
+    · exact persistentTripleVanishing_of_common_scale g p i j k R hg
+        hi hpi hj hpj hk hpk hautomatic
+    · have hlift := (persistentTripleVanishing_scale_iff
+        g p i j k (R / g) hg hi hpi hj hpj hk hpk).mpr hprimitive
+      rwa [Nat.mul_div_cancel' hdiv] at hlift
 
 /-- A fully proved persistent vanishing outside the prime/distinct regime. -/
 theorem persistentTripleVanishing_nine_three_three_three_one :
@@ -418,5 +560,34 @@ theorem admissibleRootVanishingEquivalence_iff_rigidity
   · intro hrigidity hbalance
     exact hrigidity
       ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩ hR hbalance
+
+/-- **Conditional end-to-end classification of every scaled residue.**
+
+Once the remaining primitive admissible rigidity statement is supplied, the
+exact scaling law leaves precisely two possibilities at every residue of an
+imprimitive lift: an automatic off-support zero, or the lift of a primitive
+projective-root vanishing.  Thus proving primitive rigidity would complete
+the scaled classification without any further imprimitive cases. -/
+theorem persistentTripleVanishing_scaled_iff_automatic_or_root
+    (g p i j k R : ℕ) (hg : 0 < g)
+    (hadmissible : AdmissibleSparseTriple p i j k)
+    (hR : R / g < p)
+    (hrigidity : AdmissibleRootVanishingRigidity p i j k (R / g)) :
+    PersistentTripleVanishing (g * p) (g * i) (g * j) (g * k) R ↔
+      ¬g ∣ R ∨
+        (g ∣ R ∧ HasProjectiveRootTarget p i j k (R / g)) := by
+  have hadmissible' := hadmissible
+  rcases hadmissible' with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hpi : 2 * i < p := by omega
+  have hj : 0 < j := by omega
+  have hpj : 2 * j < p := by omega
+  have hk : 0 < k := by omega
+  have hequivalence :
+      HasProjectiveRootTarget p i j k (R / g) ↔
+        PersistentTripleVanishing p i j k (R / g) :=
+    (admissibleRootVanishingEquivalence_iff_rigidity
+      p i j k (R / g) hadmissible hR).mpr hrigidity
+  rw [persistentTripleVanishing_scaled_iff_automatic_or_primitive
+    g p i j k R hg hi hpi hj hpj hk hpk, ← hequivalence]
 
 end Ramanujan.MultiQuintuple

@@ -215,11 +215,45 @@ Q(q^3,q^9)^3 is supported on multiples of 3, so every coefficient q^(9N+1) is ze
 no projective-root target exists because e*p is 0, never 1 or 2, modulo 3.
 ```
 
-This is an exact power-series proof, not a scan.  More generally, the same module proves an
-imprimitive-scale family: if a common factor `g` divides the modulus and all three indices but
-does not divide `R`, the entire `pN+R` progression vanishes by support.  The corrected frontier is
+This is an exact power-series proof, not a scan.  The same module now proves the exact scaling law
+
+```text
+Q(q^(g*i),q^(g*p)) = expand_g(Q(q^i,q^p)),
+[q^n] expand_g(F) = if g divides n then [q^(n/g)]F else 0.
+```
+
+Consequently every persistent vanishing in a common-scale lift satisfies the exhaustive dichotomy
+
+```text
+scaled vanishing at R
+  <==> g does not divide R
+        or (g divides R and the primitive product vanishes at R/g).
+```
+
+There is no third common-scale mechanism.  Conditional on the remaining admissible primitive
+rigidity statement, the second clause is equivalent to a primitive projective-root target, giving
+a formal end-to-end scaled classification.
+
+`RamanujanTau.MultiQuintupleLocalSupport` proves a second, strictly more general support theorem.
+For every odd `d` satisfying
+
+```text
+d | p,  d | 3i,  d | 3j,  d | 3k,
+```
+
+every coefficient degree lies in one of only eight classes modulo `d`:
+
+```text
+b1*i + b2*j + b3*k,  where each bs is 0 or 1.
+```
+
+Any residue outside those classes gives an identically zero progression.  This formally proves the
+mixed example `Q(q,q^15) Q(q^3,q^15)^2`, whose entire `15N+2` progression vanishes even though the
+three indices have no common scale.  For prime `p >= 5` and nonzero canonical indices, any such
+nontrivial `d` would force `p | i,j,k`, so the local sieve disappears.  This separates elementary
+local support gaps from the genuine primitive cancellation problem.  The corrected frontier is
 therefore explicitly restricted to prime, pairwise-distinct, isotropic triples and canonical
-residues; `AdmissibleRootVanishingRigidity` records that statement.
+residues; `AdmissibleRootVanishingRigidity` records the only remaining converse statement.
 The scanner now derives the signed lattice reflection and residue from these formulas rather than
 searching over all automorphisms.  An exact sweep through `p<=251` checked 162 reflective classes:
 every predicted residue had the root-specific affine certificate and was an observed zero, with

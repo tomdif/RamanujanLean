@@ -27,12 +27,12 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
 | **Canonical quintuple family** | For every odd `p ≥ 5`, `∏_{i=1}^{(p-1)/2}Q(qⁱ,qᵖ)` vanishes in every nonsquare class mod `p` |
 | **Three quintuple products (`p=7`)** | `[q^{7n+r}] Q(q,q⁷)Q(q²,q⁷)Q(q³,q⁷) = 0` for `r=3,5,6` |
-| **Root--Vanishing boundary** | Uniform short roots force vanishings; the unrestricted converse is disproved by the exact `p=9` imprimitive family |
+| **Root--Vanishing boundary** | Uniform short roots force vanishings; exact scale descent and an odd-divisor local sieve classify the elementary support obstructions |
 
 | | |
 |---|---|
-| Modules | 139 |
-| Build | `lake build` → **3844 jobs, 0 errors** |
+| Modules | 140 |
+| Build | `lake build` → **3845 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -190,8 +190,18 @@ involution.  The unrestricted proposition is now formally disproved: `Q(q^3,q^9)
 only on exponents divisible by three, hence vanishes throughout `9N+1`, but no projective-root
 target can exist at `p=9`.  More generally, a new theorem proves this imprimitive-scale vanishing
 mechanism whenever the modulus and all three indices have a common divisor not dividing the target
-residue.  The corrected prime, pairwise-distinct, isotropic rigidity statement—and the corresponding
-general arbitrary-automorphism classification—remain open rather than being assumed.
+residue.  It now proves the stronger exact identity
+`Q(q^(g*i),q^(g*p)) = Q(q^i,q^p)|_(q→q^g)`, coefficient-by-coefficient descent, and the complete
+dichotomy: every scaled persistent zero is either automatically off support or descends to a
+primitive persistent zero.  Conditional on the explicitly named primitive rigidity conjecture,
+this becomes an end-to-end classification by automatic support or a projective root.
+`MultiQuintupleLocalSupport.lean` goes beyond common scaling: for every odd divisor `d` of `p`
+that divides `3i`, `3j`, and `3k`, the support lies in the eight subset-sum classes
+`b1*i+b2*j+b3*k (mod d)`.  Missing any of those classes proves an entire progression zero; in
+particular it formally proves the mixed family `Q(q,q^15) Q(q^3,q^15)^2` vanishes in `15N+2`.
+For prime `p ≥ 5` and nonzero canonical indices this local obstruction is impossible, cleanly
+isolating the corrected prime, pairwise-distinct, isotropic rigidity statement—and the corresponding
+general arbitrary-automorphism classification—as the remaining open problem rather than an assumption.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues
