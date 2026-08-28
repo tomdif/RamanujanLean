@@ -39,6 +39,11 @@ forward implication is formalized in ``MultiQuintupleRootReflection.lean``.
 
 The scan is experimental as a universal classification, but its affine certificates are exact.
 Finite coefficient silence is reported separately and is never treated as a proof of vanishing.
+
+The ``dual-shell-scan`` command supplies a separate Poisson-dual diagnostic.  It factors each
+individual Watson-character amplitude, enumerates certified-complete short norm shells, and decides
+their ``6p``-th-root amplitudes exactly in ``Q(zeta_3)(zeta_p)``.  Its bounded agreement with the
+short-root targets remains evidence for, rather than a proof of, universal dual-shell rigidity.
 """
 
 from __future__ import annotations
@@ -397,6 +402,324 @@ def branch_polynomials(
         )
         result[branch] = QuadraticPolynomial(quadratic, linear, constant)
     return result
+
+
+def six_p_cyclotomic_sum_is_zero(p: int, terms: Counter[int]) -> bool:
+    """Decide an integral sum of ``6p``-th roots of unity exactly.
+
+    ``terms[e]`` is the coefficient of ``zeta_(6p)^e``.  For odd
+    ``p != 3``, the fields ``Q(zeta_(6p))`` and ``Q(zeta_(3p))`` agree.
+    We first write ``zeta_(6p)`` as a signed power of ``zeta_(3p)`` and
+    then use
+
+    ``Q(zeta_(3p)) = Q(zeta_3)(zeta_p)``.
+
+    The only relation among ``1,zeta_p,...,zeta_p^(p-1)`` over
+    ``Q(zeta_3)`` is their sum.  Coefficients in ``Z[zeta_3]`` are stored
+    as pairs in the basis ``(1,zeta_3)``.  Thus the original cyclotomic
+    sum is zero exactly when all ``p`` coefficient pairs are equal.
+    """
+    if p % 2 == 0 or p % 3 == 0:
+        raise ValueError("the 6p cyclotomic reduction requires odd p != 3")
+    modulus = 6 * p
+    modulus_3p = 3 * p
+    # zeta_(6p) = -zeta_(3p)^a, where 2a = 1-3p (mod 6p).
+    exponent_multiplier = ((1 - 3 * p) // 2) % modulus_3p
+    cube_component = pow(p, -1, 3)
+    p_component = pow(3, -1, p)
+    coefficients: dict[int, list[int]] = {}
+    cube_basis = ((1, 0), (0, 1), (-1, -1))
+    for exponent, coefficient in terms.items():
+        if not coefficient:
+            continue
+        exponent %= modulus
+        sign = -1 if exponent % 2 else 1
+        exponent_3p = exponent_multiplier * exponent % modulus_3p
+        cube_exponent = cube_component * exponent_3p % 3
+        prime_exponent = p_component * exponent_3p % p
+        first, second = cube_basis[cube_exponent]
+        pair = coefficients.setdefault(prime_exponent, [0, 0])
+        pair[0] += sign * coefficient * first
+        pair[1] += sign * coefficient * second
+    nonzero_coefficients = [
+        tuple(pair) for pair in coefficients.values() if pair != [0, 0]
+    ]
+    if not nonzero_coefficients:
+        return True
+    # A missing prime-exponent coefficient is zero, so equality of all p
+    # coefficients is then impossible.  This sparse branch is the common one:
+    # the dual amplitudes below contain at most eight roots of unity.
+    if len(nonzero_coefficients) < p:
+        return False
+    return all(
+        coefficient == nonzero_coefficients[0]
+        for coefficient in nonzero_coefficients[1:]
+    )
+
+
+def dual_character_amplitude_terms(
+    lattice: RestrictedLattice,
+    residue: int,
+    vector: Vector,
+) -> Counter[int]:
+    """The exact Fourier amplitude of one projective dual vector.
+
+    The completed branch polynomials have a common quadratic part and a
+    common completed-square constant.  Their centers differ by rational
+    vectors with denominator dividing ``6p``.  The signed Fourier amplitude
+    is therefore an integral sum of ``6p``-th roots of unity.
+    """
+    p = lattice.p
+    indices = lattice.indices
+    pairing = int(dot(indices, vector))
+    if pairing % p:
+        raise AssertionError("projective vector did not lie in the integral dual lattice")
+    inverse_3k = pow(3 * indices[2], -1, p)
+    terms: Counter[int] = Counter()
+    for branch in product((0, 1), repeat=3):
+        c0 = inverse_3k * (
+            residue - sum(index * bit for index, bit in zip(indices, branch))
+        ) % p
+        # If x is the completed-square center, direct cancellation of the
+        # lattice basis in ``6p * <B^T*w/p, x>`` gives this integral formula.
+        phase = (
+            6 * vector[2] * c0
+            + 6 * (pairing // p)
+            + sum(vector[index] * (2 * branch[index] - 1) for index in range(3))
+        )
+        terms[phase % (6 * p)] += (-1) ** sum(branch)
+    return Counter(
+        {exponent: coefficient for exponent, coefficient in terms.items() if coefficient}
+    )
+
+
+def dual_character_amplitude_is_supported(
+    lattice: RestrictedLattice, vector: Vector
+) -> bool:
+    """Decide whether one dual vector carries nonzero Watson character.
+
+    Modulo ``6p``, the branch phase is affine in the three branch bits.
+    Hence its signed eight-term sum factors as
+
+    ``zeta^C * product_s (1 - zeta^delta_s)``, where
+    ``delta_s = 2*w_s - 6*w_3*(3*k)^(-1)*i_s``.
+
+    A product in the cyclotomic field is nonzero exactly when none of the
+    three factors vanishes.  The condition is independent of the target
+    residue.
+    """
+    p = lattice.p
+    modulus = 6 * p
+    inverse_3k = pow(3 * lattice.indices[2], -1, p)
+    return all(
+        (
+            2 * vector[index]
+            - 6 * vector[2] * inverse_3k * lattice.indices[index]
+        )
+        % modulus
+        != 0
+        for index in range(3)
+    )
+
+
+def first_dual_character_shells(
+    lattice: RestrictedLattice, shell_count: int, shift_radius: int
+) -> tuple[list[tuple[int, tuple[Vector, ...]]], int]:
+    """Enumerate the first dual norm shells carrying the Watson character.
+
+    A dual vector is represented integrally by ``w congruent lambda*(i,j,k)
+    (mod p)``.  Centering the projective lift and then adding ``p*z`` is
+    exhaustive.  The returned lower bound is the norm of every vector omitted
+    by the requested shift radius, so it certifies completeness of the
+    selected shells when their norms are smaller.
+    """
+    if shell_count <= 0 or shift_radius < 0:
+        raise ValueError("shell count must be positive and shift radius nonnegative")
+    p = lattice.p
+    shells: dict[int, set[Vector]] = {}
+    shifts = range(-shift_radius, shift_radius + 1)
+    modulus = 6 * p
+    inverse_3k = pow(3 * lattice.indices[2], -1, p)
+    for scalar in range(p):
+        base = (0, 0, 0) if scalar == 0 else centered_projective_lift(
+            p, scalar, lattice.indices
+        )
+        # The support factor indexed by ``s`` depends on the shift in
+        # coordinate ``s`` modulo three.  A shift of the third coordinate in
+        # the cross term contributes a multiple of ``6p`` and is invisible.
+        # We can therefore discard unsupported coordinate shifts before
+        # taking their Cartesian product (eight rather than 27 choices when
+        # ``shift_radius=1``).
+        supported_shifts: list[tuple[int, ...]] = []
+        for index in range(3):
+            coordinate_shifts: list[int] = []
+            for shift in shifts:
+                shifted_coordinate = base[index] + p * shift
+                third_coordinate = shifted_coordinate if index == 2 else base[2]
+                delta = (
+                    2 * shifted_coordinate
+                    - 6
+                    * third_coordinate
+                    * inverse_3k
+                    * lattice.indices[index]
+                ) % modulus
+                if delta:
+                    coordinate_shifts.append(shift)
+            supported_shifts.append(tuple(coordinate_shifts))
+        for shift in product(*supported_shifts):
+            vector: Vector = tuple(  # type: ignore[assignment]
+                base[index] + p * shift[index] for index in range(3)
+            )
+            if vector == (0, 0, 0):
+                continue
+            norm = int(dot(vector, vector))
+            if norm % p:
+                raise AssertionError("dual norm was not divisible by the isotropic prime")
+            shells.setdefault(norm, set()).add(vector)
+    selected = [
+        (norm, tuple(sorted(shells[norm]))) for norm in sorted(shells)[:shell_count]
+    ]
+    # An omitted shift has some coordinate at distance at least
+    # ``(shift_radius + 1/2)*p`` from zero.  Avoid fractions by flooring the
+    # strict lower bound; selected norms must be strictly smaller.
+    omitted_norm_lower_bound = ((2 * shift_radius + 1) * p) ** 2 // 4
+    return selected, omitted_norm_lower_bound
+
+
+def dual_shell_amplitude_is_zero(
+    lattice: RestrictedLattice, residue: int, vectors: tuple[Vector, ...]
+) -> bool:
+    """Decide one complete dual-shell amplitude exactly."""
+    terms: Counter[int] = Counter()
+    for vector in vectors:
+        terms.update(dual_character_amplitude_terms(lattice, residue, vector))
+    return six_p_cyclotomic_sum_is_zero(lattice.p, terms)
+
+
+def dual_residue_phase_step(lattice: RestrictedLattice, vector: Vector) -> int:
+    """The common ``6p``-phase increment when the target residue increases by one.
+
+    Solving the congruence changes the third affine displacement by
+    ``(3*k)^(-1)`` modulo ``p``.  Its possible branch-dependent wrap is a
+    multiple of ``p`` and hence invisible to the ``6p``-th root phase.  Thus
+    all eight branch terms belonging to ``vector`` acquire this same phase.
+    """
+    p = lattice.p
+    inverse_3k = pow(3 * lattice.indices[2], -1, p)
+    return 6 * vector[2] * inverse_3k % (6 * p)
+
+
+def shift_cyclotomic_terms(
+    terms: Counter[int], phase: int, modulus: int
+) -> Counter[int]:
+    """Multiply a root-of-unity sum by one root of unity."""
+    shifted: Counter[int] = Counter()
+    for exponent, coefficient in terms.items():
+        shifted[(exponent + phase) % modulus] += coefficient
+    return shifted
+
+
+def run_dual_shell_rigidity_scan(
+    max_prime: int, shell_count: int, shift_radius: int, min_prime: int = 5
+) -> int:
+    """Compare exact short-root targets with exact dual-shell cancellation.
+
+    Poisson summation turns an identically zero progression theta series into
+    cancellation on every complete dual norm shell.  This command asks whether
+    the first ``shell_count`` Watson-supported shells already force exactly the
+    residues supplied by short projective roots.  Every cyclotomic zero test is
+    exact.  The finite vector box is accepted only when a geometric lower bound
+    proves that all selected shells are complete.
+
+    Agreement is experimental evidence for the missing universal rigidity
+    lemma, not a proof beyond the requested prime bound.
+    """
+    classes = 0
+    residues = 0
+    incomplete_classes = 0
+    mismatches: list[
+        tuple[int, tuple[int, int, int], tuple[int, ...], tuple[int, ...]]
+    ] = []
+    shell_norm_profiles: Counter[tuple[int, ...]] = Counter()
+    for p in primes_through(max_prime):
+        if p < min_prime or p == 3:
+            continue
+        for triple in isotropic_j_representatives(p).values():
+            classes += 1
+            residues += p
+            lattice = restricted_lattice(p, triple)
+            shells, omitted_norm_lower_bound = first_dual_character_shells(
+                lattice, shell_count, shift_radius
+            )
+            if (
+                len(shells) < shell_count
+                or 4 * shells[-1][0] >= ((2 * shift_radius + 1) * p) ** 2
+            ):
+                incomplete_classes += 1
+                print(
+                    f"INCOMPLETE: p={p} triple={triple} shells={len(shells)} "
+                    f"last-norm={shells[-1][0] if shells else None} "
+                    f"omitted-lower-bound={omitted_norm_lower_bound}"
+                )
+                continue
+            shell_norm_profiles[
+                tuple(norm // p for norm, _vectors in shells)
+            ] += 1
+            affine_shell_terms = [
+                tuple(
+                    (
+                        dual_character_amplitude_terms(lattice, 0, vector),
+                        dual_residue_phase_step(lattice, vector),
+                    )
+                    for vector in vectors
+                )
+                for _norm, vectors in shells
+            ]
+            common_zeros: set[int] = set()
+            for residue in range(p):
+                all_shells_zero = True
+                for vector_terms in affine_shell_terms:
+                    terms: Counter[int] = Counter()
+                    for base_terms, phase_step in vector_terms:
+                        terms.update(
+                            shift_cyclotomic_terms(
+                                base_terms, residue * phase_step, 6 * p
+                            )
+                        )
+                    if not six_p_cyclotomic_sum_is_zero(p, terms):
+                        all_shells_zero = False
+                        break
+                if all_shells_zero:
+                    common_zeros.add(residue)
+            root_targets = {
+                projective_root_target(root, lattice)[1]
+                for root in short_projective_roots(p, triple)
+            }
+            if common_zeros != root_targets:
+                mismatch = (
+                    p,
+                    triple,
+                    tuple(sorted(root_targets)),
+                    tuple(sorted(common_zeros)),
+                )
+                mismatches.append(mismatch)
+                print(
+                    f"MISMATCH: p={p} triple={triple} "
+                    f"root-targets={mismatch[2]} shell-common-zeros={mismatch[3]}"
+                )
+    print(
+        f"classes={classes}; residues={residues}; shells={shell_count}; "
+        f"shift-radius={shift_radius}; incomplete={incomplete_classes}; "
+        f"mismatches={len(mismatches)}"
+    )
+    maximum_last_multiplier = max(
+        (profile[-1] for profile in shell_norm_profiles if profile), default=None
+    )
+    print(
+        f"distinct shell norm-multiplier profiles={len(shell_norm_profiles)}; "
+        f"largest selected-shell multiplier={maximum_last_multiplier}"
+    )
+    return int(bool(incomplete_classes or mismatches))
 
 
 @dataclass(frozen=True)
@@ -835,6 +1158,14 @@ def build_parser() -> argparse.ArgumentParser:
     witness_scan.add_argument("--max-prime", type=int, default=1000)
     witness_scan.add_argument("--min-prime", type=int, default=5)
     witness_scan.add_argument("--depth", type=int, default=256)
+    dual_shell_scan = subparsers.add_parser(
+        "dual-shell-scan",
+        help="compare short-root targets with exact Poisson-dual shell cancellation",
+    )
+    dual_shell_scan.add_argument("--max-prime", type=int, default=300)
+    dual_shell_scan.add_argument("--min-prime", type=int, default=5)
+    dual_shell_scan.add_argument("--shells", type=int, default=4)
+    dual_shell_scan.add_argument("--shift-radius", type=int, default=1)
     return parser
 
 
@@ -850,6 +1181,10 @@ def main() -> int:
         return run_converse_scan(args.max_prime)
     if args.command == "witness-scan":
         return run_witness_dichotomy_scan(args.max_prime, args.depth, args.min_prime)
+    if args.command == "dual-shell-scan":
+        return run_dual_shell_rigidity_scan(
+            args.max_prime, args.shells, args.shift_radius, args.min_prime
+        )
     raise AssertionError(f"unhandled command: {args.command}")
 
 

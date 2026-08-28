@@ -252,6 +252,27 @@ census satisfies the clean linear cutoff `N <= p/4`.  The Lean definition
 `AdmissibleQuarterCutoffRootOrProductWitness` now records that precise target and proves that it
 would imply corrected rigidity, while deliberately not asserting the still-unproved universal
 cutoff.
+
+There is now a third, Poisson-dual route implemented by the exact `dual-shell-scan`.  A dual vector
+is an integral lift `w congruent lambda*(i,j,k) (mod p)`.  Its signed eight-branch Fourier amplitude
+is a sum of `6p`-th roots of unity, decided exactly over `Q(zeta_3)(zeta_p)`, and its individual
+Watson support factors as
+
+```text
+zeta^C * product_s (1-zeta^delta_s),
+delta_s = 2*w_s - 6*w_3*(3*k)^(-1)*i_s  (mod 6p).
+```
+
+Thus support is residue-independent, while changing the target residue multiplies each vector by
+one explicit affine phase.  Poisson separation says that a persistently vanishing progression must
+cancel on every complete supported dual norm shell.  The exact census through `p<=1000` finds that
+the common zeros of the first four such shells are precisely the projective-root targets: 3,172
+projective classes and 2,055,986 residues, with no mismatch or incomplete shell.  Fewer shells are
+provably inadequate as a diagnostic: false common zeros occur with one shell at `p=71`, two at
+`p=191`, and three at `p=709`; the fourth shell removes all of them in the census.  This isolates a
+new finite-looking breakthrough target—prove universal four-dual-shell rigidity—but the bounded
+calculation is not asserted as that proof.
+
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

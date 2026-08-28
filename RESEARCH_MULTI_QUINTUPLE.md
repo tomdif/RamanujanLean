@@ -409,6 +409,73 @@ linear bound is substantially sharper than the generic modular-form bounds one w
 using the special threefold product character and index-`p` lattice geometry, but it is not promoted to a
 theorem by the computation.
 
+### Poisson-dual shell separation
+
+There is a complementary finite-looking attack on the same converse.  Write
+`a=(i,j,k)` and let the integral numerators of the dual congruence lattice be
+
+```text
+w congruent lambda*a (mod p).
+```
+
+After square completion, the eight branches have a common quadratic part and a common constant.
+For a target residue `R`, the Fourier amplitude attached to one dual vector is therefore an exact
+signed sum `A_R(w)` of `6p`-th roots of unity.  Direct cancellation of the lattice basis gives the
+phase formula used by `paley_spinor_scan.py`; its dependence on the branch bits is affine.  Hence
+
+```text
+A_R(w) = zeta^C * product_(s=1)^3 (1-zeta^delta_s),
+delta_s = 2*w_s - 6*w_3*(3*k)^(-1)*a_s  (mod 6p).
+```
+
+This proves two useful algebraic facts in the scanner: whether `w` carries the Watson character is
+independent of `R`, and increasing `R` multiplies its amplitude by the common phase
+
+```text
+zeta^(6*w_3*(3*k)^(-1)).
+```
+
+The remaining root-of-unity sums are tested without floating point.  Since
+`Q(zeta_(6p))=Q(zeta_3)(zeta_p)` for prime `p>=5`, a sum vanishes exactly when its `p`
+coefficients in the basis `(1,zeta_3)` are all equal.  The command
+
+```bash
+python3 scripts/paley_spinor_scan.py dual-shell-scan \
+  --max-prime 1000 --shells 4 --shift-radius 1
+```
+
+enumerates the first four supported norm shells.  Its shift box comes with a geometric lower bound
+for every omitted vector, so each selected shell is certified complete.  The exact result is
+
+```text
+projective classes                                  3,172
+residue problems                                2,055,986
+incomplete selected shells                              0
+four-shell/root-target mismatches                       0
+```
+
+The number four is not cosmetic.  The first shell has a non-root false zero at
+`p=71, (i,j,k)=(1,4,14), R=36`.  The first two share a non-root false zero at
+`p=191, (1,17,61), R=22`.  The first three share non-root false zeros beginning at
+`p=709`, including `(1,34,286), R=675`; in each case the next shell separates the residue.
+
+Analytically, persistent primal vanishing implies that every complete dual norm shell has zero
+amplitude: apply Poisson summation to the Gaussian specialization and separate successive dual
+norms as the Gaussian parameter tends to zero.  Consequently the following statement would close
+the corrected Root--Vanishing converse:
+
+```text
+Four-dual-shell rigidity:
+for every admissible prime/distinct/isotropic datum, a residue on which the first four complete
+Watson-supported dual shells all cancel is a short-projective-root target.
+```
+
+The amplitude factorization, affine residue law, exact cyclotomic decision, shell completeness
+certificate, and bounded theorem through `p<=1000` are established computationally.  The universal
+four-shell rigidity statement—and a Lean formalization of the Poisson bridge—remain open.  This is
+therefore a more structured proof target, not a declaration that the universal converse has already
+been proved.
+
 ### The projective invariant is an elliptic `j`-invariant
 
 The correct symmetric invariant is
@@ -607,7 +674,9 @@ For the corrected prime/distinct/isotropic problem, the proof frontier is:
    - spectral coherence: persistent vanishing of the parity Walsh component supplies one
      noncentral rational orthogonal involution acting on the full affine residue fiber; or
    - effective separation: every residue without a projective-root target has a finite nonzero
-     coefficient witness, ideally below an explicit geometry-of-numbers or modular bound.
+     coefficient witness, ideally below an explicit geometry-of-numbers or modular bound; or
+   - four-dual-shell rigidity: common cancellation on the first four complete supported Poisson-dual
+     shells already forces a projective-root target.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
@@ -623,7 +692,9 @@ prime/distinct/isotropic regime, the missing reverse implication must recover a 
 progression-wide cancellation symmetry.  The ternary-character normal form now identifies the
 precise scalar theta lift whose kernel must be classified; current ternary lattice-coset theta
 theory decomposes such series but does not automatically turn one signed character projection into
-a termwise affine isometry.
+a termwise affine isometry.  The exact dual-shell census through `p<=1000` supplies a third finite
+normal form with zero mismatches; proving its four-shell separation statement would bypass direct
+reconstruction of that isometry.
 
 ## Sources
 
