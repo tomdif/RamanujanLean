@@ -174,11 +174,12 @@ of the `7n+3` triple progression.  `MultiQuintupleProjectiveCancellation.lean` t
 reusable exponent-involution assembly, transports the non-direct projective root
 `(6,-5,-9) ≡ 6(1,11,34) (mod 71)` through all eight affine residue cosets, and proves the actual
 `71n+61` coefficient family zero.  It also instantiates the direct norm-`2p` root `(1,6,11)` to
-prove the actual `79n+9` family.  The arbitrary-automorphism classification, uniform transport for
-every projective short root, and the universal vanishing biconditional remain open.
-`MultiQuintupleRootVanishingEquivalence.lean` advances the uniform transport: it proves the exact
-projective quotient and target-residue laws, all negative coordinate congruences, and a universal
-positive eight-branch theorem for any short root whose target pairing is a multiple of `p²`.
+prove the actual `79n+9` family.  `MultiQuintupleRootVanishingEquivalence.lean` now proves uniform
+transport for every projective short root: the exact quotient and target-residue laws, positive
+and sign-corrected negative eight-branch closure, two abstract pairing-to-coefficient bridges,
+and a unified theorem making the entire predicted progression of the actual triple product zero.
+The arbitrary-automorphism classification and the converse from a bare vanishing to a reflective
+cancellation mechanism remain open.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate; through `p=251` it passes all 162 reflective classes tested.
 

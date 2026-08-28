@@ -170,14 +170,18 @@ while the sign-corrected negative target is
 c*lambda*(2*lambda*r-sum(w)+6*u) = 12  (mod p),   c*e=2.
 ```
 
-The same module proves that the positive target closes all eight bilateral branches for every
-short root: the output signs exist, their product reverses, the exponent is preserved, and the
-coordinate map is involutive.  It also proves all three negative coordinate-offset congruences.
+The same module proves that both target laws close all eight bilateral branches for every short
+root: the output signs exist, their product reverses, the exponent is preserved, and the positive
+or sign-corrected negative coordinate map is involutive.  Two general pairing-to-vanishing bridges
+then turn those local branch maps into fixed-point-free involutions of the complete coefficient
+support.  The resulting unified projective-root theorem proves every coefficient in the predicted
+progression of the actual stabilized three-factor Pochhammer product is zero.
 The scanner now derives the signed lattice reflection and residue from these formulas rather than
 searching over all automorphisms.  An exact sweep through `p<=251` checked 162 reflective classes:
 every predicted residue had the root-specific affine certificate and was an observed zero, with
-zero mismatches.  This remains finite evidence for the analytic progression but exact evidence for
-each emitted affine identity.
+zero mismatches.  The sweep remains finite evidence for the proposed converse classification; the
+forward coefficient progression is now a formal theorem for arbitrary parameters satisfying the
+root and target hypotheses.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -365,21 +369,20 @@ the product has some identically zero residue class.
 
 ## Next sparse-product proof target
 
-The projective classification, primitive-reflection converse, universal direct-short-root branch
-matching, coefficient bridge, finite cancellation assembly, explicit `p=71` and `p=79`
-projective certificate transports, projective target formulas, and uniform positive projective
-branch closure are now implemented.  The proof frontier is:
+The projective classification, primitive-reflection converse, universal positive and negative
+projective branch matching, coefficient bridge, finite cancellation assembly, explicit `p=71`
+and `p=79` certificate transports, projective target formulas, and uniform projective-root-to-
+vanishing theorem are now implemented.  The proof frontier is:
 
 1. show that every noncentral automorphism group of the index-`p` congruence lattice contains a
    primitive rational Householder reflection, so that `MultiQuintupleRootConverse` applies;
-2. finish the uniform sign-corrected negative eight-branch theorem and lift both projective branch
-   theorems through the finite coefficient-box involution assembly;
-3. prove the converse on the cancellation side, or identify any non-reflective mechanism.
+2. prove a rigidity theorem on the cancellation side showing that every persistent sparse-triple
+   vanishing supplies a noncentral lattice automorphism, or identify a non-reflective mechanism.
 
-The first item is now a sharply isolated existential arithmetic root-system problem.  On the
-forward side, the new quotient law removes the formerly case-specific residue derivation; the
-remaining work is the negative branch closure and deterministic partner assembly, not analytic
-convergence or coefficient specialization.
+The first item is a sharply isolated existential arithmetic root-system problem.  The forward
+Root--Vanishing direction is closed.  A literal biconditional with a bare zero coefficient would
+be too weakly stated: the missing reverse implication must recover a structural, progression-wide
+cancellation symmetry rather than infer a root from one possibly accidental zero.
 
 ## Sources
 
