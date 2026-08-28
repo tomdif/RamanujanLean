@@ -324,10 +324,17 @@ list to `p` or `2p`, and proves that the primitive normal is a projective lift o
 converse: the positive Householder case forces norm class `1`, the negative case forces norm class
 `2`, and the already-proved coordinate-closure necessities give the exact projective target
 congruence.  Thus every coherent admissible theta involution supplies a complete
-`ProjectiveRootTargetCertificate`.
+`ProjectiveRootTargetCertificate`.  The converse is now constructive as well.  A positive target
+builds the rational Householder involution and a negative target its negative; the corresponding
+uniform eight-branch theorem selects a weight-reversing partner at every point of the affine fiber.
+These partners satisfy the required coordinate transport globally, so every target certificate
+supplies a coherent theta involution.
 
-The rational geometric classification and the entire arithmetic extraction are therefore closed,
-without axioms.  The reverse Root--Vanishing direction now has exactly one remaining claim:
+The formal theorem is an exact equivalence between projective-root targets and nonempty coherent
+theta involutions on admissible data.  It upgrades the former sufficient reduction: spectral
+coherence, theta-coset rigidity, and corrected Root--Vanishing rigidity are now proved logically
+equivalent propositions.  The rational geometry and the entire arithmetic extraction are therefore
+closed, without axioms.  The reverse Root--Vanishing direction now has exactly one remaining claim:
 
 1. **Spectral coherence:** persistent vanishing of the top Walsh component forces one coherent
    rational orthogonal involution of the eight cosets.
@@ -525,8 +532,9 @@ the product has some identically zero residue class.
 The projective classification, primitive-reflection converse, universal positive and negative
 projective branch matching, coefficient bridge, finite cancellation assembly, explicit `p=71`
 and `p=79` certificate transports, projective target formulas, and uniform projective-root-to-
-vanishing theorem, exact shell-balance converse, and imprimitive counterexample are now
-implemented.  For the corrected prime/distinct/isotropic problem, the proof frontier is:
+vanishing theorem, exact shell-balance converse, imprimitive counterexample, and the converse
+construction from a projective-root certificate to a coherent involution are now implemented.
+For the corrected prime/distinct/isotropic problem, the proof frontier is:
 
 1. prove spectral coherence: persistent vanishing of the parity Walsh component supplies one
    noncentral rational orthogonal involution acting on the full affine residue fiber.
@@ -534,8 +542,10 @@ implemented.  For the corrected prime/distinct/isotropic problem, the proof fron
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
 two integral signed-permutation norms, extracts the short projective lift, selects its mod-three
-branch, and proves the exact target law.  Hence the one remaining item is a sharply isolated
-ternary theta-coset spectral problem.  The forward Root--Vanishing direction is closed.  The
+branch, and proves the exact target law; the converse builds the coherent involution back from that
+data.  Hence the one remaining item is a sharply isolated ternary theta-coset spectral problem,
+proved equivalent—not merely sufficient—to corrected rigidity.  The forward Root--Vanishing
+direction is closed.  The
 original unrestricted biconditional is false by the `p=9` theorem above.  In the corrected
 prime/distinct/isotropic regime, the missing reverse implication must recover a structural,
 progression-wide cancellation symmetry; current ternary lattice-coset theta theory decomposes

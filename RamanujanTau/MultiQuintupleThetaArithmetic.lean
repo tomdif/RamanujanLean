@@ -2209,4 +2209,501 @@ theorem admissibleRootVanishingRigidity_of_geometricCoherence
   admissibleRootVanishingRigidity_of_theta_geometry p i j k R hcoherence
     (admissibleThetaInvolutionClassification_proved p i j k R)
 
+/-! ### Converse geometry: a root certificate produces coherence -/
+
+/-- The Householder formula as a rational linear map. -/
+def ternaryRatHouseholderLinear (w : TernaryRatPoint) :
+    TernaryRatPoint →ₗ[ℚ] TernaryRatPoint where
+  toFun := ternaryRatHouseholder w
+  map_add' := by
+    intro x y
+    rcases w with ⟨⟨w1, w2⟩, w3⟩
+    rcases x with ⟨⟨x1, x2⟩, x3⟩
+    rcases y with ⟨⟨y1, y2⟩, y3⟩
+    apply Prod.ext
+    · apply Prod.ext <;>
+        simp [ternaryRatHouseholder, ternaryRatDot, ternaryRatNorm] <;> ring
+    · simp [ternaryRatHouseholder, ternaryRatDot, ternaryRatNorm]
+      ring
+  map_smul' := by
+    intro c x
+    rcases w with ⟨⟨w1, w2⟩, w3⟩
+    rcases x with ⟨⟨x1, x2⟩, x3⟩
+    apply Prod.ext
+    · apply Prod.ext <;>
+        simp [ternaryRatHouseholder, ternaryRatDot, ternaryRatNorm] <;> ring
+    · simp [ternaryRatHouseholder, ternaryRatDot, ternaryRatNorm]
+      ring
+
+@[simp] lemma ternaryRatHouseholderLinear_apply
+    (w x : TernaryRatPoint) :
+    ternaryRatHouseholderLinear w x = ternaryRatHouseholder w x := rfl
+
+lemma ternaryRatHouseholder_dot_normal
+    (w x : TernaryRatPoint) (hw : w ≠ 0) :
+    ternaryRatDot (ternaryRatHouseholder w x) w = -ternaryRatDot x w := by
+  have hnorm : ternaryRatNorm w ≠ 0 := ne_of_gt (ternaryRatNorm_pos hw)
+  rw [ternaryRatHouseholder, ternaryRatDot_sub_left,
+    ternaryRatDot_smul_left, ternaryRatDot_self]
+  field_simp [hnorm]
+  ring
+
+lemma ternaryRatHouseholder_norm
+    (w x : TernaryRatPoint) (hw : w ≠ 0) :
+    ternaryRatNorm (ternaryRatHouseholder w x) = ternaryRatNorm x := by
+  have hnorm : ternaryRatNorm w ≠ 0 := ne_of_gt (ternaryRatNorm_pos hw)
+  rw [ternaryRatHouseholder, sub_eq_add_neg, ← neg_smul,
+    ternaryRatNorm_add, ternaryRatDot_smul_right, ternaryRatNorm_smul]
+  field_simp [hnorm]
+  ring
+
+lemma ternaryRatHouseholder_involutive
+    (w x : TernaryRatPoint) (hw : w ≠ 0) :
+    ternaryRatHouseholder w (ternaryRatHouseholder w x) = x := by
+  rw [ternaryRatHouseholder,
+    ternaryRatHouseholder_dot_normal w x hw]
+  dsimp [ternaryRatHouseholder]
+  have hnorm : ternaryRatNorm w ≠ 0 := ne_of_gt (ternaryRatNorm_pos hw)
+  field_simp [hnorm]
+  module
+
+lemma ternaryRatHouseholder_normal
+    (w : TernaryRatPoint) (hw : w ≠ 0) :
+    ternaryRatHouseholder w w = -w := by
+  rw [ternaryRatHouseholder, ternaryRatDot_self]
+  have hnorm : ternaryRatNorm w ≠ 0 := ne_of_gt (ternaryRatNorm_pos hw)
+  field_simp [hnorm]
+  module
+
+lemma ternaryRatHouseholder_fixed_of_orthogonal
+    (w x : TernaryRatPoint) (horthogonal : ternaryRatDot x w = 0) :
+    ternaryRatHouseholder w x = x := by
+  simp [ternaryRatHouseholder, horthogonal]
+
+lemma ternaryRatPoint_eq_zero_of_eq_neg
+    (x : TernaryRatPoint) (h : x = -x) : x = 0 := by
+  rcases x with ⟨⟨x1, x2⟩, x3⟩
+  apply Prod.ext
+  · apply Prod.ext
+    · have h1 := congrArg (fun z : TernaryRatPoint => z.1.1) h
+      dsimp at h1 ⊢
+      linarith
+    · have h2 := congrArg (fun z : TernaryRatPoint => z.1.2) h
+      dsimp at h2 ⊢
+      linarith
+  · have h3 := congrArg (fun z : TernaryRatPoint => z.2) h
+    dsimp at h3 ⊢
+    linarith
+
+/-- Every nonzero ternary normal has a nonzero rational orthogonal vector. -/
+lemma exists_nonzero_ternaryRatPoint_orthogonal
+    (w : TernaryRatPoint) (hw : w ≠ 0) :
+    ∃ x : TernaryRatPoint, x ≠ 0 ∧ ternaryRatDot x w = 0 := by
+  rcases w with ⟨⟨w1, w2⟩, w3⟩
+  by_cases h12 : w1 = 0 ∧ w2 = 0
+  · refine ⟨((1, 0), 0), by norm_num, ?_⟩
+    simp [ternaryRatDot, h12.1, h12.2]
+  · refine ⟨((w2, -w1), 0), ?_, ?_⟩
+    · intro hzero
+      apply h12
+      constructor
+      · have h1 := congrArg (fun z : TernaryRatPoint => z.1.2) hzero
+        dsimp at h1
+        exact neg_eq_zero.mp h1
+      · have h2 := congrArg (fun z : TernaryRatPoint => z.1.1) hzero
+        simpa using h2
+    · simp [ternaryRatDot]
+      ring
+
+/-- A nonzero rational Householder reflection is a noncentral orthogonal
+involution in the exact structure used by theta coherence. -/
+def rationalTernaryHouseholderInvolution
+    (w : TernaryRatPoint) (hw : w ≠ 0) :
+    RationalTernaryOrthogonalInvolution where
+  linear := ternaryRatHouseholderLinear w
+  norm_preserving := fun x => ternaryRatHouseholder_norm w x hw
+  involutive := fun x => ternaryRatHouseholder_involutive w x hw
+  not_identity := ⟨w, by
+    rw [ternaryRatHouseholderLinear_apply, ternaryRatHouseholder_normal w hw]
+    intro h
+    exact hw (ternaryRatPoint_eq_zero_of_eq_neg w h.symm)⟩
+  not_neg_identity := by
+    obtain ⟨x, hx, horthogonal⟩ := exists_nonzero_ternaryRatPoint_orthogonal w hw
+    refine ⟨x, ?_⟩
+    rw [ternaryRatHouseholderLinear_apply,
+      ternaryRatHouseholder_fixed_of_orthogonal w x horthogonal]
+    intro h
+    exact hx (ternaryRatPoint_eq_zero_of_eq_neg x h)
+
+/-- The negative of a nonzero Householder reflection is the other noncentral
+orthogonal involution type. -/
+def rationalTernaryNegHouseholderInvolution
+    (w : TernaryRatPoint) (hw : w ≠ 0) :
+    RationalTernaryOrthogonalInvolution where
+  linear := -ternaryRatHouseholderLinear w
+  norm_preserving := by
+    intro x
+    change ternaryRatNorm (-ternaryRatHouseholder w x) = ternaryRatNorm x
+    rw [show ternaryRatNorm (-ternaryRatHouseholder w x) =
+      ternaryRatNorm (ternaryRatHouseholder w x) by
+        rcases ternaryRatHouseholder w x with ⟨⟨x1, x2⟩, x3⟩
+        simp [ternaryRatNorm]]
+    exact ternaryRatHouseholder_norm w x hw
+  involutive := by
+    intro x
+    change -ternaryRatHouseholder w (-ternaryRatHouseholder w x) = x
+    have hneg := map_neg (ternaryRatHouseholderLinear w)
+      (ternaryRatHouseholder w x)
+    change ternaryRatHouseholder w (-ternaryRatHouseholder w x) =
+      -ternaryRatHouseholder w (ternaryRatHouseholder w x) at hneg
+    rw [hneg, ternaryRatHouseholder_involutive w x hw]
+    simp
+  not_identity := by
+    obtain ⟨x, hx, horthogonal⟩ := exists_nonzero_ternaryRatPoint_orthogonal w hw
+    refine ⟨x, ?_⟩
+    change -ternaryRatHouseholder w x ≠ x
+    rw [ternaryRatHouseholder_fixed_of_orthogonal w x horthogonal]
+    intro h
+    exact hx (ternaryRatPoint_eq_zero_of_eq_neg x h.symm)
+  not_neg_identity := ⟨w, by
+    change -ternaryRatHouseholder w w ≠ -w
+    rw [ternaryRatHouseholder_normal w hw]
+    intro h
+    apply hw
+    apply ternaryRatPoint_eq_zero_of_eq_neg w
+    simpa using h⟩
+
+/-- A positive projective-root target constructs one fixed Householder map and
+one partner function on the entire progression, not merely separate
+shellwise bijections. -/
+theorem ProjectiveRootTargetCertificate.nonempty_coherent_of_positive
+    {p i j k R : ℕ} (root : ProjectiveRootTargetCertificate p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p)
+    (hpositive : (((root.e * (p : ℤ) : ℤ) : ZMod 3) = 1 ∧
+      ∃ h : ℤ, 2 * root.lambda * R =
+        root.w1 + root.w2 + root.w3 - 6 * root.u + p * h)) :
+    Nonempty (CoherentThetaInvolution p i j k R) := by
+  classical
+  obtain ⟨hep, h, htarget⟩ := hpositive
+  have had := hadmissible
+  rcases had with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hpi : 2 * i < p := by omega
+  have hj : 0 < j := by omega
+  have hpj : 2 * j < p := by omega
+  have hk : 0 < k := by omega
+  have hpoddNat : Odd p := hp.odd_of_ne_two (by omega)
+  have hpodd : Odd (p : ℤ) := by exact_mod_cast hpoddNat
+  have hpne : (p : ℤ) ≠ 0 := by omega
+  let w : TernaryIntIndex := ((root.w1, root.w2), root.w3)
+  have hw : w ≠ 0 := by
+    intro hwzero
+    have hnormzero : ternaryNorm w.1.1 w.1.2 w.2 = 0 := by
+      rw [hwzero]
+      simp [ternaryNorm]
+    dsimp [w] at hnormzero
+    rw [root.hroot] at hnormzero
+    rcases root.he with he | he
+    · rw [he] at hnormzero
+      omega
+    · rw [he] at hnormzero
+      omega
+  let M : TripleQuintBranchIndex → ℤ := fun x =>
+    h + 2 * root.lambda * pointResidueQuotient p i j k R x +
+      2 * projectiveLiftBranchCorrection
+        (pointB1 x) (pointB2 x) (pointB3 x)
+        root.a1 root.a2 root.a3 (pointN1 x) (pointN2 x) (pointN3 x)
+  let PartnerSpec : TripleQuintBranchIndex → TripleQuintBranchIndex → Prop :=
+    fun x y =>
+      pointBranchWeight y = -pointBranchWeight x ∧
+      ternaryDot (pointCoord1 p i x) (pointCoord2 p j x) (pointCoord3 p k x)
+        root.w1 root.w2 root.w3 = (p : ℤ) ^ 2 * M x ∧
+      pointThetaVector p i j k y =
+        ((shortRootReflectCoord root.c ((p : ℤ) * M x) root.w1
+            (pointCoord1 p i x),
+          shortRootReflectCoord root.c ((p : ℤ) * M x) root.w2
+            (pointCoord2 p j x)),
+          shortRootReflectCoord root.c ((p : ℤ) * M x) root.w3
+            (pointCoord3 p k x))
+  have hexists : ∀ x, OnThetaProgression p i j k R x →
+      ∃ y, PartnerSpec x y := by
+    intro x hxprog
+    have hxfiber := (onThetaProgression_iff_inThetaResidueFiber
+      p i j k R x hi hpi hj hpj hk hpk hpodd hR).mp hxprog
+    obtain ⟨q, hresidue⟩ := hxfiber
+    have hxExists : ∃ qx : ℤ,
+        pointLinearResidue i j k x = R + (p : ℤ) * qx := ⟨q, hresidue⟩
+    have hxquot := pointLinearResidue_eq_add_mul_quotient
+      p i j k R x hxExists
+    have hqx : pointResidueQuotient p i j k R x = q := by
+      apply mul_left_cancel₀ hpne
+      calc
+        (p : ℤ) * pointResidueQuotient p i j k R x =
+            pointLinearResidue i j k x - R := by linarith [hxquot]
+        _ = (p : ℤ) * q := by
+          linear_combination hresidue
+    have hpair := projectiveRoot_positive_target_pairing
+      (pointB1 x) (pointB2 x) (pointB3 x)
+      p root.lambda i j k root.w1 root.w2 root.w3
+      root.a1 root.a2 root.a3 root.u
+      (pointN1 x) (pointN2 x) (pointN3 x) R q h
+      root.hw1 root.hw2 root.hw3 root.hvw
+      (by simpa [pointLinearResidue] using hresidue) htarget
+    have hpairM : ternaryDot
+        (pointCoord1 p i x) (pointCoord2 p j x) (pointCoord3 p k x)
+        root.w1 root.w2 root.w3 = (p : ℤ) ^ 2 * M x := by
+      simpa [pointCoord1, pointCoord2, pointCoord3, M, hqx] using hpair
+    obtain ⟨b1', b2', b3', z1, z2, z3, hz1, hz2, hz3, hproduct,
+        hcoord1, hcoord2, hcoord3, hexponent, hreturn1, hreturn2, hreturn3⟩ :=
+      shortRoot_positive_eight_branch_matching
+        (pointB1 x) (pointB2 x) (pointB3 x)
+        p root.e root.c i j k root.w1 root.w2 root.w3 (M x)
+        (pointN1 x) (pointN2 x) (pointN3 x) hpodd root.he hep
+        root.hroot root.hcoefficient hpairM
+    let y : TripleQuintBranchIndex :=
+      (((b1', pointN1 x + z1), (b2', pointN2 x + z2)),
+        (b3', pointN3 x + z3))
+    refine ⟨y, ?_, hpairM, ?_⟩
+    · dsimp [pointBranchWeight, y, pointB1, pointB2, pointB3]
+      rw [hproduct]
+      simp [pointB1, pointB2, pointB3]
+    · apply Prod.ext
+      · apply Prod.ext
+        · simpa [pointThetaVector, pointCoord1, y, pointB1, pointN1] using hcoord1
+        · simpa [pointThetaVector, pointCoord2, y, pointB2, pointN2] using hcoord2
+      · simpa [pointThetaVector, pointCoord3, y, pointB3, pointN3] using hcoord3
+  let partner : TripleQuintBranchIndex → TripleQuintBranchIndex := fun x =>
+    if hx : OnThetaProgression p i j k R x then
+      Classical.choose (hexists x hx)
+    else x
+  have partner_spec : ∀ x, OnThetaProgression p i j k R x →
+      PartnerSpec x (partner x) := by
+    intro x hx
+    dsimp [partner]
+    simp only [dif_pos hx]
+    exact Classical.choose_spec (hexists x hx)
+  let geo := rationalTernaryHouseholderInvolution
+    (ternaryIntIndexToRat w) (by
+      intro hzero
+      apply hw
+      apply ternaryIntIndexToRat_injective
+      simpa using hzero)
+  exact ⟨{
+    toRationalTernaryOrthogonalInvolution := geo
+    partner := partner
+    weight_reverse := fun x hx => (partner_spec x hx).1
+    coordinate_transport := by
+      intro x hx
+      have hs := partner_spec x hx
+      have hhouse := ternaryRatHouseholder_int_eq_shortRootReflect
+        p root.e root.c ((p : ℤ) * M x) w
+        (pointThetaVector p i j k x) hpne root.hroot
+        (by
+          calc
+            ternaryDot (pointThetaVector p i j k x).1.1
+                (pointThetaVector p i j k x).1.2
+                (pointThetaVector p i j k x).2 w.1.1 w.1.2 w.2 =
+              (p : ℤ) ^ 2 * M x := by
+                simpa [pointThetaVector, w] using hs.2.1
+            _ = (p : ℤ) * ((p : ℤ) * M x) := by ring)
+        root.hcoefficient
+      change ternaryRatHouseholder (ternaryIntIndexToRat w)
+          (pointThetaVectorRat p i j k x) =
+        pointThetaVectorRat p i j k (partner x)
+      rw [show pointThetaVectorRat p i j k x =
+          ternaryIntIndexToRat (pointThetaVector p i j k x) by rfl,
+        hhouse]
+      apply congrArg ternaryIntIndexToRat
+      simpa [w] using hs.2.2.symm }⟩
+
+/-- A negative projective-root target likewise constructs one fixed negative
+Householder map and a progression-wide coherent partner. -/
+theorem ProjectiveRootTargetCertificate.nonempty_coherent_of_negative
+    {p i j k R : ℕ} (root : ProjectiveRootTargetCertificate p i j k R)
+    (hadmissible : AdmissibleSparseTriple p i j k) (hR : R < p)
+    (hnegative : (((root.e * (p : ℤ) : ℤ) : ZMod 3) = 2 ∧
+      ∃ base h : ℤ,
+        base = 2 * root.lambda * R -
+          (root.w1 + root.w2 + root.w3) + 6 * root.u ∧
+        root.c * root.lambda * base = 12 + p * h)) :
+    Nonempty (CoherentThetaInvolution p i j k R) := by
+  classical
+  obtain ⟨hep, base, h, hbase, htarget⟩ := hnegative
+  have had := hadmissible
+  rcases had with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hpi : 2 * i < p := by omega
+  have hj : 0 < j := by omega
+  have hpj : 2 * j < p := by omega
+  have hk : 0 < k := by omega
+  have hpoddNat : Odd p := hp.odd_of_ne_two (by omega)
+  have hpodd : Odd (p : ℤ) := by exact_mod_cast hpoddNat
+  have hpne : (p : ℤ) ≠ 0 := by omega
+  let w : TernaryIntIndex := ((root.w1, root.w2), root.w3)
+  have hw : w ≠ 0 := by
+    intro hwzero
+    have hnormzero : ternaryNorm w.1.1 w.1.2 w.2 = 0 := by
+      rw [hwzero]
+      simp [ternaryNorm]
+    dsimp [w] at hnormzero
+    rw [root.hroot] at hnormzero
+    rcases root.he with he | he
+    · rw [he] at hnormzero
+      omega
+    · rw [he] at hnormzero
+      omega
+  let M : TripleQuintBranchIndex → ℤ := fun x =>
+    2 * root.lambda * pointResidueQuotient p i j k R x +
+      2 * projectiveLiftBranchCorrection
+        (pointB1 x) (pointB2 x) (pointB3 x)
+        root.a1 root.a2 root.a3 (pointN1 x) (pointN2 x) (pointN3 x)
+  obtain ⟨hoffset1, hoffset2, hoffset3⟩ :=
+    projectiveRoot_negative_coordinate_offsets
+      p root.c root.lambda base i j k root.w1 root.w2 root.w3
+      root.a1 root.a2 root.a3 h root.hw1 root.hw2 root.hw3 htarget
+  let PartnerSpec : TripleQuintBranchIndex → TripleQuintBranchIndex → Prop :=
+    fun x y =>
+      pointBranchWeight y = -pointBranchWeight x ∧
+      ternaryDot (pointCoord1 p i x) (pointCoord2 p j x) (pointCoord3 p k x)
+        root.w1 root.w2 root.w3 = (p : ℤ) * (base + (p : ℤ) * M x) ∧
+      pointThetaVector p i j k y =
+        (-((shortRootReflectCoord root.c (base + (p : ℤ) * M x) root.w1
+            (pointCoord1 p i x),
+          shortRootReflectCoord root.c (base + (p : ℤ) * M x) root.w2
+            (pointCoord2 p j x)),
+          shortRootReflectCoord root.c (base + (p : ℤ) * M x) root.w3
+            (pointCoord3 p k x)))
+  have hexists : ∀ x, OnThetaProgression p i j k R x →
+      ∃ y, PartnerSpec x y := by
+    intro x hxprog
+    have hxfiber := (onThetaProgression_iff_inThetaResidueFiber
+      p i j k R x hi hpi hj hpj hk hpk hpodd hR).mp hxprog
+    obtain ⟨q, hresidue⟩ := hxfiber
+    have hxExists : ∃ qx : ℤ,
+        pointLinearResidue i j k x = R + (p : ℤ) * qx := ⟨q, hresidue⟩
+    have hxquot := pointLinearResidue_eq_add_mul_quotient
+      p i j k R x hxExists
+    have hqx : pointResidueQuotient p i j k R x = q := by
+      apply mul_left_cancel₀ hpne
+      calc
+        (p : ℤ) * pointResidueQuotient p i j k R x =
+            pointLinearResidue i j k x - R := by linarith [hxquot]
+        _ = (p : ℤ) * q := by
+          linear_combination hresidue
+    have hpair := projectiveRoot_reflection_quotient
+      (pointB1 x) (pointB2 x) (pointB3 x)
+      p root.lambda i j k root.w1 root.w2 root.w3
+      root.a1 root.a2 root.a3 root.u
+      (pointN1 x) (pointN2 x) (pointN3 x) R q
+      root.hw1 root.hw2 root.hw3 root.hvw
+      (by simpa [pointLinearResidue] using hresidue)
+    rw [← hbase] at hpair
+    have hpairM : ternaryDot
+        (pointCoord1 p i x) (pointCoord2 p j x) (pointCoord3 p k x)
+        root.w1 root.w2 root.w3 = (p : ℤ) * (base + (p : ℤ) * M x) := by
+      simpa [pointCoord1, pointCoord2, pointCoord3, M, hqx] using hpair
+    obtain ⟨b1', b2', b3', z1, z2, z3, hz1, hz2, hz3, hproduct,
+        hcoord1, hcoord2, hcoord3, hexponent, hreturn1, hreturn2, hreturn3⟩ :=
+      shortRoot_negative_eight_branch_matching
+        (pointB1 x) (pointB2 x) (pointB3 x)
+        p root.e root.c i j k root.w1 root.w2 root.w3 base (M x)
+        (h * i + root.c * base * root.a1)
+        (h * j + root.c * base * root.a2)
+        (h * k + root.c * base * root.a3)
+        (pointN1 x) (pointN2 x) (pointN3 x) hpodd root.he hep
+        root.hroot root.hcoefficient hpairM hoffset1 hoffset2 hoffset3
+    let y : TripleQuintBranchIndex :=
+      (((b1', -pointN1 x + z1), (b2', -pointN2 x + z2)),
+        (b3', -pointN3 x + z3))
+    refine ⟨y, ?_, hpairM, ?_⟩
+    · dsimp [pointBranchWeight, y, pointB1, pointB2, pointB3]
+      rw [hproduct]
+      simp [pointB1, pointB2, pointB3]
+    · apply Prod.ext
+      · apply Prod.ext
+        · simpa [pointThetaVector, pointCoord1, y, pointB1, pointN1] using hcoord1
+        · simpa [pointThetaVector, pointCoord2, y, pointB2, pointN2] using hcoord2
+      · simpa [pointThetaVector, pointCoord3, y, pointB3, pointN3] using hcoord3
+  let partner : TripleQuintBranchIndex → TripleQuintBranchIndex := fun x =>
+    if hx : OnThetaProgression p i j k R x then
+      Classical.choose (hexists x hx)
+    else x
+  have partner_spec : ∀ x, OnThetaProgression p i j k R x →
+      PartnerSpec x (partner x) := by
+    intro x hx
+    dsimp [partner]
+    simp only [dif_pos hx]
+    exact Classical.choose_spec (hexists x hx)
+  let geo := rationalTernaryNegHouseholderInvolution
+    (ternaryIntIndexToRat w) (by
+      intro hzero
+      apply hw
+      apply ternaryIntIndexToRat_injective
+      simpa using hzero)
+  exact ⟨{
+    toRationalTernaryOrthogonalInvolution := geo
+    partner := partner
+    weight_reverse := fun x hx => (partner_spec x hx).1
+    coordinate_transport := by
+      intro x hx
+      have hs := partner_spec x hx
+      have hhouse := ternaryRatHouseholder_int_eq_shortRootReflect
+        p root.e root.c (base + (p : ℤ) * M x) w
+        (pointThetaVector p i j k x) hpne root.hroot
+        (by simpa [pointThetaVector, w] using hs.2.1)
+        root.hcoefficient
+      change -ternaryRatHouseholder (ternaryIntIndexToRat w)
+          (pointThetaVectorRat p i j k x) =
+        pointThetaVectorRat p i j k (partner x)
+      rw [show pointThetaVectorRat p i j k x =
+          ternaryIntIndexToRat (pointThetaVector p i j k x) by rfl,
+        hhouse]
+      have hv := congrArg ternaryIntIndexToRat hs.2.2.symm
+      simp [w, ternaryIntIndexToRat] at hv ⊢
+      apply Prod.ext
+      · apply Prod.ext
+        · exact hv.1.1
+        · exact hv.1.2
+      · exact hv.2 }⟩
+
+/-- **Exact coherent/root equivalence.**  On admissible data, complete
+projective-root targets and progression-wide coherent orthogonal involutions
+are the same structure, in both directions. -/
+theorem hasProjectiveRootTarget_iff_nonempty_coherentThetaInvolution
+    (p i j k R : ℕ) (hadmissible : AdmissibleSparseTriple p i j k)
+    (hR : R < p) :
+    HasProjectiveRootTarget p i j k R ↔
+      Nonempty (CoherentThetaInvolution p i j k R) := by
+  constructor
+  · rintro ⟨root⟩
+    rcases root.hcase with hpositive | hnegative
+    · exact root.nonempty_coherent_of_positive hadmissible hR hpositive
+    · exact root.nonempty_coherent_of_negative hadmissible hR hnegative
+  · rintro ⟨T⟩
+    exact T.hasProjectiveRootTarget hadmissible hR
+
+/-- **Exact spectral-frontier identification.**  Once the explicit converse
+geometry is available, asking every persistent signed theta identity to arise
+from one coherent involution is exactly the theta-coset rigidity proposition.
+There is no residual arithmetic hypothesis in either direction. -/
+theorem admissibleThetaGeometricCoherence_iff_thetaCosetRigidity
+    (p i j k R : ℕ) :
+    AdmissibleThetaGeometricCoherence p i j k R ↔
+      AdmissibleThetaCosetRigidity p i j k R := by
+  constructor
+  · exact admissibleThetaCosetRigidity_of_geometricCoherence p i j k R
+  · intro hrigidity hadmissible hR htheta
+    exact (hasProjectiveRootTarget_iff_nonempty_coherentThetaInvolution
+      p i j k R hadmissible hR).mp
+        (hrigidity hadmissible hR htheta)
+
+/-- **Final one-conjecture normal form.**  Spectral coherence is logically
+equivalent to the corrected admissible Root--Vanishing rigidity conjecture.
+Thus proving either statement proves the other, rather than merely providing
+a sufficient route to it. -/
+theorem admissibleThetaGeometricCoherence_iff_rootVanishingRigidity
+    (p i j k R : ℕ) :
+    AdmissibleThetaGeometricCoherence p i j k R ↔
+      AdmissibleRootVanishingRigidity p i j k R := by
+  rw [admissibleThetaGeometricCoherence_iff_thetaCosetRigidity,
+    admissibleThetaCosetRigidity_iff_rootVanishingRigidity]
+
 end Ramanujan.MultiQuintuple

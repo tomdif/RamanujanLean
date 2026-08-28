@@ -225,10 +225,14 @@ signed-coordinate/permutation stabilizers, sharpens the list to `p` or `2p`, pro
 primitive normal is a projective lift of `(i,j,k)`, and uses one coherently transported Watson
 point plus an exhaustive `ZMod 3` theorem to force the correct positive/negative branch and its
 exact target congruence.  Consequently every coherent admissible theta involution now yields a
-complete `ProjectiveRootTargetCertificate`; arithmetic classification is closed.  The sole
-remaining reverse-direction frontier is spectral coherence: obtain one fixed rational orthogonal
-involution from equality of the positive- and negative-parity four-coset representation counts
-along the progression.
+complete `ProjectiveRootTargetCertificate`; arithmetic classification is closed.  Conversely, an
+explicit rational Householder or negative-Householder map, together with the universal eight-branch
+matching, constructs one coherent theta involution from every such certificate.  Thus projective-root
+targets and coherent involutions are exactly equivalent on admissible data.  At the proposition
+level, spectral coherence is now proved logically equivalent to both theta-coset rigidity and the
+corrected Root--Vanishing rigidity conjecture.  The sole remaining reverse-direction frontier is
+therefore exact: obtain one fixed rational orthogonal involution from equality of the positive- and
+negative-parity four-coset representation counts along the progression.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

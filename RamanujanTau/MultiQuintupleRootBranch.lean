@@ -255,7 +255,7 @@ theorem directRoot_negative_mod3 :
 /-- The three residues modulo three, in branch-sign form. -/
 lemma zmod3_zero_or_branchSign :
     ∀ u : ZMod 3, u = 0 ∨ u = 1 ∨ u = -1 := by
-  native_decide
+  decide
 
 /-- Every nonzero residue modulo three is one of the two branch signs. -/
 lemma zmod3_eq_branchSign3 {u : ZMod 3} (hu : u ≠ 0) :
@@ -307,7 +307,7 @@ lemma branchSign_product_eq_of_mod3
           = -(branchSign3 b1 * branchSign3 b2 * branchSign3 b3) →
         branchSign a1 * branchSign a2 * branchSign a3
           = -(branchSign b1 * branchSign b2 * branchSign b3) := by
-    native_decide
+    decide
   exact hall a1 a2 a3 b1 b2 b3 h
 
 /-- Every branch sign is odd. -/

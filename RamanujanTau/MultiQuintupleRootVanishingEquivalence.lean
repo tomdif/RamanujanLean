@@ -452,6 +452,21 @@ def b2 (x : ShortRootNegativeMod3Input) := x.bits.2.1
 def b3 (x : ShortRootNegativeMod3Input) := x.bits.2.2
 end ShortRootNegativeMod3Input
 
+/-- The norm-two sign-cube calculation after all affine quotient data have
+been eliminated.  This has only `3^3 * 2^3 = 216` finite inputs. -/
+theorem shortRoot_negative_signCube_mod3 :
+    ∀ (w1 w2 w3 : ZMod 3) (b1 b2 b3 : Bool),
+      w1 ^ 2 + w2 ^ 2 + w3 ^ 2 = 2 →
+      let A := branchSign3 b1 * w1 + branchSign3 b2 * w2 + branchSign3 b3 * w3
+      let u1 := -(branchSign3 b1 - A * w1)
+      let u2 := -(branchSign3 b2 - A * w2)
+      let u3 := -(branchSign3 b3 - A * w3)
+      u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0 ∧
+        u1 * u2 * u3 =
+          -(branchSign3 b1 * branchSign3 b2 * branchSign3 b3) := by
+  set_option maxRecDepth 100000 in
+    decide
+
 /-- When `e*p=2 (mod 3)`, the sign-corrected reflection of the sign cube
 closes and reverses sign product.  The effective quotient is
 `s=p*t0+m`; this is `p⁻¹*t0+m` because every nonzero element of `ZMod 3`
@@ -472,7 +487,48 @@ theorem shortRoot_negative_mod3 :
       u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0
         ∧ u1 * u2 * u3
           = -(branchSign3 input.b1 * branchSign3 input.b2 * branchSign3 input.b3) := by
-  native_decide
+  rintro ⟨⟨e, p, c⟩, ⟨w1, w2, w3⟩, ⟨t0, m⟩, ⟨b1, b2, b3⟩⟩
+    hep hroot hcoefficient hpair
+  dsimp [ShortRootNegativeMod3Input.e, ShortRootNegativeMod3Input.p,
+    ShortRootNegativeMod3Input.c, ShortRootNegativeMod3Input.w1,
+    ShortRootNegativeMod3Input.w2, ShortRootNegativeMod3Input.w3,
+    ShortRootNegativeMod3Input.t0, ShortRootNegativeMod3Input.m,
+    ShortRootNegativeMod3Input.b1, ShortRootNegativeMod3Input.b2,
+    ShortRootNegativeMod3Input.b3] at hep hroot hcoefficient hpair ⊢
+  have he_ne : e ≠ 0 := by
+    intro hezero
+    rw [hezero, zero_mul] at hep
+    exact (by decide : (0 : ZMod 3) ≠ 2) hep
+  have hp_ne : p ≠ 0 := by
+    intro hpzero
+    rw [hpzero, mul_zero] at hep
+    exact (by decide : (0 : ZMod 3) ≠ 2) hep
+  have hcp : c = p := by
+    apply mul_right_cancel₀ he_ne
+    calc
+      c * e = 2 := hcoefficient
+      _ = e * p := hep.symm
+      _ = p * e := mul_comm _ _
+  have hp_sq : p ^ 2 = 1 := by
+    have hall : ∀ y : ZMod 3, y ≠ 0 → y ^ 2 = 1 := by decide
+    exact hall p hp_ne
+  let A : ZMod 3 := branchSign3 b1 * w1 + branchSign3 b2 * w2 +
+    branchSign3 b3 * w3
+  have hA : A = t0 + p * m := by
+    apply mul_left_cancel₀ hp_ne
+    simpa [A] using hpair
+  have hs : p * t0 + m = p * A := by
+    calc
+      p * t0 + m = p * t0 + p ^ 2 * m := by rw [hp_sq, one_mul]
+      _ = p * (t0 + p * m) := by ring
+      _ = p * A := by rw [hA]
+  have hcs : c * (p * t0 + m) = A := by
+    calc
+      c * (p * t0 + m) = p * (p * A) := by rw [hcp, hs]
+      _ = A := by rw [← mul_assoc, ← pow_two, hp_sq, one_mul]
+  rw [hcs]
+  simpa [A] using shortRoot_negative_signCube_mod3
+    w1 w2 w3 b1 b2 b3 (hroot.trans hep)
 
 /-- A nonzero residue modulo three squares to one. -/
 lemma zmod3_sq_eq_one_of_ne_zero (x : ZMod 3) (hx : x ≠ 0) : x ^ 2 = 1 := by
