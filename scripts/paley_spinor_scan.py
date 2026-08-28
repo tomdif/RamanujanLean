@@ -54,6 +54,7 @@ from typing import Iterable
 from quintuple_vanishing_scan import (
     parse_indices,
     primes_through,
+    product_coefficients,
     sum_of_squares,
     vanishing_residues,
 )
@@ -696,6 +697,70 @@ def run_converse_scan(max_prime: int) -> int:
     return int(bool(missing_reflection or reflection_root_mismatch))
 
 
+def run_witness_dichotomy_scan(max_prime: int, depth: int) -> int:
+    """Check the root-or-finite-coefficient certificate dichotomy exactly.
+
+    For every projective isotropic class and every residue, a short root
+    targeting that residue is the first certificate alternative.  Otherwise
+    the command searches the actual triple-product coefficients through
+    ``q^(p*depth+p-1)`` for one explicit nonzero witness.
+    """
+    classes = 0
+    residues = 0
+    root_certificates = 0
+    coefficient_witnesses = 0
+    unresolved: list[tuple[int, tuple[int, int, int], int]] = []
+    root_conflicts: list[tuple[int, tuple[int, int, int], int, tuple[int, int]]] = []
+    latest_witness: tuple[int, tuple[int, tuple[int, int, int], int, int, int]] | None = None
+    for p in primes_through(max_prime):
+        limit = p * depth + p - 1
+        for triple in isotropic_j_representatives(p).values():
+            classes += 1
+            roots = short_projective_roots(p, triple)
+            predicted: set[int] = set()
+            if roots:
+                lattice = restricted_lattice(p, triple)
+                predicted = {projective_root_target(root, lattice)[1] for root in roots}
+            coefficients = product_coefficients(p, triple, limit)
+            first: dict[int, tuple[int, int]] = {}
+            for exponent in sorted(coefficients):
+                first.setdefault(exponent % p, (exponent, coefficients[exponent]))
+            for residue in range(p):
+                residues += 1
+                witness = first.get(residue)
+                if residue in predicted:
+                    root_certificates += 1
+                    if witness is not None:
+                        root_conflicts.append((p, triple, residue, witness))
+                    continue
+                if witness is None:
+                    unresolved.append((p, triple, residue))
+                    continue
+                coefficient_witnesses += 1
+                exponent, coefficient = witness
+                progression_index = exponent // p
+                record = (progression_index, (p, triple, residue, exponent, coefficient))
+                if latest_witness is None or record > latest_witness:
+                    latest_witness = record
+    print(
+        f"classes={classes}; residues={residues}; root certificates={root_certificates}; "
+        f"coefficient witnesses={coefficient_witnesses}; depth={depth}"
+    )
+    print(f"latest first coefficient witness={latest_witness}")
+    print(
+        f"unresolved residues={len(unresolved)}; "
+        f"root/nonzero conflicts={len(root_conflicts)}"
+    )
+    for p, triple, residue in unresolved[:20]:
+        print(f"UNRESOLVED: p={p} triple={triple} residue={residue}")
+    for p, triple, residue, witness in root_conflicts[:20]:
+        print(
+            f"ROOT CONFLICT: p={p} triple={triple} residue={residue} "
+            f"witness={witness}"
+        )
+    return int(bool(unresolved or root_conflicts))
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -724,6 +789,11 @@ def build_parser() -> argparse.ArgumentParser:
         "converse-scan", help="compare noncentral automorphisms, reflections, and roots"
     )
     converse_scan.add_argument("--max-prime", type=int, default=401)
+    witness_scan = subparsers.add_parser(
+        "witness-scan", help="check the root-or-finite-coefficient certificate dichotomy"
+    )
+    witness_scan.add_argument("--max-prime", type=int, default=1000)
+    witness_scan.add_argument("--depth", type=int, default=256)
     return parser
 
 
@@ -737,6 +807,8 @@ def main() -> int:
         return run_root_transport_scan(args.max_prime, args.depth)
     if args.command == "converse-scan":
         return run_converse_scan(args.max_prime)
+    if args.command == "witness-scan":
+        return run_witness_dichotomy_scan(args.max_prime, args.depth)
     raise AssertionError(f"unhandled command: {args.command}")
 
 

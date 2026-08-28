@@ -343,6 +343,42 @@ Parity noninjectivity explains why this is genuine extra content: a single scala
 does not formally determine all eight theta components.  The remaining breakthrough target is a
 rigidity or multiplicity-one theorem for the two parity unions along the selected progression.
 
+There is now a second, exactly equivalent route that avoids recovering the isometry directly.
+`RamanujanTau.MultiQuintupleThetaWitness` proves the classical contrapositive normal form
+
+```text
+projective root targeting R
+    or
+one N with [q^(p*N+R)] Q(q^i,q^p)Q(q^j,q^p)Q(q^k,q^p) != 0.
+```
+
+For admissible data this root-or-finite-witness dichotomy is proved logically equivalent to
+theta-coset rigidity, spectral geometric coherence, and corrected Root--Vanishing rigidity.  Both
+alternatives carry finite certificates.  Consequently an effective geometry-of-numbers or modular
+bound for the first nonzero witness would prove the full conjecture without promoting one Walsh
+projection to eight component identities.
+
+The new exact command
+
+```bash
+python3 scripts/paley_spinor_scan.py witness-scan --max-prime 1000 --depth 256
+```
+
+checks the certificate dichotomy residue by residue.  Its current census is
+
+```text
+projective classes                                      3,172
+residue problems                                    2,055,986
+projective-root certificates                            1,356
+finite nonzero coefficient witnesses                2,054,630
+latest first witness progression index                    203
+unresolved residues / root-nonzero conflicts             0 / 0
+```
+
+This remains bounded evidence, not a universal cutoff theorem.  Its significance is that the
+remaining theorem now has a falsifiable, certificate-complete computational form rather than only
+an infinite spectral formulation.
+
 ### The projective invariant is an elliptic `j`-invariant
 
 The correct symmetric invariant is
@@ -536,8 +572,11 @@ vanishing theorem, exact shell-balance converse, imprimitive counterexample, and
 construction from a projective-root certificate to a coherent involution are now implemented.
 For the corrected prime/distinct/isotropic problem, the proof frontier is:
 
-1. prove spectral coherence: persistent vanishing of the parity Walsh component supplies one
-   noncentral rational orthogonal involution acting on the full affine residue fiber.
+1. prove either of the following equivalent statements:
+   - spectral coherence: persistent vanishing of the parity Walsh component supplies one
+     noncentral rational orthogonal involution acting on the full affine residue fiber; or
+   - effective separation: every residue without a projective-root target has a finite nonzero
+     coefficient witness, ideally below an explicit geometry-of-numbers or modular bound.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
@@ -545,7 +584,9 @@ two integral signed-permutation norms, extracts the short projective lift, selec
 branch, and proves the exact target law; the converse builds the coherent involution back from that
 data.  Hence the one remaining item is a sharply isolated ternary theta-coset spectral problem,
 proved equivalent—not merely sufficient—to corrected rigidity.  The forward Root--Vanishing
-direction is closed.  The
+direction is closed.  The finite-witness normal form shows that it is enough to prove an effective
+separation bound for non-root residue classes; the exact census through `p<=1000` gives no exception
+through progression index 256 and in fact finds every first witness by index 203.  The
 original unrestricted biconditional is false by the `p=9` theorem above.  In the corrected
 prime/distinct/isotropic regime, the missing reverse implication must recover a structural,
 progression-wide cancellation symmetry; current ternary lattice-coset theta theory decomposes

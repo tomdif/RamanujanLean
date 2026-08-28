@@ -233,6 +233,15 @@ level, spectral coherence is now proved logically equivalent to both theta-coset
 corrected Root--Vanishing rigidity conjecture.  The sole remaining reverse-direction frontier is
 therefore exact: obtain one fixed rational orthogonal involution from equality of the positive- and
 negative-parity four-coset representation counts along the progression.
+`MultiQuintupleThetaWitness.lean` gives an equivalent but operationally different route: every
+admissible residue must have either a finite projective-root certificate or one finite nonzero
+coefficient witnessing failure of persistent vanishing.  This root-or-witness dichotomy is proved
+equivalent to spectral coherence and corrected Root--Vanishing rigidity, so a universal effective
+witness bound would close the conjecture without reconstructing an isometry from an infinite theta
+identity.  The reproducible `witness-scan` checks this dichotomy through `p<=1000`: across 3,172
+projective classes and 2,055,986 residue problems it finds 1,356 root certificates and 2,054,630
+coefficient witnesses, with no unresolved residue or root/nonzero conflict; the latest first witness
+occurs at progression index 203.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

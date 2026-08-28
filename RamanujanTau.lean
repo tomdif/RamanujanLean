@@ -231,3 +231,5 @@ import RamanujanTau.MultiQuintupleThetaCosets
 import RamanujanTau.MultiQuintupleThetaRigidity
 -- Affine-index spanning, lattice preservation, and primitive norm classification
 import RamanujanTau.MultiQuintupleThetaArithmetic
+-- Exact root-or-finite-coefficient certificate normal form for the remaining spectral frontier
+import RamanujanTau.MultiQuintupleThetaWitness
