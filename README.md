@@ -284,12 +284,25 @@ shells and stop at the first shell whose cumulative vectors span rational three-
 cancellation through that datum-dependent shell should force a projective-root target.  This rule
 explains every fixed-cutoff failure: its cancelling prefix is still confined to a line or plane,
 and the first spanning shell detects the false zero.  The exact `dual-span-scan` finds no mismatch
-through `p<=1500` (6,877 projective classes and 6,763,985 residues), including all classes at
+through `p<=3000` (24,741 projective classes and 48,334,107 residues), including all classes at
 `p=1439` and `p=1523`.  More importantly, the stopping shell is unconditionally finite:
 `MultiQuintupleDualSpanning.lean` proves that `(p,p,p)`, `(p,p,-p)`, and `(p,-p,p)` are always
 supported, have norm `3p^2`, and determinant `-4p^3`.  Hence supported vectors span by norm
 `3p^2`.  The existence and bound are theorems; the rigidity implication and analytic Poisson bridge
 remain the exact proof frontier.
+
+The proof-oriented refinement is the first **perfect and lattice-generating** cutoff.
+`MultiQuintupleDualPhase.lean` proves that an antipodal pair is controlled by the single linear
+phase congruence `2u+q*w3*(2R-i-j-k)=0 (mod p)`.  `MultiQuintupleDualPerfect.lean` then supplies six
+universally supported vectors by norm `6p^2` whose tensors `w*w^T` span all ternary quadratic forms;
+any rational linear map preserving their six norms is proved orthogonal.  Three of them generate
+`p*Z^3`, and a supported scalar-one projective lift always exists with norm at most `3p^2`, so
+the union generates the full projective dual lattice.  Thus a finite orthogonal-reconstruction
+window is proved to exist by `6p^2`.  The remaining finite lemma is exact and combinatorial:
+promote aggregate shell phase cancellation in that window to one coherent vector pairing.  The
+exact `dual-perfect-scan` tests that promotion through `p<=1500`: all 2,361 common-zero residues
+have a unique phase-reversing vector pairing, every pairing extends to an orthogonal involution of
+the full dual lattice, and every recovered map is exactly its predicted signed Householder map.
 
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172

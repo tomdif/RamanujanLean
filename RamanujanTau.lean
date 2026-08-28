@@ -227,6 +227,10 @@ import RamanujanTau.MultiQuintupleRootVanishingClassification
 import RamanujanTau.MultiQuintupleDualShellCounterexample
 -- Universal norm-3p² certificate that supported Poisson-dual vectors span three-space
 import RamanujanTau.MultiQuintupleDualSpanning
+-- Exact linear congruence governing cancellation of an antipodal dual pair
+import RamanujanTau.MultiQuintupleDualPhase
+-- Universal norm-6p² perfect set for reconstruction of an orthogonal dual symmetry
+import RamanujanTau.MultiQuintupleDualPerfect
 -- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
 import RamanujanTau.MultiQuintupleLocalSupport
 -- Eight shifted ternary-coset components, Walsh inversion, and exact theta reduction

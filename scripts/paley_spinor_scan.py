@@ -45,6 +45,11 @@ individual Watson-character amplitude, enumerates certified-complete short norm 
 their ``6p``-th-root amplitudes exactly in ``Q(zeta_3)(zeta_p)``.  It also exposes exact
 counterexamples to fixed finite-shell cutoffs; bounded agreement is never treated as a universal
 rigidity proof.
+
+The adaptive ``dual-span-scan`` stops when supported vectors span rational three-space.
+``dual-perfect-scan`` uses the stronger cutoff where their rank-one tensors span all ternary
+quadratic forms, then reconstructs and exactly checks the unique phase-reversing linear map on every
+common-zero residue.
 """
 
 from __future__ import annotations
@@ -93,6 +98,36 @@ def determinant(matrix: Matrix) -> int:
         - a[1] * (b[0] * c[2] - b[2] * c[0])
         + a[2] * (b[0] * c[1] - b[1] * c[0])
     )
+
+
+def add_to_rational_row_basis(
+    basis: dict[int, list[Fraction]], entries: Iterable[int]
+) -> bool:
+    """Insert one row into an exact reduced basis; return whether rank grows."""
+    row = [Fraction(entry) for entry in entries]
+    for pivot in sorted(basis):
+        if row[pivot]:
+            scale = row[pivot]
+            row = [entry - scale * base for entry, base in zip(row, basis[pivot])]
+    new_pivot = next((index for index, entry in enumerate(row) if entry), None)
+    if new_pivot is None:
+        return False
+    scale = row[new_pivot]
+    row = [entry / scale for entry in row]
+    for pivot, old_row in list(basis.items()):
+        if old_row[new_pivot]:
+            old_scale = old_row[new_pivot]
+            basis[pivot] = [
+                entry - old_scale * base for entry, base in zip(old_row, row)
+            ]
+    basis[new_pivot] = row
+    return True
+
+
+def symmetric_square_coordinates(vector: Vector) -> tuple[int, ...]:
+    """Coordinates of ``w*w^T`` in the six ternary quadratic monomials."""
+    x, y, z = vector
+    return (x * x, y * y, z * z, x * y, x * z, y * z)
 
 
 def inverse_matrix(matrix: Matrix | list[list[int]]) -> list[list[Fraction]]:
@@ -749,6 +784,105 @@ def first_spanning_dual_character_shells(
     return [], omitted_norm_lower_bound
 
 
+def first_perfect_dual_character_shells(
+    lattice: RestrictedLattice, maximum_shells: int, shift_radius: int
+) -> tuple[list[tuple[int, tuple[Vector, ...]]], int]:
+    """Stop when cumulative rank-one tensors span ``Sym^2(Q^3)``."""
+    shells, omitted_norm_lower_bound = first_dual_character_shells(
+        lattice, maximum_shells, shift_radius
+    )
+    basis: dict[int, list[Fraction]] = {}
+    selected: list[tuple[int, tuple[Vector, ...]]] = []
+    for shell in shells:
+        selected.append(shell)
+        for vector in shell[1]:
+            add_to_rational_row_basis(basis, symmetric_square_coordinates(vector))
+            if len(basis) == 6:
+                return selected, omitted_norm_lower_bound
+    return [], omitted_norm_lower_bound
+
+
+def unique_phase_reversing_partners(
+    lattice: RestrictedLattice,
+    residue: int,
+    shells: list[tuple[int, tuple[Vector, ...]]],
+) -> dict[Vector, Vector] | None:
+    """Recover a unique vector-level negative-amplitude partner per shell."""
+    partners: dict[Vector, Vector] = {}
+    for _norm, vectors in shells:
+        amplitudes = {
+            vector: dual_character_amplitude_terms(lattice, residue, vector)
+            for vector in vectors
+        }
+        for vector in vectors:
+            candidates: list[Vector] = []
+            for candidate in vectors:
+                combined = amplitudes[vector].copy()
+                combined.update(amplitudes[candidate])
+                if six_p_cyclotomic_sum_is_zero(lattice.p, combined):
+                    candidates.append(candidate)
+            if len(candidates) != 1:
+                return None
+            partners[vector] = candidates[0]
+    return partners
+
+
+def phase_partner_linear_map(
+    partners: dict[Vector, Vector],
+) -> list[list[Fraction]] | None:
+    """Interpolate the partner map on a vector basis and verify every pair."""
+    basis: list[Vector] = []
+    for vector in partners:
+        if not basis:
+            basis.append(vector)
+        elif len(basis) == 1:
+            first = basis[0]
+            cross = (
+                first[1] * vector[2] - first[2] * vector[1],
+                first[2] * vector[0] - first[0] * vector[2],
+                first[0] * vector[1] - first[1] * vector[0],
+            )
+            if any(cross):
+                basis.append(vector)
+        elif determinant((basis[0], basis[1], vector)):
+            basis.append(vector)
+            break
+    if len(basis) != 3:
+        return None
+    source: Matrix = tuple(
+        tuple(basis[column][row] for column in range(3)) for row in range(3)
+    )  # type: ignore[assignment]
+    target: Matrix = tuple(
+        tuple(partners[basis[column]][row] for column in range(3))
+        for row in range(3)
+    )  # type: ignore[assignment]
+    linear = matrix_multiply(target, inverse_matrix(source))
+    if any(
+        tuple(matrix_vector(linear, vector)) != partner
+        for vector, partner in partners.items()
+    ):
+        return None
+    return linear
+
+
+def phase_partner_map_structure(
+    lattice: RestrictedLattice, linear: list[list[Fraction]]
+) -> tuple[bool, bool, bool]:
+    """Check orthogonality, involutivity, and full dual-lattice preservation."""
+    identity = [
+        [Fraction(row == column) for column in range(3)] for row in range(3)
+    ]
+    orthogonal = matrix_multiply(transpose(linear), linear) == identity
+    involutive = matrix_multiply(linear, linear) == identity
+    coordinates = matrix_multiply(
+        matrix_multiply(inverse_matrix(lattice.basis), linear), lattice.basis
+    )
+    lattice_preserving = all(
+        entry.denominator == 1 for row in coordinates for entry in row
+    )
+    return orthogonal, involutive, lattice_preserving
+
+
 def run_dual_shell_rigidity_scan(
     max_prime: int, shell_count: int, shift_radius: int, min_prime: int = 5
 ) -> int:
@@ -829,19 +963,36 @@ def run_dual_shell_rigidity_scan(
 
 
 def run_dual_spanning_rigidity_scan(
-    max_prime: int, maximum_shells: int, shift_radius: int, min_prime: int = 5
+    max_prime: int,
+    maximum_shells: int,
+    shift_radius: int,
+    min_prime: int = 5,
+    perfect: bool = False,
 ) -> int:
-    """Test the adaptive spanning-shell replacement for a fixed shell cutoff.
+    """Test an adaptive geometric-shell replacement for a fixed shell cutoff.
 
-    For each lattice, stop at the first supported norm shell for which all
-    vectors seen so far span three-dimensional rational space.  Compare exact
-    common cancellation through that shell with the short-root targets.
+    In spanning mode, stop when the vectors span rational three-space.  In
+    perfect mode, stop when their rank-one tensors span all ternary quadratic
+    forms.  Compare exact common cancellation with the short-root targets.
     """
+    mode = "perfect" if perfect else "spanning"
+    shell_selector = (
+        first_perfect_dual_character_shells
+        if perfect
+        else first_spanning_dual_character_shells
+    )
     classes = 0
     residues = 0
     incomplete_classes = 0
     missing_spanning_shell = 0
     mismatches = 0
+    phase_pairing_failures = 0
+    linear_coherence_failures = 0
+    coherent_phase_maps = 0
+    orthogonality_failures = 0
+    involution_failures = 0
+    lattice_preservation_failures = 0
+    root_map_failures = 0
     largest_prefix: tuple[int, tuple[int, tuple[int, int, int], int]] | None = None
     largest_multiplier: tuple[
         int, tuple[int, tuple[int, int, int], int]
@@ -853,13 +1004,13 @@ def run_dual_spanning_rigidity_scan(
             classes += 1
             residues += p
             lattice = restricted_lattice(p, triple)
-            shells, omitted_norm_lower_bound = first_spanning_dual_character_shells(
+            shells, omitted_norm_lower_bound = shell_selector(
                 lattice, maximum_shells, shift_radius
             )
             if not shells:
                 missing_spanning_shell += 1
                 print(
-                    f"NO SPANNING SHELL: p={p} triple={triple} "
+                    f"NO {mode.upper()} SHELL: p={p} triple={triple} "
                     f"searched-shells={maximum_shells}"
                 )
                 continue
@@ -879,9 +1030,9 @@ def run_dual_spanning_rigidity_scan(
             if largest_multiplier is None or multiplier_record > largest_multiplier:
                 largest_multiplier = multiplier_record
             common_zeros = dual_shell_common_zero_residues(lattice, shells)
+            roots = short_projective_roots(p, triple)
             root_targets = {
-                projective_root_target(root, lattice)[1]
-                for root in short_projective_roots(p, triple)
+                projective_root_target(root, lattice)[1] for root in roots
             }
             if common_zeros != root_targets:
                 mismatches += 1
@@ -891,15 +1042,93 @@ def run_dual_spanning_rigidity_scan(
                     f"{tuple(sorted(root_targets))} common-zeros="
                     f"{tuple(sorted(common_zeros))}"
                 )
+            if perfect:
+                for residue in common_zeros:
+                    partners = unique_phase_reversing_partners(
+                        lattice, residue, shells
+                    )
+                    if partners is None:
+                        phase_pairing_failures += 1
+                        print(
+                            f"NONUNIQUE PHASE PAIRING: p={p} triple={triple} "
+                            f"residue={residue}"
+                        )
+                        continue
+                    linear = phase_partner_linear_map(partners)
+                    if linear is None:
+                        linear_coherence_failures += 1
+                        print(
+                            f"INCOHERENT PHASE PAIRING: p={p} triple={triple} "
+                            f"residue={residue}"
+                        )
+                        continue
+                    orthogonal, involutive, lattice_preserving = (
+                        phase_partner_map_structure(lattice, linear)
+                    )
+                    if not orthogonal:
+                        orthogonality_failures += 1
+                    if not involutive:
+                        involution_failures += 1
+                    if not lattice_preserving:
+                        lattice_preservation_failures += 1
+                    if orthogonal and involutive and lattice_preserving:
+                        coherent_phase_maps += 1
+                    expected_maps = []
+                    for root in roots:
+                        sign, target = projective_root_target(root, lattice)
+                        if target != residue:
+                            continue
+                        expected_maps.append(
+                            [
+                                [sign * entry for entry in row]
+                                for row in short_root_reflection(root, p)
+                            ]
+                        )
+                    if expected_maps and not any(
+                        matrix_key(candidate) == matrix_key(linear)
+                        for candidate in expected_maps
+                    ):
+                        root_map_failures += 1
     print(
         f"classes={classes}; residues={residues}; incomplete={incomplete_classes}; "
-        f"missing-spanning-shell={missing_spanning_shell}; mismatches={mismatches}"
+        f"missing-{mode}-shell={missing_spanning_shell}; mismatches={mismatches}"
     )
     print(
-        f"largest spanning prefix={largest_prefix}; "
-        f"largest spanning-shell multiplier={largest_multiplier}"
+        f"largest {mode} prefix={largest_prefix}; "
+        f"largest {mode}-shell multiplier={largest_multiplier}"
     )
-    return int(bool(incomplete_classes or missing_spanning_shell or mismatches))
+    if perfect:
+        print(
+            f"coherent-phase-maps={coherent_phase_maps}; "
+            f"phase-pairing-failures={phase_pairing_failures}; "
+            f"linear-coherence-failures={linear_coherence_failures}; "
+            f"orthogonality-failures={orthogonality_failures}; "
+            f"involution-failures={involution_failures}; "
+            f"lattice-preservation-failures={lattice_preservation_failures}; "
+            f"root-map-failures={root_map_failures}"
+        )
+    return int(
+        bool(
+            incomplete_classes
+            or missing_spanning_shell
+            or mismatches
+            or phase_pairing_failures
+            or linear_coherence_failures
+            or orthogonality_failures
+            or involution_failures
+            or lattice_preservation_failures
+            or root_map_failures
+        )
+    )
+
+
+def run_dual_perfect_rigidity_scan(
+    max_prime: int, maximum_shells: int, shift_radius: int, min_prime: int = 5
+) -> int:
+    """Test cancellation through the first perfect supported dual shell."""
+    return run_dual_spanning_rigidity_scan(
+        max_prime, maximum_shells, shift_radius, min_prime, perfect=True
+    )
 
 
 @dataclass(frozen=True)
@@ -1354,6 +1583,14 @@ def build_parser() -> argparse.ArgumentParser:
     dual_span_scan.add_argument("--min-prime", type=int, default=5)
     dual_span_scan.add_argument("--max-shells", type=int, default=64)
     dual_span_scan.add_argument("--shift-radius", type=int, default=1)
+    dual_perfect_scan = subparsers.add_parser(
+        "dual-perfect-scan",
+        help="compare root targets through the first perfect dual shell",
+    )
+    dual_perfect_scan.add_argument("--max-prime", type=int, default=1000)
+    dual_perfect_scan.add_argument("--min-prime", type=int, default=5)
+    dual_perfect_scan.add_argument("--max-shells", type=int, default=96)
+    dual_perfect_scan.add_argument("--shift-radius", type=int, default=1)
     dual_candidate = subparsers.add_parser(
         "dual-candidate", help="print one exact Poisson-dual shell certificate"
     )
@@ -1383,6 +1620,13 @@ def main() -> int:
         )
     if args.command == "dual-span-scan":
         return run_dual_spanning_rigidity_scan(
+            args.max_prime,
+            args.max_shells,
+            args.shift_radius,
+            args.min_prime,
+        )
+    if args.command == "dual-perfect-scan":
+        return run_dual_perfect_rigidity_scan(
             args.max_prime,
             args.max_shells,
             args.shift_radius,

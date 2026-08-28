@@ -552,15 +552,15 @@ The reproducible adaptive scan is
 
 ```bash
 python3 scripts/paley_spinor_scan.py dual-span-scan \
-  --max-prime 1500 --max-shells 64 --shift-radius 1
+  --max-prime 3000 --max-shells 64 --shift-radius 1
 ```
 
 It compares the exact common cyclotomic zero set through `rho_span` with the exact short-root target
 set.  The census gives
 
 ```text
-projective classes                                  6,877
-residue problems                                6,763,985
+projective classes                                 24,741
+residue problems                               48,334,107
 incomplete selected shells                              0
 missing spanning shells                                 0
 spanning-shell/root-target mismatches                    0
@@ -572,6 +572,106 @@ rigidity conjecture.  The corrected Poisson route is now sharply separated into 
 steps: prove spanning-shell rigidity, and formalize the analytic bridge from persistent primal
 vanishing to cancellation on every complete dual shell.  Together with `rho_span <= 3p^2`, those
 steps would yield a universal finite Root--Vanishing decision theorem.
+
+#### Phase hyperplanes and the perfect-shell refinement
+
+The exact factorization gives more structure than a zero test.  Put
+
+```text
+u = ((i,j,k) dot w)/p,
+C = 6*w3*q*R + 6*u - (w1+w2+w3).
+```
+
+For the antipodal pair `+/-w`, the exponent comparing its two factored amplitudes is
+
+```text
+2*C + delta_1 + delta_2 + delta_3
+  = 6 * (2*u + q*w3*(2*R-i-j-k)).
+```
+
+Consequently its phase matches modulo `6p` exactly when
+
+```text
+2*u + q*w3*(2*R-i-j-k) = 0  (mod p).
+```
+
+`RamanujanTau.MultiQuintupleDualPhase` proves this identity and divisibility equivalence over the
+integers.  It explains the false fixed-cutoff prefixes: collinear vectors repeat one phase
+hyperplane, while coplanar shells can cross-pair within the same partial geometry.  The first new
+direction tests whether that partial matching extends.
+
+For an actual reconstruction proof, rational vector span is not quite the strongest invariant.
+A set is *perfect* when the tensors `w*w^T` span the six-dimensional space of ternary quadratic
+forms.  Consider
+
+```text
+(p,p,p), (-p,p,p), (p,-p,p), (p,p,-p), (2p,p,p), (p,2p,p).
+```
+
+Every coordinate is a nonmultiple of three after removing `p`, so every vector is universally
+Watson-supported.  The first four norms are `3p^2`, the last two are `6p^2`, and their six quadratic
+tensors have determinant `144` after removing the common scale.  The Lean theorem
+`ternaryMatrix_norm_preserving_of_six_vectors` proves the key consequence directly: a rational
+three-by-three linear map preserving these six norms preserves every ternary norm and is therefore
+orthogonal.
+
+There is also an integral-generation certificate.  The three vectors
+
+```text
+(p,p,p), (2p,p,p), (p,2p,p)
+```
+
+have determinant `p^3` and reduced determinant `1`, hence generate `p*Z^3`.  For canonical
+`0 <= i,j,k <= p/2`, one can independently choose centered shifts `z_s in {0,-1}` so that
+
+```text
+w=(i+p*z1,j+p*z2,k+p*z3)
+```
+
+is supported; two adjacent choices cannot both kill a support factor because their phases differ
+by `2p` modulo `6p`.  Lean proves both existence and the bound
+
+```text
+||w||^2 <= 3*p^2.
+```
+
+Adding this scalar-one lift to the three scalar-zero generators produces the entire projective
+dual lattice.  Therefore the first cutoff that is both perfect and lattice-generating exists by
+norm `6p^2`.  This yields a proof-oriented strengthening of spanning-shell rigidity:
+
+```text
+Perfect-Generating Phase Rigidity (remaining finite lemma).
+Aggregate cancellation through the first perfect, lattice-generating supported cutoff
+is induced by one phase-reversing linear pairing of its vectors.
+```
+
+Once that pairing is obtained, the proved perfect-set theorem forces it to be orthogonal and the
+proved generators force it to preserve the full projective dual lattice.  Involutive phase reversal
+then lands exactly in the already completed Householder/projective-root classification.  Thus the
+dual frontier is no longer an unspecified infinite rigidity problem: it is the finite promotion
+from an exact cyclotomic multiset equality to one coherent linear pairing.  The new
+`dual-perfect-scan` tests the strengthened cutoff exactly.
+
+The exact reconstruction census through `p<=1500` reports
+
+```text
+projective classes                                  6,877
+residue problems                                6,763,985
+missing or incomplete perfect cutoffs                    0
+perfect-shell/root-target mismatches                    0
+coherent phase-reversing maps                         2,361
+nonunique vector phase pairings                           0
+nonlinear/incoherent pairings                             0
+nonorthogonal recovered maps                             0
+noninvolutive recovered maps                             0
+dual-lattice preservation failures                       0
+signed-Householder/root-map mismatches                    0
+```
+
+The largest perfect prefix uses 35 shells, at `p=1483`, and the largest observed perfect-shell
+norm is `501p`, at `p=1489`.  These are bounded exact results, not the universal phase-pairing
+lemma.  They do show that the proposed finite promotion is not merely compatible with the zero
+sets: it reconstructs the already formalized root involution exactly in every tested case.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -774,7 +874,9 @@ For the corrected prime/distinct/isotropic problem, the proof frontier is:
      coefficient witness, ideally below an explicit geometry-of-numbers or modular bound; or
    - spanning-shell rigidity: prove that common Poisson-dual cancellation through the first shell
      whose supported vectors span `Q^3` forces a projective-root target.  The stopping norm exists
-     and is at most `3p^2` by the proved scalar-zero spanning certificate.
+     and is at most `3p^2` by the proved scalar-zero spanning certificate; or, for the structurally
+     stronger route, prove coherent phase matching through the first perfect and lattice-generating
+     cutoff, whose existence is proved by norm `6p^2`.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
@@ -794,7 +896,10 @@ a termwise affine isometry.  The exact dual-shell census supplies a third finite
 the counterexamples at `p=1439` and `p=1523` prove that four- and five-shell cutoffs are not
 universal.  Their low shells remain rank-deficient, while the first spanning shell detects the
 false zero.  The supported-spanning theorem bounds that adaptive shell by `3p^2`; the remaining
-dual problem is the colored ternary rigidity implication at this first full-rank threshold.
+dual problem is the colored ternary rigidity implication at this first full-rank threshold.  The
+perfect-set refinement already proves that six norm tests force orthogonality and that a bounded
+supported set generates the full dual lattice, leaving coherent phase matching as the precise
+finite combinatorial obstruction.
 
 ## Sources
 
