@@ -13,7 +13,7 @@ coset rigidity, geometric coherence, and corrected Root--Vanishing rigidity.
 It also isolates bounded witness versions suitable for exact census and a
 future effective geometry-of-numbers or Sturm-bound argument.
 -/
-import RamanujanTau.MultiQuintupleThetaArithmetic
+import RamanujanTau.MultiQuintupleThetaCharacter
 
 namespace Ramanujan.MultiQuintuple
 open PowerSeries
@@ -38,6 +38,27 @@ def TripleProductNonvanishingWitness (p i j k R : ℕ) : Prop :=
     coeff (p * N + R)
       (quintupleSpecialized p i * quintupleSpecialized p j *
         quintupleSpecialized p k) ≠ 0
+
+/-- The same certificate for the single ternary-character theta series. -/
+def AffineCharacterNonvanishingWitness (p i j k R : ℕ) : Prop :=
+  ∃ N : ℕ,
+    coeff (p * N + R) (affineCharacterTheta p i j k) ≠ 0
+
+/-- On admissible data, a product witness is exactly a nonzero coefficient
+of the ternary-character theta series. -/
+theorem affineCharacterNonvanishingWitness_iff_tripleProductNonvanishingWitness
+    (p i j k R : ℕ) (hadmissible : AdmissibleSparseTriple p i j k) :
+    AffineCharacterNonvanishingWitness p i j k R ↔
+      TripleProductNonvanishingWitness p i j k R := by
+  rcases hadmissible with ⟨hp, hp3, hi, hij, hjk, hpk, hisotropic⟩
+  have hpi : 2 * i < p := by omega
+  have hj : 0 < j := by omega
+  have hpj : 2 * j < p := by omega
+  have hk : 0 < k := by omega
+  rw [AffineCharacterNonvanishingWitness,
+    TripleProductNonvanishingWitness,
+    affineCharacterTheta_eq_tripleQuintupleSpecialized p i j k
+      hi hpi hj hpj hk hpk]
 
 /-- On admissible canonical data, the spectral and actual-product witnesses
 are identical coefficient certificates. -/
@@ -92,6 +113,32 @@ def AdmissibleRootOrProductWitness (p i j k R : ℕ) : Prop :=
     HasProjectiveRootTarget p i j k R ∨
       TripleProductNonvanishingWitness p i j k R
 
+/-- The final separation problem in its single character-theta form. -/
+def AdmissibleRootOrCharacterWitness (p i j k R : ℕ) : Prop :=
+  AdmissibleSparseTriple p i j k → R < p →
+    HasProjectiveRootTarget p i j k R ∨
+      AffineCharacterNonvanishingWitness p i j k R
+
+/-- The character-theta and actual-product certificate dichotomies are
+exactly the same proposition. -/
+theorem admissibleRootOrCharacterWitness_iff_rootOrProductWitness
+    (p i j k R : ℕ) :
+    AdmissibleRootOrCharacterWitness p i j k R ↔
+      AdmissibleRootOrProductWitness p i j k R := by
+  constructor
+  · intro hcharacter hadmissible hR
+    rcases hcharacter hadmissible hR with hroot | hwitness
+    · exact Or.inl hroot
+    · exact Or.inr
+        ((affineCharacterNonvanishingWitness_iff_tripleProductNonvanishingWitness
+          p i j k R hadmissible).mp hwitness)
+  · intro hproduct hadmissible hR
+    rcases hproduct hadmissible hR with hroot | hwitness
+    · exact Or.inl hroot
+    · exact Or.inr
+        ((affineCharacterNonvanishingWitness_iff_tripleProductNonvanishingWitness
+          p i j k R hadmissible).mpr hwitness)
+
 theorem admissibleRootOrProductWitness_iff_rootOrThetaWitness
     (p i j k R : ℕ) :
     AdmissibleRootOrProductWitness p i j k R ↔
@@ -120,6 +167,16 @@ theorem admissibleRootOrProductWitness_iff_rootVanishingRigidity
   rw [admissibleRootOrProductWitness_iff_rootOrThetaWitness,
     admissibleRootOrThetaWitness_iff_thetaCosetRigidity,
     admissibleThetaCosetRigidity_iff_rootVanishingRigidity]
+
+/-- **Single-character exact frontier.**  Nonvanishing of the explicit
+ternary-character theta component away from root targets is equivalent to the
+corrected Root--Vanishing theorem. -/
+theorem admissibleRootOrCharacterWitness_iff_rootVanishingRigidity
+    (p i j k R : ℕ) :
+    AdmissibleRootOrCharacterWitness p i j k R ↔
+      AdmissibleRootVanishingRigidity p i j k R := by
+  rw [admissibleRootOrCharacterWitness_iff_rootOrProductWitness,
+    admissibleRootOrProductWitness_iff_rootVanishingRigidity]
 
 /-- The same certificate dichotomy is exactly spectral geometric coherence,
 using the proved projective-root/coherent-involution equivalence. -/
@@ -164,6 +221,13 @@ def AdmissibleRootOrProductWitnessThrough
     HasProjectiveRootTarget p i j k R ∨
       TripleProductNonvanishingWitnessThrough B p i j k R
 
+/-- The clean linear cutoff suggested by the exact census: a root target or
+a coefficient witness by progression index `p / 4`.  This is an explicit
+research target, not asserted universally here. -/
+def AdmissibleQuarterCutoffRootOrProductWitness
+    (p i j k R : ℕ) : Prop :=
+  AdmissibleRootOrProductWitnessThrough (p / 4) p i j k R
+
 theorem admissibleRootOrProductWitness_of_through
     (B p i j k R : ℕ)
     (hfinite : AdmissibleRootOrProductWitnessThrough B p i j k R) :
@@ -191,5 +255,14 @@ theorem admissibleRootVanishingRigidity_of_rootOrProductWitnessThrough
   (admissibleRootOrProductWitness_iff_rootVanishingRigidity
     p i j k R).mp
       (admissibleRootOrProductWitness_of_through B p i j k R hfinite)
+
+/-- Proving the census-suggested quarter cutoff for one admissible datum
+immediately closes corrected Root--Vanishing rigidity for that datum. -/
+theorem admissibleRootVanishingRigidity_of_quarterCutoff
+    (p i j k R : ℕ)
+    (hquarter : AdmissibleQuarterCutoffRootOrProductWitness p i j k R) :
+    AdmissibleRootVanishingRigidity p i j k R :=
+  admissibleRootVanishingRigidity_of_rootOrProductWitnessThrough
+    (p / 4) p i j k R hquarter
 
 end Ramanujan.MultiQuintuple

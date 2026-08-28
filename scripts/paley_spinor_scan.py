@@ -697,7 +697,7 @@ def run_converse_scan(max_prime: int) -> int:
     return int(bool(missing_reflection or reflection_root_mismatch))
 
 
-def run_witness_dichotomy_scan(max_prime: int, depth: int) -> int:
+def run_witness_dichotomy_scan(max_prime: int, depth: int, min_prime: int = 5) -> int:
     """Check the root-or-finite-coefficient certificate dichotomy exactly.
 
     For every projective isotropic class and every residue, a short root
@@ -712,7 +712,21 @@ def run_witness_dichotomy_scan(max_prime: int, depth: int) -> int:
     unresolved: list[tuple[int, tuple[int, int, int], int]] = []
     root_conflicts: list[tuple[int, tuple[int, int, int], int, tuple[int, int]]] = []
     latest_witness: tuple[int, tuple[int, tuple[int, int, int], int, int, int]] | None = None
+    latest_reflective_witness: tuple[
+        int, tuple[int, tuple[int, int, int], int, int, int]
+    ] | None = None
+    latest_nonreflective_witness: tuple[
+        int, tuple[int, tuple[int, int, int], int, int, int]
+    ] | None = None
+    largest_relative_witness: tuple[
+        Fraction, tuple[int, tuple[int, int, int], int, int, int]
+    ] | None = None
+    quarter_bound_violations: list[
+        tuple[int, tuple[int, int, int], int, int, int, int]
+    ] = []
     for p in primes_through(max_prime):
+        if p < min_prime:
+            continue
         limit = p * depth + p - 1
         for triple in isotropic_j_representatives(p).values():
             classes += 1
@@ -742,11 +756,30 @@ def run_witness_dichotomy_scan(max_prime: int, depth: int) -> int:
                 record = (progression_index, (p, triple, residue, exponent, coefficient))
                 if latest_witness is None or record > latest_witness:
                     latest_witness = record
+                if roots:
+                    if latest_reflective_witness is None or record > latest_reflective_witness:
+                        latest_reflective_witness = record
+                elif latest_nonreflective_witness is None or record > latest_nonreflective_witness:
+                    latest_nonreflective_witness = record
+                relative_record = (
+                    Fraction(progression_index, p),
+                    (p, triple, residue, exponent, coefficient),
+                )
+                if largest_relative_witness is None or relative_record > largest_relative_witness:
+                    largest_relative_witness = relative_record
+                if 4 * progression_index > p:
+                    quarter_bound_violations.append(
+                        (p, triple, residue, progression_index, exponent, coefficient)
+                    )
     print(
         f"classes={classes}; residues={residues}; root certificates={root_certificates}; "
         f"coefficient witnesses={coefficient_witnesses}; depth={depth}"
     )
     print(f"latest first coefficient witness={latest_witness}")
+    print(f"latest reflective-class witness={latest_reflective_witness}")
+    print(f"latest nonreflective-class witness={latest_nonreflective_witness}")
+    print(f"largest relative witness N/p={largest_relative_witness}")
+    print(f"N <= p/4 violations={len(quarter_bound_violations)}")
     print(
         f"unresolved residues={len(unresolved)}; "
         f"root/nonzero conflicts={len(root_conflicts)}"
@@ -757,6 +790,13 @@ def run_witness_dichotomy_scan(max_prime: int, depth: int) -> int:
         print(
             f"ROOT CONFLICT: p={p} triple={triple} residue={residue} "
             f"witness={witness}"
+        )
+    for (
+        p, triple, residue, progression_index, exponent, coefficient
+    ) in quarter_bound_violations[:20]:
+        print(
+            f"QUARTER-BOUND VIOLATION: p={p} triple={triple} residue={residue} "
+            f"N={progression_index} exponent={exponent} coefficient={coefficient}"
         )
     return int(bool(unresolved or root_conflicts))
 
@@ -793,6 +833,7 @@ def build_parser() -> argparse.ArgumentParser:
         "witness-scan", help="check the root-or-finite-coefficient certificate dichotomy"
     )
     witness_scan.add_argument("--max-prime", type=int, default=1000)
+    witness_scan.add_argument("--min-prime", type=int, default=5)
     witness_scan.add_argument("--depth", type=int, default=256)
     return parser
 
@@ -808,7 +849,7 @@ def main() -> int:
     if args.command == "converse-scan":
         return run_converse_scan(args.max_prime)
     if args.command == "witness-scan":
-        return run_witness_dichotomy_scan(args.max_prime, args.depth)
+        return run_witness_dichotomy_scan(args.max_prime, args.depth, args.min_prime)
     raise AssertionError(f"unhandled command: {args.command}")
 
 

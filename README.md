@@ -233,15 +233,25 @@ level, spectral coherence is now proved logically equivalent to both theta-coset
 corrected Root--Vanishing rigidity conjecture.  The sole remaining reverse-direction frontier is
 therefore exact: obtain one fixed rational orthogonal involution from equality of the positive- and
 negative-parity four-coset representation counts along the progression.
+`MultiQuintupleThetaCharacter.lean` removes one more layer of packaging.  If the affine Watson
+index is `m=3n+b`, its sign is the shifted nontrivial character modulo three: `+1` on residue
+zero, `-1` on residue one, and zero on residue two.  The eight signed branches are therefore
+proved equal to one ternary theta series weighted by the product of these three characters, and
+that character theta series is proved equal to the actual stabilized triple product.  This is the
+natural scalar object for a finite Weil-representation, Hecke, or cusp-order separation theorem.
 `MultiQuintupleThetaWitness.lean` gives an equivalent but operationally different route: every
 admissible residue must have either a finite projective-root certificate or one finite nonzero
 coefficient witnessing failure of persistent vanishing.  This root-or-witness dichotomy is proved
 equivalent to spectral coherence and corrected Root--Vanishing rigidity, so a universal effective
 witness bound would close the conjecture without reconstructing an isometry from an infinite theta
-identity.  The reproducible `witness-scan` checks this dichotomy through `p<=1000`: across 3,172
-projective classes and 2,055,986 residue problems it finds 1,356 root certificates and 2,054,630
-coefficient witnesses, with no unresolved residue or root/nonzero conflict; the latest first witness
-occurs at progression index 203.
+identity.  The reproducible `witness-scan` now checks this dichotomy through `p<=2000`: across
+11,546 projective classes and 14,991,476 residue problems it finds 3,498 root certificates and
+14,987,978 coefficient witnesses, with no unresolved residue or root/nonzero conflict; the latest
+first witness occurs at progression index 389, for `p=1933`.  Every first witness in the entire
+census satisfies the clean linear cutoff `N <= p/4`.  The Lean definition
+`AdmissibleQuarterCutoffRootOrProductWitness` now records that precise target and proves that it
+would imply corrected rigidity, while deliberately not asserting the still-unproved universal
+cutoff.
 The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
 root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
 projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues

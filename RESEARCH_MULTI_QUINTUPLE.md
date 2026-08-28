@@ -343,6 +343,23 @@ Parity noninjectivity explains why this is genuine extra content: a single scala
 does not formally determine all eight theta components.  The remaining breakthrough target is a
 rigidity or multiplicity-one theorem for the two parity unions along the selected progression.
 
+There is now a sharper scalar formulation.  `RamanujanTau.MultiQuintupleThetaCharacter` proves
+that for the affine Watson index `m=3n+b`, the branch sign is
+
+```text
+chi_3^+(m) =  1  if m = 0 (mod 3),
+             -1  if m = 1 (mod 3),
+              0  if m = 2 (mod 3),
+```
+
+which is the nontrivial quadratic character modulo three evaluated at `m+1`.  Consequently the
+eight-coset Walsh projection is exactly one theta series weighted by
+`chi_3^+(m_1)chi_3^+(m_2)chi_3^+(m_3)`, and this character theta series is proved equal to the actual
+triple quintuple product.  The remaining claim can therefore be attacked as nonvanishing of one
+explicit character theta component.  This makes finite Weil transforms at `3` and `p`, Hecke
+propagation, and cusp-order separation concrete alternatives to reconstructing an isometry from
+four-versus-four representation counts.
+
 There is now a second, exactly equivalent route that avoids recovering the isometry directly.
 `RamanujanTau.MultiQuintupleThetaWitness` proves the classical contrapositive normal form
 
@@ -361,23 +378,36 @@ projection to eight component identities.
 The new exact command
 
 ```bash
-python3 scripts/paley_spinor_scan.py witness-scan --max-prime 1000 --depth 256
+python3 scripts/paley_spinor_scan.py witness-scan --max-prime 2000 --depth 512
 ```
 
 checks the certificate dichotomy residue by residue.  Its current census is
 
 ```text
-projective classes                                      3,172
-residue problems                                    2,055,986
-projective-root certificates                            1,356
-finite nonzero coefficient witnesses                2,054,630
-latest first witness progression index                    203
+projective classes                                     11,546
+residue problems                                   14,991,476
+projective-root certificates                            3,498
+finite nonzero coefficient witnesses               14,987,978
+latest first witness progression index                    389
+violations of N <= p/4                                      0
 unresolved residues / root-nonzero conflicts             0 / 0
 ```
 
 This remains bounded evidence, not a universal cutoff theorem.  Its significance is that the
 remaining theorem now has a falsifiable, certificate-complete computational form rather than only
-an infinite spectral formulation.
+an infinite spectral formulation.  The cleanest surviving conjectural bound is now explicit:
+
+```text
+if no projective root targets R, then some nonzero coefficient occurs with N <= floor(p/4).
+```
+
+`AdmissibleQuarterCutoffRootOrProductWitness` formalizes exactly this finite target, and
+`admissibleRootVanishingRigidity_of_quarterCutoff` proves that it closes corrected rigidity for
+each datum.  The scan reports reflective and nonreflective witness profiles separately, exact
+relative maxima, and any quarter-bound violations; none occur through `p<=2000`.  This empirical
+linear bound is substantially sharper than the generic modular-form bounds one would get without
+using the special threefold product character and index-`p` lattice geometry, but it is not promoted to a
+theorem by the computation.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -568,7 +598,8 @@ the product has some identically zero residue class.
 The projective classification, primitive-reflection converse, universal positive and negative
 projective branch matching, coefficient bridge, finite cancellation assembly, explicit `p=71`
 and `p=79` certificate transports, projective target formulas, and uniform projective-root-to-
-vanishing theorem, exact shell-balance converse, imprimitive counterexample, and the converse
+vanishing theorem, exact shell-balance converse, imprimitive counterexample, ternary-character theta
+normal form, and the converse
 construction from a projective-root certificate to a coherent involution are now implemented.
 For the corrected prime/distinct/isotropic problem, the proof frontier is:
 
@@ -585,13 +616,14 @@ branch, and proves the exact target law; the converse builds the coherent involu
 data.  Hence the one remaining item is a sharply isolated ternary theta-coset spectral problem,
 proved equivalent—not merely sufficient—to corrected rigidity.  The forward Root--Vanishing
 direction is closed.  The finite-witness normal form shows that it is enough to prove an effective
-separation bound for non-root residue classes; the exact census through `p<=1000` gives no exception
-through progression index 256 and in fact finds every first witness by index 203.  The
+separation bound for non-root residue classes; the exact census through `p<=2000` gives no exception
+through progression index 512 and in fact finds every first witness by index 389.  The
 original unrestricted biconditional is false by the `p=9` theorem above.  In the corrected
 prime/distinct/isotropic regime, the missing reverse implication must recover a structural,
-progression-wide cancellation symmetry; current ternary lattice-coset theta theory decomposes
-such series but does not automatically turn one signed Walsh projection into a termwise affine
-isometry.
+progression-wide cancellation symmetry.  The ternary-character normal form now identifies the
+precise scalar theta lift whose kernel must be classified; current ternary lattice-coset theta
+theory decomposes such series but does not automatically turn one signed character projection into
+a termwise affine isometry.
 
 ## Sources
 
@@ -601,3 +633,8 @@ isometry.
 - T. Daniels, T. Huber, J. McLaughlin, D. Ye,
   [Vanishing Coefficients in Products of Quintuple Products](https://arxiv.org/abs/2606.06701),
   especially the affine lattice-involution method and the concluding triple/quadruple examples.
+- B. Kane, D. Kim,
+  [Theta series of ternary quadratic lattice cosets](https://doi.org/10.1007/s00029-025-01110-0),
+  for the genus/spinor-genus/class decomposition of ternary coset theta series and the
+  `p`-neighbor algorithm; it supplies the correct ambient theory but not the signed
+  multiplicity-one statement required here.
