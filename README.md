@@ -27,6 +27,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Ramanujan's congruence (mod 11)** | `11 ∣ p(11n+6)` |
 | **Ramanujan's "most beautiful identity"** | `Σ_{n≥0} p(5n+4) qⁿ = 5·(q⁵;q⁵)_∞⁵ / (q;q)_∞⁶` |
 | **Ramanujan's congruence (mod 25)** | `25 ∣ p(25n+24)` |
+| **Ramanujan's mod-7 identity** | `Σ p(7n+5) qⁿ = 7(q⁷;q⁷)³/(q;q)⁴ + 49q(q⁷;q⁷)⁷/(q;q)⁸` |
+| **Ramanujan's congruence (mod 49)** | `49 ∣ p(49n+47)` |
 | **Crank generating function** (Andrews–Garvan) | `Σ_{λ⊢n} z^{crank λ} = [qⁿ] (q;q)_∞/((zq;q)_∞(q/z;q)_∞)` |
 | **Crank equidistribution mod 5 / mod 7** | `5·#{λ⊢5n+4 : crank ≡ i} = p(5n+4)`, `7·#{λ⊢7n+5 : crank ≡ i} = p(7n+5)` |
 | **Winquist's identity** | `J(a)J(b)J(ab)J(a/b) = W(a,b)·(q;q)_∞²` for all `a, b ∈ ℂˣ` |
@@ -40,8 +42,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 148 |
-| Build | `lake build` → **3862 jobs, 0 errors** |
+| Modules | 150 |
+| Build | `lake build` → **3864 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -168,6 +170,24 @@ no functional equations and no analysis:
 
 The lattice sums are `tsum`s in `ℂ⟦X⟧` under the coefficientwise topology. The small API (`lat_mul`,
 `lat_equiv`, `lat_fubini`, `lat_eq_zero_of_invol`) is reusable for other theta-product identities.
+
+### `Ramanujan7Identity.lean` — Ramanujan's mod-7 identity, and `49 ∣ p(49n+47)`
+```lean
+theorem ramanujan_identity_mod7 :
+    (PowerSeries.mk fun n => (Fintype.card (Nat.Partition (7*n+5)) : ℤ)) * qfacInf ^ 8
+      = 7 * (E7 qfacInf) ^ 3 * qfacInf ^ 4 + 49 * X * (E7 qfacInf) ^ 7
+theorem fortynine_dvd_partition_card (n : ℕ) : 49 ∣ Fintype.card (Nat.Partition (49*n+47))
+```
+This is the 7-analogue of the "most beautiful identity".
+* Euler's product dissects as `E = E(q⁴⁹)(x − qy − q² + q⁵z)`.
+* Jacobi's cube has no exponents `≡ 2, 4, 5 (mod 7)`, which gives three relations among `x, y, z`.
+  These imply `xyz = 1`.
+* The norm over the 7th roots of unity is `E(q⁷)⁸/E(q⁴⁹)`. A degree-35 polynomial identity, checked
+  once in `Ramanujan7Norm.lean` (about 10 minutes), says it equals `N(x,y,z,q⁷)`.
+* `F = x³y + Qy³z − Q²xz³ − 8Q` satisfies `F² = N`, so `F = (E(q⁷)/E(q⁴⁹))⁴`.
+* The `q^{≡5}` part of the inverted factor is `7q⁵(F + 7q⁷)`, which gives the identity.
+* The mod-49 congruence follows from the identity, the char-7 Frobenius, and `7 ∣ 2k+1` on the class-6
+  terms of Jacobi's cube.
 
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean

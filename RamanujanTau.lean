@@ -150,6 +150,9 @@ import RamanujanTau.RamanujanMostBeautiful
 import RamanujanTau.CrankAndrewsGarvan
 -- Winquist's identity (lattice form) and the crank mod 11 (Dyson's conjecture, Garvan)
 import RamanujanTau.CrankWinquistMod11
+-- Ramanujan's mod-7 identity Σp(7n+5)qⁿ = 7E₇³/E⁴ + 49qE₇⁷/E⁸ and 49 | p(49n+47)
+import RamanujanTau.Ramanujan7Norm
+import RamanujanTau.Ramanujan7Identity
 -- Euler's pentagonal recurrence p(n) = Σ(−1)ᵐ(p(n−g₁)+p(n−g₂)) from pentSeries·partitionGF = 1
 import RamanujanTau.MockTheta5PentagonalRecurrence
 -- Ramanujan's theta functions φ(q)=Σq^{n²}, φ(−q), ψ(q)=(q²;q²)/(q;q²), f(−q)=(q;q)∞ (JTP specializations)
