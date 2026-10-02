@@ -9,7 +9,9 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
    classical theorems proved **kernel-clean** (no `sorry`, no new axioms, no `native_decide`):
    Euler's pentagonal number theorem, Jacobi's cube identity, and **all three of Ramanujan's partition
    congruences `p(5n+4) ≡ 0 (mod 5)`, `p(7n+5) ≡ 0 (mod 7)` and `p(11n+6) ≡ 0 (mod 11)`** — bridged to Mathlib's combinatorial partition count,
-   so `p(n)` really is `#{partitions of n}`.
+   so `p(n)` really is `#{partitions of n}`. The combinatorial explanation is also formalized:
+   **Dyson's crank (Andrews–Garvan) splits the partitions of `5n+4`, `7n+5` and `11n+6` into 5, 7 and 11
+   equal classes**. Mod 11 goes through a lattice-reindexing proof of Winquist's identity.
 
 > The Lean **package** is still named `RamanujanTau` (every module lives under `import RamanujanTau.…`);
 > the repository is `RamanujanLean`.
@@ -25,6 +27,10 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Ramanujan's congruence (mod 11)** | `11 ∣ p(11n+6)` |
 | **Ramanujan's "most beautiful identity"** | `Σ_{n≥0} p(5n+4) qⁿ = 5·(q⁵;q⁵)_∞⁵ / (q;q)_∞⁶` |
 | **Ramanujan's congruence (mod 25)** | `25 ∣ p(25n+24)` |
+| **Crank generating function** (Andrews–Garvan) | `Σ_{λ⊢n} z^{crank λ} = [qⁿ] (q;q)_∞/((zq;q)_∞(q/z;q)_∞)` |
+| **Crank equidistribution mod 5 / mod 7** | `5·#{λ⊢5n+4 : crank ≡ i} = p(5n+4)`, `7·#{λ⊢7n+5 : crank ≡ i} = p(7n+5)` |
+| **Winquist's identity** | `J(a)J(b)J(ab)J(a/b) = W(a,b)·(q;q)_∞²` for all `a, b ∈ ℂˣ` |
+| **Crank equidistribution mod 11** (Dyson's conjecture) | `11·#{λ⊢11n+6 : crank ≡ i} = p(11n+6)` |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
@@ -34,8 +40,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 146 |
-| Build | `lake build` → **3851 jobs, 0 errors** |
+| Modules | 148 |
+| Build | `lake build` → **3862 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -114,6 +120,54 @@ Here a one-variable form of Winquist's argument is used instead. With
 * The char-11 Frobenius `1/(q;q) ≡ (q;q)¹⁰/(q¹¹;q¹¹) (mod 11)` (a port of the mod-7 file) finishes the proof.
 
 Fully unconditional; axioms `[propext, Classical.choice, Quot.sound]`; no `native_decide`.
+
+### `CrankAndrewsGarvan.lean` — Dyson's crank: the combinatorial explanation of mod 5 and mod 7
+```lean
+theorem crank_generating_function {z : ℂ} (hz : z ≠ 0) {n : ℕ} (hn : 2 ≤ n) :
+    ∑ l : n.Partition, z ^ crank l = coeff n (pochInf 1 1 * Ring.inverse (pochInf z 1 * pochInf z⁻¹ 1))
+theorem crank_equidistribution_mod5 (n : ℕ) {i : ℕ} (hi : i < 5) :
+    5 * (univ.filter fun l : (5*n+4).Partition => crank l % 5 = i).card = Fintype.card (5*n+4).Partition
+theorem crank_equidistribution_mod7 (n : ℕ) {i : ℕ} (hi : i < 7) :
+    7 * (univ.filter fun l : (7*n+5).Partition => crank l % 7 = i).card = Fintype.card (7*n+5).Partition
+```
+Dyson conjectured a statistic that splits the partitions of `11n+6` into 11 equal classes. Andrews and
+Garvan found it: for a partition with `ω` ones and `μ` parts larger than `ω`, the crank is the largest
+part if `ω = 0`, and `μ − ω` otherwise. The same statistic also splits `5n+4` and `7n+5`. The crank is
+defined directly on Mathlib's `Nat.Partition`.
+
+1. **Generating function.** The `q`-binomial theorem is proved from its functional equation and an
+   `X`-adic limit, together with Euler's identity. Splitting each partition by its number of ones and
+   matching weights against `Nat.Partition.genFun` gives the two-variable product.
+2. **At a root of unity.** Multiply through by the missing `(ζʲq;q)_∞`. The denominator becomes
+   `∏_{j<p}(ζʲq;q)_∞ = (q^p;q^p)_∞`, from Mathlib's `X^p − a = ∏(X − ζʲα)` evaluated at `X = 1`. The
+   numerator pairs into the triangular Jacobi triple product evaluated at `u = −ζʲ`.
+3. **Vanishing.** In `Σ_m uᵐ q^{m(m−1)/2}` with `uᵖ = −1`, the terms `m` and `1−m` cancel whenever
+   `p ∣ 2m−1`. For `p = 5` this is combined with the empty pentagonal classes of `(q;q)_∞`. For `p = 7`
+   it is applied to `Θ(−ζ²)Θ(−ζ³)`, using that `−1` is a non-residue mod 7.
+4. **Cyclotomic step.** `minpoly ℚ ζ = Φ_p` has degree `p−1`, so `Σ_k N_k ζᵏ = 0` forces all `N_k` equal.
+
+Mod 11 is in `CrankWinquistMod11.lean` (below).
+
+### `CrankWinquistMod11.lean` — Winquist's identity and the crank mod 11
+```lean
+theorem winquist {a b : ℂ} (ha : a ≠ 0) (hb : b ≠ 0) :
+    Jx a * Jx b * Jx (a * b) * Jx (a / b) = Wlat a b * (Elat * Elat)
+theorem crank_equidistribution_mod11 (n : ℕ) {i : ℕ} (hi : i < 11) :
+    11 * (univ.filter fun l : (11*n+6).Partition => crank l % 11 = i).card = Fintype.card (11*n+6).Partition
+```
+This proves Dyson's 1944 conjecture in the form Garvan established in 1988: the crank splits `11n+6` into
+11 equal classes. The key input is Winquist's identity. It is proved here as a reindexing of `ℤ⁴`, with
+no functional equations and no analysis:
+
+* In each `(N, M)`-fibre (`N`, `M` = the degrees in `a` and `b`) the quadratic form is `3/2·(s²+t²)`
+  plus linear terms.
+  * An affine shift turns the fibre into a pair of pentagonal series, i.e. `±q^e·(q;q)_∞²` by Euler.
+  * Otherwise a reflection cancels the fibre.
+* The surviving exponents satisfy `24e+10 = (2N−3)²+(2M−1)²`. In the class `11n+6` this forces
+  `11 ∣ 2N−3` (because `−1` is a non-residue mod 11), and `N ↦ 3−N` then cancels the class.
+
+The lattice sums are `tsum`s in `ℂ⟦X⟧` under the coefficientwise topology. The small API (`lat_mul`,
+`lat_equiv`, `lat_fubini`, `lat_eq_zero_of_invol`) is reusable for other theta-product identities.
 
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean

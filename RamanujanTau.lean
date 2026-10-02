@@ -146,6 +146,10 @@ import RamanujanTau.MockTheta5PartitionCount
 import RamanujanTau.PartitionCongruenceMod11
 -- Ramanujan's most beautiful identity Σp(5n+4)qⁿ = 5(q⁵;q⁵)⁵/(q;q)⁶, and 25 ∣ p(25n+24)
 import RamanujanTau.RamanujanMostBeautiful
+-- Dyson's crank (Andrews–Garvan): generating function, equidistribution mod 5 and mod 7
+import RamanujanTau.CrankAndrewsGarvan
+-- Winquist's identity (lattice form) and the crank mod 11 (Dyson's conjecture, Garvan)
+import RamanujanTau.CrankWinquistMod11
 -- Euler's pentagonal recurrence p(n) = Σ(−1)ᵐ(p(n−g₁)+p(n−g₂)) from pentSeries·partitionGF = 1
 import RamanujanTau.MockTheta5PentagonalRecurrence
 -- Ramanujan's theta functions φ(q)=Σq^{n²}, φ(−q), ψ(q)=(q²;q²)/(q;q²), f(−q)=(q;q)∞ (JTP specializations)
