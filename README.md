@@ -33,6 +33,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Crank equidistribution mod 5 / mod 7** | `5·#{λ⊢5n+4 : crank ≡ i} = p(5n+4)`, `7·#{λ⊢7n+5 : crank ≡ i} = p(7n+5)` |
 | **Winquist's identity** | `J(a)J(b)J(ab)J(a/b) = W(a,b)·(q;q)_∞²` for all `a, b ∈ ℂˣ` |
 | **Crank equidistribution mod 11** (Dyson's conjecture) | `11·#{λ⊢11n+6 : crank ≡ i} = p(11n+6)` |
+| **Rank equidistribution mod 5** (Dyson's conjecture; Atkin–Swinnerton-Dyer) | `5·#{λ⊢5n+4 : rank ≡ i} = p(5n+4)`, rank = largest part − number of parts |
+| **Garvan's Hecke–Rogers identities** (2.18), (2.19) | `(zq)(q/z)·R(z;q)` and `(q)(zq)(q/z)·R(z;q²)` as indefinite theta series |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
@@ -122,6 +124,25 @@ Here a one-variable form of Winquist's argument is used instead. With
 * The char-11 Frobenius `1/(q;q) ≡ (q;q)¹⁰/(q¹¹;q¹¹) (mod 11)` (a port of the mod-7 file) finishes the proof.
 
 Fully unconditional; axioms `[propext, Classical.choice, Quot.sound]`; no `native_decide`.
+
+### `RankMod5.lean` (+ `RankBailey`, `RankGF`, `RankHR1`, `RankHR2*`, `RankTheta`, `RankDissect`) — Dyson's rank mod 5
+```lean
+theorem rank_equidistribution_mod5 (n : ℕ) {i : ℕ} (hi : i < 5) :
+    5 * (univ.filter fun l : (5*n+4).Partition => rank l % 5 = i).card = Fintype.card (5*n+4).Partition
+```
+Dyson's 1944 conjecture, first proved by Atkin and Swinnerton-Dyer (1954). The proof follows Garvan's
+2020 approach (arXiv 2012.06676):
+
+1. **Rank generating function** (`rank_durfee`): `Σ_{λ⊢n} z^{rank λ} = [qⁿ] Σ_k q^{k²}/((zq)_k(q/z)_k)`,
+   on Mathlib's `Nat.Partition`.
+2. **Hecke–Rogers (2.18)** (`hecke_rogers_18`): Euler-expand `(zq^{k+1})_∞(q^{k+1}/z)_∞`, regroup by
+   `a = i − j`, and sum each block with a finite Bailey pair relative to `a = qᵏ` (telescoping certificate).
+3. **Hecke–Rogers (2.19)** (`hecke_rogers_19`): odd Euler + odd Jacobi product, then the base-`q²` (2.18).
+   The remaining identity is a signed lattice-point count, closed by an explicit involution of `ℤ²`
+   (rotation in `ℤ[(1+√−3)/2]`) applied per exponent.
+4. **Endgame at `ζ = ζ₅`**: Jacobi triple products `J_{a,b}`, their 5-dissections as lattice sums, and three
+   linear equations for the dissection components of `R(ζ;q²)`. Two product identities force `R₃ = 0`.
+   This gives `Σ_{λ⊢5n+4} ζ^{rank λ} = 0`, and the cyclotomic step finishes.
 
 ### `CrankAndrewsGarvan.lean` — Dyson's crank: the combinatorial explanation of mod 5 and mod 7
 ```lean

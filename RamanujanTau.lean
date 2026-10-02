@@ -256,3 +256,13 @@ import RamanujanTau.MultiQuintupleThetaArithmetic
 import RamanujanTau.MultiQuintupleThetaCharacter
 -- Exact root-or-finite-coefficient certificate normal form for the remaining spectral frontier
 import RamanujanTau.MultiQuintupleThetaWitness
+import RamanujanTau.RankBailey
+import RamanujanTau.RankGF
+import RamanujanTau.RankHR2Core
+import RamanujanTau.RankHR1
+import RamanujanTau.RankHR2Lat
+import RamanujanTau.RankHR2Series
+import RamanujanTau.RankHR2
+import RamanujanTau.RankTheta
+import RamanujanTau.RankDissect
+import RamanujanTau.RankMod5
