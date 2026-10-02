@@ -144,6 +144,8 @@ import RamanujanTau.MockTheta5PartitionCongruence7
 import RamanujanTau.MockTheta5PartitionCount
 -- p(11n+6) ≡ 0 (mod 11): third z-derivative of triTheta³ + Winquist specialization + mod-11 heart + Frobenius
 import RamanujanTau.PartitionCongruenceMod11
+-- Ramanujan's most beautiful identity Σp(5n+4)qⁿ = 5(q⁵;q⁵)⁵/(q;q)⁶, and 25 ∣ p(25n+24)
+import RamanujanTau.RamanujanMostBeautiful
 -- Euler's pentagonal recurrence p(n) = Σ(−1)ᵐ(p(n−g₁)+p(n−g₂)) from pentSeries·partitionGF = 1
 import RamanujanTau.MockTheta5PentagonalRecurrence
 -- Ramanujan's theta functions φ(q)=Σq^{n²}, φ(−q), ψ(q)=(q²;q²)/(q;q²), f(−q)=(q;q)∞ (JTP specializations)

@@ -23,6 +23,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Ramanujan's congruence (mod 5)** | `5 ∣ p(5n+4)` |
 | **Ramanujan's congruence (mod 7)** | `7 ∣ p(7n+5)` |
 | **Ramanujan's congruence (mod 11)** | `11 ∣ p(11n+6)` |
+| **Ramanujan's "most beautiful identity"** | `Σ_{n≥0} p(5n+4) qⁿ = 5·(q⁵;q⁵)_∞⁵ / (q;q)_∞⁶` |
+| **Ramanujan's congruence (mod 25)** | `25 ∣ p(25n+24)` |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
@@ -112,6 +114,25 @@ Here a one-variable form of Winquist's argument is used instead. With
 * The char-11 Frobenius `1/(q;q) ≡ (q;q)¹⁰/(q¹¹;q¹¹) (mod 11)` (a port of the mod-7 file) finishes the proof.
 
 Fully unconditional; axioms `[propext, Classical.choice, Quot.sound]`; no `native_decide`.
+
+### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
+```lean
+theorem ramanujan_most_beautiful_identity :
+    (PowerSeries.mk fun n => (Fintype.card (Nat.Partition (5*n+4)) : ℤ)) * qfacInf ^ 6 = 5 * (E5 qfacInf) ^ 5
+theorem twentyfive_dvd_partition_card (m : ℕ) : 25 ∣ Fintype.card (Nat.Partition (25*m+24))
+```
+Hardy called this identity the best of Ramanujan's. Its proof is Ramanujan's own argument:
+
+1. **Dissect Euler's product mod 5.** From the pentagonal theorem, `(q;q)_∞ = E(q²⁵)(A − q − q²B)` with
+   `A, B` series in `q⁵`. The exponent classes `≡ 3, 4 (mod 5)` are empty, and class `≡ 1` is exactly
+   `−q E(q²⁵)`.
+2. **Show `AB = 1`.** Cubing the dissection and comparing with Jacobi's `(q;q)_∞³`, which has no exponent
+   `≡ 2 (mod 5)`, forces it.
+3. **Take the norm over the fifth roots of unity.** In `ℂ⟦X⟧`, via `PowerSeries.rescale`,
+   `∏_ω E(ωq) = E(q⁵)⁶/E(q²⁵)`, which gives `A⁵ − 11q⁵ − q¹⁰B⁵ = E(q⁵)⁶/E(q²⁵)⁶`.
+4. **Invert.** `(A − q − q²B)·𝒬 = A⁵ − 11q⁵ − q¹⁰B⁵`, and the only `q^{≡4}` term of `𝒬` is `5q⁴`.
+
+The mod-25 congruence follows from the identity together with the char-5 Frobenius.
 
 ### `MockTheta5PartitionCount.lean` — the partition-count bridge
 ```lean
