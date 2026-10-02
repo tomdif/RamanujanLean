@@ -7,8 +7,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 2. **q-series & partition theory** — a from-scratch formal-power-series framework (Bailey chains,
    Jacobi triple products, Durfee rectangles, the `d/dz` differentiation trick) culminating in several
    classical theorems proved **kernel-clean** (no `sorry`, no new axioms, no `native_decide`):
-   Euler's pentagonal number theorem, Jacobi's cube identity, and **Ramanujan's partition congruences
-   `p(5n+4) ≡ 0 (mod 5)` and `p(7n+5) ≡ 0 (mod 7)`** — bridged to Mathlib's combinatorial partition count,
+   Euler's pentagonal number theorem, Jacobi's cube identity, and **all three of Ramanujan's partition
+   congruences `p(5n+4) ≡ 0 (mod 5)`, `p(7n+5) ≡ 0 (mod 7)` and `p(11n+6) ≡ 0 (mod 11)`** — bridged to Mathlib's combinatorial partition count,
    so `p(n)` really is `#{partitions of n}`.
 
 > The Lean **package** is still named `RamanujanTau` (every module lives under `import RamanujanTau.…`);
@@ -22,6 +22,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Jacobi's cube identity** | `(q;q)_∞³ = Σ_{m≥0} (−1)ᵐ(2m+1) q^{m(m+1)/2}` |
 | **Ramanujan's congruence (mod 5)** | `5 ∣ p(5n+4)` |
 | **Ramanujan's congruence (mod 7)** | `7 ∣ p(7n+5)` |
+| **Ramanujan's congruence (mod 11)** | `11 ∣ p(11n+6)` |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
@@ -90,6 +91,27 @@ theorem seven_dvd_coeff_partitionGF (n : ℕ) : (7 : ℤ) ∣ coeff (7*n+5) part
 The same pipeline mod 7, using `(q;q)_∞⁶ = ((q;q)_∞³)² = jacobiCubeSum²`: the Cauchy product of Jacobi's
 cube series with itself feeds every triangular pair into a `ZMod 7` heart (`PartitionCongruenceMod7.lean`),
 which forces `(2j+1)(2k+1) ≡ 0` at exponents `≡ 5 (mod 7)`.
+
+### `PartitionCongruenceMod11.lean` — Ramanujan's third congruence
+```lean
+theorem eleven_dvd_partition_card (n : ℕ) : 11 ∣ Fintype.card (Nat.Partition (11*n+6))
+theorem eleven_dvd_coeff_qfac10 (a : ℕ) (ha : a % 11 = 6) : (11 : ℤ) ∣ coeff a (qfacInf ^ 10)
+```
+Mod 11 needs more than a product of Jacobi series: classically it is Winquist's two-variable identity.
+Here a one-variable form of Winquist's argument is used instead. With
+`R_N = Σ_{n₁+n₂+n₃=N} q^{Σ nᵢ(nᵢ−1)/2}` (the `z^N`-slice of `triTheta³`):
+
+* `L3` (the third `d/dz` at `z = −1`) of the triangular JTP cubed gives `6·(q;q)_∞⁹ = Σ_N w₃(N)·R_N`.
+* Shifting all indices by 1 gives `R_{N+3} = q^N R_N`, and `n ↦ 1−n` gives `R_{3−N} = R_N`.
+  So every slice is a `q`-shift of `R₀` or `R₁`.
+* Winquist's specialization `a = q^{1/3}` regroups the triple sum into Euler's pentagonal series cubed.
+  This identifies `(q;q)_∞·R₀` and `(q;q)_∞·R₁` as the exponent-mod-3 parts (residues 0 and 1) of
+  Jacobi's `(q;q)_∞³`.
+* At `q^a` with `a ≡ 6 (mod 11)`, each term carries a Jacobi weight `±(2n+1)` with
+  `(2n+1)² + y² = 24a + 10 ≡ 0 (mod 11)`. Since `−1` is a non-residue mod 11, `11 ∣ 2n+1`.
+* The char-11 Frobenius `1/(q;q) ≡ (q;q)¹⁰/(q¹¹;q¹¹) (mod 11)` (a port of the mod-7 file) finishes the proof.
+
+Fully unconditional; axioms `[propext, Classical.choice, Quot.sound]`; no `native_decide`.
 
 ### `MockTheta5PartitionCount.lean` — the partition-count bridge
 ```lean

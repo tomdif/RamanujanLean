@@ -142,6 +142,8 @@ import RamanujanTau.PartitionCongruenceMod7
 import RamanujanTau.MockTheta5PartitionCongruence7
 -- Partition-count bridge: coeff n (1/(q;q)∞) = #(Nat.Partition n); congruences for the honest count
 import RamanujanTau.MockTheta5PartitionCount
+-- p(11n+6) ≡ 0 (mod 11): third z-derivative of triTheta³ + Winquist specialization + mod-11 heart + Frobenius
+import RamanujanTau.PartitionCongruenceMod11
 -- Euler's pentagonal recurrence p(n) = Σ(−1)ᵐ(p(n−g₁)+p(n−g₂)) from pentSeries·partitionGF = 1
 import RamanujanTau.MockTheta5PentagonalRecurrence
 -- Ramanujan's theta functions φ(q)=Σq^{n²}, φ(−q), ψ(q)=(q²;q²)/(q;q²), f(−q)=(q;q)∞ (JTP specializations)
