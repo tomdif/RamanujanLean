@@ -274,3 +274,4 @@ import RamanujanTau.RankMod7a
 import RamanujanTau.RankAL
 import RamanujanTau.ALChangeZ
 import RamanujanTau.ALExt
+import RamanujanTau.ALJacobi
