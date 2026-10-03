@@ -145,6 +145,15 @@ Dyson's 1944 conjecture, first proved by Atkin and Swinnerton-Dyer (1954). The p
    linear equations for the dissection components of `R(ζ;q²)`. Two product identities force `R₃ = 0`.
    This gives `Σ_{λ⊢5n+4} ζ^{rank λ} = 0`, and the cyclotomic step finishes.
 
+### `RankASD5.lean` — Atkin–Swinnerton-Dyer rank equalities mod 5
+```lean
+theorem rank_mod5_ASD (n : ℕ) :
+    rankCount (5*n+1) 1 = rankCount (5*n+1) 2 ∧ rankCount (5*n+2) 0 = rankCount (5*n+2) 2
+```
+These follow directly from the Lost Notebook dissection: `R₁` has no `ζ`, and `R₂ = (ζ+ζ⁴)·(integer series)`. Since the
+minimal polynomial of `ζ₅` is `Φ₅`, an integer relation `Σ c_k ζ₅^k = 0` forces all `c_k` to be equal (`cyc_equalZ`).
+Together with the `5n+4` theorem, these are all the equalities that hold in every residue class (checked numerically).
+
 ### `ALRank7Main.lean` (+ `ALBase`…`ALSplitM`, `ALThetaCore`, `ALCore7`, `ALNewForm`, `ALClass7`, `ALRank7Pre`) — Dyson's rank mod 7
 ```lean
 theorem rank_equidistribution_mod7 (n : ℕ) {i : ℕ} (hi : i < 7) :

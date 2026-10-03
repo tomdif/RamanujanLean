@@ -290,3 +290,4 @@ import RamanujanTau.ALRank7Pre
 import RamanujanTau.ALRank7Main
 import RamanujanTau.ALRankASD7Count
 import RamanujanTau.ALRankASD7
+import RamanujanTau.RankASD5
