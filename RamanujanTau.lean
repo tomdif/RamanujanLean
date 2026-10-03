@@ -291,3 +291,7 @@ import RamanujanTau.ALRank7Main
 import RamanujanTau.ALRankASD7Count
 import RamanujanTau.ALRankASD7
 import RamanujanTau.RankASD5
+import RamanujanTau.SptT
+import RamanujanTau.SptSeries
+import RamanujanTau.SptGF
+import RamanujanTau.SptFinal

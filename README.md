@@ -186,6 +186,29 @@ A discrete Fourier transform over the seven roots of unity (`rank_eq_of_decomp`)
 piece of class `c`, into `N(a,7,7n+c) = N(b,7,7n+c)`. That condition is finite data and is checked by `decide`.
 Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `SptFinal.lean` (+ `SptT`, `SptSeries`, `SptGF`) — Andrews' spt congruences mod 5 and 7
+```lean
+theorem spt_mod5 (n : ℕ) : 5 ∣ spt (5 * n + 4)
+theorem spt_mod7 (n : ℕ) : 7 ∣ spt (7 * n + 5)
+```
+`spt(n)` is the total number of smallest parts over all partitions of `n` (Andrews 2008). The proof avoids
+second moments and Andrews' `spt(n) = np(n) − ½N₂(n)`. Instead:
+
+1. **Finite identity** (`SF_eq_TS`, any field): `Σ_{r≤n} q^{r²}α_r (zq)_n(q/z)_n/((q)_{n−r}(q)_{n+r}) = Σ_{j≤n} (z)_j(z⁻¹)_j q^j/(q)_j`.
+   Here `α_r` are the Appell–Lerch weights of `rank_AL`. It is proved by creative telescoping against the second-order
+   recurrence of the right side, with an explicit certificate. Each local step is a rational identity, closed by
+   abstracting the denominator factors, then `field_simp`, `subst` and `ring`.
+2. **Spt-crank identity** (`rank_sub_crank`): letting `n → ∞` and using `rank_AL` gives
+   `R(z) − C(z) = (1−z)(1−z⁻¹)·C(z)·U(z)` in `ℂ⟦q⟧`, where `C` is the crank product and
+   `U = Σ_{j≥1}(zq)_{j−1}(q/z)_{j−1}q^j/(q)_j`.
+3. **Integrality**: `S = C·U` lifts to `ℤ[z,z⁻¹]⟦q⟧`. At `z = 1` its coefficients are `spt(n)` (`spt_gf`, via
+   Mathlib's `Nat.Partition.genFun` with weights `[parts ≥ k]·(count_k+1)` and `[parts ≥ k]`).
+4. **Roots of unity**: at `z = ζ₅`, `n = 5m+4`, both rank and crank sums vanish, so `[qⁿ]S(ζ₅) = 0`. The integer
+   Laurent coefficients, grouped by exponent mod 5, are then all equal (`Φ₅` is the minimal polynomial), so
+   `spt(n) = 5·(group sum)`. The same argument works mod 7 with `ζ₇`.
+
+Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RankR03.lean` (+ `RankRamanujan5`, `RankSpec`, `RankP2`) — Ramanujan's rank dissection
 ```lean
 theorem lost_notebook_rank_mod5 :
