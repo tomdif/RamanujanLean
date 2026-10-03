@@ -277,3 +277,4 @@ import RamanujanTau.ALExt
 import RamanujanTau.ALJacobi
 import RamanujanTau.ALSplit
 import RamanujanTau.ALRank7
+import RamanujanTau.ALTheta
