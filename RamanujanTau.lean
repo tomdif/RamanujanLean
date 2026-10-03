@@ -286,3 +286,5 @@ import RamanujanTau.ALCore7
 import RamanujanTau.ALWeier0
 import RamanujanTau.ALNewForm
 import RamanujanTau.ALClass7
+import RamanujanTau.ALRank7Pre
+import RamanujanTau.ALRank7Main

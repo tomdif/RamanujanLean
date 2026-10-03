@@ -145,6 +145,25 @@ Dyson's 1944 conjecture, first proved by Atkin and Swinnerton-Dyer (1954). The p
    linear equations for the dissection components of `R(ζ;q²)`. Two product identities force `R₃ = 0`.
    This gives `Σ_{λ⊢5n+4} ζ^{rank λ} = 0`, and the cyclotomic step finishes.
 
+### `ALRank7Main.lean` (+ `ALBase`…`ALSplitM`, `ALThetaCore`, `ALCore7`, `ALNewForm`, `ALClass7`, `ALRank7Pre`) — Dyson's rank mod 7
+```lean
+theorem rank_equidistribution_mod7 (n : ℕ) {i : ℕ} (hi : i < 7) :
+    7 * (univ.filter fun l : (7*n+5).Partition => rank l % 7 = i).card = Fintype.card (7*n+5).Partition
+```
+This proof does not follow Atkin–Swinnerton-Dyer. It works with Appell–Lerch sums over `ℂ((t))` (Hahn series):
+
+1. **New formula** (`newform`): `R(ζ;q)·θ = (1−ζ)(θ − m₂ − ζ⁶m₁)`, where `m₁, m₂` are Appell–Lerch sums `m(x,q,z)`.
+   It is proved from five Weierstrass three-term instances.
+2. **7-split** (`m_split_msum`): each `m` is rewritten as seven `m`'s at base `q^{147}` plus theta corrections.
+3. **Decomposition** (`decomp`): `R(ζ) = (1−ζ)(1 − m-sum₂ − ζ⁶ m-sum₁) + Θ_g`.
+   The theta corrections are matched to an explicit `Θ_g` by the 38 level-21 class identities of `ALCore7`
+   (62 Weierstrass instances), modulo `Φ₇(ζ)`.
+4. **Class-5 vanishing** (`rank7_no5`): every mock summand is class-pure. Exactly one summand in each `m`-sum
+   has class 5, and those two cancel by `m(q^{-49},q^{140}) = q^{49} m(q^{49},q^{7})` (`orbit7`).
+   `Θ_g` has no class-5 exponents. Hence `Σ_{λ⊢7n+5} ζ₇^{rank λ} = 0`, and the cyclotomic step finishes.
+
+Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RankR03.lean` (+ `RankRamanujan5`, `RankSpec`, `RankP2`) — Ramanujan's rank dissection
 ```lean
 theorem lost_notebook_rank_mod5 :

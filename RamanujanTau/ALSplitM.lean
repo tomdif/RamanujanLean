@@ -262,6 +262,61 @@ theorem m_split {a β : ℤ} (hlo : 0 < a + β) (hhi : a + β < N) {cx cp : ℂ}
 end MSplit
 
 
+section MSplitFac
+variable {N : ℕ} (hN : 1 ≤ N) (n : ℕ) (hn : 0 < n)
+include hN hn
+
+theorem m_split_fac {a β : ℤ} (hlo : 0 < a + β) (hhi : a + β < N) {cx cp : ℂ} (hx : cx ≠ 0) (hp : cp ≠ 0)
+    (bz : Fin n → ℤ) (cz : Fin n → ℂ) (hcz : ∀ s, cz s ≠ 0)
+    (hA1 : ∀ s : Fin n, -((N * n * n : ℕ) : ℤ) < spA (N := N) n a s)
+    (hA2 : ∀ s : Fin n, spA (N := N) n a s < ((N * n * n : ℕ) : ℤ))
+    (hb1 : ∀ s : Fin n, 1 ≤ spA (N := N) n a s + bz s)
+    (hb2 : ∀ s : Fin n, spA (N := N) n a s + bz s ≤ ((N * n * n : ℕ) : ℤ) - 1)
+    (hb3 : ∀ s, 1 ≤ bz s) (hb4 : ∀ s, bz s ≤ ((N * n * n : ℕ) : ℤ) - 1)
+    (hx1 : ∀ s : Fin n, mono (spA (N := N) n a s) (spCX n cx) ≠ 1) :
+    Aser hN hlo hhi cx cp =
+      θ hN β cp * ∑ s : Fin n, mono (a * (s : ℕ) - N * c2 ((s : ℕ) + 1)) ((-1) ^ ((s : ℕ) : ℤ) * cx ^ ((s : ℕ) : ℤ)) *
+          (Ab (hN' hN n hn) (a := spA (N := N) n a s) (β := bz s) (by have := hb1 s; omega)
+            (by have := hb2 s; omega) (spCX n cx) (cz s) / θ (hN' hN n hn) (bz s) (cz s))
+      - ∑ s : Fin n, ∑ ρ : Fin n, mono (spE (N := N) a β ρ s) (spC cx cp ρ s) *
+          (mono (bz s) (cz s) * hs (kF (hN' hN n hn) 0) *
+            θ (hN' hN n hn) (-bz s + spB (N := N) n β ρ s) ((cz s)⁻¹ * spCP n cp) *
+            θ (hN' hN n hn) (spA (N := N) n a s + bz s + spB (N := N) n β ρ s) (spCX n cx * cz s * spCP n cp) /
+          (θ (hN' hN n hn) (bz s) (cz s) * θ (hN' hN n hn) (spA (N := N) n a s + bz s) (spCX n cx * cz s) *
+            θ (hN' hN n hn) (spA (N := N) n a s + spB (N := N) n β ρ s) (spCX n cx * spCP n cp))) := by
+  rw [m_split hN n hn hlo hhi hx hp bz cz hcz hA1 hA2 hb1 hb2 hb3 hb4 hx1, Finset.mul_sum]
+  congr 1
+  refine Finset.sum_congr rfl fun s _ => ?_
+  ring
+
+
+/-- the `m`-sum of the split, `Σ_s μ_s A(X_s,Z*_s;Q)/θ(Z*_s;Q)`. -/
+noncomputable def msum (a : ℤ) (cx : ℂ) (bz : Fin n → ℤ) (cz : Fin n → ℂ)
+    (hb1 : ∀ s : Fin n, 1 ≤ spA (N := N) n a s + bz s)
+    (hb2 : ∀ s : Fin n, spA (N := N) n a s + bz s ≤ ((N * n * n : ℕ) : ℤ) - 1) : L :=
+  ∑ s : Fin n, mono (a * (s : ℕ) - N * c2 ((s : ℕ) + 1)) ((-1) ^ ((s : ℕ) : ℤ) * cx ^ ((s : ℕ) : ℤ)) *
+    (Ab (hN' hN n hn) (a := spA (N := N) n a s) (β := bz s) (by have := hb1 s; omega)
+      (by have := hb2 s; omega) (spCX n cx) (cz s) / θ (hN' hN n hn) (bz s) (cz s))
+
+theorem m_split_msum {a β : ℤ} (hlo : 0 < a + β) (hhi : a + β < N) {cx cp : ℂ} (hx : cx ≠ 0) (hp : cp ≠ 0)
+    (bz : Fin n → ℤ) (cz : Fin n → ℂ) (hcz : ∀ s, cz s ≠ 0)
+    (hA1 : ∀ s : Fin n, -((N * n * n : ℕ) : ℤ) < spA (N := N) n a s)
+    (hA2 : ∀ s : Fin n, spA (N := N) n a s < ((N * n * n : ℕ) : ℤ))
+    (hb1 : ∀ s : Fin n, 1 ≤ spA (N := N) n a s + bz s)
+    (hb2 : ∀ s : Fin n, spA (N := N) n a s + bz s ≤ ((N * n * n : ℕ) : ℤ) - 1)
+    (hb3 : ∀ s, 1 ≤ bz s) (hb4 : ∀ s, bz s ≤ ((N * n * n : ℕ) : ℤ) - 1)
+    (hx1 : ∀ s : Fin n, mono (spA (N := N) n a s) (spCX n cx) ≠ 1) :
+    ∃ C : L, Aser hN hlo hhi cx cp = θ hN β cp * msum hN n hn a cx bz cz hb1 hb2 - C ∧
+      C = ∑ s : Fin n, ∑ ρ : Fin n, mono (spE (N := N) a β ρ s) (spC cx cp ρ s) *
+          (mono (bz s) (cz s) * hs (kF (hN' hN n hn) 0) *
+            θ (hN' hN n hn) (-bz s + spB (N := N) n β ρ s) ((cz s)⁻¹ * spCP n cp) *
+            θ (hN' hN n hn) (spA (N := N) n a s + bz s + spB (N := N) n β ρ s) (spCX n cx * cz s * spCP n cp) /
+          (θ (hN' hN n hn) (bz s) (cz s) * θ (hN' hN n hn) (spA (N := N) n a s + bz s) (spCX n cx * cz s) *
+            θ (hN' hN n hn) (spA (N := N) n a s + spB (N := N) n β ρ s) (spCX n cx * spCP n cp))) :=
+  ⟨_, m_split_fac hN n hn hlo hhi hx hp bz cz hcz hA1 hA2 hb1 hb2 hb3 hb4 hx1, rfl⟩
+
+end MSplitFac
+
 section Inversion
 variable {N : ℕ} (hN : 1 ≤ N)
 include hN
