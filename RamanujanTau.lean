@@ -272,3 +272,4 @@ import RamanujanTau.RankP2
 import RamanujanTau.RankR03
 import RamanujanTau.RankMod7a
 import RamanujanTau.RankAL
+import RamanujanTau.ALChangeZ

@@ -171,6 +171,19 @@ The proof uses the Bailey pair relative to `a = 1` with `β_n = 1/((zq)_n(q/z)_n
 field by a telescoping certificate, then moved to `ℂ⟦X⟧`, and the limit is taken with `durfee_rect_base`.
 This is milestone 1 of the rank mod-7 programme.
 
+### `ALBase.lean`, `ALChangeZ.lean` — change of `z` for Appell–Lerch sums
+```lean
+theorem change_of_z ... :
+    θ(z₀)θ(xz₀)θ(xz₁)A(x,z₁) − A(x,z₀)θ(xz₀)θ(z₁)θ(xz₁) + z₀ κ θ(z₁/z₀) θ(xz₀z₁) = 0
+```
+This is Hickerson–Mortenson's change-of-`z` theorem, `m(x,q,z₁) − m(x,q,z₀) = −z₀κ θ(z₁/z₀)θ(xz₀z₁)/(θ(z₀)θ(z₁)θ(xz₀)θ(xz₁))`,
+with `κ = θ(x)A(x,1)`. It is proved in `ℂ((t))` for monomial points `x = c t^a`, `zᵢ = cᵢ t^{bᵢ}`, `q = t^N`, in the
+range `0 < val(xz) < N`. The proof is a formal theta-function uniqueness argument with no analysis:
+- `F(z) = θ(xz)A(x,z) − m₀θ(z)θ(xz) + cθ(z/z₀)θ(xz₀z)` is a bilateral `z`-series with `F_{k+2} = q^k x F_k` (`AA_rec`, `TT_rec`).
+- So `F = F₀E₀ + F₁E₁` (`sol_basis`).
+- `F` vanishes at `z = 1` and `z = z₀`, and the 2×2 determinant has an explicit nonzero leading term (`det_ne`).
+- Hence `F ≡ 0`. The sums are `HahnSeries.SummableFamily` sums, and the Appell sum is expanded on its geometric cone.
+
 ### `CrankAndrewsGarvan.lean` — Dyson's crank: the combinatorial explanation of mod 5 and mod 7
 ```lean
 theorem crank_generating_function {z : ℂ} (hz : z ≠ 0) {n : ℕ} (hn : 2 ≤ n) :
