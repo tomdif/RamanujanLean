@@ -282,3 +282,5 @@ import RamanujanTau.ALSplitM
 import RamanujanTau.ALThetaCore
 import RamanujanTau.ALNormal
 import RamanujanTau.ALCoreTest
+import RamanujanTau.ALCore7
+import RamanujanTau.ALWeier0
