@@ -126,4 +126,157 @@ theorem qfac_eq_θ3 : ι1 (MockTheta5.JTP.ψC MockTheta5.JTP.qfacInf) = θ (N :=
     · rw [if_pos h, if_pos (by exact_mod_cast hk.trans h)]
     · rw [if_neg h, if_neg (fun h' => h (by rw [← hk]; exact_mod_cast h'))]
 end Pent3
+
+section Norm3
+/-! normal forms of `θ(c q^e; q³)` for `e ∈ {−3,−2,−1,2}` and `θ(c⁻¹)` at `e = 0` -/
+
+theorem θ3_two {c : ℂ} (hc : c ≠ 0) : θ h3 2 c = θ h3 1 c⁻¹ := by
+  have h := θ_reflect h3 1 (inv_ne_zero hc)
+  rw [inv_inv] at h
+  rw [← h]; norm_num
+
+theorem θ3_m1 {c : ℂ} (hc : c ≠ 0) : θ h3 (-1) c = -mono (-1) c * θ h3 1 c⁻¹ := by
+  have h := θ_inv h3 1 (inv_ne_zero hc)
+  rw [inv_inv] at h
+  exact h
+
+theorem θ3_m2 {c : ℂ} (hc : c ≠ 0) : θ h3 (-2) c = -mono (-2) c * θ h3 1 c := by
+  have h := θ_inv h3 2 (inv_ne_zero hc)
+  rw [inv_inv, θ3_two (inv_ne_zero hc), inv_inv] at h
+  exact h
+
+theorem θ3_m3 {c : ℂ} (hc : c ≠ 0) : θ h3 (-3) c = mono (-3) (-c) * θ h3 0 c := by
+  have h := θ_qshift h3 0 hc (-1)
+  rw [show (0 : ℤ) + (3 : ℕ) * (-1) = -3 by norm_num] at h
+  rw [h]; congr 2
+  simp
+
+theorem θ3_0inv {c : ℂ} (hc : c ≠ 0) : θ h3 0 c⁻¹ = -mono 0 c⁻¹ * θ h3 0 c := by
+  have h := θ_inv h3 0 hc
+  rw [neg_zero] at h
+  exact h
+
+end Norm3
+
+section Subst
+variable {ζ : ℂ} (h7 : ζ ^ 7 = 1) (hζ : ζ ≠ 1)
+include h7 hζ
+
+omit hζ in
+lemma zeta_ne0 : ζ ≠ 0 := by
+  rintro rfl; norm_num at h7
+
+/-- `ζ^k ≠ 1` for `0 < k < 7` (7 is prime). -/
+lemma zeta_pow_ne {k : ℕ} (hk0 : 0 < k) (hk : k < 7) : ζ ^ k ≠ 1 := by
+  intro h
+  apply hζ
+  obtain ⟨a, b, hab⟩ : ∃ a b : ℕ, a * k = 1 + 7 * b := by
+    interval_cases k
+    · exact ⟨1, 0, rfl⟩
+    · exact ⟨4, 1, rfl⟩
+    · exact ⟨5, 2, rfl⟩
+    · exact ⟨2, 1, rfl⟩
+    · exact ⟨3, 2, rfl⟩
+    · exact ⟨6, 5, rfl⟩
+  calc ζ = ζ ^ (1 + 7 * b) := by rw [_root_.pow_add, pow_mul, h7, one_pow, pow_one, mul_one]
+    _ = (ζ ^ k) ^ a := by rw [← hab, ← pow_mul, mul_comm]
+    _ = 1 := by rw [h, one_pow]
+
+omit hζ in
+lemma zeta_inv (k : ℕ) (hk : k ≤ 7) : (ζ ^ k)⁻¹ = ζ ^ (7 - k) := by
+  exact inv_eq_of_mul_eq_one_right (by rw [← _root_.pow_add, Nat.add_sub_cancel' hk, h7])
+
+omit hζ in
+lemma zeta_mul (a b : ℕ) : ζ ^ a * ζ ^ b = ζ ^ ((a + b) % 7) := by
+  conv_lhs => rw [← _root_.pow_add, ← Nat.mod_add_div (a + b) 7, _root_.pow_add, pow_mul, h7, one_pow, mul_one]
+
+/-- the substitution facts behind the `z = x²` form. -/
+theorem nf_facts :
+    θ h3 0 (ζ ^ 3) * Ab h3 (a := 0) (β := 0) (by norm_num) (by norm_num) (ζ ^ 3) 1 = hs (kF h3 0) ∧
+    Ab h3 (a := 1) (β := 0) (by norm_num) (by norm_num) (ζ ^ 4) (ζ ^ 2) =
+      -mono (-1) (ζ ^ 5) * Ab h3 (a := -1) (β := 0) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) ∧
+    Ab h3 (a := -2) (β := 0) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) =
+      -mono 2 (ζ ^ 2) * Ab h3 (a := 2) (β := 0) (by norm_num) (by norm_num) (ζ ^ 4) (ζ ^ 2) := by
+  have h0 := zeta_ne0 h7
+  refine ⟨?_, ?_, ?_⟩
+  · exact kappa_eq h3 (a := 0) (by norm_num) (by norm_num) (pow_ne_zero _ h0)
+      (mono_ne_one_of (Or.inr (zeta_pow_ne h7 hζ (by norm_num) (by norm_num))))
+  · have h := Ab_inv h3 (a := -1) (β := 0) (by norm_num) (by norm_num) (pow_ne_zero 3 h0) (pow_ne_zero 5 h0)
+      (mono_ne_one_of (Or.inl (by norm_num)))
+    rw [zeta_inv h7 3 (by norm_num), zeta_inv h7 5 (by norm_num)] at h
+    rw [show ζ ^ 3 * ζ ^ (7 - 5) = ζ ^ 5 by rw [zeta_mul h7]] at h
+    convert h using 2
+  · have h := Ab_inv h3 (a := 2) (β := 0) (by norm_num) (by norm_num) (pow_ne_zero 4 h0) (pow_ne_zero 2 h0)
+      (mono_ne_one_of (Or.inl (by norm_num)))
+    rw [zeta_inv h7 4 (by norm_num), zeta_inv h7 2 (by norm_num)] at h
+    rw [show ζ ^ 4 * ζ ^ (7 - 2) = ζ ^ 2 by rw [zeta_mul h7]] at h
+    convert h using 2
+
+
+theorem nf_facts2 :
+    Ab h3 (a := 1) (β := -3) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) =
+      θ h3 (-3) (ζ ^ 5) + mono (-5) ζ * Ab h3 (a := -2) (β := 0) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) ∧
+    Ab h3 (a := 1) (β := 0) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) =
+      -mono 3 (ζ ^ 2) * Ab h3 (a := 1) (β := -3) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) ∧
+    Ab h3 (a := 1) (β := 0) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) =
+      θ h3 0 (ζ ^ 5) * Ab h3 (a := 1) (β := 1) (by norm_num) (by norm_num) (ζ ^ 3) 1 / θ h3 1 1 -
+        mono 1 1 * hs (kF h3 0) * θ h3 (-1) (ζ ^ 5) * θ h3 2 ζ /
+          (θ h3 1 1 * θ h3 2 (ζ ^ 3) * θ h3 1 ζ) ∧
+    Ab h3 (a := 1) (β := -1) (by norm_num) (by norm_num) (ζ ^ 3) 1 =
+      θ h3 (-1) 1 * Ab h3 (a := 1) (β := 1) (by norm_num) (by norm_num) (ζ ^ 3) 1 / θ h3 1 1 -
+        mono 1 1 * hs (kF h3 0) * θ h3 (-2) 1 * θ h3 1 (ζ ^ 3) /
+          (θ h3 1 1 * θ h3 2 (ζ ^ 3) * θ h3 0 (ζ ^ 3)) ∧
+    Ab h3 (a := -1) (β := 0) (by norm_num) (by norm_num) (ζ ^ 3) (ζ ^ 5) =
+      θ h3 0 (ζ ^ 5) * Ab h3 (a := -1) (β := 2) (by norm_num) (by norm_num) (ζ ^ 3) 1 / θ h3 2 1 -
+        mono 2 1 * hs (kF h3 0) * θ h3 (-2) (ζ ^ 5) * θ h3 1 ζ /
+          (θ h3 2 1 * θ h3 1 (ζ ^ 3) * θ h3 (-1) ζ) ∧
+    Ab h3 (a := -1) (β := 1) (by norm_num) (by norm_num) (ζ ^ 3) 1 =
+      θ h3 1 1 * Ab h3 (a := -1) (β := 2) (by norm_num) (by norm_num) (ζ ^ 3) 1 / θ h3 2 1 -
+        mono 2 1 * hs (kF h3 0) * θ h3 (-1) 1 * θ h3 2 (ζ ^ 3) /
+          (θ h3 2 1 * θ h3 1 (ζ ^ 3) * θ h3 0 (ζ ^ 3)) := by
+  have h0 := zeta_ne0 h7
+  have hz3 : ζ ^ 3 ≠ 1 := zeta_pow_ne h7 hζ (by norm_num) (by norm_num)
+  have e35 : ζ ^ 3 * ζ ^ 5 = ζ := by rw [zeta_mul h7]; norm_num
+  have i5 : (ζ ^ 5)⁻¹ = ζ ^ 2 := by rw [zeta_inv h7 5 (by norm_num)]
+  have hm1 : θ h3 (-1) ζ ≠ 0 := by
+    have := θ_inv h3 1 (inv_ne_zero h0)
+    rw [inv_inv] at this
+    rw [show (-1 : ℤ) = -(1 : ℤ) from rfl, this]
+    exact mul_ne_zero (neg_ne_zero.mpr (by simp [mono, h0])) (θ_ne h3 (by norm_num) (by norm_num) _)
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+  · have r := Ab_xshift h3 (a := -2) (β := 0) (by norm_num) (by norm_num) (pow_ne_zero 3 h0) (pow_ne_zero 5 h0)
+      (fun r => mono_ne_one_of (Or.inl (by push_cast; omega)))
+    rw [e35] at r
+    convert r using 2
+  · have r := Ab_zshift h3 (a := 1) (β := -3) (by norm_num) (by norm_num) (pow_ne_zero 3 h0) (pow_ne_zero 5 h0)
+    rw [i5] at r
+    convert r using 3
+  · have r := coz_solve h3 (a := 1) (b₀ := 1) (b₁ := 0) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      (by norm_num) (by norm_num) (by norm_num) (by norm_num) (pow_ne_zero 3 h0) one_ne_zero (pow_ne_zero 5 h0)
+      (mono_ne_one_of (Or.inl (by norm_num))) (mono_ne_one_of (Or.inl (by norm_num)))
+      (θ_ne h3 (by norm_num) (by norm_num) _)
+    rw [show ζ ^ 3 * 1 * ζ ^ 5 = ζ by rw [mul_one, e35], e35] at r
+    norm_num at r
+    exact r
+  · have r := coz_solve h3 (a := 1) (b₀ := 1) (b₁ := -1) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      (by norm_num) (by norm_num) (by norm_num) (by norm_num) (pow_ne_zero 3 h0) one_ne_zero one_ne_zero
+      (mono_ne_one_of (Or.inl (by norm_num))) (mono_ne_one_of (Or.inr (by simpa using hz3)))
+      (by norm_num; exact θ_ne0 h3 hz3)
+    norm_num at r
+    exact r
+  · have r := coz_solve h3 (a := -1) (b₀ := 2) (b₁ := 0) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      (by norm_num) (by norm_num) (by norm_num) (by norm_num) (pow_ne_zero 3 h0) one_ne_zero (pow_ne_zero 5 h0)
+      (mono_ne_one_of (Or.inl (by norm_num))) (mono_ne_one_of (Or.inl (by norm_num)))
+      (by rw [e35]; norm_num; exact hm1)
+    rw [show ζ ^ 3 * 1 * ζ ^ 5 = ζ by rw [mul_one, e35], e35] at r
+    norm_num at r
+    exact r
+  · have r := coz_solve h3 (a := -1) (b₀ := 2) (b₁ := 1) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      (by norm_num) (by norm_num) (by norm_num) (by norm_num) (pow_ne_zero 3 h0) one_ne_zero one_ne_zero
+      (mono_ne_one_of (Or.inl (by norm_num))) (mono_ne_one_of (Or.inr (by simpa using hz3)))
+      (by norm_num; exact θ_ne0 h3 hz3)
+    norm_num at r
+    exact r
+
+end Subst
 end ALz
