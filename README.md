@@ -162,6 +162,15 @@ The full mod-5 rank identity from p. 20 of Ramanujan's Lost Notebook (Garvan (4.
   2. Five explicit index bijections (`bij_i`–`bij_v`) identify one orbit of the class-1 / class-3 parts of
      (2.18) with `J_{5,1}φ` and `J_{5,2}ψ` (`orbit_mock`).
 
+### `RankAL.lean` — the Appell–Lerch (Lambert) form of the rank generating function
+```lean
+theorem rank_AL {z : ℂ} (hz : z ≠ 0) : Dser z z⁻¹ = ψ (Ring.inverse qfacInf) * ALser z
+```
+`(q;q)_∞ · Σ_n q^{n²}/((zq;q)_n(q/z;q)_n) = 1 + Σ_{r≥1} (−1)^r q^{r(3r+1)/2}(1+q^r)(1−z)(1−z⁻¹)/((1−zq^r)(1−q^r/z))`.
+The proof uses the Bailey pair relative to `a = 1` with `β_n = 1/((zq)_n(q/z)_n)`. Its finite form (`al_pair`) is proved in any
+field by a telescoping certificate, then moved to `ℂ⟦X⟧`, and the limit is taken with `durfee_rect_base`.
+This is milestone 1 of the rank mod-7 programme.
+
 ### `CrankAndrewsGarvan.lean` — Dyson's crank: the combinatorial explanation of mod 5 and mod 7
 ```lean
 theorem crank_generating_function {z : ℂ} (hz : z ≠ 0) {n : ℕ} (hn : 2 ≤ n) :
