@@ -279,3 +279,6 @@ import RamanujanTau.ALSplit
 import RamanujanTau.ALRank7
 import RamanujanTau.ALTheta
 import RamanujanTau.ALSplitM
+import RamanujanTau.ALThetaCore
+import RamanujanTau.ALNormal
+import RamanujanTau.ALCoreTest
