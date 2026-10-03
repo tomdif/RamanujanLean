@@ -267,3 +267,6 @@ import RamanujanTau.RankTheta
 import RamanujanTau.RankDissect
 import RamanujanTau.RankMod5
 import RamanujanTau.RankRamanujan5
+import RamanujanTau.RankSpec
+import RamanujanTau.RankP2
+import RamanujanTau.RankR03

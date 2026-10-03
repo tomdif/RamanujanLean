@@ -35,6 +35,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Crank equidistribution mod 11** (Dyson's conjecture) | `11·#{λ⊢11n+6 : crank ≡ i} = p(11n+6)` |
 | **Rank equidistribution mod 5** (Dyson's conjecture; Atkin–Swinnerton-Dyer) | `5·#{λ⊢5n+4 : rank ≡ i} = p(5n+4)`, rank = largest part − number of parts |
 | **Garvan's Hecke–Rogers identities** (2.18), (2.19) | `(zq)(q/z)·R(z;q)` and `(q)(zq)(q/z)·R(z;q²)` as indefinite theta series |
+| **Ramanujan's 5-dissection of the rank generating function** (Lost Notebook p. 20) | `R(ζ₅;q) = Σ qᵏR_k(q⁵)` with `R₁ = J₅²/J₅,₁`, `R₂ = (ζ+ζ⁴)J₅²/J₅,₂`, `R₄ = 0`, and `R₀`, `R₃` in terms of the mock theta functions `φ`, `ψ` |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
@@ -143,6 +144,23 @@ Dyson's 1944 conjecture, first proved by Atkin and Swinnerton-Dyer (1954). The p
 4. **Endgame at `ζ = ζ₅`**: Jacobi triple products `J_{a,b}`, their 5-dissections as lattice sums, and three
    linear equations for the dissection components of `R(ζ;q²)`. Two product identities force `R₃ = 0`.
    This gives `Σ_{λ⊢5n+4} ζ^{rank λ} = 0`, and the cyclotomic step finishes.
+
+### `RankR03.lean` (+ `RankRamanujan5`, `RankSpec`, `RankP2`) — Ramanujan's rank dissection
+```lean
+theorem lost_notebook_rank_mod5 :
+    Rk 0 = ψ (eQ^2 * Jab 5 2 * (Jab 5 1)⁻¹^2) + C (tζ - 2) * ψ (Phi 1 - 1) ∧ Rk 1 = ψ (eQ^2 * (Jab 5 1)⁻¹)
+    ∧ Rk 2 = C tζ * ψ (eQ^2 * (Jab 5 2)⁻¹) ∧ X * Rk 3 = C (sζ - tζ) * ψ (Phi 2 - 1) + C (sζ + 1) * X * ψ (…)
+    ∧ Rk 4 = 0
+```
+The full mod-5 rank identity from p. 20 of Ramanujan's Lost Notebook (Garvan (4.1)). Here `Rk k` is the
+`k`-th 5-dissection component of `R(ζ₅;q)`, and `Phi 1 = 1+φ`, `Phi 2 = 1+ψ` are Ramanujan's mock theta functions
+`Σ q^{5n²}/((q;q⁵)_{n+1}(q⁴;q⁵)_n)` and `Σ q^{5n²}/((q²;q⁵)_{n+1}(q³;q⁵)_n)`.
+
+- `R₁, R₂, R₄` come from the mod-5 linear system and the product identities.
+- `R₀, R₃` avoid Garvan's (2.20). Instead:
+  1. (2.18) is re-proved at `z = qᵏ` in base `q⁵` (`spec_coeff`), giving `J_{5,k}·Φ_k` as a Hecke-type sum.
+  2. Five explicit index bijections (`bij_i`–`bij_v`) identify one orbit of the class-1 / class-3 parts of
+     (2.18) with `J_{5,1}φ` and `J_{5,2}ψ` (`orbit_mock`).
 
 ### `CrankAndrewsGarvan.lean` — Dyson's crank: the combinatorial explanation of mod 5 and mod 7
 ```lean
