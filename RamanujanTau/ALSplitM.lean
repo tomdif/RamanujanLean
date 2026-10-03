@@ -261,4 +261,64 @@ theorem m_split {a β : ℤ} (hlo : 0 < a + β) (hhi : a + β < N) {cx cp : ℂ}
 
 end MSplit
 
+
+section Inversion
+variable {N : ℕ} (hN : 1 ≤ N)
+include hN
+
+lemma aTerm_inv (a β : ℤ) {cx cp : ℂ} (hx : cx ≠ 0) (hp : cp ≠ 0) (r : ℤ)
+    (h1 : mono (N * (2 - r - 1) + a + β) (cx * cp) ≠ 1) :
+    aTerm N (-a) (-β) cx⁻¹ cp⁻¹ r = -mono (a - β) (cx * cp⁻¹) * aTerm N a β cx cp (2 - r) := by
+  unfold aTerm
+  set y := mono (N * (2 - r - 1) + a + β) (cx * cp) with hy
+  have hy0 : y ≠ 0 := by simp [hy, mono, hx, hp]
+  have hyinv : mono (N * (r - 1) + -a + -β) (cx⁻¹ * cp⁻¹) = y⁻¹ := by
+    rw [hy, mono, mono, inv_single]; congr 1 <;> [ring; field_simp]
+  have h1y : (1 : L) - y ≠ 0 := sub_ne_zero.mpr (Ne.symm h1)
+  have hm : mono (N * c2 r + -β * r) ((-1) ^ r * cp⁻¹ ^ r) * y =
+      mono (a - β) (cx * cp⁻¹) * mono (N * c2 (2 - r) + β * (2 - r)) ((-1) ^ (2 - r) * cp ^ (2 - r)) := by
+    rw [hy, mono_mul, mono_mul]
+    congr 1
+    · have h2 := two_c2 (2 - r); have h3 := two_c2 r; nlinarith
+    · have hneg : ((-1 : ℂ)) ^ (2 - r) = (-1) ^ r := by
+        rw [show (2 : ℤ) - r = r + 2 * (1 - r) by ring, zpow_add₀ (by norm_num), zpow_mul]; norm_num
+      rw [hneg, inv_zpow', zpow_neg, zpow_sub₀ hp]
+      field_simp
+  rw [hyinv]
+  have e : (1 - y⁻¹)⁻¹ = -y * (1 - y)⁻¹ := by
+    refine (eq_inv_of_mul_eq_one_right ?_).symm
+    field_simp
+    ring
+  rw [e]
+  linear_combination (-(1 - y)⁻¹) * hm
+
+/-- **inversion symmetry** `A(x⁻¹, z⁻¹) = −x z⁻¹ A(x,z)` (equivalently `m(x,q,z) = x⁻¹ m(x⁻¹,q,z⁻¹)`). -/
+theorem Ab_inv {a β : ℤ} (hlo : -N < a + β) (hhi : a + β < N) {cx cp : ℂ} (hx : cx ≠ 0) (hp : cp ≠ 0)
+    (hxz : mono (a + β) (cx * cp) ≠ 1) :
+    Ab hN (a := -a) (β := -β) (by omega) (by omega) cx⁻¹ cp⁻¹ = -mono (a - β) (cx * cp⁻¹) * Ab hN hlo hhi cx cp := by
+  rw [Ab_eq_sum, Ab_eq_sum]
+  refine hsum_reindex' _ _ (Equiv.subLeft 2) _ fun r => ?_
+  simp only [sv, Equiv.subLeft_apply]
+  rw [aSumF_apply _ _ _ (inv_ne_zero hx) (inv_ne_zero hp), aSumF_apply _ _ _ hx hp,
+    show 2 - r = 2 - r from rfl]
+  have h1 : mono (N * (2 - (2 - r) - 1) + a + β) (cx * cp) ≠ 1 := by
+    by_cases hr : r = 1
+    · subst hr; simpa using hxz
+    · intro h
+      rw [show (N : ℤ) * (2 - (2 - r) - 1) + a + β = N * (r - 1) + a + β by ring] at h
+      have := congrArg (fun f : L => f.coeff 0) h
+      have hne : (0 : ℤ) ≠ N * (r - 1) + a + β := by
+        have : (N : ℤ) * (r - 1) ≠ -(a + β) := by
+          intro h'
+          rcases lt_or_gt_of_ne hr with h'' | h''
+          · have : (N : ℤ) * (r - 1) ≤ -N := by nlinarith
+            omega
+          · have : (N : ℤ) ≤ N * (r - 1) := by nlinarith
+            omega
+        intro h'; apply this; linarith
+      simp [mono, coeff_single_of_ne hne] at this
+  rw [aTerm_inv hN a β hx hp (2 - r) (by rwa [show 2 - (2 - r) = r by ring] at h1 ⊢), show 2 - (2 - r) = r by ring]
+
+end Inversion
+
 end ALz
