@@ -284,3 +284,5 @@ import RamanujanTau.ALNormal
 import RamanujanTau.ALCoreTest
 import RamanujanTau.ALCore7
 import RamanujanTau.ALWeier0
+import RamanujanTau.ALNewForm
+import RamanujanTau.ALClass7
