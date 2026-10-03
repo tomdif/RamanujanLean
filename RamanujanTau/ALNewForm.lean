@@ -278,5 +278,144 @@ theorem nf_facts2 :
     norm_num at r
     exact r
 
+omit hζ in
+lemma zeta_pow_mod (n : ℕ) : ζ ^ n = ζ ^ (n % 7) := by
+  conv_lhs => rw [← Nat.mod_add_div n 7, _root_.pow_add, pow_mul, h7, one_pow, mul_one]
+
+lemma zeta_pow_ne' {a b : ℕ} (hab : a < b) (hb : b < 7) : ζ ^ a ≠ ζ ^ b := by
+  intro h
+  have h0 := zeta_ne0 h7
+  apply zeta_pow_ne h7 hζ (k := b - a) (by omega) (by omega)
+  have : ζ ^ b = ζ ^ a * ζ ^ (b - a) := by rw [← _root_.pow_add, Nat.add_sub_cancel' hab.le]
+  rw [h] at this
+  exact (mul_eq_left₀ (pow_ne_zero b h0)).mp this.symm
+
+omit hζ in
+lemma θ0_inv' (k : ℕ) (hk : 3 < k) (hk7 : k < 7) :
+    θ h3 0 (ζ ^ k) = -mono 0 (ζ ^ k) * θ h3 0 (ζ ^ (7 - k)) := by
+  have h0 := zeta_ne0 h7
+  have h := θ3_0inv (pow_ne_zero (7 - k) h0)
+  rw [zeta_inv h7 (7 - k) (by omega), Nat.sub_sub_self (by omega)] at h
+  exact h
+
+omit h7 hζ in
+lemma mono_zeta (e : ℤ) (k : ℕ) : mono e (ζ ^ k) = mono e 1 * mono 0 ζ ^ k := by
+  rw [mono, mono, mono, single_pow, single_mul_single]; simp
+
+/-- **the five-term theta identity** behind the `z = x²` form (five `weierstrass0` instances). -/
+theorem nf_theta :
+    θ h3 0 (ζ ^ 2) * θ h3 1 (ζ ^ 1) * θ h3 1 (ζ ^ 3) ^ 2 * θ h3 1 (ζ ^ 6)
+      + mono 0 (ζ ^ 1) * θ h3 0 (ζ ^ 2) * θ h3 1 (ζ ^ 1) * θ h3 1 (ζ ^ 3) * θ h3 1 (ζ ^ 4) * θ h3 1 (ζ ^ 6)
+      + mono 0 (ζ ^ 2) * θ h3 0 (ζ ^ 2) * θ h3 1 (ζ ^ 1) * θ h3 1 (ζ ^ 4) ^ 2 * θ h3 1 (ζ ^ 6)
+      - mono 0 (ζ ^ 1) * θ h3 0 (ζ ^ 3) * θ h3 1 (ζ ^ 1) ^ 2 * θ h3 1 (ζ ^ 4) * θ h3 1 (ζ ^ 5)
+      - θ h3 0 (ζ ^ 3) * θ h3 1 (ζ ^ 2) * θ h3 1 (ζ ^ 3) * θ h3 1 (ζ ^ 6) ^ 2 = 0 := by
+  have h0 := zeta_ne0 h7
+  have hp : ∀ k : ℕ, ζ ^ k ≠ 0 := fun k => pow_ne_zero k h0
+  have hm : ∀ k : ℕ, 0 < k → k < 7 → ζ ^ k ≠ 1 := fun k a b => zeta_pow_ne h7 hζ a b
+  have w0 := weierstrass0 h3 (by' := 1) (bx := 1) (cy := ζ ^ 1) (cu := ζ ^ 0) (cv := ζ ^ 2) (cx := ζ ^ 0)
+    (hp 1) (hp 0) (hp 2) (hp 0) (zeta_pow_ne' h7 hζ (by norm_num) (by norm_num))
+    (by rw [zeta_mul h7]; exact hm _ (by norm_num) (by norm_num))
+  have w1 := weierstrass0 h3 (by' := 1) (bx := 1) (cy := ζ ^ 2) (cu := ζ ^ 1) (cv := ζ ^ 2) (cx := ζ ^ 0)
+    (hp 2) (hp 1) (hp 2) (hp 0) (zeta_pow_ne' h7 hζ (by norm_num) (by norm_num))
+    (by rw [zeta_mul h7]; exact hm _ (by norm_num) (by norm_num))
+  have w2 := weierstrass0 h3 (by' := 1) (bx := 1) (cy := ζ ^ 6) (cu := ζ ^ 0) (cv := ζ ^ 2) (cx := ζ ^ 0)
+    (hp 6) (hp 0) (hp 2) (hp 0) (zeta_pow_ne' h7 hζ (by norm_num) (by norm_num))
+    (by rw [zeta_mul h7]; exact hm _ (by norm_num) (by norm_num))
+  have w3 := weierstrass0 h3 (by' := 1) (bx := 1) (cy := ζ ^ 6) (cu := ζ ^ 1) (cv := ζ ^ 2) (cx := ζ ^ 1)
+    (hp 6) (hp 1) (hp 2) (hp 1) (zeta_pow_ne' h7 hζ (by norm_num) (by norm_num))
+    (by rw [zeta_mul h7]; exact hm _ (by norm_num) (by norm_num))
+  have w4 := weierstrass0 h3 (by' := 1) (bx := 1) (cy := ζ ^ 2) (cu := ζ ^ 0) (cv := ζ ^ 2) (cx := ζ ^ 1)
+    (hp 2) (hp 0) (hp 2) (hp 1) (zeta_pow_ne' h7 hζ (by norm_num) (by norm_num))
+    (by rw [zeta_mul h7]; exact hm _ (by norm_num) (by norm_num))
+  simp only [zeta_inv h7 _ (by norm_num : 0 ≤ 7), zeta_inv h7 _ (by norm_num : 1 ≤ 7), zeta_inv h7 _ (by norm_num : 2 ≤ 7),
+    zeta_inv h7 _ (by norm_num : 6 ≤ 7), zeta_mul h7, Nat.reduceAdd, Nat.reduceMod, Nat.reduceSub, Int.reduceAdd,
+    Int.reduceSub, Int.reduceNeg] at w0 w1 w2 w3 w4
+  simp only [θ3_two (hp _), θ3_m1 (hp _), θ0_inv' h7 5 (by norm_num) (by norm_num),
+    θ0_inv' h7 6 (by norm_num) (by norm_num)] at w0 w1 w2 w3 w4
+  simp only [zeta_inv h7 _ (by norm_num : 0 ≤ 7), zeta_inv h7 _ (by norm_num : 1 ≤ 7), zeta_inv h7 _ (by norm_num : 2 ≤ 7),
+    zeta_inv h7 _ (by norm_num : 3 ≤ 7), zeta_inv h7 _ (by norm_num : 4 ≤ 7), zeta_inv h7 _ (by norm_num : 5 ≤ 7),
+    zeta_inv h7 _ (by norm_num : 6 ≤ 7), Nat.reduceSub] at w0 w1 w2 w3 w4
+  have z7 : ζ ^ 7 = ζ ^ 0 := by rw [h7, pow_zero]
+  rw [z7] at w3
+  have t01 : θ h3 0 (ζ ^ 1) ≠ 0 := θ_ne0 h3 (hm 1 (by norm_num) (by norm_num))
+  have t02 : θ h3 0 (ζ ^ 2) ≠ 0 := θ_ne0 h3 (hm 2 (by norm_num) (by norm_num))
+  have t10 : θ h3 1 (ζ ^ 0) ≠ 0 := θ_ne h3 (by norm_num) (by norm_num) _
+  have t01' : θ h3 0 ζ ≠ 0 := by simpa using t01
+  have t10' : θ h3 1 1 ≠ 0 := θ_ne h3 (by norm_num) (by norm_num) _
+  linear_combination (norm := skip) (mono 0 (ζ ^ 4) * (θ h3 0 (ζ ^ 1))⁻¹ * (θ h3 0 (ζ ^ 2))⁻¹ * θ h3 1 (ζ ^ 1) * θ h3 1 (ζ ^ 3) * θ h3 1 (ζ ^ 4)) * w0 + (-mono 0 (ζ ^ 4) * (θ h3 0 (ζ ^ 1))⁻¹ * (θ h3 0 (ζ ^ 2))⁻¹ * θ h3 1 (ζ ^ 1) ^ 2 * θ h3 1 (ζ ^ 4)) * w1 + (-mono 0 (ζ ^ 2) * (θ h3 0 (ζ ^ 1))⁻¹ * (θ h3 0 (ζ ^ 2))⁻¹ * θ h3 1 (ζ ^ 3) ^ 2 * θ h3 1 (ζ ^ 6)) * w2 + (mono 0 (ζ ^ 1) * (θ h3 0 (ζ ^ 1))⁻¹ * (θ h3 0 (ζ ^ 2))⁻¹ * (θ h3 1 (ζ ^ 0))⁻¹ * θ h3 1 (ζ ^ 2) * θ h3 1 (ζ ^ 3) * θ h3 1 (ζ ^ 6) ^ 2) * w3 + (mono 0 (ζ ^ 5) * (θ h3 0 (ζ ^ 1))⁻¹ * (θ h3 0 (ζ ^ 2))⁻¹ * θ h3 1 (ζ ^ 1) * θ h3 1 (ζ ^ 4) * θ h3 1 (ζ ^ 6)) * w4
+  simp only [mono_zeta, show mono 0 (1 : ℂ) = 1 from HahnSeries.single_zero_one]
+  set Z := mono 0 ζ with hZ
+  set Q := mono (-1) (1 : ℂ) with hQ
+  have hZ7 : Z ^ 7 = 1 := by
+    rw [hZ, mono, single_pow, h7]; exact HahnSeries.single_zero_one
+  have hΦc : 1 + ζ + ζ ^ 2 + ζ ^ 3 + ζ ^ 4 + ζ ^ 5 + ζ ^ 6 = 0 := by
+    have h : (ζ - 1) * (1 + ζ + ζ ^ 2 + ζ ^ 3 + ζ ^ 4 + ζ ^ 5 + ζ ^ 6) = 0 := by
+      linear_combination h7
+    exact (mul_eq_zero.mp h).resolve_left (sub_ne_zero.mpr hζ)
+  have hZ6 : Z ^ 6 = -(1 + Z + Z ^ 2 + Z ^ 3 + Z ^ 4 + Z ^ 5) := by
+    have h := congrArg (HahnSeries.C (Γ := ℤ) (R := ℂ)) hΦc
+    simp only [map_add, map_pow, map_one, map_zero] at h
+    rw [show HahnSeries.C (Γ := ℤ) (R := ℂ) ζ = Z from rfl] at h
+    linear_combination h
+  have r7 : Z ^ 7 = Z ^ 0 := by rw [show 7 = 0 + 7 * 1 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r8 : Z ^ 8 = Z ^ 1 := by rw [show 8 = 1 + 7 * 1 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r9 : Z ^ 9 = Z ^ 2 := by rw [show 9 = 2 + 7 * 1 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r10 : Z ^ 10 = Z ^ 3 := by rw [show 10 = 3 + 7 * 1 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r11 : Z ^ 11 = Z ^ 4 := by rw [show 11 = 4 + 7 * 1 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r12 : Z ^ 12 = Z ^ 5 := by rw [show 12 = 5 + 7 * 1 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r13 : Z ^ 13 = Z ^ 6 := by rw [show 13 = 6 + 7 * 1 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r14 : Z ^ 14 = Z ^ 0 := by rw [show 14 = 0 + 7 * 2 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r15 : Z ^ 15 = Z ^ 1 := by rw [show 15 = 1 + 7 * 2 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r16 : Z ^ 16 = Z ^ 2 := by rw [show 16 = 2 + 7 * 2 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r17 : Z ^ 17 = Z ^ 3 := by rw [show 17 = 3 + 7 * 2 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r18 : Z ^ 18 = Z ^ 4 := by rw [show 18 = 4 + 7 * 2 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r19 : Z ^ 19 = Z ^ 5 := by rw [show 19 = 5 + 7 * 2 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r20 : Z ^ 20 = Z ^ 6 := by rw [show 20 = 6 + 7 * 2 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r21 : Z ^ 21 = Z ^ 0 := by rw [show 21 = 0 + 7 * 3 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r22 : Z ^ 22 = Z ^ 1 := by rw [show 22 = 1 + 7 * 3 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r23 : Z ^ 23 = Z ^ 2 := by rw [show 23 = 2 + 7 * 3 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r24 : Z ^ 24 = Z ^ 3 := by rw [show 24 = 3 + 7 * 3 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r25 : Z ^ 25 = Z ^ 4 := by rw [show 25 = 4 + 7 * 3 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r26 : Z ^ 26 = Z ^ 5 := by rw [show 26 = 5 + 7 * 3 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r27 : Z ^ 27 = Z ^ 6 := by rw [show 27 = 6 + 7 * 3 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r28 : Z ^ 28 = Z ^ 0 := by rw [show 28 = 0 + 7 * 4 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r29 : Z ^ 29 = Z ^ 1 := by rw [show 29 = 1 + 7 * 4 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r30 : Z ^ 30 = Z ^ 2 := by rw [show 30 = 2 + 7 * 4 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r31 : Z ^ 31 = Z ^ 3 := by rw [show 31 = 3 + 7 * 4 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r32 : Z ^ 32 = Z ^ 4 := by rw [show 32 = 4 + 7 * 4 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r33 : Z ^ 33 = Z ^ 5 := by rw [show 33 = 5 + 7 * 4 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r34 : Z ^ 34 = Z ^ 6 := by rw [show 34 = 6 + 7 * 4 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r35 : Z ^ 35 = Z ^ 0 := by rw [show 35 = 0 + 7 * 5 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r36 : Z ^ 36 = Z ^ 1 := by rw [show 36 = 1 + 7 * 5 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r37 : Z ^ 37 = Z ^ 2 := by rw [show 37 = 2 + 7 * 5 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r38 : Z ^ 38 = Z ^ 3 := by rw [show 38 = 3 + 7 * 5 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r39 : Z ^ 39 = Z ^ 4 := by rw [show 39 = 4 + 7 * 5 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r40 : Z ^ 40 = Z ^ 5 := by rw [show 40 = 5 + 7 * 5 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r41 : Z ^ 41 = Z ^ 6 := by rw [show 41 = 6 + 7 * 5 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r42 : Z ^ 42 = Z ^ 0 := by rw [show 42 = 0 + 7 * 6 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r43 : Z ^ 43 = Z ^ 1 := by rw [show 43 = 1 + 7 * 6 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r44 : Z ^ 44 = Z ^ 2 := by rw [show 44 = 2 + 7 * 6 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r45 : Z ^ 45 = Z ^ 3 := by rw [show 45 = 3 + 7 * 6 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r46 : Z ^ 46 = Z ^ 4 := by rw [show 46 = 4 + 7 * 6 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r47 : Z ^ 47 = Z ^ 5 := by rw [show 47 = 5 + 7 * 6 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r48 : Z ^ 48 = Z ^ 6 := by rw [show 48 = 6 + 7 * 6 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r49 : Z ^ 49 = Z ^ 0 := by rw [show 49 = 0 + 7 * 7 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r50 : Z ^ 50 = Z ^ 1 := by rw [show 50 = 1 + 7 * 7 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r51 : Z ^ 51 = Z ^ 2 := by rw [show 51 = 2 + 7 * 7 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r52 : Z ^ 52 = Z ^ 3 := by rw [show 52 = 3 + 7 * 7 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r53 : Z ^ 53 = Z ^ 4 := by rw [show 53 = 4 + 7 * 7 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r54 : Z ^ 54 = Z ^ 5 := by rw [show 54 = 5 + 7 * 7 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r55 : Z ^ 55 = Z ^ 6 := by rw [show 55 = 6 + 7 * 7 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r56 : Z ^ 56 = Z ^ 0 := by rw [show 56 = 0 + 7 * 8 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r57 : Z ^ 57 = Z ^ 1 := by rw [show 57 = 1 + 7 * 8 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r58 : Z ^ 58 = Z ^ 2 := by rw [show 58 = 2 + 7 * 8 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  have r59 : Z ^ 59 = Z ^ 3 := by rw [show 59 = 3 + 7 * 8 by norm_num, _root_.pow_add, pow_mul, hZ7, one_pow, mul_one]
+  field_simp
+  ring_nf
+  simp only [r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36, r37, r38, r39, r40, r41, r42, r43, r44, r45, r46, r47, r48, r49, r50, r51, r52, r53, r54, r55, r56, r57, r58, r59]
+  ring_nf
+  try simp only [hZ6]
+  try ring_nf
+
 end Subst
 end ALz
