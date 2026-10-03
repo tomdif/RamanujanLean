@@ -288,3 +288,5 @@ import RamanujanTau.ALNewForm
 import RamanujanTau.ALClass7
 import RamanujanTau.ALRank7Pre
 import RamanujanTau.ALRank7Main
+import RamanujanTau.ALRankASD7Count
+import RamanujanTau.ALRankASD7

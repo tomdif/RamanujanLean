@@ -164,6 +164,19 @@ This proof does not follow Atkin–Swinnerton-Dyer. It works with Appell–Lerch
 
 Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `ALRankASD7.lean` (+ `ALRankASD7Count`) — Atkin–Swinnerton-Dyer rank equalities mod 7
+```lean
+theorem rank_mod7_ASD (n : ℕ) :
+    N(2,7n) = N(3,7n) ∧ N(1,7n+1) = N(2,7n+1) = N(3,7n+1) ∧ N(0,7n+2) = N(3,7n+2) ∧
+    N(0,7n+3) = N(2,7n+3) ∧ N(1,7n+3) = N(3,7n+3) ∧ N(0,7n+4) = N(1,7n+4) = N(3,7n+4)
+```
+Here `N(k,m)` is `rankCount7 m k`. These are all the equalities that hold in every residue class (checked numerically);
+the class `7n+5` case is the theorem above. `decomp` is rewritten in a canonical form
+`R(ζ) = Σ_t C(P_t(ζ))·G_t`, with 31 `ζ`-free, class-pure pieces `G_t` and integer coefficient vectors for the `P_t`.
+A discrete Fourier transform over the seven roots of unity (`rank_eq_of_decomp`) turns `v_{t,a} = v_{t,b}`, for every
+piece of class `c`, into `N(a,7,7n+c) = N(b,7,7n+c)`. That condition is finite data and is checked by `decide`.
+Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RankR03.lean` (+ `RankRamanujan5`, `RankSpec`, `RankP2`) — Ramanujan's rank dissection
 ```lean
 theorem lost_notebook_rank_mod5 :
