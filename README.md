@@ -154,6 +154,20 @@ These follow directly from the Lost Notebook dissection: `R₁` has no `ζ`, and
 minimal polynomial of `ζ₅` is `Φ₅`, an integer relation `Σ c_k ζ₅^k = 0` forces all `c_k` to be equal (`cyc_equalZ`).
 Together with the `5n+4` theorem, these are all the equalities that hold in every residue class (checked numerically).
 
+### `RankDiff5.lean` — the rank-difference generating functions mod 5 are mock theta functions
+```lean
+theorem rank_diff_mod5 (n : ℕ) :
+    N(1,5n) − N(2,5n) = [qⁿ] φ ∧ N(0,5n) − N(2,5n) = [qⁿ](J₅²·J_{5,2}/J_{5,1}²) − 2[qⁿ]φ ∧
+    N(1,5n+1) = N(2,5n+1) ∧ N(0,5n+1) − N(2,5n+1) = [qⁿ](J₅²/J_{5,1}) ∧
+    N(0,5n+2) = N(2,5n+2) ∧ N(1,5n+2) − N(2,5n+2) = [qⁿ](J₅²/J_{5,2}) ∧
+    N(0,5n+3) − N(2,5n+3) = −[qⁿ⁺¹] ψ ∧ N(1,5n+3) − N(2,5n+3) = −2[qⁿ⁺¹]ψ − [qⁿ](J₅²·J_{5,1}/J_{5,2}²)
+```
+These are the Atkin–Swinnerton-Dyer generating functions for the rank differences mod 5 (with `N(k,·)` the count
+`rankCount`, and `N(k) = N(5−k)` by conjugation; `5n+4` is equidistribution). Here
+`φ = Σ q^{5n²}/((q;q⁵)_{n+1}(q⁴;q⁵)_n) − 1` and `ψ = Σ q^{5n²}/((q²;q⁵)_{n+1}(q³;q⁵)_n) − 1` are Ramanujan's
+fifth-order mock theta functions. The theorem reads them off the Lost Notebook dissection through `cyc_shift5`: if
+`Σ N_k ζ₅^k = Σ a_k ζ₅^k` with integers `a_k`, then all the `N_k − a_k` are equal.
+
 ### `ALRank7Main.lean` (+ `ALBase`…`ALSplitM`, `ALThetaCore`, `ALCore7`, `ALNewForm`, `ALClass7`, `ALRank7Pre`) — Dyson's rank mod 7
 ```lean
 theorem rank_equidistribution_mod7 (n : ℕ) {i : ℕ} (hi : i < 7) :
