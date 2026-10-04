@@ -15,10 +15,10 @@ def points(p,idx,Kmax):
         # enumerate m in range where exponent <= Kmax
         M=int((6*Kmax/p)**0.5)+3
         for m in range(-M,M+1):
-            if m%3==1: continue
-            E=i*m+p*m*(m+1)//6
+            if m%3==2: continue
+            E=i*m+p*m*(m-1)//6
             if 0<=E<=Kmax:
-                lst.append((E,2*p*m+p+6*i,1 if m%3==0 else -1))
+                lst.append((E,2*p*m-p+6*i,1 if m%3==0 else -1))
         per.append(lst)
     out=defaultdict(list)
     for a in per[0]:

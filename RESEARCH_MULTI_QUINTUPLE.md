@@ -1002,15 +1002,23 @@ For 62,089 of 66,302 non-root residues (`p ≤ 300`), the smallest shell contain
 already has a nonzero signed coefficient. When it cancels, it contains exactly **two points of
 opposite sign** in 4,197 of 4,213 cases (four points in the other 16).
 
-**3. Cancelling pairs are short congruence vectors, and the witness is where their reflection
-breaks.** If two Watson points `Y = 2pm + c` and `Y' = 2pm' + c` (`c_s = p + 6i_s`) lie on the same
-shell, then `(Y−Y')·(Y+Y') = 0` gives `p | Σ Δm_s c_s ≡ 6 Δm·(i,j,k)`. So `Δm = m − m'` lies in the
-index-`p` congruence lattice `{x : x·v ≡ 0 (mod p)}`. In the data these `Δm` are tiny (norms 3, 10,
-22, 25, 27, 34, …) and their norms are not `p` or `2p`, i.e. they are not projective roots.
-(`mq_pair_reflection_scan.py 150 60`) In 614 of 678 two-point cancellations, the first nonzero
-coefficient occurs **exactly at the first shell where the reflection in `Δm` stops matching
-points to opposite-sign points**. A cancellation is a local coincidence, and the witness marks the
-first place the coincidence cannot be continued.
+**3. Cancelling pairs are short congruence vectors, and the witness is usually where their reflection
+breaks.** Watson points are `m ∈ ℤ³` with `m_s ≢ 2 (mod 3)`, exponent `Σ(i_s m_s + p m_s(m_s−1)/6)`, sign
+`+` for `m_s ≡ 0` and `−` for `m_s ≡ 1`, and `Y = 2pm + 6i − p` (`mq_convention_check.py` verifies this
+against the series). Two facts are elementary:
+* membership in a progression is linear, `K ≡ (i,j,k)·m (mod p)`, because `m(m−1)/6 ∈ ℤ`;
+* if two Watson points lie on the same shell, `(Y−Y')·(Y+Y') = 0` gives `Δm·(i,j,k) ≡ 0 (mod p)`.
+So cancelling pairs are short vectors of the index-`p` congruence lattice. For a reflection in `Δ` to be
+integral on a whole progression, `|Δ|²` must divide 6, or divide `6p` when `Δ` is a projective lift. Short
+roots are exactly the norm `p`, `2p` lifts.
+(`mq_pair_reflection_scan.py 150 60`, `mq_pair_classify.py 200 60`) Every first-shell cancelling `Δ` in
+the data is a non-lift (never a root). In 1,637 of 1,739 two-point cancellations (`p ≤ 200`) the first
+nonzero coefficient is exactly at the first shell where the reflection in `Δ` stops matching points to
+opposite-sign points. In the remaining 102 the failing shell is cancelled again by a different
+coincidence. These are small-number events (2–4 points per shell); `mq_show_shells.py 13 1,3,4 5 4`
+displays one. The tiny `Δ` (`|Δ|² | 6`) never re-cancel. **There is no hidden second mechanism:**
+re-cancellations look exactly like random `±1` coincidences on sparse early shells, which is what a
+random-sign model predicts.
 
 **4. Every residue projection is a cusp form, so Siegel–Weil cannot help.** The Watson points form a
 union of cosets of `(6pℤ)³`, determined by the local conditions `Y odd` (at 2),
@@ -1026,7 +1034,9 @@ count, while `Σ c(K)²` ≈ point count. This is the signature of a cusp form w
   conjecture is genuinely a statement that a family of weight-3/2 cusp forms (on a level divisible by
   `p²`) is nonzero exactly when no projective root exists. The natural tools are the Shimura
   correspondence and Waldspurger-type formulas, or the root-or-witness reduction already formalized.
-* The data explain the small witness cutoff heuristically. Signs on a shell behave like independent
+* The data explain the small witness cutoff heuristically, and point 3 shows the algebraic
+  "first-reflection-failure" route cannot by itself give a proof: early-shell coincidences are
+  genuinely unstructured. Signs on a shell behave like independent
   `±1`, so a shell with an odd number of points can never cancel. Persistent cancellation beyond the
   first few occupied shells therefore needs a global symmetry, which the formal converse identifies
   with a short projective root.
