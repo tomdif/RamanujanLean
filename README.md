@@ -844,11 +844,14 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
   theorem tau_mod3 {n : ℕ} (hn : n % 3 ≠ 1) : (3 : ℤ) ∣ tauPS n
   theorem tau_mod5 {n : ℕ} (hn : n % 5 = 0) : (5 : ℤ) ∣ tauPS n
   theorem tau_mod7 {n : ℕ} (hn : n % 7 = 0 ∨ n % 7 = 3 ∨ n % 7 = 5 ∨ n % 7 = 6) : (7 : ℤ) ∣ tauPS n
+  -- Wilton: 23 ∣ τ(n) whenever n is a quadratic non-residue mod 23
+  theorem tau_mod23 {n : ℕ} (hn : n % 23 ∈ ({5, 7, 10, 11, 14, 15, 17, 19, 20, 21, 22} : Finset ℕ)) : (23 : ℤ) ∣ tauPS n
   ```
   All four use Frobenius, `(q;q)_∞^{pᵉ} ≡ (q^{pᵉ};q^{pᵉ})_∞ (mod p)` (`frob_qfacInf`), together with Jacobi's cube
   identity. For example, `q(q)²⁴ ≡ q(q⁸;q⁸)³ ≡ Σ q^{(2m+1)²} (mod 2)`. Mod 7, the identity
   `8(1+T_m) = (2m+1)² + 7` puts every exponent of `q(q⁷;q⁷)³(q)³` in a square class mod 7, and in the class `0` the
   coefficient `2m+1` is itself divisible by 7.
+  Mod 23, `q(q)²⁴ ≡ q(q²³;q²³)(q;q)` and `24(1 + k(3k−1)/2) = (6k−1)² + 23`, so every exponent lies in a square class.
 
 ---
 

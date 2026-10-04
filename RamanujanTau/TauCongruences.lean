@@ -253,4 +253,53 @@ theorem tau_mod5 {n : ℕ} (hn : n % 5 = 0) : (5 : ℤ) ∣ tauPS n := by
     rw [coeff_qfac4_mod5 (by norm_num at hx ⊢; omega), mul_zero]
   · rw [if_neg h5]; simp
 
+
+/-! ## `τ` mod 23 (Wilton) -/
+
+instance : Fact (Nat.Prime 23) := ⟨by norm_num⟩
+
+/-- **Wilton's congruence**: `τ(n) ≡ 0 (mod 23)` whenever `n` is a quadratic non-residue mod 23.
+Here `q(q)²⁴ ≡ q (q²³;q²³)_∞ (q;q)_∞ (mod 23)`, and `24(1 + k(3k−1)/2) = (6k−1)² + 23` puts every exponent
+in a square class mod 23. -/
+theorem tau_mod23 {n : ℕ}
+    (hn : n % 23 ∈ ({5, 7, 10, 11, 14, 15, 17, 19, 20, 21, 22} : Finset ℕ)) : (23 : ℤ) ∣ tauPS n := by
+  have hΨ : Ψ 23 (X * qfacInf ^ 24)
+      = Ψ 23 (X * (Ea (23 ^ 1) (ppow_ne 23 1) pentSeries * pentSeries)) := by
+    rw [← euler_pentagonal, map_mul, show qfacInf ^ 24 = qfacInf ^ (23 ^ 1) * qfacInf by ring, map_mul, map_pow,
+      frob_qfacInf 23 1]
+    simp only [map_mul, map_pow]
+  have h := congrArg (coeff n) hΨ
+  rw [coeff_Ψ, coeff_Ψ] at h
+  suffices hc : coeff n (X * (Ea (23 ^ 1) (ppow_ne 23 1) pentSeries * pentSeries)) = 0 by
+    rw [hc, Int.cast_zero, ZMod.intCast_zmod_eq_zero_iff_dvd] at h
+    rw [tauPS]; exact_mod_cast h
+  rcases n with _ | k
+  · simp
+  rw [coeff_succ_X_mul, coeff_mul]
+  refine sum_eq_zero fun x hx => ?_
+  obtain ⟨i, j⟩ := x
+  rw [mem_antidiagonal] at hx
+  rw [coeff_Ea]
+  simp only [pow_one]
+  by_cases h23 : 23 ∣ i
+  · rw [if_pos h23]
+    by_cases hj : coeff j pentSeries = 0
+    · rw [hj, mul_zero]
+    exfalso
+    obtain ⟨κ, hκ⟩ := coeff_pentSeries_support hj
+    obtain ⟨a, rfl⟩ := h23
+    have key : 24 * ((k + 1 : ℕ) : ℤ) = 552 * a + (6 * κ - 1) ^ 2 + 23 := by
+      have : ((k : ℕ) : ℤ) = 23 * a + j := by exact_mod_cast hx.symm
+      push_cast
+      linear_combination 24 * this - 12 * hκ
+    set s : ℤ := 6 * κ - 1
+    obtain ⟨t, r, hr0, hr7, hs⟩ : ∃ t r : ℤ, 0 ≤ r ∧ r < 23 ∧ s = 23 * t + r :=
+      ⟨s / 23, s % 23, Int.emod_nonneg _ (by norm_num), Int.emod_lt_of_pos _ (by norm_num),
+        (Int.mul_ediv_add_emod s 23).symm⟩
+    rw [hs, show (23 * t + r) ^ 2 = 23 * (23 * t ^ 2 + 2 * t * r) + r ^ 2 by ring] at key
+    generalize 23 * t ^ 2 + 2 * t * r = W at key
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hn
+    interval_cases r <;> norm_num at key <;> omega
+  · rw [if_neg h23]; simp
+
 end TauCong
