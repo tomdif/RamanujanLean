@@ -471,6 +471,17 @@ of Jackson's ₈φ₇. This gives `(b)_k(c)_k = (−1;q²)_k`, so `(−q)ₙ²/(
 `c(n) = −q^{n+1}/((1−q^{n+1})(1+q^{n+1}))`. The limit is `φ(−q)² = 1 + 4 Σ (−1)^k q^k/(1+q^{2k})`, and its
 coefficients give the odd-divisor character sum `d₁ − d₃`. Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `RRContinuedFraction.lean` — the Rogers–Ramanujan continued fraction
+```lean
+-- cf N 0 = 1/(1 + q/(1 + q²/(⋯/(1 + q^N))))
+theorem rogers_ramanujan_cf (N : ℕ) :
+    X ^ (N + 1) ∣ cf N 0 - Pinf 1 5 * Pinf 4 5 * Ring.inverse (Pinf 2 5 * Pinf 3 5)
+```
+So `1/(1 + q/(1 + q²/(1 + ⋯))) = (q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞)` coefficientwise. This is the identity
+from Ramanujan's first letter to Hardy, without the `q^{1/5}` prefactor. With `G_m = Σ q^{n²+mn}/(q)_n`, the
+functional equation `G_m = G_{m+1} + q^{m+1}G_{m+2}` (`Gs_func`) gives `ρ_m = G_{m+1}/G_m = 1/(1 + q^{m+1}ρ_{m+1})`.
+Each level of the fraction gains one power of `q` (`rho_sub_cf`), and `G₀`, `G₁` are the two Rogers–Ramanujan products.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
