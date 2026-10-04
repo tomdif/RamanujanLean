@@ -873,7 +873,7 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
 [PlonkLean](https://github.com/tomdif/PlonkLean). The honest status of each:
 `TauHeckeMaster` reduces (`HeckeOperator.HeckeData`) to constructing Hecke operators `T_p` on `CuspForm₁₂`
 — the one piece genuinely absent from Mathlib; `DeligneBound` *is* Deligne's proof of the Weil conjectures
-(out of reach); `LehmerConjecture` is open.
+(out of reach); `LehmerConjecture` is open. `TauMod691` is now a theorem: `TauModular` provides an instance.
 
 - **`DiscriminantBridge`** — connects Mathlib's analytic discriminant `Δ = η²⁴` to its q-expansion:
   `coeff 0 = 0` (`Δ` is a cusp form) and `coeff 1 = 1` (`τ(1) = 1`), the latter by identifying `Δ`'s cusp
@@ -911,6 +911,21 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
   `τ` with the power-series coefficient: every list operation is the matching ring operation, and truncation
   agrees modulo `X^{d+1}`. Consequently the congruences above hold for the computable `τ` (`tau_odd_iff'`,
   `tau_mod7'`, `tau_mod23'`).
+- **`DiscriminantQExpansion`** — **the analytic–formal bridge**: for every `n`,
+  ```lean
+  theorem qExpansion_discriminant_coeff (n : ℕ) : (qExpansion 1 Δmod).coeff n = (TauCong.tauPS n : ℂ)
+  ```
+  i.e. Mathlib's analytic `Δ = η²⁴` has q-expansion coefficients exactly `[qⁿ] q∏(1−qᵏ)²⁴`. The proof uses no
+  analytic-product → `FormalMultilinearSeries` machinery. The polynomial partial products `q(∏_{k<N}(1−qᵏ⁺¹))²⁴`
+  converge locally uniformly on the unit disc to `Δ`'s cusp function. Iterated Weierstrass
+  (`TendstoLocallyUniformlyOn.deriv`) then carries their `n`-th Taylor coefficients to `Δ`'s, and those
+  coefficients are eventually constant, equal to `τ(n)`.
+- **`TauModular`** — consequences that tie the two halves of the `τ` arc together:
+  * `tau_mod691`, `tau_computable_mod691`, `tau_prime_mod691`: Ramanujan's `τ(n) ≡ σ₁₁(n) (mod 691)` for the
+    combinatorial and computable `τ`. This replaces the `TauMod691` hypothesis class with a theorem.
+  * `discriminant_formal_identity`: `1728·q∏(1−qⁿ)²⁴ = (1+240Σσ₃qⁿ)³ − (1−504Σσ₅qⁿ)²` in `ℤ⟦q⟧`. This is a
+    purely formal identity of integer power series, proved through modularity.
+  * `qExpansion_discriminant_eq`: `qExpansion(Δ) = q(q;q)_∞²⁴` in `ℂ⟦q⟧`.
 
 ---
 

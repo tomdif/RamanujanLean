@@ -326,3 +326,5 @@ import RamanujanTau.GollnitzGordon
 import RamanujanTau.GollnitzGordon2WZ
 import RamanujanTau.GollnitzGordon2
 import RamanujanTau.GollnitzGordonComb
+import RamanujanTau.DiscriminantQExpansion
+import RamanujanTau.TauModular

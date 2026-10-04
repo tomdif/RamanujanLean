@@ -25,24 +25,25 @@ named hypotheses — the same discipline used for `TauMultiplicativity`, `Delign
 There is **no** remaining input on the modular side: this is a complete formal proof of Ramanujan's mod-691
 congruence for the modular discriminant's q-expansion coefficients.
 
-## 2. The general product bridge `[qⁿ]∏(1−qⁿ)²⁴ = τ(n)` — CLOSED (unreachable, precisely characterized)
+## 2. The general product bridge `[qⁿ]∏(1−qⁿ)²⁴ = τ(n)` — CLOSED (proved, 2026-10-04)
 
-**Question.** Can Mathlib's *analytic* `Δ = η²⁴` be identified coefficient-by-coefficient with the *formal*
-Euler product `q·∏(1−qⁿ)²⁴` (connecting `τ_modular` to the repo's combinatorial `τ`)?
+**Question.** Can Mathlib's *analytic* `Δ = η²⁴` be identified coefficient by coefficient with the *formal*
+Euler product `q·∏(1−qⁿ)²⁴`?
 
-**Status.** *Infrastructure gap — not reachable on today's Mathlib.* Established concretely:
+**Status. Proved, axiom-clean** (`DiscriminantQExpansion.qExpansion_discriminant_coeff`). The earlier verdict
+("infrastructure gap") was wrong: the bridge does not need an analytic-product → `FormalMultilinearSeries`
+lemma. The proof avoids it as follows:
 
-- The leading coefficients are done analytically (`DiscriminantBridge`: `coeff 0 = 0`, `coeff 1 = 1`).
-- The general bridge needs to carry a *formal infinite product's* coefficients to an *analytic infinite
-  product's* Taylor coefficients **in the metric topology**. `PowerSeries.eval₂` cannot do this: it requires
-  `IsLinearTopology ℂ ℂ`, which is false for the analytic topology (`eval₂` is built for adic evaluation).
-- The two tools that would close it are both absent from Mathlib: an *analytic-infinite-product →
-  `FormalMultilinearSeries`* lemma, and a *polynomial → `FormalMultilinearSeries`* + tail-order estimate for
-  the truncation route. Either is a substantial analytics contribution.
+- The polynomial partial products `F_N(q) = q(∏_{k<N}(1−qᵏ⁺¹))²⁴` converge locally uniformly on the unit disc
+  to the cusp function of `Δ`. This uses Mathlib's `multipliableLocallyUniformlyOn_one_sub_pow` and
+  `TendstoLocallyUniformlyOn.mul₀`.
+- Weierstrass (`TendstoLocallyUniformlyOn.deriv`, iterated) gives `iteratedDeriv n F_N 0 → iteratedDeriv n Δ 0`.
+- For polynomials, `iteratedDeriv n F_N 0 = n!·[qⁿ]F_N`. Once `N > n`, this coefficient is `τ(n)`
+  (coefficient stabilization), so the limit is `n!·τ(n)`.
 
-This is why the combinatorial-`τ` congruences in the repo (`Congruences/*`) are certified on finite ranges as
-named hypothesis classes rather than derived from the modular side: the bridge that would unify them is this
-missing object.
+Consequences (`TauModular`):
+- the mod-691 congruence for the combinatorial and computable `τ` (`tau_computable_mod691`);
+- the integer identity `1728·q(q;q)²⁴_∞ = E₄³ − E₆²` in `ℤ⟦q⟧` (`discriminant_formal_identity`).
 
 ## 3. `τ` multiplicativity / Deligne bound / Lehmer — unchanged (out of scope)
 
@@ -58,7 +59,7 @@ These are documented as hypotheses, not defects.
 | Question | Verdict | Exact missing piece |
 |---|---|---|
 | mod-691 congruence | **proved, unconditional** | — (none; `τ ∈ ℤ` now proved via `key_dvd`) |
-| general product bridge | **unreachable** | analytic ∞-product → `FormalMultilinearSeries` (absent) |
+| general product bridge | **proved** | — (`qExpansion_discriminant_coeff`) |
 | multiplicativity | out of scope | Hecke `T_p` on `CuspForm₁₂` (absent) |
 | Deligne / Lehmer | out of scope | the Weil conjectures / an open problem |
 
