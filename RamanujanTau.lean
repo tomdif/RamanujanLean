@@ -306,3 +306,4 @@ import RamanujanTau.Pow7Pm
 import RamanujanTau.Pow7Mod
 import RamanujanTau.Pow7Stage
 import RamanujanTau.Pow7Final
+import RamanujanTau.DysonM2

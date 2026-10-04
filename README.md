@@ -381,6 +381,25 @@ powers-of-5 proof, built on the 7-dissection `E = E(q⁴⁹)·L₇(x, y, z)`:
 Axioms `[propext, Classical.choice, Quot.sound]`.  Note: `Pow7.lean` takes about an hour to compile, because of
 the class-by-class `k ≤ 6` base cases.
 
+### `DysonM2.lean` — Dyson's crank moment `M₂(n) = 2n·p(n)`, Euler's σ-recurrence, Andrews' `spt = np − ½N₂`
+```lean
+theorem euler_sigma_sum (n : ℕ) :
+    (n : ℤ) * Fintype.card n.Partition
+      = ∑ x ∈ antidiagonal n, (Fintype.card x.1.Partition : ℤ) * (ArithmeticFunction.sigma 1 x.2 : ℤ)
+theorem crank_moment_two {n : ℕ} (hn : 2 ≤ n) :
+    ∑ l : n.Partition, crank l ^ 2 = 2 * n * (Fintype.card n.Partition : ℤ)
+theorem spt_eq_np_sub_rank_moment {n : ℕ} (hn : 2 ≤ n) :
+    2 * (spt n : ℤ) = 2 * n * (Fintype.card n.Partition : ℤ) - ∑ l : n.Partition, rank l ^ 2
+```
+Both moment identities are first-order computations over the dual numbers `ℤ[ε]`:
+* **Euler**: the substitution `q ↦ (1+ε)q` (`rescale`) sends `(q;q)_∞` to `(q;q)_∞(1 − ε Σ_d d qᵈ/(1−qᵈ))` and sends
+  `p(n)` to `p(n)(1 + nε)`.
+* **Dyson**: since `(1−zqᵈ)(1−qᵈ/z) = (1−qᵈ)² + w qᵈ` with `w = 2 − z − z⁻¹`, every coefficient of the crank
+  generating function is a polynomial `f(w)`, and the second moment of `f(2 − z − z⁻¹)` is `−2f′(0)`
+  (`mom2_ιW`). Mapping `w ↦ ε` gives `∏((1−qᵈ)² + εqᵈ) = (q;q)²(1 + ε Σ qᵈ/(1−qᵈ)²)`.
+Both divisor sums equal `Σ σ(k)qᵏ`. Combined with `crank_moment_sub_rank_moment` (`M₂ − N₂ = 2 spt`), this gives
+Andrews' original definition `spt(n) = n·p(n) − ½N₂(n)`. Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
