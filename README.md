@@ -154,6 +154,16 @@ These follow directly from the Lost Notebook dissection: `R₁` has no `ζ`, and
 minimal polynomial of `ζ₅` is `Φ₅`, an integer relation `Σ c_k ζ₅^k = 0` forces all `c_k` to be equal (`cyc_equalZ`).
 Together with the `5n+4` theorem, these are all the equalities that hold in every residue class (checked numerically).
 
+### `SptMoment.lean` — Andrews' spt identity in moment form
+```lean
+theorem crank_moment_sub_rank_moment {m : ℕ} (hm : 2 ≤ m) :
+    (∑ l : m.Partition, crank l ^ 2) - (∑ l : m.Partition, rank l ^ 2) = 2 * spt m
+```
+This is `M₂(n) − N₂(n) = 2·spt(n)`. With Dyson's `M₂(n) = 2n·p(n)` it becomes Andrews'
+`spt(n) = n·p(n) − ½N₂(n)`. The spt-crank identity holds coefficientwise in `ℤ[z,z⁻¹]`, because a Laurent
+polynomial that vanishes at every unit of `ℂ` is zero. The second-moment functional sends `(2 − z − z⁻¹)·L` to
+`−2·L(1)`.
+
 ### `RankDiff5.lean` — the rank-difference generating functions mod 5 are mock theta functions
 ```lean
 theorem rank_diff_mod5 (n : ℕ) :

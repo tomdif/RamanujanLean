@@ -296,3 +296,4 @@ import RamanujanTau.SptSeries
 import RamanujanTau.SptGF
 import RamanujanTau.SptFinal
 import RamanujanTau.RankDiff5
+import RamanujanTau.SptMoment
