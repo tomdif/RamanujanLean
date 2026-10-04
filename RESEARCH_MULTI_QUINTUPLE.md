@@ -984,3 +984,52 @@ finite combinatorial obstruction.
   for the genus/spinor-genus/class decomposition of ternary coset theta series and the
   `p`-neighbor algorithm; it supplies the correct ambient theory but not the signed
   multiplicity-one statement required here.
+
+## 2026-10-04: structure of the first witnesses, and why the Eisenstein route is closed
+
+Four new reproducible scans (`scripts/mq_*.py`; each takes `max_prime depth`) probe *how* non-root
+residues fail to vanish.
+
+**1. Parity alone does not certify nonvanishing.** (`mq_parity_scan.py 200 60`) Of 23,536 non-root
+residues for `p ≤ 200`, the first nonzero coefficient is odd in 22,023 cases and `±2` in 1,513.
+Some residues have *no* odd coefficient at all (e.g. `p=7,(1,2,3)`, residues `1,2,4`). There the
+triple product vanishes identically mod 2 because of a sign-*preserving* fixed-point-free
+involution, while the integer coefficients are `±2`. A pure mod-2 argument therefore cannot
+prove the conjecture.
+
+**2. The first occupied shell is almost always the witness.** (`mq_first_shell_scan.py 300 100`)
+For 62,089 of 66,302 non-root residues (`p ≤ 300`), the smallest shell containing any Watson point
+already has a nonzero signed coefficient. When it cancels, it contains exactly **two points of
+opposite sign** in 4,197 of 4,213 cases (four points in the other 16).
+
+**3. Cancelling pairs are short congruence vectors, and the witness is where their reflection
+breaks.** If two Watson points `Y = 2pm + c` and `Y' = 2pm' + c` (`c_s = p + 6i_s`) lie on the same
+shell, then `(Y−Y')·(Y+Y') = 0` gives `p | Σ Δm_s c_s ≡ 6 Δm·(i,j,k)`. So `Δm = m − m'` lies in the
+index-`p` congruence lattice `{x : x·v ≡ 0 (mod p)}`. In the data these `Δm` are tiny (norms 3, 10,
+22, 25, 27, 34, …) and their norms are not `p` or `2p`, i.e. they are not projective roots.
+(`mq_pair_reflection_scan.py 150 60`) In 614 of 678 two-point cancellations, the first nonzero
+coefficient occurs **exactly at the first shell where the reflection in `Δm` stops matching
+points to opposite-sign points**. A cancellation is a local coincidence, and the witness marks the
+first place the coincidence cannot be continued.
+
+**4. Every residue projection is a cusp form, so Siegel–Weil cannot help.** The Watson points form a
+union of cosets of `(6pℤ)³`, determined by the local conditions `Y odd` (at 2),
+`Y_s ≡ 6i_s (mod p)` (at p) and `Y_s ≡ ±p (mod 3)` (at 3). The sign depends only on the
+3-adic data. At 3, negating one coordinate preserves the norm and the admissible 3-adic set but
+flips the sign, so every signed local density at 3 vanishes. Hence the genus (Eisenstein) part of
+every progression projection `F_r = Σ_{K≡r} c(K) q^K` is zero: each `F_r` is a weight-3/2 cusp form.
+(`mq_cusp_check.py`) Numerically, along each progression `|Σ c(K)|` is 0.0004–0.01 of the point
+count, while `Σ c(K)²` ≈ point count. This is the signature of a cusp form with pseudo-random signs.
+
+**Consequences.**
+* Nonvanishing for non-root residues cannot come from a local or Eisenstein obstruction. The
+  conjecture is genuinely a statement that a family of weight-3/2 cusp forms (on a level divisible by
+  `p²`) is nonzero exactly when no projective root exists. The natural tools are the Shimura
+  correspondence and Waldspurger-type formulas, or the root-or-witness reduction already formalized.
+* The data explain the small witness cutoff heuristically. Signs on a shell behave like independent
+  `±1`, so a shell with an odd number of points can never cancel. Persistent cancellation beyond the
+  first few occupied shells therefore needs a global symmetry, which the formal converse identifies
+  with a short projective root.
+* The census through `p ≤ 2600` (exact witnesses for every non-root residue, formal vanishing for every
+  root residue) is already an exact verification of the root–vanishing equivalence for all those `p`.
+  It relies on the exact Python scanner, not on Lean.
