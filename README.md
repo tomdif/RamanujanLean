@@ -422,6 +422,23 @@ These are matched term by term with the Jacobi triple products `J_{5,2}` and `J_
 `alphaB_theta`), so the quintuple product is not needed. The residue split `(q;q)_∞ = ∏_{r=1}^5 (q^r;q⁵)_∞`
 then cancels the denominator. Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `RogersRamanujanComb.lean` — the Rogers–Ramanujan identities, combinatorial form (MacMahon, Schur)
+```lean
+-- partitions with parts differing by ≥ 2  ↔  partitions into parts ≡ ±1 (mod 5)
+theorem rogers_ramanujan_1_comb (m : ℕ) :
+    #(gapTwo m 0) = #(Nat.Partition.restricted m fun i => i % 5 = 1 ∨ i % 5 = 4)
+-- parts ≥ 2 differing by ≥ 2  ↔  parts ≡ ±2 (mod 5)
+theorem rogers_ramanujan_2_comb (m : ℕ) :
+    #(gapTwo m 1) = #(Nat.Partition.restricted m fun i => i % 5 = 2 ∨ i % 5 = 3)
+```
+`gapTwo m t` is the set of partitions of `m` with distinct parts `≥ t+1`, no two consecutive.
+* **Gap side**: such a partition is its set of parts. The `n`-element sets with elements `≥ t+1` satisfy
+  `|A(m,n+1,t)| = |A(m,n+1,t+1)| + |A(m−t−1,n,t+2)|`, according to whether `t+1` is a part. This is the
+  recursion of `q^{n²+nt}/(q;q)_n` (`card_A`).
+* **Product side**: Mathlib's `hasProd_powerSeriesMk_card_restricted`, compared with `(q^{r₁};q⁵)(q^{r₂};q⁵)`
+  block by block (five factors at a time).
+Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :

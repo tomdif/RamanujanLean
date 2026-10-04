@@ -309,3 +309,4 @@ import RamanujanTau.Pow7Final
 import RamanujanTau.DysonM2
 import RamanujanTau.Kolberg
 import RamanujanTau.RogersRamanujan
+import RamanujanTau.RogersRamanujanComb
