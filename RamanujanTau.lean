@@ -310,3 +310,6 @@ import RamanujanTau.DysonM2
 import RamanujanTau.Kolberg
 import RamanujanTau.RogersRamanujan
 import RamanujanTau.RogersRamanujanComb
+import RamanujanTau.FourSquaresWZ
+import RamanujanTau.FourSquaresLimit
+import RamanujanTau.FourSquares

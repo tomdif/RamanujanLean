@@ -439,6 +439,26 @@ theorem rogers_ramanujan_2_comb (m : ℕ) :
   block by block (five factors at a time).
 Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `FourSquares.lean` (+ `FourSquaresWZ`, `FourSquaresLimit`) — Jacobi's four-square theorem
+```lean
+theorem jacobi_four_squares {N : ℕ} (hN : 1 ≤ N) :
+    r4 N = 8 * ∑ d ∈ N.divisors with ¬4 ∣ d, d
+theorem r4_eq_ncard (N : ℕ) :   -- r4 counts all integer solutions
+    {v : ℤ × ℤ × ℤ × ℤ | v.1 ^ 2 + v.2.1 ^ 2 + v.2.2.1 ^ 2 + v.2.2.2 ^ 2 = (N : ℤ)}.ncard = r4 N
+```
+Mathlib only proves existence (`Nat.sum_four_squares`). This file proves the exact count.
+1. **Terminating identity** (`St_eq_one`): the specialization `a = 1, b = c = d = −1` of Jackson's ₈φ₇ gives
+   `(−q)ₙ⁴/(q)ₙ⁴ + Σ_{k=1}^n 8(−1)^k q^k/(1+q^k)² · (−q)_{n−k}(−q)_{n+k}(−q)ₙ²/((q)_{n−k}(q)_{n+k}(q)ₙ²) = 1`.
+   It is proved by a WZ certificate found with sympy: `G(n,k) ∝ (−q)_{n+1−k}(−q)_{n+k}/((q)_{n+1−k}(q)_{n+k})`.
+   The three resulting rational identities are checked in the fraction field of `ℤ⟦q⟧` with `field_simp`.
+2. **Limit** (`limit_identity`): working modulo `qᴺ` through the quotient map gives
+   `((−q;q)_∞/(q;q)_∞)⁴ (1 + 8 Σ (−1)^k q^k/(1+q^k)²) = 1`.
+3. **Gauss** (`theta_mul_mfacInf`): `(q;q)_∞/(−q;q)_∞ = J_{2,1} = Σ (−1)^m q^{m²}`, by the Jacobi triple product
+   `jtp_ab 2 1`. Hence `φ(−q)⁴ = 1 + 8 Σ (−1)^k q^k/(1+q^k)²` (`theta_pow_four`).
+4. **Counting**: the coefficient of `qᴺ` in `φ(−q)⁴` is `(−1)ᴺ r₄(N)`, since `a ≡ a² (mod 2)`. On the right,
+   `(−1)ᴺ Σ_{d∣N} (−1)^{N/d+d+1} d = Σ_{d∣N, 4∤d} d` (`coeff_Lser_eq`), proved by splitting the divisors of `2M`.
+Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
