@@ -316,3 +316,4 @@ import RamanujanTau.FourSquares
 import RamanujanTau.TwoSquares
 import RamanujanTau.RRContinuedFraction
 import RamanujanTau.Legendre
+import RamanujanTau.AndrewsGordon

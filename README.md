@@ -493,6 +493,18 @@ theorem. A solution of `Σ vᵢ² = 8n+4` has all `vᵢ` even or all odd, becaus
 the even solutions gives `r₄(2n+1)`. The odd solutions are `vᵢ = ±(2xᵢ+1)`, sixteen for each element of `t4 n`.
 So `16 t₄(n) = 8·3σ(2n+1) − 8σ(2n+1)`.
 
+### `AndrewsGordon.lean` — the Andrews–Gordon identities (`i = k`, every `k ≥ 2`)
+```lean
+theorem andrews_gordon (j : ℕ) : tsumQsq (agBeta j) * agProd (2 * j + 5) (j + 2) = 1
+```
+With `k = j + 2`, this is
+`Σ_{n₁≥⋯≥n_{k−1}≥0} q^{n₁²+⋯+n_{k−1}²}/((q)_{n₁−n₂}⋯(q)_{n_{k−2}−n_{k−1}}(q)_{n_{k−1}}) = ∏_{n ≢ 0,±k (mod 2k+1)} 1/(1−qⁿ)`.
+Here `agBeta` is the iterated chain `β⁽ʲ⁺¹⁾ₙ = Σ_{m≤n} q^{m²}/(q)_{n−m} β⁽ʲ⁾_m`, starting from `1/(q)_n`, and
+`agProd a b = ∏_{r ≢ 0, ±b (mod a)} (q^r;q^a)_∞`. `k = 2` is the first Rogers–Ramanujan identity.
+The proof is Andrews's Bailey chain: `k − 2` applications of the repo's limiting Bailey lemma to the
+Rogers–Ramanujan pair. The Bailey transform then gives `(1/(q)_∞) Σ q^{(k−1)n²}αₙ = J_{2k+1,k}/(q)_∞`. A general
+residue split `(q;q)_∞ = ∏_{r=1}^a (q^r;q^a)_∞` (`Pinf_split`) finishes the proof.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
