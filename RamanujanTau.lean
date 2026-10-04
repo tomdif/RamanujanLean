@@ -331,3 +331,4 @@ import RamanujanTau.TauModular
 import RamanujanTau.HeckeCore
 import RamanujanTau.HeckeForm
 import RamanujanTau.HeckeQExp
+import RamanujanTau.TauLSeries

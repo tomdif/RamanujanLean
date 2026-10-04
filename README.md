@@ -892,6 +892,16 @@ also a theorem (`TauModular`). `DeligneBound` *is* Deligne's proof of the Weil c
         τ (p ^ (r + 1)) = τ p * τ (p ^ r) - (p : ℤ) ^ 11 * τ (p ^ (r - 1))
     ```
     The Euler-factor and Gegenbauer closed forms (`EulerFactor`, `Gegenbauer`) are therefore unconditional too.
+- **`TauLSeries`** — **Ramanujan's L-function and its Euler product.**
+  ```lean
+  theorem tau_isBigO : tauC =O[atTop] fun n : ℕ => (n : ℝ) ^ (6 : ℝ)        -- Hecke's bound
+  theorem LSeries_tau_eulerProduct {s : ℂ} (hs : 7 < s.re) :
+      HasProd (fun p : Nat.Primes =>
+        (1 - tauC p * (p : ℂ) ^ (-s) + (p : ℂ) ^ 11 * ((p : ℂ) ^ (-s)) ^ 2)⁻¹) (LSeries tauC s)
+  ```
+  Hecke's bound is Mathlib's `CuspFormClass.qExpansion_isBigO` applied to `Δ` through the q-expansion bridge.
+  The product uses Mathlib's `eulerProduct_hasProd` with `tau_mul_coprime`. The local factor
+  `Σ τ(pᵉ)xᵉ = (1 − τ(p)x + p¹¹x²)⁻¹` follows from the Hecke recurrence.
 
 - **`DiscriminantBridge`** — connects Mathlib's analytic discriminant `Δ = η²⁴` to its q-expansion:
   `coeff 0 = 0` (`Δ` is a cusp form) and `coeff 1 = 1` (`τ(1) = 1`), the latter by identifying `Δ`'s cusp
