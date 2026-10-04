@@ -12,8 +12,9 @@ certificate `G(n,r) = (−1)^{r+1} q^{n+pentM(r)}(1+···+q^{r-1})(1−q^{n+r+1
 carry no ℕ-division and `lemA_B`/`lemB_B` stay pure `ring` identities.
 
 Feeding the pair into `bailey_transform_q` gives the second Rogers–Ramanujan identity in Bailey-transform
-form `Σ q^{n²+n}/(q;q)_n = (1/(q²;q)_∞)·Σ q^{n²+n} αₙ` (`rogersRamanujan2_transform`); the `α`-sum is the mod-5
-theta whose product form (the classical RR2 product) needs the quintuple product not yet in Mathlib. No `sorry`.
+form `Σ q^{n²+n}/(q;q)_n = (1/(q²;q)_∞)·Σ q^{n²+n} αₙ` (`rogersRamanujan2_transform`); `(1−q)×` the `α`-sum is the
+Jacobi triple product `J_{5,1}`; the product form is completed in `RogersRamanujan.lean` (`rogers_ramanujan_2`).
+No `sorry`.
 -/
 import RamanujanTau.MockTheta5BaileyQPairA
 

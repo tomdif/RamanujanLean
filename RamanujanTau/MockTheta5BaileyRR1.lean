@@ -16,8 +16,8 @@ separate boundary identity (the `(1−q^{m+1})` cancels its inverse). Pentagonal
 
 Feeding the pair into `bailey_transform` gives RR1 in Bailey-transform form `Σ q^{n²}/(q;q)_n =
 (1/(q;q)_∞)·Σ q^{n²} αₙ` (`rogersRamanujan1_transform`); the `α`-sum is the mod-5 pentagonal theta
-`Σ_{n∈ℤ}(−1)ⁿ q^{n(5n-1)/2}` (since `n²+pentM(n)=n(5n-1)/2`), whose product form (the classical RR1 product)
-needs the quintuple product not yet in Mathlib. No `sorry`.
+`Σ_{n∈ℤ}(−1)ⁿ q^{n(5n-1)/2}` (since `n²+pentM(n)=n(5n-1)/2`), which is the Jacobi triple product `J_{5,2}`;
+the product form is completed in `RogersRamanujan.lean` (`rogers_ramanujan_1`). No `sorry`.
 -/
 import RamanujanTau.MockTheta5BaileyQPairA
 import RamanujanTau.MockTheta5BaileyTransform

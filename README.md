@@ -410,6 +410,18 @@ The proof uses Euler's pentagonal recurrence mod 2. If `p ≡ c (mod 2)` from `N
 to `p(n) ≡ p(r)`. Every other pair contributes `c + c ≡ 0`. Hence `p(r) ≡ c` for all `r`, which contradicts
 `p(0) = 1` and `p(2) = 2`. Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `RogersRamanujan.lean` — the Rogers–Ramanujan identities (product forms)
+```lean
+theorem rogers_ramanujan_1 :
+    tsumQsq (fun n => Ring.inverse (qfac n)) = Ring.inverse (Pinf 1 5 * Pinf 4 5)   -- Σ q^{n²}/(q)_n = 1/((q;q⁵)(q⁴;q⁵))
+theorem rogers_ramanujan_2 :
+    tsumQsqQ (fun n => Ring.inverse (qfac n)) = Ring.inverse (Pinf 2 5 * Pinf 3 5)  -- Σ q^{n²+n}/(q)_n = 1/((q²;q⁵)(q³;q⁵))
+```
+The repo's Bailey-pair transforms reduce the sums to the theta series `Σ q^{n²}αₙ` and `(1−q)Σ q^{n²+n}αₙ`.
+These are matched term by term with the Jacobi triple products `J_{5,2}` and `J_{5,1}` (`alphaC_theta`,
+`alphaB_theta`), so the quintuple product is not needed. The residue split `(q;q)_∞ = ∏_{r=1}^5 (q^r;q⁵)_∞`
+then cancels the denominator. Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
