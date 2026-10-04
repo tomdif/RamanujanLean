@@ -313,3 +313,4 @@ import RamanujanTau.RogersRamanujanComb
 import RamanujanTau.FourSquaresWZ
 import RamanujanTau.FourSquaresLimit
 import RamanujanTau.FourSquares
+import RamanujanTau.TwoSquares

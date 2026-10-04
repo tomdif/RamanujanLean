@@ -459,6 +459,18 @@ Mathlib only proves existence (`Nat.sum_four_squares`). This file proves the exa
    `(−1)ᴺ Σ_{d∣N} (−1)^{N/d+d+1} d = Σ_{d∣N, 4∤d} d` (`coeff_Lser_eq`), proved by splitting the divisors of `2M`.
 Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `TwoSquares.lean` — Jacobi's two-square theorem
+```lean
+theorem jacobi_two_squares {N : ℕ} (hN : 1 ≤ N) :
+    (r2 N : ℤ) = 4 * ((N.divisors.filter (· % 4 = 1)).card - (N.divisors.filter (· % 4 = 3)).card : ℤ)
+theorem r2_eq_ncard (N : ℕ) : {v : ℤ × ℤ | v.1 ^ 2 + v.2 ^ 2 = (N : ℤ)}.ncard = r2 N
+```
+The proof uses the same pipeline as the four-square theorem, with the specialization `a = 1, b = i, c = −i, d = −1`
+of Jackson's ₈φ₇. This gives `(b)_k(c)_k = (−1;q²)_k`, so `(−q)ₙ²/(q)ₙ² + Σ 4(−1)^k q^k/(1+q^{2k}) ·
+(−q)_{n−k}(−q)_{n+k}/((q)_{n−k}(q)_{n+k}) = 1`. Its WZ certificate is
+`c(n) = −q^{n+1}/((1−q^{n+1})(1+q^{n+1}))`. The limit is `φ(−q)² = 1 + 4 Σ (−1)^k q^k/(1+q^{2k})`, and its
+coefficients give the odd-divisor character sum `d₁ − d₃`. Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
