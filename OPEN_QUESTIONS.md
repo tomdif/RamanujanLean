@@ -45,14 +45,16 @@ Consequences (`TauModular`):
 - the mod-691 congruence for the combinatorial and computable `τ` (`tau_computable_mod691`);
 - the integer identity `1728·q(q;q)²⁴_∞ = E₄³ − E₆²` in `ℤ⟦q⟧` (`discriminant_formal_identity`).
 
-## 3. `τ` multiplicativity / Deligne bound / Lehmer — unchanged (out of scope)
+## 3. `τ` multiplicativity — CLOSED (proved, 2026-10-04); Deligne / Lehmer — out of scope
 
-- `TauMultiplicativity` reduces to constructing Hecke operators `T_p` on `CuspForm₁₂` — the one genuinely
-  Mathlib-absent piece of the Hecke story (`HeckeOperator.HeckeData`).
+- **Multiplicativity and the Hecke recurrence are proved** (`HeckeQExp.tau_mul_coprime`,
+  `tau_hecke_recurrence`; axiom-clean). `HeckeCore`/`HeckeForm` build `T_p` on `CuspForm 𝒮ℒ k` by the
+  elementary coset computation, without Mathlib's double-coset machinery. `HeckeQExp` computes its
+  q-expansion, which gives a `HeckeData` term and an instance of `TauHeckeMaster`.
 - `DeligneBound` **is** Deligne's proof of the Weil conjectures — out of reach.
 - `LehmerConjecture` (`τ(n) ≠ 0`) is a famous open problem.
 
-These are documented as hypotheses, not defects.
+The last two are documented as hypotheses, not defects.
 
 ## Summary
 
@@ -60,7 +62,7 @@ These are documented as hypotheses, not defects.
 |---|---|---|
 | mod-691 congruence | **proved, unconditional** | — (none; `τ ∈ ℤ` now proved via `key_dvd`) |
 | general product bridge | **proved** | — (`qExpansion_discriminant_coeff`) |
-| multiplicativity | out of scope | Hecke `T_p` on `CuspForm₁₂` (absent) |
+| multiplicativity | **proved** | — (`tau_mul_coprime`, via constructed `T_p`) |
 | Deligne / Lehmer | out of scope | the Weil conjectures / an open problem |
 
 Every reachable question on the `τ` arc that does not require new Mathlib infrastructure is now proved and

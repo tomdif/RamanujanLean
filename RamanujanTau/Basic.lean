@@ -94,8 +94,8 @@ scoped notation "τ" => RamanujanTau.tau
 
 /-! ## Sanity: τ(0) = 0 and τ(1) = 1 -/
 
-theorem tau_zero : τ 0 = 0 := by native_decide
+theorem tau_zero : τ 0 = 0 := by decide +kernel
 
-theorem tau_one : τ 1 = 1 := by native_decide
+theorem tau_one : τ 1 = 1 := by decide +kernel
 
 end RamanujanTau

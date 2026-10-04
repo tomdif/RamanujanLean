@@ -871,9 +871,27 @@ def tau (n : ℕ) : ℤ :=
 Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`, `LehmerConjecture`,
 `TauMod691`), never asserted as `axiom`s — the same discipline as
 [PlonkLean](https://github.com/tomdif/PlonkLean). The honest status of each:
-`TauHeckeMaster` reduces (`HeckeOperator.HeckeData`) to constructing Hecke operators `T_p` on `CuspForm₁₂`
-— the one piece genuinely absent from Mathlib; `DeligneBound` *is* Deligne's proof of the Weil conjectures
-(out of reach); `LehmerConjecture` is open. `TauMod691` is now a theorem: `TauModular` provides an instance.
+`TauHeckeMaster` is now a theorem: `HeckeQExp` constructs the Hecke operators `T_p` and provides an
+instance, so `TauMultiplicative` and `TauHeckeRecurrence` hold unconditionally (Mordell 1917). `TauMod691` is
+also a theorem (`TauModular`). `DeligneBound` *is* Deligne's proof of the Weil conjectures (out of reach), and
+`LehmerConjecture` is open.
+
+- **`HeckeCore` / `HeckeForm` / `HeckeQExp`** — **the Hecke operators `T_p` on level-one cusp forms, and
+  Mordell's theorem for `τ`**. For a prime `p`, `T_p f(z) = p^{k−1}f(pz) + p⁻¹Σ_{j<p} f((z+j)/p)`.
+  * `HeckeCore`: `T_p f` is invariant under `T` and `S`. Under `S`, the `f(pz)` term trades places with the
+    `j = 0` translate. For `1 ≤ j < p`, the matrix `(j −m; p −j')` with `j' ≡ −j⁻¹ (mod p)` and `jj'+1 = pm`
+    sends `(z+j')/p` to `(−1/z+j)/p`, and the involution `j ↦ j'` permutes the other translates.
+  * `HeckeForm`: `heckeCusp p : CuspForm 𝒮ℒ k → CuspForm 𝒮ℒ k` (modularity via
+    `slash_action_generators_SL2Z`, holomorphy, vanishing at `i∞`).
+  * `HeckeQExp`: `qExpansion_hecke : (T_p f)ₘ = f_{pm} + p^{k−1}[p ∣ m]f_{m/p}`, from the root-of-unity sum
+    `Σ_{j<p} ζ^{jn} = p[p ∣ n]` and `qExpansion_coeff_unique`. Together with `dim S₁₂ = 1` and the Δ bridge,
+    this gives `heckeData : HeckeData` and the unconditional theorems
+    ```lean
+    theorem tau_mul_coprime {m n : ℕ} (h : m.Coprime n) : τ (m * n) = τ m * τ n
+    theorem tau_hecke_recurrence {p : ℕ} (hp : p.Prime) {r : ℕ} (hr : 1 ≤ r) :
+        τ (p ^ (r + 1)) = τ p * τ (p ^ r) - (p : ℤ) ^ 11 * τ (p ^ (r - 1))
+    ```
+    The Euler-factor and Gegenbauer closed forms (`EulerFactor`, `Gegenbauer`) are therefore unconditional too.
 
 - **`DiscriminantBridge`** — connects Mathlib's analytic discriminant `Δ = η²⁴` to its q-expansion:
   `coeff 0 = 0` (`Δ` is a cusp form) and `coeff 1 = 1` (`τ(1) = 1`), the latter by identifying `Δ`'s cusp

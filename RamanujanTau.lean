@@ -328,3 +328,6 @@ import RamanujanTau.GollnitzGordon2
 import RamanujanTau.GollnitzGordonComb
 import RamanujanTau.DiscriminantQExpansion
 import RamanujanTau.TauModular
+import RamanujanTau.HeckeCore
+import RamanujanTau.HeckeForm
+import RamanujanTau.HeckeQExp

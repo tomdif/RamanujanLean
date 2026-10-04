@@ -11,8 +11,8 @@ and prove that `TauHeckeMaster` follows from it. The load-bearing step is the ei
 its eigenvalue to be `τ(p)`, and the master identity drops out by reading off coefficients.
 
 This **reduces** `TauHeckeMaster` to constructing one `HeckeData` term — i.e. to building `T_p` with its
-standard `q`-expansion action. It does *not* discharge it unconditionally; that needs the operator
-construction (the genuine Mathlib gap). The kernel will not let us pretend otherwise.
+standard `q`-expansion action. That term is now constructed in `HeckeQExp.heckeData`, so `TauHeckeMaster`
+holds unconditionally.
 -/
 
 open scoped MatrixGroups
