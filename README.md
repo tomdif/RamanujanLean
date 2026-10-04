@@ -482,6 +482,17 @@ from Ramanujan's first letter to Hardy, without the `q^{1/5}` prefactor. With `G
 functional equation `G_m = G_{m+1} + q^{m+1}G_{m+2}` (`Gs_func`) gives `ρ_m = G_{m+1}/G_m = 1/(1 + q^{m+1}ρ_{m+1})`.
 Each level of the fraction gains one power of `q` (`rho_sub_cf`), and `G₀`, `G₁` are the two Rogers–Ramanujan products.
 
+### `Legendre.lean` — four triangular numbers: `t₄(n) = σ(2n+1)`
+```lean
+theorem legendre_four_triangular (n : ℕ) : t4 n = ∑ d ∈ (2 * n + 1).divisors, d
+theorem sum_four_triangular (n : ℕ) :
+    ∃ a b c d : ℕ, a*(a+1)/2 + b*(b+1)/2 + c*(c+1)/2 + d*(d+1)/2 = n
+```
+Here `t4 n` counts `(x₁,…,x₄) ∈ ℕ⁴` with `Σ xᵢ(xᵢ+1) = 2n`. The proof is a corollary of Jacobi's four-square
+theorem. A solution of `Σ vᵢ² = 8n+4` has all `vᵢ` even or all odd, because squares are `0, 1 (mod 4)`. Halving
+the even solutions gives `r₄(2n+1)`. The odd solutions are `vᵢ = ±(2xᵢ+1)`, sixteen for each element of `t4 n`.
+So `16 t₄(n) = 8·3σ(2n+1) − 8σ(2n+1)`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
