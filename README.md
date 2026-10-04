@@ -554,6 +554,8 @@ theorem gollnitz_gordon_comb (m : ℕ) :
 The gap side splits on whether `2s+1`, `2s+2`, or neither is a part. An even part `2s+2` excludes `2s+3` and `2s+4`.
 This is the recursion of `q^{n²+2sn}(−q;q²)_n/(q²;q²)_n` (`card_AG`). The product side uses a general version of the
 restricted-partition lemma for any modulus and residue set (`restricted_mul_eq_one_gen`).
+The second identity also has a combinatorial form, `gollnitz_gordon_comb_2`: gap partitions with all parts `≥ 3` are
+equinumerous with partitions into parts `≡ 3, 4, 5 (mod 8)`. This is the case `s = 1` of the same recursion.
 
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean

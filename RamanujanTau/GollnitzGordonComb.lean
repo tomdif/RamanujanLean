@@ -10,6 +10,7 @@ According to whether `2s+1`, `2s+2`, or neither is a part (an even part `2s+2` e
 `q^{n²+2sn}(−q;q²)_n/(q²;q²)_n`.
 -/
 import RamanujanTau.GollnitzGordon
+import RamanujanTau.GollnitzGordon2
 import RamanujanTau.RogersRamanujanComb
 
 set_option autoImplicit false
@@ -390,6 +391,105 @@ theorem gollnitz_gordon_comb (m : ℕ) :
     have e1 := MockTheta5.JTP.RR.inverse_eq_of_mul (by rw [mul_comm]; exact hG)
     have e2 := MockTheta5.JTP.RR.inverse_eq_of_mul (show RankProof.Pinf 1 8 * RankProof.Pinf 4 8 * RankProof.Pinf 7 8
       * PowerSeries.mk (fun n => (#(Nat.Partition.restricted n fun i => i % 8 = 1 ∨ i % 8 = 4 ∨ i % 8 = 7) : ℤ)) = 1 by
+        rw [← hR]; ring)
+    rw [← e1, e2]
+  rw [heq, coeff_mk] at h
+  exact_mod_cast h
+
+
+/-! ## the second identity: parts `≥ 3` -/
+
+/-- gap partitions with all parts `≥ 3`. -/
+def gapGG3 (m : ℕ) : Finset m.Partition :=
+  univ.filter fun l => l.parts.Nodup ∧ (∀ i ∈ l.parts, 3 ≤ i) ∧
+    ∀ i ∈ l.parts, i + 1 ∉ l.parts ∧ (i % 2 = 0 → i + 2 ∉ l.parts)
+
+def FG3 (m : ℕ) : Finset (Finset ℕ) :=
+  (range (m + 1)).powerset.filter fun S => S.sum id = m ∧ (∀ i ∈ S, 2 * 1 + 1 ≤ i) ∧ GGgap S
+
+lemma card_gapGG3 (m : ℕ) : #(gapGG3 m) = #(FG3 m) := by
+  refine card_bij' (fun l _ => l.parts.toFinset)
+    (fun S hS => ⟨S.val, fun {i} hi => by
+        rw [FG3, mem_filter] at hS; have := hS.2.2.1 i hi; omega,
+      by rw [FG3, mem_filter] at hS; rw [MockTheta5.JTP.RR.sum_val]; exact hS.2.1⟩) ?_ ?_ ?_ ?_
+  · intro l hl
+    rw [gapGG3, mem_filter] at hl
+    obtain ⟨-, hnd, h3, hg⟩ := hl
+    have hval : l.parts.toFinset.val = l.parts := by rw [Multiset.toFinset_val, Multiset.dedup_eq_self.mpr hnd]
+    rw [FG3, mem_filter, mem_powerset]
+    refine ⟨fun i hi => mem_range.mpr (Nat.lt_succ_of_le (Nat.Partition.le_of_mem_parts (Multiset.mem_toFinset.mp hi))),
+      ?_, fun i hi => h3 i (Multiset.mem_toFinset.mp hi), fun i hi => ⟨fun h' => (hg i
+        (Multiset.mem_toFinset.mp hi)).1 (Multiset.mem_toFinset.mp h'),
+        fun he h' => (hg i (Multiset.mem_toFinset.mp hi)).2 he (Multiset.mem_toFinset.mp h')⟩⟩
+    rw [← MockTheta5.JTP.RR.sum_val, hval, l.parts_sum]
+  · intro S hS
+    rw [FG3, mem_filter] at hS
+    rw [gapGG3, mem_filter]
+    exact ⟨mem_univ _, S.nodup, hS.2.2.1, fun i hi => hS.2.2.2 i hi⟩
+  · intro l hl
+    rw [gapGG3, mem_filter] at hl
+    apply Nat.Partition.ext
+    show l.parts.toFinset.val = l.parts
+    rw [Multiset.toFinset_val, Multiset.dedup_eq_self.mpr hl.2.1]
+  · intro S hS
+    exact Finset.val_toFinset S
+
+lemma card_FG3 (m : ℕ) : #(FG3 m) = ∑ n ∈ range (m + 2), #(AG m n 1) := by
+  rw [card_eq_sum_card_fiberwise (f := Finset.card) (t := range (m + 2)) fun S hS => by
+    rw [mem_coe, FG3, mem_filter, mem_powerset] at hS
+    have := card_le_card hS.1
+    rw [card_range] at this
+    exact mem_coe.mpr (mem_range.mpr (by omega))]
+  refine sum_congr rfl fun n _ => congrArg _ ?_
+  ext S
+  rw [mem_filter, mem_AG, FG3, mem_filter]
+  constructor
+  · rintro ⟨⟨-, h1, h2, h3⟩, h4⟩; exact ⟨h4, h1, h2, h3⟩
+  · rintro ⟨h4, h1, h2, h3⟩
+    refine ⟨⟨?_, h1, h2, h3⟩, h4⟩
+    have : S ∈ AG m n 1 := mem_AG.mpr ⟨h4, h1, h2, h3⟩
+    rw [AG, mem_filter] at this
+    exact this.1
+
+lemma card_gapGG3_eq (m : ℕ) :
+    (#(gapGG3 m) : ℤ) = coeff m (tsumQsq fun n => X ^ (2 * n) * (Mq n * Ring.inverse (Qf n))) := by
+  rw [card_gapGG3, card_FG3, coeff_tsumQsq _ (show m + 1 ≤ m + 2 by omega), Nat.cast_sum]
+  refine sum_congr rfl fun n _ => ?_
+  rw [card_AG n 1 m, mul_one, pow_add]
+  ring_nf
+
+section Product2
+open MockTheta5.JTP.RR
+open RankProof (Pinf Pfin Pfin_succ)
+
+lemma block345 (M : ℕ) : ∏ i ∈ range (8 * M), gfac (fun i => i % 8 = 3 ∨ i % 8 = 4 ∨ i % 8 = 5) i
+    = ∏ r ∈ ({3, 4, 5} : Finset ℕ), Pfin r 8 M := by
+  rw [prod_insert (by decide), prod_insert (by decide), prod_singleton]
+  induction M with
+  | zero => simp [Pfin]
+  | succ M ih =>
+    rw [show 8 * (M + 1) = 8 * M + 8 by ring, prod_range_add, ih, Pfin_succ, Pfin_succ, Pfin_succ]
+    simp only [prod_range_succ, prod_range_zero, one_mul, gfac]
+    rw [if_neg (by omega), if_neg (by omega), if_pos (by omega), if_pos (by omega), if_pos (by omega),
+      if_neg (by omega), if_neg (by omega), if_neg (by omega)]
+    ring_nf
+
+end Product2
+
+/-- **The second Göllnitz–Gordon theorem**: the partitions of `m` into distinct parts `≥ 3` differing by at least 2,
+with even parts differing by at least 4, are equinumerous with the partitions of `m` into parts `≡ 3, 4, 5 (mod 8)`. -/
+theorem gollnitz_gordon_comb_2 (m : ℕ) :
+    #(gapGG3 m) = #(Nat.Partition.restricted m fun i => i % 8 = 3 ∨ i % 8 = 4 ∨ i % 8 = 5) := by
+  have h := card_gapGG3_eq m
+  have hG := gollnitz_gordon_2
+  have hR := restricted_mul_eq_one_gen (fun i => i % 8 = 3 ∨ i % 8 = 4 ∨ i % 8 = 5) 8 (by norm_num)
+    {3, 4, 5} (by decide) block345
+  rw [prod_insert (by decide), prod_insert (by decide), prod_singleton] at hR
+  have heq : tsumQsq (fun n => X ^ (2 * n) * (Mq n * Ring.inverse (Qf n)))
+      = PowerSeries.mk (fun n => (#(Nat.Partition.restricted n fun i => i % 8 = 3 ∨ i % 8 = 4 ∨ i % 8 = 5) : ℤ)) := by
+    have e1 := MockTheta5.JTP.RR.inverse_eq_of_mul (by rw [mul_comm]; exact hG)
+    have e2 := MockTheta5.JTP.RR.inverse_eq_of_mul (show RankProof.Pinf 3 8 * RankProof.Pinf 4 8 * RankProof.Pinf 5 8
+      * PowerSeries.mk (fun n => (#(Nat.Partition.restricted n fun i => i % 8 = 3 ∨ i % 8 = 4 ∨ i % 8 = 5) : ℤ)) = 1 by
         rw [← hR]; ring)
     rw [← e1, e2]
   rw [heq, coeff_mk] at h
