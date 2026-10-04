@@ -338,6 +338,26 @@ This is the 7-analogue of the "most beautiful identity".
 * The mod-49 congruence follows from the identity, the char-7 Frobenius, and `7 ∣ 2k+1` on the class-6
   terms of Jacobi's cube.
 
+### `Pow5Final.lean` (+ `Pow5`, `Pow5Stage`) — Ramanujan's conjecture for all powers of 5 (Watson 1938)
+```lean
+theorem ramanujan_pow5 (k m : ℕ) (hm : 24 * m ≡ 1 [MOD 5 ^ k]) : 5 ^ k ∣ Fintype.card (Nat.Partition m)
+```
+This holds for every `k`: `5 ∣ p(5n+4)`, `25 ∣ p(25n+24)`, `125 ∣ p(125n+99)`, `625 ∣ p(625n+599)`, …
+The proof follows Hirschhorn–Hunt, built on the 5-dissection of `RamanujanMostBeautiful`, and needs no roots of unity:
+
+1. **Watson's modular equation** (`modular_eq`): with `y = qE(q²⁵)/E(q)` and `τ = qE(q⁵)⁶/E(q)⁶`,
+   `y⁵ = τ(q⁵)·(25y⁴ + 25y³ + 15y² + 5y + 1)`. It is a polynomial identity in `A, B, q` modulo `AB = 1`.
+2. **`U₅(yᵏ) = Σ_j m_{k,j} τʲ`** (`Ys_dis`): the cases `k ≤ 4` are polynomial identities through the inversion
+   polynomial `𝒬`, and the modular equation gives a five-term recurrence for `k ≥ 5`.
+3. **5-adic bound** (`mc_dvd`): `ν₅(m_{k,j}) ≥ ⌊(5j − k − 1)/2⌋`, together with `m_{k,j} = 0` unless `k ≤ 5j ≤ 5k`.
+4. **Stages** (`trans_even`, `trans_odd`): `L_k = Σ_n p(5ᵏn + δ_k)qⁿ⁺¹` alternates between `(1/E)·b(τ)` and
+   `(1/E(q⁵))·a(τ)`, with `a_l = Σ_s b_s m_{6s+1,l+s}` and `b_s = Σ_l a_l m_{6l,s+l}`. Each transition is proved
+   by multiplying by `τ(q⁵)^M`, using `τ(q)τ(q⁵) = y⁶`, applying `U₅`, reindexing in `ℤ[X]`, and cancelling.
+5. **Invariant** (`stagePoly_dvd`): `ν₅(coeff_i L_k) ≥ k + ⌊(5i−5)/2⌋`, so `5ᵏ` divides all of `L_k`.
+   Finally `24δ_k ≡ 1 (mod 5ᵏ)` and `δ_k < 5ᵏ`.
+
+Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :

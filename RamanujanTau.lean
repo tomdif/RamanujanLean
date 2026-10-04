@@ -297,3 +297,6 @@ import RamanujanTau.SptGF
 import RamanujanTau.SptFinal
 import RamanujanTau.RankDiff5
 import RamanujanTau.SptMoment
+import RamanujanTau.Pow5
+import RamanujanTau.Pow5Stage
+import RamanujanTau.Pow5Final
