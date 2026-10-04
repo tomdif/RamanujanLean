@@ -315,6 +315,7 @@ import RamanujanTau.FourSquaresLimit
 import RamanujanTau.FourSquares
 import RamanujanTau.TwoSquares
 import RamanujanTau.RRContinuedFraction
+import RamanujanTau.RamanujanR5
 import RamanujanTau.Legendre
 import RamanujanTau.AndrewsGordon
 import RamanujanTau.TauCongruences

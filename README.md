@@ -491,6 +491,17 @@ from Ramanujan's first letter to Hardy, without the `q^{1/5}` prefactor. With `G
 functional equation `G_m = G_{m+1} + q^{m+1}G_{m+2}` (`Gs_func`) gives `ρ_m = G_{m+1}/G_m = 1/(1 + q^{m+1}ρ_{m+1})`.
 Each level of the fraction gains one power of `q` (`rho_sub_cf`), and `G₀`, `G₁` are the two Rogers–Ramanujan products.
 
+**Ramanujan's `R⁵` identity** (`RamanujanR5.lean`): `1/R(q)⁵ − 11 − R(q)⁵ = (q;q)_∞⁶/(q (q⁵;q⁵)_∞⁶)`, where
+`R(q) = q^{1/5}(q;q⁵)(q⁴;q⁵)/((q²;q⁵)(q³;q⁵))`:
+```lean
+theorem ramanujan_R5 :
+    eQ ^ 6 * ((Pinf 2 5 * Pinf 3 5) ^ 10 - 11 * X * (Pinf 1 5 * Pinf 4 5) ^ 5 * (Pinf 2 5 * Pinf 3 5) ^ 5
+        - X ^ 2 * (Pinf 1 5 * Pinf 4 5) ^ 10)
+      = qfacInf ^ 6 * (Pinf 1 5 * Pinf 4 5) ^ 5 * (Pinf 2 5 * Pinf 3 5) ^ 5
+```
+It combines the 5-dissection norm identity (`norm_identity`, from the "most beautiful identity" proof) with
+Ramanujan's `α = J_{5,2}/J_{5,1}` (`J5_relations`).
+
 ### `Legendre.lean` — four triangular numbers: `t₄(n) = σ(2n+1)`
 ```lean
 theorem legendre_four_triangular (n : ℕ) : t4 n = ∑ d ∈ (2 * n + 1).divisors, d
