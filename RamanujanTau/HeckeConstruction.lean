@@ -35,6 +35,9 @@ Mathlib provides exactly the hard combinatorial core:
 
 Steps 2–4 are substantial but standard (no research content). Completing them yields `HeckeData`, and
 `HeckeData.tauHeckeMaster` then discharges `TauHeckeMaster` unconditionally.
+> **Superseded (2026-10-04).** `T_p` is now fully constructed without the double-coset route, by the
+> elementary coset computation in `HeckeCore` / `HeckeForm` / `HeckeQExp` (`heckeData : HeckeData`,
+> unconditional `TauHeckeMaster`). This file is kept as an alternative, partial approach.
 -/
 
 open scoped ModularForm MatrixGroups UpperHalfPlane

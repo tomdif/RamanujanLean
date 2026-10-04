@@ -14,6 +14,9 @@ modular `f`, each `A·S` lies in the `SL₂(ℤ)`-coset of a unique representati
 along the permutation returns the original sum. The missing ingredients are purely on the Mathlib side:
 `reduce` is constant on `SL₂(ℤ)`-orbits and fixes `reps` (so `reps` is a transversal) — lemmas not yet in
 `FixedDetMatrices`. We do **not** fake them; they are the next real step.
+> **Superseded (2026-10-04).** `T_p` is now fully constructed without the double-coset route, by the
+> elementary coset computation in `HeckeCore` / `HeckeForm` / `HeckeQExp` (`heckeData : HeckeData`,
+> unconditional `TauHeckeMaster`). This file is kept as an alternative, partial approach.
 -/
 
 open scoped ModularForm MatrixGroups UpperHalfPlane

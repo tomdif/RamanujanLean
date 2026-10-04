@@ -63,7 +63,7 @@ The last two are documented as hypotheses, not defects.
 | mod-691 congruence | **proved, unconditional** | — (none; `τ ∈ ℤ` now proved via `key_dvd`) |
 | general product bridge | **proved** | — (`qExpansion_discriminant_coeff`) |
 | multiplicativity | **proved** | — (`tau_mul_coprime`, via constructed `T_p`) |
+| Euler product of `L(Δ,s)` | **proved** (`Re s > 7`) | — (`LSeries_tau_eulerProduct`, Hecke bound `tau_isBigO`) |
 | Deligne / Lehmer | out of scope | the Weil conjectures / an open problem |
 
-Every reachable question on the `τ` arc that does not require new Mathlib infrastructure is now proved and
-axiom-clean.
+Every question on the `τ` arc is now proved and axiom-clean, except Deligne's bound and Lehmer's conjecture.
