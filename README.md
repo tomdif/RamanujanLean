@@ -471,6 +471,15 @@ of Jackson's ₈φ₇. This gives `(b)_k(c)_k = (−1;q²)_k`, so `(−q)ₙ²/(
 `c(n) = −q^{n+1}/((1−q^{n+1})(1+q^{n+1}))`. The limit is `φ(−q)² = 1 + 4 Σ (−1)^k q^k/(1+q^{2k})`, and its
 coefficients give the odd-divisor character sum `d₁ − d₃`. Axioms `[propext, Classical.choice, Quot.sound]`.
 
+`TwoSquaresCor.lean` derives three corollaries:
+```lean
+theorem r2_prime_one_mod_four {p : ℕ} (hp : p.Prime) (h : p % 4 = 1) : r2 p = 8      -- Fermat, with uniqueness
+theorem r2_prime_three_mod_four {p : ℕ} (hp : p.Prime) (h : p % 4 = 3) : r2 p = 0
+theorem gauss_two_triangular (n : ℕ) :                                                -- Gauss
+    (t2tri n : ℤ) = #((4n+1).divisors with · % 4 = 1) - #((4n+1).divisors with · % 4 = 3)
+```
+The last uses `r₂(8n+2) = 4 t₂(n)`. Both squares must be odd, `±(2a+1), ±(2b+1)`.
+
 ### `RRContinuedFraction.lean` — the Rogers–Ramanujan continued fraction
 ```lean
 -- cf N 0 = 1/(1 + q/(1 + q²/(⋯/(1 + q^N))))
