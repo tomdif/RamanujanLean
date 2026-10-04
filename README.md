@@ -505,6 +505,14 @@ The proof is Andrews's Bailey chain: `k − 2` applications of the repo's limiti
 Rogers–Ramanujan pair. The Bailey transform then gives `(1/(q)_∞) Σ q^{(k−1)n²}αₙ = J_{2k+1,k}/(q)_∞`. A general
 residue split `(q;q)_∞ = ∏_{r=1}^a (q^r;q^a)_∞` (`Pinf_split`) finishes the proof.
 
+The **`i = 1` family** is also proved, by the same route with the `a = q` Bailey chain applied to the
+Rogers–Ramanujan-2 pair:
+```lean
+theorem andrews_gordon_one (j : ℕ) : tsumQsqQ (agBetaQ j) * agProd (2 * j + 5) 1 = 1
+```
+That is, `Σ q^{n₁²+⋯+n_{k−1}² + n₁+⋯+n_{k−1}}/((q)_{n₁−n₂}⋯(q)_{n_{k−1}}) = ∏_{n ≢ 0,±1 (mod 2k+1)} 1/(1−qⁿ)`,
+where `(1−q) Σ q^{(k−1)(n²+n)} αₙ = J_{2k+1,1}`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
