@@ -852,6 +852,10 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
   `8(1+T_m) = (2m+1)² + 7` puts every exponent of `q(q⁷;q⁷)³(q)³` in a square class mod 7, and in the class `0` the
   coefficient `2m+1` is itself divisible by 7.
   Mod 23, `q(q)²⁴ ≡ q(q²³;q²³)(q;q)` and `24(1 + k(3k−1)/2) = (6k−1)² + 23`, so every exponent lies in a square class.
+- **`TauBridge`** — `tau_eq_tauPS : RamanujanTau.tau n = [qⁿ] q∏(1−qᵏ)²⁴`. It identifies the computable list-based
+  `τ` with the power-series coefficient: every list operation is the matching ring operation, and truncation
+  agrees modulo `X^{d+1}`. Consequently the congruences above hold for the computable `τ` (`tau_odd_iff'`,
+  `tau_mod7'`, `tau_mod23'`).
 
 ---
 
