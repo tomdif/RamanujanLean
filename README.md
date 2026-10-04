@@ -522,7 +522,7 @@ theorem andrews_gordon_one (j : ℕ) : tsumQsqQ (agBetaQ j) * agProd (2 * j + 5)
 That is, `Σ q^{n₁²+⋯+n_{k−1}² + n₁+⋯+n_{k−1}}/((q)_{n₁−n₂}⋯(q)_{n_{k−1}}) = ∏_{n ≢ 0,±1 (mod 2k+1)} 1/(1−qⁿ)`,
 where `(1−q) Σ q^{(k−1)(n²+n)} αₙ = J_{2k+1,1}`.
 
-### `GollnitzGordon.lean` (+ `GollnitzGordonWZ`) — the first Göllnitz–Gordon identity
+### `GollnitzGordon.lean`, `GollnitzGordon2.lean` (+ WZ files) — the Göllnitz–Gordon identities
 ```lean
 -- Σ q^{n²}(−q;q²)_n/(q²;q²)_n = 1/((q;q⁸)_∞(q⁴;q⁸)_∞(q⁷;q⁸)_∞)
 theorem gollnitz_gordon_1 :
@@ -534,6 +534,16 @@ This needs a new piece of Bailey machinery: **Bailey's lemma with the parameter 
 proved by a WZ certificate found with sympy. Each rational identity is checked once in an abstract field and
 transferred with `linear_combination`. The transform then takes the Rogers–Ramanujan pair in base `q²` to
 `(−q;q²)_∞ J_{8,3}/(q²;q²)_∞`, which reduces to the product by residue splits mod 8.
+
+```lean
+-- Σ q^{n²+2n}(−q;q²)_n/(q²;q²)_n = 1/((q³;q⁸)_∞(q⁴;q⁸)_∞(q⁵;q⁸)_∞)
+theorem gollnitz_gordon_2 :
+    tsumQsq (fun n => X ^ (2 * n) * (Mq n * Ring.inverse (Qf n))) * (Pinf 3 8 * Pinf 4 8 * Pinf 5 8) = 1
+```
+The second identity uses the same scheme relative to `a = q²`, with `aq/ρ = −q³`. The inner sum (`inner_gg2`) has
+its own WZ certificate `R = q²x(y−1)(q²yz²−1)/((q²x−y)(q³xz+1))`. Applied to the second Rogers–Ramanujan pair in
+base `q²`, the factors `(1+q)/(1+q^{2r+1})` and `(1−q^{4r+2})/(1−q²)` combine to `1−q^{2r+1}`, and the theta series
+is `J_{8,1}`.
 
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean

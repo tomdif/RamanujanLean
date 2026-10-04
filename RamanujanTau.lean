@@ -322,3 +322,5 @@ import RamanujanTau.TauBridge
 import RamanujanTau.TwoSquaresCor
 import RamanujanTau.GollnitzGordonWZ
 import RamanujanTau.GollnitzGordon
+import RamanujanTau.GollnitzGordon2WZ
+import RamanujanTau.GollnitzGordon2
