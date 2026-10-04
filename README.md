@@ -400,6 +400,16 @@ Both moment identities are first-order computations over the dual numbers `ℤ[�
 Both divisor sums equal `Σ σ(k)qᵏ`. Combined with `crank_moment_sub_rank_moment` (`M₂ − N₂ = 2 spt`), this gives
 Andrews' original definition `spt(n) = n·p(n) − ½N₂(n)`. Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `Kolberg.lean` — Kolberg's theorem (1959): `p(n)` is even infinitely often and odd infinitely often
+```lean
+theorem kolberg (N : ℕ) :
+    (∃ n, N ≤ n ∧ Even (Fintype.card (Nat.Partition n))) ∧ (∃ n, N ≤ n ∧ Odd (Fintype.card (Nat.Partition n)))
+```
+The proof uses Euler's pentagonal recurrence mod 2. If `p ≡ c (mod 2)` from `N` on, set `n = ω(N) + r` with
+`r < N`. The pentagonal numbers around `ω(N) = (N+1)(3N+2)/2` are more than `N` apart, so the recurrence collapses
+to `p(n) ≡ p(r)`. Every other pair contributes `c + c ≡ 0`. Hence `p(r) ≡ c` for all `r`, which contradicts
+`p(0) = 1` and `p(2) = 2`. Axioms `[propext, Classical.choice, Quot.sound]`.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :

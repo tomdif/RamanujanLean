@@ -307,3 +307,4 @@ import RamanujanTau.Pow7Mod
 import RamanujanTau.Pow7Stage
 import RamanujanTau.Pow7Final
 import RamanujanTau.DysonM2
+import RamanujanTau.Kolberg
