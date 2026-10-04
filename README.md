@@ -545,6 +545,16 @@ its own WZ certificate `R = q²x(y−1)(q²yz²−1)/((q²x−y)(q³xz+1))`. App
 base `q²`, the factors `(1+q)/(1+q^{2r+1})` and `(1−q^{4r+2})/(1−q²)` combine to `1−q^{2r+1}`, and the theta series
 is `J_{8,1}`.
 
+**Combinatorial form** (`GollnitzGordonComb.lean`; Göllnitz 1967, Gordon 1965):
+```lean
+-- distinct parts differing by ≥ 2, even parts by ≥ 4   ↔   parts ≡ 1, 4, 7 (mod 8)
+theorem gollnitz_gordon_comb (m : ℕ) :
+    #(gapGG m) = #(Nat.Partition.restricted m fun i => i % 8 = 1 ∨ i % 8 = 4 ∨ i % 8 = 7)
+```
+The gap side splits on whether `2s+1`, `2s+2`, or neither is a part. An even part `2s+2` excludes `2s+3` and `2s+4`.
+This is the recursion of `q^{n²+2sn}(−q;q²)_n/(q²;q²)_n` (`card_AG`). The product side uses a general version of the
+restricted-partition lemma for any modulus and residue set (`restricted_mul_eq_one_gen`).
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :
