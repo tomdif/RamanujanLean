@@ -358,6 +358,29 @@ The proof follows Hirschhorn–Hunt, built on the 5-dissection of `RamanujanMost
 
 Axioms `[propext, Classical.choice, Quot.sound]`.
 
+### `Pow7Final.lean` (+ `Pow7`, `Pow7B`, `Pow7Pm`, `Pow7Mod`, `Pow7Stage`) — Watson's congruences for powers of 7
+```lean
+theorem ramanujan_pow7 {k : ℕ} (hk : 1 ≤ k) (m : ℕ) (hm : 24 * m ≡ 1 [MOD 7 ^ k]) :
+    7 ^ ((k + 2) / 2) ∣ Fintype.card (Nat.Partition m)
+```
+This is Ramanujan's conjecture for 7, as corrected by Watson (1938): `7 ∣ p(7n+5)`, `49 ∣ p(49n+47)`,
+`49 ∣ p(343n+243)`, `343 ∣ p(2401n+2301)`, …  The proof follows Garvan (1984) and has the same structure as the
+powers-of-5 proof, built on the 7-dissection `E = E(q⁴⁹)·L₇(x, y, z)`:
+
+1. **Modular equation** (`modular7_eq`): with `y = q²E(q⁴⁹)/E(q)` and `τ = qE(q⁷)⁴/E(q)⁴`,
+   `y⁷ = τ(q⁷)(49y⁶+35y⁵+7y⁴) + τ(q⁷)²(343y⁶+343y⁵+147y⁴+49y³+21y²+7y+1)`. It is proved as a polynomial
+   identity modulo the four relations of the 7-dissection, with a sympy-generated certificate.
+2. **`U₇(yᵏ) = Σ_j m_{k,j} τʲ`** (`Y7_dis`): the cases `k ≤ 6` are computed class by class through the
+   product rule `dis7_mul`, and the modular equation gives a seven-term recurrence for larger `k`.
+3. **7-adic bound** (`mc7_dvd`, Garvan): `ν₇(m_{k,j}) ≥ ⌊(7j − 2k − 1)/4⌋`, together with `m_{k,j} = 0`
+   unless `2k ≤ 7j ≤ 14k`.
+4. **Stages** (`trans_even7`, `trans_odd7`): `a_l = Σ_s b_s m_{4s+1,l+s}` and `b_s = Σ_l a_l m_{4l,s+l}`.
+5. **Invariant** (`stagePoly7_dvd`): `4d + 3 + 2(k mod 2) ≤ 2k + 7i ⇒ 7ᵈ ∣ coeff_i L_k`.
+   This gives `7^⌊(k+2)/2⌋` for every `i ≥ 1`. Finally `24δ_k = (17 or 23)·7ᵏ + 1` and `δ_k < 7ᵏ`.
+
+Axioms `[propext, Classical.choice, Quot.sound]`.  Note: `Pow7.lean` takes about an hour to compile, because of
+the class-by-class `k ≤ 6` base cases.
+
 ### `RamanujanMostBeautiful.lean` — Ramanujan's "most beautiful identity", and `25 ∣ p(25n+24)`
 ```lean
 theorem ramanujan_most_beautiful_identity :

@@ -300,3 +300,9 @@ import RamanujanTau.SptMoment
 import RamanujanTau.Pow5
 import RamanujanTau.Pow5Stage
 import RamanujanTau.Pow5Final
+import RamanujanTau.Pow7
+import RamanujanTau.Pow7B
+import RamanujanTau.Pow7Pm
+import RamanujanTau.Pow7Mod
+import RamanujanTau.Pow7Stage
+import RamanujanTau.Pow7Final
