@@ -317,3 +317,4 @@ import RamanujanTau.TwoSquares
 import RamanujanTau.RRContinuedFraction
 import RamanujanTau.Legendre
 import RamanujanTau.AndrewsGordon
+import RamanujanTau.TauCongruences
