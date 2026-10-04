@@ -320,3 +320,5 @@ import RamanujanTau.AndrewsGordon
 import RamanujanTau.TauCongruences
 import RamanujanTau.TauBridge
 import RamanujanTau.TwoSquaresCor
+import RamanujanTau.GollnitzGordonWZ
+import RamanujanTau.GollnitzGordon
