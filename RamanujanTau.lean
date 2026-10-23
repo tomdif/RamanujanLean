@@ -87,6 +87,7 @@ import RamanujanTau.MockTheta5BaileyTransform
 import RamanujanTau.MockTheta5BaileyQTransform
 import RamanujanTau.MockTheta5BaileyQPairA
 import RamanujanTau.MockTheta5BaileyQPairB
+import RamanujanTau.MockTheta5F0Pair
 import RamanujanTau.MockTheta5BaileyRR1
 import RamanujanTau.MockTheta5EulerCauchy
 import RamanujanTau.MockTheta5LaurentEval
