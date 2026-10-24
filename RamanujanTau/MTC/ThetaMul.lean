@@ -16,11 +16,6 @@ set_option autoImplicit false
 namespace MTC
 open ALz HahnSeries
 
-section Mul
-variable {N : ℕ} (hN : 1 ≤ N)
-
-lemma h2N (hN : 1 ≤ N) : 1 ≤ 2 * N := by omega
-
 /-- the even-sum embedding `(u, v) ↦ (u + v, u − v)`. -/
 def psE : ℤ × ℤ ↪ ℤ × ℤ := ⟨fun p => (p.1 + p.2, p.1 - p.2), fun p q h => by
   simp only [Prod.mk.injEq] at h; ext <;> omega⟩
@@ -28,6 +23,11 @@ def psE : ℤ × ℤ ↪ ℤ × ℤ := ⟨fun p => (p.1 + p.2, p.1 - p.2), fun p
 /-- the odd-sum embedding `(u, v) ↦ (u + v + 1, u − v)`. -/
 def psO : ℤ × ℤ ↪ ℤ × ℤ := ⟨fun p => (p.1 + p.2 + 1, p.1 - p.2), fun p q h => by
   simp only [Prod.mk.injEq] at h; ext <;> omega⟩
+
+section Mul
+variable {N : ℕ} (hN : 1 ≤ N)
+
+lemma h2N (hN : 1 ≤ N) : 1 ≤ 2 * N := by omega
 
 lemma neg_mono_t (E : ℤ) (C : ℂ) : -(mono E C : L) = mono E (-C) := by simp [mono]
 
@@ -64,7 +64,7 @@ theorem θ_mul (e1 e2 : ℤ) {c1 c2 : ℂ} (hc1 : c1 ≠ 0) (hc2 : c2 ≠ 0) :
     unfold θ; rw [hs, hs, hs, SummableFamily.hsum_mul]
   have hsplit : P = E.embDomain psE + (-mono e1 c1) • O.embDomain psO := by
     ext ⟨m, n⟩ : 1
-    rw [SummableFamily.add_apply, SummableFamily.smul_apply]
+    simp only [SummableFamily.add_apply, SummableFamily.smul_apply, HahnSeries.of_symm_smul_of_eq_mul]
     by_cases hpar : (m - n) % 2 = 0
     · have hq : psE (((m + n) / 2), ((m - n) / 2)) = (m, n) := by
         show (((m + n) / 2) + ((m - n) / 2), ((m + n) / 2) - ((m - n) / 2)) = (m, n)
@@ -75,7 +75,7 @@ theorem θ_mul (e1 e2 : ℤ) {c1 c2 : ℂ} (hc1 : c1 ≠ 0) (hc2 : c2 ≠ 0) :
           have h1 : psO p = psE ((m + n) / 2, (m - n) / 2) := hp
           change (p.1 + p.2 + 1, p.1 - p.2) = (((m + n) / 2) + ((m - n) / 2), ((m + n) / 2) - ((m - n) / 2)) at h1
           rw [Prod.mk.injEq] at h1; omega),
-        smul_zero, add_zero]
+        mul_zero, add_zero]
       set u := (m + n) / 2
       set v := (m - n) / 2
       show thF hN e1 c1 (u + v) * thF hN e2 c2 (u - v) =
@@ -96,7 +96,7 @@ theorem θ_mul (e1 e2 : ℤ) {c1 c2 : ℂ} (hc1 : c1 ≠ 0) (hc2 : c2 ≠ 0) :
           change (p.1 + p.2, p.1 - p.2) =
             (((m + n - 1) / 2) + ((m - n - 1) / 2) + 1, ((m + n - 1) / 2) - ((m - n - 1) / 2)) at h1
           rw [Prod.mk.injEq] at h1; omega),
-        zero_add, smul_eq_mul]
+        zero_add]
       set u := (m + n - 1) / 2
       set v := (m - n - 1) / 2
       show thF hN e1 c1 (u + v + 1) * thF hN e2 c2 (u - v) =
