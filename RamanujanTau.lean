@@ -340,3 +340,4 @@ import RamanujanTau.MTC.Hecke1
 import RamanujanTau.MTC.GX1
 import RamanujanTau.MTC.ThetaY1
 import RamanujanTau.MTC.L5b
+import RamanujanTau.MTC.Final1

@@ -36,7 +36,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Rank equidistribution mod 5** (Dyson's conjecture; Atkin–Swinnerton-Dyer) | `5·#{λ⊢5n+4 : rank ≡ i} = p(5n+4)`, rank = largest part − number of parts |
 | **Garvan's Hecke–Rogers identities** (2.18), (2.19) | `(zq)(q/z)·R(z;q)` and `(q)(zq)(q/z)·R(z;q²)` as indefinite theta series |
 | **Ramanujan's 5-dissection of the rank generating function** (Lost Notebook p. 20) | `R(ζ₅;q) = Σ qᵏR_k(q⁵)` with `R₁ = J₅²/J₅,₁`, `R₂ = (ζ+ζ⁴)J₅²/J₅,₂`, `R₄ = 0`, and `R₀`, `R₃` in terms of the mock theta functions `φ`, `ψ` |
-| **The first Mock Theta Conjecture** (Hickerson 1988; Andrews–Garvan form) | `f₀(q) = θ₄(0,q⁵)/((q;q⁵)_∞(q⁴;q⁵)_∞) − 2Φ(q²)`, `f₀ = Σ q^{n²}/(−q;q)ₙ` (`MTC.mock_theta_conjecture_f0`) |
+| **The Mock Theta Conjectures** (Hickerson 1988; Andrews–Garvan form) | `f₀(q) = θ₄(0,q⁵)/((q;q⁵)_∞(q⁴;q⁵)_∞) − 2Φ(q²)` and `f₁(q) = θ₄(0,q⁵)/((q²;q⁵)_∞(q³;q⁵)_∞) − 2q⁻¹Ψ(q²)`, `f₀ = Σ q^{n²}/(−q;q)ₙ`, `f₁ = Σ q^{n²+n}/(−q;q)ₙ` (`MTC.mock_theta_conjecture_f0`, `MTC.mock_theta_conjecture_f1`) |
 | **Andrews' Hecke-type identities for `f₀`, `f₁`** | `(q;q)_∞f₀ = ΣΣ_{\|j\|≤n}(−1)ʲq^{n(5n+1)/2−j²}(1−q^{4n+2})`, `(q;q)_∞f₁ = ΣΣ(−1)ʲq^{n(5n+3)/2−j²}(1−q^{2n+1})` |
 | **Hickerson–Mortenson Theorem 0.3 for `f_{3,7,3}`** at the MTC₀ and MTC₁ points | Hecke-type double sum = Appell–Lerch sums + theta quotient (`MTC.hm03_xstar`, `MTC.hm03_x1`) |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
@@ -631,11 +631,14 @@ theorem psi_eq_series    : psi = psiSum                  --  ψ(q) = Σ_{n≥0} 
 algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean` records the theta relation
 `phi_mul_phiNeg : φ(q)·φ(−q) = φ(−q²)²`.
 
-### `MTC/` — the first Mock Theta Conjecture (Hickerson–Mortenson route)
+### `MTC/` — the Mock Theta Conjectures (Hickerson–Mortenson route)
 ```lean
 theorem MTC.mock_theta_conjecture_f0 :
     f0 = Pinf 5 10 * Pinf 5 10 * Pinf 10 10 * Ring.inverse (Pinf 1 5 * Pinf 4 5) - 2 * (Ea 2 _ (Phi 1) - 1)
 --  f₀(q) = (q⁵;q¹⁰)²(q¹⁰;q¹⁰)/((q;q⁵)(q⁴;q⁵)) − 2Φ(q²)   in ℤ⟦q⟧
+theorem MTC.mock_theta_conjecture_f1 :
+    X * f1 = X * (Pinf 5 10 * Pinf 5 10 * Pinf 10 10 * Ring.inverse (Pinf 2 5 * Pinf 3 5)) - 2 * (Ea 2 _ (Phi 2) - 1)
+--  q f₁(q) = q θ₄(0,q⁵)/((q²;q⁵)(q³;q⁵)) − 2Ψ(q²)
 ```
 The chain, following Hickerson–Mortenson (Proc. LMS 2014), lives in `RamanujanTau/MTC/` (≈40 files, see
 `MTC_GAP_MAP.md` §6 for the full map):
@@ -651,11 +654,11 @@ The chain, following Hickerson–Mortenson (Proc. LMS 2014), lives in `Ramanujan
   into atoms `(q^r;q^M)_∞` (`ProdId`, `LemC`), and HM (1.9) by a zero count in `Th(Q³⁰,10)` (`ThExtra`, `H19`,
   `H19b`), which gives HM (8.17).
 
-**In progress — the second conjecture (MTC₁, `f₁ = Σ q^{n²+n}/(−q;q)ₙ`):** Andrews' Hecke form
-(`MockTheta5F1Pair.qfacInf_mul_f1_hecke`), HM Theorem 0.3 at the MTC₁ point (`Zeros1.hm03_x1`), the Hecke side
-(`Hecke1.fS_xstar₁`), the Appell–Lerch side (`GX1.gNum_x1`) and the theta quotient (`ThetaX1.thV_x1`,
-`ThetaY1.S1_prod`) are proved; the remaining theta identities are (8.17)₁ = HM (1.9) at `x = Q⁶` and two
-Weierstrass instances.
+**The second conjecture (MTC₁)** runs the same chain at the MTC₁ point `x₁ = i t^{189}`: Andrews' Hecke form from
+a new `a = q` Bailey pair (`MockTheta5F1Pair`), HM Theorem 0.3 at `x₁` (`Zeros1`), `Hecke1`, `GX1`, `ThetaX1`/`ThetaY1`,
+`ψ` as Appell–Lerch sums (`L5b`), changes of `z` to `z₀ = Q²` and two Weierstrass instances (`ThetaLem1`,
+`Endgame1b`), and the theta identity (8.17)₁, which is HM (1.9) at `x = Q⁶` — so the zero count `F19_zero` serves
+both conjectures (`Final1`).
 
 ### Multi-quintuple-product vanishing research
 

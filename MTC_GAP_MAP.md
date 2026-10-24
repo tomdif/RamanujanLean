@@ -167,3 +167,14 @@ Chain (all in `ℂ((t))`, `Q = t^{168}`, then pulled back by `ιN` injectivity):
   base multiplication, `x ↦ x^d`, `x^a`, products) vanishing at 11 inequivalent points (`F19_zero`), at `x = 1`.
 * Product identities (`ProdId`): every theta becomes a product of atoms `ιN (u^r;u^M)_∞` (barred thetas via HM (1.4b)),
   then `field_simp`.
+
+## 7. MTC₁ PROVED (2026-10-24, axiom-clean)
+
+`MTC.mock_theta_conjecture_f1` (RamanujanTau/MTC/Final1.lean): `q f₁(q) = q θ₄(0,q⁵)/((q²;q⁵)_∞(q³;q⁵)_∞) − 2Ψ(q²)`.
+Chain: Bailey pair for `f₁` relative to `a = q` (`αₙ = q^{(3n²+n)/2}(1−q^{2n+1})Sₙ/(1−q)`, certificate
+`G(n,s) = q^{T(s)+n}/((q)_{n−s−1}(q)_{n+s+1})·(−q^{2s+1}(1−qⁿ)(1+q^{s+1})V_s + 2(1−q^{n+s+1})(−1)^s)`);
+HM Thm 0.3 at `x₁ = i t^{189}` (zero tables shifted by +36; one `A`-class collides with a `B`-zero at `Z⁶³`);
+`gNum(x₁) = 2J₁(Q⁻³A(Q²) + Q⁻⁹A(Q⁻⁸))`; `θ₃,₄(x₁) = 2J_{3,12}S₁`, `S₁ = −Q⁻³J_{3,20}J_{5,20}J_{7,20}J_{1,5}/(j̄₂j̄₈j̄₁₂j̄₁₈j₂₀)`;
+`(1+ψ)(q⁵;q⁵)_∞ = A₁₀ + q²A₁₅ + q⁴A₂₀` (`a = 2`); changes of `z` to `z₀ = Q²` (with `z₀ = Q²` the ψ-side theta part
+vanishes: Weierstrass `j₄j₁₂j₁₄ + Q⁴j₂j₄j₆ = j₆j₈j₁₄`); LemA₁ (Weierstrass at `x = Q⁶, y = −Q², u = Q⁴, v = Q¹⁰`);
+(8.17)₁ `J̄_{5,20}J̄_{12,30} − Q³J̄_{2,5}J̄_{30,120} = J_{6,20}J_{3,12}` = HM (1.9) at `x = Q⁶`.
