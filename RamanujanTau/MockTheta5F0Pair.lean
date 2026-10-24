@@ -179,3 +179,67 @@ theorem qfacInf_mul_f0 : qfacInf * f0 = tsumQsq alphaF0 := by
       Ring.mul_inverse_cancel _ isUnit_qfacInf, one_mul]
 
 end MockTheta5.JTP
+
+namespace MockTheta5.Bailey
+open PowerSeries
+
+/-- `V n = q^{n²} + 2 Σ_{1≤j≤n} (−1)ʲ q^{n²−j²}`, i.e. `Σ_{|j|≤n} (−1)ʲ q^{n²−j²}`. -/
+lemma Vth_eq_sum (n : ℕ) :
+    Vth n = X ^ (n ^ 2) + 2 * ∑ j ∈ Finset.range n, (-1) ^ (j + 1) * X ^ (n ^ 2 - (j + 1) ^ 2) := by
+  induction n with
+  | zero => simp [Vth]
+  | succ n ih =>
+      have hsum : ∑ j ∈ Finset.range n, X ^ (2 * n + 1) * ((-1) ^ (j + 1) * X ^ (n ^ 2 - (j + 1) ^ 2))
+          = ∑ j ∈ Finset.range n, ((-1) ^ (j + 1) * X ^ ((n + 1) ^ 2 - (j + 1) ^ 2) : PowerSeries ℤ) := by
+        refine Finset.sum_congr rfl fun j hj => ?_
+        rw [Finset.mem_range] at hj
+        have h1 : (j + 1) ^ 2 ≤ n ^ 2 := Nat.pow_le_pow_left (by omega) 2
+        rw [show (n + 1) ^ 2 - (j + 1) ^ 2 = (2 * n + 1) + (n ^ 2 - (j + 1) ^ 2) from by
+          zify [h1, show (j + 1) ^ 2 ≤ (n + 1) ^ 2 from Nat.pow_le_pow_left (by omega) 2]; ring, pow_add]
+        ring
+      rw [Vth, ih, Finset.sum_range_succ, Nat.sub_self, pow_zero, mul_one, ← hsum, ← Finset.mul_sum,
+        show (n + 1) ^ 2 = (2 * n + 1) + n ^ 2 from by ring, pow_add]
+      ring
+
+/-- Andrews' `n`-th Hecke term `Σ_{|j|≤n} (−1)ʲ (q^{n(5n+1)/2−j²} − q^{n(5n+9)/2+2−j²})`
+`= q^{n²+T(n)} V n (1 − q^{4n+2})`. -/
+noncomputable def heckeF0 (n : ℕ) : PowerSeries ℤ := X ^ (n ^ 2 + triF n) * Vth n * (1 - X ^ (4 * n + 2))
+
+/-- the "second half" `B_m = q^{m²+T(m)+4m+2} V m`. -/
+noncomputable def BF0 (m : ℕ) : PowerSeries ℤ := X ^ (m ^ 2 + triF m + 4 * m + 2) * Vth m
+
+lemma triF_succ (m : ℕ) : triF (m + 1) = triF m + m + 1 := rfl
+
+/-- `q^{n²}αₙ = Aₙ − B_{n−1}` with `heckeF0 n = Aₙ − Bₙ`. -/
+lemma sq_alpha_telescope (K : ℕ) :
+    ∑ n ∈ Finset.range (K + 1), X ^ (n ^ 2) * alphaF0 n
+      = ∑ n ∈ Finset.range (K + 1), heckeF0 n + BF0 K := by
+  induction K with
+  | zero => simp [alphaF0, heckeF0, BF0, Vth, triF]
+  | succ K ih =>
+      have key : X ^ ((K + 1) ^ 2) * alphaF0 (K + 1) + BF0 K = heckeF0 (K + 1) + BF0 (K + 1) := by
+        simp only [alphaF0, heckeF0, BF0, triF_succ]
+        rw [show (K + 1) ^ 2 = K ^ 2 + 2 * K + 1 from by ring]
+        simp only [pow_add, pow_succ, mul_add, mul_one]
+        ring
+      rw [Finset.sum_range_succ _ (K + 1), ih, Finset.sum_range_succ heckeF0 (K + 1)]
+      linear_combination key
+
+end MockTheta5.Bailey
+
+namespace MockTheta5.JTP
+open PowerSeries MockTheta5.Bailey
+
+/-- Andrews' Hecke-type double sum `Σ_{n≥0} Σ_{|j|≤n} (−1)ʲ q^{n(5n+1)/2−j²}(1−q^{4n+2})`. -/
+noncomputable def heckeSumF0 : PowerSeries ℤ :=
+  mk fun k => coeff k (∑ n ∈ Finset.range (k + 1), heckeF0 n)
+
+/-- **Andrews' Hecke-type identity for `f₀`** (Trans. AMS 1986; HM (0.3)):
+`(q;q)_∞ f₀(q) = Σ_{n≥0} Σ_{|j|≤n} (−1)ʲ q^{n(5n+1)/2−j²}(1 − q^{4n+2})`. -/
+theorem qfacInf_mul_f0_hecke : qfacInf * f0 = heckeSumF0 := by
+  rw [qfacInf_mul_f0]
+  ext k
+  rw [tsumQsq, heckeSumF0, coeff_mk, coeff_mk, sq_alpha_telescope k, map_add, BF0,
+    PowerSeries.coeff_X_pow_mul', if_neg (by nlinarith), add_zero]
+
+end MockTheta5.JTP
