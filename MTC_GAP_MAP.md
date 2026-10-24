@@ -178,3 +178,11 @@ HM Thm 0.3 at `x₁ = i t^{189}` (zero tables shifted by +36; one `A`-class coll
 `(1+ψ)(q⁵;q⁵)_∞ = A₁₀ + q²A₁₅ + q⁴A₂₀` (`a = 2`); changes of `z` to `z₀ = Q²` (with `z₀ = Q²` the ψ-side theta part
 vanishes: Weierstrass `j₄j₁₂j₁₄ + Q⁴j₂j₄j₆ = j₆j₈j₁₄`); LemA₁ (Weierstrass at `x = Q⁶, y = −Q², u = Q⁴, v = Q¹⁰`);
 (8.17)₁ `J̄_{5,20}J̄_{12,30} − Q³J̄_{2,5}J̄_{30,120} = J_{6,20}J_{3,12}` = HM (1.9) at `x = Q⁶`.
+
+## 8. Remaining: the χ₀ combinatorial corollary
+
+`N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀` needs the χ₀ identity `χ₀ − 2 = 3Φ − J₅²J_{5,2}/J_{5,1}²` (then `rank_diff_mod5`
+finishes it). `pairs.py` (2026-10-24 rerun) finds no two-term theta relation involving χ₀ or φ₀, so χ₀ does not follow
+from MTC₀/MTC₁ by theta algebra. Routes: (a) R1 `χ₀ = 2F₀ − φ₀(−q)` (Eulerian), Watson's `f₀ + 2F₀(q²) − 2 = ∏`, and
+φ₀ via HM Thm 0.4 for `f_{1,4,1}` (discriminant 15); (b) Garvan's Hecke–Rogers form of χ₀ (`f_{12,9,3}`, discriminant
+45) through a second HM Thm 0.3 instance. Both are new L2-scale developments.

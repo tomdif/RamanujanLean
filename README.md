@@ -48,8 +48,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 285 |
-| Build | `lake build` → **8667 jobs, 0 errors** |
+| Modules | 288 |
+| Build | `lake build` → **8671 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
