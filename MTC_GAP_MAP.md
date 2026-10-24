@@ -143,3 +143,27 @@ dissection indexed by `ρ = c₀ − r`), and `F` vanishes at 56 pairwise inequi
 **E2** `MTC.gNum_xstar` (GX373): `J̄ g(x*, y*) = 2 j(Q²;Q³)(A(Q¹⁴) + Q⁻²A(Q⁴))`.
 Remaining for MTC₀: `θ_{3,4}(x*)` as a product (ThetaX/ThetaY, in progress), `κ = J₄₀³` (KapJ), the sum→product bridge
 (Bridge), L5 (`Φ(q²)` as Appell–Lerch sums), change of z, HM (8.16)/(1.9) with product rearrangements, ℤ⟦q⟧ bridge.
+
+## 6. MTC₀ PROVED (2026-10-24, axiom-clean)
+
+`MTC.mock_theta_conjecture_f0` (RamanujanTau/MTC/MTC0.lean):
+
+    f₀(q) = (q⁵;q¹⁰)²_∞ (q¹⁰;q¹⁰)_∞ / ((q;q⁵)_∞ (q⁴;q⁵)_∞) − 2 Φ(q²)
+
+with `f₀ = Σ q^{n²}/(−q;q)_n` (`MockTheta5.JTP.f0`) and `1 + Φ = RankProof.Phi 1`, in `ℤ⟦q⟧`; `#print axioms` gives
+only `propext, Classical.choice, Quot.sound`. Multiplied-out form: `MTC.mtc0`.
+
+Chain (all in `ℂ((t))`, `Q = t^{168}`, then pulled back by `ιN` injectivity):
+* **Main** (`Endgame2.main_x`): HM Thm 0.3 at the MTC₀ point + E1 + E2 + E3 (`ThetaX373.thV_xstar`, `ThetaY373.S_prod`)
+  + `κ = (q;q)³` (`KapJ`).
+* **L5** (`L5.L5_lam`): `(1 + φ(q))(q⁵;q⁵)_∞ = A₁₀ + qA₁₅ + q²A₂₀` from the Appell–Lerch form of the rank generating
+  function at `z = X`, `q = X⁵` (`RankALm.rank_AL_m`), partial fractions and `1/(1−y) = (1+y+y²)/(1−y³)`.
+* Appell–Lerch calculus: `LamAb.Alam_eq_Ab` (Lambert form = `ALz.Ab`), `LamInv` (HM 2.2a, 2.2b), `Av_qshift` (2.2c),
+  `kappa_eq_jacobi` (HM 1.3), four `ALz.change_of_z2` instances to `z₀ = Q⁴` (`Endgame1.I1`–`I4`).
+* `endgame_reduce`: the unknown values `A(Q¹⁴,Q⁴)`, `A(Q⁴,Q⁴)` cancel using `LemA` (HM Prop 1.1, Weierstrass `P11W`)
+  and `LemB` (HM Prop 3.2 ⟺ `F1prime`, Weierstrass).
+* `LemC_of`: the remaining theta identity = (8.17) × products (`PI1`, `PI2`).
+* (8.17) (`H19b.E817_holds`): HM (1.9) as an element of `Th(Q³⁰, 10, Q⁻¹⁰⁵)` (`H19.F19_mem`, via `ThExtra`:
+  base multiplication, `x ↦ x^d`, `x^a`, products) vanishing at 11 inequivalent points (`F19_zero`), at `x = 1`.
+* Product identities (`ProdId`): every theta becomes a product of atoms `ιN (u^r;u^M)_∞` (barred thetas via HM (1.4b)),
+  then `field_simp`.
