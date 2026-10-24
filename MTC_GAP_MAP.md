@@ -131,3 +131,15 @@ formalization of residue cancellation.
 - `check.py`: checks HM (4.11), (4.13), Prop 3.2 and Hecke form (0.3) exactly to q¹²⁰.
 - `bailey_f0_pair.py`, `f0_pair_certificate.py`: the L1 Bailey pair and its certificate search.
 - `garvan_chi0_hecke.py`: Garvan's Hecke–Rogers form for χ₀.
+
+## 5. Status 2026-10-24
+
+**L2 done at the MTC₀ point (axiom-clean):** `MTC.hm03_xstar` (RamanujanTau/MTC/Zeros373.lean) proves HM Theorem 0.3
+for `f_{3,7,3}` at `q = t^{42}`, `x* = i t^{105}`, `y* = −i t^{105}`. The route: entire bilateral series over `ℂ((t))`
+(Ent/Conv/ThSpace/ThFactor), `F = P·(J̄f − J̄g − κθ_{3,4})` with `P = Π j(A_r)j(B_s)` lies in `Th(55)` (FCore373), the
+residue identities at the zeros of `j(B_s)` and `j(A_r)` are proved symbolically (ResB373, EvA373: a `q³ → q⁴⁸`
+dissection indexed by `ρ = c₀ − r`), and `F` vanishes at 56 pairwise inequivalent points (`F0_eq_zero`).
+**E1** `MTC.fS_xstar` (Hecke373): `f_{3,7,3}(x*, y*) = (q;q)_∞ f₀(Q)`, `Q = t^{168}` (HM (8.12)).
+**E2** `MTC.gNum_xstar` (GX373): `J̄ g(x*, y*) = 2 j(Q²;Q³)(A(Q¹⁴) + Q⁻²A(Q⁴))`.
+Remaining for MTC₀: `θ_{3,4}(x*)` as a product (ThetaX/ThetaY, in progress), `κ = J₄₀³` (KapJ), the sum→product bridge
+(Bridge), L5 (`Φ(q²)` as Appell–Lerch sums), change of z, HM (8.16)/(1.9) with product rearrangements, ℤ⟦q⟧ bridge.

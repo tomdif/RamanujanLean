@@ -17,6 +17,9 @@ set_option autoImplicit false
 namespace MTC
 open ALz HahnSeries Finset
 
+lemma mono_ext {E E' : ℤ} {C C' : ℂ} (hE : E = E') (hC : C = C') : mono E C = mono E' C' := by
+  subst hE hC; rfl
+
 /-! ## Restricted theta sums -/
 
 section Restricted
@@ -205,5 +208,114 @@ theorem fS_rec (hcy : cy ≠ 0) (k : ℤ) :
     linear_combination SK hqe ey cy k * hm - (SK hqe ey cy k + finK (qe := qe) ey cy k) * hZ
 
 end F373
+
+/-! ## Theta series and the value-level functional equation of `f` -/
+
+section ThSer
+
+/-- the theta series `k ↦ (−1)^k q^{C(k,2)} (c tᵉ)^k` in `x`, `q = t^N`. -/
+noncomputable def thSer (N : ℕ) (e : ℤ) (c : ℂ) : ℤ → L := fun k => mono (N * c2 k + e * k) ((-1) ^ k * c ^ k)
+
+lemma thSer_eq (N : ℕ) (e : ℤ) {c : ℂ} (hc : c ≠ 0) : thSer N e c = thS (NQ := N) (-e) c⁻¹ := by
+  funext k; simp only [thSer, thS]; congr 1
+  · ring
+  · rw [inv_zpow', neg_neg]
+
+lemma thSer_ent {N : ℕ} (hN : 1 ≤ N) (e : ℤ) {c : ℂ} (hc : c ≠ 0) : Ent (thSer N e c) := by
+  rw [thSer_eq N e hc]
+  exact Th.ent le_rfl (neg_ne_zero.mpr (inv_ne_zero hc)) hN (thS_mem _ (inv_ne_zero hc))
+
+lemma thSer_ev {N : ℕ} (hN : 1 ≤ N) (e : ℤ) {c : ℂ} (hc : c ≠ 0) (ex : ℤ) (cx : ℂ) :
+    ev (thSer N e c) ex cx = θ hN (e + ex) (c * cx) := by
+  rw [thSer_eq N e hc, thS_ev hN _ (inv_ne_zero hc), sub_neg_eq_add, div_inv_eq_mul, add_comm, mul_comm]
+
+end ThSer
+
+section FVal
+variable {qe : ℕ} (hqe : 1 ≤ qe) (ey : ℤ) (cy : ℂ)
+
+include hqe in
+lemma InhS_eq : InhS hqe ey cy = fun k =>
+    (∑ r ∈ Finset.Icc (0 : ℤ) 2,
+      monoS r (mono (40 * qe * r + 3 * qe * c2 r) ((-1) ^ r) * θ (h3qe hqe) (7 * qe * r + ey) cy) k) -
+    ∑ u ∈ Finset.Icc (-7 : ℤ) (-1),
+      mono (3 * qe * c2 u + ey * u) ((-1) ^ u * cy ^ u) * thSer (3 * qe) (40 * qe + 7 * qe * u) 1 k := by
+  funext k
+  unfold InhS finK
+  rw [mul_sub, Finset.mul_sum]
+  congr 1
+  · by_cases hk : 0 ≤ k ∧ k ≤ 2
+    · rw [if_pos hk, Finset.sum_eq_single k]
+      · simp [monoS]
+      · intro r _ hr; simp [monoS, Ne.symm hr]
+      · intro h; exact absurd (Finset.mem_Icc.mpr hk) h
+    · rw [if_neg hk, mul_zero]
+      refine (Finset.sum_eq_zero fun r hr => ?_).symm
+      have : k ≠ r := fun h => hk (h ▸ Finset.mem_Icc.mp hr)
+      simp [monoS, this]
+  · refine Finset.sum_congr rfl fun u _ => ?_
+    simp only [thSer, thE, thC, mono_mul, one_zpow, mul_one]
+    congr 1
+    · push_cast; ring
+    · ring
+
+/-- the value of the inhomogeneous term. -/
+noncomputable def InhV (ex : ℤ) (cx : ℂ) : L :=
+  (∑ r ∈ Finset.Icc (0 : ℤ) 2,
+      mono (40 * qe * r + 3 * qe * c2 r) ((-1) ^ r) * θ (h3qe hqe) (7 * qe * r + ey) cy * mono (ex * r) (cx ^ r)) -
+    ∑ u ∈ Finset.Icc (-7 : ℤ) (-1),
+      mono (3 * qe * c2 u + ey * u) ((-1) ^ u * cy ^ u) * θ (h3qe hqe) (40 * qe + 7 * qe * u + ex) cx
+
+include hqe in
+lemma InhS_ent : Ent (InhS hqe ey cy) := by
+  rw [InhS_eq hqe ey cy]
+  refine (Ent.sum _ fun r _ => ent_monoS _ _).sub (Ent.sum _ fun u _ => ?_)
+  exact (thSer_ent (h3qe hqe) _ one_ne_zero).smul _
+
+include hqe in
+lemma InhS_ev (ex : ℤ) (cx : ℂ) : ev (InhS hqe ey cy) ex cx = InhV hqe ey cy ex cx := by
+  have h1 : Ent (fun k => ∑ r ∈ Finset.Icc (0 : ℤ) 2,
+      monoS r (mono (40 * qe * r + 3 * qe * c2 r) ((-1) ^ r) * θ (h3qe hqe) (7 * qe * r + ey) cy) k) :=
+    Ent.sum _ fun r _ => ent_monoS _ _
+  have h2 : Ent (fun k => ∑ u ∈ Finset.Icc (-7 : ℤ) (-1),
+      mono (3 * qe * c2 u + ey * u) ((-1) ^ u * cy ^ u) * thSer (3 * qe) (40 * qe + 7 * qe * u) 1 k) :=
+    Ent.sum _ fun u _ => (thSer_ent (h3qe hqe) _ one_ne_zero).smul _
+  rw [InhS_eq hqe ey cy, show (fun k => (∑ r ∈ Finset.Icc (0 : ℤ) 2,
+      monoS r (mono (40 * qe * r + 3 * qe * c2 r) ((-1) ^ r) * θ (h3qe hqe) (7 * qe * r + ey) cy) k) -
+    ∑ u ∈ Finset.Icc (-7 : ℤ) (-1),
+      mono (3 * qe * c2 u + ey * u) ((-1) ^ u * cy ^ u) * thSer (3 * qe) (40 * qe + 7 * qe * u) 1 k) =
+    (fun k => ∑ r ∈ Finset.Icc (0 : ℤ) 2,
+      monoS r (mono (40 * qe * r + 3 * qe * c2 r) ((-1) ^ r) * θ (h3qe hqe) (7 * qe * r + ey) cy) k) -
+    (fun k => ∑ u ∈ Finset.Icc (-7 : ℤ) (-1),
+      mono (3 * qe * c2 u + ey * u) ((-1) ^ u * cy ^ u) * thSer (3 * qe) (40 * qe + 7 * qe * u) 1 k) from rfl,
+    ev_sub h1 h2, ev_sum _ (fun r _ => ent_monoS _ _), ev_sum _ (fun u _ =>
+      (thSer_ent (h3qe hqe) _ one_ne_zero).smul _)]
+  unfold InhV
+  congr 1
+  · refine Finset.sum_congr rfl fun r _ => ?_
+    rw [ev_monoS]
+  · refine Finset.sum_congr rfl fun u _ => ?_
+    rw [ev_smul (thSer_ent (h3qe hqe) _ one_ne_zero), thSer_ev (h3qe hqe) _ one_ne_zero, one_mul]
+
+include hqe in
+/-- **value-level functional equation of `f_{3,7,3}`**:
+`f(q^{40}x) = q^{66} y^{−7} x³ f(x) + Inh(x)`. -/
+theorem fV_FE (hcy : cy ≠ 0) (ex : ℤ) {cx : ℂ} (hcx : cx ≠ 0) :
+    ev (fS hqe ey cy) (ex + 40 * qe) cx =
+      muD (qe := qe) ey cy * mono (3 * ex) (cx ^ (3 : ℤ)) * ev (fS hqe ey cy) ex cx + InhV hqe ey cy ex cx := by
+  have hE := fS_ent hqe ey cy
+  have hser : twist (fS hqe ey cy) (40 * qe) 1 =
+      (fun k => muD (qe := qe) ey cy * shiftS (fS hqe ey cy) (-3) k) + InhS hqe ey cy := by
+    funext k
+    simp only [twist, one_zpow, Pi.add_apply, shiftS]
+    rw [fS_rec hqe ey cy hcy k, show k + -3 = k - 3 by ring]
+  have := ev_twist hE (40 * qe) 1 ex cx
+  rw [mul_one, hser, ev_add ((hE.shift (-3)).smul _) (InhS_ent hqe ey cy), ev_smul (hE.shift (-3)),
+    MTC.ev_shift hE (-3) ex hcx, InhS_ev] at this
+  rw [← this]
+  simp only [mul_neg, neg_neg]
+  ring
+
+end FVal
 
 end MTC
