@@ -333,3 +333,10 @@ import RamanujanTau.HeckeCore
 import RamanujanTau.HeckeForm
 import RamanujanTau.HeckeQExp
 import RamanujanTau.TauLSeries
+import RamanujanTau.MockTheta5F1Pair
+import RamanujanTau.MTC.MTC0
+import RamanujanTau.MTC.Zeros1
+import RamanujanTau.MTC.Hecke1
+import RamanujanTau.MTC.GX1
+import RamanujanTau.MTC.ThetaY1
+import RamanujanTau.MTC.L5b

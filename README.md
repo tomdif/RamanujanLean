@@ -36,6 +36,9 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Rank equidistribution mod 5** (Dyson's conjecture; Atkin–Swinnerton-Dyer) | `5·#{λ⊢5n+4 : rank ≡ i} = p(5n+4)`, rank = largest part − number of parts |
 | **Garvan's Hecke–Rogers identities** (2.18), (2.19) | `(zq)(q/z)·R(z;q)` and `(q)(zq)(q/z)·R(z;q²)` as indefinite theta series |
 | **Ramanujan's 5-dissection of the rank generating function** (Lost Notebook p. 20) | `R(ζ₅;q) = Σ qᵏR_k(q⁵)` with `R₁ = J₅²/J₅,₁`, `R₂ = (ζ+ζ⁴)J₅²/J₅,₂`, `R₄ = 0`, and `R₀`, `R₃` in terms of the mock theta functions `φ`, `ψ` |
+| **The first Mock Theta Conjecture** (Hickerson 1988; Andrews–Garvan form) | `f₀(q) = θ₄(0,q⁵)/((q;q⁵)_∞(q⁴;q⁵)_∞) − 2Φ(q²)`, `f₀ = Σ q^{n²}/(−q;q)ₙ` (`MTC.mock_theta_conjecture_f0`) |
+| **Andrews' Hecke-type identities for `f₀`, `f₁`** | `(q;q)_∞f₀ = ΣΣ_{\|j\|≤n}(−1)ʲq^{n(5n+1)/2−j²}(1−q^{4n+2})`, `(q;q)_∞f₁ = ΣΣ(−1)ʲq^{n(5n+3)/2−j²}(1−q^{2n+1})` |
+| **Hickerson–Mortenson Theorem 0.3 for `f_{3,7,3}`** at the MTC₀ and MTC₁ points | Hecke-type double sum = Appell–Lerch sums + theta quotient (`MTC.hm03_xstar`, `MTC.hm03_x1`) |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
 | **Euler's recurrence** | `p(n) = p(n−1)+p(n−2)−p(n−5)−p(n−7)+⋯` |
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
@@ -45,8 +48,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 150 |
-| Build | `lake build` → **3864 jobs, 0 errors** |
+| Modules | 285 |
+| Build | `lake build` → **8667 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -627,6 +630,32 @@ theorem psi_eq_series    : psi = psiSum                  --  ψ(q) = Σ_{n≥0} 
 `2·((q;q)_∞·∏(1+qⁿ)²)`; cancelling the `2` (`PowerSeries ℤ` is a domain) and applying the distinct = odd
 algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean` records the theta relation
 `phi_mul_phiNeg : φ(q)·φ(−q) = φ(−q²)²`.
+
+### `MTC/` — the first Mock Theta Conjecture (Hickerson–Mortenson route)
+```lean
+theorem MTC.mock_theta_conjecture_f0 :
+    f0 = Pinf 5 10 * Pinf 5 10 * Pinf 10 10 * Ring.inverse (Pinf 1 5 * Pinf 4 5) - 2 * (Ea 2 _ (Phi 1) - 1)
+--  f₀(q) = (q⁵;q¹⁰)²(q¹⁰;q¹⁰)/((q;q⁵)(q⁴;q⁵)) − 2Φ(q²)   in ℤ⟦q⟧
+```
+The chain, following Hickerson–Mortenson (Proc. LMS 2014), lives in `RamanujanTau/MTC/` (≈40 files, see
+`MTC_GAP_MAP.md` §6 for the full map):
+* **Andrews' Hecke form** (`MockTheta5F0Pair`): a new Bailey pair relative to `a = 1` with a creative-telescoping
+  certificate linear in the partial theta polynomial.
+* **Hecke → Appell–Lerch** (`Ent`, `Conv`, `ThSpace`, `ThFactor`, `F373`…`Zeros373`): entire bilateral series over
+  `ℂ((t))`, theta spaces `Th(m)` and a zero-counting theorem; `f_{3,7,3}` is evaluated at the specialization point by
+  showing an auxiliary series in `Th(55)` vanishes at 56 explicit points (residue identities proved symbolically).
+* **The rank side** (`RankALm`, `L5`): `(1+φ(q))(q⁵;q⁵)_∞` as three Appell–Lerch sums.
+* **Appell–Lerch calculus** (`LamAb`, `LamInv`, `Endgame1`): Lambert form = library form, HM (2.2a–c), four changes
+  of `z`; the unknown Appell–Lerch values cancel (`Endgame2.endgame_reduce`).
+* **Theta identities**: Weierstrass instances (`F1Prime`, `P11`), a product-identity engine splitting every theta
+  into atoms `(q^r;q^M)_∞` (`ProdId`, `LemC`), and HM (1.9) by a zero count in `Th(Q³⁰,10)` (`ThExtra`, `H19`,
+  `H19b`), which gives HM (8.17).
+
+**In progress — the second conjecture (MTC₁, `f₁ = Σ q^{n²+n}/(−q;q)ₙ`):** Andrews' Hecke form
+(`MockTheta5F1Pair.qfacInf_mul_f1_hecke`), HM Theorem 0.3 at the MTC₁ point (`Zeros1.hm03_x1`), the Hecke side
+(`Hecke1.fS_xstar₁`), the Appell–Lerch side (`GX1.gNum_x1`) and the theta quotient (`ThetaX1.thV_x1`,
+`ThetaY1.S1_prod`) are proved; the remaining theta identities are (8.17)₁ = HM (1.9) at `x = Q⁶` and two
+Weierstrass instances.
 
 ### Multi-quintuple-product vanishing research
 
