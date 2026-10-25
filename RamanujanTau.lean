@@ -360,3 +360,5 @@ import RamanujanTau.MTC.Ev232
 import RamanujanTau.MTC.Zeros232
 import RamanujanTau.MTC.HM232Real
 import RamanujanTau.TauSmallChecks
+import RamanujanTau.Chi0Pair
+import RamanujanTau.Chi0Conj
