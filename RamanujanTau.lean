@@ -366,3 +366,4 @@ import RamanujanTau.Chi0Bailey
 import RamanujanTau.MTC.Chi0Cone
 import RamanujanTau.MTC.Chi0Theta
 import RamanujanTau.MTC.Chi0D
+import RamanujanTau.MTC.Chi0Bridge
