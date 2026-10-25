@@ -670,8 +670,15 @@ both conjectures (`Final1`).
 
 **HM Theorem 0.3 for `f_{1,4,1}`** (`F141`, `G141`, `T141`, `Core141`, `FCore141`, `Ev141`, `Z16`, `Zeros141`;
 theorem `MTC.H141.hm03_psi`): the `n = 1, p = 3` case of the same machinery, at `y = i t¹²`, `q = t⁸` (auxiliary series
-in `Th(16)`, 17 zeros). This is the Hecke → Appell–Lerch step for `ψ₀`. The χ₀ corollary is still open: every link
-from χ₀ to `f₀`/`ψ₀` is one of Watson's q ↔ q² relations (see `MTC_GAP_MAP.md` §8).
+in `Th(16)`, 17 zeros). This is the Hecke → Appell–Lerch step for `ψ₀`.
+
+**χ₀ (toward `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`), Hecke side done.** A new `a = q` Bailey pair (`Chi0Pair`, WZ)
+and Garvan's conjugate pair (`Chi0Conj`) give `(q)_∞χ₀` as a double sum (`Chi0Bailey`).
+That double sum is rearranged into Garvan's four `f_{12,9,3}` values by eight cone-shift moves plus the
+pentagonal theorem (`MTC/Chi0Cone`, `Chi0Theta`, `Chi0D`).
+A parity split then turns those values into `f_{2,3,2}` evaluations at the seven points where HM Theorem 0.3 is proved
+(`MTC/F232 … Zeros232, HM232Real, Chi0Bridge`; theorem `MTC.Chi0L.chi0_hecke_HM`).
+Remaining: the Appell–Lerch endgame and the theta identity (see `MTC_GAP_MAP.md` §8).
 
 ### Multi-quintuple-product vanishing research
 

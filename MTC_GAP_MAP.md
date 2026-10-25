@@ -194,16 +194,29 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
 * `MTC/Zeros232` (generator `scripts/mtc_gap/gen_zeros232.py`): `F ≡ 0` at `y = −t^{6b}`, `b ∈ {7,13,17,19,25}`, `q = t³⁶`.
 * `MTC/HM232Real`: HM Theorem 0.3 at all eight real points (`hm03_77`, `hm03_16_13`, …, `hm03_25_25`).
 
-**Certificates found (not yet in Lean):**
-* Bailey pair relative to `a = q`: `β_n = (1 − q^{2n+1})/(q²;q)_{2n}` (so `Σ β_n δ_n = (q)_∞ χ₀` with Garvan's δ),
-  `α_{3m} = q^{6m²−m}(1 − q^{6m+1})`, `α_{3m−1} = −q^{6m²−5m+1}(1 − q^{6m−1})`, `α_{3m+1} = 0`. Equivalent to the finite
-  identity `Σ_j q^{j(6j−1)}(1 − q^{6j+1})[2n+1; n−3j] = 1 − q^{2n+1}`, WZ certificate
-  `R = −qx(1 − xy³)(1 − qxy³)/((qx − y³)(qy⁶ − 1))` (`x = qⁿ, y = q^j`). (Replaces Slater A(4) and Watson's A0.)
-* Garvan's conjugate pair (`a = q`, `δ_n = qⁿ(q)_n(q)_∞/(1−q)`): `γ_n + q^{3n+3}γ_{n+1} = qⁿ(1 + q^{n+1})`, WZ certificate
-  `G(n,r) = F(n,r)(1 − q^{n−r})(1 + q^{n+1})`; the closed form follows by uniqueness (order → ∞).
-* The Bailey double sum `Σ α_n γ_n` is eight positive-cone `f_{12,9,3}` sums at `(−q^8,q^4), (−q^{11},q^5), …`.
+**Hecke side, done (2026-10-25, axiom-clean, all pushed):**
+* `Chi0Pair`: the new `a = q` Bailey pair `β_n = (1 − q^{2n+1})/(q²;q)_{2n}`,
+  `α_{3m} = q^{6m²−m}(1 − q^{6m+1})`, `α_{3m−1} = −q^{6m²−5m+1}(1 − q^{6m−1})`, `α_{3m+1} = 0`.
+  It is equivalent to the finite identity `Σ_j (q^{j(6j−1)} − q^{(2j+1)(3j+1)})[2n+1; n−3j] = 1 − q^{2n+1}`,
+  proved by a WZ certificate in `FractionRing ℤ⟦X⟧` (`pair_identity`).
+* `Chi0Conj`: Garvan's conjugate pair. Its recurrence `S_r + q^{3r+3}S_{r+1} = qʳ(1+q^{r+1})/(q)_∞` has a WZ
+  certificate, and the closed form `γ_r = Σ_u (−1)^u q^{r+3ru+u(3u+5)/2}(1+q^{r+1+u})` follows by order-descent
+  uniqueness (`γc_eq`).
+* `Chi0Bailey`: the Bailey transform, `(q;q)_∞ χ₀ = Σ_j c_j γ_{r(j)}` (`qfacInf_mul_chi0`), with the sums exchanged
+  coefficientwise.
+* `MTC/Chi0Cone`, `MTC/Chi0Theta`: positive cones `Cp k ex ey` of `f_{12,9,3}` in `ℂ((t))`, their two shift
+  relations, and the pentagonal boundary `(q;q)_∞ = Th3 0 2 − Th3 1 4`.
+  `cone_identity` says the 8 Bailey cones minus the 8 cones of Garvan's four `f_{12,9,3}` values equal `2(q;q)_∞`;
+  the proof is 8 shift moves.
+  (In `f_{2,3,2}` coordinates the same bookkeeping needs affine automorphisms with Fibonacci entries; in `f_{12,9,3}`
+  coordinates no automorphisms are needed.)
+* `MTC/Chi0D`: the Bailey double sum, reindexed (`j = r` or `j = −1 − r`), is exactly the 8 cones (`qfac_chi0_cones`).
+  This gives Garvan's Hecke form `qfac_chi0_garvan`.
+* `MTC/Chi0Bridge`: the parity split `Cp = Cq − Cq`, and `Q^K f_{2,3,2}(−Q^a,−Q^b,Q⁶) = Cq − Cq` for the HM value
+  `ev (fS hq36 (6b) (−1)) (6a) (−1)` (`f232_cones`). Together these give **`chi0_hecke_HM`**:
+  `(Q;Q)_∞(χ₀ − 2) = −F(7,7) + Q²F(16,13) + 2Q F(11,13) − Q⁵F(22,17) − Q⁶F(20,19) − Q⁴F(16,19) + Q¹²F(25,25)`,
+  at exactly the points where `HM232Real` proves HM Theorem 0.3.
 
-**Still to do:** Bailey transform and pairs in Lean; the lattice rearrangement to the seven `f_{2,3,2}` values
-(partial-theta bookkeeping as in Garvan §3); `ev fS` at the real points as `ιN` of those series; the Appell–Lerch endgame
+**Still to do:** the Appell–Lerch endgame
 (the g-arguments are `m(−Q^e, Q⁶⁰, −1)`; odd residues `{29, −1, 19, −11}` are the `n = 2` splits of `m(Q⁷,Q¹⁵,·)`,
 `m(Q²,Q¹⁵,·)`, even residues cancel in pairs); the final theta identity; the corollary.
