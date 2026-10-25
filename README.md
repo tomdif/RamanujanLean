@@ -631,6 +631,14 @@ theorem psi_eq_series    : psi = psiSum                  --  ψ(q) = Σ_{n≥0} 
 algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean` records the theta relation
 `phi_mul_phiNeg : φ(q)·φ(−q) = φ(−q²)²`.
 
+### Bounds for τ
+
+* **Hecke's bound** `RamanujanTau.tau_isBigO : τ(n) = O(n⁶)` (`TauHeckeBound.lean`), from Mathlib's
+  `CuspFormClass.qExpansion_isBigO` through the Δ bridge.
+* **Small cases, kernel-checked** (`TauSmallChecks.lean`, `decide +kernel`): Ramanujan's conjecture
+  `τ(p)² ≤ 4p¹¹` for all primes `p < 50` (`ramanujan_bound_lt50`) and Lehmer's `τ(n) ≠ 0` for `n < 30`
+  (`lehmer_lt30`). Deligne's theorem itself (étale cohomology of Kuga–Sato varieties) is out of reach of current Mathlib.
+
 ### `MTC/` — the Mock Theta Conjectures (Hickerson–Mortenson route)
 ```lean
 theorem MTC.mock_theta_conjecture_f0 :
