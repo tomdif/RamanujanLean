@@ -243,5 +243,17 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
   small weights), no homomorphic argument deformation preserves it, and χ₀ has no single complex-point `f_{2,3,2}`
   Hecke form (searched `q' = Q^{d/D}`, `D ≤ 4`, 24th roots of unity). That last search would have given an
   MTC₀-style 3-term identity.
-* Candidate routes: a Weierstrass-chain certificate with auxiliary products, or an HM-type general identity with a
-  free variable (as HM (1.9) was for MTC₀).
+* **Weierstrass-chain search, depth 1 (2026-10-25): negative.**
+  - Setup: all Weierstrass instances in bases 10, 12, 15, 20, 24, 30, 40, 60 with arguments `±Q^α` (785k distinct
+    shapes), anchored at the 8 terms. That gives 3.5M relations, and the 2-core keeps 45k.
+  - Result: the identity is **not** in their span (sparse least squares, residual norm ≈ 0.11).
+  - A certificate therefore needs depth ≥ 2 (auxiliary products not adjacent to any original term), or half-integer
+    arguments, or bases 120/240.
+* Also negative: no single Andrews-type Hecke form for χ₀ or φ₀; no single complex-point `f_{1,4,1}` form for φ₀.
+* Alternative route identified: `R1: χ₀ = 2F₀ − φ₀(−q)` holds exactly. With MTC₀ and `f₀ + 2F₀(q²) − 2 = ∏`, the
+  χ₀ identity reduces to the φ₀ conjecture, plus proofs of R1 and that Watson relation.
+* Remaining candidate routes:
+  - a deeper Weierstrass search;
+  - an HM-type general identity with a free variable (as HM (1.9) was for MTC₀);
+  - the φ₀ route;
+  - a modular-forms (Sturm bound) proof.
