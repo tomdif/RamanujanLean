@@ -358,3 +358,4 @@ import RamanujanTau.MTC.Core232
 import RamanujanTau.MTC.FCore232
 import RamanujanTau.MTC.Ev232
 import RamanujanTau.MTC.Zeros232
+import RamanujanTau.MTC.HM232Real
