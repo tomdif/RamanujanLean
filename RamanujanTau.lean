@@ -349,3 +349,4 @@ import RamanujanTau.MTC.FCore141
 import RamanujanTau.MTC.Ev141
 import RamanujanTau.MTC.Z16
 import RamanujanTau.MTC.Zeros141
+import RamanujanTau.TauHeckeBound
