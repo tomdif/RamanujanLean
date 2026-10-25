@@ -249,6 +249,19 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
   - Result: the identity is **not** in their span (sparse least squares, residual norm ≈ 0.11).
   - A certificate therefore needs depth ≥ 2 (auxiliary products not adjacent to any original term), or half-integer
     arguments, or bases 120/240.
+  - Adding all 136 `n`-dissection identities (`n = 2, 3, 5`) changes nothing (residual 0.111).
+* **Other negative results:**
+  - the 7 HM theta values lie in 7 distinct proportionality classes;
+  - those classes admit no pairwise addition-law merges beyond `(22,17)+(20,19)`;
+  - degenerate points (where `f_{2,3,2}` is a product, on `a+b ∈ {42, 72}`) have `θ_{2,1} = 0`, so they cannot
+    substitute for our points;
+  - reflection and swapping preserve each class.
+* **Modular route, scoped.** Mathlib has `ModularForm.eq_const_of_weight_zero` and `isZero_of_neg_weight`
+  (arithmetic groups) and a norm map, which is enough for a Sturm-type argument.
+  - Missing: modularity of the ~100-factor generalized eta quotients on `Γ₁(120)`, i.e. their transformation
+    laws via `jacobiTheta₂`.
+  - Missing: a kernel-checkable coefficient comparison up to the Sturm bound (~10⁴ coefficients at weight ≈ 30).
+  - Both are far beyond the current scale.
 * Also negative: no single Andrews-type Hecke form for χ₀ or φ₀; no single complex-point `f_{1,4,1}` form for φ₀.
 * Alternative route identified: `R1: χ₀ = 2F₀ − φ₀(−q)` holds exactly. With MTC₀ and `f₀ + 2F₀(q²) − 2 = ∏`, the
   χ₀ identity reduces to the φ₀ conjecture, plus proofs of R1 and that Watson relation.
