@@ -362,3 +362,4 @@ import RamanujanTau.MTC.HM232Real
 import RamanujanTau.TauSmallChecks
 import RamanujanTau.Chi0Pair
 import RamanujanTau.Chi0Conj
+import RamanujanTau.Chi0Bailey
