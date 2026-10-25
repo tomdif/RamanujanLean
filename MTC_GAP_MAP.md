@@ -250,6 +250,23 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
   - A certificate therefore needs depth ≥ 2 (auxiliary products not adjacent to any original term), or half-integer
     arguments, or bases 120/240.
   - Adding all 136 `n`-dissection identities (`n = 2, 3, 5`) changes nothing (residual 0.111).
+* **Weierstrass-chain search, depth 2 (pruned, 2026-10-25): negative.**
+  - Every Weierstrass shape in bases ≤ 30 (64k shapes) was anchored at the 45k intermediate products of the depth-1
+    core. Of the 6.1M hits, a 2-core of 407k relations survives.
+  - Exact sparse least squares gives residual ≈ 0.076 (‖b‖ = 5.39), down from 0.111, so the identity is still not
+    in the span.
+  - The full depth-2 search with bases 40/60 is about 12× larger and was not run.
+* **Watson route (found numerically 2026-10-25, exact to q⁶⁰⁰).**
+  - Watson's relations are single products:
+    - `W1`: `f₀(q) + 2F₀(q²) − 2 = ∏₂₀`;
+    - `W2`: `f₀(q) − 2φ₀(−q²) = −∏₁₀`.
+    - (Bajpai–Kimport–Liang–Ma–Ricci, arXiv:2202.12141, (2.5), list these as Watson's identities.)
+  - Combined with MTC₀ (`f₀ = θ₄(0,q⁵)G(q) − 2φ(q²)`, proved) and `R1` (`χ₀ = 2F₀ − φ₀(−q)`) at `q²`, all mock
+    parts cancel. The χ₀ identity becomes the 4-term product identity
+    `2∏₂₀(q) − 3θ₄(0,q⁵)G(q) − ∏₁₀(q) + 2P(q²) = 0`, with `P = J₅²J_{5,2}/J_{5,1}²`.
+  - That identity splits into three 3-term identities: two 2-dissections and one base-10 identity.
+  - The cost moves to Lean proofs of `W1`, `W2` and `R1`, which are q-series relations (Watson 1936–37, via
+    generalized Lambert series). This is the recommended next route.
 * **Other negative results:**
   - the 7 HM theta values lie in 7 distinct proportionality classes;
   - those classes admit no pairwise addition-law merges beyond `(22,17)+(20,19)`;
