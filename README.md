@@ -678,7 +678,10 @@ That double sum is rearranged into Garvan's four `f_{12,9,3}` values by eight co
 pentagonal theorem (`MTC/Chi0Cone`, `Chi0Theta`, `Chi0D`).
 A parity split then turns those values into `f_{2,3,2}` evaluations at the seven points where HM Theorem 0.3 is proved
 (`MTC/F232 … Zeros232, HM232Real, Chi0Bridge`; theorem `MTC.Chi0L.chi0_hecke_HM`).
-Remaining: the Appell–Lerch endgame and the theta identity (see `MTC_GAP_MAP.md` §8).
+The Appell–Lerch endgame is also done (`MTC/Chi0AL`, `Chi0Split`, `Chi0Phi`): every mock part cancels.
+`MTC/Chi0Final` proves `χ₀ − 2 = 3(Φ−1) − (q⁵;q⁵)²J_{5,2}/J_{5,1}²` and `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`,
+**conditional on one explicit theta-function identity `ThetaId`**. `ThetaId` is equivalent to the χ₀ identity and is
+checked numerically; it is the only remaining gap (see `MTC_GAP_MAP.md` §8).
 
 ### Multi-quintuple-product vanishing research
 

@@ -217,6 +217,31 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
   `(Q;Q)_∞(χ₀ − 2) = −F(7,7) + Q²F(16,13) + 2Q F(11,13) − Q⁵F(22,17) − Q⁶F(20,19) − Q⁴F(16,19) + Q¹²F(25,25)`,
   at exactly the points where `HM232Real` proves HM Theorem 0.3.
 
-**Still to do:** the Appell–Lerch endgame
-(the g-arguments are `m(−Q^e, Q⁶⁰, −1)`; odd residues `{29, −1, 19, −11}` are the `n = 2` splits of `m(Q⁷,Q¹⁵,·)`,
-`m(Q²,Q¹⁵,·)`, even residues cancel in pairs); the final theta identity; the corollary.
+**Appell–Lerch endgame, done (2026-10-25, axiom-clean):**
+* `MTC/Chi0AL` (`hm_side`): all 28 g-terms of HM Theorem 0.3 at the seven points are normalized to
+  `B_e = A(−t^e, −1)` in base `t^{360}`.
+  The four even classes cancel termwise. The odd classes have coefficient `−3(Q;Q)_∞ Q^c`, proved by the pentagonal
+  2-dissection `(Q;Q)_∞ = j(−t^{30};t^{72}) − t⁶ j(−t⁶;t^{72})`:
+  `J̄ ((Q;Q)χ₀ − 2(Q;Q)) = −3(Q;Q)(B₁₇₄ + t⁻⁴²B₆ + t⁻¹⁸B₆₆ + t⁻⁶B₁₁₄) + κ Σ θ_{2,1}`.
+* `MTC/Chi0Split` (`Alam_split2`, `czB`): the `n = 2` splitting of Appell–Lerch numerators and the change of `z`
+  to `−1`, generic.
+* `MTC/Chi0Phi` (`phi_side`): `L5_lam` at `Q`, split to base `t^{360}`, eight changes of `z`, the `(Q⁵;Q⁵)` dissection
+  and `A₁₅ = (Q^{15};Q^{15})³/j(Q³;Q^{15})`.
+  The result is `J̄ Φ (Q⁵;Q⁵) = −(Q⁵;Q⁵)(same four B's) + (Q⁵;Q⁵)J̄ + T₁ + t⁶J̄A₁₅`, so every mock part cancels.
+* `MTC/Chi0Final`: `chi0_identity_of` gives `χ₀ − 2 = 3(Φ − 1) − (q⁵;q⁵)²J_{5,2}/J_{5,1}²`, and `rank_chi0_of` gives
+  `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`. **Both are conditional on `ThetaId`**, a single explicit theta-function identity
+  (`(Q⁵;Q⁵) κ Σ θ_{2,1} = 3(Q;Q)(T₁ + t⁶J̄A₁₅) − (Q;Q)J̄(Q⁵;Q⁵)³J_{5,2}/J_{5,1}²`).
+  Given `hm_side` and `phi_side`, `ThetaId` is equivalent to the χ₀ identity, so it holds; it is checked numerically
+  to `Q^{170}`.
+
+**Still open: a proof of `ThetaId`.** Numerical reductions found so far:
+* `T₁ + t⁶J̄A₁₅` (nine terms) is a **single product**,
+  `Π_Φ = −3Q⁻⁷ (Q⁵;Q⁵)³ J_{5,2}-type · j(Q⁴⁸)/(j(Q²⁴)j(Q³⁶))` (base `Q^{120}`).
+* `θ_{2,1}(22,17) + θ_{2,1}(20,19)` (weighted) is a single product. This is a two-theta Weierstrass relation in base
+  `Q^{30}`.
+* What remains is 6 HM theta-part terms = 2 explicit products. It is rigid: no 2- or 3-term sub-sum is a product (any
+  small weights), no homomorphic argument deformation preserves it, and χ₀ has no single complex-point `f_{2,3,2}`
+  Hecke form (searched `q' = Q^{d/D}`, `D ≤ 4`, 24th roots of unity). That last search would have given an
+  MTC₀-style 3-term identity.
+* Candidate routes: a Weierstrass-chain certificate with auxiliary products, or an HM-type general identity with a
+  free variable (as HM (1.9) was for MTC₀).
