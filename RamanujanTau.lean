@@ -370,3 +370,4 @@ import RamanujanTau.MTC.Chi0Bridge
 import RamanujanTau.MTC.Chi0AL
 import RamanujanTau.MTC.Chi0Split
 import RamanujanTau.MTC.Chi0Phi
+import RamanujanTau.MTC.Chi0Final

@@ -185,3 +185,45 @@ lemma eQdis : ιN h6 (RankProof.Ea 5 (by norm_num) MockTheta5.JTP.qfacInf) = th3
   rw [e1, e2, ← mul_assoc, mono_neg1, mono_mul,
     show (mono (60 + -30) (-1 * 1) : L) = -mono 30 1 by rw [mono_neg1]; exact mono_ext (by norm_num) (by norm_num)]
   ring
+
+/-- `A₁₅ = (Q^{15};Q^{15})³ / j(Q³; Q^{15})`, multiplied out. -/
+lemma LF15_eq : θ (h15 h6) 18 1 * hs (LF h6 15) = (ιN (h15 h6) MockTheta5.JTP.qfacInf) ^ 3 := by
+  have e : hs (LF h6 15) = Av (h15 h6) ((18 - 15) * ((6 : ℕ) : ℤ)) 1 (15 * ((6 : ℕ) : ℤ)) 1 := by
+    rw [Av_eq_Alam (h15 h6) one_ne_zero one_ne_zero (lamOK18 h6 15)]; rfl
+  norm_num at e
+  have hok : LamOK (15 * 6) 18 1 0 1 := fun r ⟨h1, _⟩ => by unfold wE at h1; push_cast at h1; omega
+  have z := Av_zshift' (h15 h6) (ex := 18) (ez := 0) one_ne_zero one_ne_zero hok
+  have k := kappa_eq_jacobi (h15 h6) (a := 18) (by norm_num) (by norm_num) (cx := 1) one_ne_zero
+    (mono_ne_one' (Or.inl (by norm_num)))
+  rw [← Av_eq_Ab' (h15 h6) one_ne_zero one_ne_zero hok] at k
+  rw [show (mono 0 1 : L) = 1 from rfl, show (0 : ℤ) + ((15 * 6 : ℕ) : ℤ) = 90 by norm_num] at z
+  rw [e]
+  linear_combination θ (h15 h6) 18 1 * z - k
+
+/-- the eight change-of-`z` theta terms of the `Φ` side, with their weights. -/
+noncomputable def T1s : L :=
+  (tt ^ (-174 : ℤ) * Rt (-174) 210 + tt ^ (-12 : ℤ) * Rt 6 30 - tt ^ (30 : ℤ) * Rt 186 30 - tt ^ (-42 : ℤ) * Rt 6 210) +
+  (tt ^ (-282 : ℤ) * Rt (-294) 330 + tt ^ (-120 : ℤ) * Rt (-114) 150 - tt ^ (-18 : ℤ) * Rt 66 150 -
+    tt ^ (-90 : ℤ) * Rt (-114) 330)
+
+/-- **the `Φ` side**: `J̄ (1+φ(Q)) (Q⁵;Q⁵)_∞ = −(Q⁵;Q⁵)_∞ (B₁₇₄ + t⁻⁴² B₆ + t⁻¹⁸ B₆₆ + t⁻⁶ B₁₁₄)
++ (Q⁵;Q⁵)_∞ J̄ + T₁ + t⁶ J̄ A₁₅`. -/
+theorem phi_side : Jb6 * (ιN h6 (RankProof.Phi 1) * ιN h6 (RankProof.Ea 5 (by norm_num) MockTheta5.JTP.qfacInf)) =
+    -ιN h6 (RankProof.Ea 5 (by norm_num) MockTheta5.JTP.qfacInf) *
+        (Bv 174 + tt ^ (-42 : ℤ) * Bv 6 + tt ^ (-18 : ℤ) * Bv 66 + tt ^ (-6 : ℤ) * Bv 114) +
+      ιN h6 (RankProof.Ea 5 (by norm_num) MockTheta5.JTP.qfacInf) * Jb6 + T1s + tt ^ (6 : ℤ) * Jb6 * hs (LF h6 15) := by
+  rw [L5_lam h6, LF_split 10, LF_split 20, eQdis]
+  norm_num
+  have q1 := pc1; have q2 := pc2; have q3 := pc3; have q4 := pc4
+  have q5 := pc5; have q6 := pc6; have q7 := pc7; have q8 := pc8
+  have r1 : th360 210 (-1) = th360 150 (-1) := by rw [show (210 : ℤ) = 360 - 150 by norm_num, th360_refl]
+  have r2 : th360 330 (-1) = th360 30 (-1) := by rw [show (330 : ℤ) = 360 - 30 by norm_num, th360_refl]
+  rw [r1] at q1 q4
+  rw [r2] at q5 q8
+  unfold T1s
+  simp only [monoT, monoTn, mono_neg1] at *
+  have htt := tt_ne
+  linear_combination (norm := (field_simp; ring)) q1 + tt ^ (18 : ℤ) * q2 - tt ^ (60 : ℤ) * q3 -
+    tt ^ (168 : ℤ) * q4 + tt ^ (12 : ℤ) * q5 + tt ^ (30 : ℤ) * q6 - tt ^ (132 : ℤ) * q7 - tt ^ (240 : ℤ) * q8
+
+end MTC.Chi0L
