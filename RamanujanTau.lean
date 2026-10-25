@@ -350,3 +350,11 @@ import RamanujanTau.MTC.Ev141
 import RamanujanTau.MTC.Z16
 import RamanujanTau.MTC.Zeros141
 import RamanujanTau.TauHeckeBound
+import RamanujanTau.MTC.UDecL2
+import RamanujanTau.MTC.F232
+import RamanujanTau.MTC.G232
+import RamanujanTau.MTC.T232
+import RamanujanTau.MTC.Core232
+import RamanujanTau.MTC.FCore232
+import RamanujanTau.MTC.Ev232
+import RamanujanTau.MTC.Zeros232
