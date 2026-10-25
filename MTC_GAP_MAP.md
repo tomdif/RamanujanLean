@@ -179,24 +179,31 @@ HM Thm 0.3 at `x₁ = i t^{189}` (zero tables shifted by +36; one `A`-class coll
 vanishes: Weierstrass `j₄j₁₂j₁₄ + Q⁴j₂j₄j₆ = j₆j₈j₁₄`); LemA₁ (Weierstrass at `x = Q⁶, y = −Q², u = Q⁴, v = Q¹⁰`);
 (8.17)₁ `J̄_{5,20}J̄_{12,30} − Q³J̄_{2,5}J̄_{30,120} = J_{6,20}J_{3,12}` = HM (1.9) at `x = Q⁶`.
 
-## 8. Remaining: the χ₀ combinatorial corollary
+## 8. Remaining: the χ₀ combinatorial corollary (route via `f_{2,3,2}`, in progress)
 
-`N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀` needs the χ₀ identity `χ₀ − 2 = 3Φ − J₅²J_{5,2}/J_{5,1}²` (then `rank_diff_mod5`
-finishes it).
+Goal: `χ₀ − 2 = 3Φ − J₅²J_{5,2}/J_{5,1}²`, then `rank_diff_mod5` gives `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`.
 
-**Done (2026-10-24, commit ab5e0d2):** HM Theorem 0.3 for `f_{1,4,1}` (n = 1, p = 3), axiom-clean:
-`MTC/F141, G141, T141, Core141, FCore141, Ev141, Z16, Zeros141`. At `y = i t¹²`, `q = t⁸` the auxiliary series
-`F ∈ Th(16)` vanishes at 16 B-zeros and one A-zero, so `F ≡ 0` and the identity holds at every good `x`
-(`hm03_psi` at `x = −i t⁴`). Numerically, `Re f_{1,4,1}(−iQ, iQ³, Q²) = J_{1,2}(1+ψ₀)(Q⁴)` and
-`Q·Im f_{1,4,1}(−iQ⁷, iQ³, Q²) = −J_{1,2}ψ₀(Q⁴)` (Chen–Wang's Hecke form). The ψ₀ Bailey pair is
-`β_n = [n≥1]`, `α_n = −(1−q^{2n}) q^{2n²−n} Σ_{j=−n}^{n−1} (−1)^j q^{−j(3j+1)/2}` (checked to n = 7, a = 1), used with
-the `ρ₁ = −1, ρ₂ → ∞` Bailey lemma; a Lean proof of the pair still needs a certificate.
+**Route.** Garvan's Hecke form (arXiv:1907.04803) of `(q)_∞(χ₀ − 2)` is a sum of `f_{12,9,3}` values (checked to q³⁰⁰):
+`(q)_∞(χ₀ − 2) = −f(−q⁷,q²) + q f(−q¹³,q⁴) + q f(−q¹¹,q⁵) − q⁴ f(−q¹⁶,q⁸)`, and splitting the second index by parity,
+`f_{12,9,3}(x,y,q) = f_{2,3,2}(x, −y²q³, q⁶) − y f_{2,3,2}(xq⁹, −y²q⁹, q⁶)`. So `(q)_∞(χ₀ − 2)` is a combination of
+`f_{2,3,2}(−q^a, −q^b, q⁶)` at seven points (`(a,b)` ∈ {(7,7),(16,13),(11,13)×2,(22,17),(20,19),(16,19),(25,25)}), and
+HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
 
-**The real obstruction.** Exact relations (to q⁴⁰⁰): `χ₀(q²) = 2 − f₀(q) + ψ₀(q)` (d), `χ₀ = 2F₀ − φ₀(−q)` (R1),
-`φ₀(−q²) = f₀(−q) + ψ₀(q)`, `2F₀(q²) − 2 = ψ₀(q) + ψ₀(−q)`. Modulo the theta relations
-`f₀ + 2ψ₀ = 4qA + B` and `F₀(q²) + φ₀(−q²) − 1 = qA + B`, (d) ⟺ R1 ∧ T1 with T1: `f₀ + 2F₀(q²) − 2 = 2qA + B`.
-Every link to χ₀ is a Watson (1937) q ↔ q² relation; no elementary (Euler/Heine/Rogers–Fine/Bailey) proof was found
-(z-deformation rigidity lemma, ~36k Eulerian forms, Lambert forms, lattice-support tests: all negative —
-`scratchpad watson/` report). Remaining routes: (i) Watson's Watson–Whipple Lambert forms for χ₀, F₀, φ₀;
-(ii) Garvan's Hecke form for χ₀ (`f_{12,9,3}`, outside HM Thm 0.3/0.4) with a general-`f_{a,b,c}` HM theorem.
-ψ₀ via `f_{1,4,1}` (above) is a prerequisite for route (i) and for Ramanujan's ψ₀ identity M₄.
+**Done (2026-10-25, axiom-clean):**
+* `MTC/F232 … Ev232, UDecL2`: the `f_{2,3,2}` core (`F ∈ Th(11)`, residue identities without dissection).
+* `MTC/Zeros232` (generator `scripts/mtc_gap/gen_zeros232.py`): `F ≡ 0` at `y = −t^{6b}`, `b ∈ {7,13,17,19,25}`, `q = t³⁶`.
+* `MTC/HM232Real`: HM Theorem 0.3 at all eight real points (`hm03_77`, `hm03_16_13`, …, `hm03_25_25`).
+
+**Certificates found (not yet in Lean):**
+* Bailey pair relative to `a = q`: `β_n = (1 − q^{2n+1})/(q²;q)_{2n}` (so `Σ β_n δ_n = (q)_∞ χ₀` with Garvan's δ),
+  `α_{3m} = q^{6m²−m}(1 − q^{6m+1})`, `α_{3m−1} = −q^{6m²−5m+1}(1 − q^{6m−1})`, `α_{3m+1} = 0`. Equivalent to the finite
+  identity `Σ_j q^{j(6j−1)}(1 − q^{6j+1})[2n+1; n−3j] = 1 − q^{2n+1}`, WZ certificate
+  `R = −qx(1 − xy³)(1 − qxy³)/((qx − y³)(qy⁶ − 1))` (`x = qⁿ, y = q^j`). (Replaces Slater A(4) and Watson's A0.)
+* Garvan's conjugate pair (`a = q`, `δ_n = qⁿ(q)_n(q)_∞/(1−q)`): `γ_n + q^{3n+3}γ_{n+1} = qⁿ(1 + q^{n+1})`, WZ certificate
+  `G(n,r) = F(n,r)(1 − q^{n−r})(1 + q^{n+1})`; the closed form follows by uniqueness (order → ∞).
+* The Bailey double sum `Σ α_n γ_n` is eight positive-cone `f_{12,9,3}` sums at `(−q^8,q^4), (−q^{11},q^5), …`.
+
+**Still to do:** Bailey transform and pairs in Lean; the lattice rearrangement to the seven `f_{2,3,2}` values
+(partial-theta bookkeeping as in Garvan §3); `ev fS` at the real points as `ιN` of those series; the Appell–Lerch endgame
+(the g-arguments are `m(−Q^e, Q⁶⁰, −1)`; odd residues `{29, −1, 19, −11}` are the `n = 2` splits of `m(Q⁷,Q¹⁵,·)`,
+`m(Q²,Q¹⁵,·)`, even residues cancel in pairs); the final theta identity; the corollary.
