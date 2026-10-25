@@ -368,3 +368,4 @@ import RamanujanTau.MTC.Chi0Theta
 import RamanujanTau.MTC.Chi0D
 import RamanujanTau.MTC.Chi0Bridge
 import RamanujanTau.MTC.Chi0AL
+import RamanujanTau.MTC.Chi0Split
