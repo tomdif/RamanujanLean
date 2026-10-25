@@ -640,7 +640,7 @@ theorem MTC.mock_theta_conjecture_f1 :
     X * f1 = X * (Pinf 5 10 * Pinf 5 10 * Pinf 10 10 * Ring.inverse (Pinf 2 5 * Pinf 3 5)) - 2 * (Ea 2 _ (Phi 2) - 1)
 --  q f₁(q) = q θ₄(0,q⁵)/((q²;q⁵)(q³;q⁵)) − 2Ψ(q²)
 ```
-The chain, following Hickerson–Mortenson (Proc. LMS 2014), lives in `RamanujanTau/MTC/` (≈40 files, see
+Method write-up: [`MOCK_THETA_METHOD.md`](MOCK_THETA_METHOD.md). The chain, following Hickerson–Mortenson (Proc. LMS 2014), lives in `RamanujanTau/MTC/` (≈40 files, see
 `MTC_GAP_MAP.md` §6 for the full map):
 * **Andrews' Hecke form** (`MockTheta5F0Pair`): a new Bailey pair relative to `a = 1` with a creative-telescoping
   certificate linear in the partial theta polynomial.
