@@ -48,8 +48,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 288 |
-| Build | `lake build` → **8671 jobs, 0 errors** |
+| Modules | 296 |
+| Build | `lake build` → **8679 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -659,6 +659,11 @@ a new `a = q` Bailey pair (`MockTheta5F1Pair`), HM Theorem 0.3 at `x₁` (`Zeros
 `ψ` as Appell–Lerch sums (`L5b`), changes of `z` to `z₀ = Q²` and two Weierstrass instances (`ThetaLem1`,
 `Endgame1b`), and the theta identity (8.17)₁, which is HM (1.9) at `x = Q⁶` — so the zero count `F19_zero` serves
 both conjectures (`Final1`).
+
+**HM Theorem 0.3 for `f_{1,4,1}`** (`F141`, `G141`, `T141`, `Core141`, `FCore141`, `Ev141`, `Z16`, `Zeros141`;
+theorem `MTC.H141.hm03_psi`): the `n = 1, p = 3` case of the same machinery, at `y = i t¹²`, `q = t⁸` (auxiliary series
+in `Th(16)`, 17 zeros). This is the Hecke → Appell–Lerch step for `ψ₀`. The χ₀ corollary is still open: every link
+from χ₀ to `f₀`/`ψ₀` is one of Watson's q ↔ q² relations (see `MTC_GAP_MAP.md` §8).
 
 ### Multi-quintuple-product vanishing research
 

@@ -341,3 +341,11 @@ import RamanujanTau.MTC.GX1
 import RamanujanTau.MTC.ThetaY1
 import RamanujanTau.MTC.L5b
 import RamanujanTau.MTC.Final1
+import RamanujanTau.MTC.F141
+import RamanujanTau.MTC.G141
+import RamanujanTau.MTC.T141
+import RamanujanTau.MTC.Core141
+import RamanujanTau.MTC.FCore141
+import RamanujanTau.MTC.Ev141
+import RamanujanTau.MTC.Z16
+import RamanujanTau.MTC.Zeros141

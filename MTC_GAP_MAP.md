@@ -182,7 +182,21 @@ vanishes: Weierstrass `j₄j₁₂j₁₄ + Q⁴j₂j₄j₆ = j₆j₈j₁₄`)
 ## 8. Remaining: the χ₀ combinatorial corollary
 
 `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀` needs the χ₀ identity `χ₀ − 2 = 3Φ − J₅²J_{5,2}/J_{5,1}²` (then `rank_diff_mod5`
-finishes it). `pairs.py` (2026-10-24 rerun) finds no two-term theta relation involving χ₀ or φ₀, so χ₀ does not follow
-from MTC₀/MTC₁ by theta algebra. Routes: (a) R1 `χ₀ = 2F₀ − φ₀(−q)` (Eulerian), Watson's `f₀ + 2F₀(q²) − 2 = ∏`, and
-φ₀ via HM Thm 0.4 for `f_{1,4,1}` (discriminant 15); (b) Garvan's Hecke–Rogers form of χ₀ (`f_{12,9,3}`, discriminant
-45) through a second HM Thm 0.3 instance. Both are new L2-scale developments.
+finishes it).
+
+**Done (2026-10-24, commit ab5e0d2):** HM Theorem 0.3 for `f_{1,4,1}` (n = 1, p = 3), axiom-clean:
+`MTC/F141, G141, T141, Core141, FCore141, Ev141, Z16, Zeros141`. At `y = i t¹²`, `q = t⁸` the auxiliary series
+`F ∈ Th(16)` vanishes at 16 B-zeros and one A-zero, so `F ≡ 0` and the identity holds at every good `x`
+(`hm03_psi` at `x = −i t⁴`). Numerically, `Re f_{1,4,1}(−iQ, iQ³, Q²) = J_{1,2}(1+ψ₀)(Q⁴)` and
+`Q·Im f_{1,4,1}(−iQ⁷, iQ³, Q²) = −J_{1,2}ψ₀(Q⁴)` (Chen–Wang's Hecke form). The ψ₀ Bailey pair is
+`β_n = [n≥1]`, `α_n = −(1−q^{2n}) q^{2n²−n} Σ_{j=−n}^{n−1} (−1)^j q^{−j(3j+1)/2}` (checked to n = 7, a = 1), used with
+the `ρ₁ = −1, ρ₂ → ∞` Bailey lemma; a Lean proof of the pair still needs a certificate.
+
+**The real obstruction.** Exact relations (to q⁴⁰⁰): `χ₀(q²) = 2 − f₀(q) + ψ₀(q)` (d), `χ₀ = 2F₀ − φ₀(−q)` (R1),
+`φ₀(−q²) = f₀(−q) + ψ₀(q)`, `2F₀(q²) − 2 = ψ₀(q) + ψ₀(−q)`. Modulo the theta relations
+`f₀ + 2ψ₀ = 4qA + B` and `F₀(q²) + φ₀(−q²) − 1 = qA + B`, (d) ⟺ R1 ∧ T1 with T1: `f₀ + 2F₀(q²) − 2 = 2qA + B`.
+Every link to χ₀ is a Watson (1937) q ↔ q² relation; no elementary (Euler/Heine/Rogers–Fine/Bailey) proof was found
+(z-deformation rigidity lemma, ~36k Eulerian forms, Lambert forms, lattice-support tests: all negative —
+`scratchpad watson/` report). Remaining routes: (i) Watson's Watson–Whipple Lambert forms for χ₀, F₀, φ₀;
+(ii) Garvan's Hecke form for χ₀ (`f_{12,9,3}`, outside HM Thm 0.3/0.4) with a general-`f_{a,b,c}` HM theorem.
+ψ₀ via `f_{1,4,1}` (above) is a prerequisite for route (i) and for Ramanujan's ψ₀ identity M₄.
