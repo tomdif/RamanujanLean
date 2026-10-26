@@ -265,6 +265,17 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
     parts cancel. The χ₀ identity becomes the 4-term product identity
     `2∏₂₀(q) − 3θ₄(0,q⁵)G(q) − ∏₁₀(q) + 2P(q²) = 0`, with `P = J₅²J_{5,2}/J_{5,1}²`.
   - That identity splits into three 3-term identities: two 2-dissections and one base-10 identity.
+  - **Theta side fully certified (2026-10-25)**: every theta identity this route needs has a small exact certificate.
+    The certificates came from the same depth-1 search, run on these small identities (scratchpad scripts
+    `small.py`, `rog*.py`).
+    - Rogers' `G(q)G(q⁴) + qH(q)H(q⁴) = φ(q)/f(−q²)` needs one Weierstrass relation in base 10.
+    - Its companion `G(q)G(q⁴) − qH(q)H(q⁴) = φ(q⁵)/f(−q²)` needs two.
+    - `G(−q)H(q) − G(q)H(−q) = −2q∏` needs one HM (1.4b) relation plus one Weierstrass relation.
+    - T3 (`2P_A + P = P_B`) needs one Weierstrass relation in base 5.
+    - T1 and T2 then follow by product bookkeeping. For example, `ϑ₄(q) + ϑ₄(q⁵) = 2f(−q²)G(−q)G(q⁴)`.
+  - Still open: a Lean proof of `R1` that does not go through HM for χ₀. Any HM-based proof of a χ₀ relation
+    reproduces the rigid θ-terms of `ThetaId`. No one-parameter generalization of `R1` was found in the natural
+    families.
   - The cost moves to Lean proofs of `W1`, `W2` and `R1`, which are q-series relations (Watson 1936–37, via
     generalized Lambert series). This is the recommended next route.
 * **Other negative results:**
