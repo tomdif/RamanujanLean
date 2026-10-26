@@ -276,6 +276,21 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
   - Still open: a Lean proof of `R1` that does not go through HM for χ₀. Any HM-based proof of a χ₀ relation
     reproduces the rigid θ-terms of `ThetaId`. No one-parameter generalization of `R1` was found in the natural
     families.
+  - **Watson 1937 obtained (2026-10-26). The χ₀ route is now fully elementary on the mock side.**
+    `docs/watson1937_R1_proof.md` transcribes three proofs, each re-verified numerically to q¹²⁰:
+    - (B₀) = `R1`, pp. 280–281;
+    - (2₀) `f₀ + ϑ₄G = 2φ₀(−q²)`, i.e. `W2`;
+    - (3₀) `f₀ − ϑ₄G = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)`, which gives `W1`.
+
+    All of them use only Euler's two expansions, parity splitting and swapping sums.
+    Combined with MTC₀, the χ₀ identity reduces to the certified 4-term theta identity.
+    Lean plan, in order:
+    1. the even-part Euler lemma;
+    2. (A₀);
+    3. `R1`;
+    4. (2₀) and (3₀);
+    5. the theta certificates;
+    6. assembly, replacing the `ThetaId` hypothesis.
   - **Sources for `R1` (2026-10-26).** The only proof in print is Watson, "The mock theta functions (2)",
     Proc. LMS (2) 42 (1937), 274–304, by Heine's method. Andrews 1986 (Trans. AMS 293), Zwegers' thesis and
     Anderson (BYU 2025) all cite it without proof. The Hecke forms of χ₀, F₀, φ₀ live over Q(√5), Q(√10), Q(√15),
