@@ -234,7 +234,16 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
   Given `hm_side` and `phi_side`, `ThetaId` is equivalent to the χ₀ identity, so it holds; it is checked numerically
   to `Q^{170}`.
 
-**Still open: a proof of `ThetaId`.** Numerical reductions found so far:
+**RESOLVED (2026-10-26): `ThetaId` is proved (`MTC.Chi0L.thetaId`), and the χ₀ identity and
+`N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀` are unconditional (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`), axiom-clean.**
+The proof follows Watson's route in `RamanujanTau/Watson/`.
+- Watson's (B₀) = R1, (2₀) and (3₀) are formalized by Heine's method (`OSum`, `Prod`, `Euler`, `Binom`, `A0`, `R1`,
+  `F0Rel`).
+- The closing theta identity `4qψ(q²)H(q⁴) + ϑ₄G − 3ϑ₄(q⁵)G + 2P(q²) = 0` (`Star`) is five HM (1.4b)
+  `θ_mul` instances, checked over atoms `(q^r;q^{80})_∞`.
+- `Final` assembles them with MTC₀. `ThetaId` then follows by running `Chi0Final`'s argument backwards.
+
+The history of the attempts on `ThetaId` is kept below. Numerical reductions found while it was open:
 * `T₁ + t⁶J̄A₁₅` (nine terms) is a **single product**,
   `Π_Φ = −3Q⁻⁷ (Q⁵;Q⁵)³ J_{5,2}-type · j(Q⁴⁸)/(j(Q²⁴)j(Q³⁶))` (base `Q^{120}`).
 * `θ_{2,1}(22,17) + θ_{2,1}(20,19)` (weighted) is a single product. This is a two-theta Weierstrass relation in base

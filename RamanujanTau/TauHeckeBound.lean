@@ -18,7 +18,7 @@ open Filter Asymptotics ModularForm UpperHalfPlane
 open scoped MatrixGroups
 
 /-- **Hecke's bound**: `τ(n) = O(n⁶)`. -/
-theorem tau_isBigO : (fun n : ℕ => (tau n : ℝ)) =O[atTop] fun n => (n : ℝ) ^ (6 : ℝ) := by
+theorem tau_isBigO_real : (fun n : ℕ => (tau n : ℝ)) =O[atTop] fun n => (n : ℝ) ^ (6 : ℝ) := by
   have h := CuspFormClass.qExpansion_isBigO (k := 12) (Γ := 𝒮ℒ) CuspForm.discriminant
   rw [Subgroup.strictWidthInfty_SL2Z] at h
   have h12 : ((12 : ℤ) : ℝ) / 2 = 6 := by norm_num
