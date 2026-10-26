@@ -276,6 +276,25 @@ HM Theorem 0.3 with `n = 2, p = 1` (single θ-term) applies.
   - Still open: a Lean proof of `R1` that does not go through HM for χ₀. Any HM-based proof of a χ₀ relation
     reproduces the rigid θ-terms of `ThetaId`. No one-parameter generalization of `R1` was found in the natural
     families.
+  - **Sources for `R1` (2026-10-26).** The only proof in print is Watson, "The mock theta functions (2)",
+    Proc. LMS (2) 42 (1937), 274–304, by Heine's method. Andrews 1986 (Trans. AMS 293), Zwegers' thesis and
+    Anderson (BYU 2025) all cite it without proof. The Hecke forms of χ₀, F₀, φ₀ live over Q(√5), Q(√10), Q(√15),
+    so no lattice rearrangement can prove `R1`.
+  - **Elementary reductions of `R1` (2026-10-26, all verified exactly to q⁶⁰–q¹⁵⁰).** None closes the proof.
+    - With `Y(c) = Σ qⁿ/((q;q²)ₙ(cq;q)ₙ)`: `χ₀ = Y(−1)` and, by Heine, `φ₀(−q) = (q;q)∞(q;q²)∞ Y(1)`.
+    - Product sums: `χ₀ = Σₘ qᵐ(−q^{m+1};q)∞(q^{2m+1};q²)∞` and `φ₀(−q) = Σₘ qᵐ(q^{m+1};q)∞(q^{2m+1};q²)∞`.
+      So `R1` ⟺ `2F₀ = Σₘ qᵐ(q^{2m+1};q²)∞[(−q^{m+1};q)∞ + (q^{m+1};q)∞]`.
+    - Equivalently, `F₀ = Σ_{i,j≥0} (−1)ⁱ q^{i²+2j²+j}/((q²;q²)ᵢ(q;q)_{2j}(1−q^{2i+2j+1}))`.
+    - New Lambert-type form of χ₀ (partial fractions in `c` plus the ₁φ₁ Heine limit):
+      `1 − χ₀ = Σ_{m≥1,n≥0} (−1)ᵐ q^{m²+n(n+1)/2}/((q²;q²)_{m−1}(q;q)ₙ(1−q^{2m+n}))`.
+    - Zwegers' unproved triple sum (thesis §4.5) is verified to q⁸⁰:
+      `(q)∞²(2−χ₀) = (Σ_{k,l,m≥0} + Σ_{k,l,m<0}) (−1)^{k+l+m} q^{½Σk²+2Σkl+½Σk}`.
+      F₀ and φ₀(−q) are **not** in the span of same-form triple sums.
+    - Negative searches:
+      - no `F₀ = product·Y(c)` for `c = ±q^{b/2}`;
+      - no single sum-of-products form for F₀;
+      - the double sums don't match termwise (grouped by `s`, or by the Euler index `i`);
+      - no exact finitization of `R1` (60 templates).
   - The cost moves to Lean proofs of `W1`, `W2` and `R1`, which are q-series relations (Watson 1936–37, via
     generalized Lambert series). This is the recommended next route.
 * **Other negative results:**
