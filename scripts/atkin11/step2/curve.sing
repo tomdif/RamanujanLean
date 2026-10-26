@@ -1,0 +1,26 @@
+LIB "elim.lib";
+ring r=0,(c0,c1,c2,c4,c7),dp;
+poly Qv=-c0*c1*c2*c4*c7;
+ideal W=-c0*c7 + c1*c2*c7^2 + c2^2*c4*c7^2,
+-c0^2*c1*c7^3 + c0*c2^3*c7^3 - c1^2*c2*c4*c7^2,
+c0*c2*c7^3 + c2^2*c4^2*c7^3 + c2^2*c7^2,
+-c0^2*c1*c7^3 - c0*c2^2*c4*c7^2 - c1^2,
+c0*c1*c2*c7^3 + c0*c2*c7 + c1*c2*c4*c7,
+-c0^2*c7 - c0*c2^3*c7^3 - c1*c2^2*c4^2*c7^2,
+-c0*c2^2*c7^3 - c0*c2*c4*c7^2 + c1*c2*c7,
+c0*c1*c2*c7^4 + c1 - c2^2*c4^2*c7^2,
+-c0*c2^3*c7^4 + c0*c2*c7 + c2^3*c4^3*c7^3,
+c1*c2*c4*c7^3 - c1*c7 - c2^2*c7^2;
+ideal SW=sat(W,c0*c1*c2*c4*c7);
+SW=std(SW);
+"dim:"; dim(SW);
+list V="c0","c1","c2","c4","c7";
+int i;int j;
+for(i=1;i<=5;i++){for(j=i+1;j<=5;j++){
+  poly elimvars=1; int k;
+  for(k=1;k<=5;k++){ if(k!=i && k!=j){ elimvars=elimvars*var(k); } }
+  ideal E=eliminate(SW,elimvars);
+  string(V[i])+","+string(V[j])+": deg "+string(deg(E[1]))+" terms "+string(size(E[1]));
+  if(size(E[1])<30){ E[1]; }
+}}
+quit;

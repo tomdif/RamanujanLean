@@ -77,3 +77,26 @@ Scripts are in `scripts/atkin11/step2/`.
    * The modular equation from Cayley–Hamilton for ψ.
    * The seeds from the modular equation, R2 and quintic uniqueness.
    * Refactoring Step 1 to the theta-defined `g₂`, which is 11-integral by the quintic recursion.
+
+### Step 2 progress (2026-10-26, later)
+
+**Proved in Lean.** The ten level-11 three-term relations among `J_a = θ(Q^a; Q¹¹)` are proved, in `Atkin11Weier.lean` (`ALz11.rel1`–`rel10`, on `ALThetaCore11`). Examples:
+* `Q J₁³J₅ + J₁J₃³ = J₂³J₄`
+* `Q³J₁³J₂ + J₃J₅³ = J₄³J₅`
+* the other eight are of the same shape.
+
+**A compact theta formula for Atkin's g₂** (`small_rep.py`, verified):
+`g₂ = (Q t₁t₃t₅⁴ − Q³t₁³t₃t₄² − Q³t₁²t₂t₃³) / (t₄²t₅⁴ − 6Q t₁t₃t₅⁴ + Q²(t₁²t₄⁴ + t₂⁴t₅² + t₂²t₃⁴) + 6Q³(t₁³t₃t₄² + t₁²t₂t₃³) + Q⁴t₁⁴t₃²)`, with `t_a = η_a(q)`.
+* It has denominator constant term 1, so it is manifestly integral; the 11-integrality issue is gone.
+* There is no comparable formula for z or g₃ up to theta-degree 10. That fits z having degree 25 on X₁(11).
+
+**The needed identities.** All lie in the ideal of the ten relations, with saturation exponent 0 (`testab*.sing`). Taking `g₂ := A/B`, `g₃` by R1 and `z := 1/e₁₁(ψ)`, they are:
+* the modular-equation coefficient identities M1–M6;
+* the quintic `g₂⁵ = z(1+13g₂+34g₂²) + 121z²` (⇔ R2).
+
+Certificate sizes relative to the 25-element Gröbner basis (itself certified by 311 terms) are 9k–17k terms for M1–M6 and about 110k for the quintic. The clearing with `Q⁵` is not yet minimal.
+
+**Next.**
+1. Build a kernel-checked sparse-polynomial certificate checker (prototype: a 300×300 product takes about 40 s under `decide +kernel`; it needs structural recursion and mergesort-style accumulation).
+2. Minimize the clearing exponents.
+3. Then the 11-dissection of E (QPI specialization), the norm identity, the char poly of ψ, and the seeds via H2.
