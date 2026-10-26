@@ -38,7 +38,8 @@ All numerical claims below were checked by script with exact integer arithmetic,
   - This gives `11^r ∣ p(11^r n + μ_r)`, with `μ_{2β−1} = (1 + 13·11^{2β−1})/24` and `μ_{2β} = (1 + 23·11^{2β})/24`.
 
 ## Plan
-1. **Conditional theorem.** "modular equation + R2 + seeds ⇒ 11^k ∣ p(m)". It is pure power-series algebra plus finite `decide`/`omega` tables. Estimate: 2.5–4k lines. These inputs must be stated as explicit hypotheses, never as axioms.
+1. **DONE (2026-10-26): conditional theorem** `Atkin11.ramanujan_pow11 : Inputs → …` in `RamanujanTau/Atkin11{Data,Bound,Defs,Matrix,Final}.lean`, about 1k lines, axiom-clean. `scripts/atkin11/check_lean_inputs.py` re-verifies the `Inputs` exactly as stated in Lean.
+   Original description: "modular equation + R2 + seeds ⇒ 11^k ∣ p(m)". It is pure power-series algebra plus finite `decide`/`omega` tables. Estimate: 2.5–4k lines. These inputs must be stated as explicit hypotheses, never as axioms.
 2. **Prove the inputs.** Two routes:
    - **(β) Elementary.** The 11-dissection of E (verified): `E(q) = E(q¹²¹)[θ₄/θ₂ − qθ₂/θ₁ − q²θ₅/θ₃ + q⁵ + q⁷θ₃/θ₄ − q¹⁵θ₁/θ₅]`, with `θ_a = (Q^a, Q^{11−a}, Q¹¹; Q¹¹)_∞` and `Q = q¹¹`. The first characteristic-polynomial coefficients of `E/(q⁵E(q¹²¹))` follow from 11-dissections of E, E², E³ (Jacobi) and E⁴. The risk is that the known cubic theta relations span only 89 of the 121 dimensions needed, so quartic identities (Winquist?) are required.
    - **(α) Analytic.** A Sturm/valence principle on Γ₀(11), Γ₀(22) and Γ₀(121); about 5–15k lines.

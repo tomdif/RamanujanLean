@@ -43,6 +43,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **The χ₀ mock theta conjecture and Andrews–Garvan's rank statement** (via Watson 1937) | `χ₀(q) − 2 = 3(Φ(q) − 1) − (q⁵;q⁵)²_∞J_{5,2}/J_{5,1}²` and `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀(q)` for `n ≥ 1`, `χ₀ = Σ qⁿ/(q^{n+1};q)ₙ` (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`) |
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
 | **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
+| **Ramanujan's conjecture for powers of 11** (Atkin 1967), *conditional* | `Atkin11.Inputs → (24m ≡ 1 (mod 11ʳ) → 11ʳ ∣ p(m))`; `Inputs` = three explicit q-series identities (curve relation R2, degree-11 modular equation for `φ = q⁵E(q¹²¹)/E(q)`, 55 seed rows), numerically verified, not yet proved (`Atkin11.ramanujan_pow11`) |
 | **Ramanujan's value `R(e^{−2π})`** (first letter to Hardy, 1913) | `e^{−2π/5}(q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞) = √((5+√5)/2) − (√5+1)/2` at `q = e^{−2π}` (`RRValue.rogers_ramanujan_value`) |
 | **Ramanujan's deathbed claim at `q → −1`** (last letter to Hardy, 1920) | `f(q) + b(q) → 4` as `q → −1` radially, `f = Σ q^{n²}/(−q;q)ₙ²`, `b = (1−q)(1−q³)⋯(1−2q+2q⁴−⋯)` (`MockTheta3.Radial.ramanujan_radial_limit`) |
 | **Watson's third-order identities** (1936) | `2φ(−q) − f(q) = b(q)` and `f(q) + 4ψ(−q) = b(q)` (`MockTheta3.Watson3.watson_W1`, `watson_W2`) |
@@ -655,6 +656,22 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
 * **Formal identity.** The 5-dissection of Euler's product gives `(x;x)_∞u(x⁵)v(x⁵) = (x²⁵;x²⁵)_∞(v² − xuv − x²u²)`, i.e. `1/R − 1 − R = η(τ/5)/η(5τ)`.
 * **Analytic transfer.** `Realize.lean` turns it into an identity of holomorphic functions on the disc. Each product `∏(1 − q^{b+ak})` is a locally uniform limit of integer polynomials, and Taylor's theorem identifies the two sides.
 * **Evaluation.** Mathlib's `η(−1/z) = √z·η(z)/√i` at `z = 5i` gives `η(i/5) = √5·η(5i)`. Positivity of the real products picks the root of `R² + (1+√5)R − 1 = 0`.
+
+**`Atkin11*.lean`: Ramanujan's conjecture for powers of 11, reduced to explicit identities.**
+* **The theorem.** `Atkin11.ramanujan_pow11 : Inputs → ∀ r ≥ 1, 24m ≡ 1 (mod 11ʳ) → 11ʳ ∣ p(m)`.
+* **The objects (`Atkin11Defs`).** `g₂ = U₂(1/f₂) − 1/f₃` is Atkin's η-quotient basis (Paule–Radu); `g₃` is defined by (R1) `g₂g₃ = g₂² − g₃ + 11z`.
+* **`Inputs`.** Three explicit q-series identities among concrete η-quotients:
+  * (R2) `g₃² = g₂³ − g₂g₃ − z`, the curve 11a1;
+  * the degree-11 modular equation for `φ` (26 integer coefficients);
+  * 55 seed relations `U₁₁(φ^λ J_i) = Σ_ν C^λ_{i,ν}J_ν`, `λ ≤ 10` (3031 integers in `Atkin11Data`).
+  * All are verified numerically (`scripts/atkin11/check_lean_inputs.py`) but **not yet proved in Lean**.
+* **What is proved from them.**
+  * The multiplication table, from R1 and R2.
+  * Gordon's matrices for all `λ`, via the recurrence (`Atkin11Matrix.U_C`).
+  * Gordon's 11-adic bound `11^{⌊(11ν−i−5λ+δ)/10⌋} ∣ C^λ_{i,ν}`. The kernel checks a periodic box and the seeds; one entry of the published δ table is corrected (δ(2,3) = 3).
+  * The shift `z(q)z(q¹¹) = φ¹²`.
+  * The induction `L_r = Σ_{ν≥1} a_ν J_ν` with `11^{r+⌊(ν−1)/2⌋} ∣ a_ν`, and the link to `p(11ʳn + μ_r)`.
+* **Remaining.** Proving the inputs; see `docs/ATKIN_11_PLAN.md`.
 
 **`MockTheta3*.lean`: the third-order mock theta function and the deathbed letter.**
 * **`MockTheta3`.** `f(q) = Σ q^{n²}/(−q;q)ₙ²` is the rank generating function at `z = −1`. So `[qⁿ]f = N(0,2,n) − N(1,2,n)`.

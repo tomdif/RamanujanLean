@@ -380,3 +380,4 @@ import RamanujanTau.RRValue
 import RamanujanTau.Taylor
 import RamanujanTau.MockTheta3Analytic
 import RamanujanTau.RamanujanPi
+import RamanujanTau.Atkin11Final
