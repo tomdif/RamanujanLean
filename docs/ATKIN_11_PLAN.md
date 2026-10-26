@@ -49,3 +49,31 @@ All numerical claims below were checked by script with exact integer arithmetic,
 - Mestrige, arXiv:1906.00428 (restates Gordon 1983)
 - Banerjee–Smoot, arXiv:2306.15594
 - Garvan–Shomanov, arXiv:2504.10824 (13^k, genus 0)
+
+## Step 2 findings (2026-10-26)
+
+Scripts are in `scripts/atkin11/step2/`.
+
+1. **The 11-dissection of E.** It is verified to q⁶⁰⁰:
+   `E(q)/E(q¹²¹) = c₀ + q c₁ + q² c₂ + q⁵ + q⁷ c₇ + q⁴ c₄` (all `c_k` at `Q = q¹¹`), with
+   `c₀ = η₄/η₂`, `c₁ = −η₂/η₁`, `c₂ = −η₅/η₃`, `c₇ = η₃/η₄`, `c₄ = −Q η₁/η₅`, where `η_a = (Q^a, Q^{11−a}; Q¹¹)_∞`.
+   The class-0 pair of pentagonal branches is a specialized quintuple product (p = 121, i = 22); compare `MultiQuintupleBilateralBridge`.
+2. **The characteristic polynomial of ψ = 1/φ = E(q)/(q⁵E(q¹²¹)).**
+   * Its coefficients `e_j(ψ)` are explicit polynomials in the `c_k` and `Q` (`sym_e.py`; 22 terms for e₅, 398 for e₁₁).
+   * `e₁..e₄ = 11, 55, 121, −121`.
+   * The modular equation is equivalent to `e_j(φ) = e_{11−j}(ψ)/e₁₁(ψ)`. Ramanujan's `z` is `1/e₁₁(ψ)` (the norm).
+   * `g₄, g₃, g₂` are recovered from `e₅, e₇, e₉` (`check_defs.py`: they equal Atkin's g's).
+3. **All needed theta identities follow from 10 Weierstrass three-term relations.** These are level-11 Atkin–Swinnerton-Dyer-type relations such as `Q t₁³t₅ + t₁t₃³ = t₂³t₄` (`weier_inst.py` gives an instance with `0<u<v<11/2` for each).
+   * In the variables `c₀,c₁,c₂,c₄,c₇` (with `Q = −c₀c₁c₂c₄c₇`), the 10 relations generate an ideal containing:
+     * `e₃ = 121` and `e₄ = −121`;
+     * the three linear consistency identities;
+     * `g₄ = g₂² − g₃`, R1 and R2 (`mk_c.py`, `lift.sing`; saturation exponent 0).
+   * The certificate sizes are about 16k terms for G4 and R1 and about 67k for R2. That is too big for `linear_combination`/`ring`. It needs either a kernel-checked sparse-polynomial verifier or better curve coordinates.
+4. **What remains.**
+   * The dissection in Lean (quintuple product).
+   * The 10 three-term instances in Lean (ALz engine, N = 11).
+   * The certificates.
+   * The norm identity `e₁₁(ψ) = ∏η_a¹²/Q⁵`, via conjugates: `∏_ζ E(ζq) = E(q¹¹)¹²/E(q¹²¹)` plus Newton.
+   * The modular equation from Cayley–Hamilton for ψ.
+   * The seeds from the modular equation, R2 and quintic uniqueness.
+   * Refactoring Step 1 to the theta-defined `g₂`, which is 11-integral by the quintic recursion.
