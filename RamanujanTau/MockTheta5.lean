@@ -16,6 +16,12 @@ q-Pochhammer / q-series proof not yet in Mathlib; and it is NOT the deep "mock t
 (Hickerson), which are out of scope. `native_decide` trusts the compiler (a wider trust base than the
 kernel); a pure-kernel `decide` certifies the same at smaller N.
 
+**Update (2026-10-26):** the infinite identities are now proved kernel-clean elsewhere.
+- (R1) is `Watson.chi0_R1_watson` (`RamanujanTau/Watson/R1.lean`).
+- The Mock Theta Conjectures are `MTC.mock_theta_conjecture_f0` and `_f1`, plus the χ₀ form `Watson.chi0_identity`.
+
+This file is kept as the original finite check.
+
 Self-contained: core `Int`/`List` only, no Mathlib import (fast to build, no dependency on the τ project).
 -/
 

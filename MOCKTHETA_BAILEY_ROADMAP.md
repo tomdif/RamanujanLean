@@ -1,5 +1,11 @@
 # Mock-theta Bailey campaign — roadmap
 
+> **UPDATE (2026-10-26): the campaign target is proved.** `χ₀ = 2·F₀ − φ₀(−q)` is `Watson.chi0_R1_watson`
+> (`RamanujanTau/Watson/R1.lean`), axiom-clean. It was not proved by a single Bailey pair: as the structural
+> finding in `AQ_BAILEY_REACH.md` predicts, mock thetas have no clean `α`. It was proved by Watson's 1937
+> Heine-method argument (`docs/watson1937_R1_proof.md`), and it now feeds the unconditional χ₀ mock theta
+> conjecture (`Watson.chi0_identity`). The historical plan below is kept for reference.
+
 > **STATUS (2026-07):** the q-series foundation this roadmap calls for is now largely built, and several
 > classical theorems are **proved kernel-clean**: the (bilateral & classical) Jacobi triple product,
 > **Jacobi's cube identity**, **Euler's pentagonal number theorem**, and **Ramanujan's partition congruence

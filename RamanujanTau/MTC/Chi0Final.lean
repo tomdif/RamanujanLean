@@ -8,6 +8,10 @@ Combining the HM side (`hm_side`) and the `Φ` side (`phi_side`), every Appell�
 follows from the single theta-function identity `ThetaId` (17 theta quotients at `Q = t⁶`, verified numerically to
 `Q^{170}`). With `rank_diff_mod5` this gives the Andrews–Garvan combinatorial form
 `N(1,5,5n) − N(0,5,5n) = [qⁿ] χ₀` (`rank_chi0_of`).
+
+**Update (2026-10-26):** `ThetaId` is proved (`MTC.Chi0L.thetaId` in `RamanujanTau/Watson/Final.lean`), so both
+results hold unconditionally (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`). The χ₀ identity is proved there
+by Watson's 1937 route and then fed back through `hm_side`/`phi_side` to give `ThetaId`.
 -/
 import RamanujanTau.MTC.Chi0Phi
 import RamanujanTau.RankDiff5

@@ -12,6 +12,9 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
    so `p(n)` really is `#{partitions of n}`. The combinatorial explanation is also formalized:
    **Dyson's crank (Andrews–Garvan) splits the partitions of `5n+4`, `7n+5` and `11n+6` into 5, 7 and 11
    equal classes**. Mod 11 goes through a lattice-reindexing proof of Winquist's identity.
+   The arc continues to **the Mock Theta Conjectures**. Both of Hickerson's identities are proved, via
+   Hickerson–Mortenson. So is the χ₀ form with its combinatorial statement `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`,
+   via Watson's 1937 relations.
 
 > The Lean **package** is still named `RamanujanTau` (every module lives under `import RamanujanTau.…`);
 > the repository is `RamanujanLean`.
@@ -910,7 +913,8 @@ non-pairing cancellations.
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi
 triple products (`MockTheta5JacobiTriple` / `…Bilateral` / `…ClassicalJTP`), Durfee-rectangle identities
 (`MockTheta5Durfee*`), Cauchy/Euler sum=product identities, even/odd and distinct=odd partition theorems,
-Gauss/alternating theta evaluations, and fifth-order mock-theta scoping (`MockTheta5R1`).
+Gauss/alternating theta evaluations, and the fifth-order mock-theta definitions (`MockTheta5R1`, `MockTheta5Defs`;
+Ramanujan's R1 itself is proved in `Watson/R1.lean`).
 
 ---
 

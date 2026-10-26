@@ -84,14 +84,27 @@ For `f_{1,4,1}` the vanishing `F ≡ 0` holds as a series in `x`, so HM Theorem 
   `F19 ∈ Th(Q³⁰, 10)` vanishes at 11 points (`H19`, `H19b`, `F19_zero`). Specialized at `x = 1` it gives (8.17) for
   `f₀`, and at `x = Q⁶` it gives (8.17) for `f₁`.
 
-## Still open
+## χ₀ and the combinatorial conjecture (done, 2026-10-26)
 
-The Andrews–Garvan corollary `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀` needs the χ₀ identity
-`χ₀ − 2 = 3Φ − J₅²J_{5,2}/J_{5,1}²`. Every elementary link from χ₀ to f₀/ψ₀ is a Watson q ↔ q² relation
-(`MTC_GAP_MAP.md` §8). Work in progress: Garvan's Hecke form of `(q)_∞(χ₀ − 2)` (verified to q³⁰⁰) through HM
-Theorem 0.3 for `f_{2,7,2}`.
+The Andrews–Garvan corollary `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀` is proved (`MTC.Chi0L.rank_chi0`).
+So is the χ₀ identity `χ₀ − 2 = 3(Φ − 1) − J₅²J_{5,2}/J_{5,1}²` (`Watson.chi0_identity`), and the theta identity
+`ThetaId` that the HM route for χ₀ had reduced to (`MTC.Chi0L.thetaId`). All of these are axiom-clean.
+
+They are proved by Watson's elementary route (G. N. Watson, *The mock theta functions (2)*, Proc. LMS 1937),
+not by HM for χ₀. The files are in `RamanujanTau/Watson/`, and `docs/watson1937_R1_proof.md` has the transcription.
+1. **Toolkit.** Locally finite sums of power series (Fubini, reindexing, parity split) and q-Pochhammer products.
+   Euler's two expansions are proved from their q-difference equations; with them come the finite q-binomial and
+   the even part of Euler's expansion.
+2. **Ramanujan's (B₀)** `χ₀ = 2F₀ − φ₀(−q)`, by Heine's method. Watson expands `2χ₀/(q)_∞` and splits by parity,
+   and `χ₀ − 1` reappears through the second series form (A₀) of χ₀.
+3. **Watson's (2₀), (3₀)** `f₀ ± ϑ₄(q)G(q)`, by the same method in bases `q²` and `q⁴`.
+4. **The closing theta identity** `4qψ(q²)H(q⁴) + ϑ₄G − 3ϑ₄(q⁵)G + 2(q¹⁰;q¹⁰)²J_{10,4}/J_{10,2}² = 0`.
+   Its certificate is five HM (1.4b) `θ_mul` instances, found numerically (`scripts/watson/`). Lean checks it
+   over the atoms `(q^r;q^{80})_∞`.
+5. **Assembly.** `2·R1(q²) + (2₀) + 2·(3₀) − 3·MTC₀ + (★)` is the χ₀ identity at `q²`. Cancelling the
+   substitution `q ↦ q²` gives the identity itself.
 
 ## Reproducing
 
-`lake build` (≈8.7k jobs). Generators for the zero files and the certificate searches are in `scripts/mtc_gap/`;
+`lake build` (8710 jobs). Generators for the zero files and the certificate searches are in `scripts/mtc_gap/`;
 the step-by-step map is `MTC_GAP_MAP.md`.

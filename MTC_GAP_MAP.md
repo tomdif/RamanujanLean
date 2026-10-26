@@ -1,4 +1,11 @@
-# Mock Theta Conjectures — gap map (2026-10-23)
+# Mock Theta Conjectures — gap map (2026-10-23; updated 2026-10-26)
+
+> **STATUS (2026-10-26): every target in this map is proved and axiom-clean.**
+> - MTC₀ and MTC₁: `MTC.mock_theta_conjecture_f0` and `_f1`.
+> - The χ₀ identity and `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`: `Watson.chi0_identity` and `MTC.Chi0L.rank_chi0`.
+> - `ThetaId`: `MTC.Chi0L.thetaId`.
+>
+> See §8 and `RamanujanTau/Watson/`. The rest of this file is the working record.
 
 Target: a kernel-checked, axiom-clean proof of Ramanujan's **Mock Theta Conjectures** (Hickerson 1988),
 starting with the `f₀` conjecture, using the Hickerson–Mortenson (HM, arXiv:1208.1421, Proc. LMS 2014)
@@ -44,7 +51,8 @@ Combined with the χ₀ row, this is exactly the **Andrews–Garvan combinatoria
   `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀` for n ≥ 1.
 
 Here `[qⁿ]χ₀` counts partitions of n whose smallest part k is unique and whose other parts lie in
-(k, 2k]. Once the χ₀ identity is proved, this corollary is a few lines of Lean.
+(k, 2k]. Once the χ₀ identity is proved, this corollary is a few lines of Lean. **Both are now proved**
+(`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`).
 
 ## 2. The chain for MTC₀ and its Lean status
 
@@ -108,6 +116,8 @@ lines of Lean — the largest single piece of the campaign.**
 - No elementary (modular-form-free, non-HM) proof of the MTC was found in the literature. The known
   proofs are Hickerson 1988 (constant terms), HM 2014, Folsom 2008 (Maass forms) and Andersen 2016
   (vector-valued modular forms).
+  *(2026-10-26: this remains true for MTC₀ itself. The link from χ₀ to MTC₀ is elementary, though:
+  Watson 1937's Heine-method relations plus one theta identity. That is how χ₀ was finally proved, §8.)*
 
 **Decision:** follow HM Thm 0.3 or 0.11 for `f_{3,7,3}` at fixed monomial y, with the annulus-expansion
 formalization of residue cancellation.
@@ -116,15 +126,19 @@ formalization of residue cancellation.
 
 1. ~~**[Lean] L1:** define f₀, prove the Bailey pair, derive the Hecke-side identity.~~ **Done** (MockTheta5F0Pair.lean).
 2. ~~**[Reading] L2 strategy.**~~ **Done** (§3): the HM route with formal residue cancellation; no shortcut exists.
-3. **[Lean, M] L5:** `rank_AL` at z = q in base q⁵, then Prop 3.2.
-4. **[Lean, L] L2**, then L3, L4, L6, which together give **MTC₀**.
-5. **[Lookup] Andrews–Garvan 1989 reductions:** which Watson relations link φ₀ (and so χ₀) to f₀/F₀.
+3. ~~**[Lean, M] L5:** `rank_AL` at z = q in base q⁵, then Prop 3.2.~~ **Done.**
+4. ~~**[Lean, L] L2**, then L3, L4, L6, which together give **MTC₀**.~~ **Done** (`MTC.mock_theta_conjecture_f0`).
+5. ~~**[Lookup] Andrews–Garvan 1989 reductions:** which Watson relations link φ₀ (and so χ₀) to f₀/F₀.
    `F₀(q²) ↔ f₀` is theta-only, but φ₀ appears in no two-term theta relation, so it needs either
    R1 (`χ₀ = 2F₀ − φ₀(−q)`, already the open target of MockTheta5R1.lean) plus one more relation,
-   or its own HM n = 1 proof. This sets the path to the combinatorial corollary in §1.
-6. **[Lean] MTC₁** (f₁, Ψ) mirrors MTC₀: f₁ uses (8.13), with the same Thm 0.11 n = 3 specialization.
+   or its own HM n = 1 proof. This sets the path to the combinatorial corollary in §1.~~
+   **Done** via Watson 1937 ((B₀) = R1, (2₀), (3₀)); see §8 (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`).
+6. ~~**[Lean] MTC₁** (f₁, Ψ) mirrors MTC₀: f₁ uses (8.13), with the same Thm 0.11 n = 3 specialization.~~
+   **Done** (`MTC.mock_theta_conjecture_f1`).
 
-## Scripts (`scripts/mtc_gap/`)
+## Scripts (`scripts/mtc_gap/`, `scripts/watson/`)
+- `scripts/watson/`: the certificate search for the closing theta identity (`small.py`, `atoms.py`, `star.py`)
+  and the generator of `RamanujanTau/Watson/Star.lean` (`gen_star.py`, `scales.py`).
 - `series.py`: exact q-series toolkit, all ten fifth-order functions, Φ, Ψ, and an eta-quotient detector.
 - `al.py`: Laurent-series evaluator for j, J, and m(x,q,z) at monomial arguments.
 - `search.py`, `pairs.py`: the identity searches behind §1.
@@ -282,7 +296,8 @@ The history of the attempts on `ThetaId` is kept below. Numerical reductions fou
     - `G(−q)H(q) − G(q)H(−q) = −2q∏` needs one HM (1.4b) relation plus one Weierstrass relation.
     - T3 (`2P_A + P = P_B`) needs one Weierstrass relation in base 5.
     - T1 and T2 then follow by product bookkeeping. For example, `ϑ₄(q) + ϑ₄(q⁵) = 2f(−q²)G(−q)G(q⁴)`.
-  - Still open: a Lean proof of `R1` that does not go through HM for χ₀. Any HM-based proof of a χ₀ relation
+  - ~~Still open: a Lean proof of `R1` that does not go through HM for χ₀.~~ **Done** (`Watson.chi0_R1_watson`).
+    Historical note: Any HM-based proof of a χ₀ relation
     reproduces the rigid θ-terms of `ThetaId`. No one-parameter generalization of `R1` was found in the natural
     families.
   - **Watson 1937 obtained (2026-10-26). The χ₀ route is now fully elementary on the mock side.**
@@ -293,7 +308,7 @@ The history of the attempts on `ThetaId` is kept below. Numerical reductions fou
 
     All of them use only Euler's two expansions, parity splitting and swapping sums.
     Combined with MTC₀, the χ₀ identity reduces to the certified 4-term theta identity.
-    Lean plan, in order:
+    Lean plan, in order (**all done**: `Watson/Binom`, `A0`, `R1`, `F0Rel`, `Star`, `Final`):
     1. the even-part Euler lemma;
     2. (A₀);
     3. `R1`;

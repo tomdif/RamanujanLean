@@ -24,6 +24,8 @@ closed form — the same verdict the `a=1` inversion gave. This is **not** a def
 pair with theta-closed-form `α` makes `Σ q^{n²+n}βₙ` a theta quotient, i.e. **modular**. Mock thetas are by
 definition non-modular, so they *cannot* have clean Bailey `α`. Reaching them needs Hecke-type double sums,
 not a single clean pair — this reframes the R1 (`χ₀ = 2F₀ − φ₀(−q)`) route.
+*(2026-10-26: R1 is now proved, `Watson.chi0_R1_watson`. It uses Watson's Heine-method double series, not a
+Bailey pair, consistent with this finding.)*
 
 ### Clean reachable identities (unit β's)
 Two "unit" `β`'s give clean, terminating, theta-like `α` of the telescoping form
