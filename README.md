@@ -42,6 +42,11 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **The Mock Theta Conjectures** (Hickerson 1988; Andrews–Garvan form) | `f₀(q) = θ₄(0,q⁵)/((q;q⁵)_∞(q⁴;q⁵)_∞) − 2Φ(q²)` and `f₁(q) = θ₄(0,q⁵)/((q²;q⁵)_∞(q³;q⁵)_∞) − 2q⁻¹Ψ(q²)`, `f₀ = Σ q^{n²}/(−q;q)ₙ`, `f₁ = Σ q^{n²+n}/(−q;q)ₙ` (`MTC.mock_theta_conjecture_f0`, `MTC.mock_theta_conjecture_f1`) |
 | **The χ₀ mock theta conjecture and Andrews–Garvan's rank statement** (via Watson 1937) | `χ₀(q) − 2 = 3(Φ(q) − 1) − (q⁵;q⁵)²_∞J_{5,2}/J_{5,1}²` and `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀(q)` for `n ≥ 1`, `χ₀ = Σ qⁿ/(q^{n+1};q)ₙ` (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`) |
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
+| **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
+| **Ramanujan's value `R(e^{−2π})`** (first letter to Hardy, 1913) | `e^{−2π/5}(q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞) = √((5+√5)/2) − (√5+1)/2` at `q = e^{−2π}` (`RRValue.rogers_ramanujan_value`) |
+| **Ramanujan's deathbed claim at `q → −1`** (last letter to Hardy, 1920) | `f(q) + b(q) → 4` as `q → −1` radially, `f = Σ q^{n²}/(−q;q)ₙ²`, `b = (1−q)(1−q³)⋯(1−2q+2q⁴−⋯)` (`MockTheta3.Radial.ramanujan_radial_limit`) |
+| **Watson's third-order identities** (1936) | `2φ(−q) − f(q) = b(q)` and `f(q) + 4ψ(−q) = b(q)` (`MockTheta3.Watson3.watson_W1`, `watson_W2`) |
+| **`f(q)` counts rank parity** | `[qⁿ] f(q) = N(0,2,n) − N(1,2,n)` (`MockTheta3.f3_rank`) |
 | **Andrews' Hecke-type identities for `f₀`, `f₁`** | `(q;q)_∞f₀ = ΣΣ_{\|j\|≤n}(−1)ʲq^{n(5n+1)/2−j²}(1−q^{4n+2})`, `(q;q)_∞f₁ = ΣΣ(−1)ʲq^{n(5n+3)/2−j²}(1−q^{2n+1})` |
 | **Hickerson–Mortenson Theorem 0.3 for `f_{3,7,3}`** at the MTC₀ and MTC₁ points | Hecke-type double sum = Appell–Lerch sums + theta quotient (`MTC.hm03_xstar`, `MTC.hm03_x1`) |
 | **Partition-count bridge** | `[qⁿ] 1/(q;q)_∞ = #(Nat.Partition n)` — `p(n)` is the honest count |
@@ -53,8 +58,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 
 | | |
 |---|---|
-| Modules | 296 |
-| Build | `lake build` → **8710 jobs, 0 errors** |
+| Modules | 335 |
+| Build | `lake build` → **8718 jobs, 0 errors** |
 | `sorry` count | **0** · new `axiom` declarations | **0** |
 | Headline theorems | depend only on `[propext, Classical.choice, Quot.sound]` (audited) |
 | Lean toolchain | `leanprover/lean4:v4.30.0-rc2` + Mathlib |
@@ -635,6 +640,32 @@ theorem psi_eq_series    : psi = psiSum                  --  ψ(q) = Σ_{n≥0} 
 `2·((q;q)_∞·∏(1+qⁿ)²)`; cancelling the `2` (`PowerSeries ℤ` is a domain) and applying the distinct = odd
 algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean` records the theta relation
 `phi_mul_phiNeg : φ(q)·φ(−q) = φ(−q²)²`.
+
+### Ramanujan's own claims: `1/π`, `R(e^{−2π})`, the deathbed letter
+
+**`RamanujanPi.lean`: Ramanujan's first series for `1/π`** (*Modular equations and approximations to π*, 1914):
+`Σ (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π`. The proof uses no modular forms.
+* The summand is deformed to `F(k,n) = (6n+4k+1)(1/2)_n³/(n!(1+k)_n²4ⁿ)`.
+* A Zeilberger-type certificate `G = 8r_k n/(6n+4k+1)·F`, with `r_k = ((2k+2)/(2k+1))²`, telescopes. This gives `S(k+1) = r_k S(k)`.
+* For `n ≥ 1` the terms are `O(4⁻ⁿ/k)`, so `S(k) ~ 4k+1`.
+* `∏_{i<k} r_i = (2k+1)W_k`, and Mathlib's Wallis product `W_k → π/2` finishes.
+* The same method proves `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π`. That limit is `((4k+1)/∏r)² = (4k+1)/((2k+1)W_{2k}W_k) → 8/π²`.
+
+**`RRValue.lean`: `R(e^{−2π}) = √((5+√5)/2) − (√5+1)/2`**, from Ramanujan's first letter to Hardy.
+* **Formal identity.** The 5-dissection of Euler's product gives `(x;x)_∞u(x⁵)v(x⁵) = (x²⁵;x²⁵)_∞(v² − xuv − x²u²)`, i.e. `1/R − 1 − R = η(τ/5)/η(5τ)`.
+* **Analytic transfer.** `Realize.lean` turns it into an identity of holomorphic functions on the disc. Each product `∏(1 − q^{b+ak})` is a locally uniform limit of integer polynomials, and Taylor's theorem identifies the two sides.
+* **Evaluation.** Mathlib's `η(−1/z) = √z·η(z)/√i` at `z = 5i` gives `η(i/5) = √5·η(5i)`. Positivity of the real products picks the root of `R² + (1+√5)R − 1 = 0`.
+
+**`MockTheta3*.lean`: the third-order mock theta function and the deathbed letter.**
+* **`MockTheta3`.** `f(q) = Σ q^{n²}/(−q;q)ₙ²` is the rank generating function at `z = −1`. So `[qⁿ]f = N(0,2,n) − N(1,2,n)`.
+* **`MockTheta3Watson`.** Watson's identities `2φ(−q) − f(q) = b(q)` and `f(q) + 4ψ(−q) = b(q)`, with `b(q) = (q;q²)_∞ Σ_ℤ(−1)ⁿq^{n²}`.
+  * The route is an elementary chain at `α = qʲ` of Andrews' one-parameter generalization (1966): `F_j = Σ q^{jn+n²−n}/((−q;q)ₙ(−qʲ;q)ₙ)` and `A_j = Σ (−1)ⁿq^{n²}/(−q^{j+1};q²)ₙ`.
+  * Two telescoping identities give `M_{j+2} = (1+qʲ)(1+q^{j+1})M_j` for `M_j = 2A_j − F_j`. Also `M_j ≡ Θ (mod qʲ)`.
+  * The contraction `(−qʲ;q)_∞ M_j = Θ` and Euler's `(−q;q)_∞(q;q²)_∞ = 1` finish. No Appell–Lerch sums or theta certificates are needed.
+* **`MockTheta3Radial`.** Ramanujan's claim that `f(q) − (−1)ᵏb(q)` stays bounded as `q` tends to an even-order root of unity, at `q → −1`. In fact the limit exists: **`f(q) + b(q) → 4`**, even though `f` and `b` each blow up.
+  * `Taylor.lean`: the Taylor-series map `T` is a ring map that commutes with locally uniform limits. It lifts Watson's identity to the disc.
+  * `MockTheta3Analytic.lean`: holomorphic realizations of series `Σ ±q^{n²}/Pₙ(q)ᵏ`.
+  * Then `φ(t) = Σ t^{n²}/(−t²;t²)ₙ`, with terms `≤ 2⁻ⁿ`, tends to `2` by Tannery's theorem.
 
 ### Bounds for τ
 

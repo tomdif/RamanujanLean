@@ -372,3 +372,11 @@ import RamanujanTau.MTC.Chi0Split
 import RamanujanTau.MTC.Chi0Phi
 import RamanujanTau.MTC.Chi0Final
 import RamanujanTau.Watson.Final
+import RamanujanTau.MockTheta3
+import RamanujanTau.MockTheta3Watson
+import RamanujanTau.MockTheta3Radial
+import RamanujanTau.Realize
+import RamanujanTau.RRValue
+import RamanujanTau.Taylor
+import RamanujanTau.MockTheta3Analytic
+import RamanujanTau.RamanujanPi
