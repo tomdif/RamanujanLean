@@ -385,3 +385,4 @@ import RamanujanTau.ALThetaCore11
 import RamanujanTau.Atkin11Weier
 import RamanujanTau.Atkin11ModEq
 import RamanujanTau.Atkin11Seed.Seeds
+import RamanujanTau.HardyRamanujan.Main

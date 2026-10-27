@@ -15,7 +15,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
    The arc continues to **the Mock Theta Conjectures**. Both of Hickerson's identities are proved, via
    Hickerson–Mortenson. So is the χ₀ form with its combinatorial statement `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`,
    via Watson's 1937 relations. It also includes **Ramanujan's conjecture for all powers of 11**
-   (Atkin 1967): `24m ≡ 1 (mod 11ʳ) ⟹ 11ʳ ∣ p(m)`, proved without modular forms.
+   (Atkin 1967): `24m ≡ 1 (mod 11ʳ) ⟹ 11ʳ ∣ p(m)`, proved without modular forms, and **the Hardy–Ramanujan
+   asymptotic formula** `p(n) ~ e^{π√(2n/3)}/(4n√3)`.
 
 > The whole library is free of `sorry`, `axiom` and `native_decide`: every finite computation, including
 > Lehmer's `τ(n) ≠ 0` for `n ≤ 100` and the `ZMod 3` branch tables, is checked by the kernel (`decide +kernel`).
@@ -47,6 +48,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **The χ₀ mock theta conjecture and Andrews–Garvan's rank statement** (via Watson 1937) | `χ₀(q) − 2 = 3(Φ(q) − 1) − (q⁵;q⁵)²_∞J_{5,2}/J_{5,1}²` and `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀(q)` for `n ≥ 1`, `χ₀ = Σ qⁿ/(q^{n+1};q)ₙ` (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`) |
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
 | **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
+| **The Hardy–Ramanujan asymptotic formula** (1918) | `p(n) ~ e^{π√(2n/3)}/(4n√3)` for the honest partition count `p(n) = #(Nat.Partition n)` (`HardyRamanujan.hardy_ramanujan_isEquivalent`; ratio form `hardy_ramanujan`) |
 | **Ramanujan's conjecture for powers of 11** (Atkin 1967) | `24m ≡ 1 (mod 11ʳ)`, `r ≥ 1` ⟹ `11ʳ ∣ p(m)` (`Atkin11.ramanujan_pow11_unconditional`). All three Atkin–Gordon inputs are proved: the degree-11 modular equation for `φ = q⁵E(q¹²¹)/E(q)` (`modeq_proved`), the curve relation R2 (`r2_proved`) and the 55 seed rows (`Atkin11Seed.seeds_proved`) |
 | **Ramanujan's value `R(e^{−2π})`** (first letter to Hardy, 1913) | `e^{−2π/5}(q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞) = √((5+√5)/2) − (√5+1)/2` at `q = e^{−2π}` (`RRValue.rogers_ramanujan_value`) |
 | **Ramanujan's deathbed claim at `q → −1`** (last letter to Hardy, 1920) | `f(q) + b(q) → 4` as `q → −1` radially, `f = Σ q^{n²}/(−q;q)ₙ²`, `b = (1−q)(1−q³)⋯(1−2q+2q⁴−⋯)` (`MockTheta3.Radial.ramanujan_radial_limit`) |
@@ -690,6 +692,14 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
   4. **The seed check** (`SeedCheck`). For each of the five `S` and each `λ ≤ 10`, the kernel computes `Y^λ S mod P` and compares `[Y¹⁰]` with `11·C^λ_{i,·}`.
   * Reproduce the data with `scripts/atkin11/seeds/` (`compute_S.py`, `jarith.py`, `gen_data.py`, `gen_h2.py`).
   * The kernel checks take about 4 minutes in total; the largest file (`H2CheckI`) peaks near 10 GB.
+
+**`HardyRamanujan/*.lean`: the Hardy–Ramanujan asymptotic formula** `p(n) ~ e^{π√(2n/3)}/(4n√3)`.
+* **Generating function** (`GenFun`): `F(q) = 1/(q;q)_∞ = Σ p(n)qⁿ` on the unit disc. The proof uses Taylor's theorem plus Leibniz on `(q;q)_∞·F = 1`, against the formal recurrence.
+* **Modularity** (`Modular`): `F(e^{−z}) = √(z/2π)·e^{π²/(6z) − z/24}·F(e^{−4π²/z})` for `Re z > 0`, from Mathlib's `η(−1/τ) = √(τ/i)η(τ)`.
+* **Coefficient integral** (`Coeff`): `2πp(n) = ∫_{−π}^{π} F(e^{−(t+iθ)})e^{n(t+iθ)} dθ`, by termwise integration.
+* **Minor arc** (`Minor`): `‖F(e^{−t−iθ})‖ ≤ ‖F(e^{−t})‖e^{−1/(200t)}` for `t ≤ |θ| ≤ π`. Per factor, `‖1 − xe^{iφ}‖ ≥ (1−x)e^{x(1−cos φ)/8}`; summed, `Σrᵏ(1 − cos kθ) = r/(1−r) − Re(q/(1−q))`.
+* **Major arc** (`Major`, `Param`). Take `t = π/√(6n)`, `A = nt`, `θ = tv/√A`. The exponent is exactly `2A − v²/(1 + iv/√A)`, and dominated convergence gives the integral `→ √π`.
+* **Assembly** (`Bounds`, `Main`). The normalizing factor times the main term is exactly `J_n/√π`; both error terms are `O(n e^{−c√n})`.
 
 **`MockTheta3*.lean`: the third-order mock theta function and the deathbed letter.**
 * **`MockTheta3`.** `f(q) = Σ q^{n²}/(−q;q)ₙ²` is the rank generating function at `z = −1`. So `[qⁿ]f = N(0,2,n) − N(1,2,n)`.
