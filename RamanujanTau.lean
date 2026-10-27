@@ -320,6 +320,7 @@ import RamanujanTau.RamanujanR5
 import RamanujanTau.Legendre
 import RamanujanTau.AndrewsGordon
 import RamanujanTau.AndrewsGordonAll
+import RamanujanTau.Bressoud
 import RamanujanTau.TauCongruences
 import RamanujanTau.TauBridge
 import RamanujanTau.TwoSquaresCor

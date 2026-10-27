@@ -534,7 +534,7 @@ theorem. A solution of `Σ vᵢ² = 8n+4` has all `vᵢ` even or all odd, becaus
 the even solutions gives `r₄(2n+1)`. The odd solutions are `vᵢ = ±(2xᵢ+1)`, sixteen for each element of `t4 n`.
 So `16 t₄(n) = 8·3σ(2n+1) − 8σ(2n+1)`.
 
-### `AndrewsGordon.lean`, `AndrewsGordonAll.lean` — the Andrews–Gordon identities (every `1 ≤ i ≤ k`, `k ≥ 2`)
+### `AndrewsGordon.lean`, `AndrewsGordonAll.lean`, `Bressoud.lean` — the Andrews–Gordon identities (every `1 ≤ i ≤ k`) and Bressoud's even-modulus companions
 ```lean
 theorem andrews_gordon (j : ℕ) : tsumQsq (agBeta j) * agProd (2 * j + 5) (j + 2) = 1
 ```
@@ -569,6 +569,16 @@ The steps are: `k − i` steps of the `a = q` chain from the RR2 pair (these car
 `i − 2` steps of the `a = 1` chain, then the Bailey transform. On the `α` side, `q^{(i−1)n²}α°_n` is exactly the
 `±n` pair of terms of `Σ_{n∈ℤ}(−1)ⁿq^{(2k+1)n(n−1)/2+in}`, so the Jacobi triple product gives `J_{2k+1,i}`.
 At `s = 0` this recovers `andrews_gordon`.
+
+**Bressoud's even-modulus identities** (`Bressoud.lean`, Bressoud 1980). For `1 ≤ i ≤ k−1`,
+`Σ q^{n₁²+⋯+n_{k−1}² + n_i+⋯+n_{k−1}}/((q)_{n₁−n₂}⋯(q)_{n_{k−2}−n_{k−1}}(q²;q²)_{n_{k−1}}) = ∏_{n ≢ 0,±i (mod 2k)} 1/(1−qⁿ)`:
+```lean
+theorem bressoud_one (s : ℕ) : tsumQsqQ (brBetaQ s) * agProd (2 * s + 4) 1 = 1              -- i = 1, k = s + 2
+theorem bressoud_i (s t : ℕ) :                                                            -- i = t + 2, k = s + t + 3
+    tsumQsq (brBetaI (s + 1) t) * agProd (2 * (s + 1) + 2 * t + 4) (t + 2) = 1
+```
+The route is the same as for Andrews–Gordon, starting instead from the `a = q` pair
+`(αₙ = (−1)ⁿq^{n²}(1+⋯+q^{2n}), 1/(q²;q²)ₙ)` (`isBaileyPairQ_A`). Its theta side is `J_{2k,i}`.
 
 ### `GollnitzGordon.lean`, `GollnitzGordon2.lean` (+ WZ files) — the Göllnitz–Gordon identities
 ```lean
