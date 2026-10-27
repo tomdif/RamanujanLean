@@ -48,6 +48,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **The χ₀ mock theta conjecture and Andrews–Garvan's rank statement** (via Watson 1937) | `χ₀(q) − 2 = 3(Φ(q) − 1) − (q⁵;q⁵)²_∞J_{5,2}/J_{5,1}²` and `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀(q)` for `n ≥ 1`, `χ₀ = Σ qⁿ/(q^{n+1};q)ₙ` (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`) |
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
 | **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
+| **Rademacher's exact formula** (1937) | `p(n) = Σ_{k≥1} A_k(n)·(π/12k)^{3/2}·2π·4(u_k cosh u_k − sinh u_k)/(√π u_k³ k)`, `u_k = (π/k)√((2/3)(n−1/24))`, as a convergent series (`Rademacher.rademacher`). Here `A_k(n) = Σ_h ω_{h,k}e^{−2πinh/k}`, where `ω_{h,k}` is the η-multiplier: it is defined by the transformation law. Its Dedekind-sum formula `ω_{h,k} = e^{πi s(h,k)}` is not yet formalized |
 | **The Hardy–Ramanujan asymptotic formula** (1918) | `p(n) ~ e^{π√(2n/3)}/(4n√3)` for the honest partition count `p(n) = #(Nat.Partition n)` (`HardyRamanujan.hardy_ramanujan_isEquivalent`; ratio form `hardy_ramanujan`) |
 | **Ramanujan's conjecture for powers of 11** (Atkin 1967) | `24m ≡ 1 (mod 11ʳ)`, `r ≥ 1` ⟹ `11ʳ ∣ p(m)` (`Atkin11.ramanujan_pow11_unconditional`). All three Atkin–Gordon inputs are proved: the degree-11 modular equation for `φ = q⁵E(q¹²¹)/E(q)` (`modeq_proved`), the curve relation R2 (`r2_proved`) and the 55 seed rows (`Atkin11Seed.seeds_proved`) |
 | **Ramanujan's value `R(e^{−2π})`** (first letter to Hardy, 1913) | `e^{−2π/5}(q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞) = √((5+√5)/2) − (√5+1)/2` at `q = e^{−2π}` (`RRValue.rogers_ramanujan_value`) |
@@ -692,6 +693,19 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
   4. **The seed check** (`SeedCheck`). For each of the five `S` and each `λ ≤ 10`, the kernel computes `Y^λ S mod P` and compares `[Y¹⁰]` with `11·C^λ_{i,·}`.
   * Reproduce the data with `scripts/atkin11/seeds/` (`compute_S.py`, `jarith.py`, `gen_data.py`, `gen_h2.py`).
   * The kernel checks take about 4 minutes in total; the largest file (`H2CheckI`) peaks near 10 GB.
+
+**`Rademacher/*.lean`: Rademacher's exact convergent series for `p(n)`** (`Rademacher.rademacher`). The proof follows Apostol's Ford-circle route, without contour deformation:
+* **η on SL₂(ℤ)** (`EtaGeneral`, `FTransform`): `η(γτ) = ε√(cτ+d)η(τ)` with `ε²⁴ = 1`. It comes from log-derivatives and Mathlib's `E2_slash_action`, plus the modularity of Δ. Specialized, it gives `F(e^{2πi(h+iz)/k}) = ω√z e^{π(1/z−z)/12k} F(e^{2πi(h'+i/z)/k})`. The multiplier `ω_{h,k}` is canonical (`Integrand.omega`).
+* **Laplace and Bessel** (`Laplace`, `Bessel`, `Closed`):
+  * `∫₀^∞ x^{β−1}e^{−sx} = Γ(β)s^{−β}` for `Re s > 0`, by the identity theorem;
+  * `∫_ℝ (c+it)^{−5/2}e^{(c+it)+y/(c+it)}dt = 2πΣ yᵐ/(m!Γ(m+5/2))`, by Fourier inversion;
+  * the closed form of that series is `4(u cosh u − sinh u)/(√π u³)`.
+* **Farey/Ford** (`Farey`, `Pieces`). Stern–Brocot recursion gives completeness, no duplicates, and the neighbour chain. The explicit primitive `G` of `F(e^{2πiτ})e^{−2πinτ}` on ℍ turns the sum of Ford-segment integrals (vertical segments `w = k+iu`, `u ∈ [−k₁,k₂]`) into an exact telescoping identity for `p(n)`.
+* **Main terms and errors** (`Integrand`, `MainTerm`, `Chord`, `Assembly`).
+  * Each segment integrand is `(ω e^{−2πinh/k}/k)·w^{−5/2}e^{aw+b/w}F(q′)`.
+  * The main part is the full-line Bessel integral minus tails of size `O(N^{−1/2}/k)`.
+  * The error part is moved to the chord by a Morera primitive on a disc in `Re z > 0`, which gives `O(N^{−3/2})`.
+  * In total, `|p(n) − Σ_{k≤N}…| ≤ C(1+log N)/√N + C′N^{−1/2}`.
 
 **`HardyRamanujan/*.lean`: the Hardy–Ramanujan asymptotic formula** `p(n) ~ e^{π√(2n/3)}/(4n√3)`.
 * **Generating function** (`GenFun`): `F(q) = 1/(q;q)_∞ = Σ p(n)qⁿ` on the unit disc. The proof uses Taylor's theorem plus Leibniz on `(q;q)_∞·F = 1`, against the formal recurrence.

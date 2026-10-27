@@ -16,3 +16,13 @@ Route: Apostol, *Modular Functions and Dirichlet Series*, Ch. 5 (Ford circles). 
 4. **The Bessel integral**: (1/2πi)∫_{c−i∞}^{c+i∞} w^{−5/2} e^{w + a/w} dw = Σ_m a^m/(m! Γ(m+5/2)), by the
    Laplace transform of x^{m+3/2} and Fourier inversion, in closed form via sinh/cosh.
 5. **Assembly**: p(n) = Σ_{k≤N} (main terms) + O(N^{−1/2}); let N → ∞.
+
+## Status (2026-10-27): DONE except the Dedekind-sum identification
+
+`Rademacher.rademacher` is proved and axiom-clean, with `A_k(n)` built from the canonical η-multiplier `ω_{h,k}`.
+Steps 1, 3, 4 and 5 are done; for step 4 the inversion went via the Laplace transform plus Fourier inversion.
+The route differs from Apostol in two ways:
+* an explicit primitive replaces path deformation;
+* the paths are vertical segments in `w = 1/z`.
+
+Remaining step 2 is `ω_{h,k} = e^{πi s(h,k)}` (Dedekind sums). It has been checked numerically: with this `ω`, the partial sums give `p(1), p(5), p(10), p(20)` to `≤ 10⁻³` at `k < 40`.
