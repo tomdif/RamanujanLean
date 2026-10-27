@@ -65,14 +65,14 @@ lemma tsum_gT' (n : ℕ) {τ : ℂ} (hτ : 0 < τ.im) : ∑' m, gT' n m τ = fI 
   congr 2; ring
 
 
-lemma summable_bound (n : ℕ) {y : ℝ} (hy : 0 < y) (Y : ℝ) :
+lemma summable_boundG (n : ℕ) {y : ℝ} (hy : 0 < y) (Y : ℝ) :
     Summable fun m : ℕ => (p m : ℝ) * Real.exp (-(m * (π * y))) * Real.exp (2 * π * n * Y) :=
   (summable_p_exp (by positivity)).mul_right _
 
 lemma summable_gT (n : ℕ) {τ : ℂ} (hτ : 0 < τ.im) : Summable fun m => gT n m τ := by
   set y := τ.im with hy
   refine Summable.of_norm_bounded_eventually (g := fun m : ℕ =>
-    (p m : ℝ) * Real.exp (-(m * (π * y))) * Real.exp (2 * π * n * (2 * y))) (summable_bound n hτ _) ?_
+    (p m : ℝ) * Real.exp (-(m * (π * y))) * Real.exp (2 * π * n * (2 * y))) (summable_boundG n hτ _) ?_
   rw [Nat.cofinite_eq_atTop]
   filter_upwards [eventually_gt_atTop (n + 1)] with m hm
   have hne : m ≠ n := by omega
@@ -121,7 +121,7 @@ lemma hasDerivAt_Gp (n : ℕ) {τ : ℂ} (hτ : 0 < τ.im) : HasDerivAt (Gp n) (
     · have := mul_le_mul_of_nonneg_left h1.le (sub_nonneg.mpr hmn)
       nlinarith [mul_nonneg (mul_nonneg hπ.le hn) hτ.le]
   have hsum0 : Summable fun m => gT n m τ := summable_gT n hτ
-  have H := hasDerivAt_tsum_of_isPreconnected (summable_bound n hτ (2 * y)) hto htc
+  have H := hasDerivAt_tsum_of_isPreconnected (summable_boundG n hτ (2 * y)) hto htc
     (fun m z _ => hasDerivAt_gT n m z) hb hτt hsum0 hτt
   rw [tsum_gT' n hτ] at H
   exact H
