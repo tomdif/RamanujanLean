@@ -1,0 +1,13 @@
+G4: sat exponent 0
+G4: cofactor terms 15967, target terms 2281
+R1: sat exponent 0
+// ** redefining L (  matrix L=lift(W,m^k*T[i]);) lift.sing:40
+// ** redefining tot (  int tot=0; int j;) lift.sing:41
+// ** redefining j (  int tot=0; int j;) lift.sing:41
+R1: cofactor terms 15967, target terms 2281
+R2: sat exponent 0
+// ** redefining L (  matrix L=lift(W,m^k*T[i]);) lift.sing:40
+// ** redefining tot (  int tot=0; int j;) lift.sing:41
+// ** redefining j (  int tot=0; int j;) lift.sing:41
+R2: cofactor terms 67198, target terms 10946
+done

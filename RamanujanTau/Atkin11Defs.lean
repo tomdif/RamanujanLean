@@ -4,11 +4,13 @@
 * `E_k = (q^k;q^k)_∞`, `V : q ↦ q¹¹`, `U = U₁₁ : Σ aₙqⁿ ↦ Σ a₁₁ₙqⁿ`.
 * `z = q⁵E₁₁¹²/E₁¹²`, `φ = q⁵E₁₂₁/E₁`.
 * Atkin's basis of the integral modular functions on `Γ₀(11)` with poles only at `0` (Paule–Radu, Thm. 3.9):
-  `g₂ = U₂(1/f₂) − 1/f₃` with `1/f₂ = q²E₁₁³E₂₂/(E₁E₂³)` and `1/f₃ = q³E₁₁E₂₂³/(E₁³E₂)`;
+  `g₂ = U₂(1/f₂) − 1/f₃` with `1/f₂ = q²E₁₁³E₂₂/(E₁E₂³)` and `1/f₃ = q³E₁₁E₂₂³/(E₁³E₂)`. Here `g₂` is defined by
+  its theta form `GN(c)/GD(c)` in the eta ratios `c` (`Atkin11CDefs`);
   `g₃` is defined by Atkin's relation (R1) `g₂g₃ = g₂² − g₃ + 11z`; `g₄ = g₂² − g₃`, `g₆ = g₂g₄`.
 * `J_{5a+i} = zᵃ·(1, g₂, g₃, g₄, g₆)ᵢ`, and `lc c = Σ_ν c_ν J_ν` for finitely supported `c : ℕ →₀ ℤ`.
 -/
 import RamanujanTau.Atkin11Bound
+import RamanujanTau.Atkin11CDefs
 import RamanujanTau.MockTheta5JacobiTriple
 import RamanujanTau.MockTheta5Frobenius
 import Mathlib.LinearAlgebra.Finsupp.LinearCombination
@@ -99,12 +101,12 @@ noncomputable def f2i : PS := X ^ 2 * E11 ^ 3 * E22 * Ring.inverse (E1 * E2 ^ 3)
 /-- `1/f₃ = q³E₁₁E₂₂³/(E₁³E₂)`. -/
 noncomputable def f3i : PS := X ^ 3 * E11 * E22 ^ 3 * Ring.inverse (E1 ^ 3 * E2)
 
-/-- Atkin's `g₂ = U₂(1/f₂) − 1/f₃`. -/
-noncomputable def g2 : PS := U2 f2i - f3i
+/-- Atkin's `g₂`, in its theta form `g₂ = GN(c)/GD(c)` (`Atkin11CDefs`). It agrees with Atkin's
+`U₂(1/f₂) − 1/f₃` (checked numerically); only the theta form is used. -/
+noncomputable def g2 : PS := gN * Ring.inverse gD
 
 lemma constantCoeff_g2 : constantCoeff g2 = 0 := by
-  rw [g2, map_sub, ← coeff_zero_eq_constantCoeff_apply, ← coeff_zero_eq_constantCoeff_apply]
-  simp [U2, f2i, f3i, coeff_zero_eq_constantCoeff, pow_succ]
+  rw [g2, map_mul, cc_gN, zero_mul]
 
 lemma isUnit_one_add_g2 : IsUnit (1 + g2) := by
   rw [isUnit_iff_constantCoeff, map_add, constantCoeff_g2]; simp
@@ -158,8 +160,9 @@ noncomputable def eF (j : ℕ) : ℕ →₀ ℤ := ofList (eList j)
 /-- the seed row `C^λ_{i,·}` for `λ ≤ 10`, `i ≤ 4`. -/
 noncomputable def seedF (lam i : ℕ) : ℕ →₀ ℤ := ofList (seedRows.getD (5 * lam + i) [])
 
-/-- **the inputs** — explicit q-series identities between the objects above. All are verified numerically
-(to `q^1500`–`q^3000`); proving them is the remaining (genus-one) part of Atkin's theorem. -/
+/-- **the inputs** — explicit q-series identities between the objects above, all verified numerically (to
+`q^1500`–`q^3000`). `r2` and `modeq` are proved in `Atkin11ModEq` (`r2_proved`, `modeq_proved`); the seeds
+remain. -/
 structure Inputs : Prop where
   /-- the second Atkin relation (the curve `11a1`). -/
   r2 : g3 ^ 2 = g2 ^ 3 - g2 * g3 - z

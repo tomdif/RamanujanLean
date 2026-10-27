@@ -100,3 +100,21 @@ Certificate sizes relative to the 25-element Gröbner basis (itself certified by
 1. Build a kernel-checked sparse-polynomial certificate checker (prototype: a 300×300 product takes about 40 s under `decide +kernel`; it needs structural recursion and mergesort-style accumulation).
 2. Minimize the clearing exponents.
 3. Then the 11-dissection of E (QPI specialization), the norm identity, the char poly of ψ, and the seeds via H2.
+
+### Step 2 progress (2026-10-26, evening): modular equation and R2 PROVED
+
+`Atkin11.modeq_proved` and `Atkin11.r2_proved` are theorems (axiom-clean), so two of the three `Inputs` fields are discharged. Step 1 now defines `g₂` by its theta form `GN(c)/GD(c)`, and still compiles unchanged.
+
+* **Quintuple product** (`ALQuint`): a lattice-bijection proof over `ℂ((t))`.
+* **11-dissection of `E`** (`Atkin11Dissect`, `Atkin11DissectPS`).
+* **Kernel certificate checker** (`SPoly`, `SPolyFast`, `SPoly6*`, `SPolyPE`, `SPolyHom`).
+  * The sort-based normalizer was replaced by run merging. The meaning checks became DAGs of literal nodes (`scripts/atkin11/step2/gen_mean2.py`), because nested expression evaluation in the kernel needed more than 50 GB.
+  * Memory is about 140 KB per raw product term, so every check is kept to at most 30k raw terms.
+  * The heaviest files are `QUT_S1`/`QUT_S2` (about 22 GB) and the `QUMeanP*` parts (about 15–24 GB). Build them one at a time.
+* **Characteristic polynomial** (`Atkin11CH`): Horner checkpoints, evaluated in `ℤ⟦q⟧`.
+* **Norm** (`Atkin11Norm`): conjugate roots, `Atkin11Roots.coeff_zero_of_roots`, and `prod_conj_E`.
+* **Pull-back and assembly** (`Atkin11Coef`, `Atkin11ModEq`). Cofactors come from `scripts` (sympy).
+
+**Remaining: the 55 seeds** `U(φ^λ g_i) = Σ C J_ν`.
+* **`i = 0`.** `11·V(U φ^λ)` is the power sum of the conjugates, so Newton's identities in the proved modular equation give it.
+* **`i ≥ 1`.** This needs `g₂(q)` in the `φ`-basis over `V`-functions (H2: `g₂(q)·P'(φ) = S(φ)`, certified modulo `P`). It is proved by quintic uniqueness, using `z(q) = φ¹²/V(z)`. Then Euler's identity `Σ_k φ_k^n/P'(φ_k) = h_{n−10}` turns each seed into a polynomial identity in `g₂, g₃, z`.

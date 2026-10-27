@@ -383,3 +383,4 @@ import RamanujanTau.RamanujanPi
 import RamanujanTau.Atkin11Final
 import RamanujanTau.ALThetaCore11
 import RamanujanTau.Atkin11Weier
+import RamanujanTau.Atkin11ModEq
