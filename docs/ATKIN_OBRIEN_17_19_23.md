@@ -67,3 +67,48 @@ Atkin–O'Brien's Lemma 4.1. Hence:
 3. A computer-assisted proof per prime is possible in the style of Atkin–O'Brien / Garvan–Shomanov, at level 1
    (Katz basis), which avoids level-ℓ modular equations: kernel-check the valuation bounds of the `U`/`D`
    matrices on a periodic box, then run the `Λ²` minor argument.
+
+## Update: the full argument modulo one general contraction lemma
+
+**Envelopes.** For `c ≥ 1`, let `𝓔_c` be the `ℤ_(ℓ)`-module of ℓ-adic sums `Σ_j ℓ^j G_j / E_{ℓ−1}^{j+c}` with
+`G_j ∈ S_{(j+c)(ℓ−1)}(ℤ_(ℓ))`. Equivalently: in the mod-`ℓ^n` level-1 representatives of BW Cor. 3.5,
+the `j`-th ℓ-adic digit has filtration `≤ (j+c)(ℓ−1)`. These are Katz-type expansions with `v(b_i) ≥ i − c`.
+
+**Lemma M (contraction).** `U` and `D` map `𝓔₂` into `𝓔₁`, and `𝓔₁` into `𝓔₁`.
+* Numerically verified on random elements of `𝓔₁` and `𝓔₂` (digits 0–2) for ℓ = 17, 19, 23, 29
+  (`dtest.py`). The outputs have digit filtrations `(j+1)(ℓ−1)`.
+* It is independent of partitions.
+
+**Theorem (conditional on Lemma M).** If `dim S_{ℓ−1} = 1` (ℓ ∈ {13, 17, 19, 23}), then `b_ℓ(m) ≤ m`
+for all `m`.
+
+*Proof.*
+1. **Setup.** `L(0) = 1 ∈ 𝓔₁`, so every `L(b) ∈ 𝓔₁` by Lemma M. This explains the observed digit pattern
+   `(i+1)(ℓ−1)`. Let `κ ∈ ℤ_ℓ^×` be the eigenvalue of `X` on the rank-one stable modules (BW). The same `κ`
+   serves both parities, because `U` intertwines `X` and `Y`.
+2. Put `e_b = L(b+2) − κ L(b)`. Then `e_{b+1} = e_b | T_b`, where `T_b ∈ {U, D}`.
+3. **Induction hypothesis:** `v(e_b) ≥ b` and `g_b := e_b/ℓ^b ∈ 𝓔₂`.
+   * **Base case:** `b_ℓ(1) = 1` (BW) gives `e₁ ≡ 0 (mod ℓ)`. Since `e₁ ∈ 𝓔₁`, shifting digits gives
+     `e₁/ℓ ∈ 𝓔₂`.
+4. **Step: the leading digit is a multiple of the generator.** By Lemma M, `g_b | T ∈ 𝓔₁`, so its leading
+   digit has filtration `≤ ℓ − 1`. It therefore lies in `S_{ℓ−1} ⊗ 𝔽_ℓ = 𝔽_ℓ · \bar L(b+1)`.
+   Write it as `c · \bar L(b+1)`.
+5. **Step: that multiple is zero.**
+   * Step 4 gives `L(β+2) ≡ (κ + ℓ^b c) L(β) (mod ℓ^{b+1})` for every `β ≥ b+1` of the right parity.
+   * BW stability also gives `L(β+2) ≡ κ L(β) (mod ℓ^{b+1})` for large `β`.
+   * Since `L(β) ≢ 0 (mod ℓ)`, it follows that `c ≡ 0`.
+6. **Conclusion of the step.** Hence `g_b | T ≡ 0 (mod ℓ)`, and shifting digits gives
+   `g_{b+1} = (g_b | T)/ℓ ∈ 𝓔₂`.
+7. **Conclusion.** `v(e_b) ≥ b` for all `b`, i.e. `L(b+2) ≡ κ L(b) (mod ℓ^b)`. This is `b_ℓ(m) ≤ m`. ∎
+
+For ℓ = 29 and 31 everything goes through except step 4: `S_{ℓ−1}` is two-dimensional, which matches BW's
+sharp `2m − 1`.
+
+**Caveat, and what remains.** Coleman–Katz theory says `E_{ℓ−1}(z)/E_{ℓ−1}(ℓz)` overconverges only to radius
+`ℓ/(ℓ+1)`. Atkin–O'Brien's bounds `⌊(13r − 9)/14⌋` have slope 13/14. So the *exact* linear envelope `𝓔_c`
+probably fails at digits `j ≳ ℓ`; the checks above only reach digit 2. A complete proof therefore needs Lemma M
+with the correct envelope `E_c(j) ≈ (ℓ−1)(c + ⌈j(ℓ+1)/ℓ⌉)`, plus the slack bookkeeping that Atkin–O'Brien do
+with their floor-function bounds (and their `Λ²` minor argument). Two routes:
+1. Prove the refined Lemma M from Coleman's overconvergence of `E_{ℓ−1}/V(E_{ℓ−1})` and of
+   `A_ℓ = η^ℓ/V(η)` (which controls `Φ`, via `D(f) = A_ℓ^{-1} U(Δ^{(ℓ²−1)/24} f / A_ℓ^ℓ)`).
+2. Do an Atkin–O'Brien-style computer-assisted valuation-matrix proof at level 1, per prime.
