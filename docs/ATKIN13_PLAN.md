@@ -38,3 +38,18 @@ This is a proportionality statement, not a divisibility one: 13 is not a Ramanuj
 
 Estimated scale: comparable to the 11^k development (several sessions). The main risk is step 1–2: the
 relations among the six theta components.
+
+## Progress (2026-10-27, later)
+* **13-dissection** (`scripts/atkin13/dissect13.py`). Put `Q = q¹³` and `J_a = θ(Qᵃ; Q¹³)`. Then
+  `E(q)/E(q¹⁶⁹) = c₀ + qc₁ + q²c₂ + q⁵c₅ + q⁷ + q⁹c₉ + q¹²c₁₂`, with
+  `c₀ = J₄/J₂`, `c₁ = −J₆/J₃`, `c₂ = −J₂/J₁`, `c₅ = J₅/J₄`, `c₉ = QJ₁/J₆`, `c₁₂ = −J₃/J₅`, and `∏c = −Q`.
+* **Single modular equation**. Since `φ² = g·g(q¹³)`, every needed `U₁₃(gᵏ)` and `U₁₃(φgᵏ)` is `U₁₃(φᵐ)/gᵏ`.
+  The equation is `φ¹³ = Σ_j (−1)^{j+1} e_j(G) φ^{13−j}`, where `G = g(q¹³)`, `e_j ∈ ℤ[G]` has degree `≤ 7`,
+  and `e₁₃ = G⁷` (`mephi.py`, `fit.py`, `modeq_coeffs.json`).
+* **`1/G` in the theta quotients**, from Newton's identities:
+  `E(Q)²/(Q E(Q¹³)²) = −1 − c₀c₁/Q − c₂c₁₂ − c₅c₉`.
+* **Certificates**. Let `χ_j` be the characteristic-polynomial coefficients of `Ψ' = Σ q^{r−7}c_r`; there are at
+  most 2088 terms (`chi13.py`). The identities `χ_j = f_j(1/G)`, `j = 1..13`, clear to polynomials in
+  `J₁..J₆, Q`. Each lies directly, with no saturation, in the ideal of the 42 level-13 Weierstrass three-term
+  relations (`weier13.py`, weights `w(a) = (13a − a²)/26`). Singular `lift` gives cofactors totalling about
+  157k terms, which fits the `SPoly` kernel checker (`gen_nums.py`, `cert.sing`, `lift.sing`).
