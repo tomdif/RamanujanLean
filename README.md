@@ -49,6 +49,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
 | **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
 | **Rademacher's exact formula** (1937) | `p(n) = Σ_{k≥1} A_k(n)·(π/12k)^{3/2}·2π·4(u_k cosh u_k − sinh u_k)/(√π u_k³ k)`, `u_k = (π/k)√((2/3)(n−1/24))`, as a convergent series (`Rademacher.rademacher_dedekind`). Here `A_k(n) = Σ_{(h,k)=1} e^{πi s(h,k) − 2πinh/k}` is Rademacher's Kloosterman sum, with `s(h,k)` the Dedekind sum. Dedekind's reciprocity law is proved too (`Rademacher.dsum_reciprocity`) |
+| **Log-concavity of `p(n)`** (DeSalvo–Pak 2015) | `p(n−1)p(n+1) < p(n)²` for every `n ≥ 26`, and it fails at every odd `n ≤ 25` (`LogConcave.partition_logConcave`, `logConcave_fails`). The proof uses an explicit Lehmer-type bound `|p(n) − Ke^U(U−1)/(2U³)| ≤ Ke^{U/2}`, read off Rademacher's series |
 | **The Hardy–Ramanujan asymptotic formula** (1918) | `p(n) ~ e^{π√(2n/3)}/(4n√3)` for the honest partition count `p(n) = #(Nat.Partition n)` (`HardyRamanujan.hardy_ramanujan_isEquivalent`; ratio form `hardy_ramanujan`) |
 | **Ramanujan's conjecture for powers of 11** (Atkin 1967) | `24m ≡ 1 (mod 11ʳ)`, `r ≥ 1` ⟹ `11ʳ ∣ p(m)` (`Atkin11.ramanujan_pow11_unconditional`). All three Atkin–Gordon inputs are proved: the degree-11 modular equation for `φ = q⁵E(q¹²¹)/E(q)` (`modeq_proved`), the curve relation R2 (`r2_proved`) and the 55 seed rows (`Atkin11Seed.seeds_proved`) |
 | **Ramanujan's value `R(e^{−2π})`** (first letter to Hardy, 1913) | `e^{−2π/5}(q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞) = √((5+√5)/2) − (√5+1)/2` at `q = e^{−2π}` (`RRValue.rogers_ramanujan_value`) |
@@ -736,6 +737,19 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
   * The main part is the full-line Bessel integral minus tails of size `O(N^{−1/2}/k)`.
   * The error part is moved to the chord by a Morera primitive on a disc in `Re z > 0`, which gives `O(N^{−3/2})`.
   * In total, `|p(n) − Σ_{k≤N}…| ≤ C(1+log N)/√N + C′N^{−1/2}`.
+
+**`LogConcave*.lean`, `Rademacher/LogConcaveTail.lean`: DeSalvo–Pak log-concavity** `p(n)² > p(n−1)p(n+1)` for `n ≥ 26`.
+* **Explicit error** (`p_sub_main_le`). Put `U = π√((2/3)(n−1/24))` and `K = (π/12)^{3/2}·2π·4/√π`. Then
+  `|p(n) − Ke^U(U−1)/(2U³)| ≤ Ke^{U/2}`. This is not taken from the error terms of the proof of Rademacher's
+  formula. It comes from the limit itself:
+  * `|A_k(n)| ≤ k`, since `|ω_{h,k}| = 1`;
+  * `(u cosh u − sinh u)/u³ ≤ cosh(u)/3`, by monotonicity;
+  * `Σ_{k≥2} k^{−3/2} ≤ 2`, by telescoping against `2(1/√(k−1) − 1/√k)`.
+* **Main-term inequality** (`main_ineq`, for `U ≥ 60`, i.e. `n ≥ 549`). Write `P = u₊u₋` and `S = u₊ + u₋`, where
+  `u_±² = U² ± 2π²/3`. The concavity saving `e^{−(2U−S)}`, with `2U − S ≥ γ²/(4U³)`, beats the loss from
+  `P < U²` by `γ²/(64U⁷)`. The `e^{−u/2}` terms are bounded by `x²⁰/20! ≤ eˣ`.
+* **Finite range** (`logConcave_table`, `26 ≤ n ≤ 548`). Kernel check, about 25 s, on a table of `p(n)` built
+  by Euler's pentagonal recurrence. The table is proved equal to `#(Nat.Partition n)`.
 
 **`HardyRamanujan/*.lean`: the Hardy–Ramanujan asymptotic formula** `p(n) ~ e^{π√(2n/3)}/(4n√3)`.
 * **Generating function** (`GenFun`): `F(q) = 1/(q;q)_∞ = Σ p(n)qⁿ` on the unit disc. The proof uses Taylor's theorem plus Leibniz on `(q;q)_∞·F = 1`, against the formal recurrence.
