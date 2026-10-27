@@ -388,3 +388,4 @@ import RamanujanTau.Atkin11Seed.Seeds
 import RamanujanTau.HardyRamanujan.Main
 import RamanujanTau.Rademacher.FTransform
 import RamanujanTau.Rademacher.Bessel
+import RamanujanTau.Rademacher.Assembly
