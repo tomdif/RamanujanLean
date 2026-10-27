@@ -534,7 +534,7 @@ theorem. A solution of `Σ vᵢ² = 8n+4` has all `vᵢ` even or all odd, becaus
 the even solutions gives `r₄(2n+1)`. The odd solutions are `vᵢ = ±(2xᵢ+1)`, sixteen for each element of `t4 n`.
 So `16 t₄(n) = 8·3σ(2n+1) − 8σ(2n+1)`.
 
-### `AndrewsGordon.lean` — the Andrews–Gordon identities (`i = k`, every `k ≥ 2`)
+### `AndrewsGordon.lean`, `AndrewsGordonAll.lean` — the Andrews–Gordon identities (every `1 ≤ i ≤ k`, `k ≥ 2`)
 ```lean
 theorem andrews_gordon (j : ℕ) : tsumQsq (agBeta j) * agProd (2 * j + 5) (j + 2) = 1
 ```
@@ -553,6 +553,22 @@ theorem andrews_gordon_one (j : ℕ) : tsumQsqQ (agBetaQ j) * agProd (2 * j + 5)
 ```
 That is, `Σ q^{n₁²+⋯+n_{k−1}² + n₁+⋯+n_{k−1}}/((q)_{n₁−n₂}⋯(q)_{n_{k−1}}) = ∏_{n ≢ 0,±1 (mod 2k+1)} 1/(1−qⁿ)`,
 where `(1−q) Σ q^{(k−1)(n²+n)} αₙ = J_{2k+1,1}`.
+
+**Every intermediate `i`** (`AndrewsGordonAll.lean`), via one step of the **Bailey lattice**:
+```lean
+-- k = s + t + 2, i = t + 2
+theorem andrews_gordon_i (s t : ℕ) : tsumQsq (agBetaI s t) * agProd (2 * s + 2 * t + 5) (t + 2) = 1
+```
+That is, `Σ q^{n₁²+⋯+n_{k−1}² + n_i+⋯+n_{k−1}}/((q)_{n₁−n₂}⋯(q)_{n_{k−1}}) = ∏_{n ≢ 0,±i (mod 2k+1)} 1/(1−qⁿ)`.
+
+The key step is the switch from `a = q` to `a = 1` (`isBaileyPair_toOne`). An `a = q` pair `(α, β)` is also an
+`a = 1` pair `(α°, β)`, with the same `β` and `α°_r = (1−q)(α_r/(1−q^{2r+1}) − q^{2r−1}α_{r−1}/(1−q^{2r−1}))`.
+This follows from the partial fraction `1/((q)_{n−r}(q)_{n+r+1}) = [1/((q)_{n−r}(q)_{n+r}) − q^{2r+1}/((q)_{n−r−1}(q)_{n+r+1})]/(1−q^{2r+1})`.
+
+The steps are: `k − i` steps of the `a = q` chain from the RR2 pair (these carry the linear terms), the switch,
+`i − 2` steps of the `a = 1` chain, then the Bailey transform. On the `α` side, `q^{(i−1)n²}α°_n` is exactly the
+`±n` pair of terms of `Σ_{n∈ℤ}(−1)ⁿq^{(2k+1)n(n−1)/2+in}`, so the Jacobi triple product gives `J_{2k+1,i}`.
+At `s = 0` this recovers `andrews_gordon`.
 
 ### `GollnitzGordon.lean`, `GollnitzGordon2.lean` (+ WZ files) — the Göllnitz–Gordon identities
 ```lean

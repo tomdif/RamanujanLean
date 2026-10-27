@@ -319,6 +319,7 @@ import RamanujanTau.RRContinuedFraction
 import RamanujanTau.RamanujanR5
 import RamanujanTau.Legendre
 import RamanujanTau.AndrewsGordon
+import RamanujanTau.AndrewsGordonAll
 import RamanujanTau.TauCongruences
 import RamanujanTau.TauBridge
 import RamanujanTau.TwoSquaresCor
