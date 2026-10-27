@@ -14,7 +14,8 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
    equal classes**. Mod 11 goes through a lattice-reindexing proof of Winquist's identity.
    The arc continues to **the Mock Theta Conjectures**. Both of Hickerson's identities are proved, via
    Hickerson–Mortenson. So is the χ₀ form with its combinatorial statement `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀`,
-   via Watson's 1937 relations.
+   via Watson's 1937 relations. It also includes **Ramanujan's conjecture for all powers of 11**
+   (Atkin 1967): `24m ≡ 1 (mod 11ʳ) ⟹ 11ʳ ∣ p(m)`, proved without modular forms.
 
 > The Lean **package** is still named `RamanujanTau` (every module lives under `import RamanujanTau.…`);
 > the repository is `RamanujanLean`.
@@ -43,7 +44,7 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
 | **The χ₀ mock theta conjecture and Andrews–Garvan's rank statement** (via Watson 1937) | `χ₀(q) − 2 = 3(Φ(q) − 1) − (q⁵;q⁵)²_∞J_{5,2}/J_{5,1}²` and `N(1,5,5n) − N(0,5,5n) = [qⁿ]χ₀(q)` for `n ≥ 1`, `χ₀ = Σ qⁿ/(q^{n+1};q)ₙ` (`Watson.chi0_identity`, `MTC.Chi0L.rank_chi0`) |
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
 | **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
-| **Ramanujan's conjecture for powers of 11** (Atkin 1967), *conditional on the seeds* | `Atkin11.Inputs → (24m ≡ 1 (mod 11ʳ) → 11ʳ ∣ p(m))`. Two of the three `Inputs` are now **proved**: the degree-11 modular equation for `φ = q⁵E(q¹²¹)/E(q)` (`Atkin11.modeq_proved`) and the curve relation R2 (`Atkin11.r2_proved`). The 55 seed rows remain (numerically verified) |
+| **Ramanujan's conjecture for powers of 11** (Atkin 1967) | `24m ≡ 1 (mod 11ʳ)`, `r ≥ 1` ⟹ `11ʳ ∣ p(m)` (`Atkin11.ramanujan_pow11_unconditional`). All three Atkin–Gordon inputs are proved: the degree-11 modular equation for `φ = q⁵E(q¹²¹)/E(q)` (`modeq_proved`), the curve relation R2 (`r2_proved`) and the 55 seed rows (`Atkin11Seed.seeds_proved`) |
 | **Ramanujan's value `R(e^{−2π})`** (first letter to Hardy, 1913) | `e^{−2π/5}(q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞) = √((5+√5)/2) − (√5+1)/2` at `q = e^{−2π}` (`RRValue.rogers_ramanujan_value`) |
 | **Ramanujan's deathbed claim at `q → −1`** (last letter to Hardy, 1920) | `f(q) + b(q) → 4` as `q → −1` radially, `f = Σ q^{n²}/(−q;q)ₙ²`, `b = (1−q)(1−q³)⋯(1−2q+2q⁴−⋯)` (`MockTheta3.Radial.ramanujan_radial_limit`) |
 | **Watson's third-order identities** (1936) | `2φ(−q) − f(q) = b(q)` and `f(q) + 4ψ(−q) = b(q)` (`MockTheta3.Watson3.watson_W1`, `watson_W2`) |
@@ -657,15 +658,15 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
 * **Analytic transfer.** `Realize.lean` turns it into an identity of holomorphic functions on the disc. Each product `∏(1 − q^{b+ak})` is a locally uniform limit of integer polynomials, and Taylor's theorem identifies the two sides.
 * **Evaluation.** Mathlib's `η(−1/z) = √z·η(z)/√i` at `z = 5i` gives `η(i/5) = √5·η(5i)`. Positivity of the real products picks the root of `R² + (1+√5)R − 1 = 0`.
 
-**`Atkin11*.lean`: Ramanujan's conjecture for powers of 11.**
-* **The theorem.** `Atkin11.ramanujan_pow11 : Inputs → ∀ r ≥ 1, 24m ≡ 1 (mod 11ʳ) → 11ʳ ∣ p(m)`.
+**`Atkin11*.lean`, `Atkin11Seed/*.lean`: Ramanujan's conjecture for powers of 11.**
+* **The theorem.** `Atkin11.ramanujan_pow11_unconditional : ∀ r ≥ 1, 24m ≡ 1 (mod 11ʳ) → 11ʳ ∣ p(m)`. It is `Atkin11.ramanujan_pow11 : Inputs → …` (Step 1) applied to `Atkin11.inputs_proved` (Steps 2 and 3).
 * **The objects (`Atkin11Defs`, `Atkin11CDefs`).**
   * `g₂` is Atkin's generator, in theta form `g₂ = GN(c)/GD(c)`. The `c_k` are the level-11 eta ratios `c₀ = η₄/η₂, c₁ = −η₂/η₁, c₂ = −η₅/η₃, c₄ = −qη₁/η₅, c₇ = η₃/η₄` with `η_a = (q^a, q^{11−a}; q¹¹)_∞`.
   * `g₃` is defined by (R1) `g₂g₃ = g₂² − g₃ + 11z`, with `z = q⁵E₁₁¹²/E₁¹²`.
 * **`Inputs`.** Three q-series identities:
   * (R2) `g₃² = g₂³ − g₂g₃ − z` (the curve 11a1): **proved**, `Atkin11.r2_proved`;
   * the degree-11 modular equation for `φ`: **proved**, `Atkin11.modeq_proved`;
-  * 55 seed relations `U₁₁(φ^λ J_i) = Σ_ν C^λ_{i,ν}J_ν`, `λ ≤ 10` (3031 integers in `Atkin11Data`): verified numerically, **not yet proved**.
+  * 55 seed relations `U₁₁(φ^λ J_i) = Σ_ν C^λ_{i,ν}J_ν`, `λ ≤ 10` (3031 integers in `Atkin11Data`): **proved**, `Atkin11Seed.seeds_proved`.
 * **What is proved from them (Step 1).**
   * The multiplication table, from R1 and R2.
   * Gordon's matrices for all `λ`, via the recurrence (`Atkin11Matrix.U_C`).
@@ -679,7 +680,13 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
   4. **Certificates.** Every coefficient identity (`E3, E4, M1–M6`), the quintic `g₂⁵ = z(1+13g₂+34g₂²) + 121z²`, and Cayley–Hamilton for `ψ = 1/φ` are certified, with up to 74k cofactor terms. They are checked by a kernel-evaluated sparse-polynomial checker (`SPoly*`): packed monomials, merge-sorted runs, and soundness = preservation of the evaluated sum. Large certificates are split into trees and DAGs of small checks.
   5. **The norm** (`Atkin11.norm_E11`): `e₁₁(ψ)·z = 1`. `φ` is a root of a degree-11 polynomial with `q¹¹`-coefficients, and its 11 conjugates `φ(ζᵏq)` are distinct roots. So the constant term is `∏φ(ζᵏq)`, which `prod_conj_E` evaluates as `z(q¹¹)`.
   6. **Assembly** (`Atkin11ModEq`). The certified identities are pulled back from `ℂ((t))` to `ℤ⟦q⟧` along the injective `ιN`; units are cleared, and the modular equation and R2 follow.
-* **Remaining.** The 55 seeds; see `docs/ATKIN_11_PLAN.md`.
+* **How the seeds are proved (Step 3, `Atkin11Seed/`).**
+  1. **Exact arithmetic** (`JArith`, `Eval`). Elements of `span{J_ν}` are five dense `ℤ[z]`-lists (one for each of `1, g₂, g₃, g₄, g₆`), and polynomials in `Y` have such coefficients. Products use Atkin's table, which is sound by R1 and R2. Reduction modulo the monic modular equation `P` preserves the value at `Y = φ`. The kernel evaluates everything under `decide +kernel`.
+  2. **H2** (`Unique`, `H2`, `H2Check*`). `P'(φ)·g = S(φ)` for `g = g₂, g₃, g₄, g₆`, with explicit `S` (`SData`; 211–692 coefficients of up to 79 digits). Kernel checks give R1 and R2 for `(S₂, S₃)/P'(φ)` modulo `P`, using `z = φ¹²/V(z)`. These imply the homogeneous quintic for `S₂(φ)`, and its root is unique in `ℤ⟦q⟧`: every root is `q⁵¹·(11 + O(q))`, and the cofactor of `y − y'` is `q²⁰⁴(5·11⁴ + O(q))`. So `S₂(φ) = P'(φ)g₂`; then `g₃`, `g₄`, `g₆` follow.
+  3. **Lagrange over the conjugates** (`Trace`). Over `ℂ⟦q⟧`, `P = ∏(Y − φ(ζᵏq))` with distinct roots, so `P'(φ(ζᵏq)) = ∏_{j≠k}(…)`. Lagrange interpolation then gives `Σ_k φ(ζᵏq)^λ g(ζᵏq) = [Y¹⁰](Y^λ S(Y) mod P)`, and the left side is `11·(U₁₁(φ^λ g))(q¹¹)`.
+  4. **The seed check** (`SeedCheck`). For each of the five `S` and each `λ ≤ 10`, the kernel computes `Y^λ S mod P` and compares `[Y¹⁰]` with `11·C^λ_{i,·}`.
+  * Reproduce the data with `scripts/atkin11/seeds/` (`compute_S.py`, `jarith.py`, `gen_data.py`, `gen_h2.py`).
+  * The kernel checks take about 4 minutes in total; the largest file (`H2CheckI`) peaks near 10 GB.
 
 **`MockTheta3*.lean`: the third-order mock theta function and the deathbed letter.**
 * **`MockTheta3`.** `f(q) = Σ q^{n²}/(−q;q)ₙ²` is the rank generating function at `z = −1`. So `[qⁿ]f = N(0,2,n) − N(1,2,n)`.

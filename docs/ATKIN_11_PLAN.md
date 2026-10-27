@@ -1,5 +1,9 @@
 # Ramanujan's conjecture for powers of 11 (Atkin 1967): research notes and plan
 
+> **Status (2026-10-27): DONE.** `Atkin11.ramanujan_pow11_unconditional` is proved, axiom-clean
+> (`[propext, Classical.choice, Quot.sound]`, no `sorry`, no `native_decide`). The last step, the 55 seeds,
+> is described at the end of this file.
+
 Target: `24m ≡ 1 (mod 11^k) ⇒ 11^k ∣ p(m)`. The repo already proves the 5^k and 7^k cases (`Pow5Final`, `Pow7Final`).
 
 All numerical claims below were checked by script with exact integer arithmetic, mostly to q^1500–q^3000. The scripts are not in the repo; they ran in a session scratchpad.
@@ -118,3 +122,29 @@ Certificate sizes relative to the 25-element Gröbner basis (itself certified by
 **Remaining: the 55 seeds** `U(φ^λ g_i) = Σ C J_ν`.
 * **`i = 0`.** `11·V(U φ^λ)` is the power sum of the conjugates, so Newton's identities in the proved modular equation give it.
 * **`i ≥ 1`.** This needs `g₂(q)` in the `φ`-basis over `V`-functions (H2: `g₂(q)·P'(φ) = S(φ)`, certified modulo `P`). It is proved by quintic uniqueness, using `z(q) = φ¹²/V(z)`. Then Euler's identity `Σ_k φ_k^n/P'(φ_k) = h_{n−10}` turns each seed into a polynomial identity in `g₂, g₃, z`.
+
+### Step 3 (2026-10-27): the 55 seeds PROVED — Atkin's theorem is unconditional
+
+`Atkin11Seed.seeds_proved` discharges the last field of `Inputs`. `Atkin11.inputs_proved : Inputs` and
+`Atkin11.ramanujan_pow11_unconditional` follow (`RamanujanTau/Atkin11Seed/`).
+
+* **H2 data** (`scripts/atkin11/seeds/compute_S.py`). Exact linear algebra on q-expansions gives `P'(φ)·g = S(φ)`, where `S(Y) = Σ_m Y^m Σ_ν s_{m,ν} J_ν(q¹¹)`:
+
+  | `g` | nonzero `s` | max ν | max digits |
+  |---|---|---|---|
+  | `g₂` | 211 | 21 | 26 |
+  | `g₃` | 331 | 32 | 40 |
+  | `g₄` | 451 | 43 | 53 |
+  | `g₆` | 692 | 65 | 79 |
+
+  * No representation without `P'` exists in small windows, even allowing negative powers of `φ` and `z`. The conductor sits at the ramification points, not at the cusps.
+* **Exact `span{J}` arithmetic in the kernel** (`JArith`, soundness in `Eval`). Elements are five dense `ℤ[z]`-lists, multiplied with Atkin's table.
+  * Kernel cost is about 17 KB and 60 µs per elementary operation. Memory is released between theorems, so each theorem is kept to about 250k operations.
+  * Keep products *unreduced*. Reducing each product modulo `P` blows up the `J`-indices (to ν ≈ 166) and costs 3–4× more. Reducing once at the end is cheap.
+* **H2 proof** (`H2Check{A,C,D,I}`, `Unique`, `H2`).
+  * The kernel verifies `I1: V(z)(S₂² − S₂S₃ − S₃P') + 11Y¹²P'² ≡ 0` and `I2: V(z)(S₃²P' − S₂³ + S₂S₃P') + Y¹²P'³ ≡ 0 (mod P)`, plus `I3` (for `g₄`) and `I4` (for `g₆`).
+  * With `z·V(z) = φ¹²` these become R1 and R2 for `(S₂, S₃)/P'(φ)`. The Singular cofactors give the homogeneous quintic `y⁵ = zw³(34y² + 13wy + (1+121z)w²)`.
+  * Uniqueness needs only q-divisibility. Let `w = P'(φ) = q⁵⁰(11 + O(q))` (`dP_shape`). Every root is `q⁵¹(11 + O(q))`, by induction on the power of `q` and then the constant term. The cofactor of `y − y'` is `q²⁰⁴(5·11⁴ + O(q)) ≠ 0`.
+* **Trace** (`Trace`). `PC = ∏_k(Y − φ(ζᵏq))` comes from monicity and 11 distinct roots, and `P'(r_k) = ∏_{j≠k}(r_k − r_j)` from `derivative_prod_finset`. Lagrange then gives `[Y¹⁰]F = Σ_k w_k` whenever `F(r_k) = P'(r_k)w_k`. With `sum_conj`, `11·U(φ^λ g) = [Y¹⁰](Y^λ S mod P)`.
+* **Seeds** (`SeedCheck`, `Seeds`). `iterF` computes `Y^λ S mod P` for `λ ≤ 10`, and `seedOK i` compares its `Y¹⁰` coefficient with `11·seedRows`. The `i = 0` case uses `S = P'` itself. All 55 checks take 13 s in the kernel.
+* **Build.** `H2CheckI` takes 110 s at 9.5 GB, `H2CheckD` 36 s, `H2CheckA` 25 s, `H2CheckC` 22 s. Build them one at a time.
