@@ -386,3 +386,4 @@ import RamanujanTau.Atkin11Weier
 import RamanujanTau.Atkin11ModEq
 import RamanujanTau.Atkin11Seed.Seeds
 import RamanujanTau.HardyRamanujan.Main
+import RamanujanTau.Rademacher.FTransform
