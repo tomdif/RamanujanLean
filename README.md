@@ -17,6 +17,9 @@ A Lean 4 + Mathlib formalization of parts of **Ramanujan's mathematics**, in two
    via Watson's 1937 relations. It also includes **Ramanujan's conjecture for all powers of 11**
    (Atkin 1967): `24m ≡ 1 (mod 11ʳ) ⟹ 11ʳ ∣ p(m)`, proved without modular forms.
 
+> The whole library is free of `sorry`, `axiom` and `native_decide`: every finite computation, including
+> Lehmer's `τ(n) ≠ 0` for `n ≤ 100` and the `ZMod 3` branch tables, is checked by the kernel (`decide +kernel`).
+
 > The Lean **package** is still named `RamanujanTau` (every module lives under `import RamanujanTau.…`);
 > the repository is `RamanujanLean`.
 
@@ -994,7 +997,7 @@ def tau (n : ℕ) : ℤ :=
 ```
 
 - **`Basic` / `SmallValues`** — the `τ` function, `τ(0)=0`, `τ(1)=1`, and exact values `τ(2..12)` by
-  `native_decide`.
+  kernel evaluation (`decide +kernel`).
 - **`HeckeTheory`** — a single master hypothesis class `TauHeckeMaster` (the `T_p`-action on the weight-12
   eigenform) from which both multiplicativity `TauMultiplicative` and the recurrence `TauHeckeRecurrence`
   are *derived as instances*.

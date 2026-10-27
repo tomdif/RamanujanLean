@@ -1277,7 +1277,7 @@ theorem coeff_quintupleSpecialized_p71_sixtyOne_zero_by_uniform_projectiveRoot
   apply coeff_tripleQuintupleSpecialized_eq_zero_of_positive_projectiveRoot
     71 1 11 34 N 61 6 2 1 6 (-5) (-9) 0 (-1) (-3) (-5) 10
   all_goals norm_num [ternaryDot, ternaryNorm]
-  all_goals native_decide
+  all_goals decide +kernel
 
 /-- The same theorem recovers the direct `p=79`, residue-`9` progression as
 the negative-sign specialization with affine base `12`. -/
@@ -1288,6 +1288,6 @@ theorem coeff_quintupleSpecialized_p79_nine_zero_by_uniform_projectiveRoot
   apply coeff_tripleQuintupleSpecialized_eq_zero_of_negative_projectiveRoot
     79 1 6 11 N 9 1 2 1 1 6 11 0 0 0 2 12 0
   all_goals norm_num [ternaryDot, ternaryNorm]
-  all_goals native_decide
+  all_goals decide +kernel
 
 end Ramanujan.MultiQuintuple

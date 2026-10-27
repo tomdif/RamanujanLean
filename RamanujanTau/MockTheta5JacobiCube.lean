@@ -10,7 +10,7 @@ This is the missing classical input for Ramanujan's partition congruence `p(5n+4
 2. `coeff_zero_jacobiCubeSum` — base case (constant term `1`).
 3. `jacobi_cube_identity_of_coeff` — the identity `qfacInf³ = jacobiCubeSum` reduced to its per-coefficient
    form (the `PowerSeries.ext` bookkeeping supplied; this pins the exact remaining goal).
-4. `jacobi_cube_rung2` — a machine-checked (`native_decide`) verification that `(q;q)³` and the triangular
+4. `jacobi_cube_rung2` — a kernel-checked (`decide +kernel`) verification that `(q;q)³` and the triangular
    `(2m+1)`-weighted sum agree to order `q⁴⁸`, reusing the self-contained truncated-series arithmetic of
    `MockTheta5.lean`. (Rung-2 evidence, like the R1/R2 mock-theta checks.)
 
@@ -79,7 +79,7 @@ def triSum : List Int :=
 def resCube : List Int := psub qqCube triSum
 
 /-- **Jacobi's cube identity `(q;q)³ = Σ (−1)ᵐ(2m+1)q^{m(m+1)/2}`, verified to order `q⁴⁸`.** -/
-theorem jacobi_cube_rung2 : allZero resCube = true := by native_decide
+theorem jacobi_cube_rung2 : allZero resCube = true := by decide +kernel
 
 end Rung2
 

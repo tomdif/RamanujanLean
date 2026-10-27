@@ -161,8 +161,8 @@ noncomputable def eF (j : ℕ) : ℕ →₀ ℤ := ofList (eList j)
 noncomputable def seedF (lam i : ℕ) : ℕ →₀ ℤ := ofList (seedRows.getD (5 * lam + i) [])
 
 /-- **the inputs** — explicit q-series identities between the objects above, all verified numerically (to
-`q^1500`–`q^3000`). `r2` and `modeq` are proved in `Atkin11ModEq` (`r2_proved`, `modeq_proved`); the seeds
-remain. -/
+`q^1500`–`q^3000`). All three are proved: `r2` and `modeq` in `Atkin11ModEq` (`r2_proved`, `modeq_proved`),
+the seeds in `Atkin11Seed.Seeds` (`seeds_proved`); together `Atkin11.inputs_proved`. -/
 structure Inputs : Prop where
   /-- the second Atkin relation (the curve `11a1`). -/
   r2 : g3 ^ 2 = g2 ^ 3 - g2 * g3 - z

@@ -5,45 +5,44 @@ import RamanujanTau.Basic
 Computed via reduction in `ℤ[X]`. These are the OEIS A000594 values:
 `0, 1, -24, 252, -1472, 4830, -6048, -16744, 84480, -113643, ...`
 
-Each value is checked by `decide` / `native_decide` on the explicit polynomial
-truncation. For a few values we use `native_decide` because the polynomial
-arithmetic is heavy; for tiny cases `decide` suffices.
+Each value is checked by kernel evaluation (`decide +kernel`) of the explicit polynomial
+truncation; no `native_decide`.
 -/
 
 namespace RamanujanTau
 
 /-- τ(2) = -24. -/
-theorem tau_two : τ 2 = -24 := by native_decide
+theorem tau_two : τ 2 = -24 := by decide +kernel
 
 /-- τ(3) = 252. -/
-theorem tau_three : τ 3 = 252 := by native_decide
+theorem tau_three : τ 3 = 252 := by decide +kernel
 
 /-- τ(4) = -1472. -/
-theorem tau_four : τ 4 = -1472 := by native_decide
+theorem tau_four : τ 4 = -1472 := by decide +kernel
 
 /-- τ(5) = 4830. -/
-theorem tau_five : τ 5 = 4830 := by native_decide
+theorem tau_five : τ 5 = 4830 := by decide +kernel
 
 /-- τ(6) = -6048. -/
-theorem tau_six : τ 6 = -6048 := by native_decide
+theorem tau_six : τ 6 = -6048 := by decide +kernel
 
 /-- τ(7) = -16744. -/
-theorem tau_seven : τ 7 = -16744 := by native_decide
+theorem tau_seven : τ 7 = -16744 := by decide +kernel
 
 /-- τ(8) = 84480. -/
-theorem tau_eight : τ 8 = 84480 := by native_decide
+theorem tau_eight : τ 8 = 84480 := by decide +kernel
 
 /-- τ(9) = -113643. -/
-theorem tau_nine : τ 9 = -113643 := by native_decide
+theorem tau_nine : τ 9 = -113643 := by decide +kernel
 
 /-- τ(10) = -115920. -/
-theorem tau_ten : τ 10 = -115920 := by native_decide
+theorem tau_ten : τ 10 = -115920 := by decide +kernel
 
 /-- τ(11) = 534612 — first prime index. Tests the Hecke value `τ(p)` for `p = 11`. -/
-theorem tau_eleven : τ 11 = 534612 := by native_decide
+theorem tau_eleven : τ 11 = 534612 := by decide +kernel
 
 /-- τ(12) = -370944. By Hecke multiplicativity this equals τ(3)·τ(4) = 252 · (-1472). -/
-theorem tau_twelve : τ 12 = -370944 := by native_decide
+theorem tau_twelve : τ 12 = -370944 := by decide +kernel
 
 /-- Hecke compatibility check at `n = 12 = 3·4` with `gcd(3,4) = 1`:
 `τ(12) = τ(3) · τ(4)`. This is a numerical instance of multiplicativity. -/

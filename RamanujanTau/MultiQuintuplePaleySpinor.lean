@@ -75,7 +75,7 @@ local instance prime71 : Fact (Nat.Prime 71) := ⟨by norm_num⟩
 /-- Its projective invariant is the class `J=37`. -/
 theorem reflective71_octahedralJ :
     octahedralJ (1 : ZMod 71) 11 34 = 37 := by
-  native_decide
+  decide +kernel
 
 section Reflective71
 

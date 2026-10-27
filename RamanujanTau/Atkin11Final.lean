@@ -1,7 +1,8 @@
 /-
 # Ramanujan's conjecture for powers of 11 (Atkin 1967), from the Atkin–Gordon inputs
 
-  `Inputs → (24m ≡ 1 (mod 11ʳ) → 11ʳ ∣ p(m))`.
+  `Inputs → (24m ≡ 1 (mod 11ʳ) → 11ʳ ∣ p(m))`. The inputs are proved (`Atkin11.inputs_proved`), giving the
+  unconditional `Atkin11.ramanujan_pow11_unconditional` in `Atkin11Seed/Seeds.lean`.
 
 * `z(q)z(q¹¹) = φ¹²` turns `U(φ^λ J_{5a+i})` into `z^{-a} U(φ^{λ+12a} J_i)` (`U_J`), so all rows are
   shifted Gordon rows `C^{λ+12a}_{i, ·+5a}`.

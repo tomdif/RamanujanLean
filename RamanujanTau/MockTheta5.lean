@@ -2,7 +2,7 @@
 # Ramanujan's fifth-order mock theta functions — truncated q-series + kernel-checked relations
 
 The ten fifth-order mock theta functions from the Lost Notebook, as EXACT integer q-series truncated
-to order `q^N`, with two classical Ramanujan relations among them machine-verified by `native_decide`.
+to order `q^N`, with two classical Ramanujan relations among them kernel-verified by `decide +kernel`.
 
   f₀ f₁ F₀ F₁ φ₀ φ₁ ψ₀ ψ₁ χ₀ χ₁   (Watson / Andrews–Garvan notation)
 
@@ -12,9 +12,8 @@ Relations certified here (to order q^N):
 
 HONEST SCOPE (proofworld soundness gate): this is rung-2 evidence — a machine-checked verification that
 the identities hold for coefficients 0..N-1. It is NOT the infinite identity (rung 3), which needs a
-q-Pochhammer / q-series proof not yet in Mathlib; and it is NOT the deep "mock theta conjectures"
-(Hickerson), which are out of scope. `native_decide` trusts the compiler (a wider trust base than the
-kernel); a pure-kernel `decide` certifies the same at smaller N.
+q-series proof (now done: R1 is `Watson.chi0_R1_watson`, and the mock theta conjectures are
+`MTC.mock_theta_conjecture_f0/f1`). The check here is pure kernel evaluation.
 
 **Update (2026-10-26):** the infinite identities are now proved kernel-clean elsewhere.
 - (R1) is `Watson.chi0_R1_watson` (`RamanujanTau/Watson/R1.lean`).
@@ -94,9 +93,9 @@ def res_R1 : List Int := psub chi0 (psub (pscale 2 F0) (subNegQ phi0))
 def res_R2 : List Int := psub (pshift chi1 1) (padd (pshift (pscale 2 F1) 1) (subNegQ phi1))
 
 /-- Ramanujan 5th-order relation **χ₀(q) = 2F₀(q) − φ₀(−q)**, verified to order q^N. -/
-theorem mtc5_R1_chi0 : allZero res_R1 = true := by native_decide
+theorem mtc5_R1_chi0 : allZero res_R1 = true := by decide +kernel
 
 /-- Ramanujan 5th-order relation **q·χ₁(q) = 2q·F₁(q) + φ₁(−q)**, verified to order q^N. -/
-theorem mtc5_R2_chi1 : allZero res_R2 = true := by native_decide
+theorem mtc5_R2_chi1 : allZero res_R2 = true := by decide +kernel
 
 end MockTheta5

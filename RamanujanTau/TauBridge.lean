@@ -1,7 +1,7 @@
 /-
 # The computable `τ` agrees with `[qⁿ] q∏(1−qᵏ)²⁴`
 
-`RamanujanTau.tau` is defined on coefficient lists (computable, `native_decide`-friendly). This file gives
+`RamanujanTau.tau` is defined on coefficient lists (computable, kernel-`decide`-friendly). This file gives
 the lists their power-series meaning (`toPS`). It shows that every list operation is the corresponding ring
 operation, and that truncation agrees modulo `X^{d+1}`. Hence
 

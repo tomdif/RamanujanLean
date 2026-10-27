@@ -1,7 +1,7 @@
 /-
 # Rung-3 foundation: q-Pochhammer over formal power series (toward the 5th-order mock theta identities)
 
-`MockTheta5.lean` certified the Ramanujan relations at TRUNCATED order (`native_decide`, rung 2). Rung 3 is
+`MockTheta5.lean` certified the Ramanujan relations at TRUNCATED order (kernel `decide`, rung 2). Rung 3 is
 the *infinite* identity, which requires the mock theta functions as genuine formal power series — and for
 that we need the q-Pochhammer symbol and the fact that `1/(q;q²)_n` etc. are honest power series.
 

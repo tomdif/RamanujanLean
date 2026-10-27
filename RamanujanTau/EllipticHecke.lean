@@ -14,7 +14,7 @@ elliptic-curve story falls out with **zero new proof**:
 
 Only `q = p^{11}` becomes `q = p`. Below: the weight-agnostic core `seq_eq_gegen` (extracted from
 `tau_ppow_eq_gegen`), its elliptic-curve instantiation giving `a_{p^r} = Σ_j (−1)^j C(r−j,j) p^j a_p^{r−2j}`,
-the closed form `a_{p²} = a_p² − p`, and a **computable** `a_p` (point counting) with a `native_decide`-
+the closed form `a_{p²} = a_p² − p`, and a **computable** `a_p` (point counting) with a kernel-
 verified **Hasse bound** — the weight-1 shadow of the `DeligneBound` we formalized for `τ`.
 -/
 
@@ -62,10 +62,10 @@ def ecOrder (p a b : ℕ) : ℕ :=
 def ecAp (p a b : ℕ) : ℤ := (p : ℤ) + 1 - (ecOrder p a b : ℤ)
 
 /-- `a_p = −9` for `y² = x³ + 4x + 4` over `𝔽₁₀₃` (`#E = 113`). -/
-theorem ecAp_example : ecAp 103 4 4 = -9 := by native_decide
+theorem ecAp_example : ecAp 103 4 4 = -9 := by decide +kernel
 
 /-- **Hasse bound** `a_p² ≤ 4p` for the same curve — the weight-1 shadow of Deligne's `|τ(p)| ≤ 2p^{11/2}`
 (`DeligneBound`). Here `81 ≤ 412`. -/
-theorem ecHasse_example : (ecAp 103 4 4) ^ 2 ≤ 4 * 103 := by native_decide
+theorem ecHasse_example : (ecAp 103 4 4) ^ 2 ≤ 4 * 103 := by decide +kernel
 
 end RamanujanTau

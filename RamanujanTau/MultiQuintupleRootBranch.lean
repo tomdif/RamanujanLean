@@ -208,6 +208,7 @@ end Mod3BranchInput
 /-- Branch sign in `ZMod 3`. -/
 def branchSign3 (b : Bool) : ZMod 3 := if b then 1 else -1
 
+set_option maxHeartbeats 0 in
 /-- When the root norm is `1 mod 3`, the positive Householder reflection sends
 every branch sign vector to another nonzero sign vector and reverses the product
 of its three signs.  This finite lemma exhausts the exact `3^8 * 2^3` residue
@@ -228,8 +229,9 @@ theorem directRoot_positive_mod3 :
       u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0
         ∧ u1 * u2 * u3
           = -(branchSign3 input.b1 * branchSign3 input.b2 * branchSign3 input.b3) := by
-  native_decide
+  decide +kernel
 
+set_option maxHeartbeats 0 in
 /-- When the root norm is `2 mod 3`, the negative Householder reflection is the
 one that preserves the branch cube and reverses branch parity. -/
 theorem directRoot_negative_mod3 :
@@ -248,7 +250,7 @@ theorem directRoot_negative_mod3 :
       u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0
         ∧ (-u1) * (-u2) * (-u3)
           = -(branchSign3 input.b1 * branchSign3 input.b2 * branchSign3 input.b3) := by
-  native_decide
+  decide +kernel
 
 /-! ### Lifting the finite calculation to the integral branch cube -/
 

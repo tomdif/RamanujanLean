@@ -5,7 +5,7 @@
 Watson's 1937 Heine-method proof. It is stated there for the `osum` definitions, which agree with
 `MockTheta5.Formal.chi0` (`Watson.chiA_eq`). The scoping notes below are historical.
 
-`MockTheta5.lean` verifies **R1** `χ₀ = 2F₀ − φ₀(−q)` only to order `q⁴⁸` via `native_decide` ("rung 2",
+`MockTheta5.lean` verifies **R1** `χ₀ = 2F₀ − φ₀(−q)` only to order `q⁴⁸` by kernel evaluation ("rung 2",
 compiler trust). This file lifts the fifth-order mock-theta functions to genuine **infinite** power series
 `PowerSeries ℤ` (via coefficient stabilization), so R1 can be stated — and eventually proved — as a
 kernel theorem ("rung 3"). The functions reuse the q-series library built in this campaign
