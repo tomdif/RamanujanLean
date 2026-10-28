@@ -362,3 +362,15 @@ Not done:
     * existence of supersingular points;
     * Igusa's theorem that Ā has simple zeros;
     * a saturated basis of the pieces B_i.
+
+## Lean, round 12 (2026-10-28): Hasse invariant (`RamanujanTau/HasseInv/`, axiom-clean)
+* `coeff_nmul_sub_omega_mem_W`: for every Weierstrass curve over every ring, a ≡ coeff_{p−1} ω (mod p).
+  The proof goes through [p]^*ω = pω and the universal ring.
+* **`aH_formalGroup_eq_hasseH`**: in characteristic p, a equals the classical Hasse invariant, i.e. the
+  coefficient of x^{p−1} in f(x)^{(p−1)/2}. The proof is a coefficientwise Cartier argument.
+* `hassePoly`: an explicit isobaric weight-(p−1) polynomial with aH(formalGroup W) = hassePoly(c₄, −c₆).
+* `hassePoly_eq_hasseBar_iff`: it equals Swinnerton-Dyer's Ā iff hasseH(Tate mod p) = 1.
+* `coeff_nmul_sub_hasseA_mem`: **a ≡ E_{p−1}(E, ω) (mod p)**, *conditional on* hT : hasseH(Tate mod p) = 1.
+  This is Deligne's congruence.
+  * hT is still open; it is the only `sorry`, kept in an untracked WIP file.
+  * Route: Tate's uniformization gives 𝔾̂ₘ ≅ formal group of Tate, and aH(𝔾̂ₘ) = 1.
