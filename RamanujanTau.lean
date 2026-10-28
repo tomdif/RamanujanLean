@@ -402,3 +402,7 @@ import RamanujanTau.FormalGroupLayer.CharP
 import RamanujanTau.FormalGroupLayer.HeightTwo
 import RamanujanTau.AtkinOBrien.Canonical
 import RamanujanTau.AtkinOBrien.Lie
+import RamanujanTau.TateCurve.Basic
+import RamanujanTau.TateCurve.Hasse
+import RamanujanTau.TateCurve.Expand
+import RamanujanTau.TateCurve.Laurent

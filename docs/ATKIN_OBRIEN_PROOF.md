@@ -249,3 +249,13 @@ Remaining for a fully formal I2:
    * The existence of G and π̌ (Lubin 1967) is the substantial part.
 2. The elliptic formal group, and Hasse ≡ E_{p−1} (mod p).
 3. Katz forms (E, ω): V via π̌, the Tate curve q-expansion, and Katz's integral model.
+
+## Lean, round 4 (2026-10-28): Tate curve (`RamanujanTau/TateCurve/`, axiom-clean)
+* **`Δ_Tate`: Δ(Tate) = q∏(1−qⁿ)²⁴**.
+* c₄ = E₄ and c₆ = −E₆.
+* The division of a₆ by 12 is integral.
+* **von Staudt–Clausen at p** (`VonStaudt.lean`, not in Mathlib): p·B_{p−1} ≡ −1 (mod p).
+* **E_{p−1} ≡ 1 (mod p)**: `map_toZMod_EhasseZp`, with E_{p−1} lifted to ℤ_p⟦q⟧.
+* Tate(q) ↦ Tate(q^p) under `expand`, with Δ compatible.
+* Frobenius on 𝔽_p⟦q⟧.
+* Tate over ℤ((q)) is elliptic.
