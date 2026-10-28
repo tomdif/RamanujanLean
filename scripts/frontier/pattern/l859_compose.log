@@ -1,0 +1,51 @@
+l=859 j=19 t=35 rho=680 kp=438 delta=30745 d=71 R=36 r=36 L=71298
+  series done 0.4s
+  basis done 6.4s
+  D columns done 6.6s
+  l: 859
+  d: 71
+  R: 36
+  r: 36
+  t: 35
+  L: 71298
+  V_is_tail: True
+  okU: True
+  okD: True
+  lowzero: True
+  XV_in_V: True
+  XS_in_V: True
+  rkU: 71
+  rkD_S: 36
+  rkD_M: 36
+  rkX: 36
+  rkXi: 36
+  detXi_nonzero: True
+  detXi: 318
+  rkXpow: [36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36]
+  rkXd: 36
+  rk_aug: 36
+  d_l_zero: True
+  krylov: 36
+  val0_charpolyX: 35
+  repeated: []
+  charpolyXi: (x^20 + 738*x^19 + 489*x^18 + 773*x^17 + 264*x^16 + 484*x^15 + 776*x^14 + 551*x^13 + 445*x^12 + 377*x^11 + 664*x^10 + 681*x^9 + 587*x^8 + 99*x^7 + 32*x^6 + 427*x^5 + 695*x^4 + 48*x^3 + 554*x^2 + 589*x + 626) * (x + 682) * (x^2 + 805*x + 645) * (x^5 + 333*x^4 + 508*x^3 + 563*x^2 + 774*x + 716) * (x^8 + 662*x^7 + 762*x^6 + 120*x^5 + 71*x^4 + 163*x^3 + 245*x^2 + 335*x + 569)
+  secs: 6.6
+
+        7.21 real         8.45 user         1.75 sys
+           294453248  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              162278  page reclaims
+                  19  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                8835  involuntary context switches
+        137951257442  instructions retired
+         35003859416  cycles elapsed
+           280363632  peak memory footprint

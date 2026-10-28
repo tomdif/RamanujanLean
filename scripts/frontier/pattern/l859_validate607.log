@@ -1,0 +1,51 @@
+l=607 j=7 t=25 rho=177 kp=306 delta=15352 d=50 R=25 r=25 L=37635
+  series done 0.2s
+  basis done 2.3s
+  D columns done 2.4s
+  l: 607
+  d: 50
+  R: 25
+  r: 25
+  t: 25
+  L: 37635
+  V_is_tail: True
+  okU: True
+  okD: True
+  lowzero: True
+  XV_in_V: True
+  XS_in_V: True
+  rkU: 50
+  rkD_S: 25
+  rkD_M: 25
+  rkX: 25
+  rkXi: 25
+  detXi_nonzero: True
+  detXi: 465
+  rkXpow: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25]
+  rkXd: 25
+  rk_aug: 25
+  d_l_zero: True
+  krylov: 24
+  val0_charpolyX: 25
+  repeated: [('x + 367', 2, 2)]
+  charpolyXi: (x^22 + 228*x^21 + 39*x^20 + 370*x^19 + 48*x^18 + 293*x^17 + 109*x^16 + 513*x^15 + 330*x^14 + 326*x^13 + 178*x^12 + 347*x^11 + 203*x^10 + 20*x^9 + 60*x^8 + 94*x^7 + 39*x^6 + 601*x^5 + 309*x^4 + 209*x^3 + 177*x^2 + 145*x + 53) * (x + 201) * (x + 367)^2
+  secs: 2.4
+
+        2.98 real         4.11 user         2.30 sys
+           148406272  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               63238  page reclaims
+                  19  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                4357  involuntary context switches
+         62080225669  instructions retired
+         22151876652  cycles elapsed
+           134218256  peak memory footprint

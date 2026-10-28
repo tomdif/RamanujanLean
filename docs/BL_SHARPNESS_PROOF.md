@@ -35,7 +35,8 @@ whose exact statement still has to be checked against the source. [N] numerical 
    * hence, by BW Thm 1.2, **b_ℓ(m) ≤ 2m − 1 holds unconditionally for every ℓ ≥ 13**. BW verified
      d_ℓ = 0 only by computer, for ℓ < 1300.
 
-   The input marked * is T. Yang's Shimura-type isomorphism (Nagoya Math. J. 215, 2014). We use it in the form
+   The cited input is Yifan Yang's Shimura-type isomorphism (Nagoya Math. J. 215 (2014) 1–66, Theorem 1, with
+   r = 24 − (ℓ mod 24) and s = (ℓ − r − 2)/2). It was verified against the source; see §G1 below. We use it in the form
    S_{λ+1/2}(1, ν_η^{−ℓ}) ≅ S^{new}_{2λ}(Γ₀(6))^{w₂ = −(2/ℓ), w₃ = −(3/ℓ)}, with T_{p²} ↔ (12/p)·T_p.
    The sign class and the twist were checked numerically mod ℓ, by comparing characteristic polynomials, for
    13 primes covering all 8 classes of ℓ mod 24 (§3.4). The proof also uses one fact about a single newform:
@@ -167,8 +168,8 @@ factor* with the nonzero part of charpoly(X̄|S̄) computed independently in Kat
 5. The unit-root subspace Y of X (on the odd overconvergent space) has rank exactly R, and Ȳ = V. Equivalently,
    X has exactly R Newton slopes equal to 0.
 
-### 3.1 Input: Yang's isomorphism [cited; *]
-T. Yang (Nagoya Math. J. 215 (2014), Thm 1.x) constructs a Hecke-equivariant isomorphism (Shimura lift):
+### 3.1 Input: Yang's isomorphism [cited; verified against the source, §G1]
+Yifan Yang (Nagoya Math. J. 215 (2014), Theorem 1, with r = 24 − (ℓ mod 24), s = (ℓ − r − 2)/2) constructs a Hecke-equivariant isomorphism (Shimura lift):
 
   𝒮 = S_{λ+1/2}(SL₂ℤ, ν_η^{−ℓ}) ≅ S^{new}_{2λ}(Γ₀(6))^{(w₂, w₃)}, with T_{p²} ↔ (12/p)·T_p for p ≥ 5.
 
@@ -207,9 +208,19 @@ Consequence: det(T_{ℓ²}|𝒮) = ±∏_F a_ℓ(F), the product running over th
   (w₂, w₃) = (−(2/ℓ), +(3/ℓ)), which is the *wrong* class.
 * If Yang's class were (·, +(3/ℓ)), Theorem A would fail at ℓ = 859, and BW's computation d_ℓ = 0 for
   ℓ < 1300 would be contradicted. So BW's data and §3.4 independently confirm the sign.
-* A direct computation at ℓ = 859 (R = 36, about 2.7·10⁷ terms, ~10 GB) was **not run**, because of the
-  machine's memory limit. It is the natural decisive test of the sign argument: Theorem A predicts det Ξ ≠ 0
-  there.
+* **The direct computation at ℓ = 859 has been run, and it confirms Theorem A.** Script
+  `scripts/frontier/pattern/l859_compose.py`, log `l859_compose.log`. Results:
+  * det(X̄|_V) = 318 ≠ 0 mod 859, so rank = R = 36;
+  * rank D̄ = 36 on both S̄ and M̄ (Eisenstein direction included);
+  * rank X̄^k = 36 for k ≤ 72, so X̄ is semisimple at 0;
+  * d₈₅₉ = 0 by the exact test rank[X̄^d | D_M] = rank X̄^d;
+  * Krylov rank of L̄(1) = 36, so rank attainment holds;
+  * the charpoly of X̄|_V is squarefree.
+
+  This is exactly the case where 6.6.a.a is non-ordinary. The method composes D̄∘Ū with re-expansion in the
+  basis Δ^iE₄^aE₆^b, so it needs only O(ℓ·d) q-coefficients (~7·10⁴ terms, 7 s, 280 MB). That makes BW-range
+  checks (ℓ < 1300) cheap. It was validated against ℓ = 29, 47, 71, 113 and 607; the ℓ = 607 run reproduces
+  the (x+367)² anomaly exactly.
 
 ### 3.3 Proof of Corollary A, item 5
 * The number of zero slopes of X on the odd overconvergent space equals the dimension of the generalized
@@ -391,3 +402,70 @@ So conjecture (b) "for all ℓ" is false. The natural replacement is "for all �
 * G5: ū₀ ≠ 0 and cyclicity of L̄(1) are arithmetic non-vanishing statements, checkable ℓ by ℓ. No general proof
   is expected, and (b) is false at ℓ = 607.
 * G6: Statement (6.2) for m ≥ 2 needs the Riesz/lattice argument of 5.1. It is written out only in outline.
+
+## G1 verification
+
+(2026-10-28. Source read: arXiv:1110.1810v1, the preprint of the Nagoya paper. The published version,
+Nagoya Math. J. 215 (2014) 1–66, doi:10.1215/00277630-2684452, was not opened; its abstract on Cambridge Core
+matches.)
+
+**Verdict: verified, with adjustments to the citation only. The mathematics of Theorem A is unchanged.**
+
+**Paper.** The author is **Yifan Yang** (NCTU, Hsinchu), not Tonghai Yang. The title is "Modular forms of
+half-integral weights on SL(2, ℤ)". The result used is **Theorem 1**. Theorem 2 is the analogue for 3 | r and is
+not needed.
+
+**Statement (Thm 1).**
+* Hypotheses: r ∈ ℤ with (r, 6) = 1 and 0 < r < 24; s a nonnegative even integer.
+* Space: S_{r,s} = {η(24τ)^r f(24τ) : f ∈ M_s(1)} ⊂ S_{r/2+s}(576, (12/·)).
+* Conclusion: the Shimura correspondence gives an isomorphism of Hecke modules
+  S_{r,s} ≅ S^{new}_{r+2s−1}(6, −(8/r), −(12/r)) ⊗ (12/·).
+* Atkin–Lehner convention: ε₂ and ε₃ are the eigenvalues of W₂ and W₃. Yang ties this convention to Atkin–Lehner
+  [Math. Ann. 185, Thm 3] and to the Guo–Ono form G_ℓ = q + (8/r)2^{(ℓ−5)/2}q² + (12/r)3^{(ℓ−5)/2}q³ + ⋯, which
+  lies in the class (−(8/r), −(12/r)). So a_p = −ε_p p^{k/2−1}, the same convention as pari's.
+* Hecke operators: T_{n²} is defined only for (n, 6) = 1 (Def. 10; Remark 12 says the other operators vanish).
+  Prop. 11 shows T_{p²} is Shimura's operator on S_{k+1/2}(576, (12/·)) with k = (r−1)/2 + s.
+* Corollary 1: multiplicity one holds on S_{r,s}.
+* Proof method: comparison of Shimura trace formulas.
+
+**Comparison with §3.1.**
+1. *Dictionary.* Take r := 24 − j, so r ≡ −ℓ (mod 24), and s := 12t + j − 13 = (ℓ − r − 2)/2.
+   * Then ν_η^{−ℓ} = ν_η^r.
+   * By Yang's Prop. 6, S_{r,s}(1) = η^r M_s(1), and this space is all of 𝒮. It agrees with §2.1 because
+     G/η^j = η^r·(G/Δ).
+   * The map h ↦ h(24τ) gives S_{r,s}.
+2. *Weights.*
+   * Half-integral side: k = (r−1)/2 + s = (ℓ−3)/2 = λ, so the weight is λ + 1/2 = (ℓ−2)/2. ✓
+   * Integral side: r + 2s − 1 = ℓ − 3 = 2λ. ✓
+3. *Hypotheses for every prime ℓ ≥ 13.* (r, 6) = 1 and 0 < r < 24 hold. s = 12t + j − 13 is even, and it is ≥ 0
+   exactly when ℓ ≥ 13: for t = 0 we have j = ℓ ≥ 13. Both ℓ mod 24 and the sign class enter only through
+   r = 24 − j.
+4. *Signs.* Yang's class is (−(8/r), −(12/r)).
+   * (8/·) and (12/·) are even characters, so (8/r) = (8/ℓ) = (2/ℓ) and (12/r) = (12/ℓ) = (3/ℓ).
+   * Hence the class is (−(2/ℓ), −(3/ℓ)), exactly as used, in the a_p = −w_p p^{k/2−1} convention.
+   * In particular a₂(F) = (2/ℓ)2^{(ℓ−5)/2} and a₃(F) = (3/ℓ)3^{(ℓ−5)/2}, which matches §3.2 step 5.
+5. *Isomorphism.* The map is onto the *whole* newform eigenspace of that sign class. It is not onto a subspace,
+   and there are no oldforms.
+6. *Hecke.* The twist ⊗(12/·) means T_{p²} ↔ (12/p)·T_p for p ∤ 6. This holds at p = ℓ, which is all
+   Theorem A needs. Yang's T_{ℓ²} (Prop. 11, coefficients in q^{n/24}) is the operator of §2.3, whose middle term
+   is (12/ℓ)((−1)^λ n/ℓ)ℓ^{λ−1}.
+   * Since the modules are isomorphic, the characteristic polynomials over ℚ agree.
+   * So det(T_{ℓ²}|𝒮) = (12/ℓ)^R·∏_F a_ℓ(F), where the product runs over all embeddings of newforms in the
+     class. This is "±∏ a_ℓ(F)", and its ℓ-adic unit status is what transfers.
+
+**Adjustments (citation only).**
+* §0 and §3.1: replace "T. Yang … Thm 1.x" with "Yifan Yang, Nagoya Math. J. 215 (2014), Thm 1 (with
+  r = 24 − (ℓ mod 24), s = (ℓ − r − 2)/2)".
+* The statement in §3.1 can drop the asterisk on the sign normalization.
+* The claim that Ahlgren–Allen–Tang and Ahlgren–Beckwith–Raum use this form was not checked here.
+
+**yang.gp convention.** `yang.gp` keys the classes by pari's `mfatkineigenvalues`. Taking the first embedding is
+harmless, because AL eigenvalues are rational.
+* A check in the scratchpad confirmed that every newform in S^{new}_{ℓ−3}(Γ₀(6)) satisfies
+  a₂ = −w₂2^{(ℓ−5)/2} and a₃ = −w₃3^{(ℓ−5)/2}, with 0 violations. It ran for all 20 primes ℓ ∈ {13, …, 103}
+  except 79 and 89.
+* For each of those primes, Yang's class (−(8/r), −(12/r)) equals the class (−(2/ℓ), −(3/ℓ)) used in the doc.
+* The class has dimension dim M_s(1) = R.
+* So pari's convention, yang.gp's keys and Yang's ε₂, ε₃ all agree.
+* The sign question raised in the §3.2 Remark (ℓ = 859) is settled by the theorem itself: the class is
+  (·, −(3/ℓ)), not (·, +(3/ℓ)).
