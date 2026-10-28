@@ -401,3 +401,18 @@ Hypotheses as stated:
 * **`katz_iff_hasse`**: step (K) with SSDetect discharged.
 * All of this is conditional on `RamanujanODE`, Ramanujan's three q-series ODEs over ℤ. RamanujanODE is a
   true classical theorem, stated as an explicit Prop hypothesis. It is the remaining input.
+
+## Lean, round 15 (2026-10-29): Ramanujan's ODEs (`RamanujanTau/RamanujanODE/`, axiom-clean)
+* **`RamanujanODEProof.ramanujanODE`** proves all three, over ℤ⟦q⟧:
+  * 3θE₄ = E₂E₄ − E₆;
+  * 2θE₆ = E₂E₆ − E₄²;
+  * 12θE₂ = E₂² − E₄.
+* The route:
+  * the Serre derivative is slash-equivariant, and ∂₁E₂ has weight 4. This part is adapted from
+    Sphere-Packing-Lean, Apache 2.0, with attribution in the file;
+  * q-series term-by-term differentiation (`QSeries.lean`, new);
+  * the dimension-1 argument below weight 12, via `CuspForm.rank_eq_zero_of_weight_lt_twelve`;
+  * descent from ℂ to ℤ.
+* This fills Mathlib's TODO in `ModularForms/Derivative.lean`.
+* `Igusa/Unconditional.lean`: Igusa's theorem, supersingular points, and **step (K)** (`katz_iff_hasse'`)
+  now hold **without any extra hypothesis**.

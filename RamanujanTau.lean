@@ -417,3 +417,5 @@ import RamanujanTau.HasseInv.Modular
 import RamanujanTau.QuotientHasse.Main
 import RamanujanTau.Igusa.Katz
 import RamanujanTau.Igusa.Complement
+import RamanujanTau.RamanujanODE.Main
+import RamanujanTau.Igusa.Unconditional
