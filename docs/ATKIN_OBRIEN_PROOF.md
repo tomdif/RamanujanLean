@@ -642,3 +642,17 @@ Remaining:
   * cube roots, and integrality from the Ω-coefficients −A/3, −2B/3.
 * Remaining: the reduction from a general Weierstrass curve to short form, i.e. formal-group isomorphisms
   under (u,r,s,t) changes. This is needed by UpContraction/EllipticI2 statements for general W.
+
+## Lean, round 32 (2026-10-29): sharp HQ (`RamanujanTau/SharpHQ/`, axiom-clean)
+* **`Ap_Bp_of_pointwise`**: pointwise bounds on break-region test curves give the sharp Katz class. The proof
+  uses step (K) at every radius v(s) = (ℓM−1)/((ℓ+1)M), then M → ∞.
+* `HQ_of_coeffBound`: the Hensel argument in the sharp class.
+* `coeffBound_of_conj`: the Newton bound on elementary symmetric functions.
+* **`HQ_of_conj`** and **`atkin_obrien_13''''/17''''/19''''/23'''' (hUB) (hConj : HConj ℓ (φC ℓ))`**.
+* HConj is pointwise at test curves over ℂ_ℓ. It requires:
+  * f_k(W) = e_k(Δ(W/C, ω_C));
+  * |y_H| ≤ |ℓ|¹²/|E|¹²;
+  * |y_C|^ℓ ≤ |E|¹² for C ≠ H.
+* Inputs for HConj:
+  * algebraicity: the subgroup sums from `HeckeBridge.subSum_hecke` (P = Δ^m), plus Newton's identities;
+  * valuations: from the quotient models (AllQuotients).
