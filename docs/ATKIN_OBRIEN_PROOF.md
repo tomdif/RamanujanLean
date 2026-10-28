@@ -336,3 +336,16 @@ Not done:
 * the homomorphism E → E′ with kernel G;
 * Δ′ ≠ 0;
 * the general a₁…a₆ form.
+
+## Lean, round 10 (2026-10-28): Weierstrass supply (`RamanujanTau/WeierstrassSupply/`, axiom-clean)
+* The integer ring of a complete ultrametric field is (π)-adically complete for any 0 < ‖π‖ < 1. This
+  includes ℂ_p.
+* `exists_prep`: Weierstrass preparation over that integer ring.
+* `exists_split`: over an algebraically closed field, the Weierstrass polynomial splits with integral roots.
+* **`exists_dual_isogeny_lie_integers_algClosed`**. Setting: K complete and algebraically closed; F a
+  commutative formal group over its integer ring. The hypotheses are only:
+  * height 2 (‖coeff_{p²}[p]‖ = 1 and ‖a‖ < 1);
+  * the break condition.
+
+  Conclusion: π, π̌ with π̌∘π = [p] and ‖Lie π̌‖ = ‖a‖. **Step 2 of I2 is formal with no structural
+  hypotheses.** The ordinary case ‖a‖ = 1 is separate and trivial.
