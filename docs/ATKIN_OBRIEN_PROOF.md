@@ -181,3 +181,34 @@ Citation status:
 4. Katz modular forms as functions of (E, ω) over O_{ℂ_p}: the Tate curve, q-expansions, and V defined via π̌.
 5. Katz expansions and the reducedness of the integral model A[Y]/(EY − r) (simple zeros of Hasse/Igusa).
 Weierstrass preparation, needed to pass from the [p]-series to a polynomial, is already in Mathlib.
+
+## Lean, round 3 (2026-10-28): formal-group layer (`RamanujanTau/FormalGroupLayer/`)
+Built on Mathlib's bare `FormalGroup` structure. Everything is axiom-clean.
+* `PDeriv.lean`: partial derivatives `pd` of `MvPowerSeries`, the Leibniz rule (via truncation), `pdDer`
+  as a derivation, and `pd_coe` (compatibility with `MvPolynomial.pderiv`).
+* `Chain.lean`: **the multivariable chain rule** `pd_subst`:
+  ∂ⱼ f(a) = Σₛ (∂ₛf)(a)·∂ⱼaₛ, for substitutions with zero constant terms. It is not in Mathlib.
+* `Basic.lean`:
+  * `assoc_ev`: associativity along any substitution.
+  * `subst_zeros`.
+  * **`ev_T_zero`: F(X,0) = X**. f = F(X,0) is idempotent, and Mathlib's compositional inverse then
+    forces f = X.
+* `Invariant.lean`:
+  * `ev_zero_right`.
+  * **`invariance`**: Ψ(F(a,b)) = (∂₂F)(a,b)·Ψ(b), with Ψ(u) = (∂₂F)(u,0).
+  * The [n]-series `nmul`.
+  * **`nmul_invariant`: Ψ(T)·[n]′(T) = n·Ψ([n]T)**, i.e. [n]^*ω = nω, for commutative F.
+* `CharP.lean`:
+  * `pd_nmul_eq_zero`: [p]′ = 0 in characteristic p.
+  * `coeff_nmul_eq_zero`: [p] has only T^{pk} terms there.
+  * `nmul_map`.
+  * **`p_dvd_coeff_nmul`**: over *any* commutative ring, p divides the coefficient of T^k in [p](T)
+    whenever p ∤ k.
+  This is the shape [p](T) = pT + ⋯ + aT^p + ⋯ that Katz's Newton-polygon argument (`Newton.two_segment`)
+  consumes.
+
+Still open for I2:
+* the height-2 refinement: mod (p, a), [p] is a series in T^{p²} with unit leading term;
+* the elliptic formal group itself, with Hasse = E_{p−1} mod p;
+* Lubin's quotient;
+* Katz forms and his integral model.
