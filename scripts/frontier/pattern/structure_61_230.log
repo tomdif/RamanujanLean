@@ -1,0 +1,33 @@
+l=61 d=5 rank mod l on S_(l-1): U 5 D 3 X 3  rank X^k: [3, 3, 3, 3, 3, 3] charpoly(Xbar|S) = (x + 29) * (x^2 + 2*x + 18) * (x)^2
+l=67 d=5 rank mod l on S_(l-1): U 5 D 3 X 3  rank X^k: [3, 3, 3, 3, 3, 3] charpoly(Xbar|S) = (x + 26) * (x^2 + 42*x + 65) * (x)^2
+l=71 d=5 rank mod l on S_(l-1): U 5 D 3 X 3  rank X^k: [3, 3, 3, 3, 3, 3] charpoly(Xbar|S) = (x^3 + 18*x^2 + 2*x + 2) * (x)^2
+l=73 d=6 rank mod l on S_(l-1): U 6 D 3 X 3  rank X^k: [3, 3, 3, 3, 3, 3, 3] charpoly(Xbar|S) = (x^3 + 65*x^2 + 71*x + 29) * (x)^3
+l=79 d=6 rank mod l on S_(l-1): U 6 D 3 X 3  rank X^k: [3, 3, 3, 3, 3, 3, 3] charpoly(Xbar|S) = (x + 61) * (x^2 + 70*x + 51) * (x)^3
+l=83 d=6 rank mod l on S_(l-1): U 6 D 3 X 3  rank X^k: [3, 3, 3, 3, 3, 3, 3] charpoly(Xbar|S) = (x + 67) * (x^2 + 9*x + 79) * (x)^3
+l=89 d=7 rank mod l on S_(l-1): U 7 D 4 X 4  rank X^k: [4, 4, 4, 4, 4, 4, 4, 4] charpoly(Xbar|S) = (x^2 + 14*x + 78) * (x^2 + 9*x + 25) * (x)^3
+l=97 d=8 rank mod l on S_(l-1): U 8 D 4 X 4  rank X^k: [4, 4, 4, 4, 4, 4, 4, 4, 4] charpoly(Xbar|S) = (x + 69) * (x^3 + 50*x^2 + 8*x + 33) * (x)^4
+l=101 d=8 rank mod l on S_(l-1): U 8 D 4 X 4  rank X^k: [4, 4, 4, 4, 4, 4, 4, 4, 4] charpoly(Xbar|S) = (x + 27) * (x^3 + 60*x^2 + 22*x + 59) * (x)^4
+l=103 d=8 rank mod l on S_(l-1): U 8 D 4 X 4  rank X^k: [4, 4, 4, 4, 4, 4, 4, 4, 4] charpoly(Xbar|S) = (x + 90) * (x^3 + 35*x^2 + 61*x + 81) * (x)^4
+l=107 d=8 rank mod l on S_(l-1): U 8 D 4 X 4  rank X^k: [4, 4, 4, 4, 4, 4, 4, 4, 4] charpoly(Xbar|S) = (x^4 + 47*x^3 + 31*x^2 + 23*x + 36) * (x)^4
+l=109 d=9 rank mod l on S_(l-1): U 9 D 5 X 5  rank X^k: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] charpoly(Xbar|S) = (x^5 + 61*x^4 + 20*x^3 + 35*x^2 + 42*x + 40) * (x)^4
+l=113 d=9 rank mod l on S_(l-1): U 9 D 5 X 5  rank X^k: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5] charpoly(Xbar|S) = (x + 41) * (x + 50) * (x^3 + 81*x^2 + 56) * (x)^4
+l=127 d=10 rank mod l on S_(l-1): U 10 D 5 X 5  rank X^k: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5] charpoly(Xbar|S) = (x + 78) * (x^4 + 117*x^2 + x + 119) * (x)^5
+l=131 d=10 rank mod l on S_(l-1): U 10 D 5 X 5  rank X^k: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5] charpoly(Xbar|S) = (x^5 + 40*x^4 + 12*x^3 + 40*x^2 + 26*x + 115) * (x)^5
+l=137 d=11 rank mod l on S_(l-1): U 11 D 6 X 6  rank X^k: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6] charpoly(Xbar|S) = (x + 127) * (x^2 + 26*x + 8) * (x^3 + 52*x^2 + 37*x + 37) * (x)^5
+l=139 d=11 rank mod l on S_(l-1): U 11 D 6 X 6  rank X^k: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6] charpoly(Xbar|S) = (x + 55) * (x + 69) * (x^2 + 133*x + 1) * (x^2 + 62*x + 100) * (x)^5
+l=149 d=12 rank mod l on S_(l-1): U 12 D 6 X 6  rank X^k: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6] charpoly(Xbar|S) = (x + 67) * (x + 126) * (x^4 + 93*x^3 + 143*x^2 + 124*x + 29) * (x)^6
+l=151 d=12 rank mod l on S_(l-1): U 12 D 6 X 6  rank X^k: [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6] charpoly(Xbar|S) = (x + 108) * (x + 93) * (x^4 + 22*x^3 + 74*x^2 + 36*x + 148) * (x)^6
+l=157 d=13 rank mod l on S_(l-1): U 13 D 7 X 7  rank X^k: [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7] charpoly(Xbar|S) = (x + 120) * (x + 19) * (x^5 + 43*x^4 + 145*x^3 + 152*x^2 + 154*x + 144) * (x)^6
+l=163 d=13 rank mod l on S_(l-1): U 13 D 7 X 7  rank X^k: [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7] charpoly(Xbar|S) = (x + 3) * (x^6 + 61*x^5 + 46*x^4 + 120*x^3 + 16*x^2 + 108*x + 64) * (x)^6
+l=167 d=13 rank mod l on S_(l-1): U 13 D 7 X 7  rank X^k: [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7] charpoly(Xbar|S) = (x + 96) * (x^2 + 147*x + 45) * (x^4 + 73*x^3 + 93*x^2 + 151*x + 85) * (x)^6
+l=173 d=14 rank mod l on S_(l-1): U 14 D 7 X 7  rank X^k: [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7] charpoly(Xbar|S) = (x + 88) * (x + 69) * (x^5 + 64*x^4 + 83*x^3 + 89*x^2 + 64*x + 46) * (x)^7
+l=179 d=14 rank mod l on S_(l-1): U 14 D 7 X 7  rank X^k: [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7] charpoly(Xbar|S) = (x + 168) * (x + 152) * (x + 80) * (x^4 + 31*x^3 + 158*x^2 + 137*x + 77) * (x)^7
+l=181 d=15 rank mod l on S_(l-1): U 15 D 8 X 8  rank X^k: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8] charpoly(Xbar|S) = (x + 169) * (x^2 + 11*x + 56) * (x^5 + 4*x^4 + 38*x^3 + 131*x^2 + 24*x + 119) * (x)^7
+l=191 d=15 rank mod l on S_(l-1): U 15 D 8 X 8  rank X^k: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8] charpoly(Xbar|S) = (x^2 + 147*x + 174) * (x^3 + 183*x^2 + 14*x + 6) * (x^3 + 36*x^2 + 149*x + 58) * (x)^7
+l=193 d=16 rank mod l on S_(l-1): U 16 D 8 X 8  rank X^k: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8] charpoly(Xbar|S) = (x^2 + 51*x + 36) * (x^3 + 119*x^2 + 98*x + 68) * (x^3 + 121*x^2 + 46*x + 123) * (x)^8
+l=197 d=16 rank mod l on S_(l-1): U 16 D 8 X 8  rank X^k: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8] charpoly(Xbar|S) = (x^7 + 6*x^6 + 14*x^5 + 93*x^4 + 188*x^3 + 152*x^2 + 55*x + 47) * (x + 78) * (x)^8
+l=199 d=16 rank mod l on S_(l-1): U 16 D 8 X 8  rank X^k: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8] charpoly(Xbar|S) = (x^5 + 108*x^4 + 79*x^3 + 3*x^2 + 127*x + 31) * (x^3 + 170*x^2 + 111*x + 4) * (x)^8
+l=211 d=17 rank mod l on S_(l-1): U 17 D 9 X 9  rank X^k: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9] charpoly(Xbar|S) = (x^5 + 14*x^4 + 15*x^3 + 15*x^2 + 190*x + 98) * (x + 25) * (x^3 + 103*x^2 + 35*x + 155) * (x)^8
+l=223 d=18 rank mod l on S_(l-1): U 18 D 9 X 9  rank X^k: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9] charpoly(Xbar|S) = (x^8 + 180*x^7 + 157*x^6 + 10*x^5 + 186*x^4 + 107*x^3 + 43*x^2 + 15*x + 119) * (x + 27) * (x)^9
+l=227 d=18 rank mod l on S_(l-1): U 18 D 9 X 9  rank X^k: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9] charpoly(Xbar|S) = (x + 14) * (x + 29) * (x^2 + 65*x + 125) * (x^2 + 7*x + 200) * (x^3 + 36*x^2 + 196*x + 139) * (x)^9
+l=229 d=19 rank mod l on S_(l-1): U 19 D 10 X 10  rank X^k: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10] charpoly(Xbar|S) = (x^6 + 80*x^5 + 157*x^4 + 176*x^3 + 87*x^2 + 223*x + 143) * (x + 12) * (x^3 + 184*x^2 + 26*x + 79) * (x)^9

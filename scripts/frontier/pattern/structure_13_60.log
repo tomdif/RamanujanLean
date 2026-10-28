@@ -1,0 +1,12 @@
+l=13 d=1 rank mod l on S_(l-1): U 1 D 1 X 1  rank X^k: [1, 1] charpoly(Xbar|S) = (x + 7)
+l=17 d=1 rank mod l on S_(l-1): U 1 D 1 X 1  rank X^k: [1, 1] charpoly(Xbar|S) = (x + 11)
+l=19 d=1 rank mod l on S_(l-1): U 1 D 1 X 1  rank X^k: [1, 1] charpoly(Xbar|S) = (x + 9)
+l=23 d=1 rank mod l on S_(l-1): U 1 D 1 X 1  rank X^k: [1, 1] charpoly(Xbar|S) = (x + 18)
+l=29 d=2 rank mod l on S_(l-1): U 2 D 1 X 1  rank X^k: [1, 1, 1] charpoly(Xbar|S) = (x + 26) * (x)
+l=31 d=2 rank mod l on S_(l-1): U 2 D 1 X 1  rank X^k: [1, 1, 1] charpoly(Xbar|S) = (x + 1) * (x)
+l=37 d=3 rank mod l on S_(l-1): U 3 D 2 X 2  rank X^k: [2, 2, 2, 2] charpoly(Xbar|S) = (x + 22) * (x + 3) * (x)
+l=41 d=3 rank mod l on S_(l-1): U 3 D 2 X 2  rank X^k: [2, 2, 2, 2] charpoly(Xbar|S) = (x + 18) * (x + 10) * (x)
+l=43 d=3 rank mod l on S_(l-1): U 3 D 2 X 2  rank X^k: [2, 2, 2, 2] charpoly(Xbar|S) = (x) * (x + 12) * (x + 37)
+l=47 d=3 rank mod l on S_(l-1): U 3 D 2 X 2  rank X^k: [2, 2, 2, 2] charpoly(Xbar|S) = (x) * (x^2 + 18*x + 19)
+l=53 d=4 rank mod l on S_(l-1): U 4 D 2 X 2  rank X^k: [2, 2, 2, 2, 2] charpoly(Xbar|S) = (x + 46) * (x + 10) * (x)^2
+l=59 d=4 rank mod l on S_(l-1): U 4 D 2 X 2  rank X^k: [2, 2, 2, 2, 2] charpoly(Xbar|S) = (x^2 + 53*x + 57) * (x)^2

@@ -1,0 +1,1480 @@
+{
+ "5": {
+  "p": 5,
+  "d": 0,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 0,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "2": {
+    "bmod": 2,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "3": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "4": {
+    "bmod": 4,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "5": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "6": {
+    "bmod": 6,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "7": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "8": {
+    "bmod": 8,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "9": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   2.0
+  ],
+  "slopes_N2": [
+   2.0
+  ],
+  "unit_roots": 0
+ },
+ "7": {
+  "p": 7,
+  "d": 0,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 0,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "2": {
+    "bmod": 2,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "3": {
+    "bmod": 4,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "4": {
+    "bmod": 6,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "5": {
+    "bmod": 8,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "6": {
+    "bmod": 10,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "7": {
+    "bmod": 12,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "8": {
+    "bmod": 14,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "9": {
+    "bmod": 16,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   1.0,
+   4.0
+  ],
+  "slopes_N2": [
+   1.0,
+   4.0
+  ],
+  "unit_roots": 0
+ },
+ "11": {
+  "p": 11,
+  "d": 0,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 0,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "2": {
+    "bmod": 2,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "3": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "4": {
+    "bmod": 4,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "5": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "6": {
+    "bmod": 6,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "7": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "8": {
+    "bmod": 8,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   },
+   "9": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   2.0,
+   3.0
+  ],
+  "slopes_N2": [
+   2.0,
+   3.0
+  ],
+  "unit_roots": 0
+ },
+ "13": {
+  "p": 13,
+  "d": 1,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 1,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": 1,
+    "inv": [
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 2,
+    "bprop": 2,
+    "inv": [
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 3,
+    "bprop": 3,
+    "inv": [
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 4,
+    "bprop": 4,
+    "inv": [
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 5,
+    "bprop": 5,
+    "inv": [
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 6,
+    "bprop": 6,
+    "inv": [
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 7,
+    "bprop": 7,
+    "inv": [
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 8,
+    "bprop": 8,
+    "inv": [
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 9,
+    "bprop": 9,
+    "inv": [
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   2.0,
+   4.0
+  ],
+  "slopes_N2": [
+   0.0,
+   2.0,
+   4.0
+  ],
+  "unit_roots": 1
+ },
+ "17": {
+  "p": 17,
+  "d": 1,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 1,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": 1,
+    "inv": [
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 2,
+    "bprop": 2,
+    "inv": [
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 3,
+    "bprop": 3,
+    "inv": [
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 4,
+    "bprop": 4,
+    "inv": [
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 5,
+    "bprop": 5,
+    "inv": [
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 6,
+    "bprop": 6,
+    "inv": [
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 7,
+    "bprop": 7,
+    "inv": [
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 8,
+    "bprop": 8,
+    "inv": [
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 9,
+    "bprop": 9,
+    "inv": [
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   2.0,
+   4.0
+  ],
+  "slopes_N2": [
+   0.0,
+   2.0,
+   4.0
+  ],
+  "unit_roots": 1
+ },
+ "19": {
+  "p": 19,
+  "d": 1,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 1,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": 1,
+    "inv": [
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 2,
+    "bprop": 2,
+    "inv": [
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 3,
+    "bprop": 3,
+    "inv": [
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 4,
+    "bprop": 4,
+    "inv": [
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 5,
+    "bprop": 5,
+    "inv": [
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 6,
+    "bprop": 6,
+    "inv": [
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 7,
+    "bprop": 7,
+    "inv": [
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 8,
+    "bprop": 8,
+    "inv": [
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 9,
+    "bprop": 9,
+    "inv": [
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   2.0,
+   2.0,
+   4.0
+  ],
+  "slopes_N2": [
+   0.0,
+   2.0,
+   2.0,
+   4.0
+  ],
+  "unit_roots": 1
+ },
+ "23": {
+  "p": 23,
+  "d": 1,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 1,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": 1,
+    "inv": [
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 2,
+    "bprop": 2,
+    "inv": [
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 3,
+    "bprop": 3,
+    "inv": [
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 4,
+    "bprop": 4,
+    "inv": [
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 5,
+    "bprop": 5,
+    "inv": [
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 6,
+    "bprop": 6,
+    "inv": [
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 7,
+    "bprop": 7,
+    "inv": [
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 8,
+    "bprop": 8,
+    "inv": [
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 9,
+    "bprop": 9,
+    "inv": [
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   2.0,
+   2.0,
+   4.0
+  ],
+  "slopes_N2": [
+   0.0,
+   2.0,
+   2.0,
+   4.0
+  ],
+  "unit_roots": 1
+ },
+ "29": {
+  "p": 29,
+  "d": 2,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 1,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": 1,
+    "inv": [
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": 3,
+    "inv": [
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": 5,
+    "inv": [
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": 7,
+    "inv": [
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": 9,
+    "inv": [
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": 11,
+    "inv": [
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": 13,
+    "inv": [
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": 15,
+    "inv": [
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": 17,
+    "inv": [
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   1.0,
+   2.0,
+   3.0
+  ],
+  "slopes_N2": [
+   0.0,
+   1.0,
+   2.0,
+   3.0
+  ],
+  "unit_roots": 1
+ },
+ "31": {
+  "p": 31,
+  "d": 2,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 1,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": 1,
+    "inv": [
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": 3,
+    "inv": [
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": 5,
+    "inv": [
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": 7,
+    "inv": [
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": 9,
+    "inv": [
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": 11,
+    "inv": [
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": 13,
+    "inv": [
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": 15,
+    "inv": [
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": 17,
+    "inv": [
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   3.0
+  ],
+  "slopes_N2": [
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   3.0
+  ],
+  "unit_roots": 1
+ },
+ "37": {
+  "p": 37,
+  "d": 3,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 2,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [
+     1,
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [
+     2,
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [
+     3,
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [
+     4,
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [
+     5,
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": null,
+    "inv": [
+     6,
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": null,
+    "inv": [
+     7,
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": null,
+    "inv": [
+     8,
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": null,
+    "inv": [
+     9,
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0
+  ],
+  "slopes_N2": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0
+  ],
+  "unit_roots": 2
+ },
+ "41": {
+  "p": 41,
+  "d": 3,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 2,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [
+     1,
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [
+     2,
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [
+     3,
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [
+     4,
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [
+     5,
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": null,
+    "inv": [
+     6,
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": null,
+    "inv": [
+     7,
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": null,
+    "inv": [
+     8,
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": null,
+    "inv": [
+     9,
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   3.0
+  ],
+  "slopes_N2": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   3.0
+  ],
+  "unit_roots": 2
+ },
+ "43": {
+  "p": 43,
+  "d": 3,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 2,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [
+     1,
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [
+     2,
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [
+     3,
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [
+     4,
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [
+     5,
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": null,
+    "inv": [
+     6,
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": null,
+    "inv": [
+     7,
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": null,
+    "inv": [
+     8,
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": null,
+    "inv": [
+     9,
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   2.0
+  ],
+  "slopes_N2": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   2.0
+  ],
+  "unit_roots": 2
+ },
+ "47": {
+  "p": 47,
+  "d": 3,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 2,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [
+     1,
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [
+     2,
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [
+     3,
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [
+     4,
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [
+     5,
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": null,
+    "inv": [
+     6,
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": null,
+    "inv": [
+     7,
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": null,
+    "inv": [
+     8,
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": null,
+    "inv": [
+     9,
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   2.0
+  ],
+  "slopes_N2": [
+   0.0,
+   0.0,
+   1.0,
+   2.0,
+   2.0,
+   2.0
+  ],
+  "unit_roots": 2
+ },
+ "53": {
+  "p": 53,
+  "d": 4,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 2,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [
+     1,
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [
+     2,
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [
+     3,
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [
+     4,
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [
+     5,
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": null,
+    "inv": [
+     6,
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": null,
+    "inv": [
+     7,
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": null,
+    "inv": [
+     8,
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": null,
+    "inv": [
+     9,
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   0.0,
+   1.0,
+   1.0,
+   2.0,
+   2.0
+  ],
+  "slopes_N2": [
+   0.0,
+   0.0,
+   1.0,
+   1.0,
+   2.0,
+   2.0
+  ],
+  "unit_roots": 2
+ },
+ "59": {
+  "p": 59,
+  "d": 4,
+  "PR": 9,
+  "N": [
+   12,
+   15
+  ],
+  "fko_bound": 2,
+  "b": {
+   "1": {
+    "bmod": 1,
+    "bprop": null,
+    "inv": [
+     1,
+     1
+    ],
+    "agree": true
+   },
+   "2": {
+    "bmod": 3,
+    "bprop": null,
+    "inv": [
+     2,
+     2
+    ],
+    "agree": true
+   },
+   "3": {
+    "bmod": 5,
+    "bprop": null,
+    "inv": [
+     3,
+     3
+    ],
+    "agree": true
+   },
+   "4": {
+    "bmod": 7,
+    "bprop": null,
+    "inv": [
+     4,
+     4
+    ],
+    "agree": true
+   },
+   "5": {
+    "bmod": 9,
+    "bprop": null,
+    "inv": [
+     5,
+     5
+    ],
+    "agree": true
+   },
+   "6": {
+    "bmod": 11,
+    "bprop": null,
+    "inv": [
+     6,
+     6
+    ],
+    "agree": true
+   },
+   "7": {
+    "bmod": 13,
+    "bprop": null,
+    "inv": [
+     7,
+     7
+    ],
+    "agree": true
+   },
+   "8": {
+    "bmod": 15,
+    "bprop": null,
+    "inv": [
+     8,
+     8
+    ],
+    "agree": true
+   },
+   "9": {
+    "bmod": 17,
+    "bprop": null,
+    "inv": [
+     9,
+     9
+    ],
+    "agree": true
+   }
+  },
+  "truncation_agree": true,
+  "slopes_N1": [
+   0.0,
+   0.0,
+   1.0,
+   1.0,
+   2.0,
+   2.0,
+   2.0
+  ],
+  "slopes_N2": [
+   0.0,
+   0.0,
+   1.0,
+   1.0,
+   2.0,
+   2.0,
+   2.0
+  ],
+  "unit_roots": 2
+ }
+}
