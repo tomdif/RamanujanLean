@@ -528,3 +528,16 @@ Remaining for hU:
 * hAlg, via symmetric functions of the kernel polynomials;
 * hT, via the Tate parametrisation of quotients;
 * the overconvergent limit, Σ_{C≠H} for Katz series.
+
+## Lean, round 23 (2026-10-29): DB from UB (`RamanujanTau/DBound/`, axiom-clean)
+* **`DB_of_UB (hUB) (hW)`**, where HW is the statement E^sW ∈ B_E(r) (v_i ≥ ⌈i/(ℓ+1)⌉).
+* **`HW_of (hQ) (hV) (hG)`**: proved through the η-identity in ℤ_ℓ⟦q⟧, a Hensel square root (`sqrt_Ap`),
+  and the ring structure of B_E(r) (`Ap_mul`).
+* Supporting: `decompN` (Katz decomposition mod ℓ^N), `isKatz_of_Ap` and `katz_unique_N`.
+* **`atkin_obrien_13'/17'/19'/23' (hUB) (hQ) (hV) (hG)`**: the final theorem, now hypothesised on four
+  explicit Props.
+  * UB: the U column bounds (I1-U).
+  * HQ: v_i(Q) ≥ ⌈ℓi/(ℓ+1)⌉ (I2).
+  * HV: V maps B_E(r^ℓ) into B_E(r) (I3).
+  * HG: E/V(E) ∈ B_E(r) (I1-G).
+* All four are geometric, i.e. pointwise on test curves combined with step (K).
