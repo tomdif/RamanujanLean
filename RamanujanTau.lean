@@ -420,3 +420,5 @@ import RamanujanTau.Igusa.Complement
 import RamanujanTau.RamanujanODE.Main
 import RamanujanTau.Igusa.Unconditional
 import RamanujanTau.HeightEll.Reduce
+import RamanujanTau.TateFormal.Deligne
+import RamanujanTau.HasseInv.Unconditional

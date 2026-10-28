@@ -427,3 +427,14 @@ Hypotheses as stated:
   * `[p] ≠ 0` uses a 2-torsion point;
   * if a = b = 0, then [p] ∈ k⟦T^{p³}⟧, which contradicts p³ ≤ 2(p+1)² + 6.
 * No division polynomials were needed.
+
+## Lean, round 17 (2026-10-29): Deligne's congruence (`RamanujanTau/TateFormal/`, axiom-clean, ~1470 lines)
+* **`TateFormal.hasseH_TateBar`**: the Tate curve over 𝔽_p⟦q⟧ has Hasse invariant 1, for p ≥ 5.
+* The route:
+  * Tate's uniformization as a formal identity over ℤ[u,u⁻¹]⟦q⟧ (`EA_eq_zero`). It is obtained from
+    Mathlib's ℘′² = 4℘³ − g₂℘ − g₃ via q-expansions and two identity principles;
+  * substitute u = 1+T, which gives (1+T)dx/dT = 2y + x;
+  * then ω = dT/(1+T), and a Cartier lemma gives H = 1.
+* `HasseInv/Unconditional.lean`: **a ≡ E_{p−1}(E, ω) (mod p) unconditionally** (`coeff_nmul_sub_hasseA_mem'`).
+  It also gives hassePoly = Ā (Deligne).
+* The WIP file with the last sorry is deleted.
