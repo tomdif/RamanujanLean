@@ -448,3 +448,6 @@ import RamanujanTau.ConjAlg.HConj
 import RamanujanTau.TateAdd.Final
 import RamanujanTau.ConjAlg.NoKer
 import RamanujanTau.AtkinOBrienMain.Main
+import RamanujanTau.AllQuotients.Final
+import RamanujanTau.AllQuotients.SS
+import RamanujanTau.AtkinOBrienMain.Ord

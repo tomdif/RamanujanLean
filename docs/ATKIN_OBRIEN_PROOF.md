@@ -693,3 +693,15 @@ So the **final theorem now rests on UB + hKer + QuotValBound**:
   * QuotValBound: at every break-region test curve over ℂ_ℓ,
     * ‖Δ(W/H)‖·‖E(W)‖¹² ≤ ‖ℓ‖¹² for the canonical H;
     * ‖Δ(W/C)‖^ℓ ≤ ‖E(W)‖¹² for C ≠ H.
+
+## Lean, round 36 (2026-10-29): quotient models for all subgroups (`RamanujanTau/AllQuotients/`, axiom-clean)
+* `model_of_finSub`: every order-p subgroup C has a good-reduction model with a unit-Lie hom to F/C. Descent
+  never needed canonicity.
+* `exists_torsion`: there are p² torsion points. `canSub`/`eq_canSub` single out the canonical subgroup.
+* `prod_noncanonical`/`prod_canonical`, `lie_dual`: v(Lie π̌) = v for H, and 1 − v/p for C ≠ H.
+* **`velu_valuations`** and **`quotValBound_ss`**: QuotValBound on the supersingular part of the break region,
+  unconditionally.
+* `ssData_short`: `UpContraction.SSData` for short curves.
+* **`AtkinOBrienMain.atkin_obrien_ℓ_ord (hUB) (hord : OrdBound)`**. The remaining hypotheses are:
+  * UB;
+  * OrdBound: ‖Δ(W/H)‖ ≤ ‖ℓ‖¹² and ‖Δ(W/C)‖ ≤ 1 on the ordinary locus ‖E(W)‖ = 1.
