@@ -406,3 +406,4 @@ import RamanujanTau.TateCurve.Basic
 import RamanujanTau.TateCurve.Hasse
 import RamanujanTau.TateCurve.Expand
 import RamanujanTau.TateCurve.Laurent
+import RamanujanTau.ModP.SwinnertonDyer

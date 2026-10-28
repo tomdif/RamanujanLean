@@ -259,3 +259,24 @@ Remaining for a fully formal I2:
 * Tate(q) ↦ Tate(q^p) under `expand`, with Δ compatible.
 * Frobenius on 𝔽_p⟦q⟧.
 * Tate over ℤ((q)) is elliptic.
+
+## Lean, round 5 (2026-10-28): modular forms mod p (`RamanujanTau/ModP/`, axiom-clean)
+* `Formal.lean`:
+  * the single-weight q-expansion principle for polynomials in E₄, E₆ (given that 1728 is a unit);
+  * `descend`.
+* `Structure.lean`:
+  * every level-1 form is an isobaric polynomial in E₄, E₆, in q-expansion form (via Mathlib's
+    `discriminantEquiv`);
+  * qExpansion(E_k) = Eis k.
+* `SwinnertonDyer.lean` (p ≥ 5):
+  * the Hasse polynomial A with A(E₄,E₆) = E_{p−1} over ℤ_p;
+  * Ā(Ē₄,Ē₆) = 1, and Ā is unique;
+  * injectivity mod p in a single weight;
+  * filtration: P′ = Ā^m P;
+  * Swinnerton-Dyer's kernel theorem within one weight class;
+  * **`katz_independent`**: mod-p independence of the Katz pieces, which is the input `hdiv`/`hlead` need.
+
+Not done:
+* separation across different weight classes, which needs θ and Ramanujan's identities;
+  the downstream proof only uses weights i(p−1), so this is not needed;
+* the bridge from actual ℤ_p-forms to polynomials.
