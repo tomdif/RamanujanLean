@@ -606,3 +606,17 @@ Remaining:
   K((t)) and FractionRing K⟦t⟧.
 * So **hAlg holds** (for short curves). The bridge to `TateQuot.hT_iff_velu` / `HeckeQExp.classical_hU` is
   still to be written.
+
+## Lean, round 29 (2026-10-29): DB without V(Q) (`RamanujanTau/VLayer/DBQ.lean`, axiom-clean)
+* Φ = V(h)·h^ℓΔ^δ with h = η(ℓz)/η(z)^ℓ, h² = Q/E. This gives **D f = Q^{1/2}·U(Q^{ℓ/2} G^{1/2} (Δ^δ/E^s) f)**
+  (`D_eq`).
+* **`DB_of_UB_HQ (hUB) (hQ)`**, for all ℓ ≥ 5.
+* **`atkin_obrien_13'''/17'''/19'''/23''' (hUB : UB ℓ) (hQ : HQ ℓ)`**: the final theorem on **two** hypotheses:
+  * UB: the U-column bounds;
+  * HQ: the sharp I2, v_i(Q) ≥ ⌈ℓi/(ℓ+1)⌉. This is level ℓ only.
+* Plan for sharp HQ: put the finitely many coefficients of the Δ-modular equation in the sharp class, then
+  apply the Hensel code. The coefficients would come pointwise, from:
+  * step (K) (unconditional);
+  * algebraicity (TorsionSpec/SubgroupSum);
+  * the Lie π̌ valuations (EllipticI2/QuotientHasse);
+  * a Newton-polygon bound on elementary symmetric functions.
