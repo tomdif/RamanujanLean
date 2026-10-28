@@ -728,3 +728,10 @@ So the **final theorem now rests on UB + hKer + QuotValBound**:
   * `AllQuotients.model_of_finSub` (integral good-reduction models);
   * `UpContraction.hasse_transport` with `QuotientHasse.hasse_quot_*` (the Hasse of the quotients);
   * Deligne (a ≡ E mod p), plus the ordinary-locus analogues.
+
+## Lean, round 38 (2026-10-29): QuotEBound on the supersingular locus (`RamanujanTau/QuotE/`, axiom-clean)
+* `hasse_quot_canonical_le`: v(a_{F/H}) ≥ min(pv, 1−v), including the boundary v = 1/(p+1).
+* `velu_models`: integral good-reduction models for all p+1 quotients, with μ- and E-norms.
+* **`quotEBound_ss` / `quotEBound_C_ss`**: all five clauses of QuotEBound whenever ‖E(W)‖ < 1.
+* **`QuotE.atkin_obrien_13/17/19/23_ordE (hord : OrdEBound ℓ (φC ℓ))`**: the final theorem's only hypothesis
+  is now the ordinary locus ‖E(W)‖ = 1.
