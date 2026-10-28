@@ -156,3 +156,28 @@ Citation status:
 * Katz 3.10.7 and Buzzard Thm 3.3 are checked against Buzzard's text.
 * Buzzard's 3.3 does not itself state the torsion valuations; those come from the proof of Katz 3.10.7.
 * Katz 2.6.2, 3.11.2 and 3.11.3, Katz Appendix 2, and Coleman's 1996 p. 221 are **unchecked**.
+
+## Lean, round 2 (2026-10-27): I2/I3 layers
+* `AtkinOBrien/I2.lean`:
+  * `Q12_identity`: Q^{12}·Δ^p = E^{12}·VΔ in ℤ⟦q⟧, cleared of denominators.
+  * `Ap_cong` / `Q_cong`: A_p ≡ 1 (mod p) by Frobenius, so Q ≡ 1 whenever E ≡ 1.
+  * `newton_break`: the slopes separate ⇔ v < p/(p+1).
+  * `lie_dual_noncanonical` / `lie_dual_canonical` / `lie_sum`: the cross-check v(Lie π̌) = v in both regimes.
+  * `Q_val`: the pointwise cancellation.
+  * `sharp_of_all_radii`: an integer n with i·ρ ≤ n for all ρ < p/(p+1) satisfies n ≥ ⌈pi/(p+1)⌉.
+  * `I3_radius`: the radius arithmetic behind I3.
+* `AtkinOBrien/Newton.lean`: **Newton-polygon theory over any ultrametric normed field**, built from scratch
+  because Mathlib has none.
+  * `dominant`: if ‖c_m‖ρ^m strictly dominates every other term, then exactly m roots of ∏(X − rᵢ) have
+    norm < ρ, none has norm ρ, and ‖c₀‖ = ‖c_m‖·∏_{small}‖rᵢ‖.
+  * `two_segment`: Katz's two-slope shape with the break condition ε^{N−m} < α^N. For [p](T)/T it yields
+    the p−1 canonical points with product norm |p|^{1−v}.
+
+### Remaining layers for a fully formal I2/I3 (not built; each is a large project)
+1. The formal group law of a Weierstrass curve over a ring, its [p]-series, and [p](T) ≡ V(T^p) (mod p) with
+   linear coefficient the Hasse invariant. Mathlib has `FormalGroup` but no elliptic one.
+2. Hasse invariant ≡ E_{p−1} (mod p) (Deligne/Serre, via the Tate curve and the q-expansion principle).
+3. The Lubin quotient formal group by a finite subgroup, with its Néron differential (Step 2 of I2).
+4. Katz modular forms as functions of (E, ω) over O_{ℂ_p}: the Tate curve, q-expansions, and V defined via π̌.
+5. Katz expansions and the reducedness of the integral model A[Y]/(EY − r) (simple zeros of Hasse/Igusa).
+Weierstrass preparation, needed to pass from the [p]-series to a polynomial, is already in Mathlib.

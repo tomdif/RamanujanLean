@@ -396,3 +396,5 @@ import RamanujanTau.LogConcave
 import RamanujanTau.AtkinOBrien.Envelope
 import RamanujanTau.AtkinOBrien.Induction
 import RamanujanTau.AtkinOBrien.Bridge
+import RamanujanTau.AtkinOBrien.I2
+import RamanujanTau.AtkinOBrien.Newton
