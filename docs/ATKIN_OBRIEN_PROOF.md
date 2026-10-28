@@ -321,3 +321,18 @@ Remaining links for I2 Step 2:
   root would make [p]′ vanish there, contradicting `nmul_invariant`.
 * Inverses come from [p−1].
 * The topology instances on the integer ring are supplied.
+
+## Lean, round 9 (2026-10-28): Vélu's formulas (`RamanujanTau/Velu/`, axiom-clean, ~1350 lines)
+Setting: the short form y² = x³ + Ax + B over a field with 2 ≠ 0, and a finite subgroup G of odd order.
+* `exists_kernel`: Vélu's data exist for every such subgroup.
+* E′: y² = x³ + (A−5t)x + (B−7w).
+* **`velu_equation_point`**: P ∉ G maps onto E′. The proof is purely algebraic: no poles at kernel points
+  via Taylor jets, plus valuation at infinity.
+* **`invariant_differential`**: dX/(2Y) = dx/(2y).
+* `curve_Δ`.
+* G-invariance, and X(P) = Σ_{V∈G} x(P+V) − Σ x(V).
+
+Not done:
+* the homomorphism E → E′ with kernel G;
+* Δ′ ≠ 0;
+* the general a₁…a₆ form.

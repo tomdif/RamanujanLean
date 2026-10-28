@@ -410,3 +410,4 @@ import RamanujanTau.ModP.SwinnertonDyer
 import RamanujanTau.LubinQuotient.LieBridge
 import RamanujanTau.EllipticFormal.All
 import RamanujanTau.CanonicalIsogeny.Integers
+import RamanujanTau.Velu.All
