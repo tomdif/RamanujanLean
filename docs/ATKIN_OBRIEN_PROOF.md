@@ -374,3 +374,19 @@ Not done:
   This is Deligne's congruence.
   * hT is still open; it is the only `sorry`, kept in an untracked WIP file.
   * Route: Tate's uniformization gives 𝔾̂ₘ ≅ formal group of Tate, and aH(𝔾̂ₘ) = 1.
+
+## Lean, round 13 (2026-10-29): Buzzard 3.3 for formal groups (`RamanujanTau/QuotientHasse/`, axiom-clean)
+Setting: F is a commutative formal group over the integers of an algebraically closed complete K, of
+height 2 and satisfying the break condition. C ranges over order-p subgroups.
+* **`hasse_quot_noncanonical`** (v): if C ≠ H, then F/C has height 2, ‖a_{F/C}‖^p = ‖a_F‖ (v/p), it
+  satisfies the break condition, and π(F[p]) lies in {0} ∪ Can(F/C).
+* **`hasse_quot_canonical`** (ii)/(iv): if C = H, then:
+  * v < 1/(p+1) ⇒ ‖a_{F/H}‖ = ‖a‖^p (p·v); **this is the formal-group content of I3**;
+  * 1/(p+1) < v ⇒ ‖a_{F/H}‖·‖a‖ = ‖p‖ (1 − v).
+* `quot_height`: F/C has height 2. The proof compares Weierstrass degrees.
+* `torsion_classify`: root norms of [p], via the converse of Newton.
+* `norm_pt_pis`.
+
+Hypotheses as stated:
+* C ≠ H appears as "C has no nonzero canonical point".
+* The canonical subgroup of the quotient is proved only as an inclusion.
