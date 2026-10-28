@@ -69,3 +69,17 @@ For ℓ = 29 and 31 everything holds except step 5 (`dim S_{ℓ−1} = 2`), matc
   * ℓ = 13: m ≤ 3, reproducing A–O's `K₂ = 45`.
 * (UB) and (DB) match exactly. (W) holds for `i ≤ 64`; (I2) holds within precision.
 * The digit pattern `(i+1)(ℓ−1)` of `L(b)` (a corollary of Step 3.1) is observed for ℓ = 17–31.
+
+## Lean status (`RamanujanTau/AtkinOBrien/`, axiom-clean: propext/choice/Quot.sound only)
+* `Envelope.lean`. Step 2 for every prime `p ≥ 13` and all Katz indices `i, j`:
+  * `U_step`: `α(i) − 1 ≤ max(0, β(j) − c) + u(i,j)` for `c ≤ 2`;
+  * `D_step`: the same inequality for `D`;
+  * `envelopes_ge_two`.
+* `Induction.lean`.
+  * `induction`: Step 3 as an abstract theorem over any ring where every element is a unit or a multiple of
+    `ϖ`, and any `ϖ`-torsion-free module. Its hypotheses are exactly Steps 2(1)/2(2), the
+    `dim S_{ℓ−1} = 1` leading-digit statement, Katz uniqueness, and Boylan–Webb `b(1) = 1` plus stability at
+    *some* level. Conclusion: `L(b+2) ≡ κ L(b) (mod ϖ^b)` for all `b ≥ 1`.
+  * `eta_identity`: `(E^s W)² = Q^p V(Q) G` in any commutative group with an endomorphism `V`.
+* **Not formalized:** (I1)–(I3). These need overconvergent forms, Katz expansions and the canonical
+  subgroup, none of which exist in Mathlib. They enter only through the hypotheses of `induction`.
