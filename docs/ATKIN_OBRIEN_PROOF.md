@@ -668,3 +668,14 @@ Remaining:
   * route (B), Dwork plus modular equation, cannot reach the sharp radius alone;
   * the plausible algebraic replacement for GeomU: write ℓUf as a polynomial in classical symmetric
     functions and the canonical root, using the same sharp modular-equation machinery as SharpHQ.
+
+## Lean, round 34 (2026-10-29): HConj algebraicity (`RamanujanTau/ConjAlg/`, axiom-clean)
+* `newton_poly`: the coefficients of the Δ-modular equation satisfy Newton's identities with the Hecke power
+  sums `sigP`.
+* `algebraicity_conj_C`: f_k(W) = e_k(Δ(veluC G_c)) at every test curve over ℂ_ℓ. The y_C are the Vélu
+  quotients of the u = 1 short model.
+* **`HConj_C_of_val (hKer) (hV : QuotValBound ℓ (φC ℓ)) : HConj ℓ (φC ℓ)`**.
+
+So the **final theorem now rests on UB + hKer + QuotValBound**:
+* hKer: the Tate addition theorem;
+* QuotValBound: the valuation bounds on the Vélu quotients.
