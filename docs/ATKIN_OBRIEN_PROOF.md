@@ -679,3 +679,17 @@ Remaining:
 So the **final theorem now rests on UB + hKer + QuotValBound**:
 * hKer: the Tate addition theorem;
 * QuotValBound: the valuation bounds on the Vélu quotients.
+
+## Lean, round 35 (2026-10-29): Tate addition theorem, and the current main theorem
+* `RamanujanTau/TateAdd/` (~10 files, axiom-clean):
+  * **`chord_R3`**: Tate's parametrization is additive, P(u)+P(v) = P(uv), as a formal identity. The proof
+    applies a derivation-uniqueness argument in ℚ⟦a⟧⟦X⟧⟦b⟧.
+  * `TorsData` gives group closure.
+  * **`tateKernels`**: `HeckeBridge.TateKernels` holds for every p ≥ 5.
+* `ConjAlg/NoKer.lean`: **`HConj_C_of_val'`**, HConj from QuotValBound alone.
+* **`AtkinOBrienMain.atkin_obrien_13/17/19/23 (hUB : UB ℓ) (hV : QuotValBound ℓ (φC ℓ))`**: THE CURRENT MAIN
+  THEOREM. It has two explicit hypotheses:
+  * UB: the U_ℓ column bounds;
+  * QuotValBound: at every break-region test curve over ℂ_ℓ,
+    * ‖Δ(W/H)‖·‖E(W)‖¹² ≤ ‖ℓ‖¹² for the canonical H;
+    * ‖Δ(W/C)‖^ℓ ≤ ‖E(W)‖¹² for C ≠ H.

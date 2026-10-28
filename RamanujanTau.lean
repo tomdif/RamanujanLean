@@ -445,3 +445,6 @@ import RamanujanTau.VeluDescent.Main
 import RamanujanTau.SharpHQ.Final
 import RamanujanTau.UBound.Cp
 import RamanujanTau.ConjAlg.HConj
+import RamanujanTau.TateAdd.Final
+import RamanujanTau.ConjAlg.NoKer
+import RamanujanTau.AtkinOBrienMain.Main
