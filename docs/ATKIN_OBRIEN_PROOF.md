@@ -307,3 +307,17 @@ Remaining links for I2 Step 2:
 * **The invariant differential** `Ψ_formalGroup`: ω = dz/(1 − a₁z − a₂z² − 2a₃w − 2a₄zw − 3a₆w²),
   equivalently Silverman's dx/(2y + a₁x + a₃).
 * Scaling: F_{u•W}(uz₁, uz₂) = u·F_W(z₁, z₂). Δ scales by u⁻¹² (Mathlib).
+
+## Lean, round 8 (2026-10-28): Step 2 of I2 end to end (`RamanujanTau/CanonicalIsogeny/`, axiom-clean)
+* **`exists_dual_isogeny_lie_integers`**. Setting: F is a commutative formal group over the integer ring of
+  a complete ultrametric field K. Assume:
+  * height ≤ 2;
+  * the break condition v(a) < p/(p+1);
+  * a Weierstrass factorization of [p](T)/T, with roots in the integer ring.
+
+  Conclusion: there are a formal group G and homomorphisms π: F → G, π̌: G → F with π̌∘π = [p] and
+  ‖Lie π̌‖ = ‖a‖.
+* H is built from the small roots (`root_iff`, `injOn_roots`). Simplicity of the roots is *proved*: a double
+  root would make [p]′ vanish there, contradicting `nmul_invariant`.
+* Inverses come from [p−1].
+* The topology instances on the integer ring are supplied.
