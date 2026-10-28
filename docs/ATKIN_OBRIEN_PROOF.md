@@ -705,3 +705,26 @@ So the **final theorem now rests on UB + hKer + QuotValBound**:
 * **`AtkinOBrienMain.atkin_obrien_ℓ_ord (hUB) (hord : OrdBound)`**. The remaining hypotheses are:
   * UB;
   * OrdBound: ‖Δ(W/H)‖ ≤ ‖ℓ‖¹² and ‖Δ(W/C)‖ ≤ 1 on the ordinary locus ‖E(W)‖ = 1.
+
+## Lean, round 37 (2026-10-29): UB without GeomU; the final theorem on ONE hypothesis (`RamanujanTau/UBSharp/`, axiom-clean)
+* **`UB_of_quot`**: UB follows from the pointwise `QuotBound`. The proof:
+  * fix the precision N and one radius s;
+  * U(b/E^j) ≡ T_ℓ(b·E^{R−j})/E^R (mod ℓ^N) with R = (j+1)ℓ^n, which is a finite Katz series;
+  * pointwise, ℓT_ℓF(W) = Σ_C F(W/C);
+  * the non-canonical terms obey the sharp bound, and the canonical term is ρ^{R−j}-negligible;
+  * then step (K) at that radius, and `isKatz_of_Ap`.
+* `HConj_of_quotBound`.
+* **`QuotEBound`** consists of the QuotValBound Δ-bounds plus three further clauses:
+  * ‖E(veluC H)‖·‖E(W)‖^ℓ ≤ max(‖ℓ‖^{ℓ−1}‖E(W)‖^{ℓ+1}, ‖ℓ‖^ℓ);
+  * ‖E(veluC C)‖ ≤ ‖E(W)‖ for C ≠ H;
+  * integrality: ‖c₄‖³, ‖c₆‖² ≤ ‖Δ‖.
+* **`UBSharp.atkin_obrien_13/17/19/23_velu (hE : QuotEBound ℓ (φC ℓ))`**: the final theorem on this single
+  pointwise hypothesis about the Vélu quotients of test curves over ℂ_ℓ.
+* Sanity check that the hypothesis is true, via the Vélu scaling v(E(veluC C)) = (ℓ−1)v(μ_C) + v(E(model)):
+  * canonical H: (ℓ−1)(1−v) + v(W/H), with v(W/H) ≥ min(ℓv, 1−v) by Buzzard 3.3;
+  * non-canonical C: (ℓ−1)v/ℓ + v/ℓ = v.
+  * The ordinary case is consistent too.
+* Remaining: QuotEBound itself. It should follow from:
+  * `AllQuotients.model_of_finSub` (integral good-reduction models);
+  * `UpContraction.hasse_transport` with `QuotientHasse.hasse_quot_*` (the Hasse of the quotients);
+  * Deligne (a ≡ E mod p), plus the ordinary-locus analogues.
