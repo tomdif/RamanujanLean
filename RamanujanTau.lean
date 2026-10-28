@@ -401,3 +401,4 @@ import RamanujanTau.AtkinOBrien.Newton
 import RamanujanTau.FormalGroupLayer.CharP
 import RamanujanTau.FormalGroupLayer.HeightTwo
 import RamanujanTau.AtkinOBrien.Canonical
+import RamanujanTau.AtkinOBrien.Lie
