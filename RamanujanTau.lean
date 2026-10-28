@@ -443,3 +443,4 @@ import RamanujanTau.HeckeBridge.Main
 import RamanujanTau.HeckeBridge.Final
 import RamanujanTau.VeluDescent.Main
 import RamanujanTau.SharpHQ.Final
+import RamanujanTau.UBound.Cp

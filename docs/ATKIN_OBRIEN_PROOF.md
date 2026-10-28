@@ -656,3 +656,15 @@ Remaining:
 * Inputs for HConj:
   * algebraicity: the subgroup sums from `HeckeBridge.subSum_hecke` (P = Δ^m), plus Newton's identities;
   * valuations: from the quotient models (AllQuotients).
+
+## Lean, round 33 (2026-10-29): UB reduction (`RamanujanTau/UBound/`, axiom-clean)
+* **`U_isKatz`**: U(b/E^j) has an integral Katz expansion, unconditionally. The proof uses T_ℓ on classical
+  forms over ℤ_ℓ (`exists_hecke_Zp`), E^{jℓ^n} ≡ 1, and `decompN`.
+* `UB_of_geom` / `UB_of_geom_models` / `UB_of_geom_Cp`: UB follows from two hypotheses:
+  * QuotHyp, Buzzard 3.3(v) on curves;
+  * **GeomU**: overconvergence of U(b/E^j), plus the identity ℓ·Uf(W) = Σ_{C≠H} f(W/C) on the break region.
+* `atkin_obrien_ℓ_Cp (Q) (hQ) (hG) (hHQ)` over ℂ_ℓ.
+* Assessment:
+  * route (B), Dwork plus modular equation, cannot reach the sharp radius alone;
+  * the plausible algebraic replacement for GeomU: write ℓUf as a polynomial in classical symmetric
+    functions and the canonical root, using the same sharp modular-equation machinery as SharpHQ.
