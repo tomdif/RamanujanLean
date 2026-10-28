@@ -438,3 +438,18 @@ Hypotheses as stated:
 * `HasseInv/Unconditional.lean`: **a ≡ E_{p−1}(E, ω) (mod p) unconditionally** (`coeff_nmul_sub_hasseA_mem'`).
   It also gives hassePoly = Ā (Deligne).
 * The WIP file with the last sorry is deleted.
+
+## Lean, round 18 (2026-10-29): Boylan–Webb inputs (`RamanujanTau/BoylanWebb/`, axiom-clean, ~2.2k lines)
+* L_ℓ(b) are defined exactly as in Boylan–Webb. `L_eq_partition` links them to p(n), and `L_cuspidal` gives
+  cuspidality.
+* **`two_step_mod_ell`**: L(b+2) ≡ κ L(b) (mod ℓ) for **all** b ≥ 1. The constants are κ = 6, 6, 10, 5 for
+  ℓ = 13, 17, 19, 23. `partition_count_ℓ` gives the corresponding congruence for partition numbers.
+* `hnz_ℓ`: L(b) ≢ 0 (mod ℓ). `CertX.rank_one`: L(b) mod ℓ lies on the line spanned by the weight-(ℓ−1) cusp
+  form. Both are proved by kernel certificates (`decide +kernel`) plus the Sturm bound (`sturm`, new).
+* **`induction_seq` / `induction_padic`**: a variant of Step 3 that **no longer needs Boylan–Webb stability
+  (hstab) or hnz**. The leading-digit correction is absorbed into the constant, K_{j+1} = K_j + ϖ^{j+1}d. The
+  same correction works for all β ≥ j+1, because L(β+1) = T L(β) propagates it. The ℓ-adic limit κ_lim then
+  works at every level.
+* Remaining inputs to `induction_padic`:
+  * hT, hdiv, hL: Steps 1–2 plus Katz uniqueness, on an actual module M of overconvergent forms;
+  * hlead: the S_{ℓ−1}-leading digit.

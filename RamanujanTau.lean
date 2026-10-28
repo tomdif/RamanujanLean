@@ -422,3 +422,5 @@ import RamanujanTau.Igusa.Unconditional
 import RamanujanTau.HeightEll.Reduce
 import RamanujanTau.TateFormal.Deligne
 import RamanujanTau.HasseInv.Unconditional
+import RamanujanTau.BoylanWebb.Main
+import RamanujanTau.BoylanWebb.InductionSeq
