@@ -6,7 +6,9 @@
   `p((ℓ^{m+2}n + 1)/24) ≡ κ_ℓ · p((ℓ^m n + 1)/24)   (mod ℓ^m)`.
 
 Equivalently, `b_ℓ(m) = m` in Boylan–Webb's notation. For ℓ = 13 this is Atkin–O'Brien (1967). For ℓ = 17, 19, 23
-it improves Boylan–Webb's `b_ℓ(m) ≤ 2m − 1`. **Status (2026-10-27):** (I2) and (I3) are now proved from standard published results: Katz's canonical-subgroup
+it improves Boylan–Webb's `b_ℓ(m) ≤ 2m − 1`. **Status (2026-10-29): PROVED IN LEAN, UNCONDITIONALLY** — `OrdQuot.atkin_obrien_13/17/19/23` (`RamanujanTau/OrdQuot/Atkin.lean`), no hypotheses, axioms `[propext, Classical.choice, Quot.sound]` only. Still needs human expert review of the mathematics and of the formal statement.
+
+**Earlier status (2026-10-27):** (I2) and (I3) are now proved from standard published results: Katz's canonical-subgroup
 theorem, Lubin's quotient, Katz expansions, Vonk Thm B, and Boylan–Webb. See "Proof of I2 and I3" below. The
 whole argument still needs a check by a p-adic modular-forms expert before any claim is made.
 
@@ -735,3 +737,17 @@ So the **final theorem now rests on UB + hKer + QuotValBound**:
 * **`quotEBound_ss` / `quotEBound_C_ss`**: all five clauses of QuotEBound whenever ‖E(W)‖ < 1.
 * **`QuotE.atkin_obrien_13/17/19/23_ordE (hord : OrdEBound ℓ (φC ℓ))`**: the final theorem's only hypothesis
   is now the ordinary locus ‖E(W)‖ = 1.
+
+## Lean, round 39 (2026-10-29): ORDINARY LOCUS — THE THEOREM IS UNCONDITIONAL (`RamanujanTau/OrdQuot/`, axiom-clean)
+* `ord_torsion`: for height 1, the disc p-torsion has p points, and their product norm is ‖p‖.
+* `lift_point`: non-integral points lie in the formal group.
+* `exists_integral_model`: the μ-scaled Vélu quotient is integral.
+* **`prodDelta_C`**: ∏_C Δ(W/C) = ℓ¹²Δ(W)^{ℓ+1}. This is the constant term of the Δ-modular equation, and it
+  forces good reduction of the quotients on the ordinary locus.
+* `ordEBound_C'`: OrdEBound, unconditionally.
+* **`OrdQuot.atkin_obrien_13/17/19/23`** (no hypotheses). There is κ ∈ ℤ_ℓ, with κ ≡ 6, 6, 10, 5 (mod ℓ), such
+  that for all m ≥ 1 and n with 24 ∣ ℓ^m n + 1:
+  `ℓ^m ∣ #Partitions((ℓ^{m+2}n+1)/24) − κ·#Partitions((ℓ^m n+1)/24)` in ℤ_ℓ.
+* Numerical cross-check:
+  * m = 1 holds for all four primes, tested over many n;
+  * for ℓ = 13, m = 2, the data forces κ ≡ 45 (mod 169), Atkin–O'Brien's K₂.

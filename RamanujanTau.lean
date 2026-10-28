@@ -453,3 +453,4 @@ import RamanujanTau.AllQuotients.SS
 import RamanujanTau.AtkinOBrienMain.Ord
 import RamanujanTau.UBSharp.Final
 import RamanujanTau.QuotE.Combine
+import RamanujanTau.OrdQuot.Atkin
