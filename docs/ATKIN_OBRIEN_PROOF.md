@@ -83,3 +83,34 @@ For ℓ = 29 and 31 everything holds except step 5 (`dim S_{ℓ−1} = 2`), matc
   * `eta_identity`: `(E^s W)² = Q^p V(Q) G` in any commutative group with an endomorphism `V`.
 * **Not formalized:** (I1)–(I3). These need overconvergent forms, Katz expansions and the canonical
   subgroup, none of which exist in Mathlib. They enter only through the hypotheses of `induction`.
+* `Bridge.lean`. `bridge`, `U_maps`, `D_maps`: the coordinate-level form of `hT`.
+  * Model: Katz coordinates are `f : ℕ → M` and operator blocks are `T i j`.
+  * If (UB) holds, i.e. `T i j` raises ϖ-divisibility by `u(i,j)`, which may be negative, then
+    `Σ_j U i j (f j)` lies in the α-envelope whenever `f` lies in the β-envelope.
+  * The same holds for D with (DB).
+  * This uses only `U_step` and `D_step` together with the ultrametric inequality.
+
+## Assessment of the I2/I3 citation proposal (2026-10-27)
+An outside proposal tried to supply I2 and I3 from Katz 1973, Newman 1959 and Ramsey's appendix to
+Folsom–Kent–Ono. I checked it against the definitions used here.
+* **I3 (V: B_E(r^p) → B_E(r)) is standard.** It is Katz's Frobenius on overconvergent forms (LNM 350,
+  §3.10–3.11; the canonical-subgroup theorem gives `v(E_{p−1}(E/C)) = p·v(E_{p−1}(E))` for `v < 1/(p+1)`).
+  It is the same input Vonk uses for Theorem B. Downgrade I3 from "open" to "cited". The exact numbering in
+  Katz still needs checking against the text.
+* **Newman's criterion holds for our actual W.** `W = η(p²z)/η(z)^{p²}` satisfies Σδr_δ = 0,
+  Σ(p²/δ)r_δ = 1 − p⁴ ≡ 0 (mod 24), and Πδ^{r_δ} = p². So W is a level-p² form of weight −(p²−1)/2, and
+  `E^s W` is a genuine weight-0 function on X₀(p²). The proposal conflated W with Φ = η(p²z)/η(z) = Δ^δ W.
+  The conclusion survives.
+* **Root extraction.** The binomial series `(1+x)^{1/2}` (or `^{1/12}`, since p ∤ 12) together with
+  q-expansion uniqueness already does this. Spectral-norm multiplicativity is not needed.
+* **Error in the proposal.** Its Ĝ carries a spurious Δ^{p²−1}. The correct 12th-power form is
+  `(E^sW)^{24} = Q̂^p V(Q̂) (E/V E)^{12}` with `Q̂ = Q^{12} = E^{12} V(Δ)/Δ^p`, where all q-powers cancel.
+* **I2 is still not supplied.**
+  * Katz's integral model is `R[Y]/(E·Y − r^p)`. Its reduction has an ordinary component, where Q ≡ 1 by
+    the q-expansion principle, and supersingular components, where Q mod 𝔪 sees `a_i r^{−pi}`.
+  * So I2 is *equivalent* to: `Q = E_{p−1}/A_p`, where `A_p = η^{2p}/η(pz)²` is the Γ₀(p)-lift of Hasse,
+    has Katz coefficients `v(a_i) > p·i·v(r)`, i.e. Q overconverges integrally to radius `p/(p+1)`.
+  * This is a sharp-radius statement. None of the cited results states it. Ramsey's FKO appendix is
+    qualitative (half-integral weight, ordinary projector) and gives no radius.
+  * Numerically `v_i(Q) ≥ ⌈pi/(p+1)⌉` (`fq.py`), which is consistent.
+  * Plausible route: compare `A_p(x)` with the derivative of the dual of the canonical isogeny (Katz 3.10.7).

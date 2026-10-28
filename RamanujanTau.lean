@@ -395,3 +395,4 @@ import RamanujanTau.Rademacher.Classical
 import RamanujanTau.LogConcave
 import RamanujanTau.AtkinOBrien.Envelope
 import RamanujanTau.AtkinOBrien.Induction
+import RamanujanTau.AtkinOBrien.Bridge
