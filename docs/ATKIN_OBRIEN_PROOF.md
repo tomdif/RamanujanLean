@@ -280,3 +280,20 @@ Not done:
 * separation across different weight classes, which needs θ and Ramanujan's identities;
   the downstream proof only uses weights i(p−1), so this is not needed;
 * the bridge from actual ℤ_p-forms to polynomials.
+
+## Lean, round 6 (2026-10-28): Lubin's quotient (`RamanujanTau/LubinQuotient/`, axiom-clean, ~1600 lines)
+Setting: O is a complete, Hausdorff, linearly topologized domain; F is a commutative formal group over O;
+H ⊂ O is a finite subgroup of topologically nilpotent points.
+* π(X) = ∏_{h∈H} F(X,h) has a Weierstrass factorization `pis_factor`.
+* Lubin's invariance lemma: `descent`, `inj`. A translation-invariant series is a series in π.
+* **The quotient formal group** `quot S` (commutative): π is a homomorphism (`pis_hom`), and it is
+  unique (`quot_unique`).
+* **The dual** `exists_dual`: if H ⊂ F[p], there is a unique π̌ with π̌∘π = [p], and π̌ is a homomorphism
+  (`dual_hom`).
+* `LieBridge.lie_dual_lubin`: feeds `Lie.lie_dual` directly. Given the canonical-subgroup norm relation,
+  ‖Lie π̌‖ = ‖a‖.
+
+Remaining links for I2 Step 2:
+* identify H with the small roots of `Canonical.canonical_subgroup`, i.e. show the small roots form a
+  subgroup lying in O;
+* install the topology instances for a complete DVR.
