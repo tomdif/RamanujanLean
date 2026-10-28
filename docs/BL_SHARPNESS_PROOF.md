@@ -44,11 +44,18 @@ whose exact statement still has to be checked against the source. [N] numerical 
    ℓ = 859.
 2. **Rank attainment (b) is FALSE as stated.** ℓ = 607 is a counterexample; see §5. The correct statement:
    * the unit-root part always has rank exactly R (by Theorem A);
-   * the stable module ℤ_ℓ[X]·e_Y L(1) mod ℓ^m is free of rank R for all m **iff** L̄(1) is a cyclic vector
-     for T_{ℓ²} on S_{λ+1/2}(1, ν_η^{−ℓ}) ⊗ 𝔽_ℓ.
+   * **if** L̄(1) is a cyclic vector for T_{ℓ²} on S_{λ+1/2}(1, ν_η^{−ℓ}) ⊗ 𝔽_ℓ, then the stable module
+     ℤ_ℓ[X]·e_Y L(1) mod ℓ^m is free of rank R for every m. This follows from Nakayama.
+   * The converse (non-cyclic mod ℓ ⇒ deficit at every m) is **not** automatic and needs a lattice argument
+     (gap G6). For example, A = diag(1, 1+ℓ) with y = (1,1) generates a rank-2 lattice whose image mod ℓ is
+     1-dimensional.
+   * The exceptional primes are characterized by **failure of L̄(1) to generate the space**. They are *not*
+     characterized by repeated eigenvalues: non-cyclicity can occur with distinct eigenvalues, and an operator
+     with a repeated eigenvalue can still have a cyclic vector.
 
-   This is an arithmetic condition. It fails at ℓ = 607: charpoly(T_{607²}) has a repeated root −367, and the
-   Krylov rank is 24 = R − 1 (§5.2). Heuristically it fails with probability ≍ 1/ℓ, which means infinitely many
+   At ℓ = 607 the obstruction is a 2-dimensional eigenspace of −367 (geometric multiplicity 2). That is a
+   *sufficient* obstruction: no vector is cyclic, and the Krylov rank is 24 = R − 1 mod ℓ (§5.2). BW's deficit
+   at all m is their computation. Heuristically it fails with probability ≍ 1/ℓ, which means infinitely many
    but sparse exceptions (§5.3).
 3. **Lower bound b_ℓ(m) ≥ 2m − 1 [reduced; O].**
    * b_ℓ(m) = 2m − 1 for all m is *equivalent* to the non-vanishing Θ^k ū₀ ≠ 0 for all k. Here Θ is an
@@ -345,11 +352,15 @@ Asymptotically: if (i) holds, then b_ℓ(m) ≥ 2m − C_ℓ for all m iff the s
 
 ### 5.1 Exact criterion [P]
 Assume Theorem A. Then Y has rank R and the stable module is Ω(m) = ℤ_ℓ[X]y mod ℓ^m.
-* Ω(m) is free of rank R for all m ⟺ ȳ = L̄(1) is a cyclic vector of X̄|_V ≅ T_{ℓ²}|𝒮 ⊗ 𝔽_ℓ.
+* ⟸ [P, Nakayama]: if ȳ = L̄(1) is a cyclic vector of X̄|_V ≅ T_{ℓ²}|𝒮 ⊗ 𝔽_ℓ, then Ω(m) is free of rank R for all m.
+* ⟹ [O, gap G6]: needs a lattice argument. Non-cyclicity mod ℓ does not by itself force a deficit at higher
+  precision (counter-pattern A = diag(1,1+ℓ), y = (1,1)).
 * Since z̄ = 0, we have ȳ = L̄(1) = η(ℓz)·U_ℓ(1/η).
 * "Cyclic" means the Krylov span of (p(ℓn − ρ))_{n ≤ R} under Ξ is all of 𝔽_ℓ^R.
-* This needs (i) T_{ℓ²} mod ℓ to be cyclic (minimal polynomial = characteristic polynomial), and (ii) L̄(1)
-  to have a nonzero component in each primary component.
+* Cyclicity of L̄(1) needs (i) T_{ℓ²} mod ℓ to be cyclic (minimal polynomial = characteristic polynomial),
+  and (ii) L̄(1) to have a nonzero component in each primary component.
+* Exceptions are defined by failure of cyclicity of L̄(1). Repeated eigenvalues are neither necessary nor
+  sufficient for this in general; a geometric multiplicity ≥ 2 is a sufficient obstruction.
 
 The mod-ℓ rank r_ℓ(1) equals the Krylov rank of L̄(1).
 
@@ -469,3 +480,22 @@ harmless, because AL eigenvalues are rational.
 * So pari's convention, yang.gp's keys and Yang's ε₂, ε₃ all agree.
 * The sign question raised in the §3.2 Remark (ℓ = 859) is settled by the theorem itself: the class is
   (·, −(3/ℓ)), not (·, +(3/ℓ)).
+
+## External review 2 (2026-10-29)
+* **Yang.** Independently confirmed: Theorem 1 (p. 5) with r = 24 − j and s = (ℓ+j−26)/2 gives the
+  identification, with signs −(2/ℓ), −(3/ℓ) and the twist. Prop. 11 (p. 10) gives the Hecke normalization.
+* **ℓ = 859.** Independently recomputed by the brute-force ℓ²R method: ~2.6·10⁷ coefficients, 4.5 min,
+  3.5 GB. Results:
+  * dim 36, rank 36, **det 318 mod 859**, Krylov rank 36, squarefree charpoly. All agree with our O(ℓd)
+    composition method.
+  * Before the run, the optimized code was checked against the original script's full matrices at 15 smaller
+    primes.
+* **Θ.** Reproduced for all 21 primes 29 ≤ ℓ ≤ 113.
+  * Sharpness **for every m** still depends on the operator reduction and the truncation justification (§4.3),
+    which are not yet written out.
+* **Corrections applied** (§0 item 2, §5.1):
+  * exceptions are characterized by non-cyclicity, not by repeated eigenvalues;
+  * the mod-ℓ ⇒ all-precision deduction needs a lattice argument (G6), with counter-pattern diag(1,1+ℓ).
+* **Assessment.** Theorem A and the d_ℓ = 0 argument are substantially more credible and warrant specialist
+  review as a proposed paper proof. The higher-precision rank and the all-m sharpness claims keep their
+  separate qualifications.
