@@ -297,3 +297,13 @@ Remaining links for I2 Step 2:
 * identify H with the small roots of `Canonical.canonical_subgroup`, i.e. show the small roots form a
   subgroup lying in O;
 * install the topology instances for a complete DVR.
+
+## Lean, round 7 (2026-10-28): the formal group of a Weierstrass curve (`RamanujanTau/EllipticFormal/`, axiom-clean, ~1540 lines)
+* w(z): fixed point, uniqueness, and the coefficients z³ + a₁z⁴ + (a₁²+a₂)z⁵ + ⋯, all over any commutative ring.
+* The chord law F_W. Associativity and commutativity come from Mathlib's group law on W(Frac R⟦σ⟧),
+  first over the universal curve over ℤ[A₁,…,A₆], then specialized.
+  * **`formalGroup W : FormalGroup R`** for every commutative ring R.
+  * It is commutative, and compatible with base change (`formalGroup_map`).
+* **The invariant differential** `Ψ_formalGroup`: ω = dz/(1 − a₁z − a₂z² − 2a₃w − 2a₄zw − 3a₆w²),
+  equivalently Silverman's dx/(2y + a₁x + a₃).
+* Scaling: F_{u•W}(uz₁, uz₂) = u·F_W(z₁, z₂). Δ scales by u⁻¹² (Mathlib).
