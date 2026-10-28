@@ -751,3 +751,38 @@ So the **final theorem now rests on UB + hKer + QuotValBound**:
 * Numerical cross-check:
   * m = 1 holds for all four primes, tested over many n;
   * for ℓ = 13, m = 2, the data forces κ ≡ 45 (mod 169), Atkin–O'Brien's K₂.
+
+## Audit (2026-10-29): soundness and non-circularity of `OrdQuot.atkin_obrien_13/17/19/23`
+Reproduce with `lake env lean scripts/audit/atkin_obrien_closure.lean`.
+* **No logical circularity.** Lean's kernel only accepts a declaration whose proof term refers to
+  previously-defined constants, so the dependency graph is acyclic by construction.
+* **The theorems take no hypotheses** (`#check`).
+* **Full dependency closure.** About 90,550 constants, about 5,380 of them defined in this repo.
+  * The only axioms are `propext`, `Quot.sound` and `Classical.choice`.
+  * `sorryAx` is absent.
+* **Source scan of all 727 files:**
+  * no `axiom` declarations;
+  * no `native_decide` / `ofReduceBool`;
+  * no `unsafe` / `implemented_by` / `extern` / `csimp` / `opaque`;
+  * no declaration-adding metaprograms;
+  * no kernel-skipping options;
+  * no WIP files.
+  * All `sorry` occurrences are in comments or docstrings, confirmed by the closure check.
+* **The statement means what it says.** Every constant in it is from Lean core or Mathlib:
+  * `Nat.Partition` with Mathlib's `Fintype` instance;
+  * `PadicInt`;
+  * Mathlib's `semigroupDvd`;
+  * casts.
+
+  The single repo constant is `Fact (Nat.Prime 13)`. It is a proof of a true Prop and cannot change the
+  meaning.
+* **No hidden hypotheses at the mathematical level.** Every intermediate hypothesis introduced during the
+  development (UB, DB, HQ, HV, HG, HVQ, HConj, QuotValBound, QuotEBound, OrdBound, OrdEBound, hKer, hAlg, hT,
+  R1, R2, RamanujanODE, Deligne, …) was eventually *proved*. Otherwise the final theorems would still carry it
+  as an argument.
+* **Numerical cross-check:**
+  * m = 1 against p(n) for all four primes;
+  * ℓ = 13, m = 2 forces κ ≡ 45 (mod 169), Atkin–O'Brien's K₂.
+* **Not done:** an independent re-check of the `.olean` files with `lean4checker`. It guards against
+  tampered build artifacts. No metaprograms in the repo could cause that, but it is the remaining belt-and-braces
+  step.
