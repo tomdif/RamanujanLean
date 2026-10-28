@@ -628,3 +628,17 @@ Remaining:
   (`hKer`). hKer is the Tate addition theorem, being done in TateAdd.
 * `exists_subs_finset`: there are exactly p+1 order-p subgroups. `exists_quotEnum` gives enumerations with a
   prescribed index-0 subgroup.
+
+## Lean, round 31 (2026-10-29): integral descent (`RamanujanTau/VeluDescent/`, axiom-clean, ~2200 lines)
+* **`exists_integral_descent`**: there is θ ∈ 𝒪⟦T⟧ with θ∘π = μ·φ_κ.
+* **`exists_step2_with_link`**: for good-reduction short curves, Step 2 holds together with a
+  `VeluLubinLink` for the canonical quotient. So **I2 Step 3 (v(Q(x)) = 0) is unconditional for short
+  curves** via `EllipticI2.step3_of_link`. The proof route:
+  * invariant series built from w(F(z,h));
+  * pair identities from the chord law;
+  * N₁ factors over the 2-torsion translates;
+  * the denominator is a unit (pure algebra);
+  * descent via `Lubin.descent`;
+  * cube roots, and integrality from the Ω-coefficients −A/3, −2B/3.
+* Remaining: the reduction from a general Weierstrass curve to short form, i.e. formal-group isomorphisms
+  under (u,r,s,t) changes. This is needed by UpContraction/EllipticI2 statements for general W.
