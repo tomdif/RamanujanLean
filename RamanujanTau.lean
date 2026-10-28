@@ -424,3 +424,6 @@ import RamanujanTau.TateFormal.Deligne
 import RamanujanTau.HasseInv.Unconditional
 import RamanujanTau.BoylanWebb.Main
 import RamanujanTau.BoylanWebb.InductionSeq
+import RamanujanTau.EllipticI2.Step2
+import RamanujanTau.EllipticI2.Step3
+import RamanujanTau.EllipticI2.LogHom

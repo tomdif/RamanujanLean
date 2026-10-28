@@ -453,3 +453,20 @@ Hypotheses as stated:
 * Remaining inputs to `induction_padic`:
   * hT, hdiv, hL: Steps 1–2 plus Katz uniqueness, on an actual module M of overconvergent forms;
   * hlead: the S_{ℓ−1}-leading digit.
+
+## Lean, round 19 (2026-10-29): I2 for elliptic curves (`RamanujanTau/EllipticI2/`, axiom-clean)
+* **`elliptic_step2` / `elliptic_step2_E`**: for a good-reduction W over the integers of an algebraically
+  closed complete K with ‖p‖ > 0 and 0 < v(E_{p−1}(W)) < p/(p+1), there are π, π̌ with π̌∘π = [p] and
+  ‖Lie π̌‖ = ‖E_{p−1}(W)‖. **This is Step 2 of I2 for curves, unconditional.**
+  * Supporting lemma: `norm_hasse_eq_norm_Ep_of_break`.
+* **`step3_of_link`**: given a `VeluLubinLink`, the pointwise statement v(Q(x)) = 0 follows, i.e.
+  ‖E‖¹²·‖Δ(E′, π̌^*ω)‖/‖Δ‖^p = 1. A `VeluLubinLink` consists of:
+  * a good-reduction curve W′;
+  * an isomorphism-like hom formalGroup(W′) → G with unit Lie derivative.
+* `Log.hom_of_invariant`: in characteristic 0, matching invariant differentials force a homomorphism. This
+  is the converse of `hom_invariant`, built via the formal logarithm.
+* Remaining (untracked WIP): construct the link.
+  * Formal Vélu series and the chain rule.
+  * Points of H in E(K).
+  * Translation invariance, then `Lubin.quot_unique`.
+  * Integrality and good reduction of E/H.
