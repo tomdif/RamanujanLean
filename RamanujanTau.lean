@@ -434,3 +434,5 @@ import RamanujanTau.HeckeQExp.Bridge
 import RamanujanTau.DBound.Final
 import RamanujanTau.VeluLubin.Final
 import RamanujanTau.SubgroupSum.All
+import RamanujanTau.TateQuot.Main
+import RamanujanTau.TateQuot.Link

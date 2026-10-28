@@ -565,3 +565,16 @@ Remaining for hU:
   * R1: x-coordinates of torsion points are integral, via the division-polynomial link nP = 0 ⟹ ψ_n(x) = 0.
   * R2: specialization from the universal curve to every nonsingular curve. This needs the generic E[p] to
     have p² points, plus a ring map from the integral closure.
+
+## Lean, round 26 (2026-10-29): Vélu quotients of the Tate curve (`RamanujanTau/TateQuot/`, axiom-clean, ~2300 lines)
+* **`ptR_veluQuot`**: for every one of the p+1 kernels, Vélu's formulas applied to the explicit Tate kernel
+  points give the ptR (c₄, −c₆) of `tateQuot`: Tate(q^p) scaled by 1/p, and Tate(ζ^j t).
+* μ_p (`velu_mu_A`/`B`): Vélu's A′, B′ give p⁴E₄(q^p) and p⁶E₆(q^p). The root-of-unity constants are
+  −(p²−1)/12 etc.
+* The ⟨s⟩ kernels (`velu_sub_A`/`B`) give E₄, E₆, via Eulerian-polynomial and divisor-counting identities.
+* `zB2_eq`, `zB4_eq`: θ-derivative identities for Tate's x(u).
+* `hT_iff_velu`: hT ⟺ the hAlg identity over K⟦t⟧ at the short Tate model.
+
+Remaining:
+* the kernel points form subgroups under the group law (Tate addition theorem);
+* hAlg over the ring K⟦t⟧, which is the specialization R2 from the universal curve.
