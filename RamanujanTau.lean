@@ -399,3 +399,4 @@ import RamanujanTau.AtkinOBrien.Bridge
 import RamanujanTau.AtkinOBrien.I2
 import RamanujanTau.AtkinOBrien.Newton
 import RamanujanTau.FormalGroupLayer.CharP
+import RamanujanTau.FormalGroupLayer.HeightTwo

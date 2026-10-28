@@ -212,3 +212,15 @@ Still open for I2:
 * the elliptic formal group itself, with Hasse = E_{p−1} mod p;
 * Lubin's quotient;
 * Katz forms and his integral model.
+* `Endo.lean`:
+  * `nm_ev`: [n] is an endomorphism.
+  * **`hom_invariant`**: for a homomorphism f: G₁ → G₂, f′(T)·Ψ_{G₁}(T) = Ψ_{G₂}(f(T))·f′(0).
+* `HeightTwo.lean`:
+  * In characteristic p, `nmul_eq_expand` gives [p] = g(T^p).
+  * **`gV_hom`**: g is a homomorphism F^{(p)} → F, via F(X,Y)^p = F^{(p)}(X^p,Y^p) and injectivity of
+    `expand`.
+  * **`coeff_nmul_eq_zero_of_aH`**: if a = 0 then [p] ∈ R⟦T^{p²}⟧.
+  * **`mem_ideal_coeff_nmul`** (mixed characteristic): over any commutative ring, the coefficient of T^m in
+    [p](T) lies in the ideal (p, a) whenever p² ∤ m.
+  Together with `p_dvd_coeff_nmul`, these are exactly the coefficient bounds that `Newton.two_segment`
+  needs below the T^{p²} term.
