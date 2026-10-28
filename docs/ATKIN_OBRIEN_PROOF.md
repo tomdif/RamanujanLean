@@ -349,3 +349,16 @@ Not done:
 
   Conclusion: π, π̌ with π̌∘π = [p] and ‖Lie π̌‖ = ‖a‖. **Step 2 of I2 is formal with no structural
   hypotheses.** The ordinary case ‖a‖ = 1 is separate and trivial.
+
+## Lean, round 11 (2026-10-28): step (K), Katz series vs. sup norm (`RamanujanTau/KatzForms/`, axiom-clean)
+* **`katz_iff`** (abstract) and **`katz_iff_weierstrass`** (concrete: test objects are good-reduction
+  Weierstrass curves over an algebraically closed complete K). Statement: gnorm(bᵢ) ≤ ‖r‖^i for all i
+  ⟺ ‖f(W)‖ ≤ 1 on {‖E(W)‖ ≥ ‖r‖}, for 0 < ‖r‖ < 1.
+  * ⇒ is unconditional.
+  * ⇐ uses a dominance argument at ‖E‖ slightly above ‖r‖, plus a lifting lemma (`exists_lift`: Hensel
+    via `Newton.dominant`).
+  * Remaining hypothesis `SSDetect`: every element of B_i ⊗ K attains its Gauss norm at a supersingular
+    good-reduction point. Discharging it needs three things:
+    * existence of supersingular points;
+    * Igusa's theorem that Ā has simple zeros;
+    * a saturated basis of the pieces B_i.

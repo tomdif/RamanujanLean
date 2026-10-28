@@ -412,3 +412,4 @@ import RamanujanTau.EllipticFormal.All
 import RamanujanTau.CanonicalIsogeny.Integers
 import RamanujanTau.Velu.All
 import RamanujanTau.WeierstrassSupply.Supply
+import RamanujanTau.KatzForms.Concrete
