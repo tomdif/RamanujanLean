@@ -553,3 +553,15 @@ Remaining for hU:
 * The only remaining hypothesis is **integral descent (I1)**: ∃ θ ∈ 𝒪⟦T⟧ with θ∘π = μ·φ_κ.
   * Route: translation invariance of φ under H via Vélu `X_add_mem` over Frac K⟦z⟧, then `Lubin.descent`.
 * Also remaining: reduction from a general Weierstrass W to short form.
+
+## Lean, round 25 (2026-10-29): subgroup-sum algebraicity (`RamanujanTau/SubgroupSum/`, axiom-clean)
+* The intrinsic Vélu coefficients depend only on G (`Kernel.curve_eq_veluC`).
+* `subSum`: a sum over the order-n subgroups.
+* Galois descent (`subSum_mem_range`, including for the algebraic closure) gives rationality.
+* `universal_subSum_mem`: the universal sum lies in ℚ[A,B], given integrality of torsion x-coordinates.
+* `subSum_ptR_scale` gives scaling; `exists_iso_of_poly` gives isobaricity.
+* `sum_kernels_eq_subSum` is the hAlg shape.
+* Remaining (untracked WIP):
+  * R1: x-coordinates of torsion points are integral, via the division-polynomial link nP = 0 ⟹ ψ_n(x) = 0.
+  * R2: specialization from the universal curve to every nonsingular curve. This needs the generic E[p] to
+    have p² points, plus a ring map from the integral closure.
