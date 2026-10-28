@@ -594,3 +594,15 @@ Remaining:
   * HVQ: V(Q) ∈ B_E(r).
 
   HVQ is the one genuinely level-ℓ² statement left.
+
+## Lean, round 28 (2026-10-29): torsion integrality and specialization (`RamanujanTau/TorsionSpec/`, axiom-clean, ~2100 lines)
+* **`R1`**: x-coordinates of torsion points are integral. The proof is by valuations plus a Kummer recursion
+  in residue characteristic 0; no division polynomials.
+* **`fullTorsion`**: E[n] has exactly n² points over an algebraically closed field of characteristic 0.
+  This uses the HeightEll degree recursion and a Wronskian separability argument.
+* **`R2'`**: the universal subgroup sum specializes to every nonsingular curve. It uses lying-over,
+  `IsAlgClosed.lift`, and injective, additive specialization of torsion.
+* **`R2_field` / `exists_poly_field`**: the same over any characteristic-0 field via F̄, including
+  K((t)) and FractionRing K⟦t⟧.
+* So **hAlg holds** (for short curves). The bridge to `TateQuot.hT_iff_velu` / `HeckeQExp.classical_hU` is
+  still to be written.
