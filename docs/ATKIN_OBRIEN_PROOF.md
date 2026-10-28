@@ -224,3 +224,28 @@ Still open for I2:
     [p](T) lies in the ideal (p, a) whenever p² ∤ m.
   Together with `p_dvd_coeff_nmul`, these are exactly the coefficient bounds that `Newton.two_segment`
   needs below the T^{p²} term.
+* `AtkinOBrien/Canonical.lean`:
+  * **`dominance_transfer`**: a strictly dominant term passes from h = P·U to P when U is a Gauss-norm-1
+    unit. This replaces Gauss-norm multiplicativity.
+  * `FGL.coeff_one_nmul`: [n] = nT + O(T²).
+  * `exists_rho`.
+  * **`canonical_subgroup`**: the Newton half of Katz 3.10.7 / Lubin, for *any* commutative formal group F
+    over R → K, where K is an ultrametric normed field and the coefficients have norm ≤ 1. Assume:
+    * height ≤ 2, i.e. ‖coeff_{p²}[p]‖ = 1;
+    * the break ‖p‖^p < ‖a‖^{p+1}, i.e. v(a) < p/(p+1);
+    * the Weierstrass factorization [p](T)/T = ∏(X − rᵢ)·U.
+
+    Then exactly p−1 roots are small, and ‖a‖·∏_{small}‖rᵢ‖ = ‖p‖, i.e. the total valuation of the
+    nonzero canonical points is 1 − v.
+
+    Every input about [p] is proved here (`p_dvd_coeff_nmul`, `mem_ideal_coeff_nmul`, `coeff_one_nmul`).
+    The only hypothesis is the Weierstrass factorization with splitting. Mathlib has the factorization over
+    complete local rings; splitting holds over a finite extension.
+
+Remaining for a fully formal I2:
+1. Lubin's quotient formal group G = F/H, with π(X) = ∏_{h∈H} F(X,h), and its dual π̌.
+   * Given these, π′(0) = ∏_{h≠0} h (immediate), and `hom_invariant` gives π^*ω_G = π′(0)·ω_F.
+   * π̌∘π = [p] then gives v(Lie π̌) = v.
+   * The existence of G and π̌ (Lubin 1967) is the substantial part.
+2. The elliptic formal group, and Hasse ≡ E_{p−1} (mod p).
+3. Katz forms (E, ω): V via π̌, the Tate curve q-expansion, and Katz's integral model.
