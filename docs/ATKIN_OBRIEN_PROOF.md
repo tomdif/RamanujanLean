@@ -416,3 +416,14 @@ Hypotheses as stated:
 * This fills Mathlib's TODO in `ModularForms/Derivative.lean`.
 * `Igusa/Unconditional.lean`: Igusa's theorem, supersingular points, and **step (K)** (`katz_iff_hasse'`)
   now hold **without any extra hypothesis**.
+
+## Lean, round 16 (2026-10-29): height 2 for elliptic curves (`RamanujanTau/HeightEll/`, axiom-clean)
+* **`topc_norm_eq_one`**: let W be a good-reduction curve over the integers of an ultrametric field, with
+  residue characteristic p ≥ 5 and ‖a‖ < 1. Then the T^{p²} coefficient of [p] is a unit, i.e. the formal
+  group has height exactly 2.
+* `coeff_p2_ne_zero_field`: the characteristic-p statement over any field.
+* Route: degree bounds via Kummer-line recursions for x(n•P), with ht Xₙ ≤ n² (Gauss lemma). The formal
+  group connects through `nsmul_P`: n•P(T) = P([n]T). Then:
+  * `[p] ≠ 0` uses a 2-torsion point;
+  * if a = b = 0, then [p] ∈ k⟦T^{p³}⟧, which contradicts p³ ≤ 2(p+1)² + 6.
+* No division polynomials were needed.
