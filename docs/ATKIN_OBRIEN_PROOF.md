@@ -541,3 +541,15 @@ Remaining for hU:
   * HV: V maps B_E(r^ℓ) into B_E(r) (I3).
   * HG: E/V(E) ∈ B_E(r) (I1-G).
 * All four are geometric, i.e. pointwise on test curves combined with step (K).
+
+## Lean, round 24 (2026-10-29): Vélu–Lubin link (`RamanujanTau/VeluLubin/`, axiom-clean, ~2000 lines)
+* Formal Vélu series φ = −X/Y, with **φ^*ω′ = ω** (`phi_invariant`) and `velu_formal_hom`:
+  φ is a formal-group homomorphism.
+* `Pt_hom`: formal points map into E(K) homomorphically. `exists_kernel_of_finSub` gives the canonical
+  subgroup as a Vélu kernel.
+* Good reduction from the formal group (`norm_Δ_eq_one_of_iso`): a unit-Lie homomorphism from a height-2
+  formal group forces ‖Δ‖ = 1. The proof uses Hasse invariants of the cusp/node.
+* **`link_of_descent`**, and **`exists_step2_with_velu`** for short curves.
+* The only remaining hypothesis is **integral descent (I1)**: ∃ θ ∈ 𝒪⟦T⟧ with θ∘π = μ·φ_κ.
+  * Route: translation invariance of φ under H via Vélu `X_add_mem` over Frac K⟦z⟧, then `Lubin.descent`.
+* Also remaining: reduction from a general Weierstrass W to short form.
