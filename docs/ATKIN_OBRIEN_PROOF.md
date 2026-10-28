@@ -6,9 +6,9 @@
   `p((ℓ^{m+2}n + 1)/24) ≡ κ_ℓ · p((ℓ^m n + 1)/24)   (mod ℓ^m)`.
 
 Equivalently, `b_ℓ(m) = m` in Boylan–Webb's notation. For ℓ = 13 this is Atkin–O'Brien (1967). For ℓ = 17, 19, 23
-it improves Boylan–Webb's `b_ℓ(m) ≤ 2m − 1`. The proof below is complete **modulo the standard
-overconvergence inputs (I2) and (I3)**, which are stated precisely and checked numerically, but for which I
-have not located exact references. Status: needs expert verification of (I2) and (I3).
+it improves Boylan–Webb's `b_ℓ(m) ≤ 2m − 1`. **Status (2026-10-27):** (I2) and (I3) are now proved from standard published results: Katz's canonical-subgroup
+theorem, Lubin's quotient, Katz expansions, Vonk Thm B, and Boylan–Webb. See "Proof of I2 and I3" below. The
+whole argument still needs a check by a p-adic modular-forms expert before any claim is made.
 
 ## Setup
 * `p := ℓ`, `E := E_{p−1}`. Let `B_i ⊂ M_{i(p−1)}(ℤ_p)` be complements of `E·M_{(i−1)(p−1)}`; Miller top
@@ -114,3 +114,45 @@ Folsom–Kent–Ono. I checked it against the definitions used here.
     qualitative (half-integral weight, ordinary projector) and gives no radius.
   * Numerically `v_i(Q) ≥ ⌈pi/(p+1)⌉` (`fq.py`), which is consistent.
   * Plausible route: compare `A_p(x)` with the derivative of the dual of the canonical isogeny (Katz 3.10.7).
+
+## Proof of I2 and I3 (2026-10-27)
+Notation: x = (E, ω) is a point of X(1)[ρ] = {v(E_{p−1}(x)) ≤ ρ}, ω is a Néron generator, and v := v(E_{p−1}(x)).
+H is the canonical subgroup, π: E → E' = E/H, π̌ its dual, and V f(E, ω) = f(E', π̌^*ω). On the Tate curve
+π̌ is étale with π̌^*ω_can = ω_can(q^p), so this V is q ↦ q^p.
+
+**(K) Katz expansions = sup norm.** Katz's integral model of X(1)[ρ] is A[Y]/(E·Y − r). Its special fibre
+`Ē·Y = 0` is reduced, because the Hasse invariant has simple zeros. So f is integral on the model iff
+|f(x)| ≤ 1 at every point, and f = Σ a_i/E^i is integral iff v(a_i) ≥ i·v(r) (Katz LNM 350, §2.6–2.8).
+
+**I3.** If v(r) < 1/(p+1) and v(E) ≤ v(r), then v(E') = p·v(E) ≤ v(r^p) (Buzzard JAMS 16, Thm 3.3(ii) =
+Katz 3.10.7). So |V f(x)| = |f(E', π̌^*ω)| ≤ 1 whenever f ∈ B_E(r^p). By (K), V f ∈ B_E(r). This uses that
+f has weight 0, so the choice of differential does not matter.
+
+**I2.**
+1. *Newton polygon (proof of Katz 3.10.7).* [p](T) = pT + … + aT^p + … + uT^{p²}, with v(a) = v and
+   v(u) = 0. For v < p/(p+1) the p−1 nonzero points of H have valuation (1−v)/(p−1), and the other p²−p
+   nonzero points have valuation v/(p²−p).
+2. *Derivatives.* Lubin's parameter Y = ∏_{P∈H} T(X ⊕ P) gives a Néron generator ω'_0 on E' with
+   π^*ω'_0 = μ·ω and v(μ) = Σ_{P≠0} v(T(P)) = 1 − v. Since π^*π̌^* = p, we get π̌^*ω = λ·ω'_0 with
+   **v(λ) = v**.
+   *Cross-check.* ker π̌ = E[p]/H. For v < 1/(p+1) it is a *non*-canonical subgroup of E' (v(E') = pv), so
+   v(λ) = (p−1)·pv/(p²−p) = v. For v ∈ (1/(p+1), p/(p+1)) it is canonical (v(E') = 1−v), so
+   v(λ) = 1 − (1−v) = v. The two regimes agree.
+3. *Value of VΔ/Δ^p.* VΔ/Δ^p(x) = Δ(E', λω'_0)/Δ(E, ω)^p = λ^{−12} Δ(E', ω'_0)/Δ(E, ω)^p. Both Δ values are
+   units, so v(VΔ/Δ^p (x)) = **−12v**.
+4. *Conclusion.* Q^{12} = E^{12}·VΔ/Δ^p, an exact q-series identity. So |Q(x)|^{12} = |p|^{12v − 12v} = 1 on
+   all of X(1)[ρ] for every ρ < p/(p+1). A_p is analytic and nonvanishing there via the canonical section, so
+   Q = E/A_p is analytic. By (K), v(a_i(Q)) ≥ i·ρ for all ρ < p/(p+1), i.e. v(a_i) ≥ ⌈pi/(p+1)⌉. This matches
+   `fq.py` exactly.
+5. *Congruence.* Q ≡ 1 (mod p) as a q-series, and mod-p q-expansions are injective on ⊕B̄_i. So a_0 ≡ 1 and
+   v(a_i) ≥ 1, and Q ∈ 1 + 𝔪B_E(r^p) for v(r) < 1/(p+1). ∎
+
+Provenance and corrections. The argument is from an outside proposal, which I corrected in three places:
+* it had the sign of Step 3 as +12v (from ω' = λ^{−1}ω'_0);
+* it wrote Q^{12} = Q̂^{−1};
+* it had a spurious Δ^{p²−1} in Ĝ.
+
+Citation status:
+* Katz 3.10.7 and Buzzard Thm 3.3 are checked against Buzzard's text.
+* Buzzard's 3.3 does not itself state the torsion valuations; those come from the proof of Katz 3.10.7.
+* Katz 2.6.2, 3.11.2 and 3.11.3, Katz Appendix 2, and Coleman's 1996 p. 221 are **unchecked**.
