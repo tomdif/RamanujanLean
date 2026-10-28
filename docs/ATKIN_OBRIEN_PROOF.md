@@ -490,3 +490,27 @@ Remaining for I1:
   * the count of p+1 subgroups;
   * Vélu–Lubin quotient models for non-canonical C (same link as I2).
 * `hord`: étale quotients of an ordinary curve are ordinary.
+
+## Lean, round 21 (2026-10-29): THE FINAL THEOREM, modulo (UB) and (DB) (`RamanujanTau/AtkinOBrienFinal/`, axiom-clean)
+* **`atkin_obrien_13/17/19/23 (hUB : UB ℓ) (hDB : DB ℓ)`**: there is κ ∈ ℤ_ℓ, with κ ≡ 6, 6, 10, 5 (mod ℓ),
+  such that for all m ≥ 1 and n with 24 ∣ ℓ^m n + 1,
+  ℓ^m ∣ #Partitions((ℓ^{m+2}n+1)/24) − κ·#Partitions((ℓ^m n+1)/24).
+* The hypotheses are exactly the column matrix bounds:
+  * UB: for b ∈ B_j, U(b/E^j) has an integral Katz expansion with v_i ≥ u(i,j);
+  * DB: the same for U(Φ·b/E^j), with v_i ≥ d(i,j).
+
+  Here E = E_{ℓ−1} (`EhasseZp`), and the B_i are the monomial complement `Igusa.S`. This is a genuine
+  complement, because A has a unit leading monomial. The bounds do not depend on the choice of complement.
+* Assembly:
+  * `Katz.lean`: Katz series in ℤ_ℓ⟦q⟧, envelopes, and Katz uniqueness mod ℓ.
+  * `Transfer.lean`: hT from UB/DB plus `U_step`/`D_step`.
+  * `Lead.lean`: hlead via Sturm.
+  * `Main.lean`: `BoylanWebb.induction_padic`, then translation to partition numbers.
+
+Remaining to make it unconditional:
+* UB: `UpContraction.thmB`/`UB_of_models`, conditional on:
+  * hU, the q-expansion principle for U_p;
+  * quotient models for non-canonical C;
+  * matching UpContraction's formulation to `AtkinOBrienFinal.UB`.
+* DB: Step 1 (E^sW ∈ B_E(r) from I2 + I3) plus UB. This still needs I2's Vélu–Lubin link and a Lean derivation
+  of DB from UB.

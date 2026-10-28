@@ -429,3 +429,4 @@ import RamanujanTau.EllipticI2.Step3
 import RamanujanTau.EllipticI2.LogHom
 import RamanujanTau.UpContraction.Main
 import RamanujanTau.UpContraction.TateU
+import RamanujanTau.AtkinOBrienFinal.Main
