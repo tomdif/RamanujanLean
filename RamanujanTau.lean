@@ -427,3 +427,5 @@ import RamanujanTau.BoylanWebb.InductionSeq
 import RamanujanTau.EllipticI2.Step2
 import RamanujanTau.EllipticI2.Step3
 import RamanujanTau.EllipticI2.LogHom
+import RamanujanTau.UpContraction.Main
+import RamanujanTau.UpContraction.TateU

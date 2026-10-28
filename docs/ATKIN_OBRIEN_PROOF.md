@@ -470,3 +470,23 @@ Hypotheses as stated:
   * Points of H in E(K).
   * Translation invariance, then `Lubin.quot_unique`.
   * Integrality and good reduction of E/H.
+
+## Lean, round 20 (2026-10-29): I1, the U_p contraction (`RamanujanTau/UpContraction/`, axiom-clean)
+* **`thmB`** (Vonk Thm B) and **`UB`**: the coefficient bound v(a_{ij}) ≥ ⌈(pi−j)/(p+1)⌉−1, via step (K). The
+  hypotheses are:
+  * `QuotHyp`: Buzzard 3.3(v) on curves;
+  * `hU`: p·Uf(W) = Σ_{C≠H} f(W/C) on the break region. This is the q-expansion principle for U_p, and it
+    is **the main remaining gap**;
+  * existence and decay of U f's Katz expansion.
+* `hasse_transport`: for a hom f with u = f′(0), u·a_F − u^p·a_G ∈ (p).
+* `quot_E_pow`: ‖E(W′)‖^p = ‖E(W)‖ for non-canonical quotient curves, given a quotient model.
+* `quotHyp_of_models`: `QuotHyp` reduces to the existence of quotient models (`SSData`, `hord`).
+* `TateU.sum_rescale_Up`: the Tate-curve root-of-unity identity Σ_k F(ζ^k t) ↔ p·U_p F.
+
+Remaining for I1:
+* `hU`, the q-expansion principle for U_p on all test curves. This needs Katz moduli or rigid input.
+* `SSData`, which needs the following:
+  * F[p] ≅ (ℤ/p)²;
+  * the count of p+1 subgroups;
+  * Vélu–Lubin quotient models for non-canonical C (same link as I2).
+* `hord`: étale quotients of an ordinary curve are ordinary.
