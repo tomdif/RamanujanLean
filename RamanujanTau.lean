@@ -439,3 +439,5 @@ import RamanujanTau.TateQuot.Link
 import RamanujanTau.VLayer.Final
 import RamanujanTau.TorsionSpec.Field
 import RamanujanTau.VLayer.DBQ
+import RamanujanTau.HeckeBridge.Main
+import RamanujanTau.HeckeBridge.Final

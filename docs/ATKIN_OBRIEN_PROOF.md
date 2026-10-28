@@ -620,3 +620,11 @@ Remaining:
   * algebraicity (TorsionSpec/SubgroupSum);
   * the Lie π̌ valuations (EllipticI2/QuotientHasse);
   * a Newton-polygon bound on elementary symmetric functions.
+
+## Lean, round 30 (2026-10-29): Hecke bridge (`RamanujanTau/HeckeBridge/`, axiom-clean)
+* **`subSum_hecke`**: for a nonsingular short curve over any algebraically closed characteristic-0 field,
+  Σ_{order-p C} P(W/C) = p·(T_pP)(W). This is the classical Hecke q-expansion principle, geometric = q-series.
+* `hU_classical_unconditional` / `classical_hU_short`: hAlg and hT are discharged, modulo `TateKernels`
+  (`hKer`). hKer is the Tate addition theorem, being done in TateAdd.
+* `exists_subs_finset`: there are exactly p+1 order-p subgroups. `exists_quotEnum` gives enumerations with a
+  prescribed index-0 subgroup.
