@@ -390,3 +390,14 @@ height 2 and satisfying the break condition. C ranges over order-p subgroups.
 Hypotheses as stated:
 * C ≠ H appears as "C has no nonzero canonical point".
 * The canonical subgroup of the quotient is proved only as an inclusion.
+
+## Lean, round 14 (2026-10-29): Igusa and `SSDetect` (`RamanujanTau/Igusa/`, axiom-clean)
+* Route: the Serre derivation (Swinnerton-Dyer). It gives ∂Ā = B̄ and ∂B̄ = −X₀Ā, and these force simple roots.
+* `roots_nodup` / `igusa_chartT` / `igusa_chartS`: **Ā has simple zeros (Igusa)**, and Ā does not vanish at
+  the cusp.
+* `exists_ss`: supersingular points exist.
+* `exists_ss_nonvanishing`.
+* An explicit monomial complement Bz, with `katz_independent_S`.
+* **`katz_iff_hasse`**: step (K) with SSDetect discharged.
+* All of this is conditional on `RamanujanODE`, Ramanujan's three q-series ODEs over ℤ. RamanujanODE is a
+  true classical theorem, stated as an explicit Prop hypothesis. It is the remaining input.

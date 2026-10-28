@@ -415,3 +415,5 @@ import RamanujanTau.WeierstrassSupply.Supply
 import RamanujanTau.KatzForms.Concrete
 import RamanujanTau.HasseInv.Modular
 import RamanujanTau.QuotientHasse.Main
+import RamanujanTau.Igusa.Katz
+import RamanujanTau.Igusa.Complement
