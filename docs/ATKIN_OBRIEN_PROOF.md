@@ -578,3 +578,19 @@ Remaining for hU:
 Remaining:
 * the kernel points form subgroups under the group law (Tate addition theorem);
 * hAlg over the ring K⟦t⟧, which is the specialization R2 from the universal curve.
+
+## Lean, round 27 (2026-10-29): V-layer via modular equations (`RamanujanTau/VLayer/`, axiom-clean)
+* `modular_equation_E` / `modular_equation`: the level-ℓ modular equation of E (or of any isobaric P) has
+  classical coefficients over ℤ_ℓ. The proof:
+  * the conjugates live in `PadicAlgCl ℓ⟦t⟧`;
+  * their power sums are ℓ·T_ℓ;
+  * Newton's identities;
+  * norms in PadicAlgCl, then `descend`.
+* **`HG_holds`**: E/V(E) ∈ B_E(r) unconditionally, for all ℓ ≥ 5. The proof applies an ℓ-adic Hensel
+  contraction in Katz coordinates (`hensel_fix`) to the modular equation.
+* **`Q_InB1`** (ℓ ≥ 11): Q ∈ B_E(r), via the modular equation of Δ, Q¹² = E¹²VΔ/Δ^ℓ, and a Hensel 12th root.
+* **`atkin_obrien_13''/17''/19''/23'' (hUB) (hVQ)`**: the final theorem now rests on two hypotheses:
+  * UB, the U-column bounds;
+  * HVQ: V(Q) ∈ B_E(r).
+
+  HVQ is the one genuinely level-ℓ² statement left.

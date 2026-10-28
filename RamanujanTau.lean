@@ -436,3 +436,4 @@ import RamanujanTau.VeluLubin.Final
 import RamanujanTau.SubgroupSum.All
 import RamanujanTau.TateQuot.Main
 import RamanujanTau.TateQuot.Link
+import RamanujanTau.VLayer.Final
