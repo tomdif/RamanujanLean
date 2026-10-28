@@ -514,3 +514,17 @@ Remaining to make it unconditional:
   * matching UpContraction's formulation to `AtkinOBrienFinal.UB`.
 * DB: Step 1 (E^sW ∈ B_E(r) from I2 + I3) plus UB. This still needs I2's Vélu–Lubin link and a Lean derivation
   of DB from UB.
+
+## Lean, round 22 (2026-10-29): Hecke operators on q-expansions (`RamanujanTau/HeckeQExp/`, axiom-clean)
+* `Tq`, `sigma_hecke`, `Tq_Eis`; `tate_geom_sum` gives the Tate-curve sum over all p+1 subgroups.
+* **`heckePoly`**: T_p on isobaric polynomials (classical level-1 forms), with `ev_heckePoly` and
+  `heckePoly_unique`.
+* `classical_hU` / `hU_classical`: Σ_{C≠H} P(W/C) = p·(T_pP)(W) − P(W/H) on all test curves, for classical P.
+  It assumes two hypotheses:
+  * **hAlg**: algebraicity of the subgroup sum;
+  * **hT**: the Vélu quotients of Tate(q) are the explicit Tate(q^p) and Tate(ζ^j t).
+
+Remaining for hU:
+* hAlg, via symmetric functions of the kernel polynomials;
+* hT, via the Tate parametrisation of quotients;
+* the overconvergent limit, Σ_{C≠H} for Katz series.
