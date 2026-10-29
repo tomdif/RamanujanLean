@@ -18,7 +18,9 @@
 > transports a classical relation through coefficient rings to residue rings.
 > It constructs three actual eta quotient cusp forms, checks their coefficients,
 > proves the dimension is three, and proves the weight-six Hecke identity on
-> the entire classical space and its coefficient reductions. The assembled
+> the entire classical space and its coefficient reductions. It also constructs
+> integral weight-two coordinates with AC=B² and proves a coefficient bound
+> for all nonnegative weights at level six. The assembled
 > ordinarity reduction still assumes geometric filtration laws, lifting, and
 > initial newform eigenvalues. It does not prove Theorem A or d_ℓ = 0
 > unconditionally in Lean.

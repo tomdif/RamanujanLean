@@ -1,4 +1,5 @@
 import RamanujanTau.TheoremA.LiftedOrdinarity
+import RamanujanTau.TheoremA.WeightTwoCoordinates
 
 -- Actual weight-six results and a conditional ordinarity reduction, not full Theorem A.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
@@ -68,3 +69,20 @@ import RamanujanTau.TheoremA.LiftedOrdinarity
 #print axioms RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator_unconditional
 #print axioms RamanujanTau.TheoremA.eq_zero_of_reduced_weightSix_eigenpair
 #print axioms RamanujanTau.TheoremA.U_ne_zero_of_lifted_filtration_data
+#print axioms RamanujanTau.TheoremA.LevelSix.modular_eq_zero_of_coeff_eq_zero
+#print axioms RamanujanTau.TheoremA.LevelSix.firstCoefficients_injective
+#print axioms RamanujanTau.TheoremA.LevelSix.modular_finrank_le
+#print axioms RamanujanTau.TheoremA.EtaSquared.quotientModularForm
+#print axioms RamanujanTau.TheoremA.EtaSquared.weightTwo_phase
+#print axioms RamanujanTau.TheoremA.EtaSquared.weightTwo_cusps
+#print axioms RamanujanTau.TheoremA.EtaSquared.weightTwoForm
+#print axioms RamanujanTau.TheoremA.EtaSquared.weightTwoForm_relation
+#print axioms RamanujanTau.TheoremA.EtaSquared.qExpansion_weightTwo
+#print axioms RamanujanTau.TheoremA.EtaSquared.weightTwoSeries_relation
+#print axioms RamanujanTau.TheoremA.EtaSquared.weightTwo_list_certificate
+#print axioms RamanujanTau.TheoremA.EtaSquared.weightTwo_coeff
+#print axioms RamanujanTau.TheoremA.weightTwoCoefficientEquiv
+#print axioms RamanujanTau.TheoremA.weightTwo_finrank_eq_three
+#print axioms RamanujanTau.TheoremA.weightTwoReconstruct_coeff
+#print axioms RamanujanTau.TheoremA.weightTwoReconstruct_map
+#print axioms RamanujanTau.TheoremA.weightTwo_expansion_descent

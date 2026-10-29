@@ -85,3 +85,22 @@
  Classical.choice,
  Quot.sound]
 'RamanujanTau.TheoremA.U_ne_zero_of_lifted_filtration_data' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.modular_eq_zero_of_coeff_eq_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.firstCoefficients_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.modular_finrank_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.quotientModularForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.weightTwo_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.weightTwo_cusps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.weightTwoForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.weightTwoForm_relation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.qExpansion_weightTwo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.weightTwoSeries_relation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.weightTwo_list_certificate' does not depend on any axioms
+'RamanujanTau.TheoremA.EtaSquared.weightTwo_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightTwoCoefficientEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightTwo_finrank_eq_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightTwoReconstruct_coeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightTwoReconstruct_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightTwo_expansion_descent' depends on axioms: [propext, Classical.choice, Quot.sound]

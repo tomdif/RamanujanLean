@@ -39,6 +39,9 @@ Work on the proposed all-prime Theorem A now proves the full classical
 weight-six obstruction: Lean constructs an eta-quotient basis of S₆(Γ₀(6)),
 checks its coefficients, proves dimension three, and proves
 (U₃+9)(U₂²+6U₂+32)=0 on the entire space and its coefficient reductions.
+The next stage constructs an integral weight-two basis with AC=B², proves
+descent to embedded coefficient rings, and bounds the coefficients needed
+to determine a level-six modular form in every nonnegative weight.
 The universal ordinarity theorem still needs characteristic-ℓ filtration,
 lifting, newform eigenvalue formulas, and the Shimura comparison.
 See the [precise boundary](docs/THEOREM_A.md).

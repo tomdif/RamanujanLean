@@ -21,6 +21,16 @@ coefficient bound in `LevelSixSturm.lean` and the finite certificate in
 `WeightSixCertificate.lean` then establish the full operator identity.
 No old/new decomposition or dimension formula is assumed.
 
+`LevelSixModularSturm.lean` proves that the first k+1 coefficients determine
+every level-six modular form of nonnegative integral weight k. The general
+eta certificate in `EtaQuotientForms.lean` allows nonnegative cusp rates.
+`WeightTwoForms.lean` and `WeightTwoQExpansion.lean` construct actual forms
+A, B, C with integral Fourier expansions and AC=B², including the identity
+over ℤ. `WeightTwoCoordinates.lean` proves dim M₂(Γ₀(6)) = 3, reconstruction
+from the first three coefficients, and descent over any coefficient ring
+embedded in ℂ. Generation in all even weights and the characteristic-ℓ
+filtration laws still need proofs.
+
 `BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct actual U_p on
 Γ₀(N) for every integral weight and prime p dividing nonzero N, prove the
 coefficient-extraction formula, and prove the operators commute.

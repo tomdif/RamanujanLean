@@ -11,6 +11,11 @@ The remaining ordinarity inputs are characteristic-ℓ filtration and lifting,
 the newform eigenvalue formulas, and the Shimura/Boylan–Webb comparisons.
 The independent prime-29 all-power theorem remains complete.
 
+The next stage now has an actual integral weight-two basis, the relation
+AC=B², descent to embedded coefficient rings, and a coefficient bound for
+all nonnegative weights at level six. Extending these results to the graded
+ring and proving the characteristic-ℓ filtration laws remain open.
+
 ## Targets
 
 The paper argument has two linked targets for every prime ℓ ≥ 13:
@@ -50,6 +55,10 @@ All declarations below are in `RamanujanTau.TheoremA`.
 | [EtaFormalProducts](../RamanujanTau/TheoremA/EtaFormalProducts.lean) and [EtaQExpansion](../RamanujanTau/TheoremA/EtaQExpansion.lean) | Full analytic/formal q-expansion identities and kernel-checked integer coefficient tables through q⁹ | Uses the repo's existing analytic realization and truncated-series arithmetic |
 | [WeightSixIdentity](../RamanujanTau/TheoremA/WeightSixIdentity.lean) | `classicalWeightSixAnnihilator_eq_zero`, `weightSixCoefficientEquiv`, `weightSix_finrank_eq_three`, and unconditional transfer to reduced cusp expansions | The actual classical obstruction is complete |
 | [LiftedOrdinarity](../RamanujanTau/TheoremA/LiftedOrdinarity.lean) | Excludes (4,9) in reduced weight-six cusp expansions; `U_ne_zero_of_lifted_filtration_data` uses this proved obstruction | Filtration, lifting, and initial eigenvalues remain explicit inputs |
+| [LevelSixModularSturm](../RamanujanTau/TheoremA/LevelSixModularSturm.lean) | The first k+1 coefficients determine every actual modular form of nonnegative integral weight k; dimension is at most k+1 | Includes noncuspidal forms; no ring presentation assumed |
+| [EtaQuotientForms](../RamanujanTau/TheoremA/EtaQuotientForms.lean) and [WeightTwoForms](../RamanujanTau/TheoremA/WeightTwoForms.lean) | Finite phase and nonnegative cusp-rate certificates construct actual modular forms; three weight-two forms satisfy AC=B² | Zero cusp rates are allowed; holomorphy and boundedness at every cusp are proved |
+| [WeightTwoQExpansion](../RamanujanTau/TheoremA/WeightTwoQExpansion.lean) | Integral Fourier expansions, coefficients through q⁹, and AC=B² over ℤ | The list certificate is kernel checked |
+| [WeightTwoCoordinates](../RamanujanTau/TheoremA/WeightTwoCoordinates.lean) | Exact dimension three in weight two, reconstruction from three coefficients, and descent to any embedded coefficient ring | Generation in all even weights and modular filtration are separate obligations |
 
 The conditional reduction is useful because its conclusion concerns the existing
 Boylan–Webb coefficient-extraction operator on an actual power series. The
@@ -142,6 +151,39 @@ bound proves they span and identifies the U₂/U₃ actions, giving the polynomi
 identity on every form and then through integral reduction. PARI independently
 checks the table; it is not part of the Lean proof.
 
+## Integral weight-two coordinates
+
+The three actual forms are
+
+\[
+A=\frac{\eta(2z)^{12}\eta(3z)^2}{\eta(z)^6\eta(6z)^4},\qquad
+B=\frac{\eta(2z)^4\eta(6z)^4}{\eta(z)^2\eta(3z)^2},\qquad
+C=\frac{\eta(z)^2\eta(6z)^{12}}{\eta(2z)^4\eta(3z)^6}.
+\]
+
+Their first coefficient columns, including the constant term, are
+(1,6,15), (0,1,2), and (0,0,1). Thus a weight-two form with initial
+coefficients c₀,c₁,c₂ equals
+
+\[
+c_0 A+(c_1-6c_0)B+(c_2-2c_1-3c_0)C.
+\]
+
+Lean proves this for the entire actual space M₂(Γ₀(6)), whose dimension
+is exactly three. The reconstruction commutes with arbitrary ring maps.
+`weightTwo_expansion_descent` proves the same expression over any ring
+embedded in ℂ when the original expansion lies in that ring. The exponent
+identity proves AC=B² analytically, and q-expansion injectivity transfers
+it to the integer formal series.
+
+These are ingredients for a proposed presentation of the even-weight ring
+by A, B, C with relation AC=B². That full presentation is not yet proved.
+The new coefficient bound and the leading terms 1, q, q² suggest proving
+spanning by monomials in every even weight, then extending the repo's
+level-one Hasse and Serre-derivative tools to these coordinates. Neither
+the Hasse divisibility criterion nor the θ-filtration laws are assumed
+by the weight-two theorems.
+
 ## Source checks and remaining work
 
 Katz's 1977 paper, §II, theorem (1)–(2), gives θ's action at every cusp and
@@ -161,8 +203,9 @@ The next formal obligations are substantive:
 
 1. Construct level-six modular forms in characteristic ℓ with q-expansions,
    Hasse invariant, filtration, and θ, and prove the laws used by the reduction.
-   A concrete presentation of the level-six ring could be an alternative to
-   developing a general theory of modular curves; that route has not been proved.
+   The explicit ring route now has integral weight-two coordinates and a
+   coefficient bound in every weight. Proving generation in all even weights,
+   the Hasse divisibility criterion, and the θ laws is the next step.
 2. Prove the lifting/comparison needed for θ⁴F and the eigenvalue formulas
    for the stated Atkin–Lehner newform class. The actual classical weight-six
    forms, coefficient table, spanning argument, operator identity, and
@@ -182,15 +225,16 @@ precision. [Boylan–Webb, §§6.1–6.2](https://people.math.sc.edu/boylan/repr
 
 ```sh
 python3 scripts/frontier/pattern/gen_eta_generator_data.py
-lake build RamanujanTau.TheoremA.LiftedOrdinarity
+lake build RamanujanTau.TheoremA.LiftedOrdinarity RamanujanTau.TheoremA.WeightTwoCoordinates
 lake env lean scripts/audit/theorem_a.lean
 gp -q -f scripts/frontier/pattern/weight_six.gp
 ```
 
-The [dedicated audit](verification/theorem_a.axioms.txt) checks 67 declarations,
+The [dedicated audit](verification/theorem_a.axioms.txt) checks 84 declarations,
 including the actual eta cusp forms, coefficient identities, full weight-six
 annihilator, exact dimension, integral reduction, and conditional ordinarity
-reduction. Their dependencies are confined to `propext`, `Classical.choice`,
+reduction, plus the general coefficient bound and integral weight-two
+construction and descent. Their dependencies are confined to `propext`, `Classical.choice`,
 and `Quot.sound`. The integer certificates use `decide +kernel`; Python and
 PARI are not part of Lean's trust boundary. See [status](STATUS.md#verification)
 for the complete build record.
