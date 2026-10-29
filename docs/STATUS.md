@@ -23,10 +23,15 @@ Its finite-arithmetic audit checked 34 declarations and found only standard
 Lean axioms. A new full build and expanded audit are required before the
 prime-29 exact-threshold result is marked complete here.
 
-The independent sharpness checker verifies 16 polynomial products, divisor-sum
+The independent sharpness checker verifies 16 polynomial products, their 429 bounded blocks, divisor-sum
 formulas, Euler coefficients, shifts, a linear combination, and three observations.
 It checks the generated data with a different arithmetic algorithm; Lean's kernel
 remains the proof authority.
+
+The sharpness certificate now uses blocks of at most 64 coefficients and separate
+cached product modules to reduce the memory pressure of the original monolithic
+check. The assembly rule is proved in Lean; the replacement certificate still
+requires its complete build and audit before the result is marked verified here.
 
 GitHub's **Repository checks** workflow checks documentation links, source hygiene,
 project imports, and that independent arithmetic. A green workflow is not evidence

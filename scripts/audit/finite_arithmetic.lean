@@ -103,6 +103,12 @@ example : Evaluate29Powers.evaluate 1 8 24 1000000000000 = 27 := by decide +kern
 #print axioms RamanujanTau.FiniteArithmetic.Divided29.odd_padic_mem
 #print axioms RamanujanTau.FiniteArithmetic.Error29.tail_killed
 #print axioms RamanujanTau.FiniteArithmetic.ErrorDynamics29.divided_step
+#print axioms BoylanWebb.forall_Ico_join
+#print axioms BoylanWebb.toPS_append
+#print axioms BoylanWebb.Cg.shift_precision
+#print axioms BoylanWebb.Cg_mul_block
+#print axioms BoylanWebb.Cg_product
+#print axioms BoylanWebb.Cg_inverse_product
 #print axioms RamanujanTau.FiniteArithmetic.Cert29Error.obs_YF
 #print axioms RamanujanTau.FiniteArithmetic.Cert29Error.obs_YG
 #print axioms RamanujanTau.FiniteArithmetic.Cert29Error.obs_Phi

@@ -10,22 +10,40 @@ from math import isqrt
 from pathlib import Path
 import re
 
-source = (Path(__file__).resolve().parents[2] /
-          "RamanujanTau/FiniteArithmetic/Cert29Error.lean").read_text()
+root = Path(__file__).resolve().parents[2] / "RamanujanTau/FiniteArithmetic"
+source = (root / "Cert29ErrorData.lean").read_text()
 data = {name: ast.literal_eval(values) for name, values in
         re.findall(r"def (\w+) : List ℤ := (\[[^\n]*\])", source)}
 assert data and all(0 <= x < 841 for values in data.values() for x in values)
-encoded = {name: int.from_bytes(b"".join(x.to_bytes(4, "little") for x in values), "little")
-           for name, values in data.items()}
-checks = re.findall(r"theorem (\w+) : tmul 841 1682 (\w+) (\w+) = (\w+)", source)
-assert len(checks) == 16, "Unexpected certificate layout"
-for label, a, b, result in checks:
-    assert min(len(data[a]), len(data[b])) * 840**2 < 2**32
-    length = min(1683, len(data[a]) + len(data[b]) - 1)
-    product = encoded[a] * encoded[b]
+def packed_product(a, b, degree):
+    assert min(len(a), len(b)) * 840**2 < 2**32
+    assert all(0 <= x < 841 for x in a + b)
+    length = min(degree + 1, len(a) + len(b) - 1)
+    pack = lambda values: int.from_bytes(b"".join(x.to_bytes(4, "little") for x in values), "little")
+    product = pack(a) * pack(b)
     raw = (product % (1 << (32 * length))).to_bytes(4 * length, "little")
-    actual = [int.from_bytes(raw[4*i:4*i+4], "little") % 841 for i in range(length)]
-    assert actual == data[result], label
+    return [int.from_bytes(raw[4*i:4*i+4], "little") % 841 for i in range(length)]
+
+files = sorted((root / "Cert29ErrorProducts").glob("*.lean"))
+assert len(files) == 16, "Unexpected certificate layout"
+blocks = 0
+for file in files:
+    source = file.read_text()
+    checks = re.findall(r"theorem (\w+)_check : Cg 841 1682 \(toPS (\w+) \* toPS (\w+)\) \(toPS (\w+)\)", source)
+    assert len(checks) == 1, file
+    label, a, b, result = checks[0]
+    assert file.stem == label
+    assert packed_product(data[a], data[b], 1682) == data[result], label
+    local = {}
+    for name, value in re.findall(r"def (\w+) : List ℤ := (\[[^\n]*\]|\w+)", source):
+        local[name] = ast.literal_eval(value) if value.startswith("[") else data[value]
+    offsets = sorted(int(name[5:]) for name in local if name.startswith("block"))
+    assert offsets == list(range(0, min(1683, len(data[a])), 64)), label
+    for offset in offsets:
+        assert local[f"tail{offset}"] == data[a][offset:]
+        assert local[f"block{offset}"] == data[a][offset:offset + 64]
+        assert local[f"out{offset}"] == packed_product(data[a][offset:], data[b], 1682 - offset)
+        blocks += 1
 
 # Check the non-product facts too. Divisor pairs are independent of the
 # generator's sieve over multiples.
@@ -55,4 +73,4 @@ assert data["Phi"] == ([0] * 35 + data["EP"])[:1683]
 assert data["LG"] == [(3 * h + 6 * f) % 841 for h, f in zip(data["LH"], data["LF"])]
 for name, value in [("YF", 348), ("YG", 725), ("Phi", 696)]:
     assert (3 * data[name][1682] - data[name][841]) % 841 == value, name
-print("Passed: 16 products, divisor formulas, Euler coefficients, shifts, linear combination, and 3 observations.")
+print(f"Passed: 16 products, {blocks} blocks, divisor formulas, Euler coefficients, shifts, linear combination, and 3 observations.")

@@ -29,8 +29,10 @@ jobs:
         run: python3 scripts/boylanwebb/check_cert29_error.py
       - name: Check certificate reproducibility
         run: |
-          python3 scripts/boylanwebb/gen_cert29_error.py > "$RUNNER_TEMP/Cert29Error.lean"
-          cmp RamanujanTau/FiniteArithmetic/Cert29Error.lean "$RUNNER_TEMP/Cert29Error.lean"
+          python3 scripts/boylanwebb/gen_cert29_error.py --output-dir "$RUNNER_TEMP/cert29-error"
+          cmp RamanujanTau/FiniteArithmetic/Cert29Error.lean "$RUNNER_TEMP/cert29-error/Cert29Error.lean"
+          cmp RamanujanTau/FiniteArithmetic/Cert29ErrorData.lean "$RUNNER_TEMP/cert29-error/Cert29ErrorData.lean"
+          diff -ru RamanujanTau/FiniteArithmetic/Cert29ErrorProducts "$RUNNER_TEMP/cert29-error/Cert29ErrorProducts"
       - name: Check whitespace
         run: git diff --check HEAD^ HEAD
         if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
