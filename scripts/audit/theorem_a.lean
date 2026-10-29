@@ -1,5 +1,6 @@
 import RamanujanTau.TheoremA.LiftedOrdinarity
 import RamanujanTau.TheoremA.WeightTwoCoordinates
+import RamanujanTau.TheoremA.BinaryModel
 
 -- Actual weight-six results and a conditional ordinarity reduction, not full Theorem A.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
@@ -86,3 +87,32 @@ import RamanujanTau.TheoremA.WeightTwoCoordinates
 #print axioms RamanujanTau.TheoremA.weightTwoReconstruct_coeff
 #print axioms RamanujanTau.TheoremA.weightTwoReconstruct_map
 #print axioms RamanujanTau.TheoremA.weightTwo_expansion_descent
+#print axioms RamanujanTau.TheoremA.EtaSquared.qExpansion_quotientModularForm
+#print axioms RamanujanTau.TheoremA.EtaSquared.even_cusps
+#print axioms RamanujanTau.TheoremA.EtaSquared.qExpansion_evenForm
+#print axioms RamanujanTau.TheoremA.evenJet_det
+#print axioms RamanujanTau.TheoremA.evenReconstruct_coeff
+#print axioms RamanujanTau.TheoremA.evenCombination_injective
+#print axioms RamanujanTau.TheoremA.evenCoefficientEquiv
+#print axioms RamanujanTau.TheoremA.evenWeight_finrank
+#print axioms RamanujanTau.TheoremA.even_expansion_descent
+#print axioms RamanujanTau.TheoremA.evenSeries_mul
+#print axioms RamanujanTau.TheoremA.evenSeries_normalForm
+#print axioms RamanujanTau.TheoremA.even_expansion_polynomial
+#print axioms RamanujanTau.TheoremA.even_normalForm_unique
+#print axioms RamanujanTau.TheoremA.derivative_bdd_at_infty
+#print axioms RamanujanTau.TheoremA.LevelSix.serreForm
+#print axioms RamanujanTau.TheoremA.LevelSix.qExpansion_integralSerreForm
+#print axioms RamanujanTau.TheoremA.serreSeries_evenSeries
+#print axioms RamanujanTau.TheoremA.serreSeries_evenCombination
+#print axioms RamanujanTau.TheoremA.binary_monomial_even
+#print axioms RamanujanTau.TheoremA.binaryX_sq
+#print axioms RamanujanTau.TheoremA.binaryX_mul_binaryY
+#print axioms RamanujanTau.TheoremA.binaryY_sq
+#print axioms RamanujanTau.TheoremA.binaryEv_injective_on_homogeneous
+#print axioms RamanujanTau.TheoremA.binaryEv_eq_zero_iff
+#print axioms RamanujanTau.TheoremA.exists_binaryPolynomial_qExpansion
+#print axioms RamanujanTau.TheoremA.exists_modularForm_binaryEv
+#print axioms RamanujanTau.TheoremA.exists_binaryPolynomial_descent
+#print axioms RamanujanTau.TheoremA.binarySerre_homogeneous
+#print axioms RamanujanTau.TheoremA.binaryEv_binarySerre

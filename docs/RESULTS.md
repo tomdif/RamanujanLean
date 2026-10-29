@@ -28,8 +28,21 @@ eta certificate in `EtaQuotientForms.lean` allows nonnegative cusp rates.
 A, B, C with integral Fourier expansions and AC=B², including the identity
 over ℤ. `WeightTwoCoordinates.lean` proves dim M₂(Γ₀(6)) = 3, reconstruction
 from the first three coefficients, and descent over any coefficient ring
-embedded in ℂ. Generation in all even weights and the characteristic-ℓ
-filtration laws still need proofs.
+embedded in ℂ.
+
+`EvenWeightForms.lean` constructs a uniform eta basis with leading terms
+1,q,…,q²ⁿ. `EvenWeightCoordinates.lean` proves dim M₂ₙ(Γ₀(6)) = 2n+1,
+integer reconstruction, and descent in every even weight. `EvenWeightProducts.lean`
+proves the multiplication rule and generation by A,B,C with unique normal
+monomials AᵃBᵇCᶜ, b < 2. `BinarySeries.lean` and `BinaryModel.lean` identify
+this model with homogeneous binary polynomials of degree 2n; evaluation is
+injective in each even degree over every commutative ring.
+
+`LevelSixSerre.lean` constructs the actual Serre derivative, using Cauchy's
+estimate to verify boundedness at every cusp. `EvenWeightSerre.lean` proves
+that 12θ−kE₂ preserves the integral model and raises its weight by two in
+every coefficient ring. The characteristic-ℓ Hasse divisibility criterion,
+coprimeness input, and filtration laws remain open.
 
 `BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct actual U_p on
 Γ₀(N) for every integral weight and prime p dividing nonzero N, prove the

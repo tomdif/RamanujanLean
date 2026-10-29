@@ -19,8 +19,10 @@
 > It constructs three actual eta quotient cusp forms, checks their coefficients,
 > proves the dimension is three, and proves the weight-six Hecke identity on
 > the entire classical space and its coefficient reductions. It also constructs
-> integral weight-two coordinates with AC=B² and proves a coefficient bound
-> for all nonnegative weights at level six. The assembled
+> integral coordinates in every even weight, proves generation by A,B,C
+> with AC=B², and identifies an even-degree binary polynomial model. It proves
+> that the scaled Serre derivative raises this model's weight over every
+> coefficient ring. The assembled
 > ordinarity reduction still assumes geometric filtration laws, lifting, and
 > initial newform eigenvalues. It does not prove Theorem A or d_ℓ = 0
 > unconditionally in Lean.

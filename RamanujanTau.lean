@@ -463,3 +463,4 @@ import RamanujanTau.FiniteArithmetic.WeightedTilings
 -- Foundations and a conditional reduction only; universal Theorem A remains open in Lean.
 import RamanujanTau.TheoremA.LiftedOrdinarity
 import RamanujanTau.TheoremA.WeightTwoCoordinates
+import RamanujanTau.TheoremA.BinaryModel

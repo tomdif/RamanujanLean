@@ -11,10 +11,11 @@ The remaining ordinarity inputs are characteristic-ℓ filtration and lifting,
 the newform eigenvalue formulas, and the Shimura/Boylan–Webb comparisons.
 The independent prime-29 all-power theorem remains complete.
 
-The next stage now has an actual integral weight-two basis, the relation
-AC=B², descent to embedded coefficient rings, and a coefficient bound for
-all nonnegative weights at level six. Extending these results to the graded
-ring and proving the characteristic-ℓ filtration laws remain open.
+The explicit ring construction now covers every even weight. Lean proves
+an integral eta basis, dimension 2n+1 in weight 2n, unique homogeneous
+polynomial coordinates over arbitrary coefficient rings, and compatibility
+with the actual scaled Serre derivative. The Hasse divisibility criterion,
+its coprimeness input, and the characteristic-ℓ filtration laws remain open.
 
 ## Targets
 
@@ -58,7 +59,12 @@ All declarations below are in `RamanujanTau.TheoremA`.
 | [LevelSixModularSturm](../RamanujanTau/TheoremA/LevelSixModularSturm.lean) | The first k+1 coefficients determine every actual modular form of nonnegative integral weight k; dimension is at most k+1 | Includes noncuspidal forms; no ring presentation assumed |
 | [EtaQuotientForms](../RamanujanTau/TheoremA/EtaQuotientForms.lean) and [WeightTwoForms](../RamanujanTau/TheoremA/WeightTwoForms.lean) | Finite phase and nonnegative cusp-rate certificates construct actual modular forms; three weight-two forms satisfy AC=B² | Zero cusp rates are allowed; holomorphy and boundedness at every cusp are proved |
 | [WeightTwoQExpansion](../RamanujanTau/TheoremA/WeightTwoQExpansion.lean) | Integral Fourier expansions, coefficients through q⁹, and AC=B² over ℤ | The list certificate is kernel checked |
-| [WeightTwoCoordinates](../RamanujanTau/TheoremA/WeightTwoCoordinates.lean) | Exact dimension three in weight two, reconstruction from three coefficients, and descent to any embedded coefficient ring | Generation in all even weights and modular filtration are separate obligations |
+| [WeightTwoCoordinates](../RamanujanTau/TheoremA/WeightTwoCoordinates.lean) | Exact dimension three in weight two, reconstruction from three coefficients, and descent to any embedded coefficient ring | Extended to every even weight below |
+| [EtaQuotientQExpansion](../RamanujanTau/TheoremA/EtaQuotientQExpansion.lean) and [EvenWeightForms](../RamanujanTau/TheoremA/EvenWeightForms.lean) | A uniform actual eta family in weight 2n, with integral expansions of orders 0,…,2n and leading coefficient one | Exact transformation, cusp, and full q-expansion proofs |
+| [EvenWeightCoordinates](../RamanujanTau/TheoremA/EvenWeightCoordinates.lean) | Dimension 2n+1, an integer inverse coefficient matrix, reconstruction and descent in every even weight | Reconstruction commutes with arbitrary ring maps |
+| [EvenWeightProducts](../RamanujanTau/TheoremA/EvenWeightProducts.lean) | Basis products add indices; A,B,C generate, with unique monomials AᵃBᵇCᶜ, b < 2, in each weight | No assertion of independence across different weights after reduction |
+| [LevelSixSerre](../RamanujanTau/TheoremA/LevelSixSerre.lean) and [EvenWeightSerre](../RamanujanTau/TheoremA/EvenWeightSerre.lean) | Actual Serre differentiation at all cusps; 12θ−kE₂ raises the integral model's weight by two over every commutative ring | Hasse divisibility and the θ-filtration laws are not inferred from closure alone |
+| [BinarySeries](../RamanujanTau/TheoremA/BinarySeries.lean) and [BinaryModel](../RamanujanTau/TheoremA/BinaryModel.lean) | Homogeneous binary polynomials of degree 2n identify the actual weight-2n space and its integral model; evaluation is injective in each even degree, and a polynomial Serre operator matches the series operator | The two auxiliary integer series are not asserted to be odd-weight modular forms |
 
 The conditional reduction is useful because its conclusion concerns the existing
 Boylan–Webb coefficient-extraction operator on an actual power series. The
@@ -176,13 +182,41 @@ embedded in ℂ when the original expansion lies in that ring. The exponent
 identity proves AC=B² analytically, and q-expansion injectivity transfers
 it to the integer formal series.
 
-These are ingredients for a proposed presentation of the even-weight ring
-by A, B, C with relation AC=B². That full presentation is not yet proved.
-The new coefficient bound and the leading terms 1, q, q² suggest proving
-spanning by monomials in every even weight, then extending the repo's
-level-one Hasse and Serre-derivative tools to these coordinates. Neither
-the Hasse divisibility criterion nor the θ-filtration laws are assumed
-by the weight-two theorems.
+## Every even weight and Serre differentiation
+
+For 0 ≤ i ≤ 2n, the exponent vector of η² at dilations 1,2,3,6 is
+
+\[
+(-3n+2i,\;6n-4i,\;n-2i,\;-2n+4i).
+\]
+
+The resulting actual form Fₙ,ᵢ has expansion qⁱ times an integer unit with
+constant coefficient one. The coefficient bound proves these forms span
+M₂ₙ(Γ₀(6)); their triangular coefficient matrix has determinant one. Thus
+the dimension is 2n+1, and the coordinates descend without division to
+any embedded coefficient ring. Their series satisfy
+Fₙ,ᵢ Fₘ,ⱼ = Fₙ₊ₘ,ᵢ₊ⱼ. Every basis element has the unique normal monomial
+AᵃBᵇCᶜ with a+b+c=n, b < 2, and b+2c=i.
+
+Two explicit integer series x,y satisfy x²=A, xy=B, y²=C. Lean identifies
+x^(2n−i)y^i with Fₙ,ᵢ. Consequently the homogeneous binary polynomials
+of degree 2n give the entire actual complex space and its integral model.
+The single-weight q-expansion principle is valid over every commutative
+ring, including all residue characteristics. This construction uses formal
+Euler-product units; it makes no odd-weight modularity claim about x or y.
+
+The Serre derivative is now an actual operator on level-six modular forms.
+Cauchy's estimate proves boundedness of the derivative of any holomorphic
+function bounded at infinity. Slash-equivariance applies this at every
+cusp. After multiplication by 12, its expansion is 12θf−kE₂f.
+Integral descent proves that this operator raises weight k to k+2 over
+every coefficient ring. `binaryEv_binarySerre` identifies the corresponding
+homogeneous polynomial operator with the series operator.
+
+The next step is to import the level-one Hasse and companion forms into
+these coordinates, prove their required coprimeness, and characterize
+weight drops by divisibility by the Hasse polynomial. Closure under the
+Serre derivative does not by itself prove those statements.
 
 ## Source checks and remaining work
 
@@ -203,9 +237,9 @@ The next formal obligations are substantive:
 
 1. Construct level-six modular forms in characteristic ℓ with q-expansions,
    Hasse invariant, filtration, and θ, and prove the laws used by the reduction.
-   The explicit ring route now has integral weight-two coordinates and a
-   coefficient bound in every weight. Proving generation in all even weights,
-   the Hasse divisibility criterion, and the θ laws is the next step.
+   The integral polynomial model in every even weight and its Serre
+   operator are complete. Hasse comparison, coprimeness, divisibility,
+   and the θ-filtration laws are the next steps.
 2. Prove the lifting/comparison needed for θ⁴F and the eigenvalue formulas
    for the stated Atkin–Lehner newform class. The actual classical weight-six
    forms, coefficient table, spanning argument, operator identity, and
@@ -225,16 +259,16 @@ precision. [Boylan–Webb, §§6.1–6.2](https://people.math.sc.edu/boylan/repr
 
 ```sh
 python3 scripts/frontier/pattern/gen_eta_generator_data.py
-lake build RamanujanTau.TheoremA.LiftedOrdinarity RamanujanTau.TheoremA.WeightTwoCoordinates
+lake build RamanujanTau.TheoremA.LiftedOrdinarity RamanujanTau.TheoremA.BinaryModel
 lake env lean scripts/audit/theorem_a.lean
 gp -q -f scripts/frontier/pattern/weight_six.gp
 ```
 
-The [dedicated audit](verification/theorem_a.axioms.txt) checks 84 declarations,
+The [dedicated audit](verification/theorem_a.axioms.txt) checks 113 declarations,
 including the actual eta cusp forms, coefficient identities, full weight-six
 annihilator, exact dimension, integral reduction, and conditional ordinarity
-reduction, plus the general coefficient bound and integral weight-two
-construction and descent. Their dependencies are confined to `propext`, `Classical.choice`,
+reduction, plus the uniform eta basis, integral reconstruction, polynomial
+model, and actual and integral Serre operators. Their dependencies are confined to `propext`, `Classical.choice`,
 and `Quot.sound`. The integer certificates use `decide +kernel`; Python and
 PARI are not part of Lean's trust boundary. See [status](STATUS.md#verification)
 for the complete build record.
