@@ -168,16 +168,16 @@ with `f₀ = Σ q^{n²}/(−q;q)_n` (`MockTheta5.JTP.f0`) and `1 + Φ = RankProo
 only `propext, Classical.choice, Quot.sound`. Multiplied-out form: `MTC.mtc0`.
 
 Chain (all in `ℂ((t))`, `Q = t^{168}`, then pulled back by `ιN` injectivity):
-* **Main** (`Endgame2.main_x`): HM Thm 0.3 at the MTC₀ point + E1 + E2 + E3 (`ThetaX373.thV_xstar`, `ThetaY373.S_prod`)
+* **Main** (`MTC.main_x`): HM Thm 0.3 at the MTC₀ point + E1 + E2 + E3 (`MTC.thV_xstar`, `MTC.S_prod`)
   + `κ = (q;q)³` (`KapJ`).
-* **L5** (`L5.L5_lam`): `(1 + φ(q))(q⁵;q⁵)_∞ = A₁₀ + qA₁₅ + q²A₂₀` from the Appell–Lerch form of the rank generating
-  function at `z = X`, `q = X⁵` (`RankALm.rank_AL_m`), partial fractions and `1/(1−y) = (1+y+y²)/(1−y³)`.
-* Appell–Lerch calculus: `LamAb.Alam_eq_Ab` (Lambert form = `ALz.Ab`), `LamInv` (HM 2.2a, 2.2b), `Av_qshift` (2.2c),
-  `kappa_eq_jacobi` (HM 1.3), four `ALz.change_of_z2` instances to `z₀ = Q⁴` (`Endgame1.I1`–`I4`).
+* **L5** (`MTC.L5_lam`): `(1 + φ(q))(q⁵;q⁵)_∞ = A₁₀ + qA₁₅ + q²A₂₀` from the Appell–Lerch form of the rank generating
+  function at `z = X`, `q = X⁵` (`MTC.rank_AL_m`), partial fractions and `1/(1−y) = (1+y+y²)/(1−y³)`.
+* Appell–Lerch calculus: `MTC.Alam_eq_Ab` (Lambert form = `ALz.Ab`), `LamInv` (HM 2.2a, 2.2b), `Av_qshift` (2.2c),
+  `kappa_eq_jacobi` (HM 1.3), four `ALz.change_of_z2` instances to `z₀ = Q⁴` (`MTC.I1`–`I4`).
 * `endgame_reduce`: the unknown values `A(Q¹⁴,Q⁴)`, `A(Q⁴,Q⁴)` cancel using `LemA` (HM Prop 1.1, Weierstrass `P11W`)
   and `LemB` (HM Prop 3.2 ⟺ `F1prime`, Weierstrass).
 * `LemC_of`: the remaining theta identity = (8.17) × products (`PI1`, `PI2`).
-* (8.17) (`H19b.E817_holds`): HM (1.9) as an element of `Th(Q³⁰, 10, Q⁻¹⁰⁵)` (`H19.F19_mem`, via `ThExtra`:
+* (8.17) (`MTC.E817_holds`): HM (1.9) as an element of `Th(Q³⁰, 10, Q⁻¹⁰⁵)` (`MTC.F19_mem`, via `ThExtra`:
   base multiplication, `x ↦ x^d`, `x^a`, products) vanishing at 11 inequivalent points (`F19_zero`), at `x = 1`.
 * Product identities (`ProdId`): every theta becomes a product of atoms `ιN (u^r;u^M)_∞` (barred thetas via HM (1.4b)),
   then `field_simp`.

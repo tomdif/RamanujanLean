@@ -78,7 +78,7 @@ For `f_{1,4,1}` the vanishing `F ≡ 0` holds as a series in `x`, so HM Theorem 
   `(1+φ)(q⁵;q⁵)_∞` as three Appell–Lerch sums (`RankALm`, `L5`, `L5b`). HM (2.2a–c) and changes of `z`
   (`LamAb`, `LamInv`, `Endgame1`, `Endgame1b`) make the unknown Appell–Lerch values cancel exactly
   (`endgame_reduce`, `endgame_reduce₁`).
-* What remains is a theta-function identity. Weierstrass three-term relations (`ALTheta.weierstrass`) and HM (1.4b)
+* What remains is a theta-function identity. Weierstrass three-term relations (`ALz.weierstrass` in `ALTheta.lean`) and HM (1.4b)
   handle the easy ones. A product-identity engine (`ProdId`) rewrites every theta function into atoms `(q^r;q^M)_∞`
   and closes the identity with `field_simp`. The hard one, HM (8.17), is HM (1.9), proved by another zero count:
   `F19 ∈ Th(Q³⁰, 10)` vanishes at 11 points (`H19`, `H19b`, `F19_zero`). Specialized at `x = 1` it gives (8.17) for

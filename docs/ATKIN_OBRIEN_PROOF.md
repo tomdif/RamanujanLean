@@ -301,7 +301,7 @@ H ⊂ O is a finite subgroup of topologically nilpotent points.
   unique (`quot_unique`).
 * **The dual** `exists_dual`: if H ⊂ F[p], there is a unique π̌ with π̌∘π = [p], and π̌ is a homomorphism
   (`dual_hom`).
-* `LieBridge.lie_dual_lubin`: feeds `Lie.lie_dual` directly. Given the canonical-subgroup norm relation,
+* `Lubin.lie_dual_lubin` in `LubinQuotient/LieBridge.lean`: feeds `Lie.lie_dual` directly. Given the canonical-subgroup norm relation,
   ‖Lie π̌‖ = ‖a‖.
 
 Remaining links for I2 Step 2:
@@ -492,7 +492,7 @@ Hypotheses as stated:
 * `hasse_transport`: for a hom f with u = f′(0), u·a_F − u^p·a_G ∈ (p).
 * `quot_E_pow`: ‖E(W′)‖^p = ‖E(W)‖ for non-canonical quotient curves, given a quotient model.
 * `quotHyp_of_models`: `QuotHyp` reduces to the existence of quotient models (`SSData`, `hord`).
-* `TateU.sum_rescale_Up`: the Tate-curve root-of-unity identity Σ_k F(ζ^k t) ↔ p·U_p F.
+* `UpContraction.sum_rescale_Up` in `UpContraction/TateU.lean`: the Tate-curve root-of-unity identity Σ_k F(ζ^k t) ↔ p·U_p F.
 
 Remaining for I1:
 * `hU`, the q-expansion principle for U_p on all test curves. This needs Katz moduli or rigid input.

@@ -66,7 +66,7 @@ Done and compiling:
   The 21 constrained instances `0 < u < v`, `2v < 13` generate the whole ideal needed.
 * `Atkin13Dissect`, `Atkin13DissectPS`: the 13-dissection of `E(q)`.
 * `Atkin13Defs`: `U₁₃`, `g`, `φ`, `η_a`, `c_r`, and `φ² = g·V(g)`.
-* `SPoly7`, `SPoly7Fast`, `SPoly7Hom`: a 7-variable certificate checker. `SPoly7Split.assemble` gives
+* `SPoly7`, `SPoly7Fast`, `SPoly7Hom`: a 7-variable certificate checker. `SPoly7.assemble` gives
   block-split certificates whose soundness is evaluation-only.
 * `Atkin13Cert/Rel`, `RelPS`: the 21 relations vanish at the eta point `ηPt = (η₁, …, η₆, q)` (transport by
   degree-4 homogeneity).
@@ -80,7 +80,7 @@ Remaining, in order (the 11-case template is in brackets):
    8 variables `(η₁..η₆, q, Q)`, evaluated at `(Vη, X, X¹³)`. This needs `SPoly8` (by sed from `SPoly7`).
    Regenerate the S-files in `SPoly8` packing at that point (`W_i` vanish there via `V`).
 2. **Bridge**: `A'_i = B'_i + m_i N_i`, where `B'_i = D^i Q⁷ f_i(T)` and `m_i` is a monomial (eqCheck).
-3. **charpoly_φ** [`Atkin11Norm.charpoly_φ`]: `Σ_i (−1)^i V(A'_i D^{13−i}) φ^i = 0`.
+3. **charpoly_φ** [`Atkin11.charpoly_φ`]: `Σ_i (−1)^i V(A'_i D^{13−i}) φ^i = 0`.
 4. **Conjugates and the norm** [`Atkin11Conj`, `Atkin11Roots`, `Atkin11Norm`]. `∏_λ φ(ζ^λ q) = V(X⁷/D¹⁴)` gives
    `χ₁₃ = D¹⁴/X⁷`. With `χ₁₃ = T⁷` (theta), `τ := X·D·T` satisfies `τ⁷ = (D³)⁷`, and both have constant
    term 1, so `τ = D³`, i.e. **`1/g = T(c)`**.

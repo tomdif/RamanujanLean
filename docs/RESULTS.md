@@ -678,12 +678,12 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
   * 55 seed relations `U₁₁(φ^λ J_i) = Σ_ν C^λ_{i,ν}J_ν`, `λ ≤ 10` (3031 integers in `Atkin11Data`): **proved**, `Atkin11Seed.seeds_proved`.
 * **What is proved from them (Step 1).**
   * The multiplication table, from R1 and R2.
-  * Gordon's matrices for all `λ`, via the recurrence (`Atkin11Matrix.U_C`).
+  * Gordon's matrices for all `λ`, via the recurrence (`Atkin11.U_C` in `Atkin11Matrix.lean`).
   * Gordon's 11-adic bound `11^{⌊(11ν−i−5λ+δ)/10⌋} ∣ C^λ_{i,ν}`. The kernel checks a periodic box and the seeds; one entry of the published δ table is corrected (δ(2,3) = 3).
   * The shift `z(q)z(q¹¹) = φ¹²`.
   * The induction `L_r = Σ_{ν≥1} a_ν J_ν` with `11^{r+⌊(ν−1)/2⌋} ∣ a_ν`, and the link to `p(11ʳn + μ_r)`.
 * **How the modular equation and R2 are proved (Step 2).** Everything is elementary q-series algebra plus kernel-checked certificates; there are no modular forms.
-  1. **Quintuple product** (`ALQuint.quint_theta`): `(Σ(−1)ⁿq^{n(3n−1)/2}z^{3n}(1+zqⁿ))·θ(z) = E(q)·θ(z²)`. It is proved over `ℂ((t))` by splitting `ℤ²` by parity; two classes biject onto the right side and two cancel.
+  1. **Quintuple product** (`ALz.quint_theta` in `ALQuint.lean`): `(Σ(−1)ⁿq^{n(3n−1)/2}z^{3n}(1+zqⁿ))·θ(z) = E(q)·θ(z²)`. It is proved over `ℂ((t))` by splitting `ℤ²` by parity; two classes biject onto the right side and two cancel.
   2. **11-dissection of `E`** (`ALz11.E_dissect`, `Atkin11.E_dissect_PS`): `E(q) = E(q¹²¹)·(c₀ + qc₁ + q²c₂ + q⁴c₄ + q⁵ + q⁷c₇)(q¹¹)`. It comes from the 11 pentagonal branches, quasi-periodicity, and the quintuple product at `z = Q^a`.
   3. **Ten level-11 three-term (Weierstrass) relations** among `θ(Q^a;Q¹¹)` (`Atkin11Weier`). A 25-element Gröbner basis of their ideal is certified (`Atkin11Cert.Common`).
   4. **Certificates.** Every coefficient identity (`E3, E4, M1–M6`), the quintic `g₂⁵ = z(1+13g₂+34g₂²) + 121z²`, and Cayley–Hamilton for `ψ = 1/φ` are certified, with up to 74k cofactor terms. They are checked by a kernel-evaluated sparse-polynomial checker (`SPoly*`): packed monomials, merge-sorted runs, and soundness = preservation of the evaluated sum. Large certificates are split into trees and DAGs of small checks.
@@ -698,7 +698,7 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
   * The kernel checks take about 4 minutes in total; the largest file (`H2CheckI`) peaks near 10 GB.
 
 **`Rademacher/*.lean`: Rademacher's exact convergent series for `p(n)`** (`Rademacher.rademacher_dedekind`). The proof follows Apostol's Ford-circle route, without contour deformation:
-* **η on SL₂(ℤ)** (`EtaGeneral`, `FTransform`): `η(γτ) = ε√(cτ+d)η(τ)` with `ε²⁴ = 1`. It comes from log-derivatives and Mathlib's `E2_slash_action`, plus the modularity of Δ. Specialized, it gives `F(e^{2πi(h+iz)/k}) = ω√z e^{π(1/z−z)/12k} F(e^{2πi(h'+i/z)/k})`. The multiplier `ω_{h,k}` is canonical (`Integrand.omega`).
+* **η on SL₂(ℤ)** (`EtaGeneral`, `FTransform`): `η(γτ) = ε√(cτ+d)η(τ)` with `ε²⁴ = 1`. It comes from log-derivatives and Mathlib's `E2_slash_action`, plus the modularity of Δ. Specialized, it gives `F(e^{2πi(h+iz)/k}) = ω√z e^{π(1/z−z)/12k} F(e^{2πi(h'+i/z)/k})`. The multiplier `ω_{h,k}` is canonical (`Rademacher.omega` in `Integrand.lean`).
 * **Dedekind sums** (`Dedekind`, `DedekindOmega`, `Classical`).
   * `s(h,k) = Σ_r ((r/k))((hr/k))`, and **Dedekind reciprocity** `s(h,k) + s(k,h) = (h/k + k/h + 1/(hk))/12 − 1/4`. The proof is elementary: `r ↦ hr mod k` permutes residues, and lattice points are counted for `Σ⌊hr/k⌋²`.
   * The multiplier obeys the same recursion. Compare the transformation at `h/k` (at `z = 1`), the `S`-transformation at `(h+i)/k`, and the transformation at `−k/h` (at `Z = k/(h+i)`): all three hit the same far point. This gives `ω_{h,k} = ω_{−k,h}e^{−πi/4}e^{πi(h/k+k/h+1/(hk))/12}`.
@@ -772,7 +772,7 @@ Method write-up: [`MOCK_THETA_METHOD.md`](../MOCK_THETA_METHOD.md). The chain, f
   showing an auxiliary series in `Th(55)` vanishes at 56 explicit points (residue identities proved symbolically).
 * **The rank side** (`RankALm`, `L5`): `(1+φ(q))(q⁵;q⁵)_∞` as three Appell–Lerch sums.
 * **Appell–Lerch calculus** (`LamAb`, `LamInv`, `Endgame1`): Lambert form = library form, HM (2.2a–c), four changes
-  of `z`; the unknown Appell–Lerch values cancel (`Endgame2.endgame_reduce`).
+  of `z`; the unknown Appell–Lerch values cancel (`MTC.endgame_reduce` in `Endgame2.lean`).
 * **Theta identities**: Weierstrass instances (`F1Prime`, `P11`), a product-identity engine splitting every theta
   into atoms `(q^r;q^M)_∞` (`ProdId`, `LemC`), and HM (1.9) by a zero count in `Th(Q³⁰,10)` (`ThExtra`, `H19`,
   `H19b`), which gives HM (8.17).

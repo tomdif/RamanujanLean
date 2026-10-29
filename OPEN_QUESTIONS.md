@@ -33,7 +33,7 @@ congruence for the modular discriminant's q-expansion coefficients.
 **Question.** Can Mathlib's *analytic* `Δ = η²⁴` be identified coefficient by coefficient with the *formal*
 Euler product `q·∏(1−qⁿ)²⁴`?
 
-**Status. Proved, axiom-clean** (`DiscriminantQExpansion.qExpansion_discriminant_coeff`). The earlier verdict
+**Status. Proved, axiom-clean** (`RamanujanTau.DiscriminantBridge.qExpansion_discriminant_coeff` in `DiscriminantQExpansion.lean`). The earlier verdict
 ("infrastructure gap") was wrong: the bridge does not need an analytic-product → `FormalMultilinearSeries`
 lemma. The proof avoids it as follows:
 
@@ -50,7 +50,7 @@ Consequences (`TauModular`):
 
 ## 3. `τ` multiplicativity — CLOSED (proved, 2026-10-04); Deligne / Lehmer — out of scope
 
-- **Multiplicativity and the Hecke recurrence are proved** (`HeckeQExp.tau_mul_coprime`,
+- **Multiplicativity and the Hecke recurrence are proved** (`RamanujanTau.tau_mul_coprime` in `HeckeQExp.lean`,
   `tau_hecke_recurrence`; axiom-clean). `HeckeCore`/`HeckeForm` build `T_p` on `CuspForm 𝒮ℒ k` by the
   elementary coset computation, without Mathlib's double-coset machinery. `HeckeQExp` computes its
   q-expansion, which gives a `HeckeData` term and an instance of `TauHeckeMaster`.

@@ -75,7 +75,7 @@ proposed multiplier has a partition-count counterexample at the preceding index 
 
 The sharpness proof observes the divided error through `λ(F) = 3[q²]F − [q]F`. Its residue is
 `12·23^n (mod 29)`, which never vanishes. `Error29.tail_killed` controls the contribution of the
-entire Katz remainder; `OrbitLift.lift_padic_mem` retains the envelope of each divided error.
+entire Katz remainder; `lift_padic_mem` in `OrbitLift.lean` retains the envelope of each divided error.
 Three finite observations modulo 841, submitted for kernel checking through degree 1682 in `Cert29Error.lean`, supply
 the scalar law and its initial value. `CertifyError29.lean` identifies those observations with
 the actual 29-adic operator, including the weight-28 Eisenstein denominator at precision 841.
