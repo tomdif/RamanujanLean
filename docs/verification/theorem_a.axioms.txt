@@ -33,3 +33,26 @@
 'RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'RamanujanTau.TheoremA.decay_of_coeff_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.correctionS_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.correctionT_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.period_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.norm_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.translate_decay' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.norm_decay' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.norm_isBigO_discriminant_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.cusp_eq_zero_of_coeff_eq_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.weightSix_eq_zero_of_first_three' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.firstThree_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.weightSix_finrank_le_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightSix_identity_of_coefficient_certificate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator_of_certificate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

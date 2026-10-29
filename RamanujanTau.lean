@@ -461,4 +461,4 @@ import RamanujanTau.FiniteArithmetic.Complete29
 import RamanujanTau.FiniteArithmetic.Evaluate29Powers
 import RamanujanTau.FiniteArithmetic.WeightedTilings
 -- Foundations and a conditional reduction only; universal Theorem A remains open in Lean.
-import RamanujanTau.TheoremA.ClassicalWeightSix
+import RamanujanTau.TheoremA.WeightSixCertificate

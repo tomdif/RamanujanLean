@@ -1,4 +1,4 @@
-import RamanujanTau.TheoremA.ClassicalWeightSix
+import RamanujanTau.TheoremA.WeightSixCertificate
 
 -- These are foundations and an explicitly conditional reduction, not Theorem A.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
@@ -28,3 +28,18 @@ import RamanujanTau.TheoremA.ClassicalWeightSix
 #print axioms RamanujanTau.TheoremA.qExpansion_classicalWeightSixAnnihilator
 #print axioms RamanujanTau.TheoremA.classicalWeightSixAnnihilator_eq_zero_iff
 #print axioms RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator
+#print axioms RamanujanTau.TheoremA.decay_of_coeff_eq_zero
+#print axioms RamanujanTau.TheoremA.LevelSix.correctionS_mem
+#print axioms RamanujanTau.TheoremA.LevelSix.correctionT_mem
+#print axioms RamanujanTau.TheoremA.LevelSix.period_mem
+#print axioms RamanujanTau.TheoremA.LevelSix.norm
+#print axioms RamanujanTau.TheoremA.LevelSix.norm_eq_zero_iff
+#print axioms RamanujanTau.TheoremA.LevelSix.translate_decay
+#print axioms RamanujanTau.TheoremA.LevelSix.norm_decay
+#print axioms RamanujanTau.TheoremA.LevelSix.norm_isBigO_discriminant_pow
+#print axioms RamanujanTau.TheoremA.LevelSix.cusp_eq_zero_of_coeff_eq_zero
+#print axioms RamanujanTau.TheoremA.LevelSix.weightSix_eq_zero_of_first_three
+#print axioms RamanujanTau.TheoremA.LevelSix.firstThree_injective
+#print axioms RamanujanTau.TheoremA.LevelSix.weightSix_finrank_le_three
+#print axioms RamanujanTau.TheoremA.weightSix_identity_of_coefficient_certificate
+#print axioms RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator_of_certificate

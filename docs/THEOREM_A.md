@@ -6,10 +6,13 @@ Updated 2026-10-29. [Current status](STATUS.md) · [Research argument](BL_SHARPN
 the arithmetic and linear algebra of the ordinarity argument, including a
 conditional reduction on actual power series. It now also constructs the
 bad-prime Hecke operators on Mathlib's actual cusp spaces, identifies their
-q-expansions, and proves their compatibility with integral reduction. It does
-not yet supply characteristic-ℓ filtration theory, the actual weight-six
-annihilating identity, or the Shimura correspondence. The independent prime-29
-all-power theorem remains complete.
+q-expansions, and proves their compatibility with integral reduction. It also
+proves a coefficient bound on the actual level-six cusp space: in weight six,
+the first three positive coefficients determine the form. This reduces the
+classical annihilating identity to constructing three actual forms with a
+specified finite coefficient table. That construction, characteristic-ℓ
+filtration theory, and the Shimura correspondence remain open. The independent
+prime-29 all-power theorem remains complete.
 
 ## Targets
 
@@ -41,6 +44,10 @@ All declarations below are in `RamanujanTau.TheoremA`.
 | [BadPrimeQExpansion](../RamanujanTau/TheoremA/BadPrimeQExpansion.lean) | `qExpansion_cuspU` and `cuspU_intertwines` identify the analytic operator with coefficient extraction; q-expansion is injective and the operators commute | Applies to every integral weight and every prime dividing the level, including 2 and 3 at level six |
 | [IntegralCusp](../RamanujanTau/TheoremA/IntegralCusp.lean) | U_p preserves actual classical cusp expansions and their coefficient reductions | Does not assert that every Katz form lifts to a classical form |
 | [ClassicalWeightSix](../RamanujanTau/TheoremA/ClassicalWeightSix.lean) | The polynomial on actual analytic operators intertwines with the series polynomial; a classical identity descends to arbitrary residue rings | The actual classical polynomial identity remains an explicit hypothesis |
+| [LevelSixCosets](../RamanujanTau/TheoremA/LevelSixCosets.lean) and [LevelSixNorm](../RamanujanTau/TheoremA/LevelSixNorm.lean) | Twelve explicit translates give an actual level-one form of twelve times the weight; this product detects zero | No assumed index or dimension formula |
+| [CoefficientDecay](../RamanujanTau/TheoremA/CoefficientDecay.lean) and [LevelSixDecay](../RamanujanTau/TheoremA/LevelSixDecay.lean) | Vanishing below q^m gives norm decay of order m+3, using cusp periods 1, 6, 3, 2 | Analytic estimates for actual forms at every relevant cusp |
+| [LevelSixSturm](../RamanujanTau/TheoremA/LevelSixSturm.lean) | A level-six cusp form of weight k vanishes if its coefficients below m vanish and k < m+3; `firstThree_injective` and `weightSix_finrank_le_three` follow | Unconditional analytic theorems; the dimension is proved at most three, not yet exactly three |
+| [WeightSixCertificate](../RamanujanTau/TheoremA/WeightSixCertificate.lean) | Three actual weight-six cusp forms matching 27 coefficients through q^9 imply the full classical polynomial identity and its residue-ring versions | The existence of those actual forms with the stated coefficients remains an explicit input |
 
 The conditional reduction is useful because its conclusion concerns the existing
 Boylan–Webb coefficient-extraction operator on an actual power series. The
@@ -100,14 +107,39 @@ U₂ = [-6   1  -9]       U₃ = [9  0    9]
 ```
 
 The first three positive q-coefficients have determinant −9, and
-h = −g + 8v + 2H. These are exact PARI computations. Formalizing the eta
-products as actual level-six cusp forms and proving that they span the space
-would provide a concrete route to the remaining classical identity. Checking
-a finite prefix alone does not prove their operator identities: a formal
-coefficient bound or an infinite-series proof is still needed.
+h = −g + 8v + 2H. These are exact PARI computations. The required coefficient
+bound is now proved in Lean, independently of these eta products. Consequently
+constructing g, v, h as actual cusp forms and identifying their first nine
+positive coefficients suffices; no separate spanning proof or infinite-series
+Hecke identity is needed.
 `classicalWeightSixAnnihilator_eq_zero_iff` proves the analytic identity is
 equivalent to the full six-term coefficient relation, for all coefficients
 of every form.
+
+## The finite analytic certificate
+
+`weightSix_eq_zero_of_first_three` proves that a weight-six cusp form is zero
+if its q, q², and q³ coefficients vanish. The proof takes the product of
+twelve translates. The cusp blocks of widths 6, 3, and 2 each contribute one
+power of q; fourfold vanishing at infinity therefore gives decay of order
+seven. Dividing the resulting weight-72 form by Δ⁷ produces a holomorphic
+level-one form of weight −12, which vanishes by Mathlib's existing theorem.
+The nonzero-product theorem then forces the original form to vanish.
+
+The finite input to `weightSix_identity_of_coefficient_certificate` is:
+
+| Form | q | q² | q³ | q⁴ | q⁵ | q⁶ | q⁷ | q⁸ | q⁹ |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| g | 1 | −6 | 9 | 4 | 6 | −54 | −40 | 168 | 81 |
+| v | 0 | 1 | 0 | −6 | 0 | 9 | 0 | 4 | 0 |
+| h | 1 | 4 | −9 | 16 | −66 | −36 | 176 | 64 | 81 |
+
+For actual forms with this table, the three-coefficient bound proves both that
+they span and that the displayed U₂/U₃ matrices act on them. The polynomial
+identity follows on every form and then through integral reduction. PARI
+independently checks this table. Lean does not yet construct the eta products
+as actual forms or prove their coefficient identifications, so the certificate
+theorem does not yet discharge the classical identity unconditionally.
 
 ## Source checks and remaining work
 
@@ -130,11 +162,11 @@ The next formal obligations are substantive:
    Hasse invariant, filtration, and θ, and prove the laws used by the reduction.
    A concrete presentation of the level-six ring could be an alternative to
    developing a general theory of modular curves; that route has not been proved.
-2. Prove the weight-six polynomial identity on the actual analytic space and
-   the lifting/comparison needed for θ⁴F. The analytic bad-prime operators,
-   their q-expansion action, and descent of a proved relation through coefficient
-   rings are now formalized. The eigenvalue formulas for the stated
-   Atkin–Lehner newform class still need proof.
+2. Construct the three actual weight-six cusp forms and prove their finite
+   coefficient table. The coefficient bound, spanning implication, Hecke
+   identification from that table, and residue-ring transfer are now formalized.
+   The lifting/comparison needed for θ⁴F and the eigenvalue formulas for the
+   stated Atkin–Lehner newform class still need proof.
 3. Construct the half-integral-weight Hecke space and prove the required
    correspondence or an equivalent characteristic-polynomial identity.
 4. Connect its reduction to X̄ on V and to the definition of d_ℓ. Prove the
@@ -149,14 +181,14 @@ precision. [Boylan–Webb, §§6.1–6.2](https://people.math.sc.edu/boylan/repr
 ## Reproduce the checks
 
 ```sh
-lake build RamanujanTau.TheoremA.ClassicalWeightSix
+lake build RamanujanTau.TheoremA.WeightSixCertificate
 lake env lean scripts/audit/theorem_a.lean
 gp -q -f scripts/frontier/pattern/weight_six.gp
 ```
 
-The full build passed 9,141 jobs. The [dedicated audit](verification/theorem_a.axioms.txt)
-checked 27 declarations covering the algebraic foundations, actual bad-prime
-operators, q-expansion identification, and integral reduction theorem.
+The full build passed 9,147 jobs. The [dedicated audit](verification/theorem_a.axioms.txt)
+checked 42 declarations covering the algebraic foundations, actual bad-prime
+operators, analytic coefficient bound, finite certificate theorem, and integral reduction.
 Their dependencies are confined to `propext`, `Classical.choice`, and `Quot.sound`.
 The integer matrix identity
 is checked with `decide +kernel`; PARI is not part of Lean's trust boundary.

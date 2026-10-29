@@ -27,6 +27,16 @@ explicitly assumed analytic polynomial identity through any embedded
 coefficient ring to its residue rings. The actual weight-six identity and
 the characteristic-ℓ lifting/filtration inputs remain open.
 
+`TheoremA/LevelSixSturm.lean` proves an unconditional analytic coefficient
+bound: a level-six cusp form of integral weight k is zero when its coefficients
+below m vanish and k < m+3. In weight six this makes the first three positive
+coefficients injective and proves dimension at most three. The proof uses a
+twelve-translate norm and division by a power of Δ, without an assumed
+dimension formula. `WeightSixCertificate.lean` then proves that three actual
+forms matching the recorded coefficients through q⁹ establish the full
+weight-six operator identity and its coefficient reductions. Constructing
+those forms with that table remains an explicit input.
+
 ## Results at a glance
 
 | Theorem | Statement |

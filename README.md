@@ -37,8 +37,10 @@ See the [verification record](docs/STATUS.md#verification).
 
 Work on the proposed all-prime Theorem A now includes checked θ-cycle arithmetic
 and actual bad-prime Hecke operators on Γ₀(N), with their q-expansion action and
-integral-reduction compatibility. Filtration, the weight-six identity on actual
-forms, and the correspondence remain open. See the [precise boundary](docs/THEOREM_A.md).
+integral-reduction compatibility. In weight six at level six, Lean proves that
+three coefficients determine a cusp form and reduces the operator identity to
+a finite table for three actual forms. Constructing those forms, filtration,
+and the correspondence remain open. See the [precise boundary](docs/THEOREM_A.md).
 
 ## Build and verify
 

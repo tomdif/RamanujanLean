@@ -21,6 +21,12 @@ check_weight_six() = {
   if(first != [1,0,1;-6,1,-5;9,0,0] || matdet(first) != -9,
     error("eta-basis initial coefficients failed"));
   print("Eta basis g, g(2z), H: exact basis and operator matrices checked; first-three determinant -9.");
+  my(h = mflinear([g,v,H],[-1,8,2]));
+  if(mfcoefs(g,9) != [0,1,-6,9,4,6,-54,-40,168,81] ||
+     mfcoefs(v,9) != [0,0,1,0,-6,0,9,0,4,0] ||
+     mfcoefs(h,9) != [0,1,4,-9,16,-66,-36,176,64,81],
+    error("finite weight-six coefficient certificate failed"));
+  print("Old/new basis: all 27 positive coefficients through q^9 match the Lean certificate input.");
   mf = mfinit([6, 6]); A = mfheckemat(mf, 2); B = mfheckemat(mf, 3); Idm = matid(7);
   if(mfdim(mf) != 7, error("unexpected full-space dimension"));
   if((A-Idm)*(A-32*Idm)*(B+9*Idm)*(A^2+6*A+32*Idm) != matrix(7,7),
