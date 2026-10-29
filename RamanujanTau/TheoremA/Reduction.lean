@@ -21,7 +21,7 @@ open PowerSeries
 /-- The polynomial expected to annihilate weight-six level-six cusp forms,
 acting on the ambient space of all formal power series. It does not annihilate
 that ambient space. -/
-noncomputable def weightSixAnnihilator {K : Type*} [Field K] :
+noncomputable def weightSixAnnihilator {K : Type*} [CommRing K] :
     Module.End K (PowerSeries K) :=
   (uOperator 3 + (9 : K) • 1) *
     (uOperator 2 ^ 2 + (6 : K) • uOperator 2 + (32 : K) • 1)

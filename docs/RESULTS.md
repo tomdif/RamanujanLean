@@ -17,6 +17,16 @@ The modular hypotheses and Shimura correspondence remain unformalized;
 this is not an unconditional all-prime theorem. See the
 [declaration ledger and remaining work](THEOREM_A.md).
 
+`TheoremA/BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct U_p on
+Mathlib's actual cusp forms of every integral weight on Γ₀(N), for prime p
+dividing nonzero N. Modularity, holomorphy, all cusp conditions, and the
+coefficient-extraction formula are proved. The q-expansion map is injective,
+and these operators commute. `IntegralCusp.lean` proves closure of classical
+expansions and their reductions; `ClassicalWeightSix.lean` transports an
+explicitly assumed analytic polynomial identity through any embedded
+coefficient ring to its residue rings. The actual weight-six identity and
+the characteristic-ℓ lifting/filtration inputs remain open.
+
 ## Results at a glance
 
 | Theorem | Statement |

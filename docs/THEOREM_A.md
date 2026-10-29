@@ -4,9 +4,12 @@ Updated 2026-10-29. [Current status](STATUS.md) · [Research argument](BL_SHARPN
 
 **The universal theorem is not yet formalized.** The new Lean development proves
 the arithmetic and linear algebra of the ordinarity argument, including a
-conditional reduction on actual power series. It does not supply the required
-level-six modular-form theory or the Shimura correspondence. The independent
-prime-29 all-power theorem remains complete.
+conditional reduction on actual power series. It now also constructs the
+bad-prime Hecke operators on Mathlib's actual cusp spaces, identifies their
+q-expansions, and proves their compatibility with integral reduction. It does
+not yet supply characteristic-ℓ filtration theory, the actual weight-six
+annihilating identity, or the Shimura correspondence. The independent prime-29
+all-power theorem remains complete.
 
 ## Targets
 
@@ -34,6 +37,10 @@ All declarations below are in `RamanujanTau.TheoremA`.
 | [Signs](../RamanujanTau/TheoremA/Signs.lean) | `theta_four_eigenvalue`: q⁴(q/ℓ)q^{(ℓ−5)/2} = q² in characteristic ℓ | Euler's criterion is proved through Mathlib; the original newform eigenvalue formula remains a modular input |
 | [WeightSix](../RamanujanTau/TheoremA/WeightSix.lean) | An exact integer matrix identity and the exclusion of a nonzero joint (4,9) eigenvector | The matrices' identification with actual Hecke operators is not formalized |
 | [Reduction](../RamanujanTau/TheoremA/Reduction.lean) | `U_ne_zero_of_filtration_data` combines these results to conclude U_ℓ f ≠ 0 | Explicit hypotheses retain the filtration laws, the weight-six annihilator, and the U₂/U₃ eigenvalue formulas |
+| [BadPrimeCosets](../RamanujanTau/TheoremA/BadPrimeCosets.lean) and [BadPrimeForms](../RamanujanTau/TheoremA/BadPrimeForms.lean) | `cuspU` constructs U_p on Mathlib's actual `CuspForm (Γ₀(N)) k` for every prime p dividing nonzero N | Modularity, holomorphy, and vanishing at every cusp are proved, not assumed |
+| [BadPrimeQExpansion](../RamanujanTau/TheoremA/BadPrimeQExpansion.lean) | `qExpansion_cuspU` and `cuspU_intertwines` identify the analytic operator with coefficient extraction; q-expansion is injective and the operators commute | Applies to every integral weight and every prime dividing the level, including 2 and 3 at level six |
+| [IntegralCusp](../RamanujanTau/TheoremA/IntegralCusp.lean) | U_p preserves actual classical cusp expansions and their coefficient reductions | Does not assert that every Katz form lifts to a classical form |
+| [ClassicalWeightSix](../RamanujanTau/TheoremA/ClassicalWeightSix.lean) | The polynomial on actual analytic operators intertwines with the series polynomial; a classical identity descends to arbitrary residue rings | The actual classical polynomial identity remains an explicit hypothesis |
 
 The conditional reduction is useful because its conclusion concerns the existing
 Boylan–Webb coefficient-extraction operator on an actual power series. The
@@ -62,11 +69,13 @@ every characteristic ℓ ≥ 5. Thus it excludes that eigenpair without an
 eigenvector-lifting theorem or semisimplicity in characteristic ℓ.
 The integer matrix certificate and this implication are both checked in Lean.
 
-An identity over the fraction field also holds on any stable integral lattice,
-by injectivity into the fraction-field space, and then on its reduction.
-Applying this observation requires a proved comparison with the actual
-weight-six space in characteristic ℓ; an integral old/new direct-sum
-decomposition is not required.
+The descent step is now formalized by
+`IsReducedCuspExpansion.weightSix_annihilator`: a polynomial identity on the
+actual complex cusp space holds on every cusp expansion over a coefficient
+ring embedded in ℂ, and then after any coefficient-ring reduction. No integral
+old/new direct-sum decomposition is required. Applying this to θ⁴F still
+requires the weight-six lifting/comparison theorem and the actual classical
+polynomial identity.
 
 The independent [PARI script](../scripts/frontier/pattern/weight_six.gp) recomputes
 the classical rational matrices and the relation. It also checks the optional
@@ -74,6 +83,31 @@ full-space relation on M₆(Γ₀(6)) obtained by adding the factor
 (U₂−I)(U₂−32I). That larger relation evaluates to −108864 at (4,9), whose
 prime divisors are 2, 3, and 7. The full-space relation is a PARI check, not a
 Lean theorem about modular forms.
+
+The same script identifies an explicit eta-product basis:
+
+\[
+g(z)=\eta(z)^6\eta(3z)^6,\qquad v(z)=g(2z),\qquad
+H(z)=\eta(z)^5\eta(2z)^5\eta(3z)\eta(6z).
+\]
+
+In this basis the matrices are
+
+```text
+U₂ = [-6   1  -9]       U₃ = [9  0    9]
+     [-32  0   0]            [0  9  -72]
+     [  0  0   4]            [0  0   -9].
+```
+
+The first three positive q-coefficients have determinant −9, and
+h = −g + 8v + 2H. These are exact PARI computations. Formalizing the eta
+products as actual level-six cusp forms and proving that they span the space
+would provide a concrete route to the remaining classical identity. Checking
+a finite prefix alone does not prove their operator identities: a formal
+coefficient bound or an infinite-series proof is still needed.
+`classicalWeightSixAnnihilator_eq_zero_iff` proves the analytic identity is
+equivalent to the full six-term coefficient relation, for all coefficients
+of every form.
 
 ## Source checks and remaining work
 
@@ -96,9 +130,11 @@ The next formal obligations are substantive:
    Hasse invariant, filtration, and θ, and prove the laws used by the reduction.
    A concrete presentation of the level-six ring could be an alternative to
    developing a general theory of modular curves; that route has not been proved.
-2. Identify the weight-six operator relation on the actual space and justify
-   integral reduction/base change. Prove the bad-prime eigenvalue formulas for
-   the stated Atkin–Lehner class. These discharge the remaining ordinarity inputs.
+2. Prove the weight-six polynomial identity on the actual analytic space and
+   the lifting/comparison needed for θ⁴F. The analytic bad-prime operators,
+   their q-expansion action, and descent of a proved relation through coefficient
+   rings are now formalized. The eigenvalue formulas for the stated
+   Atkin–Lehner newform class still need proof.
 3. Construct the half-integral-weight Hecke space and prove the required
    correspondence or an equivalent characteristic-polynomial identity.
 4. Connect its reduction to X̄ on V and to the definition of d_ℓ. Prove the
@@ -113,12 +149,14 @@ precision. [Boylan–Webb, §§6.1–6.2](https://people.math.sc.edu/boylan/repr
 ## Reproduce the checks
 
 ```sh
-lake build RamanujanTau.TheoremA.Reduction
+lake build RamanujanTau.TheoremA.ClassicalWeightSix
 lake env lean scripts/audit/theorem_a.lean
 gp -q -f scripts/frontier/pattern/weight_six.gp
 ```
 
-The full build passed 9,136 jobs. The [dedicated audit](verification/theorem_a.axioms.txt)
-checked twelve declarations with dependencies confined to `propext`,
-`Classical.choice`, and `Quot.sound`. The integer matrix identity
+The full build passed 9,141 jobs. The [dedicated audit](verification/theorem_a.axioms.txt)
+checked 27 declarations covering the algebraic foundations, actual bad-prime
+operators, q-expansion identification, and integral reduction theorem.
+Their dependencies are confined to `propext`, `Classical.choice`, and `Quot.sound`.
+The integer matrix identity
 is checked with `decide +kernel`; PARI is not part of Lean's trust boundary.

@@ -10,3 +10,26 @@
 'RamanujanTau.TheoremA.no_weightSix_eigenpair' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.TheoremA.obstruction_scalar_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.TheoremA.U_ne_zero_of_filtration_data' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.representative_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.isCusp_rational_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.slashU_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.cuspU' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.qExpansion_cuspU' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.cuspU_intertwines' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.cuspExpansionLinear_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.BadPrime.cuspU_commute' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.IsCuspExpansion.U' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.IsReducedCuspExpansion.U' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.coeff_weightSixAnnihilator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.map_weightSixAnnihilator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.qExpansion_classicalWeightSixAnnihilator' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.classicalWeightSixAnnihilator_eq_zero_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

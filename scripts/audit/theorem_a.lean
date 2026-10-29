@@ -1,4 +1,4 @@
-import RamanujanTau.TheoremA.Reduction
+import RamanujanTau.TheoremA.ClassicalWeightSix
 
 -- These are foundations and an explicitly conditional reduction, not Theorem A.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
@@ -13,3 +13,18 @@ import RamanujanTau.TheoremA.Reduction
 #print axioms RamanujanTau.TheoremA.no_weightSix_eigenpair
 #print axioms RamanujanTau.TheoremA.obstruction_scalar_ne_zero
 #print axioms RamanujanTau.TheoremA.U_ne_zero_of_filtration_data
+#print axioms RamanujanTau.TheoremA.BadPrime.representative_mul
+#print axioms RamanujanTau.TheoremA.BadPrime.isCusp_rational_smul
+#print axioms RamanujanTau.TheoremA.BadPrime.slashU_invariant
+#print axioms RamanujanTau.TheoremA.BadPrime.cuspU
+#print axioms RamanujanTau.TheoremA.BadPrime.qExpansion_cuspU
+#print axioms RamanujanTau.TheoremA.BadPrime.cuspU_intertwines
+#print axioms RamanujanTau.TheoremA.BadPrime.cuspExpansionLinear_injective
+#print axioms RamanujanTau.TheoremA.BadPrime.cuspU_commute
+#print axioms RamanujanTau.TheoremA.IsCuspExpansion.U
+#print axioms RamanujanTau.TheoremA.IsReducedCuspExpansion.U
+#print axioms RamanujanTau.TheoremA.coeff_weightSixAnnihilator
+#print axioms RamanujanTau.TheoremA.map_weightSixAnnihilator
+#print axioms RamanujanTau.TheoremA.qExpansion_classicalWeightSixAnnihilator
+#print axioms RamanujanTau.TheoremA.classicalWeightSixAnnihilator_eq_zero_iff
+#print axioms RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator

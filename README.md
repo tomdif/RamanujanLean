@@ -35,9 +35,10 @@ b = B onward modulo 29^m if and only if B ≥ 2m−1.
 actual partition counts; the full build and expanded axiom audit passed.
 See the [verification record](docs/STATUS.md#verification).
 
-Work on the proposed all-prime Theorem A has begun. Its θ-cycle arithmetic and
-operator obstruction are checked, but the level-six and half-integral-weight
-modular inputs remain unformalized. See the [precise boundary](docs/THEOREM_A.md).
+Work on the proposed all-prime Theorem A now includes checked θ-cycle arithmetic
+and actual bad-prime Hecke operators on Γ₀(N), with their q-expansion action and
+integral-reduction compatibility. Filtration, the weight-six identity on actual
+forms, and the correspondence remain open. See the [precise boundary](docs/THEOREM_A.md).
 
 ## Build and verify
 

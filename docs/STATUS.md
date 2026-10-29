@@ -14,7 +14,7 @@ Updated 2026-10-29. [Overview](../README.md) · [Documentation guide](README.md)
 | Prime 29, every power | The unconditional recurrence for b ≥ 2m−1 and its evaluator from two actual seeds passed a full build and axiom audit. | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
 | Prime-29 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1. The numerical kernel certificate, full build, and expanded axiom audit passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
-| Universal Theorem A | The θ-cycle arithmetic, q-series identities, sign calculation, and weight-six algebraic obstruction are formalized. The assembled ordinarity reduction still assumes the level-six modular inputs; the universal theorem is not proved in Lean. | [Formalization boundary](THEOREM_A.md) |
+| Universal Theorem A | The algebraic reduction and actual bad-prime Hecke operators on Γ₀(N), with q-expansion and integral-reduction compatibility, are formalized. Filtration, the actual weight-six annihilator, and the correspondence remain open. | [Formalization boundary](THEOREM_A.md) |
 | Multi-quintuple products | The canonical family and the stated specializations are proved. The corrected general converse remains a research problem. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
@@ -27,10 +27,12 @@ there is no `sorryAx` or additional axiom. The
 toolchain, Mathlib revision, and checked commands. The
 [raw axiom report](verification/finite_arithmetic.axioms.txt) lists the audited declarations.
 
-After adding the Theorem A foundations, the full build passed 9,136 jobs. The
-[dedicated audit](verification/theorem_a.axioms.txt) checked twelve declarations
-with the same three standard axioms. This verifies the explicit conditional
-reduction; its modular hypotheses remain open.
+After adding the Theorem A foundations and actual bad-prime operators, the full
+build passed 9,141 jobs. The [dedicated audit](verification/theorem_a.axioms.txt)
+checked 27 declarations with the same three standard axioms. These include the
+analytic operator construction, q-expansion identification, and integral
+reduction. The assembled ordinarity theorem retains its explicit modular
+hypotheses.
 
 The independent sharpness checker verifies 16 polynomial products, their 429 bounded blocks, divisor-sum
 formulas, Euler coefficients, shifts, a linear combination, and three observations.

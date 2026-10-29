@@ -13,9 +13,12 @@
 >
 > The [Theorem A formalization](THEOREM_A.md) now checks the weight-ℓ−3
 > θ-cycle arithmetic, coefficientwise identities, Euler-criterion sign
-> calculation, and weight-six algebraic obstruction. Its assembled reduction
-> still assumes the modular filtration and Hecke inputs. It does not prove
-> Theorem A or d_ℓ = 0 unconditionally in Lean.
+> calculation, and weight-six algebraic obstruction. It also constructs actual
+> bad-prime Hecke operators on Γ₀(N), proves their q-expansion formulas, and
+> transports a classical relation through coefficient rings to residue rings.
+> Its assembled reduction still assumes the modular filtration and actual
+> weight-six identity. It does not prove Theorem A or d_ℓ = 0 unconditionally
+> in Lean.
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and
@@ -243,6 +246,9 @@ Consequence: det(T_{ℓ²}|𝒮) = ±∏_F a_ℓ(F), the product running over th
    `scripts/frontier/pattern/weight_six.gp` independently recomputes the exact rational matrices.
    Lean checks the integer matrix identity and eigenpair obstruction in `TheoremA/WeightSix.lean`,
    but has not identified those matrices with the actual Hecke action.
+   `TheoremA/ClassicalWeightSix.lean` now proves the passage from an identity
+   on the actual complex cusp space to reduced cusp expansions; the classical
+   identity and the comparison with characteristic-ℓ forms remain hypotheses.
 5. The newform F has a₂(F) = −w₂(F)·2^{(ℓ−5)/2} = (2/ℓ)·2^{(ℓ−5)/2} ≡ 2^{−2} and
    a₃(F) = (3/ℓ)·3^{(ℓ−5)/2} ≡ 3^{−2}, using 2^{(ℓ−1)/2} ≡ (2/ℓ). So G̃ has U₂ = 4 and U₃ = 9.
    Applying the polynomial to G̃ gives **18·72·G̃ = 1296·G̃ = 0**. Since ℓ ≥ 13 and G̃ ≠ 0,
