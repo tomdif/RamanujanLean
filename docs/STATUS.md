@@ -14,17 +14,23 @@ Updated 2026-10-29. [Overview](../README.md) · [Documentation guide](README.md)
 | Prime 29, every power | The unconditional recurrence for b ≥ 2m−1 and its evaluator from two actual seeds passed a full build and axiom audit. | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
 | Prime-29 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1. The numerical kernel certificate, full build, and expanded axiom audit passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
+| Universal Theorem A | The θ-cycle arithmetic, q-series identities, sign calculation, and weight-six algebraic obstruction are formalized. The assembled ordinarity reduction still assumes the level-six modular inputs; the universal theorem is not proved in Lean. | [Formalization boundary](THEOREM_A.md) |
 | Multi-quintuple products | The canonical family and the stated specializations are proved. The corrected general converse remains a research problem. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
 
-The completed full build, including prime-29 sharpness, passed 9,131 jobs.
+The prime-29 milestone's full build passed 9,131 jobs.
 The expanded finite-arithmetic audit checked 52 declarations. Its axiom
 dependencies are confined to `propext`, `Classical.choice`, and `Quot.sound`;
 there is no `sorryAx` or additional axiom. The
 [verification record](verification/prime29.json) pins the source revision,
 toolchain, Mathlib revision, and checked commands. The
 [raw axiom report](verification/finite_arithmetic.axioms.txt) lists the audited declarations.
+
+After adding the Theorem A foundations, the full build passed 9,136 jobs. The
+[dedicated audit](verification/theorem_a.axioms.txt) checked twelve declarations
+with the same three standard axioms. This verifies the explicit conditional
+reduction; its modular hypotheses remain open.
 
 The independent sharpness checker verifies 16 polynomial products, their 429 bounded blocks, divisor-sum
 formulas, Euler coefficients, shifts, a linear combination, and three observations.
@@ -51,6 +57,8 @@ with the build and audit commands in the [overview](../README.md#build-and-verif
 - Resolve the general sharpness and higher-precision rank questions in the
   [Boylan–Webb research draft](BL_SHARPNESS_PROOF.md). The prime-29 construction
   does not establish those claims for every prime.
+- Supply the level-six filtration and Hecke inputs and the half-integral-weight
+  correspondence needed by the [Theorem A formalization](THEOREM_A.md).
 - Resolve the corrected multi-quintuple classification problem. Its existing
   finite experiments and reductions do not prove the universal converse.
 

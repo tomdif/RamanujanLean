@@ -35,6 +35,10 @@ b = B onward modulo 29^m if and only if B ≥ 2m−1.
 actual partition counts; the full build and expanded axiom audit passed.
 See the [verification record](docs/STATUS.md#verification).
 
+Work on the proposed all-prime Theorem A has begun. Its θ-cycle arithmetic and
+operator obstruction are checked, but the level-six and half-integral-weight
+modular inputs remain unformalized. See the [precise boundary](docs/THEOREM_A.md).
+
 ## Build and verify
 
 With Lean's `elan` toolchain manager installed:
@@ -57,6 +61,7 @@ After a successful build, run the theorem audits and a recurrence demonstration:
 ```sh
 lake env lean scripts/audit/atkin_obrien_closure.lean
 lake env lean scripts/audit/finite_arithmetic.lean
+lake env lean scripts/audit/theorem_a.lean
 lake env lean --run scripts/finite_arithmetic/demo.lean 1000000000000
 ```
 

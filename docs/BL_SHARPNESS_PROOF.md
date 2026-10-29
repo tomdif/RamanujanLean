@@ -10,6 +10,12 @@
 > it does not depend on identifying the experimental Θ matrix below.
 > The full build and axiom audit passed; see [verification status](STATUS.md)
 > and [the finite-arithmetic proof guide](FINITE_ARITHMETIC.md).
+>
+> The [Theorem A formalization](THEOREM_A.md) now checks the weight-ℓ−3
+> θ-cycle arithmetic, coefficientwise identities, Euler-criterion sign
+> calculation, and weight-six algebraic obstruction. Its assembled reduction
+> still assumes the modular filtration and Hecke inputs. It does not prove
+> Theorem A or d_ℓ = 0 unconditionally in Lean.
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and
@@ -30,8 +36,8 @@ Fixed integers:
 Mod-ℓ spaces: S̄ = S_{ℓ−1}(𝔽_ℓ), M̄ = M_{ℓ−1}(𝔽_ℓ) = 𝔽_ℓ·1 ⊕ S̄ (since E_{ℓ−1} ≡ 1), and
 **V := Δ^t·S_{k′}(𝔽_ℓ) ⊂ S̄.** Ū, D̄, X̄ are the reductions of U, D, X on q-expansions mod ℓ.
 
-**Status legend.** [P] proved here from standard results (cited). [P*] proved here modulo a cited theorem
-whose exact statement still has to be checked against the source. [N] numerical only. [O] open.
+**Status legend.** [P] paper argument from standard results (cited). [P*] proposed paper argument whose
+external inputs or applications still need review. Neither label means Lean-verified. [N] numerical only. [O] open.
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -67,7 +73,9 @@ whose exact statement still has to be checked against the source. [N] numerical 
 
    At ℓ = 607 the obstruction is a 2-dimensional eigenspace of −367 (geometric multiplicity 2). That is a
    *sufficient* obstruction: no vector is cyclic, and the Krylov rank is 24 = R − 1 mod ℓ (§5.2). BW's deficit
-   at all m is their computation. Heuristically it fails with probability ≍ 1/ℓ, which means infinitely many
+   at all m is reported in their paper, but the computation ranges listed in BW §6.1 cover 607 only at
+   m = 1. This draft does not infer the higher-precision claim from that computation. Heuristically it
+   fails with probability ≍ 1/ℓ, which suggests infinitely many
    but sparse exceptions (§5.3).
 3. **Lower bound b_ℓ(m) ≥ 2m − 1 [reduced; O].**
    * b_ℓ(m) = 2m − 1 for all m is *equivalent* to the non-vanishing Θ^k ū₀ ≠ 0 for all k. Here Θ is an
@@ -85,6 +93,12 @@ whose exact statement still has to be checked against the source. [N] numerical 
 Standard facts, valid for mod-ℓ modular forms on Γ₁(N) with ℓ ∤ N and ℓ ≥ 5. References: Serre (Antwerp III);
 Swinnerton-Dyer (Antwerp III); Katz, "A result on modular forms in characteristic p" (LNM 601, 1977);
 Jochnowitz, Trans. AMS 270 (1982).
+
+More precisely, [Katz's original paper](https://web.math.princeton.edu/~nmk/old/modformcharp.pdf),
+§II, theorem (1)–(2), supplies the θ operator and the exact filtration increase when ℓ does not divide
+the filtration. Corollary (1) sends holomorphic forms to cusp forms. The operator acts as q·d/dq at
+every cusp, and the Hasse invariant has q-expansion one at every cusp (§I). Thus lowering by Hasse
+factors preserves cuspidality. These statements still require a formal construction in Lean.
 
 * (F1) w(θf) ≤ w(f) + ℓ + 1, with equality iff ℓ ∤ w(f). In general w(θf) = w(f) + ℓ + 1 − s(ℓ−1) with s ≥ 0.
 * (F2) For k ≥ 2, U ≡ T_ℓ on M_k mod ℓ, and w(f|U) ≤ ℓ + (w(f) − 1)/ℓ.
@@ -175,7 +189,10 @@ factor* with the nonzero part of charpoly(X̄|S̄) computed independently in Kat
 
 ## 3. Theorem A: X̄|_V is invertible for every ℓ ≥ 13 [P*]
 
-**Theorem A.** For every prime ℓ ≥ 13, det(T_{ℓ²} | 𝒮) is an ℓ-adic unit. Equivalently, X̄|_V is invertible.
+**Theorem A (proposed paper theorem).** For every prime ℓ ≥ 13, det(T_{ℓ²} | 𝒮) is an ℓ-adic unit.
+Equivalently, U_{ℓ²} is invertible mod ℓ on S_{(ℓ−2)/2}(SL₂ℤ, ν_η^{−ℓ}), or X̄|_V is invertible.
+The integral-weight statement used to establish it is: every newform in
+S^{new}_{ℓ−3}(Γ₀(6))^{(−(2/ℓ),−(3/ℓ))} is ordinary at every prime above ℓ.
 
 **Corollary A.** For ℓ ≥ 13:
 1. D̄(M̄) = D̄(S̄) = V, so rank D̄ = R = ⌈d/2⌉. Indeed V = X̄(V) ⊆ D̄(S̄) ⊆ D̄(M̄) ⊆ V.
@@ -194,8 +211,10 @@ Yifan Yang (Nagoya Math. J. 215 (2014), Theorem 1, with r = 24 − (ℓ mod 24),
 
 The relevant sign class is (w₂, w₃) = (−(2/ℓ), −(3/ℓ)), using pari's Atkin–Lehner eigenvalue convention
 a_p = −w_p p^{k/2−1}. This form of the statement is what Ahlgren–Allen–Tang and Ahlgren–Beckwith–Raum use.
-*The exact theorem number and sign normalization still have to be checked against the source; the
-literature agent has the PDFs.* §3.4 checks the statement numerically.
+The published Theorem 1 and the sign normalization have been checked against the source; see §G1.
+§3.4 also checks the statement numerically. This is a characteristic-zero correspondence. The
+determinant argument uses integral Hecke lattices and does not assume that Yang's isomorphism itself
+is integral.
 
 Consequence: det(T_{ℓ²}|𝒮) = ±∏_F a_ℓ(F), the product running over the newforms F in that class.
 
@@ -207,17 +226,28 @@ Consequence: det(T_{ℓ²}|𝒮) = ±∏_F a_ℓ(F), the product running over th
    in S₆(Γ₀(6)) ⊗ 𝔽̄_ℓ, with eigenvalues
    * p⁴a_p(F) for T_p, p ∤ 6ℓ;
    * 16a₂(F) for U₂ and 81a₃(F) for U₃. Use a_{pn}(θ⁴F) = p⁴n⁴a_{pn}(F).
-4. By the Deligne–Serre lifting lemma, these eigenvalues are the reduction of the T_p, U₂, U₃ eigenvalues of
-   some eigenform of S₆(Γ₀(6)). That space is 3-dimensional:
+4. Use the operator polynomial on the three-dimensional S₆(Γ₀(6)):
+
+   **(U₃ + 9I)(U₂² + 6U₂ + 32I) = 0.**
+
+   It follows from the rational old/new decomposition:
    * the newform 6.6.a.a = q + 4q² − 9q³ + …, with (w₂, w₃) = (−1, +1);
    * the two U₂-eigen oldforms from 3.6.a.a = q − 6q² + 9q³ + …, with U₂ eigenvalues the roots of
      x² + 6x + 32 and U₃ = 9.
 
-   (S₆(Γ₀(2)) = S₆(SL₂ℤ) = 0.) These were checked in pari: `mfatkineigenvalues`, `mfcoefs`.
+   (S₆(Γ₀(2)) = S₆(SL₂ℤ) = 0.) The polynomial kills the new line through its first factor and the
+   old space through its second factor. An identity over the fraction field holds on any stable
+   integral lattice and hence its reduction. The comparison of that reduction with the weight-six
+   mod-ℓ space must be justified; no integral splitting of the old/new decomposition is needed.
+   This replaces Deligne–Serre lifting and requires no semisimplicity in characteristic ℓ.
+   `scripts/frontier/pattern/weight_six.gp` independently recomputes the exact rational matrices.
+   Lean checks the integer matrix identity and eigenpair obstruction in `TheoremA/WeightSix.lean`,
+   but has not identified those matrices with the actual Hecke action.
 5. The newform F has a₂(F) = −w₂(F)·2^{(ℓ−5)/2} = (2/ℓ)·2^{(ℓ−5)/2} ≡ 2^{−2} and
    a₃(F) = (3/ℓ)·3^{(ℓ−5)/2} ≡ 3^{−2}, using 2^{(ℓ−1)/2} ≡ (2/ℓ). So G̃ has U₂ = 4 and U₃ = 9.
-   * **6.6.a.a has U₃ = −9.** Then 9 ≡ −9 would force ℓ | 18. Impossible.
-   * **Oldforms:** U₂ = 4 would need 16 + 24 + 32 = 72 ≡ 0 (mod ℓ). Impossible for ℓ ≥ 5.
+   Applying the polynomial to G̃ gives **18·72·G̃ = 1296·G̃ = 0**. Since ℓ ≥ 13 and G̃ ≠ 0,
+   this is impossible. Both the Euler-criterion calculation and the scalar contradiction are
+   formalized over arbitrary residue fields of characteristic ℓ, not only over 𝔽_ℓ.
 6. This is a contradiction, so every a_ℓ(F) is a unit. ∎
 
 *Remark (why the sign matters).*
@@ -415,10 +445,11 @@ So conjecture (b) "for all ℓ" is false. The natural replacement is "for all �
    from: Θ invertible (slope-1 count = ⌊d/2⌋) and ū₀ ≠ 0.
 
 ## 7. Gaps
-* G1: Exact statement, sign convention and theorem number of Yang's isomorphism. It is checked numerically for
-  13 primes; Theorem A depends on it.
-* G2: Lemma T and Deligne–Serre for Γ₀(6) are standard, but the level-N θ-filtration theory (Katz 1977) should
-  be cited at the precise statement (Jochnowitz 1982 §; Edixhoven, Invent. Math. 109 (1992), §3).
+* G1: The statement and signs of Yang's published Theorem 1 have been checked (§G1). Its use in the
+  integral determinant argument still needs a complete formal implementation; numerical checks do not supply it.
+* G2: Katz §II theorem (1)–(2) and corollary (1) supply the precise θ and cuspidality references.
+  §3.2 now uses an operator polynomial instead of Deligne–Serre. The level-six filtration construction,
+  Hecke identity on actual forms, and integral reduction/base-change comparison remain formalization obligations.
 * G3: §4.1 uses the AO envelope lemmas, i.e. inputs (I1)–(I3) of ATKIN_OBRIEN_PROOF.md. These are standard
   but not fully refereed. BW Thm 1.2 gives the same conclusion without them.
 * G4: Θ invertibility (the exact slope-1 count) is open.
@@ -428,9 +459,9 @@ So conjecture (b) "for all ℓ" is false. The natural replacement is "for all �
 
 ## G1 verification
 
-(2026-10-28. Source read: arXiv:1110.1810v1, the preprint of the Nagoya paper. The published version,
-Nagoya Math. J. 215 (2014) 1–66, doi:10.1215/00277630-2684452, was not opened; its abstract on Cambridge Core
-matches.)
+(2026-10-28: preprint checked. 2026-10-29: the published Theorem 1, p. 5, also checked in
+[Nagoya Math. J. 215 (2014), 1–66](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/A54F3A98B24022EB47D0FBBA2FAB37B4/S0027763000010916a.pdf/modular_forms_of_halfintegral_weights_on_sl2.pdf),
+doi:10.1215/00277630-2684452.)
 
 **Verdict: verified, with adjustments to the citation only. The mathematics of Theorem A is unchanged.**
 

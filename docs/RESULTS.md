@@ -6,6 +6,17 @@ Module paths in this catalog are relative to `RamanujanTau/` unless stated other
 Named hypotheses are part of a theorem's statement; an axiom audit does not discharge them.
 The research notes are indexed separately in [the documentation guide](README.md).
 
+## Theorem A foundations: conditional ordinarity reduction
+
+`RamanujanTau.TheoremA.U_ne_zero_of_filtration_data` proves that the actual
+coefficient-extraction operator U_ℓ does not kill a normalized series with the
+specified Atkin–Lehner eigenvalues, **assuming** the stated filtration laws and
+weight-six annihilator. Its proof uses checked θ-cycle bookkeeping, identities
+on infinite power series, Euler's criterion, and the scalar obstruction 1296.
+The modular hypotheses and Shimura correspondence remain unformalized;
+this is not an unconditional all-prime theorem. See the
+[declaration ledger and remaining work](THEOREM_A.md).
+
 ## Results at a glance
 
 | Theorem | Statement |
