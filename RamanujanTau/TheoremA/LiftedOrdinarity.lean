@@ -7,7 +7,9 @@ The weight-six Hecke identity is now proved on the actual classical cusp space.
 Its place in the earlier reduction can therefore be taken by a lifting input:
 every weight-six theta iterate in question is a reduction of a classical cusp
 expansion. The filtration laws, lifting, and initial eigenvalue formulas are
-still explicit hypotheses. This conditional theorem is not Theorem A.
+still explicit hypotheses of this legacy interface. `BinaryOrdinarity` proves
+the universal sign-eigenspace statement without filtration or lifting inputs.
+The newform and Shimura identifications remain outside that theorem.
 -/
 
 set_option autoImplicit false

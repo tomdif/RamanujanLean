@@ -6,7 +6,16 @@ Module paths in this catalog are relative to `RamanujanTau/` unless stated other
 Named hypotheses are part of a theorem's statement; an axiom audit does not discharge them.
 The research notes are indexed separately in [the documentation guide](README.md).
 
-## Theorem A: proved weight-six obstruction, conditional ordinarity
+## Theorem A: all-prime ordinarity on the prescribed level-six eigenspace
+
+`TheoremA/BinaryOrdinarity.lean` proves
+`U_ne_zero_of_binary_sign_eigenvalues` for every prime ℓ ≥ 13 and every
+field of characteristic ℓ. A nonzero series in the weight-ℓ−3 integral
+level-six model with eigenvalues (q/ℓ)q^{(ℓ−5)/2} for U_q, q = 2,3,
+cannot be killed by U_ℓ. `ReducedLevelSixOrdinarity.lean` transfers this
+to reductions of actual complex level-six modular forms over embedded
+coefficient rings. The two initial eigenvalue formulas remain explicit;
+filtration and weight-six lifting are no longer hypotheses.
 
 `TheoremA/WeightSixIdentity.lean` proves
 `classicalWeightSixAnnihilator_eq_zero`: (U₃+9)(U₂²+6U₂+32)=0 on the
@@ -54,8 +63,13 @@ and coprimality on both affine charts over every characteristic-ℓ field, ℓ �
 `BinaryTheta.lean` constructs a homogeneous numerator with expansion 12θ.
 `BinaryDivisibility.lean` proves `hasse_dvd_theta_iff` away from weights zero
 modulo ℓ and `hasse_dvd_iff_lower_expansion`: a Hasse factor is exactly the
-ability to lower weight by ℓ−1 without changing the full series. Minimal-weight
-filtration and its complete cycle laws still need to be constructed.
+ability to lower weight by ℓ−1 without changing the full series.
+`BinaryFiltration.lean` defines the least representing half-weight in one
+class modulo (ℓ−1)/2 and proves the theta step and drop laws.
+`BinaryFiltrationCycle.lean` proves `theta_four_binaryRep`: if a nonzero
+weight-ℓ−3 series is killed by U_ℓ, its fourth theta iterate has a
+weight-six representation. This does not assume a general Katz comparison
+or independence of expansions across different weight classes.
 
 `BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct actual U_p on
 Γ₀(N) for every integral weight and prime p dividing nonzero N, prove the
@@ -65,11 +79,19 @@ identity through any coefficient ring embedded in ℂ to its residue rings.
 Consequently `eq_zero_of_reduced_weightSix_eigenpair` excludes a nonzero
 (4,9) eigenvector in every such reduced cusp space of characteristic at least five.
 
-`U_ne_zero_of_lifted_filtration_data` now uses this proved identity in the
-ordinarity reduction. Its remaining explicit inputs are the geometric
-filtration laws, weight-six lifting, and the initial newform eigenvalue
-formulas. The half-integral-weight correspondence and identification with
-Boylan–Webb's d_ℓ are also open. This is not the universal Theorem A.
+`BadPrimeModular.lean` extends the actual bad-prime operators and expansion
+identities to the full modular-form space. `ModularWeightSixData.lean`
+kernel-checks two 7×7 matrices against coefficients through q¹⁸.
+`ModularWeightSixAction.lean` proves these are the actual operators on the
+integral basis. `ModularWeightSixIdentity.lean` proves
+(U₂−1)(U₂−32)(U₃+9)(U₂²+6U₂+32)=0 throughout the weight-six model over
+every coefficient ring. It evaluates to −108864 at (4,9), which is nonzero
+in characteristic ℓ ≥ 13. This supplies the contradiction in the
+all-prime ordinarity theorem without a cusp-lifting assumption.
+
+Full Theorem A still requires deriving the initial eigenvalue formulas
+from the newform Atkin–Lehner class, the half-integral-weight correspondence,
+and the identification with Boylan–Webb's d_ℓ.
 See the [declaration ledger and remaining work](THEOREM_A.md).
 
 ## Results at a glance

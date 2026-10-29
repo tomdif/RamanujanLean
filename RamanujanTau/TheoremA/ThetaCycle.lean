@@ -5,7 +5,7 @@ import Mathlib.Tactic
 
 This file proves the integer bookkeeping needed by the proposed Theorem A.
 It does not assert that modular-form filtrations satisfy the hypotheses.
-That level-six geometric input remains a separate formalization obligation.
+`BinaryFiltrationCycle` proves those laws for the integral level-six model.
 -/
 
 set_option autoImplicit false

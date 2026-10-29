@@ -35,19 +35,15 @@ b = B onward modulo 29^m if and only if B ≥ 2m−1.
 actual partition counts; the full build and expanded axiom audit passed.
 See the [verification record](docs/STATUS.md#verification).
 
-Work on the proposed all-prime Theorem A now proves the full classical
-weight-six obstruction: Lean constructs an eta-quotient basis of S₆(Γ₀(6)),
-checks its coefficients, proves dimension three, and proves
-(U₃+9)(U₂²+6U₂+32)=0 on the entire space and its coefficient reductions.
-An integral eta basis now covers every even weight, with dimension
-dim M₂ₙ(Γ₀(6)) = 2n+1, unique polynomial coordinates, and descent to
-embedded coefficient rings. The scaled Serre derivative raises this
-model's weight by two over every commutative coefficient ring. Lean now
-identifies the Hasse invariant in this model and proves that a Hasse factor
-is exactly a weight reduction by ℓ−1 with unchanged expansion. It also proves
-the corresponding divisibility law for θ.
-The universal ordinarity theorem still needs characteristic-ℓ filtration,
-lifting, newform eigenvalue formulas, and the Shimura comparison.
+Work on the proposed all-prime Theorem A now proves that, for every prime
+ℓ ≥ 13, U_ℓ cannot kill a nonzero reduced level-six form of weight ℓ−3
+with the two prescribed U₂/U₃ eigenvalues. This applies to reductions of
+actual complex modular forms over embedded coefficient rings. Lean proves
+the integral polynomial model, Hasse divisibility, minimal-weight theta-cycle
+laws, and a full weight-six operator identity; no filtration or lifting
+hypothesis remains in this result.
+Full Theorem A still needs the eigenvalue formulas for the stated newform
+Atkin–Lehner class, the Shimura comparison, and the Boylan–Webb identification.
 See the [precise boundary](docs/THEOREM_A.md).
 
 ## Build and verify

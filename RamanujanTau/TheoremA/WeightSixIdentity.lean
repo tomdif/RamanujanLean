@@ -8,7 +8,8 @@ The actual eta cusp forms supply the finite certificate. Thus
 (U₃ + 9)(U₂² + 6U₂ + 32) vanishes on the entire classical cusp space.
 The same identity descends to any coefficient reduction of this space.
 This closes the classical small-weight obstruction in the proposed Theorem A;
-the characteristic-prime geometric and Shimura comparison steps remain separate.
+`BinaryOrdinarity` later supplies the filtration argument using a full modular-space
+obstruction. The newform and Shimura identifications remain separate.
 -/
 
 set_option autoImplicit false

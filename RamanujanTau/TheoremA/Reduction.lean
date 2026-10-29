@@ -7,11 +7,12 @@ import RamanujanTau.TheoremA.WeightSix
 # A conditional reduction of the ordinarity argument to modular-form inputs
 
 The conclusion concerns the actual coefficient-extraction operator on an
-actual power series. The hypotheses explicitly retain the unformalized
-filtration laws and weight-six Hecke relation. `WeightSixIdentity` proves
+actual power series. This early interface retains explicit
+filtration laws and a weight-six Hecke relation. `WeightSixIdentity` proves
 the latter on the actual classical cusp space; `LiftedOrdinarity` applies it
-to coefficient reductions. The geometric inputs and half-integral-weight
-correspondence remain open, so these reductions are not Theorem A.
+to coefficient reductions. `BinaryOrdinarity` subsequently proves the filtration laws and uses an obstruction
+on the full weight-six modular space, removing the lifting input. The newform
+sign and half-integral-weight comparisons still remain, so this is not full Theorem A.
 -/
 
 set_option autoImplicit false

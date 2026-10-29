@@ -6,8 +6,8 @@ import RamanujanTau.TheoremA.HasseSeparation
 The homogeneous numerator A·δP + k·B·P has complete expansion 12θ(P).
 On each affine chart, its Hasse divisibility is unchanged when k is nonzero
 in the coefficient field. When k vanishes, the numerator has a Hasse factor.
-These are polynomial statements; the complete minimal-weight filtration
-construction is a further step.
+These are polynomial statements; `BinaryFiltration` and `BinaryFiltrationCycle`
+assemble them into the minimum-weight filtration and its cycle laws.
 -/
 
 set_option autoImplicit false

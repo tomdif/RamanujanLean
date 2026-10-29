@@ -1,8 +1,8 @@
 import RamanujanTau.TheoremA.LiftedOrdinarity
 import RamanujanTau.TheoremA.WeightTwoCoordinates
-import RamanujanTau.TheoremA.BinaryDivisibility
+import RamanujanTau.TheoremA.ReducedLevelSixOrdinarity
 
--- Actual weight-six results and a conditional ordinarity reduction, not full Theorem A.
+-- Actual weight-six results and universal sign-eigenspace ordinarity; the newform and Shimura comparisons remain.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
 #print axioms RamanujanTau.TheoremA.coeff_theta_pow
 #print axioms RamanujanTau.TheoremA.U_theta_pow
@@ -152,3 +152,44 @@ import RamanujanTau.TheoremA.BinaryDivisibility
 #print axioms RamanujanTau.TheoremA.hasse_dvd_iff_chartT_dvd
 #print axioms RamanujanTau.TheoremA.hasse_dvd_theta_iff
 #print axioms RamanujanTau.TheoremA.hasse_dvd_iff_lower_expansion
+
+-- Proved filtration cycle, full modular-space obstruction, and sign-eigenspace ordinarity.
+#print axioms RamanujanTau.TheoremA.binaryHalfFiltration_spec
+#print axioms RamanujanTau.TheoremA.binaryEv_theta
+#print axioms RamanujanTau.TheoremA.BinaryRep.theta
+#print axioms RamanujanTau.TheoremA.not_hasse_dvd_of_minimal
+#print axioms RamanujanTau.TheoremA.minimal_of_not_hasse_dvd
+#print axioms RamanujanTau.TheoremA.binaryHalfFiltration_theta_le
+#print axioms RamanujanTau.TheoremA.binaryHalfFiltration_theta_step
+#print axioms RamanujanTau.TheoremA.binaryHalfFiltration_theta_eq
+#print axioms RamanujanTau.TheoremA.BinaryRep.theta_pow
+#print axioms RamanujanTau.TheoremA.binaryCycleHalfWeight_rep
+#print axioms RamanujanTau.TheoremA.binaryCycleHalfWeight_step
+#print axioms RamanujanTau.TheoremA.binaryCycleHalfWeight_no_drop
+#print axioms RamanujanTau.TheoremA.binaryCycleHalfWeight_closed
+#print axioms RamanujanTau.TheoremA.theta_pow_ne_zero_of_closed_cycle
+#print axioms RamanujanTau.TheoremA.binaryCycle_weight_six
+#print axioms RamanujanTau.TheoremA.theta_four_binaryRep
+#print axioms RamanujanTau.TheoremA.BadPrime.modularU
+#print axioms RamanujanTau.TheoremA.BadPrime.qExpansion_modularU
+#print axioms RamanujanTau.TheoremA.BadPrime.modularU_intertwines
+#print axioms RamanujanTau.TheoremA.BadPrime.modularExpansionLinear_injective
+#print axioms RamanujanTau.TheoremA.BadPrime.modularU_commute
+#print axioms RamanujanTau.TheoremA.EtaSquared.pi_etaProductListTo
+#print axioms RamanujanTau.TheoremA.weightTwo_list_certificate18
+#print axioms RamanujanTau.TheoremA.modularWeightSixSeries_coeff
+#print axioms RamanujanTau.TheoremA.modularWeightSixU2_certificate
+#print axioms RamanujanTau.TheoremA.modularWeightSixU3_certificate
+#print axioms RamanujanTau.TheoremA.modularWeightSix_matrix_identity
+#print axioms RamanujanTau.TheoremA.modularWeightSix_form_action
+#print axioms RamanujanTau.TheoremA.modularWeightSix_series_action_int
+#print axioms RamanujanTau.TheoremA.modularWeightSix_U2_action
+#print axioms RamanujanTau.TheoremA.modularWeightSix_U3_action
+#print axioms RamanujanTau.TheoremA.modularWeightSixAnnihilator_evenCombination
+#print axioms RamanujanTau.TheoremA.BinaryRep.modularWeightSix_annihilator
+#print axioms RamanujanTau.TheoremA.fullWeightSixPolynomial_on_eigenvector
+#print axioms RamanujanTau.TheoremA.fullWeightSix_scalar_ne_zero
+#print axioms RamanujanTau.TheoremA.eq_zero_of_binary_weightSix_eigenpair
+#print axioms RamanujanTau.TheoremA.U_ne_zero_of_binary_sign_eigenvalues
+#print axioms RamanujanTau.TheoremA.binaryRep_of_reduced_modularForm
+#print axioms RamanujanTau.TheoremA.U_ne_zero_of_reduced_levelSix_sign_eigenvalues

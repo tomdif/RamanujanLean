@@ -11,24 +11,17 @@
 > The full build and axiom audit passed; see [verification status](STATUS.md)
 > and [the finite-arithmetic proof guide](FINITE_ARITHMETIC.md).
 >
-> The [Theorem A formalization](THEOREM_A.md) now checks the weight-ℓ−3
-> θ-cycle arithmetic, coefficientwise identities, Euler-criterion sign
-> calculation, and weight-six algebraic obstruction. It also constructs actual
-> bad-prime Hecke operators on Γ₀(N), proves their q-expansion formulas, and
-> transports a classical relation through coefficient rings to residue rings.
-> It constructs three actual eta quotient cusp forms, checks their coefficients,
-> proves the dimension is three, and proves the weight-six Hecke identity on
-> the entire classical space and its coefficient reductions. It also constructs
-> integral coordinates in every even weight, proves generation by A,B,C
-> with AC=B², and identifies an even-degree binary polynomial model. It proves
-> that the scaled Serre derivative raises this model's weight over every
-> coefficient ring. It now identifies the Hasse invariant and companion,
-> proves projective separation and affine-chart coprimality, and proves that
-> a Hasse factor is exactly a weight reduction by ℓ−1 with unchanged expansion.
-> The theta numerator satisfies the corresponding homogeneous divisibility law.
-> The assembled ordinarity reduction still assumes geometric filtration laws, lifting, and
-> initial newform eigenvalues. It does not prove Theorem A or d_ℓ = 0
-> unconditionally in Lean.
+> The [Theorem A formalization](THEOREM_A.md) now proves, for every prime
+> ℓ ≥ 13, that U_ℓ cannot kill a nonzero weight-ℓ−3 series in the integral
+> level-six model with the prescribed U₂/U₃ eigenvalues. The result also
+> covers reductions of actual complex modular forms over embedded coefficient
+> rings. Its proof constructs integral coordinates in every even weight,
+> Hasse divisibility, minimal-weight theta-cycle laws, and a certified
+> annihilator on the full weight-six modular-form space. No filtration or
+> weight-six lifting hypothesis remains. Deriving the initial eigenvalues
+> from the newform Atkin–Lehner class, the Shimura comparison, and the
+> Boylan–Webb dictionary remain open. Full Theorem A and d_ℓ = 0 are not
+> yet unconditional Lean theorems.
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and

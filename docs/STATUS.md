@@ -14,7 +14,7 @@ Updated 2026-10-29. [Overview](../README.md) · [Documentation guide](README.md)
 | Prime 29, every power | The unconditional recurrence for b ≥ 2m−1 and its evaluator from two actual seeds passed a full build and axiom audit. | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
 | Prime-29 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1. The numerical kernel certificate, full build, and expanded axiom audit passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
-| Universal Theorem A | The weight-six obstruction, all-even-weight polynomial model, Serre operator, Hasse comparison and divisibility criterion are proved. Minimal-weight filtration, the weight-six comparison, newform eigenvalues, and the correspondence remain open. | [Formalization boundary](THEOREM_A.md) |
+| Universal Theorem A | For every prime ℓ ≥ 13, the prescribed U₂/U₃ eigenspace in weight ℓ−3 has no U_ℓ kernel, including reductions of actual complex forms. Filtration and the full weight-six obstruction are proved. Newform sign identification, the Shimura comparison, and the Boylan–Webb dictionary remain open. | [Formalization boundary](THEOREM_A.md) |
 | Multi-quintuple products | The canonical family and the stated specializations are proved. The corrected general converse remains a research problem. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
@@ -27,16 +27,16 @@ there is no `sorryAx` or additional axiom. The
 toolchain, Mathlib revision, and checked commands. The
 [raw axiom report](verification/finite_arithmetic.axioms.txt) lists the audited declarations.
 
-The Theorem A development includes the unconditional weight-six Hecke
-annihilator, an actual eta basis and integral reconstruction in every even
-weight, unique homogeneous polynomial coordinates, and actual and integral
-Serre differentiation. It also proves Eisenstein/Hasse comparison, projective
-separation, chart coprimality, and the homogeneous Hasse divisibility law.
+The Theorem A development proves all-prime ordinarity on the prescribed
+U₂/U₃ eigenspace of the level-six integral model and on reductions of actual
+complex modular forms. Its inputs are proved eta bases, integral descent,
+Serre differentiation, Hasse divisibility, minimal-weight theta-cycle laws,
+and a finite certificate for the full weight-six operator identity.
 The [dedicated audit](verification/theorem_a.axioms.txt)
-checks 147 declarations with dependencies confined to the same three standard
-axioms. The full build passed 9,181 jobs. Both generated eta certificate files
-reproduce byte-for-byte, and the source/documentation checker passed 826 Lean
-source/audit files, 24 Markdown files, and 163 local links. The remaining geometric and newform
+checks 186 declarations with dependencies confined to the same three standard
+axioms. The full build passed 9,190 jobs. Both generated eta certificate files
+reproduce byte-for-byte, and the source/documentation checker passed 835 Lean
+source/audit files, 24 Markdown files, and 172 local links. The remaining newform and correspondence
 inputs are listed in the [formalization boundary](THEOREM_A.md).
 
 The independent sharpness checker verifies 16 polynomial products, their 429 bounded blocks, divisor-sum
@@ -64,9 +64,9 @@ with the build and audit commands in the [overview](../README.md#build-and-verif
 - Resolve the general sharpness and higher-precision rank questions in the
   [Boylan–Webb research draft](BL_SHARPNESS_PROOF.md). The prime-29 construction
   does not establish those claims for every prime.
-- Assemble minimal-weight filtration and its cycle laws from the proved
-  Hasse divisibility criterion, then the weight-six comparison, newform eigenvalue formulas, and
-  half-integral-weight correspondence needed by the [Theorem A formalization](THEOREM_A.md).
+- Derive the prescribed bad-prime eigenvalues from the actual newform
+  Atkin–Lehner class, then formalize the half-integral-weight correspondence
+  and Boylan–Webb identification needed by the [Theorem A formalization](THEOREM_A.md).
 - Resolve the corrected multi-quintuple classification problem. Its existing
   finite experiments and reductions do not prove the universal converse.
 
