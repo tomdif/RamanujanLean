@@ -1,4 +1,15 @@
-# Boylan–Webb sharpness and FKO rank attainment for ℓ ≥ 29 (2026-10-28, draft, not committed)
+# Boylan–Webb sharpness and FKO rank attainment for ℓ ≥ 29 — research draft
+
+> **Status (2026-10-29): proposed general-prime paper arguments, not a Lean proof of
+> every claim below.** The labels [P] and [P*] describe arguments in this draft;
+> they do not certify a declaration in the kernel. G4–G6 and the higher-precision
+> rank claims retain their stated qualifications.
+>
+> Prime 29 now has a separate all-power Lean recurrence. Its exact-threshold
+> construction uses the observed divided error `12·23^n`, rather than assuming
+> identification of the experimental Θ matrix below. The final numerical kernel
+> certificate is still running; see [current verification status](STATUS.md) and
+> [the finite-arithmetic proof guide](FINITE_ARITHMETIC.md).
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and
@@ -49,7 +60,8 @@ whose exact statement still has to be checked against the source. [N] numerical 
    * The converse (non-cyclic mod ℓ ⇒ deficit at every m) is **not** automatic and needs a lattice argument
      (gap G6). For example, A = diag(1, 1+ℓ) with y = (1,1) generates a rank-2 lattice whose image mod ℓ is
      1-dimensional.
-   * The exceptional primes are characterized by **failure of L̄(1) to generate the space**. They are *not*
+   * At precision one, rank failure is characterized by **failure of L̄(1) to generate the space**.
+     Extending that characterization to every precision is the separate G6 obligation. These failures are *not*
      characterized by repeated eigenvalues: non-cyclicity can occur with distinct eigenvalues, and an operator
      with a repeated eigenvalue can still have a cyclic vector.
 
@@ -397,7 +409,7 @@ So conjecture (b) "for all ℓ" is false. The natural replacement is "for all �
 
 1. **Theorem (P*, all ℓ ≥ 13).** rank D̄ = rank X̄ = R; X̄ is semisimple at 0; d_ℓ = 0; b_ℓ(m) ≤ 2m − 1;
    X has exactly R unit roots.
-2. **Theorem (P*).** The stable rank is r_ℓ(m) = dim_{𝔽_ℓ} 𝔽_ℓ[T_{ℓ²}]·U_ℓ(1/η) for every m, i.e. the
+2. **Proposed theorem (G6 remains open at higher precision).** The stable rank is r_ℓ(m) = dim_{𝔽_ℓ} 𝔽_ℓ[T_{ℓ²}]·U_ℓ(1/η) for every m, i.e. the
    Krylov rank of L̄(1) in 𝒮 ⊗ 𝔽_ℓ. So the FKO bound is attained iff this vector is cyclic.
 3. **Conjecture (O).** For ℓ ≥ 29, b_ℓ(m) = 2m − 1. Equivalently Θ^kū₀ ≠ 0 for all k, which is expected
    from: Θ invertible (slope-1 count = ⌊d/2⌋) and ū₀ ≠ 0.

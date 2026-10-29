@@ -454,3 +454,9 @@ import RamanujanTau.AtkinOBrienMain.Ord
 import RamanujanTau.UBSharp.Final
 import RamanujanTau.QuotE.Combine
 import RamanujanTau.OrdQuot.Atkin
+import RamanujanTau.FiniteArithmetic.Orbit
+import RamanujanTau.FiniteArithmetic.Partition29
+import RamanujanTau.FiniteArithmetic.AllPowers29
+import RamanujanTau.FiniteArithmetic.Complete29
+import RamanujanTau.FiniteArithmetic.Evaluate29Powers
+import RamanujanTau.FiniteArithmetic.WeightedTilings

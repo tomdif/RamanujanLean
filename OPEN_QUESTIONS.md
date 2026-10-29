@@ -1,4 +1,7 @@
-# Open questions — closure status
+# The τ arc — closure status
+
+For the whole repository, including finite arithmetic and current research gaps,
+see [Current status](docs/STATUS.md). This document concerns the τ arc only.
 
 This file is the definitive accounting of every question the `τ` arc leaves open. Each is *closed* in the
 sense that matters for a formalization project: it is pinned to an exact, named missing lemma and classified
@@ -51,7 +54,7 @@ Consequences (`TauModular`):
   `tau_hecke_recurrence`; axiom-clean). `HeckeCore`/`HeckeForm` build `T_p` on `CuspForm 𝒮ℒ k` by the
   elementary coset computation, without Mathlib's double-coset machinery. `HeckeQExp` computes its
   q-expansion, which gives a `HeckeData` term and an instance of `TauHeckeMaster`.
-- `DeligneBound` **is** Deligne's proof of the Weil conjectures — out of reach.
+- `DeligneBound` states Deligne's bound as a named hypothesis; its proof is not formalized here.
 - `LehmerConjecture` (`τ(n) ≠ 0`) is a famous open problem.
 
 The last two are documented as hypotheses, not defects.

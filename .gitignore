@@ -1,1 +1,6 @@
 /.lake
+
+# Local operating-system and Python caches; keep research data explicit.
+.DS_Store
+__pycache__/
+*.py[cod]

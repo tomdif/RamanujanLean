@@ -1,5 +1,11 @@
 # Atkin–O'Brien congruences for ℓ = 17, 19, 23: reduction and evidence
 
+> **Current status (2026-10-29): the recurrence at b = m is proved unconditionally**
+> by `OrdQuot.atkin_obrien_17/19/23` in [OrdQuot/Atkin.lean](../RamanujanTau/OrdQuot/Atkin.lean).
+> These public statements prove a sufficient starting index; they do not assert its minimality.
+> The conditional reductions and open lemmas below record the earlier route. See
+> [the completed proof record](ATKIN_OBRIEN_PROOF.md) and [current status](STATUS.md).
+
 Notation follows Boylan–Webb (BW, Trans. AMS 365 (2013)):
 * `L(0) = 1`;
 * `L(b) = L(b−1)|D` for `b` odd, `L(b) = L(b−1)|U` for `b` even, where `D(f) = (Φf)|U` and
@@ -30,7 +36,7 @@ Let `ℓ ∈ {13, 17, 19, 23}`, `m ≥ 1`, `b ≥ m`, and suppose `L(b+2) ≡ K 
    `X` is an isomorphism on it.
 6. So `ε|T ≡ c L(b+1) (mod ℓ)`, which gives the claim. ∎
 
-**Corollary.** By induction on `m` (base case `b_ℓ(1) = 1`, BW), `b_ℓ(m) = m` for all `m` follows from:
+**Corollary (sufficiency).** By induction on `m` (base case `b_ℓ(1) = 1`, BW), `b_ℓ(m) ≤ m` for all `m` follows from:
 
 **(★) Key lemma (open).** For every `m ≥ 1`, the first error digit
 `ε_m := (L(m+2) − K_m L(m))/ℓ^m (mod ℓ)` has `w(ε_m) ≤ 2(ℓ − 1)`.

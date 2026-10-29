@@ -1,5 +1,8 @@
 # Literature check: l-adic properties of p(n) (2026-10-28)
 
+This is a dated literature record. For the later prime-29 formalization and the
+verification boundary of the general-prime draft, see [Current status](STATUS.md).
+
 Primary source read in full: Boylan–Webb, "The partition function modulo prime powers",
 Trans. AMS 365 (2013) 2169–2206 (people.math.sc.edu/boylan/reprints/partition.pdf).
 

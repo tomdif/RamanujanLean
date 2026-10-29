@@ -1,5 +1,9 @@
 # Watson (1937), proof of (B₀): χ₀(q) = 2F₀(q) − φ₀(−q)
 
+The formal counterpart is `Watson.chi0_R1_watson` in
+[Watson/R1.lean](../RamanujanTau/Watson/R1.lean). See the
+[mock theta method](../MOCK_THETA_METHOD.md) for the complete proof architecture.
+
 Source: G. N. Watson, "The mock theta functions (2)", Proc. London Math. Soc. (2) 42 (1937), 274–304,
 §3, pp. 280–281. The steps below are transcribed and translated into modern notation; this is not a verbatim copy.
 

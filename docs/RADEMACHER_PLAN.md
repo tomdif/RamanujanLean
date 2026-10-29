@@ -1,5 +1,9 @@
 # Rademacher's exact formula for p(n): plan
 
+> **Completed (2026-10-27).** `Rademacher.rademacher_dedekind` proves the classical
+> exact formula. The plan below is retained as a proof outline; see the completion
+> record at the end and the [theorem catalog](RESULTS.md).
+
 Target (Rademacher 1937):
 
   p(n) = (1/(π√2)) Σ_{k≥1} A_k(n) √k · d/dn [ sinh((π/k)√((2/3)(n − 1/24))) / √(n − 1/24) ],

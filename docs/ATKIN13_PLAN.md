@@ -1,5 +1,11 @@
 # Plan: Atkin–O'Brien congruences for powers of 13
 
+> **Current status (2026-10-29): the target recurrence is proved** by
+> `OrdQuot.atkin_obrien_13` in [OrdQuot/Atkin.lean](../RamanujanTau/OrdQuot/Atkin.lean).
+> The proof uses the overconvergence route documented in [the proof record](ATKIN_OBRIEN_PROOF.md).
+> The modular-equation construction and “remaining” steps below are a historical alternative,
+> not missing hypotheses of that public theorem.
+
 **Target** (Atkin–O'Brien 1967, Trans. AMS 126, Thm 1.1 as quoted by Garvan–Shomanov, arXiv:2504.10824).
 Put `P(N) = p(n)` if `N = 24n − 1`, and `0` otherwise. For every `α ≥ 1` there is an integer `K_α` with
 `13 ∤ K_α` such that, for all `N`, `P(13^{α+2}N) ≡ K_α · P(13^α N) (mod 13^α)`.

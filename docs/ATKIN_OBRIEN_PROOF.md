@@ -1,12 +1,21 @@
 # Atkin–O'Brien-type congruences for ℓ ∈ {13, 17, 19, 23}: proof via overconvergence
 
 **Theorem.** Let `ℓ ∈ {13, 17, 19, 23}` (the primes `≥ 13` with `dim S_{ℓ−1}(SL₂ℤ) = 1`). There is
-`κ_ℓ ∈ ℤ_ℓ^×` such that for all `m ≥ 1` and all `n`:
+`κ_ℓ ∈ ℤ_ℓ^×` such that for all `m ≥ 1` and all `n ≥ 0` with `24 ∣ ℓ^m n + 1`:
 
   `p((ℓ^{m+2}n + 1)/24) ≡ κ_ℓ · p((ℓ^m n + 1)/24)   (mod ℓ^m)`.
 
-Equivalently, `b_ℓ(m) = m` in Boylan–Webb's notation. For ℓ = 13 this is Atkin–O'Brien (1967). For ℓ = 17, 19, 23
-it improves Boylan–Webb's `b_ℓ(m) ≤ 2m − 1`. **Status (2026-10-29): PROVED IN LEAN, UNCONDITIONALLY** — `OrdQuot.atkin_obrien_13/17/19/23` (`RamanujanTau/OrdQuot/Atkin.lean`), no hypotheses, axioms `[propext, Classical.choice, Quot.sound]` only. Still needs human expert review of the mathematics and of the formal statement.
+This proves sufficiency at `b = m`, giving the upper-bound side of the proposed
+`b_ℓ(m) = m` statement; minimality is a separate assertion. For ℓ = 13 this is
+Atkin–O'Brien (1967). For ℓ = 17, 19, 23 it improves the sufficient index supplied by
+Boylan–Webb's `2m − 1` bound. **Status (2026-10-29): proved in Lean without additional
+operator-bound hypotheses** — `OrdQuot.atkin_obrien_13/17/19/23` in
+[OrdQuot/Atkin.lean](../RamanujanTau/OrdQuot/Atkin.lean), with standard axioms only.
+Expert review of the mathematical interpretation and any novelty claim remains appropriate.
+
+The dated rounds below are a development log. Their intermediate “remaining”
+hypotheses are superseded by round 39 and its audit. The prime-29 development is
+documented separately in [Finite arithmetic certificates](FINITE_ARITHMETIC.md).
 
 **Earlier status (2026-10-27):** (I2) and (I3) are now proved from standard published results: Katz's canonical-subgroup
 theorem, Lubin's quotient, Katz expansions, Vonk Thm B, and Boylan–Webb. See "Proof of I2 and I3" below. The
@@ -131,7 +140,7 @@ Katz 3.10.7). So |V f(x)| = |f(E', π̌^*ω)| ≤ 1 whenever f ∈ B_E(r^p). By 
 f has weight 0, so the choice of differential does not matter.
 
 **I2.**
-1. *Newton polygon (proof of Katz 3.10.7).* [p](T) = pT + … + aT^p + … + uT^{p²}, with v(a) = v and
+1. *Newton polygon (proof of Katz 3.10.7).* `[p](T)` = pT + … + aT^p + … + uT^{p²}, with v(a) = v and
    v(u) = 0. For v < p/(p+1) the p−1 nonzero points of H have valuation (1−v)/(p−1), and the other p²−p
    nonzero points have valuation v/(p²−p).
 2. *Derivatives.* Lubin's parameter Y = ∏_{P∈H} T(X ⊕ P) gives a Néron generator ω'_0 on E' with
@@ -172,11 +181,11 @@ Citation status:
   because Mathlib has none.
   * `dominant`: if ‖c_m‖ρ^m strictly dominates every other term, then exactly m roots of ∏(X − rᵢ) have
     norm < ρ, none has norm ρ, and ‖c₀‖ = ‖c_m‖·∏_{small}‖rᵢ‖.
-  * `two_segment`: Katz's two-slope shape with the break condition ε^{N−m} < α^N. For [p](T)/T it yields
+  * `two_segment`: Katz's two-slope shape with the break condition ε^{N−m} < α^N. For `[p](T)`/T it yields
     the p−1 canonical points with product norm |p|^{1−v}.
 
 ### Remaining layers for a fully formal I2/I3 (not built; each is a large project)
-1. The formal group law of a Weierstrass curve over a ring, its [p]-series, and [p](T) ≡ V(T^p) (mod p) with
+1. The formal group law of a Weierstrass curve over a ring, its [p]-series, and `[p](T)` ≡ V(T^p) (mod p) with
    linear coefficient the Hasse invariant. Mathlib has `FormalGroup` but no elliptic one.
 2. Hasse invariant ≡ E_{p−1} (mod p) (Deligne/Serre, via the Tate curve and the q-expansion principle).
 3. The Lubin quotient formal group by a finite subgroup, with its Néron differential (Step 2 of I2).
@@ -204,9 +213,9 @@ Built on Mathlib's bare `FormalGroup` structure. Everything is axiom-clean.
   * `pd_nmul_eq_zero`: [p]′ = 0 in characteristic p.
   * `coeff_nmul_eq_zero`: [p] has only T^{pk} terms there.
   * `nmul_map`.
-  * **`p_dvd_coeff_nmul`**: over *any* commutative ring, p divides the coefficient of T^k in [p](T)
+  * **`p_dvd_coeff_nmul`**: over *any* commutative ring, p divides the coefficient of T^k in `[p](T)`
     whenever p ∤ k.
-  This is the shape [p](T) = pT + ⋯ + aT^p + ⋯ that Katz's Newton-polygon argument (`Newton.two_segment`)
+  This is the shape `[p](T)` = pT + ⋯ + aT^p + ⋯ that Katz's Newton-polygon argument (`Newton.two_segment`)
   consumes.
 
 Still open for I2:
@@ -223,7 +232,7 @@ Still open for I2:
     `expand`.
   * **`coeff_nmul_eq_zero_of_aH`**: if a = 0 then [p] ∈ R⟦T^{p²}⟧.
   * **`mem_ideal_coeff_nmul`** (mixed characteristic): over any commutative ring, the coefficient of T^m in
-    [p](T) lies in the ideal (p, a) whenever p² ∤ m.
+    `[p](T)` lies in the ideal (p, a) whenever p² ∤ m.
   Together with `p_dvd_coeff_nmul`, these are exactly the coefficient bounds that `Newton.two_segment`
   needs below the T^{p²} term.
 * `AtkinOBrien/Canonical.lean`:
@@ -235,7 +244,7 @@ Still open for I2:
     over R → K, where K is an ultrametric normed field and the coefficients have norm ≤ 1. Assume:
     * height ≤ 2, i.e. ‖coeff_{p²}[p]‖ = 1;
     * the break ‖p‖^p < ‖a‖^{p+1}, i.e. v(a) < p/(p+1);
-    * the Weierstrass factorization [p](T)/T = ∏(X − rᵢ)·U.
+    * the Weierstrass factorization `[p](T)`/T = ∏(X − rᵢ)·U.
 
     Then exactly p−1 roots are small, and ‖a‖·∏_{small}‖rᵢ‖ = ‖p‖, i.e. the total valuation of the
     nonzero canonical points is 1 − v.
@@ -315,7 +324,7 @@ Remaining links for I2 Step 2:
   a complete ultrametric field K. Assume:
   * height ≤ 2;
   * the break condition v(a) < p/(p+1);
-  * a Weierstrass factorization of [p](T)/T, with roots in the integer ring.
+  * a Weierstrass factorization of `[p](T)`/T, with roots in the integer ring.
 
   Conclusion: there are a formal group G and homomorphisms π: F → G, π̌: G → F with π̌∘π = [p] and
   ‖Lie π̌‖ = ‖a‖.

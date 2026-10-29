@@ -1,0 +1,36 @@
+name: Repository checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-and-certificates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Check documentation, imports, and proof-source hygiene
+        run: python3 scripts/check_repository.py
+      - name: Independently check the prime-29 arithmetic certificate
+        run: python3 scripts/boylanwebb/check_cert29_error.py
+      - name: Check certificate reproducibility
+        run: |
+          python3 scripts/boylanwebb/gen_cert29_error.py > "$RUNNER_TEMP/Cert29Error.lean"
+          cmp RamanujanTau/FiniteArithmetic/Cert29Error.lean "$RUNNER_TEMP/Cert29Error.lean"
+      - name: Check whitespace
+        run: git diff --check HEAD^ HEAD
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'

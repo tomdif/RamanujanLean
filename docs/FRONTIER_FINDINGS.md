@@ -1,5 +1,11 @@
 # Frontier probes (2026-10-27)
 
+> **Status update (2026-10-29): historical experimental record.** The recurrence at
+> `b = m` for 13, 17, 19, 23 now has [unconditional Lean proofs](../RamanujanTau/OrdQuot/Atkin.lean).
+> Their statements establish sufficiency; experimental minimality is a separate claim.
+> The prime-29 all-power recurrence and sharpness verification are tracked in
+> [Current status](STATUS.md). The Jensen thresholds below remain bounded experiments.
+
 ## 1. Atkin–O'Brien beyond 13: `b_ℓ(m) = m` for ℓ = 17, 19, 23 (conjecture, strong numerics)
 
 Notation (Boylan–Webb): `b_ℓ(m)` is the least `b` from which the generating functions `P_ℓ(b)` are

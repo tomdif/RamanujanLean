@@ -1,5 +1,11 @@
 # How b_ℓ(m) depends on ℓ (numerical study, 2026-10-29)
 
+> **Scope:** the tables record finite computations in a truncated model. The
+> sufficient recurrence at `b = m` for 13, 17, 19, 23 is formalized separately.
+> Prime-29 all-power and exact-threshold verification is tracked in
+> [Current status](STATUS.md). The original universal rank-attainment guess is
+> contradicted at 607; see §5.2 of [the corrected research draft](BL_SHARPNESS_PROOF.md).
+
 Scripts and logs are in `scripts/frontier/pattern/`. The method:
 * Iterate L(b) in Katz coordinates with the level-1 U and D matrices (`katzmat.py`, `bstab.py`, `bigstab.py`).
 * Compute the stable modules exactly as Krylov spans, with Smith invariants over ℤ/ℓ^m.
@@ -16,7 +22,7 @@ with the proportionality version whenever the stable module is free of rank 1.
 ## Findings (d = dim S_{ℓ−1})
 | ℓ | d | m tested | b_ℓ(m) | stable module mod ℓ^m |
 |---|---|---|---|---|
-| 13, 17, 19, 23 | 1 | ≤ 16 | **m** (proved in Lean for b ≤ m) | free, rank 1 |
+| 13, 17, 19, 23 | 1 | ≤ 16 | **m** (sufficiency at b = m proved in Lean; minimality is a separate claim) | free, rank 1 |
 | 29, 31 | 2 | ≤ 16 | 2m−1 | free, rank 1 |
 | 37–59 | 3–4 | ≤ 16 / ≤ 9 | 2m−1 | free, rank 2 |
 | 61–229 (41 primes ≥ 29 in total) | 5–19 | ≤ 9 / 8 / 7 | 2m−1 | free, rank ⌈d/2⌉ |
@@ -40,9 +46,12 @@ with the proportionality version whenever the stable module is free of rank 1.
   i.e. d ≥ 2.
 * For d = 1 the kernel is 0, the next slope is 2, and b = m. This is the case proved in Lean.
 
-**Conjecture.** For every prime ℓ ≥ 29 and m ≥ 1:
-* b_ℓ(m) = 2m − 1;
-* the stable modules are free of rank ⌊(ℓ+12)/24⌋, so the FKO bound is attained.
+**Sharpness conjecture.** For every prime ℓ ≥ 29 and m ≥ 1, b_ℓ(m) = 2m − 1.
+
+The additional initial guess that the FKO rank bound is attained at every prime
+was superseded by the 607 rank deficit. It must not be inferred from this table's
+range of tested primes. The general higher-precision rank criterion retains gap G6
+in [the research draft](BL_SHARPNESS_PROOF.md).
 
 Possible route to a proof:
 * show rank D̄|S_{ℓ−1} = ⌈d/2⌉;

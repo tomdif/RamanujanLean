@@ -6,11 +6,11 @@
 > Heine-method argument (`docs/watson1937_R1_proof.md`), and it now feeds the unconditional χ₀ mock theta
 > conjecture (`Watson.chi0_identity`). The historical plan below is kept for reference.
 
-> **STATUS (2026-07):** the q-series foundation this roadmap calls for is now largely built, and several
+> **Historical status (2026-07, superseded by the update above):** the q-series foundation this roadmap calls for was largely built, and several
 > classical theorems are **proved kernel-clean**: the (bilateral & classical) Jacobi triple product,
 > **Jacobi's cube identity**, **Euler's pentagonal number theorem**, and **Ramanujan's partition congruence
 > `p(5n+4) ≡ 0 (mod 5)`** (see the README). The original campaign target — the infinite 5th-order mock-theta
-> identity `χ₀ = 2·F₀ − φ₀(−q)` — remains **open** (wall: the Bailey-pair coefficient identity). The ladder
+> identity `χ₀ = 2·F₀ − φ₀(−q)` — remained **open at that time** (wall: the Bailey-pair coefficient identity). The ladder
 > below is the original plan; the JTP/pentagonal/cube/congruence layer is done.
 
 **Goal:** close the infinite 5th-order identity `χ₀ = 2·F₀ − φ₀(−q)`.
