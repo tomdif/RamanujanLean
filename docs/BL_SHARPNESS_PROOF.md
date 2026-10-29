@@ -5,11 +5,11 @@
 > they do not certify a declaration in the kernel. G4–G6 and the higher-precision
 > rank claims retain their stated qualifications.
 >
-> Prime 29 now has a separate all-power Lean recurrence. Its exact-threshold
-> construction uses the observed divided error `12·23^n`, rather than assuming
-> identification of the experimental Θ matrix below. The final numerical kernel
-> certificate is still running; see [current verification status](STATUS.md) and
-> [the finite-arithmetic proof guide](FINITE_ARITHMETIC.md).
+> Prime 29 has a separate, kernel-verified all-power recurrence and exact
+> starting threshold. That construction uses the divided error `12·23^n`;
+> it does not depend on identifying the experimental Θ matrix below.
+> The full build and axiom audit passed; see [verification status](STATUS.md)
+> and [the finite-arithmetic proof guide](FINITE_ARITHMETIC.md).
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and

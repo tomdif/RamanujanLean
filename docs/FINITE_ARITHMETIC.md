@@ -8,7 +8,7 @@ Module paths below are relative to `RamanujanTau/`.
 |---|---|
 | [Orbit](../RamanujanTau/FiniteArithmetic/Orbit.lean) | Finite relations, recurrence, and survival |
 | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) | The unconditional partition recurrence at every precision |
-| [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) | Exact-threshold construction; final certificate verification pending |
+| [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) | Proved exact starting threshold at every precision |
 | [Evaluate29Powers](../RamanujanTau/FiniteArithmetic/Evaluate29Powers.lean) | Executable recurrence from two actual starting residues |
 | [WeightedTilings](../RamanujanTau/FiniteArithmetic/WeightedTilings.lean) | A second counting problem with an identified finite representation |
 | [Audit](../scripts/audit/finite_arithmetic.lean) | Axiom dependencies and executable examples |
@@ -67,16 +67,16 @@ is invertible modulo `29^m`. Its `evaluate_correct` theorem connects repeated sq
 two inputs to the actual partition count for every future iterate. Computing the two initial
 residues efficiently at high precision remains a separate problem.
 
-**Exact starting threshold — final kernel certificate pending** (`FiniteArithmetic/Complete29.lean`): for every `m ≥ 1` and positive
+**Exact starting threshold — kernel verified** (`FiniteArithmetic/Complete29.lean`): for every `m ≥ 1` and positive
 starting index `B`, a scalar multiplier works for every `b ≥ B` and every admissible partition
-progression if and only if **`B ≥ 2m−1`**. `partition_threshold` is the proposed unconditional entry point and states this for actual cardinalities
+progression if and only if **`B ≥ 2m−1`**. `partition_threshold` is the unconditional entry point and states this for actual cardinalities
 of `Nat.Partition`. At every precision `m ≥ 2`, `partition_count_obstruction` proves that every
 proposed multiplier has a partition-count counterexample at the preceding index `b = 2m−2`.
 
 The sharpness proof observes the divided error through `λ(F) = 3[q²]F − [q]F`. Its residue is
 `12·23^n (mod 29)`, which never vanishes. `Error29.tail_killed` controls the contribution of the
 entire Katz remainder; `lift_padic_mem` in `OrbitLift.lean` retains the envelope of each divided error.
-Three finite observations modulo 841, submitted for kernel checking through degree 1682 in `Cert29Error.lean`, supply
+Three finite observations modulo 841, checked in the kernel through degree 1682 in `Cert29Error.lean`, supply
 the scalar law and its initial value. `CertifyError29.lean` identifies those observations with
 the actual 29-adic operator, including the weight-28 Eisenstein denominator at precision 841.
 The original experimental scalar orbit starting at `8` remains a separate example in the audit.

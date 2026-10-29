@@ -1,0 +1,60 @@
+{
+  "verified_at_utc": "2026-10-29T19:18:04.483595+00:00",
+  "source_commit": "e31b556af07d7fa422eda4c3f00579e901c29898",
+  "lean_toolchain": "leanprover/lean4:v4.30.0-rc2",
+  "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+  "certificate": {
+    "path": "RamanujanTau/FiniteArithmetic/Cert29Error.lean",
+    "sha256": "aaaa8cee0bed19202ae525db7e9e91f55ef0212bf3b1499a8e0c295174070687"
+  },
+  "certificate_files": {
+    "RamanujanTau/FiniteArithmetic/Cert29Error.lean": "aaaa8cee0bed19202ae525db7e9e91f55ef0212bf3b1499a8e0c295174070687",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorData.lean": "47ff42f4cef17bedec38a63b00e595217889c6eafd02e1f137e73d27b63017d2",
+    "RamanujanTau/FiniteArithmetic/ChunkedCertificate.lean": "1eaa05691024370548086dfea876da0bef1f98ddc79e1144a5d50de47244c8cf",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/Delta2.lean": "dec7b1a564552799124689787e3c06924d56820413b66bd6459b80c05dc57a06",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/E42.lean": "a355e915f558b86f0d94ffcbb1b128a7ee5a7102dc801bccc3aef9672e839d1a",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/E44.lean": "ff30e43126fdb5d406e05afd9c0cdd87bc07661eab581e1f9a8c46bb404c0727",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/EI.lean": "a0ef1de226ca4467c4e61ebc58c8f87575d636859d3803ed3522c41c05c5fd41",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/EP.lean": "a3aa529a75f84d5b6780933dc010f2358e8ad7bfd73ab45c29962c52260f4e19",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/LF.lean": "4e468b6ddb2945efaf03ed84ffd2cfdb6663e11a8b0038caa8ae630ea4e50c8f",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/LH.lean": "a633f669a7575b189577e23e1d31d55431c23d3513ce2424a775b3c4e9698698",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/PI.lean": "c4dd4886a95ddc84c8668c29e36dccd637eea7ed8400d26711cf70bd899587da",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/PhiI.lean": "4b6b5e9911b6796145ce5364bae96c60170e60f48f4a52039d392e0cae79758a",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/Q12.lean": "3d18265751717ebbb05eaa452fb0a21676d4019efb73ebd59eda19e6723a5576",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/Q2.lean": "a5ae06f77bbf6245c240f1368ac361905b54484630d819aff95be1ecb1b8865d",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/Q24.lean": "8415137674bf60081e4d77ba1d3cfd39f5b52ead105260b8ebaa66fe4574dca0",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/Q3.lean": "9646996095233b0247c019fc726280798c90e0233e67ea9933f8586e8a828f4b",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/Q6.lean": "9c4eafe69306a751571b1cc8b92994407b61d77224ec97370fc1ac21c62601f5",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/YF.lean": "fb8030c6313fe2bdd9b0a20c1c1f3125740cf4dfff25d688103f8dd01a7a9f6a",
+    "RamanujanTau/FiniteArithmetic/Cert29ErrorProducts/YG.lean": "bc0c2ddeef13fef7f9ada93e582d5cad88597a84cec66e5186045c623af5e106"
+  },
+  "arithmetic_checks": {
+    "products": 16,
+    "product_blocks": 429,
+    "maximum_left_block_length": 64
+  },
+  "checks": [
+    {
+      "command": "lake build RamanujanTau.FiniteArithmetic.Complete29",
+      "result": "passed"
+    },
+    {
+      "command": "lake build",
+      "result": "passed",
+      "jobs": 9131
+    },
+    {
+      "command": "lake env lean scripts/audit/finite_arithmetic.lean",
+      "result": "passed",
+      "declarations": 52,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "report": "finite_arithmetic.axioms.txt"
+    }
+  ],
+  "lightweight_ci": "https://github.com/tomdif/RamanujanLean/actions/runs/40931452715",
+  "scope": "Actual partition recurrence and exact positive starting threshold for every power of 29; finite orbit and counting APIs."
+}

@@ -28,10 +28,12 @@ those theorems' statements.
 | Every power of 29 | One 29-adic multiplier gives the partition recurrence for every b ≥ 2m−1 modulo 29^m | [AllPowers29](RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
 | Finite arithmetic | Finite operator relations imply recurrences for every iterate; applications include partition residues and exact weighted tilings | [Framework and examples](docs/FINITE_ARITHMETIC.md) |
 
-**Prime-29 sharpness is undergoing its final kernel check.** The implementation
-in [Complete29](RamanujanTau/FiniteArithmetic/Complete29.lean) targets the exact
-threshold 2m−1. Its surrounding proof modules and independent arithmetic checks
-have passed; completion is tracked on the [status page](docs/STATUS.md).
+**The prime-29 starting threshold is exact.** For every m ≥ 1 and positive B,
+a scalar multiplier works for all admissible partition progressions from
+b = B onward modulo 29^m if and only if B ≥ 2m−1.
+[Complete29](RamanujanTau/FiniteArithmetic/Complete29.lean) proves this for
+actual partition counts; the full build and expanded axiom audit passed.
+See the [verification record](docs/STATUS.md#verification).
 
 ## Build and verify
 

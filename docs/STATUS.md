@@ -12,26 +12,29 @@ Updated 2026-10-29. [Overview](../README.md) · [Documentation guide](README.md)
 | Analytic partition formulas | Hardy–Ramanujan, Rademacher, and log-concavity for n ≥ 26 are formalized. | [Catalog](RESULTS.md) |
 | Primes 13, 17, 19, 23 | The unconditional partition recurrence at b = m is proved. The displayed public theorems establish sufficiency, not minimality of that starting index. | [Public theorems](../RamanujanTau/OrdQuot/Atkin.lean) |
 | Prime 29, every power | The unconditional recurrence for b ≥ 2m−1 and its evaluator from two actual seeds passed a full build and axiom audit. | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
-| Prime-29 exact threshold | Implementation complete; final numerical kernel certificate and dependent full build/audit are pending. Conditional sharpness proofs and independent arithmetic checks passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
+| Prime-29 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1. The numerical kernel certificate, full build, and expanded axiom audit passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
 | Multi-quintuple products | The canonical family and the stated specializations are proved. The corrected general converse remains a research problem. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
 
-The last completed full build before the sharpness addition passed 9,099 jobs.
-Its finite-arithmetic audit checked 34 declarations and found only standard
-Lean axioms. A new full build and expanded audit are required before the
-prime-29 exact-threshold result is marked complete here.
+The completed full build, including prime-29 sharpness, passed 9,131 jobs.
+The expanded finite-arithmetic audit checked 52 declarations. Its axiom
+dependencies are confined to `propext`, `Classical.choice`, and `Quot.sound`;
+there is no `sorryAx` or additional axiom. The
+[verification record](verification/prime29.json) pins the source revision,
+toolchain, Mathlib revision, and checked commands. The
+[raw axiom report](verification/finite_arithmetic.axioms.txt) lists the audited declarations.
 
 The independent sharpness checker verifies 16 polynomial products, their 429 bounded blocks, divisor-sum
 formulas, Euler coefficients, shifts, a linear combination, and three observations.
 It checks the generated data with a different arithmetic algorithm; Lean's kernel
 remains the proof authority.
 
-The sharpness certificate now uses blocks of at most 64 coefficients and separate
+The sharpness certificate uses blocks of at most 64 coefficients and separate
 cached product modules to reduce the memory pressure of the original monolithic
-check. The assembly rule is proved in Lean; the replacement certificate still
-requires its complete build and audit before the result is marked verified here.
+check. The assembly rule and all 429 product blocks passed Lean verification,
+along with the bounded divisor-sum checks.
 
 GitHub's **Repository checks** workflow checks documentation links, source hygiene,
 project imports, and that independent arithmetic. A green workflow is not evidence

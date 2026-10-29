@@ -1,0 +1,72 @@
+'RamanujanTau.FiniteArithmetic.U_eq_of_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Cert29.seed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Cert29.even_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Cert29.odd_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Partition29.partition_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Partition29.explicit_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Partition29.residue_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Cert29Image.D_f' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Image29.D_image' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.envelope_reduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.lift_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.lift_padic_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Divided29.odd_padic_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Error29.tail_killed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ErrorDynamics29.divided_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BoylanWebb.forall_Ico_join' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BoylanWebb.toPS_append' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BoylanWebb.Cg.shift_precision' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BoylanWebb.Cg_mul_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BoylanWebb.Cg_product' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BoylanWebb.Cg_inverse_product' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Cert29Error.obs_YF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Cert29Error.obs_YG' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Cert29Error.obs_Phi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.CertifyError29.data' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete29.threshold' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete29.even_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete29.partition_count_obstruction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete29.partition_threshold' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.AllPowers29.bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AllPowers29.odd_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AllPowers29.series_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AllPowers29.partition_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AllPowers29.partition_residues' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.AllPowers29.partition_residues_iterate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Evaluate29Powers.initial_isUnit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Evaluate29Powers.count_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Evaluate29Powers.evaluate_correct' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.matrixPower_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.WeightedTilings.count_one_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.WeightedTilings.certified_recurrence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.WeightedTilings.evaluate_correct' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.OrbitModel.recurrence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.OrbitModel.observed_recurrence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.observed_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.orbit_nonzero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.orbit_eventually_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.OrbitModel.nonzero_forever' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Examples.theta29_survives' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Examples.projection_survives' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Examples.projection_not_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Examples.composite_recurrence' depends on axioms: [propext, Classical.choice, Quot.sound]
