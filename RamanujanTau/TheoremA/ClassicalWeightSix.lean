@@ -9,8 +9,8 @@ identify its q-expansion action. If that polynomial vanishes on the classical
 space, its relation passes to every reduced cusp expansion over a coefficient
 ring embedded in `ℂ`. No integral splitting into old and new eigenspaces is used.
 
-The classical polynomial identity itself remains unproved: the previously
-checked integer matrices have not yet been identified with this analytic space.
+The classical polynomial identity is proved downstream in `WeightSixIdentity`,
+using actual eta cusp forms and the finite coefficient certificate.
 -/
 
 set_option autoImplicit false

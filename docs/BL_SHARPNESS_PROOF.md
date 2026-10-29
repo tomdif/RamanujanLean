@@ -16,12 +16,12 @@
 > calculation, and weight-six algebraic obstruction. It also constructs actual
 > bad-prime Hecke operators on Γ₀(N), proves their q-expansion formulas, and
 > transports a classical relation through coefficient rings to residue rings.
-> It now proves that the first three coefficients determine an actual
-> weight-six level-six cusp form, reducing the classical identity to a finite
-> table for three actual forms; those forms still need construction in Lean.
-> Its assembled reduction still assumes the modular filtration and actual
-> weight-six identity. It does not prove Theorem A or d_ℓ = 0 unconditionally
-> in Lean.
+> It constructs three actual eta quotient cusp forms, checks their coefficients,
+> proves the dimension is three, and proves the weight-six Hecke identity on
+> the entire classical space and its coefficient reductions. The assembled
+> ordinarity reduction still assumes geometric filtration laws, lifting, and
+> initial newform eigenvalues. It does not prove Theorem A or d_ℓ = 0
+> unconditionally in Lean.
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and
@@ -247,16 +247,14 @@ Consequence: det(T_{ℓ²}|𝒮) = ±∏_F a_ℓ(F), the product running over th
    mod-ℓ space must be justified; no integral splitting of the old/new decomposition is needed.
    This replaces Deligne–Serre lifting and requires no semisimplicity in characteristic ℓ.
    `scripts/frontier/pattern/weight_six.gp` independently recomputes the exact rational matrices.
-   Lean checks the integer matrix identity and eigenpair obstruction in `TheoremA/WeightSix.lean`,
-   but has not identified those matrices with the actual Hecke action.
-   `TheoremA/ClassicalWeightSix.lean` now proves the passage from an identity
-   on the actual complex cusp space to reduced cusp expansions; the classical
-   identity and the comparison with characteristic-ℓ forms remain hypotheses.
-   The subsequent `TheoremA/LevelSixSturm.lean` proves the three-coefficient
-   bound on the actual cusp space. `TheoremA/WeightSixCertificate.lean` reduces
-   the classical identity to three actual forms with specified coefficients
-   through q⁹; it does not yet construct those forms. See the finite table in
-   the [formalization guide](THEOREM_A.md#the-finite-analytic-certificate).
+   `TheoremA/WeightSixIdentity.lean` now proves this identity on the actual
+   classical cusp space. The proof constructs eta quotient cusp forms, proves
+   their coefficients through q⁹, and uses the three-coefficient bound to
+   identify the Hecke action on a spanning set. It assumes no old/new splitting.
+   The identity also descends to every embedded coefficient ring and its
+   residue rings. The comparison with characteristic-ℓ modular forms remains
+   an input, recorded explicitly in `LiftedOrdinarity.lean`. See the
+   [formalization guide](THEOREM_A.md#the-finite-analytic-certificate).
 5. The newform F has a₂(F) = −w₂(F)·2^{(ℓ−5)/2} = (2/ℓ)·2^{(ℓ−5)/2} ≡ 2^{−2} and
    a₃(F) = (3/ℓ)·3^{(ℓ−5)/2} ≡ 3^{−2}, using 2^{(ℓ−1)/2} ≡ (2/ℓ). So G̃ has U₂ = 4 and U₃ = 9.
    Applying the polynomial to G̃ gives **18·72·G̃ = 1296·G̃ = 0**. Since ℓ ≥ 13 and G̃ ≠ 0,

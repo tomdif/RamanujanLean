@@ -35,12 +35,13 @@ b = B onward modulo 29^m if and only if B ≥ 2m−1.
 actual partition counts; the full build and expanded axiom audit passed.
 See the [verification record](docs/STATUS.md#verification).
 
-Work on the proposed all-prime Theorem A now includes checked θ-cycle arithmetic
-and actual bad-prime Hecke operators on Γ₀(N), with their q-expansion action and
-integral-reduction compatibility. In weight six at level six, Lean proves that
-three coefficients determine a cusp form and reduces the operator identity to
-a finite table for three actual forms. Constructing those forms, filtration,
-and the correspondence remain open. See the [precise boundary](docs/THEOREM_A.md).
+Work on the proposed all-prime Theorem A now proves the full classical
+weight-six obstruction: Lean constructs an eta-quotient basis of S₆(Γ₀(6)),
+checks its coefficients, proves dimension three, and proves
+(U₃+9)(U₂²+6U₂+32)=0 on the entire space and its coefficient reductions.
+The universal ordinarity theorem still needs characteristic-ℓ filtration,
+lifting, newform eigenvalue formulas, and the Shimura comparison.
+See the [precise boundary](docs/THEOREM_A.md).
 
 ## Build and verify
 

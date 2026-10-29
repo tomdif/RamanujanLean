@@ -1,6 +1,6 @@
-import RamanujanTau.TheoremA.WeightSixCertificate
+import RamanujanTau.TheoremA.LiftedOrdinarity
 
--- These are foundations and an explicitly conditional reduction, not Theorem A.
+-- Actual weight-six results and a conditional ordinarity reduction, not full Theorem A.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
 #print axioms RamanujanTau.TheoremA.coeff_theta_pow
 #print axioms RamanujanTau.TheoremA.U_theta_pow
@@ -43,3 +43,28 @@ import RamanujanTau.TheoremA.WeightSixCertificate
 #print axioms RamanujanTau.TheoremA.LevelSix.weightSix_finrank_le_three
 #print axioms RamanujanTau.TheoremA.weightSix_identity_of_coefficient_certificate
 #print axioms RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator_of_certificate
+#print axioms RamanujanTau.TheoremA.LevelSix.generated_eq_Gamma0
+#print axioms RamanujanTau.TheoremA.LevelSix.exists_rep
+#print axioms RamanujanTau.TheoremA.EtaSquared.slash_word
+#print axioms RamanujanTau.TheoremA.EtaSquared.generatorWord_matrix
+#print axioms RamanujanTau.TheoremA.EtaSquared.generator_phase_dvd
+#print axioms RamanujanTau.TheoremA.EtaSquared.basisFunction_slash
+#print axioms RamanujanTau.TheoremA.EtaSquared.basisFunction_holo
+#print axioms RamanujanTau.TheoremA.EtaSquared.cusp_factorization
+#print axioms RamanujanTau.TheoremA.EtaSquared.cusp_rate_positive
+#print axioms RamanujanTau.TheoremA.EtaSquared.basisFunction_rep_zero
+#print axioms RamanujanTau.TheoremA.EtaSquared.basisCuspForm
+#print axioms RamanujanTau.TheoremA.EtaSquared.basisFunction_qProduct
+#print axioms RamanujanTau.TheoremA.EtaSquared.g_list_certificate
+#print axioms RamanujanTau.TheoremA.EtaSquared.v_list_certificate
+#print axioms RamanujanTau.TheoremA.EtaSquared.w_list_certificate
+#print axioms RamanujanTau.TheoremA.EtaSquared.qExpansion_g
+#print axioms RamanujanTau.TheoremA.EtaSquared.qExpansion_v
+#print axioms RamanujanTau.TheoremA.EtaSquared.qExpansion_w
+#print axioms RamanujanTau.TheoremA.weightSixForms_coefficients
+#print axioms RamanujanTau.TheoremA.classicalWeightSixAnnihilator_eq_zero
+#print axioms RamanujanTau.TheoremA.weightSixCoefficientEquiv
+#print axioms RamanujanTau.TheoremA.weightSix_finrank_eq_three
+#print axioms RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator_unconditional
+#print axioms RamanujanTau.TheoremA.eq_zero_of_reduced_weightSix_eigenpair
+#print axioms RamanujanTau.TheoremA.U_ne_zero_of_lifted_filtration_data

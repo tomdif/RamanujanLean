@@ -56,3 +56,32 @@
 'RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator_of_certificate' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.generated_eq_Gamma0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.LevelSix.exists_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.slash_word' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.generatorWord_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.generator_phase_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.basisFunction_slash' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.basisFunction_holo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.cusp_factorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.cusp_rate_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.basisFunction_rep_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.basisCuspForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.basisFunction_qProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.g_list_certificate' does not depend on any axioms
+'RamanujanTau.TheoremA.EtaSquared.v_list_certificate' does not depend on any axioms
+'RamanujanTau.TheoremA.EtaSquared.w_list_certificate' does not depend on any axioms
+'RamanujanTau.TheoremA.EtaSquared.qExpansion_g' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.qExpansion_v' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.EtaSquared.qExpansion_w' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightSixForms_coefficients' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.classicalWeightSixAnnihilator_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightSixCoefficientEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.weightSix_finrank_eq_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TheoremA.IsReducedCuspExpansion.weightSix_annihilator_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.eq_zero_of_reduced_weightSix_eigenpair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.TheoremA.U_ne_zero_of_lifted_filtration_data' depends on axioms: [propext, Classical.choice, Quot.sound]

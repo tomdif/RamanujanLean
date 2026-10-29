@@ -6,36 +6,35 @@ Module paths in this catalog are relative to `RamanujanTau/` unless stated other
 Named hypotheses are part of a theorem's statement; an axiom audit does not discharge them.
 The research notes are indexed separately in [the documentation guide](README.md).
 
-## Theorem A foundations: conditional ordinarity reduction
+## Theorem A: proved weight-six obstruction, conditional ordinarity
 
-`RamanujanTau.TheoremA.U_ne_zero_of_filtration_data` proves that the actual
-coefficient-extraction operator U_ℓ does not kill a normalized series with the
-specified Atkin–Lehner eigenvalues, **assuming** the stated filtration laws and
-weight-six annihilator. Its proof uses checked θ-cycle bookkeeping, identities
-on infinite power series, Euler's criterion, and the scalar obstruction 1296.
-The modular hypotheses and Shimura correspondence remain unformalized;
-this is not an unconditional all-prime theorem. See the
-[declaration ledger and remaining work](THEOREM_A.md).
+`TheoremA/WeightSixIdentity.lean` proves
+`classicalWeightSixAnnihilator_eq_zero`: (U₃+9)(U₂²+6U₂+32)=0 on the
+actual complex cusp space S₆(Γ₀(6)). It also proves
+`weightSix_finrank_eq_three` and an explicit linear equivalence between this
+space and its first three positive q-coefficients.
 
-`TheoremA/BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct U_p on
-Mathlib's actual cusp forms of every integral weight on Γ₀(N), for prime p
-dividing nonzero N. Modularity, holomorphy, all cusp conditions, and the
-coefficient-extraction formula are proved. The q-expansion map is injective,
-and these operators commute. `IntegralCusp.lean` proves closure of classical
-expansions and their reductions; `ClassicalWeightSix.lean` transports an
-explicitly assumed analytic polynomial identity through any embedded
-coefficient ring to its residue rings. The actual weight-six identity and
-the characteristic-ℓ lifting/filtration inputs remain open.
+The proof constructs three actual eta quotient cusp forms. It verifies their
+transformations on a proved generating set for Γ₀(6), holomorphy, vanishing
+at every cusp, and their integer Fourier coefficients through q⁹. The
+coefficient bound in `LevelSixSturm.lean` and the finite certificate in
+`WeightSixCertificate.lean` then establish the full operator identity.
+No old/new decomposition or dimension formula is assumed.
 
-`TheoremA/LevelSixSturm.lean` proves an unconditional analytic coefficient
-bound: a level-six cusp form of integral weight k is zero when its coefficients
-below m vanish and k < m+3. In weight six this makes the first three positive
-coefficients injective and proves dimension at most three. The proof uses a
-twelve-translate norm and division by a power of Δ, without an assumed
-dimension formula. `WeightSixCertificate.lean` then proves that three actual
-forms matching the recorded coefficients through q⁹ establish the full
-weight-six operator identity and its coefficient reductions. Constructing
-those forms with that table remains an explicit input.
+`BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct actual U_p on
+Γ₀(N) for every integral weight and prime p dividing nonzero N, prove the
+coefficient-extraction formula, and prove the operators commute.
+`IntegralCusp.lean` and `ClassicalWeightSix.lean` transport the weight-six
+identity through any coefficient ring embedded in ℂ to its residue rings.
+Consequently `eq_zero_of_reduced_weightSix_eigenpair` excludes a nonzero
+(4,9) eigenvector in every such reduced cusp space of characteristic at least five.
+
+`U_ne_zero_of_lifted_filtration_data` now uses this proved identity in the
+ordinarity reduction. Its remaining explicit inputs are the geometric
+filtration laws, weight-six lifting, and the initial newform eigenvalue
+formulas. The half-integral-weight correspondence and identification with
+Boylan–Webb's d_ℓ are also open. This is not the universal Theorem A.
+See the [declaration ledger and remaining work](THEOREM_A.md).
 
 ## Results at a glance
 

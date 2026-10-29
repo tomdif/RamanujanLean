@@ -8,9 +8,10 @@ import RamanujanTau.TheoremA.WeightSix
 
 The conclusion concerns the actual coefficient-extraction operator on an
 actual power series. The hypotheses explicitly retain the unformalized
-filtration laws and weight-six Hecke relation. This is NOT Theorem A:
-no construction of those inputs for level-six forms is supplied here, and
-the half-integral-weight correspondence is not formalized.
+filtration laws and weight-six Hecke relation. `WeightSixIdentity` proves
+the latter on the actual classical cusp space; `LiftedOrdinarity` applies it
+to coefficient reductions. The geometric inputs and half-integral-weight
+correspondence remain open, so these reductions are not Theorem A.
 -/
 
 set_option autoImplicit false

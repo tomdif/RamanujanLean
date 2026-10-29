@@ -8,9 +8,9 @@ Three actual cusp forms with the following first nine coefficients suffice.
 The coefficient bound proves they span and identifies U₂ and U₃ from finite
 data. No spanning assumption or infinite Hecke identity remains in the input.
 
-Constructing those three actual forms with these coefficients remains open.
-The table is the expected classical old/new basis, not an assertion that the
-corresponding eta products have already been constructed as modular forms.
+The three forms and their coefficients are constructed in `EtaQExpansion`
+and `WeightSixIdentity`. This file isolates the reusable finite-certificate
+implication from that analytic construction.
 -/
 
 set_option autoImplicit false

@@ -14,7 +14,7 @@ Updated 2026-10-29. [Overview](../README.md) · [Documentation guide](README.md)
 | Prime 29, every power | The unconditional recurrence for b ≥ 2m−1 and its evaluator from two actual seeds passed a full build and axiom audit. | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
 | Prime-29 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1. The numerical kernel certificate, full build, and expanded axiom audit passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
-| Universal Theorem A | Actual bad-prime Hecke operators and the three-coefficient bound in weight six are proved. A finite coefficient certificate implies the classical operator identity. Constructing its three forms, filtration, and the correspondence remain open. | [Formalization boundary](THEOREM_A.md) |
+| Universal Theorem A | The actual eta cusp forms, exact dimension three, and full weight-six Hecke identity are proved, including coefficient reductions. Filtration, lifting, newform eigenvalues, and the correspondence remain open. | [Formalization boundary](THEOREM_A.md) |
 | Multi-quintuple products | The canonical family and the stated specializations are proved. The corrected general converse remains a research problem. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
@@ -27,13 +27,14 @@ there is no `sorryAx` or additional axiom. The
 toolchain, Mathlib revision, and checked commands. The
 [raw axiom report](verification/finite_arithmetic.axioms.txt) lists the audited declarations.
 
-After adding the Theorem A foundations, actual bad-prime operators, and the
-level-six coefficient bound, the full build passed 9,147 jobs. The
-[dedicated audit](verification/theorem_a.axioms.txt) checked 42 declarations
-with the same three standard axioms. These include the analytic coefficient
-bound, finite certificate implication, and integral reduction. The certificate's
-three actual forms and the ordinarity theorem's remaining modular inputs still
-need construction.
+The Theorem A development now includes actual eta quotient cusp forms, their
+analytic/formal q-expansion identities, an exact dimension-three theorem, and
+the unconditional weight-six Hecke annihilator. The [dedicated audit](verification/theorem_a.axioms.txt)
+checks 67 declarations with the same three standard axioms. The full build
+passed 9,161 jobs. Both generated eta certificate files reproduce byte-for-byte,
+and the source/documentation checker passed 806 Lean source/audit files,
+24 Markdown files, and 143 local links. The remaining geometric and newform
+inputs are listed in the [formalization boundary](THEOREM_A.md).
 
 The independent sharpness checker verifies 16 polynomial products, their 429 bounded blocks, divisor-sum
 formulas, Euler coefficients, shifts, a linear combination, and three observations.
@@ -60,7 +61,7 @@ with the build and audit commands in the [overview](../README.md#build-and-verif
 - Resolve the general sharpness and higher-precision rank questions in the
   [Boylan–Webb research draft](BL_SHARPNESS_PROOF.md). The prime-29 construction
   does not establish those claims for every prime.
-- Supply the level-six filtration and Hecke inputs and the half-integral-weight
+- Supply level-six filtration, lifting, newform eigenvalue formulas, and the half-integral-weight
   correspondence needed by the [Theorem A formalization](THEOREM_A.md).
 - Resolve the corrected multi-quintuple classification problem. Its existing
   finite experiments and reductions do not prove the universal converse.
