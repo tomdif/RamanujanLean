@@ -14,8 +14,11 @@ The independent prime-29 all-power theorem remains complete.
 The explicit ring construction now covers every even weight. Lean proves
 an integral eta basis, dimension 2n+1 in weight 2n, unique homogeneous
 polynomial coordinates over arbitrary coefficient rings, and compatibility
-with the actual scaled Serre derivative. The Hasse divisibility criterion,
-its coprimeness input, and the characteristic-ℓ filtration laws remain open.
+with the actual scaled Serre derivative. The level-one Hasse invariant and
+its companion are now identified in this model. Lean proves their projective
+separation, coprimality on both affine charts, and the homogeneous Hasse
+divisibility criterion. Constructing the minimal-weight filtration and proving
+its complete cycle laws remain open.
 
 ## Targets
 
@@ -65,6 +68,10 @@ All declarations below are in `RamanujanTau.TheoremA`.
 | [EvenWeightProducts](../RamanujanTau/TheoremA/EvenWeightProducts.lean) | Basis products add indices; A,B,C generate, with unique monomials AᵃBᵇCᶜ, b < 2, in each weight | No assertion of independence across different weights after reduction |
 | [LevelSixSerre](../RamanujanTau/TheoremA/LevelSixSerre.lean) and [EvenWeightSerre](../RamanujanTau/TheoremA/EvenWeightSerre.lean) | Actual Serre differentiation at all cusps; 12θ−kE₂ raises the integral model's weight by two over every commutative ring | Hasse divisibility and the θ-filtration laws are not inferred from closure alone |
 | [BinarySeries](../RamanujanTau/TheoremA/BinarySeries.lean) and [BinaryModel](../RamanujanTau/TheoremA/BinaryModel.lean) | Homogeneous binary polynomials of degree 2n identify the actual weight-2n space and its integral model; evaluation is injective in each even degree, and a polynomial Serre operator matches the series operator | The two auxiliary integer series are not asserted to be odd-weight modular forms |
+| [BinaryEisenstein](../RamanujanTau/TheoremA/BinaryEisenstein.lean) and [BinaryPullback](../RamanujanTau/TheoremA/BinaryPullback.lean) | Explicit E₄/E₆ polynomials, complete series identities over every ring, weight-preserving substitution, and no common projective zero in characteristic different from 2 and 3 | Finite integer certificates are promoted to full identities by the proved coefficient bound |
+| [BinaryHasse](../RamanujanTau/TheoremA/BinaryHasse.lean) and [BinaryBaseChange](../RamanujanTau/TheoremA/BinaryBaseChange.lean) | Homogeneous Hasse and companion polynomials with expansions 1 and E₂; the companion is the Serre derivative; identical expansions in one weight class are Hasse-power multiples | Applies over every field of characteristic ℓ ≥ 5 |
+| [HasseSeparation](../RamanujanTau/TheoremA/HasseSeparation.lean) | No common projective zero over an algebraic closure, and coprimality on both affine charts over the original field | Uses the repo's proved Igusa simple-root results and Ramanujan differential equations |
+| [BinaryTheta](../RamanujanTau/TheoremA/BinaryTheta.lean) and [BinaryDivisibility](../RamanujanTau/TheoremA/BinaryDivisibility.lean) | The homogeneous theta numerator represents 12θ; Hasse divisibility is unchanged away from weights divisible by ℓ, and is forced at such weights; a Hasse factor is equivalent to lowering weight by ℓ−1 with unchanged series | Minimal-weight filtration, its cycle laws, and the weight-six cusp comparison are not yet assembled |
 
 The conditional reduction is useful because its conclusion concerns the existing
 Boylan–Webb coefficient-extraction operator on an actual power series. The
@@ -213,10 +220,40 @@ Integral descent proves that this operator raises weight k to k+2 over
 every coefficient ring. `binaryEv_binarySerre` identifies the corresponding
 homogeneous polynomial operator with the series operator.
 
-The next step is to import the level-one Hasse and companion forms into
-these coordinates, prove their required coprimeness, and characterize
-weight drops by divisibility by the Hasse polynomial. Closure under the
-Serre derivative does not by itself prove those statements.
+The level-one Eisenstein series now have proved binary expressions:
+
+```text
+E₄ = x⁴ + 228x³y + 270x²y² − 972xy³ + 729y⁴
+E₆ = x⁶ − 522x⁵y − 9477x⁴y² + 18468x³y³ − 24057x²y⁴
+     + 39366xy⁵ − 19683y⁶.
+```
+
+Kernel-checked integer coefficients and the coefficient bound establish these
+identities for the complete series. Their discriminant factors as
+E₄³−E₆² = 1728x³y(x−y)²(x−9y)⁶. Evaluating E₄ at the four possible factors
+proves that E₄ and E₆ have no common nonzero point in characteristic ℓ ≥ 5.
+
+Write H for the pulled-back Hasse invariant and J for its Serre companion,
+to distinguish them from the weight-two generators A,B,C. Lean proves
+that H and J have degrees ℓ−1 and ℓ+1 and complete expansions 1 and E₂.
+Igusa's simple-root results imply that they have no common projective zero;
+base change to an algebraic closure proves coprimality on both affine charts
+over every field of characteristic ℓ ≥ 5.
+
+For homogeneous P of degree k=2n, the polynomial
+T(P)=H·δP+k·J·P has degree k+ℓ+1 and expansion 12θ(P). Lean proves:
+
+- If k is nonzero in the coefficient field, H divides T(P) exactly when H divides P.
+- If k is zero in the coefficient field, H divides T(P).
+- For k ≥ ℓ−1, H divides P exactly when a homogeneous polynomial of degree
+  k−(ℓ−1) has the same complete expansion.
+- More generally, equal expansions in degrees k and k+m(ℓ−1) differ by multiplication by Hᵐ.
+
+Homogenization proves the global divisibility statements from the chart
+statements. The check H(1,0)=1 ensures that no factor at infinity is lost.
+The next step is to define the least representing weight in a fixed class,
+assemble the θ-filtration laws, and connect the resulting weight-six series
+to the proved cusp-space obstruction.
 
 ## Source checks and remaining work
 
@@ -238,8 +275,9 @@ The next formal obligations are substantive:
 1. Construct level-six modular forms in characteristic ℓ with q-expansions,
    Hasse invariant, filtration, and θ, and prove the laws used by the reduction.
    The integral polynomial model in every even weight and its Serre
-   operator are complete. Hasse comparison, coprimeness, divisibility,
-   and the θ-filtration laws are the next steps.
+   operator, Hasse comparison, chart coprimality, and homogeneous divisibility
+   criterion are complete. Minimal-weight filtration and its θ-cycle laws
+   are the next steps.
 2. Prove the lifting/comparison needed for θ⁴F and the eigenvalue formulas
    for the stated Atkin–Lehner newform class. The actual classical weight-six
    forms, coefficient table, spanning argument, operator identity, and
@@ -259,16 +297,18 @@ precision. [Boylan–Webb, §§6.1–6.2](https://people.math.sc.edu/boylan/repr
 
 ```sh
 python3 scripts/frontier/pattern/gen_eta_generator_data.py
-lake build RamanujanTau.TheoremA.LiftedOrdinarity RamanujanTau.TheoremA.BinaryModel
+lake build RamanujanTau.TheoremA.LiftedOrdinarity RamanujanTau.TheoremA.BinaryDivisibility
 lake env lean scripts/audit/theorem_a.lean
 gp -q -f scripts/frontier/pattern/weight_six.gp
 ```
 
-The [dedicated audit](verification/theorem_a.axioms.txt) checks 113 declarations,
+The [dedicated audit](verification/theorem_a.axioms.txt) checks 147 declarations,
 including the actual eta cusp forms, coefficient identities, full weight-six
 annihilator, exact dimension, integral reduction, and conditional ordinarity
 reduction, plus the uniform eta basis, integral reconstruction, polynomial
-model, and actual and integral Serre operators. Their dependencies are confined to `propext`, `Classical.choice`,
+model, actual and integral Serre operators, Eisenstein/Hasse comparison,
+projective separation, and global homogeneous divisibility. Their dependencies
+are confined to `propext`, `Classical.choice`,
 and `Quot.sound`. The integer certificates use `decide +kernel`; Python and
 PARI are not part of Lean's trust boundary. See [status](STATUS.md#verification)
 for the complete build record.

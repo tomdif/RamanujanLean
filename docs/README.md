@@ -11,7 +11,7 @@ current status at the top of the file.
 | Document | Purpose |
 |---|---|
 | [Finite arithmetic certificates](FINITE_ARITHMETIC.md) | Finite orbit laws, all powers of 29, the sharpness construction, and executable counting |
-| [Theorem A formalization](THEOREM_A.md) | The weight-six obstruction, all-even-weight polynomial model, Serre differentiation, and remaining ordinarity inputs |
+| [Theorem A formalization](THEOREM_A.md) | The weight-six obstruction, polynomial model, Hasse divisibility, and remaining ordinarity inputs |
 | [Mock theta method](../MOCK_THETA_METHOD.md) | The formal proof architecture for the Mock Theta Conjectures |
 | [τ closure status](../OPEN_QUESTIONS.md) | Proved τ results and the Deligne/Lehmer boundary |
 | [Atkin–O'Brien proof record](ATKIN_OBRIEN_PROOF.md) | Public theorems for 13, 17, 19, 23, followed by the historical development |

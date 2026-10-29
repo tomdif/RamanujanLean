@@ -41,8 +41,21 @@ injective in each even degree over every commutative ring.
 `LevelSixSerre.lean` constructs the actual Serre derivative, using Cauchy's
 estimate to verify boundedness at every cusp. `EvenWeightSerre.lean` proves
 that 12θ−kE₂ preserves the integral model and raises its weight by two in
-every coefficient ring. The characteristic-ℓ Hasse divisibility criterion,
-coprimeness input, and filtration laws remain open.
+every coefficient ring.
+
+`BinaryEisenstein.lean` proves the explicit E₄ and E₆ binary formulas and
+full series identities. `BinaryPullback.lean` proves weight-preserving
+substitution and no common projective zero. `BinaryHasse.lean` identifies
+the Hasse invariant and companion, proves their expansions are 1 and E₂,
+and characterizes equal expansions in one weight class as Hasse-power multiples.
+`BinaryBaseChange.lean` and `HasseSeparation.lean` prove projective separation
+and coprimality on both affine charts over every characteristic-ℓ field, ℓ ≥ 5.
+
+`BinaryTheta.lean` constructs a homogeneous numerator with expansion 12θ.
+`BinaryDivisibility.lean` proves `hasse_dvd_theta_iff` away from weights zero
+modulo ℓ and `hasse_dvd_iff_lower_expansion`: a Hasse factor is exactly the
+ability to lower weight by ℓ−1 without changing the full series. Minimal-weight
+filtration and its complete cycle laws still need to be constructed.
 
 `BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct actual U_p on
 Γ₀(N) for every integral weight and prime p dividing nonzero N, prove the

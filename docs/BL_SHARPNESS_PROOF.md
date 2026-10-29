@@ -22,8 +22,11 @@
 > integral coordinates in every even weight, proves generation by A,B,C
 > with AC=B², and identifies an even-degree binary polynomial model. It proves
 > that the scaled Serre derivative raises this model's weight over every
-> coefficient ring. The assembled
-> ordinarity reduction still assumes geometric filtration laws, lifting, and
+> coefficient ring. It now identifies the Hasse invariant and companion,
+> proves projective separation and affine-chart coprimality, and proves that
+> a Hasse factor is exactly a weight reduction by ℓ−1 with unchanged expansion.
+> The theta numerator satisfies the corresponding homogeneous divisibility law.
+> The assembled ordinarity reduction still assumes geometric filtration laws, lifting, and
 > initial newform eigenvalues. It does not prove Theorem A or d_ℓ = 0
 > unconditionally in Lean.
 

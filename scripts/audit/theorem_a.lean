@@ -1,6 +1,6 @@
 import RamanujanTau.TheoremA.LiftedOrdinarity
 import RamanujanTau.TheoremA.WeightTwoCoordinates
-import RamanujanTau.TheoremA.BinaryModel
+import RamanujanTau.TheoremA.BinaryDivisibility
 
 -- Actual weight-six results and a conditional ordinarity reduction, not full Theorem A.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
@@ -116,3 +116,39 @@ import RamanujanTau.TheoremA.BinaryModel
 #print axioms RamanujanTau.TheoremA.exists_binaryPolynomial_descent
 #print axioms RamanujanTau.TheoremA.binarySerre_homogeneous
 #print axioms RamanujanTau.TheoremA.binaryEv_binarySerre
+
+-- Hasse comparison, coprimality, and homogeneous divisibility at level six.
+#print axioms RamanujanTau.TheoremA.binaryE4_certificate
+#print axioms RamanujanTau.TheoremA.binaryE6_certificate
+#print axioms RamanujanTau.TheoremA.evenFormCombination_E4
+#print axioms RamanujanTau.TheoremA.evenFormCombination_E6
+#print axioms RamanujanTau.TheoremA.binaryEv_E4
+#print axioms RamanujanTau.TheoremA.binaryEv_E6
+#print axioms RamanujanTau.TheoremA.binaryEisenstein_discriminant
+#print axioms RamanujanTau.TheoremA.binaryEv_pullback
+#print axioms RamanujanTau.TheoremA.binaryPullback_homogeneous
+#print axioms RamanujanTau.TheoremA.binaryEisenstein_common_zero
+#print axioms RamanujanTau.TheoremA.binaryHasse_homogeneous
+#print axioms RamanujanTau.TheoremA.binaryHasseCompanion_homogeneous
+#print axioms RamanujanTau.TheoremA.binaryEv_hasse
+#print axioms RamanujanTau.TheoremA.binaryEv_hasseCompanion
+#print axioms RamanujanTau.TheoremA.binarySerre_hasse
+#print axioms RamanujanTau.TheoremA.eq_binaryHasse_pow_mul
+#print axioms RamanujanTau.TheoremA.binaryEv_eq_iff_hasse_pow_mul
+#print axioms RamanujanTau.TheoremA.map_binaryHasse
+#print axioms RamanujanTau.TheoremA.map_binaryHasseCompanion
+#print axioms RamanujanTau.TheoremA.hasse_companion_separation
+#print axioms RamanujanTau.TheoremA.binaryHasse_separation
+#print axioms RamanujanTau.TheoremA.binaryHasse_chartT_coprime
+#print axioms RamanujanTau.TheoremA.binaryHasse_chartS_coprime
+#print axioms RamanujanTau.TheoremA.binaryThetaNumerator_homogeneous
+#print axioms RamanujanTau.TheoremA.binaryEv_thetaNumerator
+#print axioms RamanujanTau.TheoremA.chartT_hasse_dvd_theta_iff
+#print axioms RamanujanTau.TheoremA.chartS_hasse_dvd_theta_iff
+#print axioms RamanujanTau.TheoremA.hasse_dvd_theta_of_weight_zero
+#print axioms RamanujanTau.TheoremA.homogeneous_quotient_of_chartT_dvd
+#print axioms RamanujanTau.TheoremA.homogeneous_dvd_iff_chartT_dvd
+#print axioms RamanujanTau.TheoremA.binaryHasse_at_infinity
+#print axioms RamanujanTau.TheoremA.hasse_dvd_iff_chartT_dvd
+#print axioms RamanujanTau.TheoremA.hasse_dvd_theta_iff
+#print axioms RamanujanTau.TheoremA.hasse_dvd_iff_lower_expansion

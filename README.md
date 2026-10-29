@@ -42,7 +42,10 @@ checks its coefficients, proves dimension three, and proves
 An integral eta basis now covers every even weight, with dimension
 dim M₂ₙ(Γ₀(6)) = 2n+1, unique polynomial coordinates, and descent to
 embedded coefficient rings. The scaled Serre derivative raises this
-model's weight by two over every commutative coefficient ring.
+model's weight by two over every commutative coefficient ring. Lean now
+identifies the Hasse invariant in this model and proves that a Hasse factor
+is exactly a weight reduction by ℓ−1 with unchanged expansion. It also proves
+the corresponding divisibility law for θ.
 The universal ordinarity theorem still needs characteristic-ℓ filtration,
 lifting, newform eigenvalue formulas, and the Shimura comparison.
 See the [precise boundary](docs/THEOREM_A.md).
