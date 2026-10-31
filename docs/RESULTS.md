@@ -89,9 +89,14 @@ every coefficient ring. It evaluates to −108864 at (4,9), which is nonzero
 in characteristic ℓ ≥ 13. This supplies the contradiction in the
 all-prime ordinarity theorem without a cusp-lifting assumption.
 
-Full Theorem A still requires deriving the initial eigenvalue formulas
-from the newform Atkin–Lehner class, the half-integral-weight correspondence,
-and the identification with Boylan–Webb's d_ℓ.
+`NewClass.lean` derives those eigenvalues from the Atkin–Lehner signs, and
+`newform_coeff_ell_ne_zero` proves unconditionally that a normalized
+T_ℓ-eigenform in the class has a unit ℓ-th coefficient above ℓ.
+`SignLattice.latticeT_det_not_dvd` proves T_ℓ invertible modulo ℓ on the integer
+sign lattice. `ThetaLift.theoremA_unconditional` and `ThetaLift.X_injective_unconditional` prove the half-integral
+and Boylan–Webb forms, and `ThetaLift.aadModularity` proves Theorem 1.1 of
+Ahlgren–Andersen–Dicks. `BLBound.bEll_le` and `BLBound.dEll_eq_zero` give b_ℓ(m) ≤ 2m−1 and d_ℓ = 0
+for every prime ℓ ≥ 13.
 See the [declaration ledger and remaining work](THEOREM_A.md).
 
 ## Results at a glance

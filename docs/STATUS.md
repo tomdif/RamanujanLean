@@ -1,6 +1,6 @@
 # Current status
 
-Updated 2026-10-29. [Overview](../README.md) · [Documentation guide](README.md)
+Updated 2026-10-30. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Formal developments
 
@@ -14,7 +14,7 @@ Updated 2026-10-29. [Overview](../README.md) · [Documentation guide](README.md)
 | Prime 29, every power | The unconditional recurrence for b ≥ 2m−1 and its evaluator from two actual seeds passed a full build and axiom audit. | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
 | Prime-29 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1. The numerical kernel certificate, full build, and expanded axiom audit passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
-| Universal Theorem A | For every prime ℓ ≥ 13, the prescribed U₂/U₃ eigenspace in weight ℓ−3 has no U_ℓ kernel, including reductions of actual complex forms. Filtration and the full weight-six obstruction are proved. Newform sign identification, the Shimura comparison, and the Boylan–Webb dictionary remain open. | [Formalization boundary](THEOREM_A.md) |
+| Universal Theorem A | For every prime ℓ ≥ 13: the ℓ-th coefficient of a normalized eigenform in the Atkin–Lehner class is a unit above ℓ, and T_ℓ has determinant prime to ℓ on the integer sign lattice (unconditional). Injectivity of U_{ℓ²} on the half-integral space and of X̄ on V is proved unconditionally, including modularity of the explicit lifts (Ahlgren–Andersen–Dicks, Theorem 1.1): `ThetaLift.theoremA_unconditional`, `ThetaLift.aadModularity`. The upper bound b_ℓ(m) ≤ 2m−1 and the condition d_ℓ = 0 follow for every ℓ ≥ 13 (`BLBound.bEll_le`, `BLBound.dEll_eq_zero`, `BLBound.chain_stable`). Machine-checked; not yet reviewed by a human expert. | [Formalization boundary](THEOREM_A.md) |
 | Multi-quintuple products | The canonical family and the stated specializations are proved. The corrected general converse remains a research problem. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
@@ -29,15 +29,16 @@ toolchain, Mathlib revision, and checked commands. The
 
 The Theorem A development proves all-prime ordinarity on the prescribed
 U₂/U₃ eigenspace of the level-six integral model and on reductions of actual
-complex modular forms. Its inputs are proved eta bases, integral descent,
+complex modular forms, and derives the eigenvalues from Atkin–Lehner signs.
+The half-integral result includes a formal proof of `AADModularity` by a theta kernel. Its other inputs are proved eta bases, integral descent,
 Serre differentiation, Hasse divisibility, minimal-weight theta-cycle laws,
 and a finite certificate for the full weight-six operator identity.
 The [dedicated audit](verification/theorem_a.axioms.txt)
-checks 186 declarations with dependencies confined to the same three standard
-axioms. The full build passed 9,190 jobs. Both generated eta certificate files
+checks 324 declarations with dependencies confined to the same three standard
+axioms. The full build passed 9,239 jobs. Both generated eta certificate files
 reproduce byte-for-byte, and the source/documentation checker passed 835 Lean
-source/audit files, 24 Markdown files, and 172 local links. The remaining newform and correspondence
-inputs are listed in the [formalization boundary](THEOREM_A.md).
+source/audit files, 24 Markdown files, and 172 local links. The remaining correspondence
+input is listed in the [formalization boundary](THEOREM_A.md).
 
 The independent sharpness checker verifies 16 polynomial products, their 429 bounded blocks, divisor-sum
 formulas, Euler coefficients, shifts, a linear combination, and three observations.

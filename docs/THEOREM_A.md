@@ -1,22 +1,49 @@
 # Theorem A: formalization boundary
 
-Updated 2026-10-29. [Current status](STATUS.md) · [Research argument](BL_SHARPNESS_PROOF.md)
+Updated 2026-10-30. [Current status](STATUS.md) · [Research argument](BL_SHARPNESS_PROOF.md)
 
-**All-prime ordinarity on the prescribed level-six eigenspace is now proved.
-Full Theorem A still needs the newform and correspondence identifications.**
-For every prime ℓ ≥ 13 and field of characteristic ℓ, Lean proves that a
-nonzero weight-ℓ−3 series in the level-six integral model cannot be killed
-by U_ℓ if its U_q eigenvalues are (q/ℓ)q^{(ℓ−5)/2}, q = 2,3.
-The theorem also applies to reductions of actual complex modular forms
-whose coefficients lie in a ring embedded in ℂ.
+**Theorem A is proved unconditionally in Lean for every prime ℓ ≥ 13, including modularity of the
+explicit Shimura lifts.** The dependencies are `propext`, `Classical.choice` and `Quot.sound`. The proof
+is machine-checked and has not been reviewed by a human expert.
 
-The proof constructs an integral eta basis in every even weight, its
-homogeneous polynomial model, the Hasse invariant, minimal-weight
-theta-cycle laws, and a full weight-six operator identity. Filtration
-laws and weight-six lifting are no longer assumptions. The two initial
-eigenvalue formulas remain explicit inputs; deriving them from the
-Atkin–Lehner newform class and proving the Shimura/Boylan–Webb comparisons
-remain open. The independent prime-29 all-power theorem remains complete.
+- *Integer weight.* `newform_coeff_ell_ne_zero`: a normalized T_ℓ-eigenform in
+  S^{new}_{ℓ−3}(Γ₀(6)) with signs (−(2/ℓ), −(3/ℓ)) has ℓ-th coefficient nonzero under every
+  ring map to a field of characteristic ℓ. `latticeT_det_not_dvd`: T_ℓ has determinant
+  prime to ℓ on the integer U₂,U₃ sign lattice. The U₂/U₃ eigenvalues are derived from
+  the Atkin–Lehner signs, and T_ℓ is built from Mathlib's actual trace.
+- *Half-integral weight.* `ThetaLift.theoremA_unconditional`: U_{ℓ²} is injective modulo ℓ on
+  S_{(ℓ−2)/2}(SL₂ℤ, ν_η^{−ℓ}). `ThetaLift.X_injective_unconditional`: the same for Boylan–Webb's
+  X̄ = D̄Ū on V = Δ^t S_{k'}, by the proved dictionary `X_on_V`.
+- *Modularity.* `ThetaLift.aadModularity`, for every prime ℓ ≥ 5: for each squarefree t ≡ −ℓ (mod 24),
+  the explicit series Σ_n (Σ_{de=n} (d/t) d^{λ−1} (12/e) a(te²)) qⁿ is a modular form on Γ₀(6) of weight
+  ℓ−3. This is Theorem 1.1 of [Ahlgren–Andersen–Dicks](https://arxiv.org/abs/2307.07438). The formal proof
+  uses their theta kernel, with the changes recorded in the [blueprint](AAD_BLUEPRINT.md).
+
+The proof does not use Yang's theorem. If U_{ℓ²}h ≡ 0, every lift is killed by U_ℓ modulo ℓ, so
+ordinarity makes it vanish modulo ℓ. Triangularity gives a(te²) ≡ 0, and every index has the
+form te². An earlier route through `YangCorrespondence` also remains in `HalfIntegral.lean`
+(`theoremA`, `X_injective_on_V`), with the T_{ℓ²} formula checked exactly against PARI's newforms for
+13 ≤ ℓ ≤ 41 ([script](../scripts/frontier/pattern/shimura_check.py),
+[PARI](../scripts/frontier/pattern/sign_class_coeff.gp)).
+
+The lift formula was tested with [lift_check.py](../scripts/frontier/pattern/lift_check.py) for
+primes 13 ≤ ℓ ≤ 41 and up to five values of t. For ℓ ≤ 31 the first 30 coefficients lie in the
+level-six cusp space, a proper subspace of ℂ³⁰. For ℓ = 37 and 41 that space already has rank 30,
+so that run tests nothing. This is evidence, not a proof.
+
+The corollaries are proved in [BLBound](../RamanujanTau/BLBound/Modules.lean), for every prime ℓ ≥ 13.
+`D_image` is Lemma 2 of the research draft. `partition_bound` gives one monic χ ∈ ℤ[x] with χ(0) prime to ℓ
+such that Σ_i [xⁱ]χ^m · p((ℓ^(b+2i) n + 1)/24) ≡ 0 (mod ℓ^m) for all b ≥ 2m−1. `chain_stable` writes each
+term as a fixed combination of later terms, which is the partition form of b_ℓ(m) ≤ 2m−1. `d_ell_zero` gives a
+space of reduced weight ℓ−1 cusp forms that contains D̄(M̄) and on which X̄ is bijective, which is the
+condition d_ℓ = 0. The proof does not use Boylan–Webb's Theorem 1.2.
+
+`Modules.lean` also states these in Boylan–Webb's own terms. `Lam` is Λ^odd(b,m), `bEll` is b_ℓ(m), defined as the
+least odd b with X: Λ^odd(b,m) → Λ^odd(b+2,m) bijective, and `dEll` is d_ℓ of their (5.1). `bEll_le` proves
+b_ℓ(m) ≤ 2m−1 and `dEll_eq_zero` proves d_ℓ = 0. `Vinv_eq` shows that the largest X̄-invertible subspace of S̄ is V̄,
+and `Sbar_decomp` gives S̄ = V̄ ⊕ ker X̄. These definitions were written from our notes on the paper
+([LIT_CHECK](LIT_CHECK.md)) and should be compared with the paper in review.
+The independent prime-29 all-power theorem remains complete.
 
 ## Targets
 
@@ -76,11 +103,16 @@ All declarations below are in `RamanujanTau.TheoremA`.
 | [ModularWeightSixAction](../RamanujanTau/TheoremA/ModularWeightSixAction.lean) and [ModularWeightSixIdentity](../RamanujanTau/TheoremA/ModularWeightSixIdentity.lean) | Actual operator action, full-space annihilator over every coefficient ring, and exclusion of the (4,9) eigenpair in characteristic ℓ ≥ 13 | Avoids a cusp-lifting theorem for the fourth theta iterate |
 | [BinaryOrdinarity](../RamanujanTau/TheoremA/BinaryOrdinarity.lean) | `U_ne_zero_of_binary_sign_eigenvalues` for every prime ℓ ≥ 13 | The U₂/U₃ eigenvalue formulas remain explicit inputs |
 | [ReducedLevelSixOrdinarity](../RamanujanTau/TheoremA/ReducedLevelSixOrdinarity.lean) | `U_ne_zero_of_reduced_levelSix_sign_eigenvalues` for reductions of actual complex forms | Requires an embedded coefficient ring, a nonzero reduction, and the two prescribed eigenvalues |
-
-The strongest theorem concludes nonvanishing under the existing Boylan–Webb
-coefficient-extraction operator on an actual infinite power series. It does
-not yet identify that series with a particular newform or the
-half-integral-weight space in Theorem A.
+| [TraceCosets](../RamanujanTau/TheoremA/TraceCosets.lean) | Explicit p+1 coset representatives compute Mathlib's trace from Γ₀(Mp) to Γ₀(M) | Any prime p not dividing M |
+| [AtkinLehner](../RamanujanTau/TheoremA/AtkinLehner.lean) | `trace_formula`: Tr f = f + p^{2−k}U_p(f∣W); `IsNewSign.U_qExpansion`: U_p = −w p^{k/2−1} | Newness at p is the vanishing of Mathlib's trace, for a W-eigenform |
+| [GoodHecke](../RamanujanTau/TheoremA/GoodHecke.lean) | T_ℓ on Γ₀(M) as the trace of f∣[ℓ 0;0 1]; `qExpansion_heckeT` is the classical formula | Modularity and all cusp conditions come from the trace |
+| [SignLattice](../RamanujanTau/TheoremA/SignLattice.lean) | `latticeT_det_not_dvd`: T_ℓ is invertible modulo ℓ on the integer sign lattice | Unconditional, for every prime ℓ ≥ 13 |
+| [NewClass](../RamanujanTau/TheoremA/NewClass.lean) | `newClass`, `newClass_U2/U3`, `newform_coeff_ell_ne_zero`, `newClass_mem_span`, `newClass_isRoot` | Unconditional; no multiplicity one or number-field integrality is used |
+| [HalfIntegral](../RamanujanTau/TheoremA/HalfIntegral.lean) | `YangCorrespondence`, `latticeS_det_not_dvd`, `theoremA` | **Conditional on `YangCorrespondence`** |
+| [BWDictionary](../RamanujanTau/TheoremA/BWDictionary.lean) | `X_on_V` (unconditional): X̄(Δ^t G) = Δ^t (q;q)^j Ξ(G); `X_injective_on_V` | The injectivity is **conditional on `YangCorrespondence`** |
+| [LevelLowering](../RamanujanTau/TheoremA/LevelLowering.lean) | `exists_decomposition`, `exists_lowered`: a form on Γ₀(Mt) in powers of q^t comes from Γ₀(M) | Unconditional |
+| [BLBound](../RamanujanTau/BLBound/Modules.lean) | `U_filtration`, `hasse_squarefree`, `D_image`, `exists_chi`, `partition_bound`, `chain_stable`, `bEll_le`, `dEll_eq_zero`, `Vinv_eq`, `Sbar_decomp` | Unconditional, ℓ ≥ 13 |
+| [LiftReduction](../RamanujanTau/TheoremA/LiftReduction.lean) | `liftSeries`, `U_lift`, `lift_ell_dvd`, `theoremA_of_modularity`, `X_injective_of_modularity` | Reduction of Theorem A to `AADModularity`, which [Final](../RamanujanTau/ThetaLift/Final.lean) proves |
 
 ## A simpler weight-six argument
 
@@ -289,16 +321,9 @@ the determinant argument needs integral Hecke lattices, not an assumed
 integral isomorphism of the two spaces.
 [Yang, published paper](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/A54F3A98B24022EB47D0FBBA2FAB37B4/S0027763000010916a.pdf/modular_forms_of_halfintegral_weights_on_sl2.pdf).
 
-The next formal obligations are substantive:
+The remaining formal obligations are:
 
-1. Define the actual newform Atkin–Lehner class and derive its U₂/U₃
-   eigenvalue formulas. Connect the resulting nonvanishing of U_ℓ to the
-   ℓ-th coefficient being a unit at every prime above ℓ. The modular-form
-   reduction, filtration, and weight-six obstruction are complete.
-2. Construct the half-integral-weight Hecke space and prove the required
-   correspondence or an equivalent characteristic-polynomial identity.
-3. Connect its reduction to X̄ on V and to the definition of d_ℓ. Prove the
-   resulting decomposition and invoke a formal version of BW's bound.
+1. The lower bound b_ℓ(m) ≥ 2m−1 for ℓ ≥ 29 remains open, apart from the proved threshold at ℓ = 29.
 
 This development does not prove universal sharpness, G4, or G6. In particular,
 BW §6.1 reports an all-precision rank deficit at 607, but its listed computations
@@ -310,19 +335,24 @@ precision. [Boylan–Webb, §§6.1–6.2](https://people.math.sc.edu/boylan/repr
 
 ```sh
 python3 scripts/frontier/pattern/gen_eta_generator_data.py
-lake build RamanujanTau.TheoremA.ReducedLevelSixOrdinarity
+lake build RamanujanTau.BLBound.Modules
 lake env lean scripts/audit/theorem_a.lean
 gp -q -f scripts/frontier/pattern/weight_six.gp
+python3 scripts/frontier/pattern/shimura_check.py
+python3 scripts/frontier/pattern/lift_check.py
+python3 scripts/frontier/pattern/mu_sum.py
+gp -q scripts/frontier/pattern/sign_class_coeff.gp
 ```
 
-The [dedicated audit](verification/theorem_a.axioms.txt) checks 186 declarations,
+The [dedicated audit](verification/theorem_a.axioms.txt) checks 324 declarations,
 including the actual eta cusp forms, coefficient identities, full weight-six
 annihilator, exact dimension, integral reduction, and conditional ordinarity
 reduction, plus the uniform eta basis, integral reconstruction, polynomial
 model, actual and integral Serre operators, Eisenstein/Hasse comparison,
 projective separation, global homogeneous divisibility, minimal-weight
-theta-cycle laws, the full weight-six operator identity, and all-prime
-ordinarity on the prescribed eigenspace. Their dependencies
+theta-cycle laws, the full weight-six operator identity, all-prime
+ordinarity on the prescribed eigenspace, the Atkin–Lehner and T_ℓ layers, the
+sign-lattice determinant theorem, modularity of the lifts, and Theorem A. Their dependencies
 are confined to `propext`, `Classical.choice`,
 and `Quot.sound`. The integer certificates use `decide +kernel`; Python and
 PARI are not part of Lean's trust boundary. See [status](STATUS.md#verification)

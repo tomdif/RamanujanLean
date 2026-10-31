@@ -1,6 +1,22 @@
 import RamanujanTau.TheoremA.LiftedOrdinarity
 import RamanujanTau.TheoremA.WeightTwoCoordinates
 import RamanujanTau.TheoremA.ReducedLevelSixOrdinarity
+import RamanujanTau.TheoremA.LiftReduction
+import RamanujanTau.ThetaLift.HermiteIntegral
+import RamanujanTau.ThetaLift.EtaProduct
+import RamanujanTau.ThetaLift.KernelTerms
+import RamanujanTau.ThetaLift.KernelSummable
+import RamanujanTau.ThetaLift.KernelCovariance
+import RamanujanTau.ThetaLift.KernelGen
+import RamanujanTau.ThetaLift.ModularDomain
+import RamanujanTau.ThetaLift.HalfExpansion
+import RamanujanTau.ThetaLift.StripMeasure
+import RamanujanTau.ThetaLift.HermiteBounds
+import RamanujanTau.ThetaLift.FourierU
+import RamanujanTau.ThetaLift.VIntegral
+import RamanujanTau.ThetaLift.KernelFold
+import RamanujanTau.ThetaLift.Final
+import RamanujanTau.BLBound.Modules
 
 -- Actual weight-six results and universal sign-eigenspace ordinarity; the newform and Shimura comparisons remain.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
@@ -193,3 +209,141 @@ import RamanujanTau.TheoremA.ReducedLevelSixOrdinarity
 #print axioms RamanujanTau.TheoremA.U_ne_zero_of_binary_sign_eigenvalues
 #print axioms RamanujanTau.TheoremA.binaryRep_of_reduced_modularForm
 #print axioms RamanujanTau.TheoremA.U_ne_zero_of_reduced_levelSix_sign_eigenvalues
+#print axioms RamanujanTau.TheoremA.TraceCosets.trace_eq_sum
+#print axioms RamanujanTau.TheoremA.TraceCosets.CosetData.trace_eq
+#print axioms RamanujanTau.TheoremA.AtkinLehner.trace_formula
+#print axioms RamanujanTau.TheoremA.AtkinLehner.IsNewSign.slashU_eq
+#print axioms RamanujanTau.TheoremA.AtkinLehner.IsNewSign.U_qExpansion
+#print axioms RamanujanTau.TheoremA.GoodHecke.coe_heckeT
+#print axioms RamanujanTau.TheoremA.GoodHecke.qExpansion_heckeT
+#print axioms RamanujanTau.TheoremA.LatticeAlgebra.dvd_det_of_kernel
+#print axioms RamanujanTau.TheoremA.LatticeAlgebra.exists_kernel_of_dvd_det
+#print axioms RamanujanTau.TheoremA.LatticeAlgebra.not_dvd_coeff_zero_of_roots
+#print axioms RamanujanTau.TheoremA.LatticeAlgebra.complex_independent
+#print axioms RamanujanTau.TheoremA.LatticeAlgebra.exists_integer_solutions
+#print axioms RamanujanTau.TheoremA.SignLattice.latticeT_det_not_dvd
+#print axioms RamanujanTau.TheoremA.SignLattice.newClass_U2
+#print axioms RamanujanTau.TheoremA.SignLattice.newClass_U3
+#print axioms RamanujanTau.TheoremA.SignLattice.newClass_eigenvalue_ne_zero
+#print axioms RamanujanTau.TheoremA.SignLattice.newform_coeff_ell_ne_zero
+#print axioms RamanujanTau.TheoremA.SignLattice.newClass_mem_span
+#print axioms RamanujanTau.TheoremA.SignLattice.newClass_isRoot
+#print axioms RamanujanTau.TheoremA.HalfIntegral.latticeS_det_not_dvd
+#print axioms RamanujanTau.TheoremA.HalfIntegral.theoremA
+#print axioms RamanujanTau.TheoremA.HalfIntegral.X_on_V
+#print axioms RamanujanTau.TheoremA.HalfIntegral.X_injective_on_V
+#print axioms RamanujanTau.TheoremA.HalfIntegral.X_injective_of_U_injective
+#print axioms RamanujanTau.TheoremA.HalfIntegral.U_lift
+#print axioms RamanujanTau.TheoremA.HalfIntegral.lift_ell_dvd
+#print axioms RamanujanTau.TheoremA.HalfIntegral.chi_coeff_dvd
+#print axioms RamanujanTau.TheoremA.HalfIntegral.exists_index
+#print axioms RamanujanTau.TheoremA.HalfIntegral.theoremA_of_modularity
+#print axioms RamanujanTau.TheoremA.HalfIntegral.X_injective_of_modularity
+#print axioms RamanujanTau.TheoremA.LevelLowering.exists_decomposition
+#print axioms RamanujanTau.TheoremA.LevelLowering.exists_lowered
+#print axioms RamanujanTau.TheoremA.HalfIntegral.aadModularity_of_raised
+#print axioms RamanujanTau.ThetaLift.K_zero
+#print axioms RamanujanTau.ThetaLift.FP_ibp
+#print axioms RamanujanTau.ThetaLift.hermite_integral
+#print axioms RamanujanTau.ThetaLift.etaLaw_odd
+#print axioms RamanujanTau.ThetaLift.petVal_conj_pow
+#print axioms RamanujanTau.ThetaLift.zLaw
+#print axioms RamanujanTau.ThetaLift.hermite_v_integral_sign
+#print axioms RamanujanTau.ThetaLift.kernel_sum
+#print axioms RamanujanTau.ThetaLift.chiTheta_add_one
+#print axioms RamanujanTau.ThetaLift.chiTheta_inversion
+#print axioms RamanujanTau.ThetaLift.thetaLaw
+#print axioms RamanujanTau.ThetaLift.poisson_c
+#print axioms RamanujanTau.ThetaLift.exponent_identity
+#print axioms RamanujanTau.ThetaLift.KData.tsum_latTerm
+#print axioms RamanujanTau.ThetaLift.KData.lattice_a
+#print axioms RamanujanTau.ThetaLift.KData.pTerm_eq
+#print axioms RamanujanTau.ThetaLift.KData.summable_latTerm
+#print axioms RamanujanTau.ThetaLift.disc_rho
+#print axioms RamanujanTau.ThetaLift.kQ_mob
+#print axioms RamanujanTau.ThetaLift.kernel_covariant
+#print axioms RamanujanTau.ThetaLift.hasSum_iteratedDeriv
+#print axioms RamanujanTau.ThetaLift.iteratedDeriv_gauss
+#print axioms RamanujanTau.ThetaLift.seed_iteratedDeriv
+#print axioms RamanujanTau.ThetaLift.KData.norm_dualF
+#print axioms RamanujanTau.ThetaLift.KData.gen_eq_dual
+#print axioms RamanujanTau.ThetaLift.KData.kernel_expand
+#print axioms RamanujanTau.ThetaLift.KData.dF_taylor
+#print axioms RamanujanTau.ThetaLift.unfold_lintegral
+#print axioms RamanujanTau.ThetaLift.unfold_integral
+#print axioms RamanujanTau.ThetaLift.isFundamentalDomain_domainOf
+#print axioms RamanujanTau.ThetaLift.exactDomain_strip
+#print axioms RamanujanTau.ThetaLift.hecke_half
+#print axioms RamanujanTau.ThetaLift.qExp_eP
+#print axioms RamanujanTau.ThetaLift.qExp_hP
+#print axioms RamanujanTau.ThetaLift.norm_cA_le
+#print axioms RamanujanTau.ThetaLift.map_toRect
+#print axioms RamanujanTau.ThetaLift.integrableOn_strip
+#print axioms RamanujanTau.ThetaLift.integral_strip
+#print axioms RamanujanTau.ThetaLift.ev_gauss_bound
+#print axioms RamanujanTau.ThetaLift.hermite_appell
+#print axioms RamanujanTau.ThetaLift.integrableOn_rpow_exp
+#print axioms RamanujanTau.ThetaLift.gauss_ne_zero_bound
+#print axioms RamanujanTau.ThetaLift.fourier_u
+#print axioms RamanujanTau.ThetaLift.summable_coef
+#print axioms RamanujanTau.ThetaLift.vTerm_integral
+#print axioms RamanujanTau.ThetaLift.norm_F0_le
+#print axioms RamanujanTau.ThetaLift.norm_fF_le
+#print axioms RamanujanTau.ThetaLift.strip_total
+#print axioms RamanujanTau.ThetaLift.strip_value
+#print axioms RamanujanTau.ThetaLift.W_pos
+#print axioms RamanujanTau.ThetaLift.W_neg
+#print axioms RamanujanTau.ThetaLift.hasSum_J
+#print axioms RamanujanTau.ThetaLift.J_neg
+#print axioms RamanujanTau.ThetaLift.strip_closed
+#print axioms RamanujanTau.ThetaLift.autom
+#print axioms RamanujanTau.ThetaLift.fF_smul
+#print axioms RamanujanTau.ThetaLift.bMap_inj
+#print axioms RamanujanTau.ThetaLift.bMap_surj
+#print axioms RamanujanTau.ThetaLift.term_fold
+#print axioms RamanujanTau.ThetaLift.fold_sum
+#print axioms RamanujanTau.ThetaLift.fTot_inv
+#print axioms RamanujanTau.ThetaLift.phiI_eq
+#print axioms RamanujanTau.ThetaLift.phi_value
+#print axioms RamanujanTau.ThetaLift.lamSum_covariant
+#print axioms RamanujanTau.ThetaLift.qExp_fS
+#print axioms RamanujanTau.ThetaLift.norm_fS_le
+#print axioms RamanujanTau.ThetaLift.bdd_of_moderate
+#print axioms RamanujanTau.ThetaLift.slash_bdd
+#print axioms RamanujanTau.ThetaLift.exists_form
+#print axioms RamanujanTau.ThetaLift.lamSum_eq
+#print axioms RamanujanTau.ThetaLift.sum_bound
+#print axioms RamanujanTau.ThetaLift.raised_of_ne_one
+#print axioms RamanujanTau.ThetaLift.raised_of_covariant
+#print axioms RamanujanTau.ThetaLift.phiI_decomp
+#print axioms RamanujanTau.ThetaLift.integrableOn_fold
+#print axioms RamanujanTau.ThetaLift.alpha_cross
+#print axioms RamanujanTau.ThetaLift.alpha_not_diff
+#print axioms RamanujanTau.ThetaLift.defect_one
+#print axioms RamanujanTau.ThetaLift.lamSum_differentiableAt
+#print axioms RamanujanTau.ThetaLift.raised_of_one
+#print axioms RamanujanTau.ThetaLift.aadRaisedModularity
+#print axioms RamanujanTau.ThetaLift.aadModularity
+#print axioms RamanujanTau.ThetaLift.theoremA_unconditional
+#print axioms RamanujanTau.ThetaLift.X_injective_unconditional
+#print axioms RamanujanTau.BLBound.U_pow_char
+#print axioms RamanujanTau.BLBound.hasse_squarefree
+#print axioms RamanujanTau.BLBound.U_filtration
+#print axioms RamanujanTau.BLBound.formBar_of_intForm
+#print axioms RamanujanTau.BLBound.D_image
+#print axioms RamanujanTau.BLBound.exists_chi
+#print axioms RamanujanTau.BLBound.bounds
+#print axioms RamanujanTau.BLBound.env_formBar
+#print axioms RamanujanTau.BLBound.chi_main
+#print axioms RamanujanTau.BLBound.chi_series
+#print axioms RamanujanTau.BLBound.partition_bound
+#print axioms RamanujanTau.BLBound.chain_stable
+#print axioms RamanujanTau.BLBound.d_ell_zero
+#print axioms RamanujanTau.BLBound.relation_m
+#print axioms RamanujanTau.BLBound.chain_structure
+#print axioms RamanujanTau.BLBound.mem_bSet
+#print axioms RamanujanTau.BLBound.bEll_le
+#print axioms RamanujanTau.BLBound.Xbar_range
+#print axioms RamanujanTau.BLBound.Vinv_eq
+#print axioms RamanujanTau.BLBound.dEll_eq_zero
+#print axioms RamanujanTau.BLBound.Sbar_decomp

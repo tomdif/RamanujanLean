@@ -11,7 +11,8 @@ current status at the top of the file.
 | Document | Purpose |
 |---|---|
 | [Finite arithmetic certificates](FINITE_ARITHMETIC.md) | Finite orbit laws, all powers of 29, the sharpness construction, and executable counting |
-| [Theorem A formalization](THEOREM_A.md) | All-prime ordinarity on the prescribed level-six eigenspace, its proof, and the remaining newform and correspondence inputs |
+| [Shimura-lift proof map](AAD_BLUEPRINT.md) | How the formal proof of modularity of the lifts is organized |
+| [Theorem A formalization](THEOREM_A.md) | Unconditional Theorem A in integer and half-integral weight, and what remains |
 | [Mock theta method](../MOCK_THETA_METHOD.md) | The formal proof architecture for the Mock Theta Conjectures |
 | [τ closure status](../OPEN_QUESTIONS.md) | Proved τ results and the Deligne/Lehmer boundary |
 | [Atkin–O'Brien proof record](ATKIN_OBRIEN_PROOF.md) | Public theorems for 13, 17, 19, 23, followed by the historical development |

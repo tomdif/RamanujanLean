@@ -11,17 +11,11 @@
 > The full build and axiom audit passed; see [verification status](STATUS.md)
 > and [the finite-arithmetic proof guide](FINITE_ARITHMETIC.md).
 >
-> The [Theorem A formalization](THEOREM_A.md) now proves, for every prime
-> ℓ ≥ 13, that U_ℓ cannot kill a nonzero weight-ℓ−3 series in the integral
-> level-six model with the prescribed U₂/U₃ eigenvalues. The result also
-> covers reductions of actual complex modular forms over embedded coefficient
-> rings. Its proof constructs integral coordinates in every even weight,
-> Hasse divisibility, minimal-weight theta-cycle laws, and a certified
-> annihilator on the full weight-six modular-form space. No filtration or
-> weight-six lifting hypothesis remains. Deriving the initial eigenvalues
-> from the newform Atkin–Lehner class, the Shimura comparison, and the
-> Boylan–Webb dictionary remain open. Full Theorem A and d_ℓ = 0 are not
-> yet unconditional Lean theorems.
+> The [Theorem A formalization](THEOREM_A.md) now proves, unconditionally for every prime
+> ℓ ≥ 13, the integer-weight statement in §3 (with the eigenvalues of §3.2 step 5 derived from
+> the Atkin–Lehner signs) and the dictionary of §2 items 1–2 for X̄ on V. Injectivity of
+> U_{ℓ²} and of X̄|_V is proved unconditionally, with a formal proof of modularity of the explicit
+> lifts (Ahlgren–Andersen–Dicks, Theorem 1.1). This Lean route does not use Yang's theorem. `BLBound.bEll_le` and `BLBound.dEll_eq_zero` prove b_ℓ(m) ≤ 2m−1 and d_ℓ = 0 for every ℓ ≥ 13. That proof does not use Boylan–Webb's Theorem 1.2, or the Fitting decomposition of §4.1: with χ monic killing X̄ on V, it iterates χ(X)X, each round gaining one power of ℓ because D̄ has image in V.
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and
