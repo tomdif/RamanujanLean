@@ -33,6 +33,7 @@ a scalar multiplier works for all admissible partition progressions from
 b = B onward modulo 29^m if and only if B ≥ 2m−1.
 [Complete29](RamanujanTau/FiniteArithmetic/Complete29.lean) proves this for
 actual partition counts; the full build and expanded axiom audit passed.
+[Complete31](RamanujanTau/FiniteArithmetic/Complete31.lean) proves the same threshold at ℓ = 31.
 See the [verification record](docs/STATUS.md#verification).
 
 Work on the proposed all-prime Theorem A now proves that, for every prime

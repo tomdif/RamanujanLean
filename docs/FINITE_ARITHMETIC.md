@@ -81,6 +81,14 @@ the scalar law and its initial value. `CertifyError29.lean` identifies those obs
 the actual 29-adic operator, including the weight-28 Eisenstein denominator at precision 841.
 The original experimental scalar orbit starting at `8` remains a separate example in the audit.
 
+**Prime 31 — kernel verified** (`FiniteArithmetic/Complete31.lean`): the same theorems hold at ℓ = 31, the other prime with
+one stable term and a two-dimensional cusp space. For every `m ≥ 1` and positive `B`, a scalar works from `b = B` onward modulo `31^m`
+if and only if **`B ≥ 2m−1`**. The basis is `f = Δ²E₆`, `g = 29ΔE₄³E₆ + 14Δ²E₆`, with `U(Δ⁴⁰) = 10f`, `Uf = g`, `U(Δ⁴⁰g) = 30f`
+and `U(Δ⁴⁰f) = 29f` modulo 31. The observation is `λ(F) = 29[q²]F − 2[q]F`, and the divided error has residue `24·2^n (mod 31)`.
+Regenerate with `gen_cert31.py`, `gen_cert31_image.py` and `gen_cert31_error.py` in `scripts/boylanwebb`; `check_cert31_error.py`
+independently checks its 17 products and 521 blocks. The files are per-prime ports of the prime-29 modules, not a general theorem:
+`Cert31.lean` alone took about 49 minutes to check.
+
 After building, run the kernel checks and the executable demonstration:
 
 ```sh

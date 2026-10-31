@@ -16,7 +16,10 @@ import RamanujanTau.ThetaLift.FourierU
 import RamanujanTau.ThetaLift.VIntegral
 import RamanujanTau.ThetaLift.KernelFold
 import RamanujanTau.ThetaLift.Final
-import RamanujanTau.BLBound.Modules
+import RamanujanTau.BLBound.Classification
+import RamanujanTau.BLBound.RCLift
+import RamanujanTau.ThetaLift.LiftKernel
+import RamanujanTau.TheoremA.WeightEightOrdinarity
 
 -- Actual weight-six results and universal sign-eigenspace ordinarity; the newform and Shimura comparisons remain.
 #print axioms RamanujanTau.TheoremA.theta_cycle_weight_six
@@ -347,3 +350,50 @@ import RamanujanTau.BLBound.Modules
 #print axioms RamanujanTau.BLBound.Vinv_eq
 #print axioms RamanujanTau.BLBound.dEll_eq_zero
 #print axioms RamanujanTau.BLBound.Sbar_decomp
+#print axioms RamanujanTau.BLBound.finrank_Vbar
+#print axioms RamanujanTau.BLBound.map_Xbar_pow_Sbar
+#print axioms RamanujanTau.BLBound.rank_Xbar_pow
+#print axioms RamanujanTau.BLBound.map_Dbar_Sbar
+#print axioms RamanujanTau.BLBound.exists_chi_R
+#print axioms RamanujanTau.BLBound.X_pow_div
+#print axioms RamanujanTau.BLBound.card_socle_le
+#print axioms RamanujanTau.BLBound.rank_Lam_le
+#print axioms RamanujanTau.BLBound.rEll_le
+#print axioms RamanujanTau.BLBound.finrank_Sbar
+#print axioms RamanujanTau.BLBound.R_eq_half
+#print axioms RamanujanTau.BLBound.finrank_ker_Xbar
+#print axioms RamanujanTau.BLBound.krylov_Lam
+#print axioms RamanujanTau.BLBound.partition_recurrence
+#print axioms RamanujanTau.BLBound.partition_recurrence_back
+#print axioms RamanujanTau.BLBound.hasse_relPrime
+#print axioms RamanujanTau.BLBound.filt_theta_step
+#print axioms RamanujanTau.BLBound.filt_theta_eq
+#print axioms RamanujanTau.BLBound.disc_decomp
+#print axioms RamanujanTau.BLBound.div_Delta_pow
+#print axioms RamanujanTau.BLBound.cycle_weight_four
+#print axioms RamanujanTau.BLBound.U_Dl_ne_zero
+#print axioms RamanujanTau.BLBound.L_one_ne_zero
+#print axioms RamanujanTau.BLBound.exists_partition_not_dvd
+#print axioms RamanujanTau.BLBound.no_ramanujan_congruence
+#print axioms RamanujanTau.BLBound.L_odd_ne_zero
+#print axioms RamanujanTau.BLBound.rEll_pos
+#print axioms RamanujanTau.BLBound.rEll_eq_one
+#print axioms RamanujanTau.BLBound.weight_class_le
+#print axioms RamanujanTau.BLBound.kummer_free
+#print axioms RamanujanTau.BLBound.class_sep
+#print axioms RamanujanTau.BLBound.no_nonzero_class
+#print axioms RamanujanTau.BLBound.ahlgren_boylan
+#print axioms RamanujanTau.BLBound.ramanujan_congruence_iff
+#print axioms RamanujanTau.BLBound.U_mul_expand
+#print axioms RamanujanTau.BLBound.sigma_mul_mod
+#print axioms RamanujanTau.BLBound.theta_e
+#print axioms RamanujanTau.BLBound.rc_core
+#print axioms RamanujanTau.BLBound.rc_lift
+#print axioms RamanujanTau.ThetaLift.gen_raised
+#print axioms RamanujanTau.ThetaLift.gen_modular
+#print axioms RamanujanTau.ThetaLift.genLift_U_dvd
+#print axioms RamanujanTau.TheoremA.theta_cycle_weight_eight
+#print axioms RamanujanTau.TheoremA.binaryCycle_weight_eight
+#print axioms RamanujanTau.TheoremA.weightEight_rank_one
+#print axioms RamanujanTau.TheoremA.binary_weightEight_eigenline
+#print axioms RamanujanTau.TheoremA.dvd_coeff_hEight_of_binary_kernel

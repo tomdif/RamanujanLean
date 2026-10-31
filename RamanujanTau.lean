@@ -458,6 +458,7 @@ import RamanujanTau.FiniteArithmetic.Orbit
 import RamanujanTau.FiniteArithmetic.Partition29
 import RamanujanTau.FiniteArithmetic.AllPowers29
 import RamanujanTau.FiniteArithmetic.Complete29
+import RamanujanTau.FiniteArithmetic.Complete31
 import RamanujanTau.FiniteArithmetic.Evaluate29Powers
 import RamanujanTau.FiniteArithmetic.WeightedTilings
 -- Foundations and a conditional reduction only; universal Theorem A remains open in Lean.
@@ -479,4 +480,7 @@ import RamanujanTau.ThetaLift.FourierU
 import RamanujanTau.ThetaLift.VIntegral
 import RamanujanTau.ThetaLift.KernelFold
 import RamanujanTau.ThetaLift.Final
-import RamanujanTau.BLBound.Modules
+import RamanujanTau.BLBound.Classification
+import RamanujanTau.BLBound.RCLift
+import RamanujanTau.ThetaLift.LiftKernel
+import RamanujanTau.TheoremA.WeightEightOrdinarity

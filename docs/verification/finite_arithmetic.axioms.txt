@@ -70,3 +70,13 @@
  Classical.choice,
  Quot.sound]
 'RamanujanTau.FiniteArithmetic.Examples.composite_recurrence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Partition31.explicit_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AllPowers31.partition_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete31.threshold' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete31.even_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete31.partition_count_obstruction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Complete31.partition_threshold' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

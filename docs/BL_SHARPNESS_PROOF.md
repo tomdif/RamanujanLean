@@ -15,7 +15,7 @@
 > ℓ ≥ 13, the integer-weight statement in §3 (with the eigenvalues of §3.2 step 5 derived from
 > the Atkin–Lehner signs) and the dictionary of §2 items 1–2 for X̄ on V. Injectivity of
 > U_{ℓ²} and of X̄|_V is proved unconditionally, with a formal proof of modularity of the explicit
-> lifts (Ahlgren–Andersen–Dicks, Theorem 1.1). This Lean route does not use Yang's theorem. `BLBound.bEll_le` and `BLBound.dEll_eq_zero` prove b_ℓ(m) ≤ 2m−1 and d_ℓ = 0 for every ℓ ≥ 13. That proof does not use Boylan–Webb's Theorem 1.2, or the Fitting decomposition of §4.1: with χ monic killing X̄ on V, it iterates χ(X)X, each round gaining one power of ℓ because D̄ has image in V.
+> lifts (Ahlgren–Andersen–Dicks, Theorem 1.1). This Lean route does not use Yang's theorem. `BLBound.bEll_le` and `BLBound.dEll_eq_zero` prove b_ℓ(m) ≤ 2m−1 and d_ℓ = 0 for every ℓ ≥ 13. That proof does not use Boylan–Webb's Theorem 1.2, or the Fitting decomposition of §4.1: with χ monic killing X̄ on V, it iterates χ(X)X, each round gaining one power of ℓ because D̄ has image in V. `BLBound.rank_Xbar_pow`, `BLBound.map_Dbar_Sbar` and `BLBound.rEll_le` prove rank X̄^k = rank D̄|_{S̄} = R and r_ℓ(m) ≤ R.
 
 Notation follows `docs/BL_PATTERN.md` and Boylan–Webb (BW, Trans. AMS 365, 2013). D(f) = U(Φf) with
 Φ = η(ℓ²z)/η(z), and X = D∘U (U first, f|X = f|U|D). L(0) = 1, L(b) = D L(b−1) for b odd and

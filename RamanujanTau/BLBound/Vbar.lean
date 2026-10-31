@@ -147,9 +147,9 @@ lemma aeval_restrict (h13 : 13 ≤ ℓ) (p : Polynomial (ZMod ℓ)) (v : Vbar �
       rw [pow_succ, pow_succ, Module.End.mul_apply, Module.End.mul_apply]
       exact ih (Tv h13 v)
 
-/-- **The polynomial `χ`.** -/
-theorem exists_chi (h13 : 13 ≤ ℓ) : ∃ χ : Polynomial ℤ, χ.Monic ∧ ¬ (ℓ : ℤ) ∣ χ.coeff 0 ∧
-    ∀ v ∈ Vbar ℓ, Polynomial.aeval (Xbar ℓ) (χ.map (Int.castRingHom (ZMod ℓ))) v = 0 := by
+/-- **The polynomial `χ`**, with its degree. -/
+theorem exists_chi_deg (h13 : 13 ≤ ℓ) : ∃ χ : Polynomial ℤ, χ.Monic ∧ ¬ (ℓ : ℤ) ∣ χ.coeff 0 ∧
+    χ.natDegree = Module.finrank (ZMod ℓ) (Vbar ℓ) ∧ ∀ v ∈ Vbar ℓ, Polynomial.aeval (Xbar ℓ) (χ.map (Int.castRingHom (ZMod ℓ))) v = 0 := by
   haveI := finite_Vbar (ℓ := ℓ) h13
   set T := Tv h13
   set c := LinearMap.charpoly T with hc
@@ -172,15 +172,22 @@ theorem exists_chi (h13 : 13 ≤ ℓ) : ∃ χ : Polynomial ℤ, χ.Monic ∧ ¬
   obtain ⟨q, hq⟩ := Polynomial.map_surjective _ hsurj c
   have hlift : c ∈ Polynomial.lifts (Int.castRingHom (ZMod ℓ)) :=
     (Polynomial.mem_lifts _).mpr ⟨q, hq⟩
-  obtain ⟨χ, hχe, -, hχm⟩ := Polynomial.lifts_and_natDegree_eq_and_monic hlift hmon
-  refine ⟨χ, hχm, ?_, ?_⟩
+  obtain ⟨χ, hχe, hχd, hχm⟩ := Polynomial.lifts_and_natDegree_eq_and_monic hlift hmon
+  refine ⟨χ, hχm, ?_, ?_, ?_⟩
   · intro hd
     apply hc0
     rw [← hχe, Polynomial.coeff_map]
     exact (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mpr hd
+  · rw [hχd, hc, LinearMap.charpoly_natDegree]
   · intro v hv
     rw [hχe, aeval_restrict h13 c ⟨v, hv⟩, hCH]
     rfl
+
+/-- **The polynomial `χ`.** -/
+theorem exists_chi (h13 : 13 ≤ ℓ) : ∃ χ : Polynomial ℤ, χ.Monic ∧ ¬ (ℓ : ℤ) ∣ χ.coeff 0 ∧
+    ∀ v ∈ Vbar ℓ, Polynomial.aeval (Xbar ℓ) (χ.map (Int.castRingHom (ZMod ℓ))) v = 0 := by
+  obtain ⟨χ, h1, h2, -, h3⟩ := exists_chi_deg (ℓ := ℓ) h13
+  exact ⟨χ, h1, h2, h3⟩
 
 end
 

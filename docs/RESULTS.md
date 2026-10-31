@@ -96,7 +96,10 @@ T_ℓ-eigenform in the class has a unit ℓ-th coefficient above ℓ.
 sign lattice. `ThetaLift.theoremA_unconditional` and `ThetaLift.X_injective_unconditional` prove the half-integral
 and Boylan–Webb forms, and `ThetaLift.aadModularity` proves Theorem 1.1 of
 Ahlgren–Andersen–Dicks. `BLBound.bEll_le` and `BLBound.dEll_eq_zero` give b_ℓ(m) ≤ 2m−1 and d_ℓ = 0
-for every prime ℓ ≥ 13.
+for every prime ℓ ≥ 13. `BLBound.rank_Xbar_pow` gives rank X̄^k = ⌊(ℓ+12)/24⌋, and `BLBound.rEll_le` gives the known
+Folsom–Kent–Ono bound r_ℓ(m) ≤ ⌊(ℓ+12)/24⌋ for these primes. `BLBound.partition_recurrence` gives the congruence with
+⌊(ℓ+12)/24⌋ terms, modulo ℓ^m, for all b ≥ 2m−1. `BLBound.ahlgren_boylan` proves the Ahlgren–Boylan theorem: no prime ℓ ≥ 13
+has a congruence p(ℓn+β) ≡ 0 with β < ℓ, and `BLBound.ramanujan_congruence_iff` completes the classification over all primes: only (ℓ,β) = (5,4), (7,5), (11,6). `BLBound.rc_lift` is the Rankin–Cohen lift of θ, computing U/ℓ on [g, E_{ℓ−1}]₁ modulo ℓ. `ThetaLift.gen_modular` proves modularity of the Shimura lift of G/η^j on Γ₀(6) for general j and weight, and `TheoremA.dvd_coeff_hEight_of_binary_kernel` shows a U_p-kernel in weight p−5 of the sign class forces p ∣ a_p(h₈). `BLBound.class_sep` is Swinnerton-Dyer's independence of weight classes, and `BLBound.rEll_eq_one` gives r_ℓ(m) = 1 for 13 ≤ ℓ < 36.
 See the [declaration ledger and remaining work](THEOREM_A.md).
 
 ## Results at a glance

@@ -43,7 +43,47 @@ least odd b with X: Λ^odd(b,m) → Λ^odd(b+2,m) bijective, and `dEll` is d_ℓ
 b_ℓ(m) ≤ 2m−1 and `dEll_eq_zero` proves d_ℓ = 0. `Vinv_eq` shows that the largest X̄-invertible subspace of S̄ is V̄,
 and `Sbar_decomp` gives S̄ = V̄ ⊕ ker X̄. These definitions were written from our notes on the paper
 ([LIT_CHECK](LIT_CHECK.md)) and should be compared with the paper in review.
-The independent prime-29 all-power theorem remains complete.
+
+`Dim.lean` proves `finrank_Vbar`, dim V̄ = R = ⌊(ℓ+12)/24⌋. `Rank.lean` then proves that X̄^k has rank R on S̄ for all
+k ≥ 1 (`rank_Xbar_pow`), that D̄(S̄) = V̄ (`map_Dbar_Sbar`), and that χ can be taken of degree R (`exists_chi_R`). It also
+proves the upper bound of Folsom–Kent–Ono for ℓ ≥ 13: Λ^odd(b,m) is generated over ℤ/ℓ^m by at most R elements for
+odd b ≥ 2m−1 (`rank_Lam_le`, `rEll_le`). The argument is elementary: alternating division by ℓ with X inside the envelope
+(`X_pow_div`), the ℓ-torsion of the module injects into V̄ (`card_socle_le`), and the number of generators of a finite
+abelian ℓ-group is the rank of its ℓ-torsion. `rEll` is defined as the least number of generators, which should also be
+compared with the paper's "rank". This bound is known; only the lower bound r_ℓ(m) = R, which fails at ℓ = 607, stays open.
+`finrank_Sbar`, `R_eq_half` and `finrank_ker_Xbar` give R = ⌈d/2⌉ and dim ker X̄ = ⌊d/2⌋, where d = dim S̄.
+
+`Recurrence.lean` turns this into congruences with R terms. `krylov_Lam` shows that R consecutive terms span Λ^odd(2m−1,m).
+`partition_recurrence` then gives integers a₀, …, a_{R−1}, depending only on ℓ and m, with
+p((ℓ^{b+2R}n+1)/24) ≡ Σ aᵢ p((ℓ^{b+2i}n+1)/24) (mod ℓ^m) for all b ≥ 2m−1 of either parity and all n with 24 ∣ ℓ^b n+1.
+`partition_recurrence_back` gives the same with the R terms after the left side. The shape is that of Folsom–Kent–Ono,
+with the threshold 2m−1, and it holds for every prime ℓ ≥ 13.
+
+`ThetaFiltration.lean` builds the level-one filtration (`filt`, `filt_theta_step`, `filt_theta_eq`) and division by Δ
+(`disc_decomp`, `div_Delta_pow`). `NoCongruence.lean` uses them to prove the theorem of Ahlgren–Boylan (Invent. Math. 2003)
+at the class 24β ≡ 1: U(Δ^δ) ≢ 0 mod ℓ for ℓ ≥ 13 (`U_Dl_ne_zero`), so no congruence p(ℓn+β) ≡ 0 exists in that class
+(`no_ramanujan_congruence`, `exists_partition_not_dvd`). If U(Δ^δ) ≡ 0, the theta cycle forces θ^{(ℓ+3)/2}Δ^δ = c E₄Δ^δ
+(`cycle_weight_four`), and two coefficients give (−23)^{(ℓ+3)/2} ≡ 241, so ℓ ∣ 23⁴ − 241² = 2⁶·3²·5·7·11. The other
+classes are handled by `AhlgrenBoylan.lean`: if the coefficients of F = Δ^δ vanish on a class ρ ≠ 0, then
+Σ_{1≤j≤ℓ−1} ρ^{ℓ−1−j} θ^j F = 0. Separating weight classes (`weight_class_le`, `class_sep`, via `kummer_free`) gives
+θ^{(ℓ−1)/2}(θF) = c θF with c ≠ 0, while the filtration rises at each of those steps (`no_nonzero_class`). So `ahlgren_boylan`
+holds: for prime ℓ ≥ 13 no β < ℓ has ℓ ∣ p(ℓn+β) for all n. The argument was reconstructed here, not checked against the
+published proof, and the congruences are stated for 0 ≤ β < ℓ. Consequently L(2k+1) ≢ 0 mod ℓ for all k (`L_odd_ne_zero`),
+r_ℓ(m) ≥ 1 (`rEll_pos`), and r_ℓ(m) = 1 for 13 ≤ ℓ < 36 (`rEll_eq_one`).
+`Classification.lean` adds the small primes and the three known congruences: for prime ℓ and β < ℓ, ℓ ∣ p(ℓn+β) for all n
+exactly when (ℓ,β) is (5,4), (7,5) or (11,6) (`ramanujan_congruence_iff`).
+
+`RCLift.lean` proves a formal q-series identity. With E = E_{ℓ−1} and F = k g θE − (ℓ−1) E θg, one has F ≡ θg and
+(UF)/ℓ ≡ (1/k)θ(Ug) + ((k−1)/k)(∂(Ug) − U(∂g)) modulo ℓ (`rc_lift`), using θe ≡ (E₂ − VE₂)/12 (`theta_e`) from von Staudt–Clausen.
+It does not prove G4.
+
+`ThetaLift/GeneralLift.lean` removes the prime from the Shimura lift: for j < 24 prime to 6, an even weight k′ = λ + (j+1)/2 with λ ≥ 2, a level-one
+cusp form G with integer coefficients, and squarefree t ≡ −j (mod 24), the explicit lift of G/η^j is a modular form of weight 2λ on Γ₀(6) (`gen_modular`).
+`ThetaLift/LiftKernel.lean` shows the lift carries the U_ℓ-kernel to the U_ℓ-kernel modulo ℓ (`genLift_U_dvd`). `TheoremA/WeightEightOrdinarity.lean` treats weight p−5:
+a nonzero series there with the prescribed bad-prime eigenvalues and U_p f = 0 reaches weight eight after θ⁶ (`theta_cycle_weight_eight`, `binaryCycle_weight_eight`), the (8, 27) eigenspace in weight eight
+is the line of h₈ = q + 8q² + 27q³ + ⋯ (`binary_weightEight_eigenline`), and so p ∣ a_p(h₈) (`dvd_coeff_hEight_of_binary_kernel`).
+
+The independent prime-29 and prime-31 all-power theorems remain complete.
 
 ## Targets
 
@@ -111,7 +151,7 @@ All declarations below are in `RamanujanTau.TheoremA`.
 | [HalfIntegral](../RamanujanTau/TheoremA/HalfIntegral.lean) | `YangCorrespondence`, `latticeS_det_not_dvd`, `theoremA` | **Conditional on `YangCorrespondence`** |
 | [BWDictionary](../RamanujanTau/TheoremA/BWDictionary.lean) | `X_on_V` (unconditional): X̄(Δ^t G) = Δ^t (q;q)^j Ξ(G); `X_injective_on_V` | The injectivity is **conditional on `YangCorrespondence`** |
 | [LevelLowering](../RamanujanTau/TheoremA/LevelLowering.lean) | `exists_decomposition`, `exists_lowered`: a form on Γ₀(Mt) in powers of q^t comes from Γ₀(M) | Unconditional |
-| [BLBound](../RamanujanTau/BLBound/Modules.lean) | `U_filtration`, `hasse_squarefree`, `D_image`, `exists_chi`, `partition_bound`, `chain_stable`, `bEll_le`, `dEll_eq_zero`, `Vinv_eq`, `Sbar_decomp` | Unconditional, ℓ ≥ 13 |
+| [BLBound](../RamanujanTau/BLBound/AhlgrenBoylan.lean) | `U_filtration`, `hasse_squarefree`, `D_image`, `exists_chi`, `partition_bound`, `chain_stable`, `bEll_le`, `dEll_eq_zero`, `rank_Xbar_pow`, `map_Dbar_Sbar`, `exists_chi_R`, `rank_Lam_le`, `rEll_le`, `R_eq_half`, `krylov_Lam`, `partition_recurrence`, `partition_recurrence_back`, `filt_theta_eq`, `div_Delta_pow`, `no_ramanujan_congruence`, `class_sep`, `ahlgren_boylan`, `rEll_eq_one`, `Vinv_eq`, `Sbar_decomp` | Unconditional, ℓ ≥ 13 |
 | [LiftReduction](../RamanujanTau/TheoremA/LiftReduction.lean) | `liftSeries`, `U_lift`, `lift_ell_dvd`, `theoremA_of_modularity`, `X_injective_of_modularity` | Reduction of Theorem A to `AADModularity`, which [Final](../RamanujanTau/ThetaLift/Final.lean) proves |
 
 ## A simpler weight-six argument
@@ -323,7 +363,7 @@ integral isomorphism of the two spaces.
 
 The remaining formal obligations are:
 
-1. The lower bound b_ℓ(m) ≥ 2m−1 for ℓ ≥ 29 remains open, apart from the proved threshold at ℓ = 29.
+1. The lower bound b_ℓ(m) ≥ 2m−1 for ℓ ≥ 29 remains open, apart from the proved thresholds at ℓ = 29 and 31.
 
 This development does not prove universal sharpness, G4, or G6. In particular,
 BW §6.1 reports an all-precision rank deficit at 607, but its listed computations
@@ -344,7 +384,7 @@ python3 scripts/frontier/pattern/mu_sum.py
 gp -q scripts/frontier/pattern/sign_class_coeff.gp
 ```
 
-The [dedicated audit](verification/theorem_a.axioms.txt) checks 324 declarations,
+The [dedicated audit](verification/theorem_a.axioms.txt) checks 357 declarations,
 including the actual eta cusp forms, coefficient identities, full weight-six
 annihilator, exact dimension, integral reduction, and conditional ordinarity
 reduction, plus the uniform eta basis, integral reconstruction, polynomial

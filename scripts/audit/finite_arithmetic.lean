@@ -2,6 +2,7 @@ import RamanujanTau.FiniteArithmetic.Orbit
 import RamanujanTau.FiniteArithmetic.Partition29
 import RamanujanTau.FiniteArithmetic.AllPowers29
 import RamanujanTau.FiniteArithmetic.Complete29
+import RamanujanTau.FiniteArithmetic.Complete31
 import RamanujanTau.FiniteArithmetic.Evaluate29Powers
 import RamanujanTau.FiniteArithmetic.WeightedTilings
 import Mathlib.Algebra.Field.ZMod
@@ -141,3 +142,9 @@ example : Evaluate29Powers.evaluate 1 8 24 1000000000000 = 27 := by decide +kern
 #print axioms RamanujanTau.FiniteArithmetic.Examples.projection_survives
 #print axioms RamanujanTau.FiniteArithmetic.Examples.projection_not_injective
 #print axioms RamanujanTau.FiniteArithmetic.Examples.composite_recurrence
+#print axioms RamanujanTau.FiniteArithmetic.Partition31.explicit_family
+#print axioms RamanujanTau.FiniteArithmetic.AllPowers31.partition_padic
+#print axioms RamanujanTau.FiniteArithmetic.Complete31.threshold
+#print axioms RamanujanTau.FiniteArithmetic.Complete31.even_exact
+#print axioms RamanujanTau.FiniteArithmetic.Complete31.partition_count_obstruction
+#print axioms RamanujanTau.FiniteArithmetic.Complete31.partition_threshold
