@@ -6,6 +6,99 @@ Module paths in this catalog are relative to `RamanujanTau/` unless stated other
 Named hypotheses are part of a theorem's statement; an axiom audit does not discharge them.
 The research notes are indexed separately in [the documentation guide](README.md).
 
+## Theorem A: all-prime ordinarity on the prescribed level-six eigenspace
+
+`TheoremA/BinaryOrdinarity.lean` proves
+`U_ne_zero_of_binary_sign_eigenvalues` for every prime ℓ ≥ 13 and every
+field of characteristic ℓ. A nonzero series in the weight-ℓ−3 integral
+level-six model with eigenvalues (q/ℓ)q^{(ℓ−5)/2} for U_q, q = 2,3,
+cannot be killed by U_ℓ. `ReducedLevelSixOrdinarity.lean` transfers this
+to reductions of actual complex level-six modular forms over embedded
+coefficient rings. The two initial eigenvalue formulas remain explicit;
+filtration and weight-six lifting are no longer hypotheses.
+
+`TheoremA/WeightSixIdentity.lean` proves
+`classicalWeightSixAnnihilator_eq_zero`: (U₃+9)(U₂²+6U₂+32)=0 on the
+actual complex cusp space S₆(Γ₀(6)). It also proves
+`weightSix_finrank_eq_three` and an explicit linear equivalence between this
+space and its first three positive q-coefficients.
+
+The proof constructs three actual eta quotient cusp forms. It verifies their
+transformations on a proved generating set for Γ₀(6), holomorphy, vanishing
+at every cusp, and their integer Fourier coefficients through q⁹. The
+coefficient bound in `LevelSixSturm.lean` and the finite certificate in
+`WeightSixCertificate.lean` then establish the full operator identity.
+No old/new decomposition or dimension formula is assumed.
+
+`LevelSixModularSturm.lean` proves that the first k+1 coefficients determine
+every level-six modular form of nonnegative integral weight k. The general
+eta certificate in `EtaQuotientForms.lean` allows nonnegative cusp rates.
+`WeightTwoForms.lean` and `WeightTwoQExpansion.lean` construct actual forms
+A, B, C with integral Fourier expansions and AC=B², including the identity
+over ℤ. `WeightTwoCoordinates.lean` proves dim M₂(Γ₀(6)) = 3, reconstruction
+from the first three coefficients, and descent over any coefficient ring
+embedded in ℂ.
+
+`EvenWeightForms.lean` constructs a uniform eta basis with leading terms
+1,q,…,q²ⁿ. `EvenWeightCoordinates.lean` proves dim M₂ₙ(Γ₀(6)) = 2n+1,
+integer reconstruction, and descent in every even weight. `EvenWeightProducts.lean`
+proves the multiplication rule and generation by A,B,C with unique normal
+monomials AᵃBᵇCᶜ, b < 2. `BinarySeries.lean` and `BinaryModel.lean` identify
+this model with homogeneous binary polynomials of degree 2n; evaluation is
+injective in each even degree over every commutative ring.
+
+`LevelSixSerre.lean` constructs the actual Serre derivative, using Cauchy's
+estimate to verify boundedness at every cusp. `EvenWeightSerre.lean` proves
+that 12θ−kE₂ preserves the integral model and raises its weight by two in
+every coefficient ring.
+
+`BinaryEisenstein.lean` proves the explicit E₄ and E₆ binary formulas and
+full series identities. `BinaryPullback.lean` proves weight-preserving
+substitution and no common projective zero. `BinaryHasse.lean` identifies
+the Hasse invariant and companion, proves their expansions are 1 and E₂,
+and characterizes equal expansions in one weight class as Hasse-power multiples.
+`BinaryBaseChange.lean` and `HasseSeparation.lean` prove projective separation
+and coprimality on both affine charts over every characteristic-ℓ field, ℓ ≥ 5.
+
+`BinaryTheta.lean` constructs a homogeneous numerator with expansion 12θ.
+`BinaryDivisibility.lean` proves `hasse_dvd_theta_iff` away from weights zero
+modulo ℓ and `hasse_dvd_iff_lower_expansion`: a Hasse factor is exactly the
+ability to lower weight by ℓ−1 without changing the full series.
+`BinaryFiltration.lean` defines the least representing half-weight in one
+class modulo (ℓ−1)/2 and proves the theta step and drop laws.
+`BinaryFiltrationCycle.lean` proves `theta_four_binaryRep`: if a nonzero
+weight-ℓ−3 series is killed by U_ℓ, its fourth theta iterate has a
+weight-six representation. This does not assume a general Katz comparison
+or independence of expansions across different weight classes.
+
+`BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct actual U_p on
+Γ₀(N) for every integral weight and prime p dividing nonzero N, prove the
+coefficient-extraction formula, and prove the operators commute.
+`IntegralCusp.lean` and `ClassicalWeightSix.lean` transport the weight-six
+identity through any coefficient ring embedded in ℂ to its residue rings.
+Consequently `eq_zero_of_reduced_weightSix_eigenpair` excludes a nonzero
+(4,9) eigenvector in every such reduced cusp space of characteristic at least five.
+
+`BadPrimeModular.lean` extends the actual bad-prime operators and expansion
+identities to the full modular-form space. `ModularWeightSixData.lean`
+kernel-checks two 7×7 matrices against coefficients through q¹⁸.
+`ModularWeightSixAction.lean` proves these are the actual operators on the
+integral basis. `ModularWeightSixIdentity.lean` proves
+(U₂−1)(U₂−32)(U₃+9)(U₂²+6U₂+32)=0 throughout the weight-six model over
+every coefficient ring. It evaluates to −108864 at (4,9), which is nonzero
+in characteristic ℓ ≥ 13. This supplies the contradiction in the
+all-prime ordinarity theorem without a cusp-lifting assumption.
+
+`NewClass.lean` derives those eigenvalues from the Atkin–Lehner signs, and
+`newform_coeff_ell_ne_zero` proves unconditionally that a normalized
+T_ℓ-eigenform in the class has a unit ℓ-th coefficient above ℓ.
+`SignLattice.latticeT_det_not_dvd` proves T_ℓ invertible modulo ℓ on the integer
+sign lattice. `ThetaLift.theoremA_unconditional` and `ThetaLift.X_injective_unconditional` prove the half-integral
+and Boylan–Webb forms, and `ThetaLift.aadModularity` proves Theorem 1.1 of
+Ahlgren–Andersen–Dicks. `BLBound.bEll_le` and `BLBound.dEll_eq_zero` give b_ℓ(m) ≤ 2m−1 and d_ℓ = 0
+for every prime ℓ ≥ 13.
+See the [declaration ledger and remaining work](THEOREM_A.md).
+
 ## Results at a glance
 
 | Theorem | Statement |

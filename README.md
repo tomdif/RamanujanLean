@@ -35,6 +35,23 @@ b = B onward modulo 29^m if and only if B ≥ 2m−1.
 actual partition counts; the full build and expanded axiom audit passed.
 See the [verification record](docs/STATUS.md#verification).
 
+Work on the proposed all-prime Theorem A now proves that, for every prime
+ℓ ≥ 13, U_ℓ cannot kill a nonzero reduced level-six form of weight ℓ−3
+with the two prescribed U₂/U₃ eigenvalues. This applies to reductions of
+actual complex modular forms over embedded coefficient rings. Lean proves
+the integral polynomial model, Hasse divisibility, minimal-weight theta-cycle
+laws, and a full weight-six operator identity; no filtration or lifting
+hypothesis remains in this result.
+The eigenvalues are now derived from the Atkin–Lehner signs, using Mathlib's
+actual trace. So every normalized T_ℓ-eigenform in the class has a unit ℓ-th
+coefficient above ℓ, unconditionally. Injectivity of U_{ℓ²} on the
+half-integral-weight space, and of Boylan–Webb's X̄ on V, is also proved
+unconditionally, with a formal proof of modularity of the explicit Shimura lifts
+(Ahlgren–Andersen–Dicks) by a theta kernel. It follows that b_ℓ(m) ≤ 2m−1 for every
+prime ℓ ≥ 13 and that d_ℓ = 0, in the partition case of the Belmont–Lee–Musat–Trebat-Leder
+conjecture. These proofs are machine-checked and have not been reviewed by a human expert.
+See the [precise boundary](docs/THEOREM_A.md).
+
 ## Build and verify
 
 With Lean's `elan` toolchain manager installed:
@@ -57,6 +74,7 @@ After a successful build, run the theorem audits and a recurrence demonstration:
 ```sh
 lake env lean scripts/audit/atkin_obrien_closure.lean
 lake env lean scripts/audit/finite_arithmetic.lean
+lake env lean scripts/audit/theorem_a.lean
 lake env lean --run scripts/finite_arithmetic/demo.lean 1000000000000
 ```
 

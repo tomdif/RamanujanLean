@@ -460,3 +460,23 @@ import RamanujanTau.FiniteArithmetic.AllPowers29
 import RamanujanTau.FiniteArithmetic.Complete29
 import RamanujanTau.FiniteArithmetic.Evaluate29Powers
 import RamanujanTau.FiniteArithmetic.WeightedTilings
+-- Foundations and a conditional reduction only; universal Theorem A remains open in Lean.
+import RamanujanTau.TheoremA.LiftedOrdinarity
+import RamanujanTau.TheoremA.WeightTwoCoordinates
+import RamanujanTau.TheoremA.ReducedLevelSixOrdinarity
+import RamanujanTau.TheoremA.LiftReduction
+import RamanujanTau.ThetaLift.HermiteIntegral
+import RamanujanTau.ThetaLift.EtaProduct
+import RamanujanTau.ThetaLift.KernelTerms
+import RamanujanTau.ThetaLift.KernelSummable
+import RamanujanTau.ThetaLift.KernelCovariance
+import RamanujanTau.ThetaLift.KernelGen
+import RamanujanTau.ThetaLift.ModularDomain
+import RamanujanTau.ThetaLift.HalfExpansion
+import RamanujanTau.ThetaLift.StripMeasure
+import RamanujanTau.ThetaLift.HermiteBounds
+import RamanujanTau.ThetaLift.FourierU
+import RamanujanTau.ThetaLift.VIntegral
+import RamanujanTau.ThetaLift.KernelFold
+import RamanujanTau.ThetaLift.Final
+import RamanujanTau.BLBound.Modules
