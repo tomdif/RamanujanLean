@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-01",
+  "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
+  "working_tree_changes": true,
+  "theorem": "Ramanujan.MultiQuintuple.coeff_eisensteinFamily_zero",
+  "statement": {
+    "modulus": "9*t^2+15*t+7",
+    "indices": [
+      "1",
+      "3*t+2",
+      "3*t+3"
+    ],
+    "zero_progression": "modulus*N+3*t+3",
+    "parameters": "all natural t and N",
+    "primality_required": false
+  },
+  "sha256": {
+    "RamanujanTau/MultiQuintupleEisensteinFamily.lean": "edd2eac251413c55b602e80b273344e3b35f06b6735bad764b8622f08ec52130",
+    "scripts/audit/multi_quintuple.lean": "3398ccbcbe8b3bfc8d56e850dd25d51f2675f994862088e5c2f90f59e5da11ba",
+    "scripts/check_eisenstein_family.py": "0f8da83ecdcc257873f5dd1846e207199ab4f4dcb8d01247458c3dd064221117",
+    "docs/verification/eisenstein_family_arithmetic.json": "317d52aa8d3f1a4325425783dbf52c235e866d1db1d8ba7589f7b56d0922473f"
+  },
+  "full_build": {
+    "command": "lake build",
+    "jobs": 9293,
+    "passed": true
+  },
+  "axiom_audit": {
+    "command": "lake env lean scripts/audit/multi_quintuple.lean",
+    "declarations": 1,
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "passed": true
+  },
+  "independent_arithmetic": {
+    "command": "python3 scripts/check_eisenstein_family.py --output docs/verification/eisenstein_family_arithmetic.json",
+    "parameters_checked": 6,
+    "coefficients_compared": 15309,
+    "zero_progression_terms_checked": 126,
+    "passed": true
+  },
+  "formal_boundary": {
+    "actual_products_identified": true,
+    "all_parameters_proved": true,
+    "depends_on_proposed_automorphism_theorem": false,
+    "universal_symmetry_classification_proved_in_lean": false,
+    "novelty_claim": false
+  },
+  "repository_check": {
+    "command": "python3 scripts/check_repository.py",
+    "lean_files": 939,
+    "markdown_files": 25,
+    "links": 214,
+    "passed": true
+  },
+  "diff_check_passed": true
+}

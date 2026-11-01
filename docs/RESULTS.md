@@ -142,7 +142,8 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
 | **Canonical quintuple family** | For every odd `p ≥ 5`, `∏_{i=1}^{(p-1)/2}Q(qⁱ,qᵖ)` vanishes in every nonsquare class mod `p` |
 | **Three quintuple products (`p=7`)** | `[q^{7n+r}] Q(q,q⁷)Q(q²,q⁷)Q(q³,q⁷) = 0` for `r=3,5,6` |
-| **Root--Vanishing boundary** | Uniform short roots force vanishings; eight-coset theta/Walsh encoding isolates the exact spectral-coherence converse |
+| **Infinite sparse quintuple family** | For `p=9t²+15t+7`, `[q^{pN+3t+3}] Q(q,qᵖ)Q(q^{3t+2},qᵖ)Q(q^{3t+3},qᵖ)=0` for all natural `t,N`, including composite p |
+| **Root--Vanishing classification** | For every admissible sparse triple and canonical residue, persistent vanishing is equivalent to an exact projective root certificate |
 
 
 Build instructions and current verification status are maintained in the [overview](../README.md) and [status page](STATUS.md).
@@ -949,7 +950,13 @@ universal positive and negative eight-branch matchings for every direct short ro
 `MultiQuintupleCancellation.lean` now flattens the actual three-factor coefficient into one finite
 bilateral branch box and proves both positive and sign-corrected negative short-root progressions
 vanish by a fixed-point-free sign-reversing involution.  It also gives a reflection-theoretic proof
-of the `7n+3` triple progression.  `MultiQuintupleProjectiveCancellation.lean` then supplies a
+of the `7n+3` triple progression.
+`MultiQuintupleEisensteinFamily.lean` specializes the same construction to all
+`p=9t²+15t+7`, with indices `(1,3t+2,3t+3)` and zero progression `pN+3t+3`.
+The theorem `coeff_eisensteinFamily_zero` needs no primality hypothesis;
+its build and axiom audit are recorded in the
+[sparse-family verification record](verification/eisenstein_family.json).
+`MultiQuintupleProjectiveCancellation.lean` then supplies a
 reusable exponent-involution assembly, transports the non-direct projective root
 `(6,-5,-9) ≡ 6(1,11,34) (mod 71)` through all eight affine residue cosets, and proves the actual
 `71n+61` coefficient family zero.  It also instantiates the direct norm-`2p` root `(1,6,11)` to
@@ -1109,11 +1116,87 @@ shows that every vanishing shell of weight strictly below `2p` consists entirely
 pairs: non-pairing `p`-gons would have to occur in an even number.  The exact perfect-shell scanner
 now uses this compressed representation and cross-checks it against the original expanded
 amplitudes on every common zero,
-and separately reports any non-pairing cancellation.  Thus the finite frontier has been reduced to
-a universal sub-`2p` shell-weight bound followed by coherence of the forced opposite-phase matching.
+and separately reports any non-pairing cancellation. The proposed need for
+a universal sub-`2p` shell-weight bound is superseded by the result below.
 Through `p<=3000`, the largest compressed shell weight is only `24`, no selected shell reaches
 weight `2p`, and all 6,039 common-zero residues have zero expanded/compressed disagreements and zero
 non-pairing cancellations.
+
+`MultiQuintuplePhasePairing.lean` removes the weight restriction for complete
+Watson shells. At a primitive prime-order root, all coefficients of a zero
+integer sum are equal. The twisted antipodal law balances the zero and
+half-turn phase buckets, so this common coefficient is zero.
+`antipodal_shell_amplitude_zero_iff_pair_balance` proves that cancellation
+is equivalent to opposite-phase multiplicity balance for arbitrarily large
+finite shells with the stated antipodal and root hypotheses. Its proof
+includes the factorization from `2p`-th powers to the prime-order sum.
+This does not prove that the partners are unique or form one linear isometry,
+nor does it formalize the analytic Poisson bridge for the original series.
+The [verification record](verification/phase_pairing.json) reports the build,
+six-declaration multi-quintuple audit, independent controls, and selected
+large-prime search. The subsequent full converse is described below.
+
+`MultiQuintupleShortCoherence.lean` checks six algebraic inputs to the new
+full-converse paper proof: exact projective norm and dot-product identities,
+the identity-or-reflection phase dichotomy, preservation of its polarized
+form, the degenerate-parameter obstruction, and uniqueness of equal-norm
+integral lifts below norm p²/2. The paper argument combines these with Poisson
+summation and a short-generator theorem for all p>=1250. For smaller primes,
+14,369 exact generator certificates cover every normalized line except the
+p=13 case; the latter is settled by six root certificates and 20 nonzero
+product coefficients. A standard-library-only checker validates the finite
+certificates independently of the generator. These were the finite inputs to the paper proof and are now checked within
+the complete Lean formalization. The full argument and its development are recorded in the
+[research record](../RESEARCH_MULTI_QUINTUPLE.md).
+
+The subsequent formalization adds the following checked results:
+
+* `MultiQuintupleConverseThirteen.lean` proves
+  `admissible_root_vanishing_equivalence_thirteen` for every admissible triple
+  and residue at modulus 13. Six root certificates and 20 nonzero coefficients
+  are checked by the kernel, with the coefficients identified with the actual
+  infinite products through the proved bilateral identity.
+* `MultiQuintupleDualShortGeometry.lean` proves exact dot-product preservation
+  and uniqueness of short phase partners on actual projective dual lifts.
+  `MultiQuintupleDualPairingIsometry.lean`, using
+  `MultiQuintupleSpanningIsometry.lean`, constructs a noncentral rational
+  orthogonal involution from a spanning family with such partners and a
+  nonzero phase. Coherence and involutivity are conclusions of this theorem.
+* `MultiQuintupleIntegralSpan.lean` proves integral generation from determinant
+  gcd certificates. `MultiQuintupleSmallIsotropicBox.lean` applies it to every
+  nonsingular ternary Gram form modulo 3, with a kernel-checked finite table.
+  Regenerate that table with `python3 scripts/generate_small_isotropic_box.py`.
+* `MultiQuintupleShortGeneratorEstimate.lean` proves the rational length
+  bounds beyond 1250 under the displayed reduced-basis hypotheses.
+
+The completed theorem is
+[`admissible_root_vanishing_equivalence`](../RamanujanTau/MultiQuintupleFullConverse.lean).
+Its only hypotheses are `AdmissibleSparseTriple p i j k` and `R < p`:
+
+```lean
+HasProjectiveRootTarget p i j k R ↔ PersistentTripleVanishing p i j k R
+```
+
+`admissible_root_vanishing_converse` supplies the reverse implication, and
+`admissibleRootVanishingRigidity_proved` discharges the original corrected
+rigidity interface. The new proof includes the coefficient-to-Gaussian identity,
+Poisson summation with all eight Watson branches, absolute convergence and
+norm-shell separation, canonical phase compression, and opposite partners.
+`admissible_short_dual_generation` proves integral generation for every
+admissible prime except 13: reduced-basis geometry handles p≥1250, and eight
+stable certificate modules cover all 201 primes from 7 through 1249, with
+13 excluded from the short-generation conclusion. The
+14,369 relevant generator certificates and complete normalized-line coverage
+are checked by Lean's kernel. The existing modulus-13 classification covers
+the exception. The orthogonal involution then yields the exact root target,
+including the sign and residue condition.
+
+Regenerate the finite tables with
+`python3 scripts/generate_lean_short_generators.py`.
+The [full verification record](verification/full_converse_lean.json) records
+the build, expanded axiom audit, and byte-for-byte regeneration check. The
+[previous progress record](verification/short_converse_lean.json) is retained
+as a historical snapshot; its missing obligations are now discharged.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi

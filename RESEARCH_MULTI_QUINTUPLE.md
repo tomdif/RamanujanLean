@@ -2,7 +2,14 @@
 
 ## Status
 
-This track now contains a proved infinite family as well as an open classification problem.
+This track contains a formally proved infinite family and the complete Lean
+classification of admissible sparse triple vanishings.
+[`admissible_root_vanishing_equivalence`](RamanujanTau/MultiQuintupleFullConverse.lean)
+proves the equivalence between persistent vanishing of the actual product
+coefficients and an exact projective root certificate, under
+`AdmissibleSparseTriple p i j k` and `R < p`.
+See the [verification record](docs/verification/full_converse_lean.json).
+Earlier frontier notes below are retained as historical research steps.
 The exact coefficient scanner in `scripts/quintuple_vanishing_scan.py` reproduces all five
 examples reported in the March and June 2026 papers and tests proposed extensions.
 
@@ -113,8 +120,9 @@ is now a formal theorem.  `RamanujanTau.MultiQuintupleRootConverse` proves the a
 converse for a primitive rational Householder reflection: integrality on the three vectors
 `p*e_i` forces the primitive normal norm to divide `2p`, hence (outside the coordinate cases)
 to equal `p` or `2p`, and preservation of the congruence kernel forces the normal to be a
-projective lift.  What remains conjectural as a general theorem is the extra classification step
-saying that every noncentral automorphism group contains such a primitive rational reflection.
+projective lift.  The extra classification step was previously conjectural: every noncentral
+automorphism group should contain such a primitive rational reflection. The 2026-11-01 paper
+argument below addresses this step; it has not been formalized or independently reviewed.
 The exact `converse-scan` command checks the stronger set-level statement through `p <= 401`: all
 328 noncentral classes contain a plane reflection, and the distinct plane-reflection matrices
 agree exactly with the Householder matrices obtained from the short roots.  The superficially
@@ -156,6 +164,149 @@ python3 scripts/paley_spinor_scan.py converse-scan --max-prime 401
 python3 scripts/paley_spinor_scan.py candidate \
   --prime 71 --indices 1,11,34 --depth 500 --all-residues
 ```
+
+### A prime-index symmetry theorem [paper argument, 2026-11-01]
+
+**Theorem proposed for formalization.** Let `p >= 5` be prime, let
+`v in F_p^3` be isotropic, with every coordinate nonzero and no two coordinates
+equal up to sign, and put `L = {x in Z^3 : v dot x = 0 mod p}`. Then the
+following are equivalent:
+
+1. `Aut(L)` contains an element other than `I` and `-I`.
+2. `Aut(L)` contains a plane reflection.
+3. There is an integral vector `w`, projectively congruent to `v mod p`, with
+   `w dot w = p` or `2p`.
+
+Here `Aut` means isometries for the usual Euclidean norm. The hypotheses hold
+for the prime, distinct, canonical isotropic triples in this research track.
+The new part of the argument is `1 => 2`, including the order-three case.
+The full statement below is a paper proof, not a new Lean theorem or a claim
+of mathematical novelty.
+
+**Lemma 1: the skew part is integral.** If `Q in Aut(L)`, then `pQ` and
+`Q-Q^t` have integer entries. Indeed, `pZ^3` is contained in L, so `pQ` is
+integral. Modulo p, every row of `pQ` annihilates the plane `v^perp`, hence
+`pQ = u v^t mod p`. The same holds for `Q^t=Q^(-1)`, because it too preserves
+L. Thus every column is also proportional to v, forcing
+`pQ = c v v^t mod p`. This matrix is symmetric, so `Q-Q^t` is integral.
+This lemma needs only the index-p congruence description, not isotropy.
+
+**Lemma 2: only the threefold case needs a new reflection.** Given a
+noncentral Q, replace it by `R=(det Q)Q`. This is a nonidentity proper
+rotation preserving L. Its trace is an integer, since it is similar to an
+integer matrix in a lattice basis. A proper three-dimensional rotation has
+trace `1+2 cos(theta)`, so its nonidentity possibilities have orders
+`2,3,4,6`. For an even order n, `-R^(n/2)` is already a plane reflection
+preserving L.
+
+**Lemma 3: an order-three rotation must be a signed coordinate cycle.**
+Suppose R has order three. Write `C=R-R^t=[a]_cross`, where `[a]_cross`
+is the skew matrix for cross product with a. Lemma 1 gives `a in Z^3`.
+Since `R^2=R^t` and `trace R=0`, `trace(C^t C)=6`; hence `a dot a=3`.
+All three entries of a are therefore `+1` or `-1`. Moreover,
+
+`R = (a a^t - I + [a]_cross)/2`.
+
+This has integer entries and is orthogonal, so it is a signed permutation
+matrix. Conjugating by `diag(a)` turns it into an ordinary three-cycle.
+The transformed normal `v'=diag(a)v` spans an eigenline of that cycle
+over F_p. Its eigenvalue cannot be 1: that would make v' proportional to
+`(1,1,1)`, contradicting isotropy for `p != 3`. Thus `p = 1 mod 3` and
+`v'_1+v'_2+v'_3=0`.
+
+**Lemma 4: the threefold case has an Eisenstein mirror.** For any prime
+`p = 1 mod 3`, there are integers a,b with `a^2-ab+b^2=p`. For completeness,
+`Z[omega]`, with `omega^2+omega+1=0`, is norm-Euclidean: rounding both
+coefficients leaves a remainder of norm at most `3/4` times the divisor's
+norm. Evaluation at a primitive cube root in F_p has a kernel ideal of
+index p. That ideal is principal, and a generator has norm p. This uses
+the standard Euclidean-domain-to-PID argument; see
+[Conrad's notes, §4](https://kconrad.math.uconn.edu/blurbs/ringtheory/euclideanrk.pdf).
+
+Then `w0=(a,b-a,-b)` has coordinate sum zero and squared norm `2p`.
+Its reduction is nonzero. In the plane `x+y+z=0`, the isotropic cone over
+F_p consists of two distinct lines, interchanged by swapping the first two
+coordinates. Therefore w0 or that swap is projectively congruent to v'.
+Undoing the sign change gives w projectively congruent to v, with norm 2p.
+The map `x -> x-(x dot w/p)w` is an integral reflection of L: `x dot w`
+is divisible by p, and `v dot w=0 mod p` ensures it preserves L.
+This finishes `1 => 2`.
+
+**The remaining equivalences.** For `2 => 3`, choose a primitive integral
+normal w of the rational reflection and write `n=w dot w`. Integrality on
+the three `p e_i` gives `n | 2p w_i w_j` for every i,j. Primitivity gives
+`n | 2p`, so `n` is `1,2,p,2p`. Norms 1 and 2 give a coordinate sign flip
+or a signed coordinate swap; preservation of L would force a zero
+coordinate of v or two coordinates equal up to sign. They are excluded.
+For `n=p` or `2p`, integrality on all x in L gives `p | w dot x`.
+Thus w modulo p annihilates `v^perp` and is proportional to v. It is nonzero
+modulo p because `0<n<p^2`. The construction already proved in
+`MultiQuintupleRootReflection` gives `3 => 2`, and `2 => 1` is immediate. ∎
+
+**What this would settle.** This supplies a general paper argument for the
+automorphism/short-root equivalence seen in the census. Combined with the
+existing projective-root-to-vanishing theorem, an extra lattice symmetry
+forces a zero progression. It does **not** prove the other implication:
+an identically zero signed theta series still has to force a coherent
+symmetry. That spectral-rigidity problem remains open.
+
+`scripts/check_lattice_symmetry.py` checks the proof's intermediate claims
+against the existing exhaustive rational automorphism enumerator. It checks
+the skew integrality, possible orders, order-three signed permutations,
+extracted roots, and equality of all reflection and short-root matrices.
+It separately constructs an Eisenstein mirror for all 611 primes
+`p <= 10000` with `p = 1 mod 3`. A nonintegral rational order-three rotation
+serves as a control: rationality alone does not justify Lemma 3.
+The full run through prime 1000 checks 3,172 projective classes and 9,376
+automorphisms; all 1,196 noncentral classes have an extracted reflection,
+with no disagreement between the complete reflection and short-root sets.
+The saved [bounded verification record](docs/verification/lattice_symmetry.json)
+states the actual census bound and counts; these checks do not establish the
+universal theorem in Lean.
+
+```sh
+python3 scripts/check_lattice_symmetry.py --max-prime 1000 \
+  --eisenstein-bound 10000 --output /tmp/lattice-symmetry.json
+```
+
+### An explicit infinite sparse family [Lean theorem, 2026-11-01]
+
+The norm construction also gives a direct specialization that needs no
+primality assumption. For every `t >= 0`, put
+
+`p = 9t^2 + 15t + 7`, `j = 3t+2`, `k = 3t+3`.
+
+Then every coefficient of `q^(pN+k)`, for every `N >= 0`, vanishes in
+
+`Q(q,q^p) Q(q^j,q^p) Q(q^k,q^p)`.
+
+The index triple `(1,j,k)` has squared norm `2p`; p is odd and is 1 modulo
+3. The negative short-root reflection has target `2k=1+j+k` and cancels
+the full progression. The bounds `0<1,j,k<p/2` hold for every t. The moduli
+strictly increase, so this gives infinitely many distinct sparse products.
+
+| t | p | Three indices | Identically zero progression |
+|---|---|---|---|
+| 0 | 7 | 1, 2, 3 | `7N+3` |
+| 1 | 31 | 1, 5, 6 | `31N+6` |
+| 2 | 73 | 1, 8, 9 | `73N+9` |
+| 3 | 133 | 1, 11, 12 | `133N+12` |
+| 4 | 211 | 1, 14, 15 | `211N+15` |
+
+`Ramanujan.MultiQuintuple.coeff_eisensteinFamily_zero` in
+[MultiQuintupleEisensteinFamily](RamanujanTau/MultiQuintupleEisensteinFamily.lean)
+proves this for the actual stabilized five-Pochhammer products. In
+particular the composite modulus 133 is included. This is an explicit
+corollary of the existing general short-root theorem; the p=31 instance
+was already among the known examples. No claim that this family is new
+to the literature is made. It does not depend on the unformalized
+automorphism classification above.
+
+The [verification record](docs/verification/eisenstein_family.json) records
+the full build, axiom audit, and independent arithmetic. The latter compares
+direct multiplication of the five Pochhammer factors with the bilateral
+Watson sums, coefficient by coefficient, for the first six parameters.
+Run it with `python3 scripts/check_eisenstein_family.py`.
 
 ### The uniform projective target law
 
@@ -731,13 +882,497 @@ weight argument is also proved directly in Lean as
 The exact scanner computes this compressed phase directly, verifies it against the original
 expanded amplitude on every common zero, tests whether every zero is completely opposite-phase
 balanced, and then performs the existing linear/orthogonal/lattice/root reconstruction.  The
-remaining finite proof program is correspondingly narrower: establish a universal sub-`2p`
-perfect-prefix shell-weight bound, then promote the forced shellwise opposite-phase matching to one
-linear map.  The recomputed exact census through `p<=3000` records maximum compressed weight `24`;
+earlier finite proof program proposed a universal sub-`2p` perfect-prefix
+shell-weight bound before promoting the matching to one linear map. The
+2026-11-01 theorem below removes that weight-bound obligation for complete
+Watson shells. The recomputed exact census through `p<=3000` records maximum compressed weight `24`;
 no perfect-prefix shell reaches weight `2p`.  Across all 6,039 common-zero residues it finds no
 expanded/compressed disagreement, no non-pairing shell, no ambiguous opposite-phase partner, and
 no failure in the subsequent linear, orthogonal, involutive, lattice-preserving, or
 signed-Householder checks.
+
+### Converse attack: pairing without a weight bound [Lean algebra, 2026-11-01]
+
+The twisted antipodal law contains more information than even shell size.
+It rules out non-pairing cyclotomic cancellation at **every** weight.
+
+**Theorem.** Let p be an odd prime, let rho be a primitive `2p`-th root of
+unity in a characteristic-zero field, and let a finite phase multiset have
+multiplicities n(a), indexed modulo `2p`. Assume
+
+`n(a) = n(p-a)` for every phase a.
+
+Then `sum_a n(a) rho^a = 0` if and only if
+`n(a)=n(a+p)` for every a. In particular the multiset can be paired into
+opposite phases, without any upper bound on its cardinality or multiplicities.
+
+*Proof.* Set `eta=rho^2`, a primitive p-th root. Every phase is uniquely
+`2j` or `2j+p`, with `0<=j<p`. Regroup the sum as
+
+`sum_(j=0)^(p-1) d_j eta^j`, where `d_j=n(2j)-n(2j+p)`.
+
+The minimal polynomial of eta over Q is `1+X+...+X^(p-1)`, so this sum
+vanishes exactly when all integer coefficients d_j are equal. The twisted
+antipodal law gives `n(0)=n(p)`, hence `d_0=0`. All d_j are therefore zero.
+The converse is immediate by pairing opposite phases. ∎
+
+For Watson shells, take `a(w)=E(w)/3 mod 2p`. The already proved facts
+`3 | E(w)` and `E(-w)=3p-E(w)` supply precisely this twisted antipodal law.
+The new module
+[MultiQuintuplePhasePairing](RamanujanTau/MultiQuintuplePhasePairing.lean)
+proves the prime coefficient criterion, the multiplicity balance induced by
+an antipodal equivalence, and the factorization of the actual root powers
+into the prime-order sum. Its final theorem is
+`antipodal_shell_amplitude_zero_iff_pair_balance`. It uses Mathlib's
+`IsPrimitiveRoot.sum_eq_zero_iff_forall_eq_int`; no new cyclotomic
+irreducibility assumption is introduced.
+
+**What is still missing.** Equal phase counts give shellwise pairings, but
+neither unique partners nor a common linear isometry. That distinction is
+essential. Here is a finite counterexample to a purely geometric shortcut,
+using artificial phases rather than the Watson formula. Take the 18 vectors
+`+/-e_i` and `+/-e_i+/-e_j` in Z^3, with shells of norms 1 and 2. They
+generate Z^3, and their quadratic tensors span all six ternary quadratic
+forms. At p=11 assign opposite phases so that the unique partners include
+
+`e1 <-> e2`, `e3 <-> -e3`, but `(e1+e2) <-> (e1-e2)`.
+
+Complete the phase assignment antipodally. The checker below gives every
+phase explicitly and verifies cancellation and unique partners on both
+shells. No linear map realizes the pairing: the first two basis images force
+`T(e1+e2)=e1+e2`, contrary to the prescribed partner. Thus the remaining
+coherence proof must use the actual arithmetic Watson phases; perfectness,
+generation, and unique shell partners alone are insufficient. This example
+does **not** disprove the corrected Root--Vanishing conjecture.
+
+The precise remaining route is:
+
+1. Formalize the analytic implication from persistent primal vanishing to
+   cancellation on every complete Poisson-dual shell.
+2. Use the actual Watson phase formula to prove that the forced pairings
+   through a sufficient finite cutoff are induced by one linear map.
+3. Apply the existing norm, lattice, involution, and short-root reductions.
+
+Step 2 remains open. The first-spanning and first-perfect cutoff claims are
+stronger finite conjectures, not consequences of the universal converse
+alone. No equivalence with those particular cutoffs is asserted here.
+
+**A faster exact attack.** `scripts/attack_phase_rigidity.py` uses an LLL
+basis of `{w : w = lambda*(1,j,k) mod p}` to enumerate complete short shells.
+It verifies the basis congruences and determinant `p^2`. If C is its inverse
+coordinate matrix and `||w||^2<=B`, then
+`|coordinate_i(w)|^2 <= B*sum_j C_ij^2`; rational Cauchy bounds therefore
+certify the enumeration box. Support is just nondivisibility of each
+coordinate by 3. Candidate residues come from the linear congruences that
+could give one vector an opposite-phase partner. Every candidate is then
+checked by the existing exact cyclotomic algorithm.
+
+The deterministic sample attempts 350 cases: random large primes, triples
+perpendicular to short fixed normals, known difficult cases, and reflective
+classes. It completes 292, up to prime 196,821,127, with no spanning- or
+perfect-cutoff mismatch. All 149 common-zero residue checks have unique
+partners forming an orthogonal, involutive, lattice-preserving linear map.
+The other 58 cases exceed the explicit 500,000-point box cap and are
+**skipped**, not verified. This is a selected sample, not a census of all
+primes or triples up to that bound.
+
+`scripts/check_phase_pairing.py` independently compares the new enumeration
+and candidate pruning with the old exhaustive scanner on seven small/hard
+cases, including 1439 and 1523. It also checks 240 synthetic antipodal phase
+multisets, some with weight over 7,000 times `2p`, and six double-p-gon
+negative controls that violate the antipodal hypothesis.
+The [proof verification record](docs/verification/phase_pairing.json),
+[arithmetic controls](docs/verification/phase_pairing_arithmetic.json), and
+[sampled search](docs/verification/phase_rigidity_search.json) keep the
+formal and computational claims separate.
+
+```sh
+lake env lean scripts/audit/multi_quintuple.lean
+python3 scripts/check_phase_pairing.py --output /tmp/phase-pairing-arithmetic.json
+python3 scripts/attack_phase_rigidity.py --output /tmp/phase-rigidity-search.json
+```
+
+### Full converse: a complete paper argument with finite certificates [2026-11-01]
+
+**Verification status.** The argument below supplies the previously missing
+arithmetic coherence step and covers every admissible prime. It is a proposed
+computer-assisted paper proof, not an end-to-end Lean theorem. Six local
+algebraic lemmas are checked in
+[MultiQuintupleShortCoherence](RamanujanTau/MultiQuintupleShortCoherence.lean).
+The small-prime certificates have a separate, standard-library-only checker.
+The [verification record](docs/verification/full_converse_paper.json) records
+the 9,295-job build, 12-declaration axiom audit, and certificate checks.
+The initial record predates the additional Lean results listed below; the
+analytic Poisson step and universal lattice-generation and root-target
+assembly still need formalization. No priority or novelty claim is made. The earlier statements
+that *paper-level* coherence is missing are superseded by this argument;
+their statements about the formal frontier still apply.
+
+**Claim.** Let p be prime and let
+`0<i<j<k<p/2`, with `i^2+j^2+k^2=0 mod p`. Put v=(i,j,k). For `0<=R<p`,
+the coefficients of `Q(q^i,q^p) Q(q^j,q^p) Q(q^k,q^p)` in the progression
+`p*N+R` vanish for every nonnegative N if and only if there are integers
+`w, lambda, e`, with `e=1 or 2`, such that
+
+```
+w = lambda*v mod p,       w.w = e*p,       lambda != 0 mod p,
+u = (v.w)/p,              c = 2/e,
+```
+
+and the target equation is
+
+```
+2*lambda*R = sum(w)-6*u mod p                  if e*p = 1 mod 3,
+c*lambda*(2*lambda*R-sum(w)+6*u) = 12 mod p    if e*p = 2 mod 3.
+```
+
+The reverse implication here is the existing formal projective-root theorem.
+The proof of the converse follows.
+
+#### 1. Persistent zero coefficients force opposite phases on every dual shell
+
+Let
+
+```
+L = {x in Z^3 : v.x = 0 mod p},
+N = p*L* = {w in Z^3 : w = lambda*v mod p}.
+```
+
+Their Euclidean covolumes are p and p^2. Choose `q=(3k)^(-1) mod p`.
+For a branch `b in {0,1}^3`, the original summation index n satisfies
+`3*v.n+v.b=R mod p`. Put `c_b=q*(R-v.b) mod p` and
+
+`x_b = v/p + (2b-1)/6 + c_b*(0,0,1)`.
+
+Completing the squares identifies the progression with the Gaussian sum
+
+`F(t) = sum_b (-1)^sum(b) sum_(x in L+x_b) exp(-pi*t*||x||^2)`.
+
+More explicitly, the squared norm of the completed coordinate divided by
+`6p` is `2K/(3p) + ||6v-p*(1,1,1)||^2/(36p^2)`, where K is the original
+exponent. Canonical indices make every such exponent nonnegative. Thus
+persistent vanishing implies `F(t)=0` for every `t>0`.
+
+Poisson summation, applied to these eight absolutely convergent Gaussian
+sums, gives
+
+`F(t) = 1/(p*t^(3/2)) sum_(w in N) A_R(w) exp(-pi*||w||^2/(p^2*t))`.
+
+For `zeta=exp(2*pi*i/(6p))`, direct substitution of x_b gives
+
+```
+A_R(w) = zeta^C product_s (1-zeta^delta_s),
+C = 6*w3*q*R + 6*u - sum(w),       u=(v.w)/p,
+delta_s = 2*w_s-6*w3*q*v_s.
+```
+
+Projectivity makes each `delta_s=2p*t_s`, with
+`t_s=p^(-1)*w_s mod 3`. The amplitude is nonzero exactly when none of the
+coordinates of w is divisible by 3. Call these vectors **supported**.
+If n(w) counts the t_s equal to 2 modulo 3, then
+
+```
+A_R(w) = (1-zeta^(2p))^3 * rho^a(w),
+rho = zeta^3,       a(w) = (C+p*n(w))/3 mod 2p.
+```
+
+The numerator is divisible by 3. Moreover
+`a(-w)=p-a(w) mod 2p`. Separating successive Gaussian exponents as `t -> 0`
+shows that each complete dual norm shell has amplitude zero. The antipodal
+phase theorem proved above then gives equal multiplicities at a and a+p.
+Consequently **every supported vector has an equal-norm opposite-phase
+partner**. This step has no shell-weight bound.
+
+#### 2. Short partners preserve all mutual dot products
+
+All calculations in this paragraph, except explicitly displayed integer
+norms, are in F_p. Put
+
+```
+h = (v.v)/p,       c0 = (2R-sum(v))/3,       D = h+c0,
+lambda(w)*v = w mod p,
+ell(w) = 2*(v.w/p)+c0*lambda(w).
+```
+
+Here `lambda` and `ell` are additive functions on N. The actual compressed
+phase satisfies `a(w)=ell(w) mod p`. Write `w=lambda*v+p*z`. Expanding the
+norm and polarizing gives
+
+```
+||w||^2/p = lambda(w)*ell(w)-D*lambda(w)^2 mod p,
+2*(w.z)/p = lambda(w)*ell(z)+lambda(z)*ell(w)
+             -2D*lambda(w)*lambda(z) mod p.                 (1)
+```
+
+The quotients are integers: all pairings of vectors in N are divisible by p.
+
+**Short-vector uniqueness.** If distinct integral vectors w,w' have equal
+norm and are congruent modulo an odd p, then `||w||^2 >= p^2/2`.
+Indeed, write `w'-w=p*z`. Equality of norms implies
+`2*w.z+p*||z||^2=0`, so `||z||^2` is even. Since z is nonzero it is at least
+2. The parallelogram identity gives
+`p^2*||z||^2 <= 4*||w||^2`. This lemma is now checked in Lean.
+
+Consider all supported vectors with `||w||^2<p^2/2`. An opposite-phase
+partner w' is distinct, has the same ell, and by uniqueness has a different
+lambda. Subtracting the two norm equations in (1) therefore forces
+
+`D*(lambda(w)+lambda(w')) = ell(w).`                         (2)
+
+If D=0 this forces ell(w)=0 and hence `||w||^2/p=0 mod p`, impossible for
+`0<||w||^2<p^2/2`. Thus D is nonzero whenever this supported set is nonempty.
+Equation (2) is one fixed reflection on the pair of arithmetic coordinates
+`(lambda,ell)`: `(lambda,ell) -> (ell/D-lambda,ell)`.
+Substitution in the second equation of (1) shows that, for any two pairs
+`w->w'` and `z->z'`,
+
+`w'.z' = w.z mod p^2`.
+
+Cauchy--Schwarz gives
+
+`|w'.z'-w.z| <= 2*sqrt(||w||^2*||z||^2) < p^2`.
+
+The integer difference must therefore be zero. Partners are also unique:
+two partners have the same lambda by (2), so short-vector uniqueness applies
+to them. We have proved, without assuming a linear map, that the short
+partner permutation is involutive and preserves **all** dot products.
+
+#### 3. Enough supported short vectors exist for every p >= 1250
+
+The integral positive-definite lattice `(N, < , >/p)` has Gram determinant p.
+Its dual, multiplied by p in the original Euclidean coordinates, is L.
+Every nonzero vector of L has squared norm at least 3: norm 1 would force
+one v-coordinate to be zero, and norm 2 would force two coordinates equal
+up to sign.
+
+Choose a basis b1,b2,b3 of N as follows. Choose b1 shortest; choose the
+projection of b2 shortest in the rank-two projected lattice; extend to a
+basis; size-reduce b3 along b2 in that projection and reduce b2,b3 along b1.
+For the inner product divided by p, write the Gram--Schmidt squared lengths
+as A,B,C and its three coefficients as mu,nu,xi. Then
+
+```
+|mu|,|nu|,|xi| <= 1/2,
+A*B*C=p,       B>=3A/4,       C>=3B/4,
+A is a positive integer,    M=A*B is an integer >=3.         (3)
+```
+
+The two inequalities follow because the reduced second vector cannot be
+shorter than the chosen first vector, in N or in its projection. For the
+last assertion, M is the last diagonal entry of the adjugate Gram matrix.
+This adjugate is a Gram matrix of L, whose minimum is at least 3.
+
+Use all coefficient vectors `(x,y,z)` with
+
+`x,y in {-2,-1,0,1,2}, z in {0,1}`
+
+that are nonzero isotropic vectors modulo 3 for the Gram form. Their images
+in N are supported. Indeed, reduction `N/3N -> (Z/3Z)^3` is an isomorphism,
+and a nonzero vector of sum-of-three-squares norm zero modulo 3 has all
+three coordinates nonzero.
+
+These vectors generate N over Z. To see this, a nonsingular ternary form
+over F_3 has isotropic vectors spanning F_3^3: diagonalize it and check
+`x^2+y^2+z^2` and `x^2+y^2-z^2`, up to an overall sign. Every isotropic
+projective point has a representative with z=0 or z=1 in the displayed
+box. Some such point has x nonzero, and replacing x=1 by -2, or x=-1 by 2,
+gives the vector 3e1 as a difference of two included vectors. Likewise the
+span contains 3e2. An included vector with z=1 then supplies 3e3. The
+integer span contains 3Z^3 and is surjective modulo 3, so it is Z^3.
+
+For every vector in this box, Gram--Schmidt gives the uniform bound
+
+```
+||x*b1+y*b2+z*b3||^2/p
+ = A*(x+mu*y+nu*z)^2+B*(y+xi*z)^2+C*z^2
+ <= p/M + (49A+25B)/4.                                    (4)
+```
+
+If M<12, then (3) gives A<=3 and B<=11, so (4) is at most
+`p/3+211/2 < p/2` when p>=1250.
+If M>=12, (3) gives `A^3<=64p/27` and `B^2<=4p/3`. For p>=1250 these imply
+`A<=p/80` and `B<=p/30`. Thus (4) is at most
+
+`p/12 + 49p/320 + 25p/120 = 427p/960 < p/2`.
+
+Multiplying by p proves that supported vectors of squared norm strictly
+below `p^2/2` generate N for every p>=1250. This is a universal geometric
+bound, not an extrapolation from the scan.
+
+#### 4. The finite range, including the one short-generator exception
+
+For the 202 primes `5<=p<1250`, there are 14,370 triples of the form
+`(1,j,k)` with `1<j<k<p/2` and `1+j^2+k^2=0 mod p`. The
+[certificate file](docs/verification/short_watson_generators.json) gives
+14,369 short generating sets, with at most five vectors per set. Each
+vector is supported, lies in N, and has `2*||w||^2<p^2`. The gcd of the
+three-by-three minors is exactly p^2, proving that their integer span is N.
+The checker enumerates every normalized triple independently; it does not
+identify cases using the elliptic J-invariant or trust the LLL generator.
+Projective rescaling does not change N, and signed coordinate permutations
+preserve all these properties, so this covers every original triple in
+that prime range, except p=13.
+
+At p=13 the two canonical admissible triples are `(1,3,4)` and `(2,5,6)`.
+Their root-predicted residues are respectively `{2,4,10}` and `{3,9,11}`.
+Every other residue has the following nonzero coefficient, written `(R,N,a)`
+for `[q^(13N+R)]F(q)=a`:
+
+```
+(1,3,4): (0,0,1), (1,0,-1), (3,0,-1), (5,2,2), (6,0,1),
+         (7,1,-1), (8,0,1), (9,0,-1), (11,1,1), (12,2,-1).
+(2,5,6): (0,0,1), (1,0,-1), (2,0,-1), (4,0,1), (5,1,-1),
+         (6,0,-1), (7,0,1), (8,0,1), (10,2,1), (12,1,-1).
+```
+
+The certificate contains an explicit norm-26 projective root for each of
+the six predicted residues. The independent checker verifies their target
+equations and computes the 20 witnesses directly from the five Pochhammer
+factors, discarding only factors whose first exponent exceeds 40. Thus
+this exception is fully settled; finite silence is not used as a proof.
+
+```sh
+python3 scripts/certify_short_watson_generators.py \
+  --output /tmp/short-watson-generators.json
+python3 scripts/check_short_watson_generators.py \
+  docs/verification/short_watson_generators.json \
+  --output /tmp/short-watson-generators-check.json
+```
+
+The [independent check record](docs/verification/short_watson_generators_check.json)
+also exhausts the 468 nonsingular ternary Gram forms modulo 3 in the
+box-generation lemma and all 48 orthogonal matrices modulo 3 used below.
+These Python checks support the elementary arguments. The subsequent Lean
+development below additionally checks the mod-three generating box and all
+p=13 root and coefficient certificates in the kernel; the 14,369 other
+generator certificates have not yet been checked in Lean.
+
+#### 5. The one symmetry and the exact target equation
+
+For p!=13, let S be all supported vectors of norm below `p^2/2`. Steps 3--4
+show that S generates N. Step 2 supplies an involutive dot-product-preserving
+permutation of S. Choose three independent elements of S and send them to
+their partners. Equality of all pairwise dot products extends this map
+uniquely to a rational orthogonal map T on Q^3; taking inner products with
+the three basis images shows that it sends every element of S to its
+partner. Therefore `T(N)=N` and `T^2=I`. Duality gives `T(L)=L`.
+
+T is not I, since partners have opposite phases. Nor is it -I: phase
+preservation modulo p would then give `ell(w)=0` for every w in S, hence
+for every w in N. But `ell(p*e_s)=2*v_s` is nonzero modulo p. The same
+generation argument shows that ell is preserved by T on all of N.
+
+A noncentral rational orthogonal involution in dimension three is a
+Householder reflection H_w or its negative. Choose its normal w primitive
+integral and write n=w.w. Since pZ^3 is contained in L, integrality on p*e_s
+gives `n | 2p*w_s*w_t` for all s,t. Primitivity gives `n | 2p`.
+The possibilities n=1,2 would force a zero coordinate of v or two equal
+up to sign, so `n=e*p`, e=1 or 2. Integrality on all of L then gives
+`p | w.x` for every x in L. Thus `w=lambda*v mod p`, with lambda nonzero.
+This is the arithmetic extraction already formalized upstream.
+
+It remains to choose H_w versus -H_w and recover R. For supported x,
+the parity of its actual phase is
+
+`(-1)^a(x) = (-1)^sum(x) * chi_3(p) * chi_3(x1*x2*x3)`.
+
+An integral norm-preserving map preserves sum(x) modulo 2. The reduction
+of T modulo 3 is defined, because its denominator divides p, and is
+orthogonal. Every orthogonal matrix for x^2+y^2+z^2 over F_3 is a signed
+permutation: a norm-one column has exactly one nonzero coordinate. It
+multiplies `chi_3(x1*x2*x3)` by a constant sign. Opposite phases on S force
+that sign to be -1. If n=1 mod 3, the reflection H_w changes one coordinate
+sign; if n=2 mod 3, it performs a signed transposition with sign product
++1. Hence T=H_w when e*p=1 mod 3, and T=-H_w when e*p=2 mod 3.
+
+Write `u=(v.w)/p`, `c=2/e`, and `t_x=(x.w)/p`. Then
+
+`H_w(x)=x-c*t_x*w`.
+
+If T=H_w, preservation of ell and evaluation at `x=p*e_s` give `ell(w)=0`.
+Since `3*ell(w)=6u+lambda*(2R-sum(v))`, this is exactly
+`2*lambda*R=sum(w)-6u mod p`.
+
+If T=-H_w, preservation gives `2*ell(x)=c*t_x*ell(w)`. Evaluate at
+`x=p*e_s`, where `ell(x)=2v_s` and `t_x=w_s=lambda*v_s mod p`, to obtain
+`c*lambda*ell(w)=4`. Multiplying by 3 gives precisely
+`c*lambda*(2*lambda*R-sum(w)+6u)=12 mod p`.
+
+Both branches give the required root target. Together with the explicit
+p=13 check and the already formal forward implication, this completes the
+paper argument for the full admissible converse. The proof does not rely
+on uniqueness of arbitrary phase pairings, the first-spanning-cutoff
+conjecture, or injectivity of an individual ternary theta series. Its key
+input is the p-squared congruence in Step 2 and the *integral* generating
+set below the same strict length bound.
+
+### Initial Lean formalization progress [2026-11-01; superseded below]
+
+At this stage the full admissible converse was not yet a Lean theorem.
+The historical [verification record](docs/verification/short_converse_lean.json)
+separates the then-checked results from the remaining obligations.
+
+1. [Dual short geometry](RamanujanTau/MultiQuintupleDualShortGeometry.lean)
+   identifies the compressed phase modulo p on actual projective lifts,
+   proves their dot products divisible by p, upgrades the p² congruence to
+   exact equality under the strict length bound, and proves partner uniqueness.
+2. [Spanning isometries](RamanujanTau/MultiQuintupleSpanningIsometry.lean)
+   extend a Gram-preserving pairing on a spanning family to one rational
+   orthogonal map, including families with duplicate vectors.
+   [Dual pairing isometry](RamanujanTau/MultiQuintupleDualPairingIsometry.lean)
+   combines this with the arithmetic: existence of short phase partners,
+   rational spanning, and one nonzero phase imply a noncentral orthogonal
+   involution. Neither a coherent linear map nor involutivity is assumed.
+3. [Integral span](RamanujanTau/MultiQuintupleIntegralSpan.lean) proves that
+   determinant gcd one certifies generation over Z.
+   [Small isotropic box](RamanujanTau/MultiQuintupleSmallIsotropicBox.lean)
+   uses kernel-checked certificates for all 468 nonsingular symmetric Gram
+   forms over F₃ to prove that the displayed coefficient box generates Z³.
+   Its reproducible generator is
+   [generate_small_isotropic_box.py](scripts/generate_small_isotropic_box.py).
+4. [Generator estimates](RamanujanTau/MultiQuintupleShortGeneratorEstimate.lean)
+   prove the size-reduced box estimate and the strict p/2 bound for p>=1250
+   from hypotheses (3). Existence of a basis satisfying those hypotheses
+   remains unproved in Lean.
+5. [The modulus-13 converse](RamanujanTau/MultiQuintupleConverseThirteen.lean)
+   proves the complete Root--Vanishing equivalence for every admissible
+   triple and residue at 13. The kernel checks the six roots, the 20 exact
+   nonzero coefficients, and the completeness of the two canonical triples.
+   The coefficient theorem uses the actual infinite products; no unproved
+   truncation or Python correctness hypothesis is involved.
+
+At that stage, closing the universal statement still required: the analytic Poisson
+and shell-separation bridge in Step 1; existence of the reduced basis and
+its identification with the actual dual lattice in Step 3; the 14,369
+small-prime certificates and normalization in Step 4; and the integral
+lattice preservation, phase-parity, and exact target assembly for the dual
+involution in Step 5. The existing primal coherent-involution classification
+does not by itself discharge this last dual assembly. No universal converse
+was asserted by those initial files.
+
+### Complete Lean converse [2026-11-01]
+
+The obligations above are now discharged. The public theorem in
+[MultiQuintupleFullConverse.lean](RamanujanTau/MultiQuintupleFullConverse.lean)
+proves the full admissible Root–Vanishing equivalence and the original
+`AdmissibleRootVanishingRigidity` interface.
+
+The analytic bridge starts from the actual coefficient identity and applies
+congruence-projected Poisson summation to all eight Watson branches. Absolute
+convergence permits regrouping, and analytic power-series uniqueness separates
+every norm shell. The exact Fourier amplitude compresses to a common nonzero
+factor times one canonical phase per supported vector. The antipodal phase law
+then forces opposite partners. Integral short generation is proved using a
+reduced basis for p≥1250 and kernel-checked normalized tables below that bound;
+the exceptional modulus 13 is settled separately. Finally, the short-partner
+isometry and lattice-preservation arguments produce the precise projective root
+certificate and residue condition.
+
+The [full Lean verification record](docs/verification/full_converse_lean.json)
+records the commands and axiom report. The earlier JSON and axiom snapshots
+remain unchanged. The classification has the stated admissibility hypotheses;
+it does not assert the false unrestricted converse or classify four-factor
+products.
 
 ### The projective invariant is an elliptic `j`-invariant
 
@@ -933,16 +1568,19 @@ normal form, and the converse
 construction from a projective-root certificate to a coherent involution are now implemented.
 For the corrected prime/distinct/isotropic problem, the proof frontier is:
 
-1. prove either of the following equivalent statements:
+1. Prove either of the following equivalent universal statements:
    - spectral coherence: persistent vanishing of the parity Walsh component supplies one
      noncentral rational orthogonal involution acting on the full affine residue fiber; or
    - effective separation: every residue without a projective-root target has a finite nonzero
      coefficient witness, ideally below an explicit geometry-of-numbers or modular bound; or
-   - spanning-shell rigidity: prove that common Poisson-dual cancellation through the first shell
+2. A stronger proposed finite route is spanning-shell rigidity: prove that common Poisson-dual cancellation through the first shell
      whose supported vectors span `Q^3` forces a projective-root target.  The stopping norm exists
      and is at most `3p^2` by the proved scalar-zero spanning certificate; or, for the structurally
      stronger route, prove coherent phase matching through the first perfect and lattice-generating
-     cutoff, whose existence is proved by norm `6p^2`.
+     cutoff, whose existence is proved by norm `6p^2`. These specific finite
+     cutoffs are additional conjectures, not proved equivalent to the
+     universal converse. The new unbounded pairing theorem above removes
+     the shell-size obstacle, but not the arithmetic coherence problem.
 
 The rational three-dimensional classification is now proved: every such noncentral orthogonal
 involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "primes_below_1250": 202,
+  "normalized_lines": 14370,
+  "generator_certificates": 14369,
+  "exceptional_normalized_lines": 1,
+  "maximum_vectors_per_certificate": 5,
+  "p13_canonical_triples": 2,
+  "p13_root_certificates": 6,
+  "p13_nonzero_coefficients": 20,
+  "nondegenerate_ternary_forms_mod_3": 468,
+  "orthogonal_matrices_mod_3": 48,
+  "universal_bound_endpoint_inequalities_checked": true,
+  "certificate_sha256": "83a17fadcf0224f078542506fdc65462ab2ff133a5a34678e284286a3b2d7728",
+  "checker_sha256": "546c6c453fcf4a930a2ca141f66210066afe1509f0674710d1547e47a0eff986",
+  "lean_checked": false
+}

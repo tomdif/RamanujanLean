@@ -98,8 +98,8 @@ not substitute for `lake build` or the Lean axiom audits.
 The [documentation guide](docs/README.md) distinguishes current results from
 historical plans, numerical experiments, and proposed paper arguments.
 Current open work includes efficient high-precision seed computation, extending
-certified arithmetic representations beyond prime 29, and the remaining
-multi-quintuple classification problem. Deligne's τ bound is not formalized here;
+certified arithmetic representations beyond prime 29, and extensions beyond
+the proved admissible sparse triple multi-quintuple classification. Deligne's τ bound is not formalized here;
 Lehmer's conjecture remains open.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for proof, certificate, and documentation

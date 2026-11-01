@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-01",
+  "synthetic_cases": 240,
+  "largest_weight_over_2p_floor": 7188,
+  "negative_controls": 6,
+  "nonlinear_pairing_control": {
+    "prime": 11,
+    "vectors": 18,
+    "perfect_tensor_rank": 6,
+    "contains_integer_basis": true,
+    "unique_opposite_partners": true,
+    "common_linear_map": false,
+    "uses_actual_Watson_phases": false
+  },
+  "oracle_comparisons": [
+    {
+      "prime": 7,
+      "normal": [
+        1,
+        2,
+        3
+      ],
+      "span_shells": 1,
+      "perfect_shells": 2,
+      "complete_enumerations_agree": true,
+      "all_residue_zero_sets_agree": true
+    },
+    {
+      "prime": 13,
+      "normal": [
+        1,
+        3,
+        4
+      ],
+      "span_shells": 2,
+      "perfect_shells": 2,
+      "complete_enumerations_agree": true,
+      "all_residue_zero_sets_agree": true
+    },
+    {
+      "prime": 31,
+      "normal": [
+        1,
+        5,
+        6
+      ],
+      "span_shells": 2,
+      "perfect_shells": 2,
+      "complete_enumerations_agree": true,
+      "all_residue_zero_sets_agree": true
+    },
+    {
+      "prime": 71,
+      "normal": [
+        1,
+        4,
+        14
+      ],
+      "span_shells": 2,
+      "perfect_shells": 8,
+      "complete_enumerations_agree": true,
+      "all_residue_zero_sets_agree": true
+    },
+    {
+      "prime": 71,
+      "normal": [
+        1,
+        11,
+        34
+      ],
+      "span_shells": 2,
+      "perfect_shells": 6,
+      "complete_enumerations_agree": true,
+      "all_residue_zero_sets_agree": true
+    },
+    {
+      "prime": 1439,
+      "normal": [
+        1,
+        63,
+        391
+      ],
+      "span_shells": 5,
+      "perfect_shells": 7,
+      "complete_enumerations_agree": true,
+      "all_residue_zero_sets_agree": true
+    },
+    {
+      "prime": 1523,
+      "normal": [
+        1,
+        147,
+        468
+      ],
+      "span_shells": 6,
+      "perfect_shells": 7,
+      "complete_enumerations_agree": true,
+      "all_residue_zero_sets_agree": true
+    }
+  ],
+  "all_checks_passed": true,
+  "sha256": {
+    "check_phase_pairing.py": "a38f05e76d5a0b3574f4f192dfb76af25caf510eae361c04098d4c48af26ce1f",
+    "attack_phase_rigidity.py": "59ed3707a7876836f73eadb535023304a79f58ae8550f686079c8255bc84b8e0",
+    "paley_spinor_scan.py": "f0e39c279ad8879fecaa38de992775ed719f9b838d005de0fc51b3cae952db1d"
+  }
+}

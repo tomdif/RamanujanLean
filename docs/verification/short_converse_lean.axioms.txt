@@ -1,0 +1,113 @@
+'Ramanujan.MultiQuintuple.coeff_eisensteinFamily_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.prime_phase_sum_zero_iff_coefficients_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.prime_phase_sum_zero_iff_bucket_balance' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.antipodal_zero_bucket_balance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.antipodal_shell_sum_zero_iff_pair_balance' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.antipodal_shell_amplitude_zero_iff_pair_balance' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.projective_lift_norm_quotient_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.projective_lift_dot_quotient_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.phase_norm_identity_or_reflection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.phase_reflection_preserves_polarization' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.phase_zero_parameter_forces_zero_norm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.short_equal_norm_translate_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryIntDot_self' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.ternaryIntNorm_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryIntNorm_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryIntDot_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryIntNorm_sub' depends on axioms: [propext, Quot.sound]
+'Ramanujan.MultiQuintuple.short_dot_eq_of_square_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.short_equal_norm_point_translate_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.dot_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.pairing_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.dot_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.dot_quotient_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.dot_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.phase_eq_compressed_mod_prime' depends on axioms: [propext, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.phase_eq_of_compressed_congruent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.norm_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.dot_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.short_eq_of_scalar_cast_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.short_partner_reflection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.short_phase_partners_preserve_dot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.short_phase_partner_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.short_compressed_partners_preserve_dot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryRatDot_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryRatDot_add_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryRatDot_zero_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryRatDot_zero_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryRatNorm_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryRatNorm_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.exists_linear_of_spanning_dot_pairing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.exists_linear_of_spanning_gram_family' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.exists_orthogonal_involution_of_spanning_pairing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryRatDot_intIndexToRat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryIntIndexToRat_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.phase_neg_of_point_neg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ProjectiveDualLift.phase_partner_ne_neg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.short_phase_partners_yield_orthogonal_involution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.ternaryPointDet_smul' depends on axioms: [propext, Quot.sound]
+'Ramanujan.MultiQuintuple.determinant_smul_mem' depends on axioms: [propext, Quot.sound]
+'Ramanujan.MultiQuintuple.integer_gcd_smul_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.integerListGcd_smul_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.span_eq_top_of_determinant_gcd_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.span_list_eq_top_of_generatorDetGcd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.generatorPairs_mem' depends on axioms: [propext, Quot.sound]
+'Ramanujan.MultiQuintuple.generatorTriples_mem' depends on axioms: [propext, Quot.sound]
+'Ramanujan.MultiQuintuple.small_isotropic_box_span_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.reduced_ternary_length_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.reduced_ternary_large_prime_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.short_generator_cost_lt_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.reduced_ternary_box_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.coeff_triple_eq_tripleBilateralCoeff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.root_or_witness13_134' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.root_or_witness13_256' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.admissible_root_vanishing_converse_thirteen' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.admissible_root_vanishing_equivalence_thirteen' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

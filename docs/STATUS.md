@@ -1,6 +1,6 @@
 # Current status
 
-Updated 2026-10-31. [Overview](../README.md) · [Documentation guide](README.md)
+Updated 2026-11-01. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Formal developments
 
@@ -16,7 +16,7 @@ Updated 2026-10-31. [Overview](../README.md) · [Documentation guide](README.md)
 | Prime 31 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1, by the same method as prime 29. | [Complete31](../RamanujanTau/FiniteArithmetic/Complete31.lean) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
 | Universal Theorem A | For every prime ℓ ≥ 13: the ℓ-th coefficient of a normalized eigenform in the Atkin–Lehner class is a unit above ℓ, and T_ℓ has determinant prime to ℓ on the integer sign lattice (unconditional). Injectivity of U_{ℓ²} on the half-integral space and of X̄ on V is proved unconditionally, including modularity of the explicit lifts (Ahlgren–Andersen–Dicks, Theorem 1.1): `ThetaLift.theoremA_unconditional`, `ThetaLift.aadModularity`. The upper bound b_ℓ(m) ≤ 2m−1 and the condition d_ℓ = 0 follow for every ℓ ≥ 13 (`BLBound.bEll_le`, `BLBound.dEll_eq_zero`, `BLBound.chain_stable`). Machine-checked; not yet reviewed by a human expert. | [Formalization boundary](THEOREM_A.md) |
-| Multi-quintuple products | The canonical family and the stated specializations are proved. The corrected general converse remains a research problem. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
+| Multi-quintuple products | The canonical family, specializations, and sparse family with moduli `9t²+15t+7` are formal. The complete admissible sparse triple Root–Vanishing equivalence is proved in Lean for the actual infinite products. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
 
@@ -27,6 +27,46 @@ there is no `sorryAx` or additional axiom. The
 [verification record](verification/prime29.json) pins the source revision,
 toolchain, Mathlib revision, and checked commands. The
 [raw axiom report](verification/finite_arithmetic.axioms.txt) lists the audited declarations.
+
+The [sparse-family verification record](verification/eisenstein_family.json)
+records the subsequent build and the dedicated audit of the unconditional
+all-parameter coefficient theorem. Independent direct Pochhammer products
+agree with Watson sums for the first six parameters, including modulus 133.
+The separate lattice symmetry argument remains a paper proof: its exact
+checks cover 3,172 projective classes through prime 1000 and 9,376
+automorphisms, without turning that finite census into a universal Lean proof.
+
+The subsequent [phase-pairing verification record](verification/phase_pairing.json)
+records a 9,294-job full build and the expanded six-declaration multi-quintuple
+audit, with only the standard axioms. The new algebraic theorem forces
+opposite-phase balance on complete antipodal shells without a size bound.
+It does not prove a single geometric symmetry behind all the pairings.
+
+The subsequent full-converse paper argument uses the actual Watson phases:
+short partners preserve dot products modulo p², and the strict norm bound
+turns these congruences into equalities. A geometric argument supplies
+supported generators for every p>=1250. An independent checker verifies
+14,369 short-generator certificates below that bound and settles the two
+p=13 triples with explicit roots and 20 nonzero coefficients. Six new local
+algebraic lemmas are formal in `MultiQuintupleShortCoherence.lean`. The
+paper argument supplied the blueprint for the completed formalization below.
+The [initial verification record](verification/full_converse_paper.json)
+reports a successful 9,295-job full build and 12 audited declarations using
+only the standard axioms, including the six new algebraic lemmas.
+
+The complete admissible sparse triple converse is now proved in
+[`MultiQuintupleFullConverse.lean`](../RamanujanTau/MultiQuintupleFullConverse.lean).
+For prime p≠3, 0<i<j<k<p/2, p dividing i²+j²+k², and R<p,
+`HasProjectiveRootTarget p i j k R` is equivalent to
+`PersistentTripleVanishing p i j k R`. The theorem concerns the actual infinite
+products. Poisson summation and shell separation, opposite phase partners,
+integral short generation, and the exact root-target extraction are all
+proved. The generation argument covers p≥1250 geometrically and the smaller
+primes by kernel-checked certificates; p=13 has its separate complete proof.
+The bound 1250 is sufficient, with no minimality claim.
+See the [full Lean verification record](verification/full_converse_lean.json).
+The [earlier progress record](verification/short_converse_lean.json) remains
+an unchanged historical snapshot of the previous proof boundary.
 
 The Theorem A development proves all-prime ordinarity on the prescribed
 U₂/U₃ eigenspace of the level-six integral model and on reductions of actual
@@ -69,8 +109,10 @@ with the build and audit commands in the [overview](../README.md#build-and-verif
 - Derive the prescribed bad-prime eigenvalues from the actual newform
   Atkin–Lehner class, then formalize the half-integral-weight correspondence
   and Boylan–Webb identification needed by the [Theorem A formalization](THEOREM_A.md).
-- Resolve the corrected multi-quintuple classification problem. Its existing
-  finite experiments and reductions do not prove the universal converse.
+- Independently review the mathematics and scope of the completed admissible
+  sparse triple classification in the
+  [multi-quintuple research record](../RESEARCH_MULTI_QUINTUPLE.md).
+  The separate prime-index automorphism argument remains a paper proof.
 
 The research documents retain historical calculations and proposed arguments.
 Their labels such as “proved here” refer to paper arguments unless they identify

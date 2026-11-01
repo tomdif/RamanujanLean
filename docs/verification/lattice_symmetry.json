@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-01",
+  "max_prime": 1000,
+  "eisenstein_bound": 10000,
+  "counts": {
+    "classes": 3172,
+    "noncentral_classes": 1196,
+    "automorphisms": 9376,
+    "order_three_extractions": 320,
+    "even_order_extractions": 2712,
+    "eisenstein_primes": 611
+  },
+  "normalized_rotation_orders": {
+    "1": 6344,
+    "2": 2712,
+    "3": 320
+  },
+  "examples": {
+    "3": {
+      "prime": 7,
+      "normal": [
+        1,
+        2,
+        3
+      ],
+      "extracted_root": [
+        2,
+        -3,
+        -1
+      ],
+      "norm": 14
+    },
+    "2": {
+      "prime": 7,
+      "normal": [
+        1,
+        2,
+        3
+      ],
+      "extracted_root": [
+        3,
+        -1,
+        2
+      ],
+      "norm": 14
+    }
+  },
+  "nonintegral_order_three_control_passed": true,
+  "all_checks_passed": true,
+  "general_theorem_checked_in_lean": false,
+  "sha256": {
+    "check_lattice_symmetry.py": "1e81d3f7ad975bec51899941ef05f904a6c198faa51f86dd3dcfde8d8b399ba1",
+    "paley_spinor_scan.py": "f0e39c279ad8879fecaa38de992775ed719f9b838d005de0fc51b3cae952db1d"
+  }
+}

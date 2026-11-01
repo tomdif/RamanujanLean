@@ -230,6 +230,8 @@ import RamanujanTau.MultiQuintupleRootBranch
 import RamanujanTau.MultiQuintupleBilateralBridge
 -- Finite three-factor convolution and positive/negative short-root cancellation
 import RamanujanTau.MultiQuintupleCancellation
+-- Explicit infinite sparse family, including composite moduli
+import RamanujanTau.MultiQuintupleEisensteinFamily
 -- Projective-root transport, uniform Root-to-Vanishing, and the p=71/p=79 instances
 import RamanujanTau.MultiQuintupleProjectiveCancellation
 import RamanujanTau.MultiQuintupleRootVanishingEquivalence
@@ -245,6 +247,21 @@ import RamanujanTau.MultiQuintupleDualPhase
 import RamanujanTau.MultiQuintupleDualPerfect
 -- Projective dual amplitudes compress from eight phases to one phase with cubic factors
 import RamanujanTau.MultiQuintupleDualCompression
+-- Complete antipodal shells force opposite-phase balance at every weight
+import RamanujanTau.MultiQuintuplePhasePairing
+import RamanujanTau.MultiQuintupleShortCoherence
+-- Actual dual lifts, unique short partners, and their common orthogonal involution
+import RamanujanTau.MultiQuintupleDualShortGeometry
+import RamanujanTau.MultiQuintupleSpanningIsometry
+import RamanujanTau.MultiQuintupleDualPairingIsometry
+-- Integral generating certificates and the reduced-basis length estimates
+import RamanujanTau.MultiQuintupleIntegralSpan
+import RamanujanTau.MultiQuintupleSmallIsotropicBox
+import RamanujanTau.MultiQuintupleShortGeneratorEstimate
+-- Unconditional converse for every admissible triple at the exceptional prime 13
+import RamanujanTau.MultiQuintupleConverseThirteen
+-- Complete universal admissible Root–Vanishing equivalence
+import RamanujanTau.MultiQuintupleFullConverse
 -- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
 import RamanujanTau.MultiQuintupleLocalSupport
 -- Eight shifted ternary-coset components, Walsh inversion, and exact theta reduction

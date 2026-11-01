@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-01",
+  "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
+  "working_tree_changes": true,
+  "paper_proof": {
+    "status": "proposed complete computer-assisted argument",
+    "covers_all_admissible_primes": true,
+    "universal_short_generator_threshold": 1250,
+    "strict_squared_norm_bound": "p^2/2",
+    "independently_reviewed": false,
+    "mathematical_novelty_claim": false
+  },
+  "formal_boundary": {
+    "new_algebraic_lemmas_checked": 6,
+    "analytic_poisson_bridge_formalized": false,
+    "universal_short_generator_geometry_formalized": false,
+    "finite_generator_certificates_checked_by_lean": false,
+    "full_root_vanishing_converse_formalized": false
+  },
+  "full_build": {
+    "command": "lake build",
+    "jobs": 9295,
+    "passed": true
+  },
+  "axiom_audit": {
+    "command": "lake env lean scripts/audit/multi_quintuple.lean",
+    "declarations": 12,
+    "new_declarations": 6,
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "passed": true
+  },
+  "finite_arithmetic": {
+    "passed": true,
+    "primes_below_1250": 202,
+    "normalized_lines": 14370,
+    "generator_certificates": 14369,
+    "exceptional_normalized_lines": 1,
+    "maximum_vectors_per_certificate": 5,
+    "p13_canonical_triples": 2,
+    "p13_root_certificates": 6,
+    "p13_nonzero_coefficients": 20,
+    "nondegenerate_ternary_forms_mod_3": 468,
+    "orthogonal_matrices_mod_3": 48,
+    "universal_bound_endpoint_inequalities_checked": true,
+    "certificate_sha256": "83a17fadcf0224f078542506fdc65462ab2ff133a5a34678e284286a3b2d7728",
+    "checker_sha256": "546c6c453fcf4a930a2ca141f66210066afe1509f0674710d1547e47a0eff986",
+    "lean_checked": false
+  },
+  "negative_controls": {
+    "corrupted_vector_rejected": true,
+    "missing_line_rejected": true,
+    "corrupted_coefficient_rejected": true,
+    "corrupted_root_target_rejected": true
+  },
+  "sha256": {
+    "RESEARCH_MULTI_QUINTUPLE.md": "aada3997f42b5e71e3003fca4f41c56b490bfc21daedf1526e526ead8b413bc2",
+    "RamanujanTau/MultiQuintupleShortCoherence.lean": "371b73e39b447f4f89ed75005e827867e2f63eff09426aa972f29095652361f9",
+    "scripts/audit/multi_quintuple.lean": "59f4950ab73c7bc5efe4383768d554290b83924a285b7cff84f8ddb00a92b204",
+    "scripts/certify_short_watson_generators.py": "31200e89d4466a85cae05505c748cb0603bdac779868b45a80e665cd7dfa2d26",
+    "scripts/check_short_watson_generators.py": "546c6c453fcf4a930a2ca141f66210066afe1509f0674710d1547e47a0eff986",
+    "docs/verification/short_watson_generators.json": "83a17fadcf0224f078542506fdc65462ab2ff133a5a34678e284286a3b2d7728",
+    "docs/verification/short_watson_generators_check.json": "0638dba4a0e7e9d3fa25b13059d2aaa384a1cea4d9e7ee075e27f806feaab292",
+    "docs/verification/multi_quintuple.axioms.txt": "1e04b9d44640beb775f1d274baf09653366b0549a06f5673811f030ee2c27aa6"
+  },
+  "repository_check": {
+    "lean_files": 941,
+    "markdown_files": 25,
+    "passed": true,
+    "local_links": 226
+  },
+  "diff_check_passed": true
+}
