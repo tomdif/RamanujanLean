@@ -13,7 +13,54 @@ Earlier frontier notes below are retained as historical research steps.
 The exact coefficient scanner in `scripts/quintuple_vanishing_scan.py` reproduces all five
 examples reported in the March and June 2026 papers and tests proposed extensions.
 
-## Main theorem: the all-canonical infinite family
+## Current theorem
+
+For natural numbers p,i,j,k,R satisfying
+
+```text
+p prime, p ≠ 3, 0 < i < j < k, 2k < p,
+p divides i²+j²+k², and R < p,
+```
+
+[`admissible_root_vanishing_equivalence`](RamanujanTau/MultiQuintupleFullConverse.lean)
+proves
+
+```text
+HasProjectiveRootTarget p i j k R ↔ PersistentTripleVanishing p i j k R.
+```
+
+In plain language: every coefficient in the progression pN+R vanishes exactly
+when a short integer vector satisfies the root and residue equations. The
+criterion predicts an entire infinite progression from a finite arithmetic
+certificate. The theorem concerns the actual infinite products
+`Q(qⁱ,qᵖ) Q(qʲ,qᵖ) Q(qᵏ,qᵖ)`, and its only assumptions are the displayed
+admissibility and residue conditions.
+
+Writing v=(i,j,k), the certificate consists of integers e,c,λ,u and w∈ℤ³
+with e∈{1,2}, ce=2, w≡λv modulo p, w·w=ep, v·w=pu, and
+
+```text
+2λR ≡ sum(w) − 6u                         (mod p), if ep ≡ 1 (mod 3),
+cλ(2λR − sum(w) + 6u) ≡ 12                (mod p), if ep ≡ 2 (mod 3).
+```
+
+The target condition is essential: a short root alone does not specify the
+vanishing residue. The three public interfaces are
+`admissible_root_vanishing_converse`, `admissible_root_vanishing_equivalence`,
+and `admissibleRootVanishingRigidity_proved`.
+
+The published proof snapshot passed a **9,336-job full build** and a
+**251-declaration multi-quintuple axiom audit**. All audited dependencies are
+among `propext`, `Classical.choice`, and `Quot.sound`. The
+[verification record](docs/verification/full_converse_lean.json) distinguishes
+this published snapshot from the larger development worktree.
+
+* [Result catalog and Lean example](docs/RESULTS.md#multi-quintuple-products-complete-admissible-triple-classification)
+* [Completed proof outline](#complete-lean-converse-2026-11-01)
+* [Certificate reproduction and audit commands](docs/FINITE_ARITHMETIC.md#multi-quintuple-classification-certificates)
+* [Scope and follow-up questions](#scope-and-follow-up-questions)
+
+## Canonical infinite family
 
 For every odd integer `p = 2m+1 >= 5`, collecting the five Pochhammer factors proves
 
@@ -34,10 +81,18 @@ Check sample expansions against the theorem with, for example:
 python3 scripts/quintuple_vanishing_scan.py canonical --prime 31 --depth 80
 ```
 
-The remaining experimental problem below concerns *sparse* products with only three or four
-factors.  The all-canonical theorem does not classify those sparse vanishings.
+The investigation below concerns *sparse* products with only three or four
+factors. The admissible three-factor case is now classified by the theorem
+above. Four-factor products remain outside that classification.
 
-## Breakthrough candidate: the reflective-lattice criterion
+## Historical development: reflective lattices and the converse
+
+The sections below preserve the route from experiments to the completed
+converse. Conditional reductions describe intermediate results; later sections
+supply their missing inputs. The first-witness and particular shell-cutoff
+conjectures remain separate questions. The arbitrary-automorphism equivalence
+is still a paper argument, whereas the root–coefficient equivalence is proved
+in Lean.
 
 For a distinct isotropic triple `(i,j,k)`, define the index-`p` ternary lattice
 
@@ -50,7 +105,7 @@ with the ordinary sum-of-three-squares norm.  Solving a target residue condition
 three bilateral quintuple sums produces this homogeneous lattice, together with eight
 inhomogeneous cosets indexed by the bilateral branch choices.
 
-The data now supports the precise conjecture:
+The investigation began with the following conjecture:
 
 > **Reflective-lattice conjecture.** A distinct isotropic triple product has an identically
 > vanishing residue class if and only if `Aut(L_(p;i,j,k))` is larger than its unavoidable
@@ -243,12 +298,12 @@ Thus w modulo p annihilates `v^perp` and is proportional to v. It is nonzero
 modulo p because `0<n<p^2`. The construction already proved in
 `MultiQuintupleRootReflection` gives `3 => 2`, and `2 => 1` is immediate. ∎
 
-**What this would settle.** This supplies a general paper argument for the
+**What this argument establishes on paper.** It addresses the
 automorphism/short-root equivalence seen in the census. Combined with the
-existing projective-root-to-vanishing theorem, an extra lattice symmetry
-forces a zero progression. It does **not** prove the other implication:
-an identically zero signed theta series still has to force a coherent
-symmetry. That spectral-rigidity problem remains open.
+projective-root-to-vanishing theorem, an extra lattice symmetry forces a zero
+progression. The converse from identically zero coefficients to a root is
+proved separately by the completed Lean theorem above. The arbitrary-
+automorphism argument itself remains outside the formalization.
 
 `scripts/check_lattice_symmetry.py` checks the proof's intermediate claims
 against the existing exhaustive rational automorphism enumerator. It checks
@@ -381,9 +436,10 @@ scaled vanishing at R
         or (g divides R and the primitive product vanishes at R/g).
 ```
 
-There is no third common-scale mechanism.  Conditional on the remaining admissible primitive
-rigidity statement, the second clause is equivalent to a primitive projective-root target, giving
-a formal end-to-end scaled classification.
+There is no third common-scale mechanism. If the descended triple satisfies
+`AdmissibleSparseTriple` and R/g is a canonical residue, the completed converse
+identifies the second clause with a primitive projective-root target. Descended
+products outside those hypotheses require a broader classification.
 
 `RamanujanTau.MultiQuintupleLocalSupport` proves a second, strictly more general support theorem.
 For every odd `d` satisfying
@@ -402,15 +458,17 @@ Any residue outside those classes gives an identically zero progression.  This f
 mixed example `Q(q,q^15) Q(q^3,q^15)^2`, whose entire `15N+2` progression vanishes even though the
 three indices have no common scale.  For prime `p >= 5` and nonzero canonical indices, any such
 nontrivial `d` would force `p | i,j,k`, so the local sieve disappears.  This separates elementary
-local support gaps from the genuine primitive cancellation problem.  The corrected frontier is
-therefore explicitly restricted to prime, pairwise-distinct, isotropic triples and canonical
-residues; `AdmissibleRootVanishingRigidity` records the only remaining converse statement.
+local support gaps from the primitive cancellation problem. The corrected
+classification is therefore explicitly restricted to prime, pairwise-distinct,
+isotropic triples and canonical residues. Its original interface,
+`AdmissibleRootVanishingRigidity`, is now discharged by
+`admissibleRootVanishingRigidity_proved`.
 The scanner now derives the signed lattice reflection and residue from these formulas rather than
 searching over all automorphisms.  An exact sweep through `p<=251` checked 162 reflective classes:
 every predicted residue had the root-specific affine certificate and was an observed zero, with
-zero mismatches.  The sweep remains finite evidence for the proposed converse classification; the
-forward coefficient progression is now a formal theorem for arbitrary parameters satisfying the
-root and target hypotheses.
+zero mismatches. This sweep supplied finite evidence before the general converse
+was proved. The forward coefficient progression is a formal theorem for arbitrary
+parameters satisfying the root and target hypotheses.
 
 ### Exact eight-coset theta reduction and the rigidity bottleneck
 
@@ -443,8 +501,9 @@ The module proves character orthogonality and the integral inversion formula
 It also proves that the lone parity projection is not injective.  This is a structural warning:
 one scalar vanishing identity cannot be promoted to equality of the eight component theta series
 without additional modular, Hecke, or twisting information.  All eight Walsh projections would
-be sufficient, and the missing problem is now to manufacture enough of them—or prove an equivalent
-spectral multiplicity-one statement—from the persistent progression identity.
+be sufficient. At this stage the problem was to recover enough spectral
+information from the persistent progression identity; the completed proof
+instead uses the dual-shell phase partners described below.
 More precisely, the signed series is now proved to be the difference of the two nonnegative
 representation series formed by the four positive- and four negative-parity cosets.  Persistent
 vanishing is exactly equality of those two representation counts along the progression.  Thus the
@@ -485,14 +544,16 @@ The formal theorem is an exact equivalence between projective-root targets and n
 theta involutions on admissible data.  It upgrades the former sufficient reduction: spectral
 coherence, theta-coset rigidity, and corrected Root--Vanishing rigidity are now proved logically
 equivalent propositions.  The rational geometry and the entire arithmetic extraction are therefore
-closed, without axioms.  The reverse Root--Vanishing direction now has exactly one remaining claim:
+checked using only Lean's standard axioms. At this stage, the reverse
+Root--Vanishing direction was reduced to one remaining claim:
 
 1. **Spectral coherence:** persistent vanishing of the top Walsh component forces one coherent
    rational orthogonal involution of the eight cosets.
 
-Parity noninjectivity explains why this is genuine extra content: a single scalar Walsh identity
-does not formally determine all eight theta components.  The remaining breakthrough target is a
-rigidity or multiplicity-one theorem for the two parity unions along the selected progression.
+Parity noninjectivity explains why this requires extra content: a single scalar
+Walsh identity does not formally determine all eight theta components. The
+completed proof resolves the problem using Poisson summation, actual phase
+partners, and integral short generation, as described below.
 
 There is now a sharper scalar formulation.  `RamanujanTau.MultiQuintupleThetaCharacter` proves
 that for the affine Watson index `m=3n+b`, the branch sign is
@@ -506,8 +567,8 @@ chi_3^+(m) =  1  if m = 0 (mod 3),
 which is the nontrivial quadratic character modulo three evaluated at `m+1`.  Consequently the
 eight-coset Walsh projection is exactly one theta series weighted by
 `chi_3^+(m_1)chi_3^+(m_2)chi_3^+(m_3)`, and this character theta series is proved equal to the actual
-triple quintuple product.  The remaining claim can therefore be attacked as nonvanishing of one
-explicit character theta component.  This makes finite Weil transforms at `3` and `p`, Hecke
+triple quintuple product. This supplied an alternative way to formulate the
+converse as nonvanishing of one explicit character theta component.  This makes finite Weil transforms at `3` and `p`, Hecke
 propagation, and cusp-order separation concrete alternatives to reconstructing an isometry from
 four-versus-four representation counts.
 
@@ -522,9 +583,10 @@ one N with [q^(p*N+R)] Q(q^i,q^p)Q(q^j,q^p)Q(q^k,q^p) != 0.
 
 For admissible data this root-or-finite-witness dichotomy is proved logically equivalent to
 theta-coset rigidity, spectral geometric coherence, and corrected Root--Vanishing rigidity.  Both
-alternatives carry finite certificates.  Consequently an effective geometry-of-numbers or modular
-bound for the first nonzero witness would prove the full conjecture without promoting one Walsh
-projection to eight component identities.
+alternatives carry finite certificates. An effective geometry-of-numbers or
+modular bound for the first nonzero witness was therefore another possible route
+to the converse. The completed proof does not require the quantitative bound
+proposed below.
 
 The new exact command
 
@@ -544,9 +606,9 @@ violations of N <= p/4                                      0
 unresolved residues / root-nonzero conflicts             0 / 0
 ```
 
-This remains bounded evidence, not a universal cutoff theorem.  Its significance is that the
-remaining theorem now has a falsifiable, certificate-complete computational form rather than only
-an infinite spectral formulation.  The cleanest surviving conjectural bound is now explicit:
+This remains bounded evidence, not a universal cutoff theorem. The converse
+now guarantees a finite witness whenever there is no root target, but it does
+not give the following proposed bound on the first witness:
 
 ```text
 if no projective root targets R, then some nonzero coefficient occurs with N <= floor(p/4).
@@ -719,10 +781,11 @@ spanning-shell/root-target mismatches                    0
 
 The same command restricted to `p=1439` and `p=1523` checks all 60 and 63 projective classes,
 respectively, with no mismatch.  These computations are exact bounded evidence, not a proof of the
-rigidity conjecture.  The corrected Poisson route is now sharply separated into two remaining
-steps: prove spanning-shell rigidity, and formalize the analytic bridge from persistent primal
-vanishing to cancellation on every complete dual shell.  Together with `rho_span <= 3p^2`, those
-steps would yield a universal finite Root--Vanishing decision theorem.
+spanning-shell conjecture. This suggested proving spanning-shell rigidity and
+formalizing the analytic bridge from persistent primal vanishing to cancellation
+on every complete dual shell. The analytic bridge is now proved. The final
+converse uses integral short generation rather than assuming the first-spanning
+cutoff criterion, which remains a separate stronger question.
 
 #### Phase hyperplanes and the perfect-shell refinement
 
@@ -791,17 +854,17 @@ dual lattice.  Therefore the first cutoff that is both perfect and lattice-gener
 norm `6p^2`.  This yields a proof-oriented strengthening of spanning-shell rigidity:
 
 ```text
-Perfect-Generating Phase Rigidity (remaining finite lemma).
+Perfect-Generating Phase Rigidity (separate finite-cutoff conjecture).
 Aggregate cancellation through the first perfect, lattice-generating supported cutoff
 is induced by one phase-reversing linear pairing of its vectors.
 ```
 
 Once that pairing is obtained, the proved perfect-set theorem forces it to be orthogonal and the
 proved generators force it to preserve the full projective dual lattice.  Involutive phase reversal
-then lands exactly in the already completed Householder/projective-root classification.  Thus the
-dual frontier is no longer an unspecified infinite rigidity problem: it is the finite promotion
-from an exact cyclotomic multiset equality to one coherent linear pairing.  The new
-`dual-perfect-scan` tests the strengthened cutoff exactly.
+then lands exactly in the Householder/projective-root classification. This
+formulates a stronger finite-cutoff question: promote an exact cyclotomic
+multiset equality to one coherent linear pairing at that particular cutoff.
+`dual-perfect-scan` tests this strengthened criterion exactly.
 
 The exact reconstruction census through `p<=3000` reports
 
@@ -927,7 +990,7 @@ into the prime-order sum. Its final theorem is
 `IsPrimitiveRoot.sum_eq_zero_iff_forall_eq_int`; no new cyclotomic
 irreducibility assumption is introduced.
 
-**What is still missing.** Equal phase counts give shellwise pairings, but
+**Why phase pairing alone is insufficient.** Equal phase counts give shellwise pairings, but
 neither unique partners nor a common linear isometry. That distinction is
 essential. Here is a finite counterexample to a purely geometric shortcut,
 using artificial phases rather than the Watson formula. Take the 18 vectors
@@ -940,12 +1003,12 @@ forms. At p=11 assign opposite phases so that the unique partners include
 Complete the phase assignment antipodally. The checker below gives every
 phase explicitly and verifies cancellation and unique partners on both
 shells. No linear map realizes the pairing: the first two basis images force
-`T(e1+e2)=e1+e2`, contrary to the prescribed partner. Thus the remaining
-coherence proof must use the actual arithmetic Watson phases; perfectness,
+`T(e1+e2)=e1+e2`, contrary to the prescribed partner. Thus a coherence
+proof must use the actual arithmetic Watson phases; perfectness,
 generation, and unique shell partners alone are insufficient. This example
 does **not** disprove the corrected Root--Vanishing conjecture.
 
-The precise remaining route is:
+The route isolated at this stage was:
 
 1. Formalize the analytic implication from persistent primal vanishing to
    cancellation on every complete Poisson-dual shell.
@@ -953,9 +1016,10 @@ The precise remaining route is:
    through a sufficient finite cutoff are induced by one linear map.
 3. Apply the existing norm, lattice, involution, and short-root reductions.
 
-Step 2 remains open. The first-spanning and first-perfect cutoff claims are
-stronger finite conjectures, not consequences of the universal converse
-alone. No equivalence with those particular cutoffs is asserted here.
+All three obligations are now discharged in the completed converse. The
+first-spanning and first-perfect cutoff claims remain stronger finite conjectures,
+not consequences of the universal converse alone. No equivalence with those
+particular cutoffs is asserted here.
 
 **A faster exact attack.** `scripts/attack_phase_rigidity.py` uses an LLL
 basis of `{w : w = lambda*(1,j,k) mod p}` to enumerate complete short shells.
@@ -994,19 +1058,15 @@ python3 scripts/attack_phase_rigidity.py --output /tmp/phase-rigidity-search.jso
 
 ### Full converse: a complete paper argument with finite certificates [2026-11-01]
 
-**Verification status.** The argument below supplies the previously missing
-arithmetic coherence step and covers every admissible prime. It is a proposed
-computer-assisted paper proof, not an end-to-end Lean theorem. Six local
-algebraic lemmas are checked in
-[MultiQuintupleShortCoherence](RamanujanTau/MultiQuintupleShortCoherence.lean).
-The small-prime certificates have a separate, standard-library-only checker.
-The [verification record](docs/verification/full_converse_paper.json) records
-the 9,295-job build, 12-declaration axiom audit, and certificate checks.
-The initial record predates the additional Lean results listed below; the
-analytic Poisson step and universal lattice-generation and root-target
-assembly still need formalization. No priority or novelty claim is made. The earlier statements
-that *paper-level* coherence is missing are superseded by this argument;
-their statements about the formal frontier still apply.
+**Verification status.** The argument below is now formalized end to end in
+[MultiQuintupleFullConverse](RamanujanTau/MultiQuintupleFullConverse.lean).
+The analytic Poisson bridge, universal lattice generation, and exact root-target
+assembly are all proved. The
+[full Lean record](docs/verification/full_converse_lean.json) reports the
+published 9,336-job build and 251-declaration axiom audit. The earlier
+[paper verification record](docs/verification/full_converse_paper.json) preserves
+its historical 9,295-job build, 12-declaration audit, and independent Python
+checks; it predates the complete formalization.
 
 **Claim.** Let p be prime and let
 `0<i<j<k<p/2`, with `i^2+j^2+k^2=0 mod p`. Put v=(i,j,k). For `0<=R<p`,
@@ -1242,10 +1302,11 @@ python3 scripts/check_short_watson_generators.py \
 The [independent check record](docs/verification/short_watson_generators_check.json)
 also exhausts the 468 nonsingular ternary Gram forms modulo 3 in the
 box-generation lemma and all 48 orthogonal matrices modulo 3 used below.
-These Python checks support the elementary arguments. The subsequent Lean
-development below additionally checks the mod-three generating box and all
-p=13 root and coefficient certificates in the kernel; the 14,369 other
-generator certificates have not yet been checked in Lean.
+These Python checks independently support the elementary arguments. The
+completed Lean development checks the mod-three generating box, all p=13 root
+and coefficient certificates, and all 14,369 short-generator certificates in
+the kernel. It also proves normalized-line coverage and identifies the checked
+generators with the required projective dual lattices.
 
 #### 5. The one symmetry and the exact target equation
 
@@ -1333,7 +1394,7 @@ separates the then-checked results from the remaining obligations.
 4. [Generator estimates](RamanujanTau/MultiQuintupleShortGeneratorEstimate.lean)
    prove the size-reduced box estimate and the strict p/2 bound for p>=1250
    from hypotheses (3). Existence of a basis satisfying those hypotheses
-   remains unproved in Lean.
+   was not yet proved in Lean at this stage.
 5. [The modulus-13 converse](RamanujanTau/MultiQuintupleConverseThirteen.lean)
    proves the complete Root--Vanishing equivalence for every admissible
    triple and residue at 13. The kernel checks the six roots, the 20 exact
@@ -1558,52 +1619,37 @@ The reported zeros are finite experimental evidence unless separately proved.  A
 non-hit with all residues covered is, by contrast, a valid finite disproof of the claim that
 the product has some identically zero residue class.
 
-## Next sparse-product proof target
+## Scope and follow-up questions
 
-The projective classification, primitive-reflection converse, universal positive and negative
-projective branch matching, coefficient bridge, finite cancellation assembly, explicit `p=71`
-and `p=79` certificate transports, projective target formulas, and uniform projective-root-to-
-vanishing theorem, exact shell-balance converse, imprimitive counterexample, ternary-character theta
-normal form, and the converse
-construction from a projective-root certificate to a coherent involution are now implemented.
-For the corrected prime/distinct/isotropic problem, the proof frontier is:
+The admissible Root–Vanishing classification is complete, including the
+analytic bridge, coherent short-partner involution, integral lattice generation,
+and exact root-target extraction. Its contrapositive guarantees that any
+admissible residue without a root target has a finite nonzero coefficient
+witness. The unrestricted converse remains false by the p=9 common-scale
+counterexample.
 
-1. Prove either of the following equivalent universal statements:
-   - spectral coherence: persistent vanishing of the parity Walsh component supplies one
-     noncentral rational orthogonal involution acting on the full affine residue fiber; or
-   - effective separation: every residue without a projective-root target has a finite nonzero
-     coefficient witness, ideally below an explicit geometry-of-numbers or modular bound; or
-2. A stronger proposed finite route is spanning-shell rigidity: prove that common Poisson-dual cancellation through the first shell
-     whose supported vectors span `Q^3` forces a projective-root target.  The stopping norm exists
-     and is at most `3p^2` by the proved scalar-zero spanning certificate; or, for the structurally
-     stronger route, prove coherent phase matching through the first perfect and lattice-generating
-     cutoff, whose existence is proved by norm `6p^2`. These specific finite
-     cutoffs are additional conjectures, not proved equivalent to the
-     universal converse. The new unbounded pairing theorem above removes
-     the shell-size obstacle, but not the arithmetic coherence problem.
+The following questions go beyond the proved theorem:
 
-The rational three-dimensional classification is now proved: every such noncentral orthogonal
-involution is a Householder reflection or its negative.  The arithmetic sequel now excludes the
-two integral signed-permutation norms, extracts the short projective lift, selects its mod-three
-branch, and proves the exact target law; the converse builds the coherent involution back from that
-data.  Hence the one remaining item is a sharply isolated ternary theta-coset spectral problem,
-proved equivalent—not merely sufficient—to corrected rigidity.  The forward Root--Vanishing
-direction is closed.  The finite-witness normal form shows that it is enough to prove an effective
-separation bound for non-root residue classes; the exact census through `p<=2600` gives no exception
-through progression index 700 and in fact finds every first witness by index 541.  The
-original unrestricted biconditional is false by the `p=9` theorem above.  In the corrected
-prime/distinct/isotropic regime, the missing reverse implication must recover a structural,
-progression-wide cancellation symmetry.  The ternary-character normal form now identifies the
-precise scalar theta lift whose kernel must be classified; current ternary lattice-coset theta
-theory decomposes such series but does not automatically turn one signed character projection into
-a termwise affine isometry.  The exact dual-shell census supplies a third finite normal form, but
-the counterexamples at `p=1439` and `p=1523` prove that four- and five-shell cutoffs are not
-universal.  Their low shells remain rank-deficient, while the first spanning shell detects the
-false zero.  The supported-spanning theorem bounds that adaptive shell by `3p^2`; the remaining
-dual problem is the colored ternary rigidity implication at this first full-rank threshold.  The
-perfect-set refinement already proves that six norm tests force orthogonality and that a bounded
-supported set generates the full dual lattice, leaving coherent phase matching as the precise
-finite combinatorial obstruction.
+1. **Quantitative first witnesses.** Does every admissible non-root residue
+   have a nonzero coefficient by N≤⌊p/4⌋? The exact census through p≤2600
+   finds no exception, but the universal bound is not proved.
+2. **Earlier shell cutoffs.** Do the first-spanning or first-perfect,
+   lattice-generating cutoffs already force a root target? Their existence
+   bounds and finite scans are proved or checked separately; the completed
+   converse does not establish rigidity at those particular cutoffs. Fixed
+   four- and five-shell criteria are false at p=1439 and p=1523.
+3. **Arbitrary lattice automorphisms.** Formalize the separate paper argument
+   that every noncentral automorphism group in this prime-index setting
+   contains a plane reflection. The completed converse constructs a suitable
+   involution directly from vanishing and does not formalize that broader
+   automorphism statement.
+4. **Broader products.** Classify four-factor products and determine suitable
+   criteria beyond distinct isotropic triples at prime modulus. Composite
+   moduli and repeated indices have additional support mechanisms, so the
+   admissible theorem cannot simply be extended by dropping its hypotheses.
+
+These directions retain the useful experimental questions while separating
+them from the now-proved universal admissible converse.
 
 ## Sources
 
@@ -1625,7 +1671,10 @@ finite combinatorial obstruction.
 
 ## 2026-10-04: structure of the first witnesses, and why the Eisenstein route is closed
 
-Four new reproducible scans (`scripts/mq_*.py`; each takes `max_prime depth`) probe *how* non-root
+This historical experiment log predates the completed converse. Its scans
+remain relevant to quantitative first-witness questions.
+
+Four reproducible scans (`scripts/mq_*.py`; each takes `max_prime depth`) probe *how* non-root
 residues fail to vanish.
 
 **1. Parity alone does not certify nonvanishing.** (`mq_parity_scan.py 200 60`) Of 23,536 non-root
@@ -1668,8 +1717,9 @@ every progression projection `F_r = Σ_{K≡r} c(K) q^K` is zero: each `F_r` is 
 count, while `Σ c(K)²` ≈ point count. This is the signature of a cusp form with pseudo-random signs.
 
 **Consequences.**
+
 * Nonvanishing for non-root residues cannot come from a local or Eisenstein obstruction. The
-  conjecture is genuinely a statement that a family of weight-3/2 cusp forms (on a level divisible by
+  then-conjectural equivalence concerns a family of weight-3/2 cusp forms (on a level divisible by
   `p²`) is nonzero exactly when no projective root exists. The natural tools are the Shimura
   correspondence and Waldspurger-type formulas, or the root-or-witness reduction already formalized.
 * The data explain the small witness cutoff heuristically, and point 3 shows the algebraic

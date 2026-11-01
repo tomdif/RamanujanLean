@@ -20,6 +20,24 @@ Updated 2026-11-01. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Verification
 
+### Latest published proof: admissible sparse triples
+
+The proof snapshot in commit `1017be1` passed a **9,336-job full build**,
+a **251-declaration multi-quintuple axiom audit**, the independent arithmetic
+checks, and the repository checker (982 Lean source/audit files, 25 Markdown
+files, and 232 local links). All audited dependencies are among `propext`,
+`Classical.choice`, and `Quot.sound`. These counts describe the checked proof
+snapshot; documentation-only updates may change the link count.
+
+The [verification record](verification/full_converse_lean.json) also retains
+the earlier 9,341-job development-worktree build. The difference is five
+unrelated local modules omitted from the published snapshot, not a change to
+the converse proof. The [raw report](verification/full_converse_lean.axioms.txt)
+and [catalog](RESULTS.md#multi-quintuple-products-complete-admissible-triple-classification)
+identify the theorem and its exact hypotheses.
+
+### Earlier verification records
+
 The prime-29 milestone's full build passed 9,131 jobs.
 The expanded finite-arithmetic audit checks 58 declarations, including prime 31. Its axiom
 dependencies are confined to `propext`, `Classical.choice`, and `Quot.sound`;
@@ -112,7 +130,10 @@ with the build and audit commands in the [overview](../README.md#build-and-verif
 - Independently review the mathematics and scope of the completed admissible
   sparse triple classification in the
   [multi-quintuple research record](../RESEARCH_MULTI_QUINTUPLE.md).
-  The separate prime-index automorphism argument remains a paper proof.
+  The universal admissible converse is complete. Remaining directions include
+  four-factor products, a universal first-witness bound, and the first-spanning
+  or first-perfect cutoff criteria. The separate prime-index automorphism
+  argument remains a paper proof.
 
 The research documents retain historical calculations and proposed arguments.
 Their labels such as “proved here” refer to paper arguments unless they identify

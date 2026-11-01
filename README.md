@@ -6,7 +6,8 @@ Lean 4 + Mathlib proofs in Ramanujan's mathematics: modular forms, partitions,
 q-series, mock theta identities, and finite certificates for infinite arithmetic laws.
 
 [Theorem catalog](docs/RESULTS.md) · [Current status](docs/STATUS.md) ·
-[Finite arithmetic](docs/FINITE_ARITHMETIC.md) · [Documentation guide](docs/README.md)
+[Multi-quintuple classification](RESEARCH_MULTI_QUINTUPLE.md#current-theorem) ·
+[Finite certificates](docs/FINITE_ARITHMETIC.md) · [Documentation guide](docs/README.md)
 
 The Lean package is named `RamanujanTau`; modules use `import RamanujanTau.…`.
 Partition theorems are connected to Mathlib's actual `Nat.Partition` cardinalities.
@@ -26,7 +27,19 @@ those theorems' statements.
 | Partition asymptotics | Hardy–Ramanujan asymptotics, Rademacher's exact formula, and log-concavity for every n ≥ 26 | [Theorem catalog](docs/RESULTS.md) |
 | Primes 13, 17, 19, 23 | A single p-adic multiplier gives the partition recurrence at b = m modulo p^m | [OrdQuot.Atkin](RamanujanTau/OrdQuot/Atkin.lean) |
 | Every power of 29 | One 29-adic multiplier gives the partition recurrence for every b ≥ 2m−1 modulo 29^m | [AllPowers29](RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
+| Sparse triple products | Persistent coefficient vanishing is equivalent to an exact projective root certificate for every admissible triple and canonical residue | [Full converse](RamanujanTau/MultiQuintupleFullConverse.lean) |
+| Canonical quintuple products | For every odd p ≥ 5, the full canonical product vanishes in every nonsquare residue class | [Canonical family](RamanujanTau/MultiQuintupleCanonical.lean) |
 | Finite arithmetic | Finite operator relations imply recurrences for every iterate; applications include partition residues and exact weighted tilings | [Framework and examples](docs/FINITE_ARITHMETIC.md) |
+
+**The admissible sparse triple classification is complete.** For prime p≠3,
+0<i<j<k, 2k<p, p dividing i²+j²+k², and 0≤R<p, every coefficient of
+`Q(qⁱ,qᵖ) Q(qʲ,qᵖ) Q(qᵏ,qᵖ)` at degrees pN+R vanishes if and only if
+there is a projective root certificate with the required residue condition.
+The theorem concerns the actual infinite products and assumes no additional
+analytic, geometric, or generation statement. The published proof passed a
+9,336-job full build and a 251-declaration axiom audit. See the
+[exact statement and proof map](RESEARCH_MULTI_QUINTUPLE.md#current-theorem)
+and [verification record](docs/verification/full_converse_lean.json).
 
 **The prime-29 starting threshold is exact.** For every m ≥ 1 and positive B,
 a scalar multiplier works for all admissible partition progressions from
@@ -68,7 +81,9 @@ lake build
 [lake-manifest.json](lake-manifest.json) pins Mathlib; keep it when reproducing a
 build. A Mathlib cache download does not include this project's certificates.
 Fresh certificate checks can take substantial time and memory; later builds
-reuse the compiled proofs.
+reuse the compiled proofs. The multi-quintuple proof includes eight stable
+small-prime certificate blocks; [regeneration commands](docs/FINITE_ARITHMETIC.md#multi-quintuple-classification-certificates)
+are documented separately.
 
 After a successful build, run the theorem audits and a recurrence demonstration:
 
@@ -76,6 +91,7 @@ After a successful build, run the theorem audits and a recurrence demonstration:
 lake env lean scripts/audit/atkin_obrien_closure.lean
 lake env lean scripts/audit/finite_arithmetic.lean
 lake env lean scripts/audit/theorem_a.lean
+lake env lean scripts/audit/multi_quintuple.lean
 lake env lean --run scripts/finite_arithmetic/demo.lean 1000000000000
 ```
 
@@ -99,8 +115,9 @@ The [documentation guide](docs/README.md) distinguishes current results from
 historical plans, numerical experiments, and proposed paper arguments.
 Current open work includes efficient high-precision seed computation, extending
 certified arithmetic representations beyond prime 29, and extensions beyond
-the proved admissible sparse triple multi-quintuple classification. Deligne's τ bound is not formalized here;
-Lehmer's conjecture remains open.
+the proved admissible sparse triple multi-quintuple classification, such as
+four-factor products and quantitative first-witness bounds. Deligne's τ bound
+is not formalized here; Lehmer's conjecture remains open.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for proof, certificate, and documentation
 conventions. The project is [MIT licensed](LICENSE).

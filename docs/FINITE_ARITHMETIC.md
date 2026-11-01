@@ -111,3 +111,62 @@ memory, and completed products are reused by later builds. Each block retains on
 the coefficient precision needed after its final shift.
 `python3 scripts/boylanwebb/check_cert29_error.py` independently checks all 16 products
 and 429 blocks using packed-integer multiplication. Lean's kernel remains the proof authority.
+
+## Multi-quintuple classification certificates
+
+The [full admissible triple theorem](../RamanujanTau/MultiQuintupleFullConverse.lean)
+uses finite certificates for its short-generation argument and its exceptional
+modulus-13 case. It also proves the analytic bridge to actual infinite-product
+coefficients. These inputs are part of an unconditional theorem under the
+stated admissibility and residue hypotheses.
+
+| Certificate | Coverage | Lean entry point |
+|---|---|---|
+| Small isotropic box | All 468 nonsingular symmetric ternary Gram forms over F₃ | [SmallIsotropicBox](../RamanujanTau/MultiQuintupleSmallIsotropicBox.lean) |
+| Short dual generators | 14,369 certificates; normalized-line coverage across 201 primes from 7 through 1249, excluding 13 from the generation conclusion | [FiniteGenerators](../RamanujanTau/MultiQuintupleFiniteGenerators.lean) and its eight `Block` imports |
+| Modulus 13 | Two canonical triples, six root certificates, and 20 nonzero coefficients | [ConverseThirteen](../RamanujanTau/MultiQuintupleConverseThirteen.lean) |
+
+Determinant gcd calculations certify generation over ℤ. The Lean framework
+also proves normalization and completeness of the finite coverage. For p≥1250,
+[LargePrimeGeneration](../RamanujanTau/MultiQuintupleLargePrimeGeneration.lean)
+proves generation geometrically, so no finite prime sweep stands in for that
+infinite range. The cutoff is sufficient, not claimed minimal.
+
+Build and audit from the repository root:
+
+```sh
+lake build RamanujanTau.MultiQuintupleFullConverse
+lake env lean scripts/audit/multi_quintuple.lean
+lake build
+```
+
+Regenerate the Lean tables from their documented inputs:
+
+```sh
+python3 scripts/generate_small_isotropic_box.py
+python3 scripts/generate_lean_short_generators.py
+git diff --exit-code -- RamanujanTau/MultiQuintupleSmallIsotropicBox.lean \
+  RamanujanTau/MultiQuintupleFiniteGenerators.lean \
+  RamanujanTau/MultiQuintupleFiniteGenerators
+```
+
+The first command deterministically constructs the mod-three box. The second
+reads [short_watson_generators.json](verification/short_watson_generators.json)
+and writes the normalized row tables. Both generators are untrusted producers:
+`decide +kernel` checks their finite arithmetic inside Lean. Keep the eight
+certificate blocks stable while editing downstream proofs so completed kernel
+checks can be reused. A fresh check can take substantial time and memory.
+
+The independent standard-library Python checker can be run separately:
+
+```sh
+python3 scripts/check_short_watson_generators.py \
+  docs/verification/short_watson_generators.json \
+  --output /tmp/short-watson-generators-check.json
+```
+
+Its `lean_checked: false` field identifies the independent checker's method.
+The [full Lean record](verification/full_converse_lean.json) and
+[axiom report](verification/full_converse_lean.axioms.txt) establish the formal
+status. The published proof snapshot passed 9,336 build jobs and 251 audited
+multi-quintuple declarations. Regeneration was checked byte for byte.
