@@ -606,3 +606,4 @@ import RamanujanTau.TauSigns.Main
 import RamanujanTau.RankinErrorGeneral.Main
 import RamanujanTau.RankinSharp.Sharp
 import RamanujanTau.TauSigns.Sharp
+import RamanujanTau.RankinSharpGeneral.Main

@@ -87,3 +87,4 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinSharp.rankinSelberg_power_saving_sharp
 #print axioms RamanujanTau.TauSigns.tau_sign_change_short_interval_sharp
 #print axioms RamanujanTau.TauSigns.card_signChanges_ge_sharp
+#print axioms RamanujanTau.RankinSharpGeneral.rankinSelberg_power_saving_sharp_general
