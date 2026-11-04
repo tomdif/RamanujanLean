@@ -365,7 +365,7 @@ The remaining formal obligations are:
 
 1. The lower bound b_ℓ(m) ≥ 2m−1 for every prime ℓ ≥ 29 (uniformly) remains open. It is proved prime by prime
    for every m at each prime 29 ≤ ℓ ≤ 139 (`Exact29`, `Exact31`, `Rank2At37`–`Rank2At47`, `RankSAt53`, `RankSAt59`,
-   `RankRAt61`–`RankRAt139`; the certificates at 137 and 139 are not yet built, see [status](STATUS.md#verification));
+   `RankRAt61`–`RankRAt139`, all compiled in the 2026-11-04 full build, see [status](STATUS.md#verification));
    see also [BW_SHARPNESS_ALL_PRIMES](BW_SHARPNESS_ALL_PRIMES.md) for the uniform seed condition G5.
 
 This development does not prove universal sharpness, G4, or G6. In particular,

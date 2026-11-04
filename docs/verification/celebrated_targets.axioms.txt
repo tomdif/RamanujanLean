@@ -1,0 +1,98 @@
+'RamanujanTau.TauBound.tau_isBigO_47_8_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauBound.poincareIsCuspForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.WeilKloosterman.norm_kloosterman_primePow_le_sqrt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.WeilKloosterman.tau_isBigO_23_4_of_weil' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JensenThreshold.jensen6_threshold_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JensenThreshold.jensen7_threshold_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZ.jensen_eventually_hyperbolic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZ.tendsto_coeff_Jhat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXi.gorz_thm3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXi.gammaMathlib_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXi.xi_gorz_mathlib' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXi.xiKernelHyp_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXi.xi_gorz_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Dragonette.dragonette' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Dragonette.dragonette_literal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Dragonette.rank_parity_sign' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Andrews.alpha_sign' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Andrews.rank_parity_sign_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Andrews66.andrews_k1_isBigO' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Andrews66.andrews_1966_sqrt_log_of_Hb' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Andrews66.andrews_1966_printed_isBigO_of_Hb' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MockCusp.Hb_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MockCusp.Hb_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MockCusp.andrews_1966_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MockCusp.andrews_1966_sqrt_log_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AndrewsDragonette.not_Hb_of_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AndrewsDragonette.adPartial_converges_of_HKS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.AtkinSporadic.Weaver.ono_13_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.AtkinSporadic.Weaver.weaver_17_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.AtkinSporadic.Atkin13.atkin_13_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HalfHecke.etaHecke_11_168' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.GaussSign.etaHecke_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.GaussSign.gaussQuad_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.AtkinTwisted.eigen_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.AtkinTwisted.G1.atkin_13_89' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.OnoWeaverMore.L19.atkin_19_13_progression' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.OnoWeaverMore.L29.atkin_29_17_progression' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.OnoWeaverMore.L31.atkin_31_101_progression' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.BWSharpAll.tendsto_bEll' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.BWSharpAll.bEll_eq_all_of_int_dets' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.KloostermanL.kloosterman_L_rational' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.KloostermanL.tau_isBigO_23_4_of_stepanov' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Stepanov.hasseWeil_charSum_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Stepanov.hasse_elliptic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Stepanov.tau_isBigO_35_6_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.StepanovAS.weilPrimeBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.StepanovAS.tau_isBigO_23_4_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.RankinSelberg.rankinSelberg_two_sided' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXiEff.gamma_eq_mom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXiEff.jensen2_gamma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXiD3.hyperbolic_cubic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXiD3.disc_jensen3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EisensteinReal.karamata' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EisensteinReal.rankinSelberg_asymptotic_of_horocycle' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'GORZXiEff.turan_gamma_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GORZXiEff.jensen2_gamma_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.LehmerSmall.lehmer_below_74627999' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.LehmerSmall.tau_prime_pow_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EisensteinReal.horocycleLimit_zagier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.LehmerSmall.lehmer_below_21492863999' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.LehmerSmall.instTauMod27' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.LehmerSmall.instTauMod2_8' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Discharge.tau_mod23_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Discharge.tauMatchesDiscriminant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Discharge.Kloosterman.stepanovKloosterman_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.LehmerSmall.lehmer_below_214928639999' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.RankinError.rankinSelberg_power_saving_of_unfold' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.RankinError.rsUnfold' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.RankinError.rankinSelberg_power_saving_84' depends on axioms: [propext, Classical.choice, Quot.sound]
+       21.42 real         3.05 user        12.00 sys
+          6642302976  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              542624  page reclaims
+                 159  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  52  voluntary context switches
+               67322  involuntary context switches
+          5860352814  instructions retired
+          3859294876  cycles elapsed
+           132714496  peak memory footprint

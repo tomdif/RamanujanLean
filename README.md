@@ -103,8 +103,8 @@ It also holds at 53 and 59 (`RankSAt53.bEll_53`, `RankSAt59.bEll_59`), where the
 vector moved by a 2×2 matrix ([RankSPacked](RamanujanTau/FiniteArithmetic/RankSPacked.lean)), and at every
 prime 61 ≤ ℓ ≤ 139 (`RankRAt61.bEll_61`, …, `RankRAt139.bEll_139`) by an order-r version
 ([RankRPacked](RamanujanTau/FiniteArithmetic/RankRPacked.lean)). So b_ℓ(m) is known for every m at
-every prime 13 ≤ ℓ ≤ 139. (The recorded full build and audit cover the primes through 113; 127 and 131 have
-passed focused builds; the certificates at 137 and 139 have not yet been built.)
+every prime 13 ≤ ℓ ≤ 139. (All certificates through 139, including `RankRAt137` and `RankRAt139`, compiled in the
+2026-11-04 full build.)
 At ℓ = 13, 17, 19, 23 the threshold is smaller:
 [SmallThreshold](RamanujanTau/FiniteArithmetic/SmallThreshold.lean) proves
 b_ℓ(m) ≤ 2⌊m/2⌋+1 for every m, and b_ℓ(2) = b_ℓ(3) = 3;
@@ -170,11 +170,11 @@ lake env lean scripts/audit/celebrated_targets.lean
 lake env lean --run scripts/finite_arithmetic/demo.lean 1000000000000
 ```
 
-A full root `lake build` has **not** been re-run since the 2026-11-03/04 campaign added the analytic tracks
-(τ bounds, Rankin–Selberg, GORZ, Andrews, Atkin/Ono–Weaver, Lehmer) to the root import: those modules passed
-focused builds, and their headline theorems print only the three standard axioms when their modules are imported
-directly. `RankRAt137` and `RankRAt139` have not yet been built, so a fresh `lake build` (needed before
-`scripts/audit/celebrated_targets.lean`, which imports the whole root) also has to compile them. See [Current status](docs/STATUS.md#verification).
+A full root `lake build` (9,699 jobs, base `f3be2fe`) completed on 2026-11-04 after the 2026-11-03/04 campaign,
+including the `RankRAt137` and `RankRAt139` certificates; `scripts/audit/celebrated_targets.lean` then reported
+only `propext`, `Classical.choice`, `Quot.sound` for all 70 audited declarations. Building from scratch is
+memory-heavy: the packed `RankRAt*` certificates peak near 21 GB each and `GORZXiEff.CVData*` near 9 GB, so build
+those modules one at a time on smaller machines. See [Current status](docs/STATUS.md#verification).
 
 The audits report axiom dependencies. The finite-arithmetic audit also checks
 small counting values and an enormous recurrence exponent. The expected axiom
