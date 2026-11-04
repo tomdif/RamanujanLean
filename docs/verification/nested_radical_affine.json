@@ -1,0 +1,92 @@
+{
+ "date": "2026-11-01T20:16:00.658178+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Previous verification records are historical snapshots.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "mathlib_working_tree_clean": true,
+ "proof_dependencies": "The three hashed NestedRadical modules and the pinned clean Mathlib revision supply the proof inputs.",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9354
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/nested_radical_affine.lean",
+  "exit_code": 0,
+  "declarations": 16,
+  "report": "docs/verification/nested_radical_affine.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "theorems": [
+   "Ramanujan.NestedRadical.affine_identity_iff",
+   "Ramanujan.NestedRadical.affine_bounds",
+   "Ramanujan.NestedRadical.error_le_log_gap",
+   "Ramanujan.NestedRadical.log_gap_contract",
+   "Ramanujan.NestedRadical.affine_log_gap",
+   "Ramanujan.NestedRadical.affine_error_bound",
+   "Ramanujan.NestedRadical.affine_error_linear_bound",
+   "Ramanujan.NestedRadical.tendsto_affineTrunc",
+   "Ramanujan.NestedRadical.affineTrunc_self",
+   "Ramanujan.NestedRadical.ramanujan_radical_fast_error",
+   "Ramanujan.NestedRadical.ramanujan_second_radical",
+   "Ramanujan.NestedRadical.ramanujan_radical_40_accuracy",
+   "Ramanujan.NestedRadical.linearTrunc_affine",
+   "Ramanujan.NestedRadical.identity_of_linear_limit",
+   "Ramanujan.NestedRadical.linear_limit_iff",
+   "Ramanujan.NestedRadical.exists_linear_limit_iff"
+  ]
+ },
+ "family": {
+  "hypotheses": "d>0, 0<=h<=d, x>=0; all parameters real",
+  "radicand": "C(x)=d^2+(d-h)*x",
+  "base": "T_0(x)=sqrt(C(x))",
+  "recursion": "T_(N+1)(x)=sqrt(C(x)+x*T_N(x+h))",
+  "limit": "x+d",
+  "error": "0<=x+d-T_N(x)<=(x+d)*log((x+N*h+d)/d)/2^N",
+  "includes_h_zero": true
+ },
+ "classification": {
+  "hypotheses": "A,B,h>=0; d>0; all parameters real",
+  "finite_radicals": "R_0(x)=sqrt(A+B*x), R_(N+1)(x)=sqrt(A+B*x+x*R_N(x+h))",
+  "iff": "(For every x>=0, R_N(x) tends to x+d) iff A=d^2 and B=d-h",
+  "existence_iff": "Some positive-offset linear limit exists for all x>=0 iff A=(B+h)^2 and B+h>0",
+  "scope": "Actual limits for every nonnegative starting value. Does not classify isolated values or nonlinear limits."
+ },
+ "classical_results": {
+  "first_radical_limit": 3,
+  "second_radical_limit": 4,
+  "first_radical_error": "0<=3-r_N<=3*log(N+3)/2^N",
+  "depth_40_error": "0<=3-r_40<10^(-10)",
+  "accuracy_method": "Kernel-checked real inequalities; no floating-point evaluation"
+ },
+ "literature_context": {
+  "source": "https://arxiv.org/html/1303.4251v3#S4",
+  "comparison": "Example 4.3 gives an O(n^3/2^n) upper bound. The formalized logarithmic bound is stronger than that displayed estimate, after accounting for the depth convention.",
+  "novelty_claim": false
+ },
+ "repository_check": {
+  "command": "python3 scripts/check_repository.py",
+  "exit_code": 0,
+  "lean_source_and_audit_files": 1004,
+  "markdown_files": 25,
+  "local_links": 362,
+  "changed_document_heading_links": 29
+ },
+ "git_diff_check": "passed",
+ "sha256": {
+  "RamanujanTau/NestedRadical.lean": "7a6e79a057aaa57fe2410896d308a99001ba778afcc0ff46aec97ed56599e019",
+  "RamanujanTau/NestedRadicalAffine.lean": "7c7f779b03794d65376380e2cb6390bce7cfab27ca3427e17b318404a3613d26",
+  "RamanujanTau/NestedRadicalClassification.lean": "b50fc68ed228f57b9be7e76bef825530fbedba1d85d7068b578be3e53571eb43",
+  "scripts/audit/nested_radical_affine.lean": "c0dc385aa3f33f4937fe7dd576e950931eaa897b24d0fe66990a4111ae79740b",
+  "docs/verification/nested_radical_affine.axioms.txt": "79f02127e60567ee38bad8a9ed2fe6ace4e31b67721494754a005964ca50c318",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "README.md": "cff1100b3a31fb134d357757804a61b13418f8398f77f6aa16cb65148ae61fb3",
+  "docs/RESULTS.md": "a0301eb40ea2d50135981dc9f66546603c763f0b1e4a100b9a114fda56414f89",
+  "docs/STATUS.md": "429c37b7db46ac652b9adede7e0792ce06fce868f45e3464a2057f72586aad31",
+  "docs/README.md": "629f980b6c6a9a1a9a9228267a5a3d4678d566c829a9ec044b9c89045c2f070a"
+ }
+}

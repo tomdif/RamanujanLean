@@ -1,0 +1,5 @@
+HIT K 1 A B 5 1 C G 3 -1 D E 4 2 sgn 0 [('(q)^2/(q2;q2)', 'psi0', 1)]
+HIT K 1 A B 5 1 C G 3 1 D E 4 2 sgn 0 [('(q)^2/(q2;q2)', 'psi0', 1)]
+HIT K 1 A B 8 4 C G 5 -3 D E 4 2 sgn 0 [('(q)', 'psi0', 1)]
+HIT K 1 A B 8 4 C G 5 3 D E 4 2 sgn 0 [('(q)', 'psi0', 1)]
+hits 4

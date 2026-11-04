@@ -6,7 +6,9 @@
   `p((ℓ^{m+2}n + 1)/24) ≡ κ_ℓ · p((ℓ^m n + 1)/24)   (mod ℓ^m)`.
 
 This proves sufficiency at `b = m`, giving the upper-bound side of the proposed
-`b_ℓ(m) = m` statement; minimality is a separate assertion. For ℓ = 13 this is
+`b_ℓ(m) = m` statement; minimality is a separate assertion, now proved for all four primes by
+`ExactAtkin{13,17,19,23}.exact` (2026-11-02; [AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean)),
+in partition form `AtkinExactPartition.partition_{13,17,19,23}`. For ℓ = 13 this is
 Atkin–O'Brien (1967). For ℓ = 17, 19, 23 it improves the sufficient index supplied by
 Boylan–Webb's `2m − 1` bound. **Status (2026-10-29): proved in Lean without additional
 operator-bound hypotheses** — `OrdQuot.atkin_obrien_13/17/19/23` in

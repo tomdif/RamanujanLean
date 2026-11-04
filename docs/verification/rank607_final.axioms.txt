@@ -1,0 +1,9 @@
+'RamanujanTau.FiniteArithmetic.Rank607Final.final_ok' depends on axioms: [propext]
+'RamanujanTau.FiniteArithmetic.Rank607Final.rank607Matrix_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Final.rEll_607' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Series.prelude_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Identities.theta_Dq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Identities.E4_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Identities.sigma_pred_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

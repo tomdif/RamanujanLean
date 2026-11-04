@@ -1,0 +1,25 @@
+import RamanujanTau.BosonicOccupation
+
+#print axioms BosonicOccupation.modeEnergy_eq_multiset_sum
+#print axioms BosonicOccupation.partition_zero_count
+#print axioms BosonicOccupation.occupied_mode_pos
+#print axioms BosonicOccupation.fromPartition_toPartition
+#print axioms BosonicOccupation.toPartition_fromPartition
+#print axioms BosonicOccupation.stateEquivPartition
+#print axioms BosonicOccupation.state_card
+#print axioms BosonicOccupation.mode_contribution_le_energy
+#print axioms BosonicOccupation.state_zero_above_energy
+#print axioms BosonicOccupation.state_occupation_bound
+#print axioms BosonicOccupation.energy_vacuum
+#print axioms BosonicOccupation.zero_energy_unique
+#print axioms BosonicOccupation.occupationBasis
+#print axioms BosonicOccupation.shell_finrank
+#print axioms BosonicOccupation.shellSeries_eq
+#print axioms BosonicOccupation.discriminant_mul_shellSeries
+#print axioms BosonicOccupation.charge_vacuum
+#print axioms BosonicOccupation.charge_eq_iff
+#print axioms BosonicOccupation.chargeStateEquivEnergy
+#print axioms BosonicOccupation.charge_finrank
+#print axioms BosonicOccupation.charge_finrank_eq_coeff
+#print axioms BosonicOccupation.charge_entropy
+#print axioms BosonicOccupation.charge_cardy_ratio

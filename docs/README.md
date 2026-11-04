@@ -21,6 +21,7 @@ earlier open-problem and partial-formalization notes.
 | [Atkin–O'Brien proof record](ATKIN_OBRIEN_PROOF.md) | Public theorems for 13, 17, 19, 23, followed by the historical development |
 | [Multi-quintuple classification](RESULTS.md#multi-quintuple-products-complete-admissible-triple-classification) | Exact theorem, scope, proof modules, and verification |
 | [Multi-quintuple development record](../RESEARCH_MULTI_QUINTUPLE.md) | Current statement followed by historical experiments, counterexamples, and the paper proof |
+| [Nested radicals](RESULTS.md#ramanujans-nested-radical) | Values 3 and 4, the affine family and full converse for linear limits, and exponential error bounds proved in Lean |
 | [Contribution guide](../CONTRIBUTING.md) | Proof policy, verification commands, and documentation conventions |
 
 ## Research records and completed plans
@@ -31,6 +32,7 @@ earlier open-problem and partial-formalization notes.
 | [Prime-dependent threshold experiments](BL_PATTERN.md) | Bounded numerical results; includes the correction to universal rank attainment at 607 |
 | [Literature check](LIT_CHECK.md) | Dated definitions and literature notes; not a formal proof or a current exhaustive literature search |
 | [Frontier probes](FRONTIER_FINDINGS.md) | Historical experiments, including Jensen-polynomial thresholds |
+| [Cylindric positivity and black hole research](CYLINDRIC_RESEARCH.md) | Exact rank-four scans, slice lemmas, partition entropy, the reciprocal-discriminant bridge, bosonic spectra and finite-shell adjoints, and reusable unifiedtheory estimates |
 | [13-power plan](ATKIN13_PLAN.md) | An earlier modular-equation route; the target recurrence was reached via overconvergence |
 | [17/19/23 reduction](ATKIN_OBRIEN_17_19_23.md) | Historical conditional reductions preceding the unconditional public theorems |
 | [11-power plan](ATKIN_11_PLAN.md) | Completed Atkin development and its intermediate calculations |
@@ -50,7 +52,28 @@ earlier open-problem and partial-formalization notes.
 | [Paper argument](verification/full_converse_paper.json) | Historical computer-assisted argument and independent finite checks |
 | [Phase pairing](verification/phase_pairing.json) | Earlier algebraic result; its missing analytic and geometric connections are now proved |
 | [Short-generator data](verification/short_watson_generators.json) and [independent check](verification/short_watson_generators_check.json) | Reproducible finite data used by the kernel-checked generator modules |
+| [Infinite four-factor family](verification/four_family.json) and [axiom report](verification/four_family.axioms.txt) | All-parameter coefficient theorem and the uniform Hasse denominator identity modulo prime squares |
+| [Two-parameter plane theorem](verification/four_plane.json) and [axiom report](verification/four_plane.axioms.txt) | Infinite vanishing criterion at p=m²+n² and complete classification of the fixed product at 53 |
+| [Uniform reflection theorem](verification/four_reflection.json) and [axiom report](verification/four_reflection.axioms.txt) | Four congruence families, actual infinite vanishing at 97, and the exact compatibility criterion for sixteen reflection maps |
+| [Second quadratic family](verification/four_binary.json) and [axiom report](verification/four_binary.axioms.txt) | Actual infinite vanishing at p=2m²+n²; an unconditional family with unboundedly many moduli outside sums of two squares |
+| [Rank at 607](verification/rank607_final.json) and [axiom report](verification/rank607_final.axioms.txt) | Unconditional `rEll 607 m = 25` for m≥2, from a kernel evaluation of packed series; includes the open question about the rank definition in Boylan–Webb |
+| [Four-factor witness proofs](verification/four_witnesses.json) and [axiom report](verification/four_witnesses.axioms.txt) | Actual-product first witnesses at 17 and 2521; any universal four-factor linear bound requires c≥7/17 |
+| [Earlier four-factor quarter-bound computation](verification/four_quarter_counterexample.json) | Historical exact replay at 2521; residue 2273 now has a Lean proof, while residue 67 remains computational; the original triple-product conjecture is unaffected |
+| [Four-factor frontier](verification/four_quintuple_frontier.json) | Finite search through prime 71; 289 candidate products, without an infinite-vanishing claim |
 
 Historical verification files are snapshots, not live status pages. In particular,
 `lean_checked: false` in an independent Python report describes that checker's
 method; it does not negate the later Lean proof of the same finite obligations.
+
+The [four-direction follow-up](STATUS.md#four-direction-follow-up-2026-11-01)
+records the completed four-factor case at 41, checked finite seed models, the
+607 numerical minor, and the prime-103 first-witness benchmark. It separates
+those results from the remaining universal conjectures. The subsequent
+[infinite family](../RESEARCH_MULTI_QUINTUPLE.md#an-infinite-four-factor-family)
+extends the example at 41 to unbounded moduli, including composite moduli.
+The later [plane theorem](../RESEARCH_MULTI_QUINTUPLE.md#two-parameter-plane-theorem)
+handles two parameters and gives a complete fixed-product classification at 53.
+The [second quadratic family](../RESEARCH_MULTI_QUINTUPLE.md#a-second-quadratic-family-beyond-sums-of-two-squares)
+proves additional infinite zero progressions starting at 43.
+Reproduction commands
+are in the [certificate guide](FINITE_ARITHMETIC.md#four-direction-follow-up-certificates).

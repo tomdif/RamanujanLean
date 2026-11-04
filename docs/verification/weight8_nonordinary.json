@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-01",
+  "command": "gp -f -q scripts/frontier/pattern/scan_weight8_nonordinary.gp",
+  "pari_version": [
+    2,
+    17,
+    4
+  ],
+  "form": "6.8.a.a",
+  "primary_source": "https://www.lmfdb.org/ModularForm/GL2/Q/holomorphic/6/8/a/a/",
+  "coefficient_selector": {
+    "a2": 8,
+    "a3": 27,
+    "a5": -114
+  },
+  "bound": 250000,
+  "primes_tested": 22042,
+  "condition": "p divides a_p, p >= 5",
+  "hits": [],
+  "positive_control": {
+    "form": "6.6.a.a",
+    "bound": 1000,
+    "hits": [
+      859
+    ]
+  },
+  "exact_integer_arithmetic": true,
+  "kernel_verified": false,
+  "all_prime_claim": false,
+  "elapsed_ms": 38453,
+  "sha256": {
+    "scripts/frontier/pattern/scan_weight8_nonordinary.gp": "1b03fee49ef37ddab484b34645396c909a4db8e0913354a55539a1f29d2a7196"
+  },
+  "aborted_exploration": {
+    "bound": 1000000,
+    "reason": "PARI stack overflow with a 500000000-byte stack; no completed result at that bound"
+  }
+}

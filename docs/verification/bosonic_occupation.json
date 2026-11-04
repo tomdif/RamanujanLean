@@ -1,0 +1,145 @@
+{
+  "date": "2026-11-03",
+  "snapshot": "Development working tree, not a published commit. Existing unrelated changes are preserved.",
+  "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+  "toolchain": "leanprover/lean4:v4.30.0-rc2",
+  "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+  "mathlib_working_tree_clean": true,
+  "focused_build": {
+    "command": "lake build RamanujanTau.BosonicOccupation",
+    "exit_code": 0,
+    "jobs": 8502,
+    "new_module_warnings": 0
+  },
+  "full_build": {
+    "status": "Not run for this standalone extension; not verified",
+    "prior_attempt": "docs/verification/partition_entropy.json",
+    "note": "The prior full build was interrupted during existing prime-137 and prime-139 kernel certificates under heavy memory pressure. Root imports are unchanged."
+  },
+  "public_root_import": false,
+  "import": "RamanujanTau.BosonicOccupation",
+  "audit": {
+    "command": "lake env lean scripts/audit/bosonic_occupation.lean",
+    "exit_code": 0,
+    "declarations": 23,
+    "report": "docs/verification/bosonic_occupation.axioms.txt",
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "names": [
+      "BosonicOccupation.modeEnergy_eq_multiset_sum",
+      "BosonicOccupation.partition_zero_count",
+      "BosonicOccupation.occupied_mode_pos",
+      "BosonicOccupation.fromPartition_toPartition",
+      "BosonicOccupation.toPartition_fromPartition",
+      "BosonicOccupation.stateEquivPartition",
+      "BosonicOccupation.state_card",
+      "BosonicOccupation.mode_contribution_le_energy",
+      "BosonicOccupation.state_zero_above_energy",
+      "BosonicOccupation.state_occupation_bound",
+      "BosonicOccupation.energy_vacuum",
+      "BosonicOccupation.zero_energy_unique",
+      "BosonicOccupation.occupationBasis",
+      "BosonicOccupation.shell_finrank",
+      "BosonicOccupation.shellSeries_eq",
+      "BosonicOccupation.discriminant_mul_shellSeries",
+      "BosonicOccupation.charge_vacuum",
+      "BosonicOccupation.charge_eq_iff",
+      "BosonicOccupation.chargeStateEquivEnergy",
+      "BosonicOccupation.charge_finrank",
+      "BosonicOccupation.charge_finrank_eq_coeff",
+      "BosonicOccupation.charge_entropy",
+      "BosonicOccupation.charge_cardy_ratio"
+    ]
+  },
+  "occupation_model": {
+    "species": "Any natural k",
+    "occupations": "Fin k -> (Nat ->_0 Nat), with mode zero unoccupied",
+    "energy": "sum_i sum_m m*N(i,m)",
+    "energy_shell": "Subtype of occupations having exact total energy n",
+    "equivalence": "Explicit inverse maps between energy-shell occupations and ColoredPartitions.Partition k n",
+    "derived_bounds": [
+      "Modes m>n are unoccupied",
+      "For m>0, occupancy is at most n/m"
+    ],
+    "vacuum": "Unique zero-energy state"
+  },
+  "hilbert_spaces": {
+    "shell": "EuclideanSpace C (State k n), with occupation-number orthonormal basis",
+    "dimension": "finrank C (ShellSpace k n) = ColoredPartitions.count k n",
+    "graded_series": "shellSeries k = ColoredPartitions.series k",
+    "discriminant_bridge": "qExpansion 1 Delta_mod * map (shellSeries 24) = X"
+  },
+  "charge_model": {
+    "species": 24,
+    "charge": "(energy : Int) - 1",
+    "vacuum_offset": "Specified input, not derived from normal ordering or a regularized sum",
+    "nonnegative_charge_shell": "ChargeState n is equivalent to State 24 (n+1)",
+    "dimension": "finrank C (ChargeSpace n) = degeneracy n = count 24 (n+1)"
+  },
+  "entropy": {
+    "limit": "log(finrank C (ChargeSpace n))/sqrt n tends to 4*pi",
+    "cardy_ratio": "log(finrank C (ChargeSpace n))/Cardy.leadingEntropy 2 n tends to 1",
+    "unproved_asymptotic_premises": []
+  },
+  "not_proved": [
+    "Derivation of the vacuum offset",
+    "Full infinite Fock representation and creation/annihilation commutation relations",
+    "Analytic infinite operator trace",
+    "Identification with the physical string Hilbert space or string duality",
+    "Black-hole area law from a microscopic model",
+    "DMZ quarter-BPS mock Jacobi finite part, completion and coefficient asymptotic",
+    "Colored logarithmic correction or quantitative asymptotic remainder"
+  ],
+  "literature_context": "https://arxiv.org/html/1208.4074v2#S3.SS2",
+  "novelty_claim": false,
+  "sha256": {
+    "RamanujanTau/ColoredPartitions.lean": "65ef84c99d5a01f3d9cef32300dc5965973ca6317bbe784a3321574fec7e2fe8",
+    "RamanujanTau/ColoredPartitionEntropy.lean": "27fc604f4ae7ff7bb263666a95f40808879d0da31fe0fe0f109e593c0e0c39b1",
+    "scripts/audit/colored_partition_entropy.lean": "034ee2443d99cb95dfb28a6b4aa4eb55588e3b121c5df6ca081cc80c0e1005a3",
+    "docs/verification/colored_partition_entropy.axioms.txt": "bce7303c0ad56d53b90431227c6660a1ab544b8c6b571fa0e1e7f9db56e166c8",
+    "RamanujanTau/HardyRamanujan/Entropy.lean": "4defd7aa0771c687a71329dcd0f88ace4d76eef6f2850890766df78d02d6a3d0",
+    "RamanujanTau/HardyRamanujan/Main.lean": "d40573c3a67b67678339283577ad8419735e71133f872a0fc2b5aef1c071cdfd",
+    "RamanujanTau/HardyRamanujan/GenFun.lean": "00b7735c4d2e8028b8178ade8256615d48661a13625e98a9e5ed4e8bebff4188",
+    "RamanujanTau/CardySaddle.lean": "7e0fd15cef1136181a3ee622096bd8c2cd82d52d11ebdadc3cf6558ea56e1739",
+    "RamanujanTau/MockTheta5PartitionCount.lean": "fb4c1fdb5ac643f0b7b76288bab9fc419787c63779af025abb14cacc458220ba",
+    "RamanujanTau/TauModular.lean": "219a6dd4f4efc62d5a87d58a015230c599765449a44cdcc5237a99e18bf5e5b3",
+    "RamanujanTau/DiscriminantQExpansion.lean": "3e1c8ff2e1ca8f7c6a9b43dec1d709370c2499576f0dc0ba9f5a67d03f63c762",
+    "RamanujanTau/BosonicOccupation.lean": "fabe72ad1ceb6b6616a61a81af09149c1f89c92da24a177bb3e4624b49ab15f5",
+    "scripts/audit/bosonic_occupation.lean": "a8f950044c565a9d29f10e1d873fe91ad285134d3f7369363b60f15de5ee6b61",
+    "docs/verification/bosonic_occupation.axioms.txt": "e4f0cd585a066967ce181fca66a522648a30b291ed546c41109b5e3fe649a679"
+  },
+  "repository_check": {
+    "command": "python3 scripts/check_repository.py",
+    "exit_code": 0,
+    "scope": "Temporary copy of the Git index plus the 22 intended new files across this work; actual index unchanged.",
+    "output": "Passed: 1107 Lean source/audit files, 26 Markdown files, 556 local links; project imports and source hygiene checked.\nThis is a source/documentation check, not Lean proof verification.",
+    "new_files": [
+      "RamanujanTau/Cylindric/Slices.lean",
+      "scripts/audit/cylindric_slices.lean",
+      "scripts/cylindric_positivity.py",
+      "docs/CYLINDRIC_RESEARCH.md",
+      "docs/verification/cylindric_positivity_4_5.json",
+      "docs/verification/cylindric_positivity_4_7.json",
+      "docs/verification/cylindric_slices.json",
+      "docs/verification/cylindric_slices.axioms.txt",
+      "RamanujanTau/CardySaddle.lean",
+      "RamanujanTau/HardyRamanujan/Entropy.lean",
+      "scripts/audit/partition_entropy.lean",
+      "docs/verification/partition_entropy.json",
+      "docs/verification/partition_entropy.axioms.txt",
+      "RamanujanTau/ColoredPartitions.lean",
+      "RamanujanTau/ColoredPartitionEntropy.lean",
+      "scripts/audit/colored_partition_entropy.lean",
+      "docs/verification/colored_partition_entropy.json",
+      "docs/verification/colored_partition_entropy.axioms.txt",
+      "RamanujanTau/BosonicOccupation.lean",
+      "scripts/audit/bosonic_occupation.lean",
+      "docs/verification/bosonic_occupation.json",
+      "docs/verification/bosonic_occupation.axioms.txt"
+    ]
+  },
+  "git_diff_check": "passed"
+}

@@ -1,0 +1,11 @@
+default(parisize,1000000000);
+ps=[29,31,37,41,43,47,53,59,61,73];
+{foreach([1,2,3,6],N,forstep(k=2,26,2,
+  my(mf=mfinit([N,k],0));
+  if(mfdim(mf)>0,
+    my(F=mfeigenbasis(mf));
+    for(i=1,#F,
+      if(poldegree(mfparams(F[i])[4])==1,
+        my(v=mfcoefs(F[i],73));
+        print([N,k,v[3],v[4]],";",vector(#ps,j,v[ps[j]+1])))))));}
+quit;

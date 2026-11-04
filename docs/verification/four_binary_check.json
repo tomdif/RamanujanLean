@@ -1,0 +1,310 @@
+{
+  "arithmetic": "Python integers; direct Pochhammer factors versus Watson sums",
+  "all_checks_passed": true,
+  "origin_check": {
+    "unit_norm_map_parameter_combinations": 192,
+    "compatible_combinations": 16,
+    "passed": true,
+    "scope": "Finite origin test; not claimed as a Lean converse theorem"
+  },
+  "cases": [
+    {
+      "m": 3,
+      "n": 5,
+      "modulus": 43,
+      "indices": [
+        6,
+        12,
+        5,
+        15
+      ],
+      "zero_residues": [
+        32,
+        19
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 463
+    },
+    {
+      "m": 3,
+      "n": 25,
+      "modulus": 643,
+      "indices": [
+        6,
+        12,
+        25,
+        75
+      ],
+      "zero_residues": [
+        29,
+        59
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 6490
+    },
+    {
+      "m": 6,
+      "n": 5,
+      "modulus": 97,
+      "indices": [
+        12,
+        24,
+        5,
+        15
+      ],
+      "zero_residues": [
+        95,
+        28
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 1066
+    },
+    {
+      "m": 6,
+      "n": 25,
+      "modulus": 697,
+      "indices": [
+        12,
+        24,
+        25,
+        75
+      ],
+      "zero_residues": [
+        38,
+        68
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 7039
+    },
+    {
+      "m": 9,
+      "n": 5,
+      "modulus": 187,
+      "indices": [
+        18,
+        36,
+        5,
+        15
+      ],
+      "zero_residues": [
+        7,
+        37
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 1908
+    },
+    {
+      "m": 9,
+      "n": 25,
+      "modulus": 787,
+      "indices": [
+        18,
+        36,
+        25,
+        75
+      ],
+      "zero_residues": [
+        47,
+        77
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 7948
+    },
+    {
+      "m": 12,
+      "n": 5,
+      "modulus": 313,
+      "indices": [
+        24,
+        48,
+        5,
+        15
+      ],
+      "zero_residues": [
+        16,
+        46
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 3177
+    },
+    {
+      "m": 12,
+      "n": 25,
+      "modulus": 913,
+      "indices": [
+        24,
+        48,
+        25,
+        75
+      ],
+      "zero_residues": [
+        56,
+        86
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 9217
+    },
+    {
+      "m": 18,
+      "n": 5,
+      "modulus": 673,
+      "indices": [
+        36,
+        72,
+        5,
+        15
+      ],
+      "zero_residues": [
+        34,
+        64
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 6795
+    },
+    {
+      "m": 18,
+      "n": 25,
+      "modulus": 1273,
+      "indices": [
+        36,
+        72,
+        25,
+        75
+      ],
+      "zero_residues": [
+        74,
+        104
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 12835
+    },
+    {
+      "m": 21,
+      "n": 5,
+      "modulus": 907,
+      "indices": [
+        42,
+        84,
+        5,
+        15
+      ],
+      "zero_residues": [
+        43,
+        73
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 9144
+    },
+    {
+      "m": 21,
+      "n": 25,
+      "modulus": 1507,
+      "indices": [
+        42,
+        84,
+        25,
+        75
+      ],
+      "zero_residues": [
+        83,
+        113
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 15184
+    },
+    {
+      "m": 24,
+      "n": 5,
+      "modulus": 1177,
+      "indices": [
+        48,
+        96,
+        5,
+        15
+      ],
+      "zero_residues": [
+        52,
+        82
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 11853
+    },
+    {
+      "m": 24,
+      "n": 25,
+      "modulus": 1777,
+      "indices": [
+        48,
+        96,
+        25,
+        75
+      ],
+      "zero_residues": [
+        92,
+        122
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 17893
+    },
+    {
+      "m": 33,
+      "n": 5,
+      "modulus": 2203,
+      "indices": [
+        66,
+        132,
+        5,
+        15
+      ],
+      "zero_residues": [
+        79,
+        109
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 22140
+    },
+    {
+      "m": 48,
+      "n": 5,
+      "modulus": 4633,
+      "indices": [
+        96,
+        192,
+        5,
+        15
+      ],
+      "zero_residues": [
+        124,
+        154
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 46485
+    },
+    {
+      "m": 63,
+      "n": 5,
+      "modulus": 7963,
+      "indices": [
+        126,
+        252,
+        5,
+        15
+      ],
+      "zero_residues": [
+        169,
+        199
+      ],
+      "terms_per_progression": 11,
+      "all_coefficients_compared": 79830
+    }
+  ],
+  "max_m": 24,
+  "max_n": 25,
+  "one_parameter_cases_requested": 5,
+  "depth": 10,
+  "total_coefficients_compared": 259467,
+  "sha256": {
+    "check_four_binary.py": "3224169e91f874a1620ec95569c13c50f8a1146d8f6f756c1e36e5fbb3729b7d",
+    "quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

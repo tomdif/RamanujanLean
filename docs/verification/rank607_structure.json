@@ -1,0 +1,55 @@
+{
+ "date": "2026-11-02T10:37:03.102275+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "theorem": "RamanujanTau.FiniteArithmetic.Rank607Structure.lamEquiv : ((Fin 24 → ZMod (607^2)) × (ZMod (607^2) ⧸ Ideal.span {607})) ≃ₗ[ZMod (607^2)] Lam 607 2 3",
+ "companion": "lam_structure: span{V_0..V_23, w} = Lam 607 2 3, and Σ a_j g_j = 0 iff a_0=…=a_23=0 and 607 ∣ a_24.",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9378,
+  "sorry_warnings": 0
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/rank607_structure.lean",
+  "exit_code": 0,
+  "declarations": 9,
+  "report": "docs/verification/rank607_structure.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "certificates": {
+  "L53_relation": "relTable: L(53) = Σ rel_j L(2j+3), checked in all 102 basis coordinates",
+  "torsion": "607·(L(51) − Σ_{j<24} t_j L(2j+3)) = 0 in all 102 coordinates",
+  "elimination": "pTable P with P·G = diag(1,…,1,607·308) on coefficients q^26..q^50; 308·22729 = 1 mod 607^2"
+ },
+ "controls": {
+  "negative_control": "Two false variants are rejected by decide +kernel: uVal·uInv = 2, and the L(53) relation with its last coefficient changed from 51 to 52 (the latter reports a pretty-printer recursion limit after rejection).",
+  "consistency": "u = 308 agrees with the residual 607·308 recorded in docs/BL_SHARPNESS_PROOF.md §5.4 from an independent implementation."
+ },
+ "trusted_inputs": "Lean kernel with GMP-accelerated Nat arithmetic.",
+ "scope": {
+  "proved": "At l=607, m=2, the stable module is isomorphic to (Z/607^2)^24 ⊕ Z/607: 25 generators, 24 free summands.",
+  "not_proved": [
+   "The Smith profile for m>=3.",
+   "Any other prime."
+  ],
+  "boylan_webb": "BW §6.1 report r_607(m)=24. At m=2 this matches the free-summand count and not the generator count. Which they mean is not settled; no expert review."
+ },
+ "review": "Machine-checked; no human expert review.",
+ "sha256": {
+  "RamanujanTau/FiniteArithmetic/Rank607Structure.lean": "27ec3441f44b94160b7efbb84fb7cca1eefd7f35f135bbcec06de773533298f5",
+  "RamanujanTau/FiniteArithmetic/Rank607Final.lean": "b0cc255178ce25b36bf9a3aab45bb69281a293a52cb634157471b9b35eb77dbd",
+  "RamanujanTau/FiniteArithmetic/Rank607Check.lean": "c6f3243294005edb166b8e553ede2e9eb7d3b0194d898e247e3d93290e572f2e",
+  "RamanujanTau/FiniteArithmetic/Rank607Coords.lean": "49632764a5fc0a5430cb16d255f552a80344cf56cba49e03e7bcd6bf58fb11b7",
+  "scripts/generate_rank607_coords.py": "5f809b2a16d86802384903bfa7640fe463150a7c09a78e0463659983439dd707",
+  "scripts/audit/rank607_structure.lean": "1bf006bb4a9af17ffacd9a417aacc5f079113c50dd6045e7e8afd496bdf70c46",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "docs/verification/rank607_structure.axioms.txt": "db95ccc86b97993d13ce7ab58e0da0c5d92c340344f35a6693b7d5fff9301c9d"
+ }
+}

@@ -1,0 +1,184 @@
+{
+ "date": "2026-11-03T12:50:58.781470+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "theorems": [
+  "RamanujanTau.FiniteArithmetic.Rank2At37.bEll_37 : ∀ m ≥ 1, BLBound.bEll 37 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.Rank2At41.bEll_41 : ∀ m ≥ 1, BLBound.bEll 41 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.Rank2At43.bEll_43 : ∀ m ≥ 1, BLBound.bEll 43 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.Rank2At47.bEll_47 : ∀ m ≥ 1, BLBound.bEll 47 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankSAt53.bEll_53 : ∀ m ≥ 1, BLBound.bEll 53 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankSAt59.bEll_59 : ∀ m ≥ 1, BLBound.bEll 59 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt61.bEll_61 : ∀ m ≥ 1, BLBound.bEll 61 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt67.bEll_67 : ∀ m ≥ 1, BLBound.bEll 67 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt71.bEll_71 : ∀ m ≥ 1, BLBound.bEll 71 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt73.bEll_73 : ∀ m ≥ 1, BLBound.bEll 73 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt79.bEll_79 : ∀ m ≥ 1, BLBound.bEll 79 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt83.bEll_83 : ∀ m ≥ 1, BLBound.bEll 83 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt89.bEll_89 : ∀ m ≥ 1, BLBound.bEll 89 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt97.bEll_97 : ∀ m ≥ 1, BLBound.bEll 97 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt101.bEll_101 : ∀ m ≥ 1, BLBound.bEll 101 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt103.bEll_103 : ∀ m ≥ 1, BLBound.bEll 103 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt107.bEll_107 : ∀ m ≥ 1, BLBound.bEll 107 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt109.bEll_109 : ∀ m ≥ 1, BLBound.bEll 109 m = 2*m-1",
+  "RamanujanTau.FiniteArithmetic.RankRAt113.bEll_113 : ∀ m ≥ 1, BLBound.bEll 113 m = 2*m-1"
+ ],
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9430,
+  "sorry_warnings": 0
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/rank2_threshold.lean",
+  "exit_code": 0,
+  "declarations": 40,
+  "report": "docs/verification/rank2_threshold.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "method": "Second-order l-adic recurrence L(2n+5)-k1 L(2n+3)-k0 L(2n+1)=l^(n+1) G_n with G_n in the second odd envelope (Rank2.odd_padic2 via lift_padic_mem2); rank-two non-membership criterion BLBound.not_mem_of_errors2; error law obs(U G_{n+1}) = theta obs(U G_n) mod l (Rank2.Data2.divided_step) from mod-l^2 residues of obs(Y f_i/E_{l-1}) on the basis Delta^j E4^a E6^b; all finite data from one kernel evaluation of Rank2Packed.ok per prime (PackedPrime.prelude, packed series mod l^2 through degree 3l^2+1). At l=53,59 (dim S_{l-1}=4, s=2 low coefficients killed by D since 2l<delta): the RankS generalization with s+2 forms and s observations; the error vector e_n=(obs_a(U G_n))_a satisfies e_{n+1}=Theta e_n mod l (RankS.Data2.divided_step) with Theta invertible, and BLBound.not_mem_of_errors2_at is applied with an observation nonzero at each n; data from one kernel evaluation of RankSPacked.ok (packed series mod l^2 through degree 4l^2+1 over 2^14 lanes). At every prime 61 <= l <= 113 the odd recurrence has order r = 3, 4, 5: RankR stack (lift_padic_memR, BLBound.not_mem_of_errorsR via the inverse of the r x r window matrix, window determinant det0*(det C)^n), packed series mod l^2 through degree (s+r) l^2+1 <= 12 l^2 (ea_trunc with the q^{5l^2}, q^{7l^2} terms).",
+ "data": {
+  "theta": {
+   "37": 20,
+   "41": 31,
+   "43": 31,
+   "47": 17
+  },
+  "initial_observation": {
+   "37": 34,
+   "41": 23,
+   "43": 10,
+   "47": 35
+  },
+  "generator": "scripts/boylanwebb/gen_rank2.py (proposal only; lanes re-checked by decide +kernel, ZMod identities by decide)",
+  "independent_check": "the generator's q-series model reproduces ErrorDynamics29.Data (348, 725, 696) at l=29; theta agrees with the Theta eigenvalues of BL_SHARPNESS_PROOF §4.3",
+  "Theta_matrix": {
+   "53": [
+    [
+     38,
+     18
+    ],
+    [
+     42,
+     22
+    ]
+   ],
+   "59": [
+    [
+     45,
+     28
+    ],
+    [
+     34,
+     28
+    ]
+   ]
+  },
+  "Theta_charpoly": {
+   "53": "(x+18)(x+28)",
+   "59": "(x+46)(x+58)"
+  },
+  "initial_error_vector": {
+   "53": [
+    45,
+    35
+   ],
+   "59": [
+    52,
+    58
+   ]
+  },
+  "generator_rankS": "scripts/boylanwebb/gen_rankS.py (proposal only; reproduces theta=20 at 37)",
+  "independent_check_rankS": "Theta charpolys at 53, 59 equal the Katz-model table (theta2.py) in BL_SHARPNESS_PROOF §4.3 and docs/paper/main.tex",
+  "shapes_s_r": {
+   "61-71": [
+    2,
+    3
+   ],
+   "73-83": [
+    3,
+    3
+   ],
+   "89": [
+    3,
+    4
+   ],
+   "97-107": [
+    4,
+    4
+   ],
+   "109-113": [
+    4,
+    5
+   ]
+  },
+  "generator_rankR": "scripts/boylanwebb/gen_rankR.py (proposal only)",
+  "independent_check_rankR": "charpoly(Theta) equals the PARI prediction (12/l)/5*T_l on S^new_{l-5}(Gamma0(6)) class (-(2/l),-(3/l)) at every l=29..113; the order-r recurrence polynomial equals charpoly((12/l)T_l) on S^new_{l-3}(Gamma0(6)) in the same class at every l=37..113 (unique match among weights l-7..l+3, four sign classes, all scalars)"
+ },
+ "controls": {
+  "negative_control": "Rejected: perturbed z entry (ok_eq fails), perturbed D-matrix entry (ok_eq fails), wrong theta (Identities fails).",
+  "negative_control_rankS": "At 53: perturbed z entry and perturbed D-matrix entry make ok evaluate to false (#eval; decide +kernel aborts); a wrong Theta entry fails the decide identities.",
+  "negative_control_rankR": "At 61: perturbed recurrence coefficient fails the Cayley-Hamilton identity; perturbed Theta entry fails the theta identities; perturbed z entry makes ok evaluate to false."
+ },
+ "scope": {
+  "proved": "b_l(m) = 2m-1 for every m >= 1 at every prime 29 <= l <= 113 (29, 31: Exact29/Exact31; 37-47: Rank2At*; 53, 59: RankSAt*; 61-113: RankRAt*). With AtkinExact (b_l(m) = 2*floor(m/2)+1 at 13-23), b_l(m) is known for every m at every prime 13 <= l <= 113.",
+  "not_proved": [
+   "Primes l >= 127.",
+   "No all-prime proof: G5 (nonvanishing of the seed u0) is open; G4 needs Claim K (not formalized) and l not dividing a_l(h8) (checked numerically below 60000 in the research draft)."
+  ]
+ },
+ "review": "Machine-checked; no human expert review.",
+ "sha256": {
+  "RamanujanTau/FiniteArithmetic/PackedPrime.lean": "c6ec20ba0123ded4f3b02560efd1e7b10ce0625744a1e423fa8a637836ff446a",
+  "RamanujanTau/FiniteArithmetic/OrbitLift2.lean": "4c10d1624d9250e86e1194fe7dcfcf4e6360aa9ba54c9f9bbb638bc9c0773ba6",
+  "RamanujanTau/FiniteArithmetic/Rank2Mod.lean": "f42ee5d317d5483ddec330d98bd277deeaf1cfab055827ea3c1cbb81717f4680",
+  "RamanujanTau/FiniteArithmetic/Rank2Lift.lean": "b7ad152e8bd439af0753109bbce992bf05bd604d5ab019dd935cb9d24f92e8d0",
+  "RamanujanTau/FiniteArithmetic/Rank2Error.lean": "9956ab48b8c1f1feda66fcd69680ee288d718bd5f07c2428450e14bee8be7e63",
+  "RamanujanTau/FiniteArithmetic/Rank2Main.lean": "5ced8c6e06e180d4715ea7d2d860e16982687d6a911767347ddd3cec502ddb84",
+  "RamanujanTau/FiniteArithmetic/Rank2Packed.lean": "5cd15571f2b558e3b4e3df719402e9948d10b2e00943da7c03b4bc60530f65c0",
+  "RamanujanTau/FiniteArithmetic/Rank2At37.lean": "76ccb528915435fe15c3f061f1b58883f3405dafc59f9ad6833f0dd9cad9ccfa",
+  "RamanujanTau/FiniteArithmetic/Rank2At41.lean": "7d6954594636279e0719c7d378e4c3bc0629b9cb3eae5d7550484d8a23b5facc",
+  "RamanujanTau/FiniteArithmetic/Rank2At43.lean": "b7028350caa188f6002ed557d2ac75b89004fb78e3145779c394af184c487a3d",
+  "RamanujanTau/FiniteArithmetic/Rank2At47.lean": "c37812e736670a5b11615d2001ba769c91d76bbc1f8e0314bff970f0bc107e69",
+  "RamanujanTau/BLBound/Threshold2.lean": "62d06f126b223248c1f9b26de739e5066580b9cb5aa169b65411fdf134adbaad",
+  "scripts/boylanwebb/gen_rank2.py": "1fd2b8d0c65cf4835ea69e2f623405bf47c8103285b908b0d9598609dac93ce6",
+  "scripts/audit/rank2_threshold.lean": "ef305c841b4c3bb80d69c61a2cfcffa59fc22be26028432b5ba7ab17afa03965",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "docs/verification/rank2_threshold.axioms.txt": "c8e6b2682471b6e3c4866d17bee8049c542c2bdad6899a59416adbb4156838a4",
+  "RamanujanTau/FiniteArithmetic/RankSMod.lean": "fbb4d1c921d44bd3411bab1b6b74dae0a4d947b6821deadd003e470b8fe3f8be",
+  "RamanujanTau/FiniteArithmetic/RankSLift.lean": "c8fe47c93ba56e0608ce95412061e1476c273d3e5bcb62ac7339480c5d429f07",
+  "RamanujanTau/FiniteArithmetic/RankSError.lean": "e41f44316c6df9b5fbabcdf61b13b38a51c05905af8fc0cb05fdcc2d93b81b65",
+  "RamanujanTau/FiniteArithmetic/RankSMain.lean": "4478308ee0a02a97fdbcfcdb697d35e2fff95fc4696fc382144d02977ffbfd79",
+  "RamanujanTau/FiniteArithmetic/RankSPacked.lean": "f286e6214a8c957b8b1e3c56b34242b15a11ac34b8deb7cbf62fc6d2e7e3652e",
+  "RamanujanTau/FiniteArithmetic/RankSAt53.lean": "d1aeb55ff257dc6d842769797e17d606035676fcdc8f7efa96df6e5c72fcc38b",
+  "RamanujanTau/FiniteArithmetic/RankSAt59.lean": "a4d92caeea02d75f0706e13e1c88672d268c988e0086bc5e6f95b3c7200a0a4b",
+  "scripts/boylanwebb/gen_rankS.py": "f9be68239209e9ae5e209b128a51b620ba50bfe7a8bb9ddd5f963e1c4a3a204c",
+  "RamanujanTau/FiniteArithmetic/OrbitLiftR.lean": "768320a2b0c7d7890bd641dd12c964c500c268e4a950b2ed4ce10963914c582d",
+  "RamanujanTau/BLBound/ThresholdR.lean": "5f6ed0b2721f99ff2254e890ab777d6a5087f0549933990b0bdecba7d440bcb8",
+  "RamanujanTau/FiniteArithmetic/RankRMod.lean": "4d893c107ac764fe190652d3c64a1b0ed1d4dc6dddc5b89bc257750159c06477",
+  "RamanujanTau/FiniteArithmetic/RankRLift.lean": "dcb4b1b311286d80f882b61b75b96f5ef07cb6f7fa34ef59c86ac4a652f3a25d",
+  "RamanujanTau/FiniteArithmetic/RankRError.lean": "f49f400497e0a1597b7e84eff03763149b5641ce0831a19c31469174322117be",
+  "RamanujanTau/FiniteArithmetic/RankRMain.lean": "d067ac24fd6274044bb988e3bcaf82fbe928968879dccf713e9e1ae9dbd78f8a",
+  "RamanujanTau/FiniteArithmetic/RankRPacked.lean": "15223c9091f82db25916034bb936e142c44e4cd84f9b058af707a65d477efa5f",
+  "scripts/boylanwebb/gen_rankR.py": "a8aae5f555fb7a8d8a30210d964858661bcaff259943fc81c818c2d20029af9f",
+  "RamanujanTau/FiniteArithmetic/RankRAt61.lean": "afc3fa1f3d8efab51f4d191ae7d02041725dd876dce253850779fb921f611f58",
+  "RamanujanTau/FiniteArithmetic/RankRAt67.lean": "35fafb12e28cdf23ada5050343351859d67d592ad3c3edb582cca44ce25cf3a7",
+  "RamanujanTau/FiniteArithmetic/RankRAt71.lean": "e8a328c53b3c6b4a0c3c508df00260d57c0476e55bd4ed2bda484354e619a022",
+  "RamanujanTau/FiniteArithmetic/RankRAt73.lean": "993bb22ee3f3f516a92b77af6324bc04511ce35833e4a11cd9e9b7895f87bbe5",
+  "RamanujanTau/FiniteArithmetic/RankRAt79.lean": "de8be1220cb67a45e21ec0292cb42f995804a4b428142ec3cbfa6c58e8bf7825",
+  "RamanujanTau/FiniteArithmetic/RankRAt83.lean": "0cc221f800c2bf1204d6022ce63d18e802ce65385bb05ccdeff5049c5e3dc690",
+  "RamanujanTau/FiniteArithmetic/RankRAt89.lean": "e196ff7ba92b4cc6f72fc27b96baf962f6a8e9d77c8c7050468c744db9ca9689",
+  "RamanujanTau/FiniteArithmetic/RankRAt97.lean": "210cf3349a1e9e9e67eae8b96f81255c65a488f4e4576cb1dccc7252f3aaabe7",
+  "RamanujanTau/FiniteArithmetic/RankRAt101.lean": "0507a0664cefcc1622fc87baf6c90847f72faa8ac5e6b0994eeab9c5992a9429",
+  "RamanujanTau/FiniteArithmetic/RankRAt103.lean": "e18647a78c245e32784810057cf8439e35652aefd06fff45ea7fedeb00d58885",
+  "RamanujanTau/FiniteArithmetic/RankRAt107.lean": "53b4dc43e3e8384c4f9cc07ee4b95145d0bcdc187952a395134b839a7b9256af",
+  "RamanujanTau/FiniteArithmetic/RankRAt109.lean": "13d3ae1c5470742a75ba4d9c7c70cb2a8e7f78fb3450b4828bfa91caede3d68d",
+  "RamanujanTau/FiniteArithmetic/RankRAt113.lean": "b357dc72117688d2cde70bcf2edccf29f2ba91a2664f9350624d01df9cb90085"
+ }
+}

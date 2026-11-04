@@ -1,0 +1,9 @@
+import RamanujanTau.FiniteArithmetic.Rank607Final
+
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Final.final_ok
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Final.rank607Matrix_eq
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Final.rEll_607
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Series.prelude_spec
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Identities.theta_Dq
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Identities.E4_eq
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Identities.sigma_pred_eq

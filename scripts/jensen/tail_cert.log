@@ -1,0 +1,28 @@
+d = 2  target T(x) = x**2 - 2
+tail box [88.4047, inf) OK, margin 1.815
+finite boxes: 20  min margin 0.40594843623431703
+CERTIFIED: J^{2,n} hyperbolic for all n with U(n) >= 36, i.e. all n >= 198
+d = 3  target T(x) = x**3 - 6*x
+tail box [122.784, inf) OK, margin 4.152
+finite boxes: 20  min margin 2.0193106157029157
+CERTIFIED: J^{3,n} hyperbolic for all n with U(n) >= 50, i.e. all n >= 380
+d = 4  target T(x) = x**4 - 12*x**2 + 12
+tail box [159.62, inf) OK, margin 10.23
+finite boxes: 20  min margin 8.179940306264252
+CERTIFIED: J^{4,n} hyperbolic for all n with U(n) >= 65, i.e. all n >= 643
+d = 5  target T(x) = x**5 - 20*x**3 + 60*x
+tail box [196.455, inf) OK, margin 14.37
+finite boxes: 20  min margin 24.715715011374982
+CERTIFIED: J^{5,n} hyperbolic for all n with U(n) >= 80, i.e. all n >= 973
+d = 6  target T(x) = x**6 - 30*x**4 + 180*x**2 - 120
+tail box [561.278, inf) OK, margin 67.39
+finite boxes: 40  min margin 0.32951084460485863
+CERTIFIED: J^{6,n} hyperbolic for all n with U(n) >= 90, i.e. all n >= 1232
+d = 6  target T(x) = x**6 - 30*x**4 + 180*x**2 - 120
+tail box [586.41, inf) OK, margin 70.17
+finite boxes: 40  min margin 14.014416513197885
+CERTIFIED: J^{6,n} hyperbolic for all n with U(n) >= 90, i.e. all n >= 1232
+d = 7  target T(x) = x**7 - 42*x**5 + 420*x**3 - 840*x
+tail box [1815.24, inf) OK, margin 309.2
+finite boxes: 60  min margin 84.00603268952986
+CERTIFIED: J^{7,n} hyperbolic for all n with U(n) >= 105, i.e. all n >= 1676

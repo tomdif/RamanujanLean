@@ -1,0 +1,22 @@
+import RamanujanTau.MultiQuintupleFourBinaryFamily
+
+#print axioms Ramanujan.MultiQuintuple.fourBinary_energy_raw
+#print axioms Ramanujan.MultiQuintuple.fourBinary_raw_involutive
+#print axioms Ramanujan.MultiQuintuple.fourBinary_num_next
+#print axioms Ramanujan.MultiQuintuple.fourBinary_mod_fifteen_identity
+#print axioms Ramanujan.MultiQuintuple.fourBinary_raw_mod_fifteen
+#print axioms Ramanujan.MultiQuintuple.fourBinary_bits_weight
+#print axioms Ramanujan.MultiQuintuple.fourBinary_num_zero
+#print axioms Ramanujan.MultiQuintuple.fourBinary_partner_coords
+#print axioms Ramanujan.MultiQuintuple.fourBinary_partner_energy
+#print axioms Ramanujan.MultiQuintuple.fourBinary_partner_involutive
+#print axioms Ramanujan.MultiQuintuple.fourBinary_num_dvd_of_exp
+#print axioms Ramanujan.MultiQuintuple.coeff_fourBinary_zero
+#print axioms Ramanujan.MultiQuintuple.coeff_fourBinary_43
+#print axioms Ramanujan.MultiQuintuple.fortyThree_not_sum_two_squares
+#print axioms Ramanujan.MultiQuintuple.fourBinaryFamily_coprime
+#print axioms Ramanujan.MultiQuintuple.coeff_fourBinary_family
+#print axioms Ramanujan.MultiQuintuple.fourBinaryFamilyP_strictMono
+#print axioms Ramanujan.MultiQuintuple.fourBinaryFamilyR_lt
+#print axioms Ramanujan.MultiQuintuple.fourBinaryFamilyR_injective
+#print axioms Ramanujan.MultiQuintuple.fourBinaryFamily_even_not_sum_squares

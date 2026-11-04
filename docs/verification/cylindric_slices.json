@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-03",
+  "status": "Focused Lean build and six-declaration axiom audit passed",
+  "formal_scope": "Common-offset normalization, uniqueness, admissibility, exact transition cost and slice volume only",
+  "not_formalized": [
+    "full infinite generating-function transfer",
+    "identification with Nat.Partition rows",
+    "all-N Warnaar positivity"
+  ],
+  "public_root_import": false,
+  "build_command": "lake build RamanujanTau.Cylindric.Slices",
+  "audit_command": "lake env lean scripts/audit/cylindric_slices.lean",
+  "sha256": {
+    "RamanujanTau/Cylindric/Slices.lean": "82d2d39f828017c2348716e35d368f0e6073d7c42a4c501b61b5e622dafcb50a",
+    "scripts/audit/cylindric_slices.lean": "59e15e5e28d760e538fb3099a4bc94fb4a773d95d9670691260bf0c408b03e33",
+    "scripts/cylindric_positivity.py": "a9d178f836a6f1cab8f3b254c6641e083ae482485f59bb92b4785f7e2c3f164e"
+  }
+}

@@ -1,0 +1,6 @@
+'Ramanujan.NestedRadical.bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.NestedRadical.error_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.NestedRadical.error_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.NestedRadical.tendsto_trunc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.NestedRadical.ramanujan_radical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.NestedRadical.ramanujan_radical_error' depends on axioms: [propext, Classical.choice, Quot.sound]

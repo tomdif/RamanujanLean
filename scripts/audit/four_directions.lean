@@ -1,0 +1,28 @@
+import RamanujanTau.MultiQuintupleFourFortyOneConverse
+import RamanujanTau.MultiQuintupleWitness103
+import RamanujanTau.FiniteArithmetic.Rank607Witness
+import RamanujanTau.FiniteArithmetic.SeedModels
+
+#print axioms Ramanujan.MultiQuintuple.coeff_quad_eq_finiteBox
+#print axioms Ramanujan.MultiQuintuple.coeff_quad_eq_zero_of_expInvolution
+#print axioms Ramanujan.MultiQuintuple.four41Partner_weight
+#print axioms Ramanujan.MultiQuintuple.four41Partner_exponent
+#print axioms Ramanujan.MultiQuintuple.four41Partner_involutive
+#print axioms Ramanujan.MultiQuintuple.coeff_four_quintuple_p41_zero
+#print axioms Ramanujan.MultiQuintuple.coeff_four41_eq_short
+#print axioms Ramanujan.MultiQuintuple.four41_residue_or_witness
+#print axioms Ramanujan.MultiQuintuple.four41_persistent_vanishing_iff
+#print axioms Ramanujan.MultiQuintuple.four41_finite_test_iff
+#print axioms Ramanujan.MultiQuintuple.first_witness103
+#print axioms RamanujanTau.FiniteArithmetic.cubic_idempotent_lift
+#print axioms RamanujanTau.FiniteArithmetic.matrix_seed_survives
+#print axioms RamanujanTau.FiniteArithmetic.SeedModels.survives233
+#print axioms RamanujanTau.FiniteArithmetic.SeedModels.survives257
+#print axioms RamanujanTau.FiniteArithmetic.SeedModels.survives307
+#print axioms RamanujanTau.FiniteArithmetic.SeedModels.survives401
+#print axioms RamanujanTau.FiniteArithmetic.SeedModels.survives607
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Witness.elimination_checked
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Witness.upper_triangular
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Witness.diagonal_nonzero
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Witness.determinant_nonzero
+#print axioms RamanujanTau.FiniteArithmetic.Rank607Witness.actual_rank_of_entries

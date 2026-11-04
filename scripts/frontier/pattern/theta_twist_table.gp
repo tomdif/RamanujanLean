@@ -1,0 +1,23 @@
+default(parisize,1500000000);
+PR=[5,7,11,13,17,19];
+\\ all Z_l-rational embeddings of eigenforms: list of [N,k,w2,w3,a_l p-adic (prec 3),[a_p mod l]]
+embeds(N,k,l)={my(mf,F,out=List(),v,P,rts,al2,al3);
+ mf=mfinit([N,k],0); if(mfdim(mf)==0,return(List()));
+ F=mfeigenbasis(mf);
+ al2=if(N%2==0,mfatkineigenvalues(mf,2),vector(#F,i,[0])); al3=if(N%3==0,mfatkineigenvalues(mf,3),vector(#F,i,[0]));
+ for(i=1,#F, v=mfcoefs(F[i],max(l,19)); P=mfparams(F[i])[4];
+  rts=if(poldegree(P)==1,[-polcoef(P,0)/polcoef(P,1)+O(l^3)],polrootspadic(P,l,3));
+  for(r=1,#rts, my(ev=(c)->if(type(c)=="t_POLMOD",subst(lift(c),variable(P),rts[r]),c+O(l^3)));
+    listput(out,[N,k,al2[i][1],al3[i][1],ev(v[l+1]),vector(#PR,t,lift(Mod(truncate(ev(v[PR[t]+1])),l)))])));
+ out};
+run(l,th)={my(k=2*l-4,E=embeds(6,k,l),G=embeds(6,l-5,l),n1=0,nm=0);
+ print("== l=",l," Theta=",th," (2/l)=",kronecker(2,l)," (3/l)=",kronecker(3,l)," new emb wt2l-4: ",#E," wt l-5: ",#G);
+ for(i=1,#E,if(valuation(E[i][5],l)==1,n1++;my(mu=lift(Mod(truncate(E[i][5]/l),l)),found=0);
+   for(g=1,#G,if(vector(#PR,t,lift(Mod(PR[t]*G[g][6][t],l)))==E[i][6],found=1;nm++;
+     my(al=Mod(truncate(G[g][5]),l));
+     print(" f(",E[i][3],",",E[i][4],") mu=",mu," <- g(",G[g][3],",",G[g][4],") alpha=",lift(al)," mu/alpha=",lift(Mod(mu,l)/al)," signed6? ",if(lift(Mod(mu,l)/al)==6,"+6",if(lift(Mod(mu,l)/al)==l-6,"-6","no")))));
+   if(!found,print(" f(",E[i][3],",",E[i][4],") mu=",mu," no theta-twist match in wt l-5 new"))));
+ print(" slope-1 count ",n1," matched ",nm);
+};
+run(29,23);run(31,2);run(37,20);run(41,31);run(43,31);run(47,17);
+quit;

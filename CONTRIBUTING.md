@@ -63,6 +63,8 @@ build:
 ```sh
 lake build RamanujanTau.MultiQuintupleFullConverse
 lake env lean scripts/audit/multi_quintuple.lean
+lake env lean scripts/audit/four_directions.lean
+lake env lean scripts/audit/four_family.lean
 lake build
 ```
 

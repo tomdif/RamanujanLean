@@ -19,10 +19,24 @@ Trans. AMS 365 (2013) 2169–2206 (people.math.sc.edu/boylan/reprints/partition.
 
 ## BW computations (Sec. 6.1)
 - Bases computed: m=1, 13<=l<1300; m=2, 13<=l<=89; m=3, 13<=l<=29; m=4, l=13.
+- Lean (2026-11-03, uncommitted): b_l(m)=2m-1 for all m at l=37,41,43,47 (`Rank2At37.bEll_37`, ...), beyond BW's computed range m<=2.
+- Lean (2026-11-03, uncommitted): b_l(m)=2m-1 for all m at every prime 61<=l<=139 (`RankRAt61.bEll_61`, ...; order-r recurrence).
+- Lean (2026-11-03, uncommitted): b_l(m)=2m-1 for all m at l=53,59 (`RankSAt53.bEll_53`, `RankSAt59.bEll_59`; dim K=2, 2x2 error matrix).
 - b_29(1,2,3)=1,3,5; b_53(1,2)=1,3; b_89(1,2)=1,3; b_1297(1)=1. b_7(m)=2m-2 (Watson), b_5=b_11=m.
-- r_l(1)=R_l for all l<=1297 EXCEPT l=607: r_607(m)=R_607-1 for all m.
+- r_l(1)=R_l for all l<=1297 EXCEPT l=607. The paper reports r_607(m)=R_607-1 for all m;
+  this higher-precision assertion is in tension with the independent computations
+  added on 2026-11-01 in [the research draft, §5.4](BL_SHARPNESS_PROOF.md#54-the-missing-direction-at-607-appears-at-precision-two-n-2026-11-01).
+  Those computations give 25 generators modulo 607² and 24 full-length summands.
+  `Rank607Final.rEll_607` now proves in Lean that the least generator count is 25 for
+  every m≥2. BW write only `rank_{Z/l^m Z}` and do not define it for a non-free module, and
+  their Lemma 4.1 uses a matrix in GL_r(A), which presumes freeness. The results conflict
+  only if their rank means generator count. `Rank607Structure.lamEquiv` proves
+  Λ ≅ (ℤ/607²)²⁴ ⊕ ℤ/607 at m=2, so the free-summand count there is 24, matching BW.
+  At m=1 the module is free of rank 24 (`Rank607One.lamEquiv1`), also matching BW.
+  The infinite-series reconstruction bound is now proved in Lean; the numerical
+  arithmetic and its identification with the actual matrix still need kernel certification.
   (Sec 6.2: d_l > 0 forces a rank deficit, but the converse is NOT asserted. So the rank drop at 607 does not contradict d_607 = 0. The invertible subspace V_inv and the span of the partition orbit are different objects, and their dimensions must be computed separately. There is no internal inconsistency.)
-- No table of b_l(m) for 13<=l<=23 is printed.
+- No table of b_l(m) for 13<=l<=23 is printed. Lean now proves (2026-11-02, `SmallThreshold`) that b_l(m) <= 2*floor(m/2)+1 for all m and b_l(2)=b_l(3)=3 for l=13,17,19,23, and (`SmallThresholdFive`) b_l(4)=b_l(5)=5; `AtkinExact` (2026-11-02) proves b_l(m)=2*floor(m/2)+1 for all m, from exactness of the Atkin-O'Brien index b=m at every b. So BW's bound 2m-1 is not sharp there for m>=3, consistent with the remark that sharpness holds for computed l>=29.
 
 ## Other sources
 - FKO, Adv. Math. 229 (2012) 1586-1609, Thm 1.1/1.2 (+ Ramsey appendix Thm 7.1: Omega = ordinary part of U(l^2)
@@ -48,3 +62,31 @@ Trans. AMS 365 (2013) 2169–2206 (people.math.sc.edu/boylan/reprints/partition.
   chain. Our primary theorem is the partition congruence, and a write-up should translate it explicitly to
   their threshold.
 * **Novelty of ℓ = 17, 19, 23.** Still "appears new, pending specialist review".
+
+## Audit of the d_ℓ = 0 claim (2026-10-31)
+
+**Boylan–Webb definitions, compared with the published text.** `BoylanWebb.Φ`, `U`, `L` and `BLBound.Xm`, `Lam`, `bEll`, `dEll`,
+`Vinv` agree with BW (1.5)–(1.11), Remark 1 after Theorem 1.4, and (5.1). The theorems are not vacuous: `mem_bSet` shows
+the bijection itself at b = 2m−1, `dEll_eq_zero` shows 0 lies in the defining set, and `Vinv_eq` with `finrank_Vbar` shows V_inv has dimension R.
+
+**BLMT convention.** Read literally, BLMT §5 makes S^odd(r) the space where Y_r = D_r|U is an isomorphism and S^even(r) the space
+for X_r = U|D_r. That contradicts their maps D_r: S^even → S^odd and U: S^odd → S^even, and literal d_ℓ(1) would not exist at
+ℓ = 29: D̄(M₂₈) is the line of f, the Y-invariant line is that of g = Uf, and X̄ keeps f on its own line. BLMT report d_ℓ(r) = 0 there.
+So X and Y appear swapped in that sentence. With them swapped, d_ℓ(1) is BW's d_ℓ. A write-up should state this.
+
+**Formal gaps, none affecting the truth of `dEll_eq_zero` as stated.**
+* M̄_{ℓ−1} is defined as polynomials in E₄, E₆ over 𝔽_ℓ (`FormBar`). Its equality with reductions of M_{ℓ−1} ∩ ℤ_(ℓ)⟦q⟧ is standard
+  (Swinnerton-Dyer) but not stated in Lean.
+* Lean covers ℓ ≥ 13. The cases ℓ = 5, 7, 11 of the conjecture (S_{ℓ−1} = 0) are not formalized.
+* `Complete29` and `Complete31` state the scalar threshold. The bridge to BW's invariant is now proved (2026-11-02): `Exact29.bEll_29` and `Exact31.bEll_31` give `bEll 29 m = bEll 31 m = 2m−1` for every m ≥ 1 ([ExactThreshold](../RamanujanTau/FiniteArithmetic/ExactThreshold.lean)). This extends BW's computed b₂₉(1,2,3) = 1,3,5 to every m.
+* BW's rank and BLMT's d′_ℓ(r) are not treated.
+
+**Literature checked for overlap** (full text searched for Boylan, Webb and for ordinarity or injectivity statements): FKO 2012 and the
+Ono survey ("work and numerics suggest that one can generically take" 2m−1), BLMT 2014 (open), Ahlgren–Beckwith–Raum (arXiv 2006.07645),
+Ahlgren–Andersen–Dicks (arXiv 2307.07438v3), Dicks (arXiv 2603.06997), Garvan–Shomanov (arXiv 2504.10824; its remark that b_ℓ(α) = 2α−1
+concerns 5 ≤ ℓ ≤ 31, where BW's d_ℓ = 0 is computed), El-Guindy–Ghazy (arXiv 2408.04462; in 2024 the analogous bounds still carry d_ℓ as a parameter).
+None proves d_ℓ = 0 for all ℓ. OpenAlex citation lists for BW, BLMT and FKO were scanned by title only and are incomplete. Not read: "Congruences for
+colored partition functions" (Ramanujan J. 2025, cites BW; text not located), which is the first paper to get. This is evidence, not proof of novelty.
+
+**What is actually new, if confirmed.** BW already give b_ℓ(m) ≤ 2m−1 for every ℓ < 1300 by computation, so the new content is the removal of that condition for all primes,
+together with the uniform unit statement for T_ℓ in weight ℓ−3, level 6.

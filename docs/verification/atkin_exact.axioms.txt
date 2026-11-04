@@ -1,0 +1,30 @@
+'RamanujanTau.FiniteArithmetic.AtkinExact.bEll_13' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExact.bEll_17' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExact.bEll_19' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExact.bEll_23' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExact.bEll_of_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin13.exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin17.exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin19.exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin23.exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin.exact_of_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin.step' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin.tail_env' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkin.errors' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkinPrecision.map_E_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.ExactAtkinPrecision.mkStep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_13' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_17' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_19' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_23' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_of_exact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

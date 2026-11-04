@@ -1,0 +1,9 @@
+HIT K 1 A B 5 3 C G 3 -1 D E 2 1 sgn 0 [('(q)^2/(q2;q2)', 'psi1')]
+HIT K 1 A B 5 3 C G 3 1 D E 2 1 sgn 0 [('(q)^2/(q2;q2)', 'psi1')]
+HIT K 1 A B 8 4 C G 5 -1 D E 4 2 sgn 0 [('(q)', 'psi1')]
+HIT K 1 A B 8 4 C G 5 1 D E 4 2 sgn 0 [('(q)', 'psi1')]
+HIT K 1 A B 10 4 C G 4 -2 D E 6 3 sgn 0 [('(q2;q2)', 'F0(-q)')]
+HIT K 1 A B 10 4 C G 4 2 D E 6 3 sgn 0 [('(q2;q2)', 'F0(-q)')]
+HIT K 1 A B 10 8 C G 4 -2 D E 2 1 sgn 0 [('(q2;q2)', 'F1(-q)')]
+HIT K 1 A B 10 8 C G 4 2 D E 2 1 sgn 0 [('(q2;q2)', 'F1(-q)')]
+hits 8

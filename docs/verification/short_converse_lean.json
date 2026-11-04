@@ -1,104 +1,104 @@
 {
-  "date": "2026-11-01",
-  "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
-  "working_tree_changes": true,
-  "status": "checked partial formalization; universal converse remains unproved",
-  "formal_boundary": {
-    "prime_13_complete_root_vanishing_equivalence": true,
-    "actual_dual_short_partner_arithmetic": true,
-    "orthogonal_involution_from_spanning_and_partner_existence": true,
-    "integral_generation_by_mod_three_isotropic_box": true,
-    "reduced_basis_length_estimates": true,
-    "analytic_poisson_and_shell_separation_bridge": false,
-    "reduced_basis_existence_and_lattice_identification": false,
-    "small_prime_generator_certificates_and_normalization": false,
-    "dual_isometry_to_exact_root_target_assembly": false,
-    "full_admissible_root_vanishing_converse": false
-  },
-  "prime_13": {
-    "canonical_triples": [
-      [
-        1,
-        3,
-        4
-      ],
-      [
-        2,
-        5,
-        6
-      ]
-    ],
-    "root_targets": [
-      [
-        2,
-        4,
-        10
-      ],
-      [
-        3,
-        9,
-        11
-      ]
-    ],
-    "root_certificates": 6,
-    "nonzero_coefficient_witnesses": 20,
-    "actual_infinite_product_identification": true,
-    "kernel_checked": true,
-    "theorem": "Ramanujan.MultiQuintuple.admissible_root_vanishing_equivalence_thirteen"
-  },
-  "mod_three_box": {
-    "nonsingular_symmetric_gram_forms": 468,
-    "certificate_vectors_per_nonsingular_form": 3,
-    "integer_span_checked_by_kernel": true,
-    "generator": "scripts/generate_small_isotropic_box.py",
-    "regeneration_byte_for_byte": true,
-    "theorem": "Ramanujan.MultiQuintuple.small_isotropic_box_span_eq_top"
-  },
-  "full_build": {
-    "command": "lake build",
-    "passed": true,
-    "jobs": 9302
-  },
-  "axiom_audit": {
-    "command": "lake env lean scripts/audit/multi_quintuple.lean",
-    "passed": true,
-    "declarations": 65,
-    "new_public_theorems": 53,
-    "allowed_axioms": [
-      "Classical.choice",
-      "Quot.sound",
-      "propext"
-    ],
-    "raw_output": "docs/verification/short_converse_lean.axioms.txt"
-  },
-  "finite_arithmetic_regression": {
-    "audit_command": "lake env lean scripts/audit/finite_arithmetic.lean",
-    "audit_passed": true,
-    "certificate_command": "python3 scripts/boylanwebb/check_cert29_error.py",
-    "certificate_passed": true
-  },
-  "repository_check": {
-    "command": "python3 scripts/check_repository.py",
-    "passed": true,
-    "lean_files": 948,
-    "markdown_files": 25,
-    "local_links": 237
-  },
-  "diff_check_passed": true,
-  "sha256": {
-    "RamanujanTau.lean": "743126c1edd97890e99480eeed83f2a8b81c5bed95a03b895f8c6f0982b0c54f",
-    "RamanujanTau/MultiQuintupleDualShortGeometry.lean": "9decf214d39736f9c14c262e49d4f71e0842d0fea36f374c5e14021433349f57",
-    "RamanujanTau/MultiQuintupleSpanningIsometry.lean": "4eb0aa53004374a274a99afd2cc4bb8846b42b37ea7870066e6f85a8087bd1a0",
-    "RamanujanTau/MultiQuintupleDualPairingIsometry.lean": "7d4d3c6e9af036b69a857dbcae1704ab4cf3c3157d1711ed7da8b7d9d966b7f1",
-    "RamanujanTau/MultiQuintupleIntegralSpan.lean": "fcefefecce4529a73b2843948a566d043718ca0c98c09df75adf718b0dc64847",
-    "RamanujanTau/MultiQuintupleSmallIsotropicBox.lean": "52068591d6d9c45317584d2eca9d2dff8d1457bafe120dfa104f0ea4ceb17350",
-    "RamanujanTau/MultiQuintupleShortGeneratorEstimate.lean": "3ffe3342ae2028b5f9bec31381df06580928ae99ca2d51d002f214149239a7ab",
-    "RamanujanTau/MultiQuintupleConverseThirteen.lean": "789bbbc730de144e7e8380f59da5580c28b48fcfb46ee5aa4103f0648eeba55f",
-    "scripts/audit/multi_quintuple.lean": "fe3f920d3d12e2e34bfb52874bcad80cbfca1b8a832a0d64d48c9470c18fb72b",
-    "scripts/generate_small_isotropic_box.py": "bee61c28727c9dd2ae456b91e137985f73aafc9efa36e34ec49167fac3147d2e",
-    "RESEARCH_MULTI_QUINTUPLE.md": "8f8c0ce5bbdf54dfe75830f276eed86bdc38d124cf1c4d9b27ddd09c5d6f3469",
-    "docs/STATUS.md": "92e72e180d45b18a4a604ec06864c20c58aa27c2d8ff72e54522f57fbe96a01c",
-    "docs/RESULTS.md": "887840d631cb4bd291b117294b749c7db8fddd80d63f98d3889c8b25c9c699a2",
-    "docs/verification/short_converse_lean.axioms.txt": "ddfa9ef2573f8ba1b6d82bd112f0dcfaa717d887465365dae57d09a61139114e"
-  }
+ "date": "2026-11-01",
+ "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
+ "working_tree_changes": true,
+ "status": "checked partial formalization; universal converse remains unproved",
+ "formal_boundary": {
+  "prime_13_complete_root_vanishing_equivalence": true,
+  "actual_dual_short_partner_arithmetic": true,
+  "orthogonal_involution_from_spanning_and_partner_existence": true,
+  "integral_generation_by_mod_three_isotropic_box": true,
+  "reduced_basis_length_estimates": true,
+  "analytic_poisson_and_shell_separation_bridge": false,
+  "reduced_basis_existence_and_lattice_identification": false,
+  "small_prime_generator_certificates_and_normalization": false,
+  "dual_isometry_to_exact_root_target_assembly": false,
+  "full_admissible_root_vanishing_converse": false
+ },
+ "prime_13": {
+  "canonical_triples": [
+   [
+    1,
+    3,
+    4
+   ],
+   [
+    2,
+    5,
+    6
+   ]
+  ],
+  "root_targets": [
+   [
+    2,
+    4,
+    10
+   ],
+   [
+    3,
+    9,
+    11
+   ]
+  ],
+  "root_certificates": 6,
+  "nonzero_coefficient_witnesses": 20,
+  "actual_infinite_product_identification": true,
+  "kernel_checked": true,
+  "theorem": "Ramanujan.MultiQuintuple.admissible_root_vanishing_equivalence_thirteen"
+ },
+ "mod_three_box": {
+  "nonsingular_symmetric_gram_forms": 468,
+  "certificate_vectors_per_nonsingular_form": 3,
+  "integer_span_checked_by_kernel": true,
+  "generator": "scripts/generate_small_isotropic_box.py",
+  "regeneration_byte_for_byte": true,
+  "theorem": "Ramanujan.MultiQuintuple.small_isotropic_box_span_eq_top"
+ },
+ "full_build": {
+  "command": "lake build",
+  "passed": true,
+  "jobs": 9302
+ },
+ "axiom_audit": {
+  "command": "lake env lean scripts/audit/multi_quintuple.lean",
+  "passed": true,
+  "declarations": 65,
+  "new_public_theorems": 53,
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "raw_output": "docs/verification/short_converse_lean.axioms.txt"
+ },
+ "finite_arithmetic_regression": {
+  "audit_command": "lake env lean scripts/audit/finite_arithmetic.lean",
+  "audit_passed": true,
+  "certificate_command": "python3 scripts/boylanwebb/check_cert29_error.py",
+  "certificate_passed": true
+ },
+ "repository_check": {
+  "command": "python3 scripts/check_repository.py",
+  "passed": true,
+  "lean_files": 948,
+  "markdown_files": 25,
+  "local_links": 237
+ },
+ "diff_check_passed": true,
+ "sha256": {
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "RamanujanTau/MultiQuintupleDualShortGeometry.lean": "9decf214d39736f9c14c262e49d4f71e0842d0fea36f374c5e14021433349f57",
+  "RamanujanTau/MultiQuintupleSpanningIsometry.lean": "4eb0aa53004374a274a99afd2cc4bb8846b42b37ea7870066e6f85a8087bd1a0",
+  "RamanujanTau/MultiQuintupleDualPairingIsometry.lean": "7d4d3c6e9af036b69a857dbcae1704ab4cf3c3157d1711ed7da8b7d9d966b7f1",
+  "RamanujanTau/MultiQuintupleIntegralSpan.lean": "fcefefecce4529a73b2843948a566d043718ca0c98c09df75adf718b0dc64847",
+  "RamanujanTau/MultiQuintupleSmallIsotropicBox.lean": "52068591d6d9c45317584d2eca9d2dff8d1457bafe120dfa104f0ea4ceb17350",
+  "RamanujanTau/MultiQuintupleShortGeneratorEstimate.lean": "3ffe3342ae2028b5f9bec31381df06580928ae99ca2d51d002f214149239a7ab",
+  "RamanujanTau/MultiQuintupleConverseThirteen.lean": "789bbbc730de144e7e8380f59da5580c28b48fcfb46ee5aa4103f0648eeba55f",
+  "scripts/audit/multi_quintuple.lean": "fe3f920d3d12e2e34bfb52874bcad80cbfca1b8a832a0d64d48c9470c18fb72b",
+  "scripts/generate_small_isotropic_box.py": "bee61c28727c9dd2ae456b91e137985f73aafc9efa36e34ec49167fac3147d2e",
+  "RESEARCH_MULTI_QUINTUPLE.md": "8f8c0ce5bbdf54dfe75830f276eed86bdc38d124cf1c4d9b27ddd09c5d6f3469",
+  "docs/STATUS.md": "92e72e180d45b18a4a604ec06864c20c58aa27c2d8ff72e54522f57fbe96a01c",
+  "docs/RESULTS.md": "887840d631cb4bd291b117294b749c7db8fddd80d63f98d3889c8b25c9c699a2",
+  "docs/verification/short_converse_lean.axioms.txt": "ddfa9ef2573f8ba1b6d82bd112f0dcfaa717d887465365dae57d09a61139114e"
+ }
 }

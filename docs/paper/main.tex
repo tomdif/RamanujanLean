@@ -1,0 +1,1166 @@
+% main.tex -- DRAFT. Not for circulation until the TODO list at the end of this file is cleared.
+% Build:  pdflatex main && bibtex main && pdflatex main && pdflatex main
+\documentclass[11pt]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{alltt}
+\usepackage{xcolor}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=green!40!black,urlcolor=blue!50!black]{hyperref}
+
+% ------------------------------------------------------------------ macros
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Zl}{\mathbb{Z}_\ell}
+\newcommand{\Ql}{\mathbb{Q}_\ell}
+\newcommand{\Fl}{\mathbb{F}_\ell}
+\newcommand{\Cl}{\mathbb{C}_\ell}
+\newcommand{\SL}{\mathrm{SL}_2(\Z)}
+\newcommand{\Sb}{\overline{S}}
+\newcommand{\Mb}{\overline{M}}
+\newcommand{\Ub}{\overline{U}}
+\newcommand{\Db}{\overline{D}}
+\newcommand{\Xb}{\overline{X}}
+\newcommand{\Lb}{\overline{L}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\leg}[2]{\left(\frac{#1}{#2}\right)}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\charpoly}{charpoly}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\w}{w}
+\newcommand{\st}[1]{\textup{\textsf{[#1]}}}
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{[TODO:} #1\textbf{]}}}
+\newcommand{\lean}[1]{\texttt{#1}}
+
+% ------------------------------------------------------------------ theorems
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{mainthm}{Theorem}
+\renewcommand{\themainthm}{\Alph{mainthm}}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{computation}[theorem]{Computational result}
+\newtheorem{question}[theorem]{Question}
+
+\numberwithin{equation}{section}
+
+\begin{document}
+
+\title[Atkin--O'Brien congruences and the vanishing of $d_\ell$]{Atkin--O'Brien congruences for $\ell=17,19,23$, a formal proof, and the vanishing of the Boylan--Webb invariant $d_\ell$}
+
+\author{Thomas DiFiore}
+\email{tomdif@gmail.com}
+% TODO: author list, affiliation, and a disclosure statement on the use of AI assistance in the
+% development of the proofs and the formalization, as required by the target journal.
+
+\date{Draft, \today}
+
+\begin{abstract}
+For a prime $\ell\ge 5$ let $P_\ell(b)=\sum_n p\big((\ell^b n+1)/24\big)q^{n/24}$. Folsom, Kent and Ono showed that the
+$\Z/\ell^m$-modules spanned by the $P_\ell(b)$ stabilize; Boylan and Webb sharpened the stabilization index to
+$b_\ell(m)\le 2m-1$, conditionally on the vanishing of an invariant $d_\ell$ that they computed to be $0$ for $\ell<1300$.
+We report three results of different status.
+(1) For $\ell\in\{13,17,19,23\}$, which are exactly the primes $\ell\ge 13$ with $\dim S_{\ell-1}(\SL)=1$, there is a
+single $\kappa_\ell\in\Zl^\times$ such that
+$p\big((\ell^{m+2}n+1)/24\big)\equiv\kappa_\ell\, p\big((\ell^m n+1)/24\big)\pmod{\ell^m}$ for all $m\ge1$. For $\ell=13$ this is
+the Atkin--O'Brien theorem. For $\ell=17,19,23$ it improves $b_\ell(m)\le 2m-1$ to $b_\ell(m)\le m$; to our knowledge it is
+new. The theorem is verified in Lean~4 with Mathlib, with no hypotheses and only the standard axioms. The formal proof
+includes formal groups of Weierstrass curves, Lubin's quotient, the canonical subgroup, V\'elu's formulas, the Tate
+curve, Deligne's congruence for the Hasse invariant, Igusa's simple-zeros theorem and Ramanujan's differential equations.
+(2) We give a paper proof that $T_{\ell^2}$ is invertible modulo $\ell$ on $S_{(\ell-2)/2}(\SL,\nu_\eta^{-\ell})$ for every
+prime $\ell\ge 13$. It uses Yifan Yang's Shimura-type isomorphism with level-$6$ newforms and a $\theta$-cycle argument
+at weight $6$. It implies $d_\ell=0$ for all $\ell\ge 13$, which is the partition case of a conjecture of Belmont, Lee,
+Musat and Trebat-Leder, and hence $b_\ell(m)\le 2m-1$ unconditionally.
+(3) We explain Boylan and Webb's rank deficit at $\ell=607$ by a two-dimensional eigenspace of $T_{607^2}$ modulo $607$,
+and we give a cyclicity criterion for attaining the Folsom--Kent--Ono rank bound. We also report computations
+supporting $b_\ell(m)=2m-1$ for $29\le\ell\le 229$.
+\end{abstract}
+
+\maketitle
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+% =====================================================================
+\section{Introduction}\label{sec:intro}
+% =====================================================================
+
+\subsection{Background}
+Ramanujan~\cite{Ramanujan1919} discovered the congruences $p(5n+4)\equiv0\pmod5$, $p(7n+5)\equiv0\pmod7$ and
+$p(11n+6)\equiv 0\pmod{11}$, and conjectured their extension to powers of $5$, $7$ and $11$. Watson~\cite{Watson1938}
+proved the conjecture for powers of $5$ and a corrected form for powers of $7$, and Atkin~\cite{Atkin1967} proved it for
+powers of $11$. For $\ell=13$ the behaviour is different. Atkin and O'Brien~\cite{AtkinOBrien1967} proved that there are
+constants $K_a$ such that
+\begin{equation}\label{eq:AO}
+  p\!\left(\frac{13^{a+2}n+1}{24}\right)\equiv K_a\, p\!\left(\frac{13^{a}n+1}{24}\right)\pmod{13^{a}}
+\end{equation}
+(see also the restatement in Garvan--Shomanov~\cite[Thm.~1.1]{GarvanShomanov2025}, who also proved Atkin and O'Brien's
+Hecke-type conjecture modulo powers of $13$). Atkin~\cite{Atkin1968} studied related multiplicative congruence properties
+for other primes.
+
+Folsom, Kent and Ono~\cite{FKO2012} placed these phenomena in a general $\ell$-adic framework. For every prime
+$\ell\ge 5$, the $\Z/\ell^m$-modules generated by the generating functions of
+$p\big((\ell^b n+1)/24\big)$ stabilize as $b$ grows within a parity class, and the stable modules have rank at most
+$\lfloor(\ell+12)/24\rfloor$. Ramsey's appendix to~\cite{FKO2012} identifies the stable object with the ordinary part of
+$U(\ell^2)$ on overconvergent half-integral-weight forms, which answers a question of Mazur. Boylan and
+Webb~\cite{BoylanWebb2013} introduced an invariant $d_\ell$ of the mod-$\ell$ action and proved
+$b_\ell(m)\le 2(d_\ell+1)m-1$~\cite[Thm.~5.1]{BoylanWebb2013}; in particular $d_\ell=0$ implies $b_\ell(m)\le 2m-1$~\cite[Thm.~1.2]{BoylanWebb2013}. They
+verified $d_\ell=0$ by computer for $5\le\ell<1300$ and remarked that $2m-1$ is sharp in all computed cases with
+$\ell\ge 29$. They also found that the Folsom--Kent--Ono rank bound is attained for every $\ell\le1297$ except
+$\ell=607$, where the stable rank is one less~\cite[\S6]{BoylanWebb2013}. Belmont, Lee, Musat and Trebat-Leder~\cite{BLMT2014}
+extended the framework to $r$-coloured partitions and conjectured that their invariant $d_\ell(r)$ vanishes for all
+$\ell\ge r+5$~\cite[\S5]{BLMT2014}. Our second main result concerns the case $r=1$.
+
+\subsection{Notation}\label{sec:notation}
+We follow Boylan--Webb~\cite{BoylanWebb2013}. Throughout, $\ell\ge 5$ is prime, $q=e^{2\pi i z}$ and
+$\eta(z)=q^{1/24}\prod_{n\ge1}(1-q^n)$. On series in $q^{1/24}$ let $U=U_\ell$ act by
+$U\big(\sum a(n)q^{n/24}\big)=\sum a(\ell n)q^{n/24}$, and let $V(f)(z)=f(\ell z)$. Put
+\[
+  \Phi=\Phi_\ell=\frac{\eta(\ell^2z)}{\eta(z)},\qquad D(f)=U(\Phi f),\qquad X=D\circ U,
+\]
+where $f|X$ means $f|U|D$: apply $U$ first, then $D$. Define $L(0)=1$, and for $b\ge1$ let $L(b)=D L(b-1)$ when $b$ is odd and
+$L(b)=U L(b-1)$ when $b$ is even. Then
+\[
+  L(b)=\begin{cases}\eta(\ell z)\,P_\ell(b)& b\text{ odd},\\ \eta(z)\,P_\ell(b) & b \text{ even},\end{cases}\qquad
+  P_\ell(b)=\sum_{n\ge 0,\ 24\mid \ell^bn+1} p\!\left(\frac{\ell^b n+1}{24}\right)q^{n/24}.
+\]
+Since $\ell^2\equiv1\pmod{24}$, the series $P_\ell(b)$ and $P_\ell(b+2)$ are supported on the same exponents.
+
+\begin{definition}[stabilization index]\label{def:b}
+For $b\ge1$ and $m\ge1$ let $\Lambda(b,m)$ be the $\Z/\ell^m$-span of the reductions modulo $\ell^m$ of
+$\{L(b'):b'\ge b,\ b'\equiv b\ (2)\}$. Let $b_\ell(m)$ be the least $b\ge 1$ such that $\Lambda(b',m)=\Lambda(b'+2,m)$
+for all $b'\ge b$. Let $b^{\mathrm{odd}}_\ell(m)$ be the least odd $b$ such that $X:\Lambda(b,m)\to\Lambda(b+2,m)$ is an
+isomorphism. By~\cite[Remark~1]{BoylanWebb2013}, this is the threshold in Boylan and Webb's Theorem~1.4.
+The rank $r_\ell(m)$ is the rank of the stable odd module $\Omega^{\mathrm{odd}}(m)$, and
+$R_\ell:=\lfloor(\ell+12)/24\rfloor$ is the Folsom--Kent--Ono bound $r_\ell(m)\le R_\ell$~\cite[(1.13)]{BoylanWebb2013}.
+\end{definition}
+
+\begin{remark}[conventions]\label{rem:conventions}
+The parity-free index $b_\ell(m)$ is our reconstruction. It reproduces Boylan and Webb's values $b_{29}(2)=3$ and
+$b_{29}(3)=5$, and it agrees with the proportionality formulation whenever the stable module is free of rank one.
+\TODO{Check Definition~\ref{def:b} line by line against \cite[\S1, Thm.~1.4 and Remark~1]{BoylanWebb2013}. In particular,
+check whether Boylan--Webb's $b_\ell(m)$ is defined using both parity chains or only the odd one.}
+\end{remark}
+
+Let $d=d_\ell=\dim S_{\ell-1}(\SL)$. This $d$ is the dimension, not the Boylan--Webb invariant; the invariant is always
+written $d_\ell$ with the subscript and is defined in~\eqref{eq:dl} below. Thus $d=1$ exactly for
+$\ell\in\{13,17,19,23\}$, and $d=2$ for $\ell\in\{29,31\}$.
+\TODO{$d_\ell$ is used for both quantities in the literature; rename the dimension, e.g.\ to $\delta_\ell$, throughout.}
+
+\subsection{Main results}
+
+\begin{mainthm}[Atkin--O'Brien congruences for $\dim S_{\ell-1}=1$; formally verified]\label{thm:A}
+Let $\ell\in\{13,17,19,23\}$ and $\kappa^{(0)}_\ell=6,6,10,5$ respectively. There is $\kappa_\ell\in\Zl$ with
+$\kappa_\ell\equiv\kappa_\ell^{(0)}\pmod\ell$ such that for every $m\ge1$ and every $n\in\Z_{\ge0}$ with
+$24\mid\ell^m n+1$,
+\begin{equation}\label{eq:main}
+  \ell^m \ \Big|\ p\!\left(\frac{\ell^{m+2}n+1}{24}\right)-\kappa_\ell\; p\!\left(\frac{\ell^{m}n+1}{24}\right)\quad\text{in }\Zl .
+\end{equation}
+Equivalently, $P_\ell(b+2)\equiv\kappa_\ell P_\ell(b)\pmod{\ell^m}$ for all $b\ge m\ge1$.
+\end{mainthm}
+
+\noindent\emph{Status.} \st{Verified in Lean}. These are the theorems \lean{OrdQuot.atkin\_obrien\_13},
+\lean{\_17}, \lean{\_19} and \lean{\_23} in \lean{RamanujanTau/OrdQuot/Atkin.lean}. They have no hypotheses, and their
+dependency closure uses only the axioms \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}
+(\S\ref{sec:lean}). The mathematics and the formal statement still need review by human specialists.
+
+\medskip
+The constant $\kappa_\ell$ does not depend on $m$: it is a single $\ell$-adic number, the unit eigenvalue of $X$ on the
+stable line. For $\ell=13$, the reduction of $\kappa_{13}$ modulo $13^2$ is Atkin--O'Brien's $K_2=45$
+(Table~\ref{tab:kappa}).
+
+\begin{corollary}[translation to stabilization indices]\label{cor:bm}
+For $\ell\in\{13,17,19,23\}$ and $m\ge1$, the stable modules are free of rank one, and $b_\ell(m)\le m$. The odd and even
+chains are separately stable from the least $b\ge m$ of the respective parity. In particular
+$b^{\mathrm{odd}}_\ell(m)\le m$ for odd $m$ and $b^{\mathrm{odd}}_\ell(m)\le m+1$ for even $m$.
+\end{corollary}
+\noindent\emph{Status.} \st{Proved}: a short deduction from Theorem~\ref{thm:A} (\S\ref{sec:translation}). The deduction
+itself is not formalized. Equality $b_\ell(m)=m$ is \st{computed} for $m\le 16$ in a validated truncated model, and
+directly from $p(n)$ data for $m\le 4$ ($\ell=17$) and $m\le 3$ ($\ell=13,19,23$) (\S\ref{sec:numerics}).
+
+\medskip
+For $\ell\ge 13$ write $j\equiv\ell\pmod{24}$ with $j\in\{1,5,7,11,13,17,19,23\}$, $t=\lfloor\ell/24\rfloor$ and
+$\lambda=(\ell-3)/2$, and let $\nu_\eta$ be the multiplier system of $\eta$. Put
+\[
+  \cS_\ell:=S_{\lambda+\frac12}\big(\SL,\nu_\eta^{-\ell}\big).
+\]
+This space has dimension $R_\ell$ (Lemma~\ref{lem:dims}) and carries the Hecke operator $T_{\ell^2}$, which is integral.
+
+\begin{mainthm}[Theorem A of the project docs; paper proof]\label{thm:B}
+For every prime $\ell\ge13$, $\det\big(T_{\ell^2}\,|\,\cS_\ell\big)$ is an $\ell$-adic unit.
+\end{mainthm}
+
+\begin{corollary}\label{cor:dl}
+For every prime $\ell\ge13$:
+\begin{enumerate}[label=(\roman*)]
+  \item $\Db(\Mb_{\ell-1})=\Db(\Sb_{\ell-1})=\Delta^t S_{k'}(\Fl)$, where $k'=\ell-1-12t$, and
+        $\rank\Db=\rank\Xb=R_\ell=\lceil d/2\rceil$;
+  \item $\Sb_{\ell-1}=\Delta^tS_{k'}(\Fl)\oplus\ker\Xb$, so $\Xb$ is semisimple at $0$;
+  \item the Boylan--Webb invariant vanishes: $d_\ell=0$;
+  \item $b_\ell(m)\le 2m-1$ for all $m\ge1$, by~\cite[Thm.~1.2]{BoylanWebb2013};
+  \item $X$ has exactly $R_\ell$ unit roots on the odd overconvergent space.
+\end{enumerate}
+\end{corollary}
+\noindent\emph{Status of Theorem~\ref{thm:B} and Corollary~\ref{cor:dl}.} \st{Paper proof}, citing
+Yang~\cite[Thm.~1]{Yang2014}, the Deligne--Serre lifting lemma~\cite{DeligneSerre1974}, the theory of $\theta$-cycles
+at level $N$~\cite{Jochnowitz1982,Katz1977,Edixhoven1992}, and the structure of the three-dimensional space
+$S_6(\Gamma_0(6))$. None of this is formalized. Yang's theorem was checked against the arXiv version of his paper
+(Remark~\ref{rem:yangcheck}). Item~(iii) is the case $r=1$ of the conjecture of~\cite[\S5]{BLMT2014}; to our knowledge
+it has not appeared in the literature. Items (i)--(iii) were computed independently for all primes
+$29\le\ell\le 229$ and for $\ell=607$ and $\ell=859$ (\S\ref{sec:numerics}). At $\ell=859$ the level-$6$ newform
+$6.6.a.a$ is non-ordinary, so a weaker version of the sign argument would fail there.
+
+\medskip
+Our third group of results concerns attainment of the Folsom--Kent--Ono rank bound and sharpness of $2m-1$
+(\S\S\ref{sec:rank}--\ref{sec:numerics}). Assuming Theorem~\ref{thm:B}:
+\begin{itemize}
+\item \st{Proved}. If $\Lb(1)=\eta(\ell z)U_\ell(1/\eta)\bmod\ell$ is a cyclic vector for $T_{\ell^2}$ on
+$\cS_\ell\otimes\Fl$, then the stable modules are free of rank $R_\ell$ for every $m$ (Proposition~\ref{prop:nakayama}).
+The mod-$\ell$ rank $r_\ell(1)$ equals the Krylov rank of $\Lb(1)$. The converse for $m\ge2$ is open
+(\S\ref{sec:rank}, gap G6).
+\item \st{Computed}. At $\ell=607$, $T_{607^2}$ has a two-dimensional eigenspace modulo $607$ (eigenvalue $-367$), so no
+vector is cyclic and $r_{607}(1)=R_{607}-1=24$. This explains Boylan--Webb's exceptional prime by an eigenvalue
+coincidence. It does not contradict $d_{607}=0$, which also holds.
+\item \st{Computed}, with a \st{conditional} extension. $b_\ell(m)=2m-1$ for every prime $29\le\ell\le229$ and every
+$m$ up to $16$, $9$, $8$ or $7$ depending on $\ell$ (Table~\ref{tab:sweep}). For $29\le\ell\le113$ the computations
+also verify a sufficient condition for $b_\ell(m)=2m-1$ for \emph{all}~$m$. The deduction depends on a truncation
+argument that has not yet been written out (\S\ref{sec:theta}).
+\end{itemize}
+
+\subsection{Status at a glance}
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.47\textwidth}p{0.18\textwidth}p{0.26\textwidth}@{}}
+\toprule
+Statement & Status & Where\\
+\midrule
+Thm~\ref{thm:A}: $b_\ell(m)\le m$, $\ell\in\{13,17,19,23\}$ & Lean, unconditional & \S\S\ref{sec:proofA}--\ref{sec:lean}\\
+Equality $b_\ell(m)=m$ for those $\ell$ & computed ($m\le16$) & \S\ref{sec:numerics}\\
+Thm~\ref{thm:B}: $T_{\ell^2}$ invertible mod $\ell$, $\ell\ge13$ & paper proof & \S\ref{sec:thmB}\\
+Cor.~\ref{cor:dl}: $d_\ell=0$, $b_\ell(m)\le2m-1$ for all $\ell$ & paper proof & \S\ref{sec:thmB}\\
+Cyclic $\Lb(1)$ $\Rightarrow$ $r_\ell(m)=R_\ell$ for all $m$ & paper proof (given Thm~\ref{thm:B}) & \S\ref{sec:rank}\\
+Non-cyclic $\Rightarrow$ deficit at every $m$ & open (G6) & \S\ref{sec:rank}\\
+$\ell=607$: 2-dim.\ eigenspace of $T_{607^2}$ & computed & \S\ref{sec:607}\\
+$b_\ell(m)=2m-1$, $29\le\ell\le229$, $m\le 7$--$16$ & computed & \S\ref{sec:numerics}\\
+$b_\ell(m)=2m-1$ for all $m$, $29\le\ell\le113$ & computed + unwritten truncation step & \S\ref{sec:theta}\\
+$b_\ell(m)=2m-1$ for all $\ell\ge 29$ & conjectural & \S\ref{sec:open}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Relation to the literature}
+Theorem~\ref{thm:A} for $\ell=13$ is the Atkin--O'Brien theorem~\cite{AtkinOBrien1967}. Our proof is different: it
+uses overconvergent forms and Katz expansions in the spirit of~\cite{Katz1973,Coleman1996,Buzzard2003,Vonk2015}, not
+Atkin--O'Brien's explicit modular equations. To our knowledge, the cases $\ell=17,19,23$ have not been stated or proved
+before, although~\cite{BoylanWebb2013} gives no table of $b_\ell(m)$ for $13\le\ell\le23$ and Atkin~\cite{Atkin1968}
+records related numerical observations.
+\TODO{Confirm with specialists and against~\cite{Atkin1968} that the cases $\ell=17,19,23$ of Theorem~\ref{thm:A} are
+new. The literature check (docs/LIT\_CHECK.md) found no statement in~\cite{BoylanWebb2013,FKO2012,BLMT2014,Webb2011,ElGuindyGhazy2024}.}
+The vanishing $d_\ell=0$ for all $\ell\ge13$ (Corollary~\ref{cor:dl}) was conjectured, for $r$-coloured partitions,
+in~\cite{BLMT2014}, which calls the question of when $d_\ell(r)=0$ an open problem. Our proof covers only $r=1$.
+Lemma~\ref{lem:imageD} is the Folsom--Kent--Ono bound $r_\ell(m)\le R_\ell$ in a one-line form. It is essentially
+Boylan--Webb's Theorem~4.3 and Lemma~4.4, which state it as the vanishing order
+$\ord_\infty\ge\lceil\ell/24\rceil$~\cite{BoylanWebb2013}.
+
+\subsection*{Acknowledgements and provenance}
+Parts of the arguments in \S\ref{sec:I2} originate in an outside proposal; we corrected it in three places
+(Remark~\ref{rem:provenance}). Two independent external reviews checked the Yang citation and recomputed the case
+$\ell=859$. The Lean proof of Ramanujan's differential equations adapts code from Sphere-Packing-Lean~\cite{SpherePackingLean}
+(Apache~2.0). \TODO{Names of the external reviewers, if they agree to be named; funding; AI-assistance disclosure.}
+
+% =====================================================================
+\section{The overconvergent set-up}\label{sec:setup}
+% =====================================================================
+
+In this section and the next, $\ell\ge13$ is prime unless stated otherwise. Let $E=E_{\ell-1}\in M_{\ell-1}(\Zl)$ be the
+normalized Eisenstein series, so that $E\equiv1\pmod\ell$ (von Staudt--Clausen). Write $v$ for the valuation on $\Cl$
+with $v(\ell)=1$.
+
+\subsection{Katz expansions}
+For $i\ge0$ choose a saturated $\Zl$-submodule $B_i\subset M_{i(\ell-1)}(\Zl)$ complementary to
+$E\cdot M_{(i-1)(\ell-1)}(\Zl)$. Thus $B_0=\Zl$, and since $M_{\ell-1}=\Zl E\oplus S_{\ell-1}$ we may take
+$B_1=S_{\ell-1}(\Zl)$. Any weight-$0$ overconvergent form $f$ has a unique \emph{Katz expansion}
+\[
+  f=\sum_{i\ge0}\frac{b_i}{E^i},\qquad b_i\in B_i\otimes\Ql,
+\]
+where $b_i\to0$ suitably~\cite[\S2.6]{Katz1973}. Fix bases of the $B_i$ and let $v_i(f)$ be the minimum valuation of
+the coordinates of $b_i$. For $r\in\Cl$ with $0<v(r)<1/(\ell+1)$ put
+\[
+  B_E(r)=\{f:\ v_i(f)\ge i\,v(r)\ \text{for all } i\}.
+\]
+This is a ring, and it consists of the forms that are integral on the region $\{v(E_{\ell-1})\le v(r)\}$. The operators
+$U$ and $V$ act as usual; on the Tate curve, $V$ is $q\mapsto q^\ell$.
+
+\begin{proposition}[Step (K): Katz coefficients versus the sup norm]\label{prop:K}
+Let $0<v(r)<1$. A Katz series $f=\sum_i b_i/E^i$ satisfies $v_i(f)\ge i\,v(r)$ for all $i$ if and only if
+$|f(x)|\le1$ at every point $x=(E',\omega)$ with $v(E_{\ell-1}(x))\le v(r)$.
+\end{proposition}
+\begin{proof}[Sketch]
+Katz's integral model of the region is $A[Y]/(E\cdot Y-r)$~\cite[\S\S2.6--2.8]{Katz1973}. Its special fibre $\bar E\cdot Y=0$ is
+reduced because the Hasse invariant has simple zeros (Igusa~\cite{Igusa1958}). Integrality on the model is therefore
+equivalent to the pointwise bound.
+\end{proof}
+
+In the formalization, Proposition~\ref{prop:K} is proved for Katz series whose pieces are isobaric polynomials in
+$E_4,E_6$ (\lean{Igusa.katz\_iff\_hasse'}). The test points are good-reduction Weierstrass curves over $\Cl$, evaluated at
+$(c_4,-c_6)$. The proof goes through the existence of supersingular points, Igusa's theorem (derived from the Serre
+derivative and Ramanujan's differential equations), and a monomial complement $B_i$.
+
+\subsection{The four inputs}\label{sec:inputs}
+Let $s=(\ell+1)/2$, $\delta=(\ell^2-1)/24$, and define
+\[
+  W=\frac{\eta(\ell^2z)}{\eta(z)^{\ell^2}},\qquad Q=E\,\frac{\eta(\ell z)^2}{\eta(z)^{2\ell}},\qquad G=\frac{E}{V(E)},
+\]
+so that $\Phi=\Delta^\delta W$. By Newman's criterion~\cite{Newman1959}, $W$ is a form of weight $-(\ell^2-1)/2$ on
+$\Gamma_0(\ell^2)$: here $\sum_\delta \delta r_\delta=0$, $\sum_\delta(\ell^2/\delta)r_\delta=1-\ell^4\equiv0\pmod{24}$ and
+$\prod_\delta\delta^{r_\delta}=\ell^2$. Hence $E^sW$ is a genuine weight-$0$ function on $X_0(\ell^2)$.
+
+\begin{itemize}
+\item[(I1)] \emph{$U$-contraction.} For $0<v(r)<1/(\ell+1)$, $\ell\,U(B_E(r))\subseteq B_E(r^\ell)$, and
+  $G\in1+\fm B_E(r)$. (Katz~\cite{Katz1973}; Wan~\cite{Wan1998}; Vonk~\cite[Thm.~B]{Vonk2015}.)
+\item[(I2)] \emph{Sharp radius for $Q$.} $Q\in 1+\fm B_E(r^\ell)$; equivalently $v_i(Q)\ge\lceil\ell i/(\ell+1)\rceil$ and $Q\equiv1\pmod\ell$.
+\item[(I3)] \emph{Frobenius.} $V$ maps $B_E(r^\ell)$ into $B_E(r)$.
+\item[(I4)] \emph{Base case.} For $\ell\in\{13,17,19,23\}$: $L(b+2)\equiv\kappa^{(0)}_\ell L(b)\pmod\ell$ for all $b\ge1$,
+  and each $L(b)$, $b\ge1$, is cuspidal.
+\end{itemize}
+
+From (I1), $b/E^j\in r^{-j}B_E(r)$ for $b\in B_j$. Letting $v(r)\uparrow1/(\ell+1)$, we obtain
+\begin{equation}\tag{UB}\label{eq:UB}
+  v_i\big(U(b/E^j)\big)\ \ge\ \Big\lceil\frac{\ell i-j}{\ell+1}\Big\rceil-1\qquad(b\in B_j).
+\end{equation}
+This bound agrees exactly with direct numerical computation for $i,j\le14$ at $\ell=17$.
+
+% ---------------------------------------------------------------------
+\subsection{Proof of (I3)}\label{sec:I3}
+Let $x=(E',\omega)$ satisfy $v:=v(E_{\ell-1}(x))\le v(r)<1/(\ell+1)$, and let $H$ be its canonical subgroup, with
+$\pi:E'\to E'/H$ and dual $\check\pi$. Then $Vf(x)=f(E'/H,\check\pi^*\omega)$. By Katz~\cite[3.10.7]{Katz1973}
+(see Buzzard~\cite[Thm.~3.3(ii)]{Buzzard2003}), $v(E_{\ell-1}(E'/H))=\ell v\le v(r^\ell)$. Hence
+$|Vf(x)|\le1$ whenever $f\in B_E(r^\ell)$; since $f$ has weight $0$, the choice of differential does not matter.
+Proposition~\ref{prop:K} gives $Vf\in B_E(r)$. \qed
+
+% ---------------------------------------------------------------------
+\subsection{Proof of (I2)}\label{sec:I2}
+Keep the notation of \S\ref{sec:I3}, but now allow $0<v<\ell/(\ell+1)$.
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Newton polygon.} The $[\ell]$-series of the formal group has the shape
+  $[\ell](T)=\ell T+\cdots+aT^\ell+\cdots+uT^{\ell^2}$ with $v(a)=v$ and $v(u)=0$. If $v<\ell/(\ell+1)$, the polygon
+  breaks: the $\ell-1$ nonzero points of $H$ have valuation $(1-v)/(\ell-1)$, and the other $\ell^2-\ell$ nonzero torsion
+  points have valuation $v/(\ell^2-\ell)$ (proof of~\cite[3.10.7]{Katz1973}).
+\item \emph{Derivatives.} Lubin's parameter $Y=\prod_{P\in H}T(X\oplus P)$~\cite{Lubin1967} gives a N\'eron generator
+  $\omega_0'$ on $E'/H$ with $\pi^*\omega_0'=\mu\omega$, where $v(\mu)=\sum_{P\ne0}v(T(P))=1-v$. Since
+  $\pi^*\check\pi^*=\ell$, we get $\check\pi^*\omega=\lambda\omega'_0$ with $v(\lambda)=v$.
+  As a cross-check, $\ker\check\pi=E'[\ell]/H$. For $v<1/(\ell+1)$ it is non-canonical in $E'/H$, which gives
+  $v(\lambda)=(\ell-1)\ell v/(\ell^2-\ell)=v$. For $1/(\ell+1)<v<\ell/(\ell+1)$ it is canonical, which gives
+  $v(\lambda)=1-(1-v)=v$.
+\item \emph{Pointwise value.} $\dfrac{V\Delta}{\Delta^\ell}(x)=\lambda^{-12}\dfrac{\Delta(E'/H,\omega_0')}{\Delta(E',\omega)^\ell}$,
+  and both $\Delta$-values are units, so $v\big(V\Delta/\Delta^\ell(x)\big)=-12v$.
+\item \emph{Conclusion.} The $q$-series identity $Q^{12}=E^{12}\,V\Delta/\Delta^\ell$ gives $|Q(x)|^{12}=|\ell|^{12v-12v}=1$
+  on the whole region $\{v(E)\le\rho\}$, for every $\rho<\ell/(\ell+1)$. The Hasse lift $A_\ell=\eta^{2\ell}/\eta(\ell z)^2$ is
+  analytic and nonvanishing there, so $Q=E/A_\ell$ is analytic. Proposition~\ref{prop:K} at every such radius gives
+  $v_i(Q)\ge i\rho$ for all $\rho<\ell/(\ell+1)$, i.e.\ $v_i(Q)\ge\lceil\ell i/(\ell+1)\rceil$.
+\item \emph{Congruence.} $Q\equiv1\pmod\ell$ as a $q$-series, because $A_\ell\equiv1$ by Frobenius and $E\equiv1$. Mod-$\ell$
+  $q$-expansions are injective on $\bigoplus_i\bar B_i$, so $Q\in1+\fm B_E(r^\ell)$ for $v(r)<1/(\ell+1)$. \qed
+\end{enumerate}
+
+\begin{remark}[provenance]\label{rem:provenance}
+The outline of this argument comes from an outside proposal. We corrected three points: the sign in step~(3) (the
+proposal had $+12v$); the relation between $Q^{12}$ and the proposal's $\hat Q$; and a spurious factor
+$\Delta^{\ell^2-1}$ in the proposal's $\hat G$. The correct twelfth-power identity is
+$(E^sW)^{24}=\hat Q^\ell V(\hat Q)(E/VE)^{12}$ with $\hat Q=Q^{12}=E^{12}V(\Delta)/\Delta^\ell$.
+The values $v_i(Q)$ computed numerically agree with $\lceil\ell i/(\ell+1)\rceil$ exactly. Katz~3.10.7 and Buzzard~3.3
+were checked against Buzzard's text. Katz~2.6.2, 3.11.2, 3.11.3 and Appendix~2, and Coleman~\cite{Coleman1996}, p.~221,
+were not. \TODO{Check these four citations against the sources.}
+\end{remark}
+
+% ---------------------------------------------------------------------
+\subsection{The $D$-bound}
+\begin{lemma}\label{lem:eta}
+$(E^sW)^2=Q^\ell\cdot V(Q)\cdot G$.
+\end{lemma}
+\begin{proof}
+$Q^\ell V(Q)G=E^\ell\frac{\eta(\ell z)^{2\ell}}{\eta(z)^{2\ell^2}}\cdot V(E)\frac{\eta(\ell^2z)^2}{\eta(\ell z)^{2\ell}}\cdot\frac{E}{V(E)}
+=E^{\ell+1}\frac{\eta(\ell^2 z)^2}{\eta(z)^{2\ell^2}}=(E^sW)^2.$
+\end{proof}
+
+\begin{proposition}\label{prop:DB}
+$E^sW\in B_E(r)$ for $0<v(r)<1/(\ell+1)$. Consequently, for $b\in B_j$,
+\begin{equation}\tag{DB}\label{eq:DB}
+  v_i\big(D(b/E^j)\big)\ \ge\ \Big\lceil\frac{\ell i-j-s}{\ell+1}\Big\rceil-1 .
+\end{equation}
+\end{proposition}
+\begin{proof}
+By (I1)--(I3), $Q^\ell\,V(Q)\,G\in1+\fm B_E(r)$. The binomial coefficients $\binom{1/2}{n}$ are $\ell$-integral, and $q$-expansions
+determine Katz expansions, so the square root $E^sW$ lies in $B_E(r)$. Since $12\delta=s(\ell-1)$, the quotient
+$\Delta^\delta/E^s$ lies in $r^{-s}B_E(r)$, and
+$\Phi\cdot b/E^j=(\Delta^\delta/E^s)(E^sW)(b/E^j)\in r^{-(j+s)}B_E(r)$. Applying (I1) and letting
+$v(r)\uparrow1/(\ell+1)$ gives~\eqref{eq:DB}.
+\end{proof}
+Numerically, $v_i(E^sW)\ge\lceil i/(\ell+1)\rceil$ holds for $i\le64$, and~\eqref{eq:DB} matches the computed values for
+$i,j\le12$ at $\ell=17$.
+
+% =====================================================================
+\section{Proof of Theorem~\ref{thm:A}}\label{sec:proofA}
+% =====================================================================
+
+\subsection{Envelopes}
+Define
+\[
+  \alpha(i)=\Big\lceil\frac{\ell i-2}{\ell+1}\Big\rceil,\qquad \beta(i)=\Big\lceil\frac{\ell i-2-s}{\ell+1}\Big\rceil,
+\]
+and, for an envelope $\gamma\in\{\alpha,\beta\}$ and $c\ge0$,
+\[
+  A_c(\gamma)=\{f\text{ cuspidal}:\ v_i(f)\ge\max(0,\gamma(i)-c)\text{ for all }i\}.
+\]
+Note that $\alpha(0)=\beta(0)=0$, that $\alpha(1)=\beta(1)=1$, and that $\alpha(i),\beta(i)\ge2$ for $i\ge2$ when $\ell\ge 13$.
+
+\begin{lemma}[envelope lemma]\label{lem:env}
+For every prime $\ell\ge13$, the bounds~\eqref{eq:UB} and~\eqref{eq:DB} imply:
+\begin{enumerate}[label=(\arabic*)]
+\item $U(A_2(\beta))\subseteq A_1(\alpha)$ and $D(A_2(\alpha))\subseteq A_1(\beta)$;
+\item $U(A_1(\beta))\subseteq A_1(\alpha)$ and $D(A_1(\alpha))\subseteq A_1(\beta)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+By the ultrametric inequality, $v_i(Uf)\ge\min_j\big(v_j(f)+u(i,j)\big)$, where $u(i,j)$ is the right-hand side
+of~\eqref{eq:UB}; the same holds for $D$ with~\eqref{eq:DB}. Split the minimum. For $j\le2$ the shift is exact. For
+$j\ge3$ the slack $(\ell-1)j/(\ell+1)-c$ exceeds the loss. The tightest case is the $U$-step at $j=3$, which needs
+$\big(3(\ell-1)-(\ell+1)/2\big)/(\ell+1)>2$, i.e.\ $\ell>11$.
+\end{proof}
+This lemma is formalized for every prime $\ell\ge13$ and all Katz indices: \lean{AtkinOBrien.Envelope.U\_step},
+\lean{D\_step} and \lean{envelopes\_ge\_two}, assembled in \lean{AtkinOBrien.Bridge}.
+
+\subsection{The base case and the role of $\dim S_{\ell-1}=1$}\label{sec:base}
+\begin{lemma}\label{lem:base}
+Let $\ell\in\{13,17,19,23\}$. For every $b\ge1$, $\Lb(b)$ is a nonzero element of the line $\Sb_{\ell-1}=S_{\ell-1}(\Fl)$, and
+$\Lb(b+2)=\kappa^{(0)}_\ell\Lb(b)$ with $\kappa^{(0)}_\ell=6,6,10,5$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:Uinv} below, $\Ub$ is invertible on $\Sb_{\ell-1}$. By Lemma~\ref{lem:imageD}, $\Db(\Mb_{\ell-1})$ lies in a
+space of dimension $R_\ell=1=d$ inside $\Sb_{\ell-1}$. So $\Ub$ and $\Db$ act on the line $\Sb_{\ell-1}$ by scalars $u,\delta'$, and
+$\Lb(1)=\Db(1)\in\Sb_{\ell-1}$. Then both $\Xb=\Db\Ub$ and $\Ub\Db$ act by $u\delta'$, and $\Lb(b+2)=u\delta'\,\Lb(b)$ for $b\ge1$.
+Nonvanishing of $\Lb(1)$ and of $u\delta'$, and the values of $\kappa^{(0)}_\ell=u\delta'$, are finite computations. They are
+certified in Lean by kernel-checked certificates (\lean{decide +kernel}) together with a formalized Sturm
+bound~\cite{Sturm1987} (\lean{BoylanWebb.two\_step\_mod\_ell}, \lean{hnz\_\ensuremath{\ell}}, \lean{CertX.rank\_one}).
+\end{proof}
+
+\begin{remark}\label{rem:kappa-yang}
+\st{Computed}. Under the dictionary of \S\ref{sec:dict}, $\kappa^{(0)}_\ell$ is the eigenvalue of $T_{\ell^2}$ on the line
+$\cS_\ell\otimes\Fl$. Yang's isomorphism (Theorem~\ref{thm:yang}) then predicts
+$\kappa^{(0)}_\ell\equiv\leg{12}{\ell}a_\ell(F_\ell)\pmod\ell$, where $F_\ell$ is the unique newform in
+$S^{\mathrm{new}}_{\ell-3}(\Gamma_0(6))$ with Atkin--Lehner signs $(w_2,w_3)=(-\leg{2}{\ell},-\leg{3}{\ell})$. A PARI/GP
+computation~\cite{PARI} confirms this: the class has dimension one in each case, and
+$\leg{12}{\ell}a_\ell(F_\ell)\bmod\ell=6,6,10,5$ for $\ell=13,17,19,23$.
+\end{remark}
+
+\subsection{The induction, with constant absorption}
+The following abstract statement is \lean{BoylanWebb.induction\_seq}. Let $\varpi$ be an element of a commutative ring $\mathcal{O}$,
+and let $M$ be a $\varpi$-torsion-free $\mathcal O$-module. Suppose we are given linear maps $T_b:M\to M$ with $T_{b+2}=T_b$,
+elements $L(b)\in M$ with $L(b+1)=T_bL(b)$, and submodules $A_1(b)$, $A_2(b)$, $2$-periodic in $b$, such that for all $b\ge1$:
+\begin{enumerate}[label=(H\arabic*)]
+\item\label{H:L} $L(b)\in A_1(b)$;
+\item\label{H:T} $T_b(A_2(b))\subseteq A_1(b+1)$;
+\item\label{H:lead} every $x\in A_1(b)$ can be written $x=c\,L(b)+\varpi y$ with $c\in\mathcal O$ and $y\in M$;
+\item\label{H:div} if $x\in A_1(b)$ and $x=\varpi y$, then $y\in A_2(b)$;
+\item\label{H:base} $L(\beta+2)-\kappa L(\beta)\in\varpi M$ for all $\beta\ge1$.
+\end{enumerate}
+
+\begin{theorem}[constant absorption]\label{thm:induction}
+Under \ref{H:L}--\ref{H:base} there are $K_0=\kappa,K_1,K_2,\dots\in\mathcal O$ with
+$K_{j+1}-K_j\in\varpi^{j+1}\mathcal O$, such that $L(\beta+2)-K_jL(\beta)\in\varpi^{j+1}M$ for all $\beta\ge j+1$.
+If $\mathcal O=\Zl$ and $\varpi=\ell$, then $\kappa_\infty=\lim K_j$ satisfies $\kappa_\infty\equiv\kappa\pmod\ell$ and
+$L(b+2)\equiv\kappa_\infty L(b)\pmod{\ell^b}$ for every $b\ge1$.
+\end{theorem}
+\begin{proof}
+Write $\mathbf P(b,k)$ for the statement: for all $\beta\ge b$, $L(\beta+2)-kL(\beta)=\varpi^b g_\beta$ with $g_\beta\in A_2(\beta)$.
+\ref{H:base} and \ref{H:div} give $\mathbf P(1,\kappa)$; note that $L(\beta+2)-kL(\beta)\in A_1(\beta)$ by \ref{H:L} and
+periodicity. Assume $\mathbf P(b,k)$. Applying $T_\beta$ gives
+$L(\beta+3)-kL(\beta+1)=\varpi^bT_\beta g_\beta$. Since $M$ is $\varpi$-torsion free, this forces $g_{\beta+1}=T_\beta g_\beta$.
+By \ref{H:T} and \ref{H:lead}, $g_{b+1}=d\,L(b+1)+\varpi y_{b+1}$ for some $d\in\mathcal{O}$.
+
+The key point is that the same $d$ works for every $\beta\ge b+1$. Indeed, if $g_\beta-dL(\beta)=\varpi y_\beta$ with
+$y_\beta\in A_2(\beta)$ (by \ref{H:div}), then
+$g_{\beta+1}-dL(\beta+1)=T_\beta(g_\beta-dL(\beta))=\varpi T_\beta y_\beta$, and $T_\beta y_\beta\in A_1(\beta+1)$ by \ref{H:T}.
+Hence $L(\beta+2)-(k+\varpi^bd)L(\beta)=\varpi^{b+1}y_\beta$ with $y_\beta\in A_2(\beta)$, which is $\mathbf P(b+1,k+\varpi^bd)$.
+The limit statement follows because $(K_j)$ is Cauchy and $L(b+2)-\kappa_\infty L(b)=(L(b+2)-K_{b-1}L(b))-(\kappa_\infty-K_{b-1})L(b)$.
+\end{proof}
+
+\begin{remark}
+Only \ref{H:lead} uses $\dim S_{\ell-1}=1$. The original argument (docs, Step~3) instead showed that the leading digit
+$c$ vanishes by comparison with Boylan--Webb stability at some level. The version above needs neither Boylan--Webb
+stability nor the nonvanishing of $\Lb(b)$: the correction is absorbed into the constant. For $\ell=29,31$ everything
+goes through except \ref{H:lead}, because $\dim S_{\ell-1}=2$. This matches the sharpness of $2m-1$ for those primes.
+\end{remark}
+
+\subsection{Assembly}\label{sec:assembly}
+Let $M$ be the $\Zl$-module of cuspidal $q$-series having an integral Katz expansion. Let $T_b=D$ for $b$ even and
+$T_b=U$ for $b$ odd, so that $T_bL(b)=L(b+1)$. Let $A_c(b)=A_c(\beta)$ for $b$ odd and $A_c(b)=A_c(\alpha)$ for $b$ even.
+\begin{itemize}
+\item \ref{H:L}: $L(0)=1$, and Lemma~\ref{lem:env}(2) applied inductively.
+\item \ref{H:T}: Lemma~\ref{lem:env}(1).
+\item \ref{H:lead}: For $x\in A_1(\gamma)$ we have $v_i(x)\ge1$ for $i\ge2$, so $x\equiv b_0+b_1\pmod\ell$ because $E\equiv1$. Here
+  $b_0$ is a constant and must vanish modulo $\ell$ by cuspidality. Then $b_1\in\Sb_{\ell-1}=\Fl\Lb(b)$ by Lemma~\ref{lem:base}.
+\item \ref{H:div}: uniqueness of Katz expansions modulo $\ell$, which is the mod-$\ell$ independence of the pieces
+  $B_i$ (Swinnerton-Dyer~\cite{SwinnertonDyer1973}; formalized as \lean{ModP.katz\_independent}).
+\item \ref{H:base}: Lemma~\ref{lem:base}.
+\end{itemize}
+Theorem~\ref{thm:induction} gives $\kappa_\ell:=\kappa_\infty$ with $L(b+2)\equiv\kappa_\ell L(b)\pmod{\ell^b}$ for all
+$b\ge1$. Dividing by the common $\eta$-factor gives $P_\ell(b+2)\equiv\kappa_\ell P_\ell(b)\pmod{\ell^b}$. Comparing
+coefficients gives~\eqref{eq:main} with $m=b$. \qed
+
+\subsection{Translation to stabilization indices}\label{sec:translation}
+\begin{proof}[Proof of Corollary~\ref{cor:bm}]
+Fix $m$. For $b\ge m$, Theorem~\ref{thm:A} applied with $b$ in place of $m$ gives $L(b+2)\equiv\kappa_\ell L(b)\pmod{\ell^b}$,
+hence modulo $\ell^m$. Since $\kappa_\ell$ is a unit, $L(b+2k)\equiv\kappa_\ell^kL(b)\pmod{\ell^m}$, so
+$\Lambda(b,m)=(\Z/\ell^m)\Lb(b)=\Lambda(b+2,m)$. The module is free of rank one: by Lemma~\ref{lem:base} $L(b)\not\equiv0\pmod\ell$,
+so $\Lambda(b,m)\cong\Z/\ell^m$. The map $X$ (or $U\circ D$ on the even chain) acts on it as multiplication by the unit
+$\kappa_\ell$, and is therefore an isomorphism.
+\end{proof}
+
+% =====================================================================
+\section{The Lean formalization}\label{sec:lean}
+% =====================================================================
+
+\subsection{The formal statement}
+The theorem for $\ell=13$ reads as follows; the other three differ only in $\ell$ and $\kappa^{(0)}_\ell$. We render
+Lean's Unicode in \LaTeX{} notation.
+\begin{alltt}\small
+theorem OrdQuot.atkin_obrien_13 :
+    \(\exists\) \(\kappa\) : \(\mathbb{Z}\)_[13], (\(\exists\) d : \(\mathbb{Z}\)_[13], \(\kappa\) = 6 + 13 * d) \(\wedge\)
+      \(\forall\) m, 1 \(\le\) m \(\to\) \(\forall\) n : \(\mathbb{N}\), 24 \(\mid\) 13 ^ m * n + 1 \(\to\)
+        (13 : \(\mathbb{Z}\)_[13]) ^ m \(\mid\)
+          (Fintype.card (Nat.Partition ((13 ^ (m + 2) * n + 1) / 24)) : \(\mathbb{Z}\)_[13])
+          - \(\kappa\) * (Fintype.card (Nat.Partition ((13 ^ m * n + 1) / 24)) : \(\mathbb{Z}\)_[13])
+\end{alltt}
+Every constant in the statement comes from Lean core or Mathlib~\cite{Mathlib2020}: \lean{Nat.Partition} with Mathlib's
+\lean{Fintype} instance, \lean{PadicInt}, divisibility in $\Zl$ and the casts. The one repository constant that appears
+is an instance \lean{Fact (Nat.Prime 13)}. It is a proof of a true proposition and cannot change the meaning of the
+statement. The division \lean{/} is truncating division on $\mathbb N$, but it is exact under the hypothesis
+$24\mid13^mn+1$, and then also $24\mid13^{m+2}n+1$.
+
+\subsection{From the paper proof to the formal proof}
+The formal proof follows \S\S\ref{sec:setup}--\ref{sec:proofA}. It replaces rigid geometry by pointwise statements about
+elliptic curves over $\Cl$:
+\begin{itemize}
+\item \emph{Katz series} are sequences of isobaric polynomials $b_i(E_4,E_6)$ in fixed complement pieces, with their
+  $q$-expansions in $\Zl[[q]]$. Overconvergence enters only through Gauss-norm bounds on the $b_i$.
+\item \emph{Test objects} are good-reduction Weierstrass curves over $\Cl$. A Katz series is evaluated at a curve through
+  $(c_4,-c_6)$, and Proposition~\ref{prop:K} turns pointwise bounds into coefficient bounds.
+\item The operators on Katz series are reached through classical Hecke theory. For $U$, the formalization uses
+  $U(b/E^j)\equiv T_\ell(b\,E^{R-j})/E^R\pmod{\ell^N}$ with $R=(j+1)\ell^n$, and the geometric identity
+  $\ell\,T_\ell F(W)=\sum_{C}F(W/C)$ over the $\ell+1$ subgroups $C$ of order $\ell$. In that sum the non-canonical terms
+  satisfy the sharp bound and the canonical term is negligible.
+\item The sharp bound (I2) is obtained from the $\Delta$-modular equation. The formalization uses Newton's identities for
+  its coefficients, pointwise valuation bounds for the V\'elu quotients $\Delta(W/C)$, and a Hensel twelfth root in the
+  sharp Katz class. Proposition~\ref{prop:K} is applied at radii $v(s)=(\ell M-1)/((\ell+1)M)$ with $M\to\infty$.
+\item (DB) is derived from (UB) and (I2) through the identity
+  $Df=Q^{1/2}\,U\big(Q^{\ell/2}G^{1/2}(\Delta^\delta/E^s)f\big)$, which follows from $\Phi=\Delta^\delta V(h)h^\ell$ with
+  $h=\eta(\ell z)/\eta(z)^\ell$ and $h^2=Q/E$. The level-$\ell^2$ statement $V(Q)\in B_E(r)$ is therefore never needed.
+\item $G=E/V(E)\in B_E(r)$ follows from the modular equation of $E_{\ell-1}$, whose coefficients are classical, by an
+  $\ell$-adic Hensel contraction.
+\item On the ordinary locus, good reduction of all quotients follows from $\prod_C\Delta(W/C)=\ell^{12}\Delta(W)^{\ell+1}$,
+  the constant term of the $\Delta$-modular equation.
+\end{itemize}
+
+\subsection{Components built}
+Table~\ref{tab:lean} lists the main components. Most of them are not in Mathlib. They are stated in reusable generality
+(for example, Newton polygons over any ultrametric field, and Lubin's quotient over complete linearly topologized domains).
+In total there are about $43{,}000$ lines in $38$ directories.
+
+\begin{table}[ht]
+\centering\small
+\caption{Main components of the formal proof. Line counts are approximate.}\label{tab:lean}
+\begin{tabular}{@{}p{0.27\textwidth}p{0.55\textwidth}r@{}}
+\toprule
+Directory & Content & Lines\\
+\midrule
+\lean{AtkinOBrien} & Envelope inequalities, abstract induction, Newton polygons over ultrametric fields, canonical subgroup (Newton half of Katz 3.10.7) & 1089\\
+\lean{FormalGroupLayer} & Partial derivatives and the multivariable chain rule for power series; invariant differential; $[n]^*\omega=n\omega$; $[p]$ in characteristic $p$; height-$2$ coefficient ideals & 912\\
+\lean{EllipticFormal} & Formal group of a Weierstrass curve over any commutative ring; invariant differential & 1539\\
+\lean{LubinQuotient}, \lean{CanonicalIsogeny} & Lubin's quotient by a finite subgroup, the dual isogeny, $\|\Lie\check\pi\|=\|a\|$ & 2236\\
+\lean{Velu}, \lean{VeluLubin}, \lean{VeluDescent} & V\'elu's formulas; formal V\'elu series; integral descent; link to Lubin & 5593\\
+\lean{TateCurve}, \lean{TateFormal}, \lean{TateAdd}, \lean{TateQuot} & $\Delta(\mathrm{Tate})=q\prod(1-q^n)^{24}$; von Staudt--Clausen; Tate uniformization as a formal identity; the addition theorem; V\'elu quotients of the Tate curve & 6400\\
+\lean{HasseInv} & Hasse invariant $\equiv E_{\ell-1}$ (Deligne's congruence) & 977\\
+\lean{ModP}, \lean{Igusa}, \lean{KatzForms} & Swinnerton-Dyer structure mod $p$; Igusa's simple zeros; supersingular points; Step (K) & 2904\\
+\lean{RamanujanODE} & $3\theta E_4=E_2E_4-E_6$, $2\theta E_6=E_2E_6-E_4^2$, $12\theta E_2=E_2^2-E_4$ over $\Z[[q]]$ & 637\\
+\lean{HeightEll} & Height exactly $2$ for supersingular good reduction, $p\ge5$ & 1649\\
+\lean{QuotientHasse}, \lean{AllQuotients}, \lean{QuotE}, \lean{OrdQuot} & Buzzard~3.3 for formal groups; quotient models and valuations for all $\ell+1$ subgroups; ordinary locus & 4416\\
+\lean{HeckeQExp}, \lean{HeckeBridge}, \lean{SubgroupSum}, \lean{TorsionSpec} & $T_p$ on isobaric polynomials; geometric Hecke sum; torsion integrality; $\#E[n]=n^2$; specialization & 4355\\
+\lean{UpContraction}, \lean{UBound}, \lean{UBSharp} & Vonk's Theorem~B; (UB) & 2246\\
+\lean{VLayer}, \lean{SharpHQ}, \lean{ConjAlg}, \lean{DBound} & Modular equations; $G\in B_E(r)$; sharp (I2); (DB) & 4543\\
+\lean{BoylanWebb}, \lean{AtkinOBrienFinal}, \lean{AtkinOBrienMain} & $L(b)$ as in~\cite{BoylanWebb2013}; certificates; Sturm bound; constant-absorption induction; assembly & 2996\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Trust and reproduction}
+The audit script \lean{scripts/audit/atkin\_obrien\_closure.lean} prints the constants in each statement and computes the
+full transitive dependency closure of each proof. The closure has about $90{,}550$ constants, about $5{,}380$ of them
+defined in the repository. Its only axioms are \lean{propext}, \lean{Quot.sound} and \lean{Classical.choice}, and
+\lean{sorryAx} does not occur. A source scan of all $727$ Lean files found:
+\begin{itemize}
+\item no \lean{axiom} declarations;
+\item no \lean{native\_decide} or \lean{ofReduceBool};
+\item no \lean{unsafe}, \lean{implemented\_by}, \lean{extern}, \lean{csimp} or \lean{opaque};
+\item no declaration-adding metaprograms and no kernel-skipping options.
+\end{itemize}
+Every intermediate hypothesis used during the development was eventually proved, since otherwise it would appear as an
+argument of the final theorems. The hypotheses in question were the column bounds, (I2), (I3), $G$, the quotient
+valuation bounds, the Tate kernels, subgroup-sum algebraicity, torsion integrality, specialization, Ramanujan's ODEs and
+Deligne's congruence. Not yet done: an independent re-check of the compiled \lean{.olean} files with
+\lean{lean4checker}.
+
+\emph{Toolchain}: Lean \lean{v4.30.0-rc2}~\cite{Lean4}, Mathlib revision \lean{606efcb7}.
+\emph{Reproduction}:
+\begin{alltt}\small
+git clone https://github.com/tomdif/RamanujanLean && cd RamanujanLean
+lake exe cache get
+lake build RamanujanTau.OrdQuot.Atkin
+lake env lean scripts/audit/atkin_obrien_closure.lean
+\end{alltt}
+\TODO{Pin the repository commit (the theorem landed in \lean{5954d8d}); record build time and memory; run
+\lean{lean4checker}; confirm that the default build target covers the audit imports.}
+
+\begin{remark}[uniformity in $\ell$]
+The envelope lemma is formalized for all $\ell\ge13$. The lemmas from which (UB), (I2) and (DB) are derived take a general
+prime $\ell\ge5$ (respectively $\ell\ge11$ for (I2)). Only the base case (Lemma~\ref{lem:base}) and the final assembly are
+specialized to the four primes. \TODO{Package (UB), (DB) and (I2) as standalone Lean theorems for all primes
+$\ell\ge 13$. This would formally discharge the input G3 of \S\ref{sec:upper}.}
+\end{remark}
+
+\begin{remark}
+The same repository contains formal proofs of Watson's theorem for powers of $5$ (\lean{ramanujan\_pow5}), the powers-of-$7$
+theorem (\lean{ramanujan\_pow7}) and Atkin's theorem for powers of $11$ (\lean{ramanujan\_pow11\_unconditional}).
+\TODO{Decide whether to mention these; if so, run the same closure audit on them.}
+\end{remark}
+
+% =====================================================================
+\section{Proof of Theorem~\ref{thm:B}: $T_{\ell^2}$ is invertible modulo $\ell$}\label{sec:thmB}
+% =====================================================================
+
+Fix a prime $\ell\ge13$, with $j,t,\lambda$ as in \S1, and let
+\[
+  \rho=\frac{j\ell-1}{24},\qquad k'=\frac{\ell+j-2}{2}=\ell-1-12t,\qquad R=R_\ell .
+\]
+Then $\delta=\ell t+\rho$ and $\ell\rho+t=j\delta$. Put $\Sb=S_{\ell-1}(\Fl)$ and $\Mb=M_{\ell-1}(\Fl)=\Fl\cdot1\oplus\Sb$,
+where $E_{\ell-1}\equiv1$, and
+\[
+  \cV:=\Delta^t\,S_{k'}(\Fl)\subseteq\Sb .
+\]
+Let $\Ub,\Db,\Xb$ be the reductions of $U,D,X$ on $q$-expansions modulo $\ell$. Following~\cite[(5.1)]{BoylanWebb2013}, the
+Boylan--Webb invariant is
+\begin{equation}\label{eq:dl}
+  d_\ell=\min\{t'\ge0:\ f|D|X^{t'}\in\cV_{\mathrm{inv}}\ \text{for all } f\in M_{\ell-1}\},
+\end{equation}
+where $\cV_{\mathrm{inv}}$ is the largest subspace of $\Sb$ on which $\Xb$ is invertible.
+
+\subsection{Mod-$\ell$ filtrations}
+For a mod-$\ell$ modular form $f$ on $\Gamma_1(N)$, with $\ell\nmid N$ and $\ell\ge5$, let $\w(f)$ be its filtration. We use the
+following standard facts~\cite{SerreBourbaki1973,SwinnertonDyer1973,Katz1977,Jochnowitz1982}:
+\begin{enumerate}[label=(F\arabic*)]
+\item $\w(\theta f)\le \w(f)+\ell+1$, with equality iff $\ell\nmid \w(f)$; in general
+  $\w(\theta f)=\w(f)+\ell+1-s(\ell-1)$ with $s\ge0$.
+\item For $k\ge2$, $U\equiv T_\ell$ on $M_k\bmod\ell$, and $\w(f|U)\le\ell+(\w(f)-1)/\ell$.
+\item $f|U=0$ iff $\theta^{\ell-1}f=f$, since $f-\theta^{\ell-1}f=(f|U)|V$.
+\item Filtrations of forms in one weight class are congruent modulo $\ell-1$. A nonzero form of filtration $0$ is constant,
+  and $\theta$ kills constants.
+\end{enumerate}
+\TODO{Gap G2: cite the level-$N$ $\theta$-filtration theory at the precise statements (Katz 1977; Jochnowitz 1982, \S?;
+Edixhoven 1992, \S3).}
+
+\begin{lemma}[low point of a $\theta$-cycle]\label{lem:T}
+Let $5\le k\le\ell-1$, and let $f\neq0$ be a mod-$\ell$ form with $\w(f)=k$ and $f|U=0$. Then $\w(\theta^{\ell+1-k}f)=\ell+3-k$.
+\end{lemma}
+\begin{proof}
+Put $a_i=\w(\theta^if)$. By (F3), $a_{\ell-1}=a_0=k$, and by (F1) the total drop over the cycle is $\sum s_i=\ell+1$. Drops
+occur only where $\ell\mid a_i$, and no $\theta^if$ vanishes. For $i\le\ell-k$ we have $a_i=k+i(\ell+1)$, so
+$a_{\ell-k}=\ell(\ell+1-k)$ is divisible by $\ell$. Let $s$ be the first drop. Then $a_{\ell-k+1}=\ell(\ell+2-k)+1-s(\ell-1)\equiv1+s\pmod\ell$,
+and after this the filtrations rise by $\ell+1$ per step until $i=2\ell-k-s$. Since the cycle closes at $i=\ell-1$, a second
+drop is possible only if $s\ge\ell-k+2$. A single drop of size $\ell+1$ would make $a_{\ell-k+1}$ negative, so
+$s\ge\ell-k+2$. Conversely, $s=\ell-k+3$ would give $a=4-k\le0$, and then $\theta^{\ell-k+1}f$ would be a constant in the image
+of $\theta$, i.e.\ zero. Hence $s=\ell-k+2$ and $a_{\ell+1-k}=\ell+3-k$.
+\end{proof}
+
+\begin{lemma}\label{lem:Uinv}
+For $\ell\ge7$, $\Ub=T_\ell$ is invertible on $\Sb$.
+\end{lemma}
+\begin{proof}
+A nonzero $f\in\Sb$ has $\w(f)=\ell-1$, because the only smaller weight in its class is $0$. If $f|U=0$, Lemma~\ref{lem:T}
+gives $\w(\theta^2f)=4$, so $\theta^2f=cE_4$. The constant terms force $c=0$, and then $f=\theta^{\ell-3}\theta^2f=0$.
+\end{proof}
+
+\begin{lemma}[image of $\Db$; the FKO bound]\label{lem:imageD}
+For $\ell\ge13$, $\Db(\Mb)\subseteq\cV$. In particular $\dim\Db(\Mb)\le\dim\cV=R$.
+\end{lemma}
+\begin{proof}
+Modulo $\ell$ we have $\Phi\equiv\Delta^\delta=V(\Delta^t)\Delta^\rho$, so $\Db f=\Delta^t\,U(\Delta^\rho f)$. The form
+$\Delta^\rho f$ has weight $12\rho+\ell-1$, and by (F2)
+$\w(U(\Delta^\rho f))\le\ell+(12\rho+\ell-2)/\ell<\ell+(j+2)/2$. The class of this filtration modulo $\ell-1$ is
+$12\rho\equiv k'$. The next weight in the class, $k'+\ell-1=(3\ell+j-4)/2$, exceeds $\ell+(j+2)/2$ when $\ell>6$, so the
+filtration is at most $k'$. Finally, $\ord_\infty(\Delta^\rho f)\ge\rho\ge1$, so $U(\Delta^\rho f)$ has no constant term and
+lies in $S_{k'}$. This also covers $f=1$.
+\end{proof}
+
+\begin{lemma}\label{lem:dims}
+For $\ell\ge13$, $\dim S_{k'}=R=\lceil d/2\rceil$, where $d=\dim S_{\ell-1}$.
+\end{lemma}
+\begin{proof}
+Check each $j$. If $j\le11$, then $d=2t$ and $\dim S_{12t+j-1}=t=\lfloor(\ell+12)/24\rfloor$. If $j\ge13$, then $d=2t+1$
+and $\dim S_{12t+j-1}=t+1=\lfloor(\ell+12)/24\rfloor$.
+\end{proof}
+
+\subsection{The half-integral-weight dictionary}\label{sec:dict}
+Recall $\cS=\cS_\ell=S_{\lambda+1/2}(\SL,\nu_\eta^{-\ell})$; note $\nu_\eta^{-\ell}=\nu_\eta^{-j}$.
+\begin{enumerate}[label=(D\arabic*)]
+\item Division by $\eta^j$ is an isomorphism $S_{k'}\to\cS$: the weight is $k'-j/2=\lambda+\frac12$, and $G\in S_{k'}$ has
+  $\ord_\infty G\ge1>j/24$. Since $\eta^\ell=\Delta^t\eta^j$, we get $\cV=\eta^\ell\cS\equiv\eta(\ell z)\cS\pmod\ell$.
+\item \emph{$\Xb|_\cV$ is $U_{\ell^2}$.} Let $F=\Delta^tG\in\cV$. Using $U(V(A)B)=A\,U(B)$ and $V(\Delta^\rho)\equiv\Delta^{\ell\rho}$, we get
+  $\Db\Ub F=\Delta^t\,U^2(\Delta^{\ell\rho+t}G)=\Delta^t\,U^2(\Delta^{j\delta}G)$. Since
+  $\Delta^{j\delta}\equiv V_{\ell^2}(\eta^j)/\eta^j$, this equals $\Delta^t\eta^j\,U_{\ell^2}(G/\eta^j)$. So in the coordinate
+  $h=G/\eta^j\in\cS$, $\Xb|_\cV=U_{\ell^2}$. In particular $\Xb(\Sb)\subseteq\cV$ and $\Xb(\cV)\subseteq\cV$.
+\item \emph{$U_{\ell^2}\equiv T_{\ell^2}$.} On $h(24z)\in S_{\lambda+1/2}(\Gamma_0(576),\chi)$,
+  $T_{\ell^2}=U_{\ell^2}+\chi^*(\ell)\ell^{\lambda-1}\leg{\cdot}{\ell}+\ell^{2\lambda-1}V_{\ell^2}$, which is congruent to $U_{\ell^2}$
+  modulo $\ell$ for $\lambda\ge2$. Moreover $T_{\ell^2}$ is integral, and $\cS(\Z)\otimes\Fl=\cS(\Fl)$ via the Miller basis of $S_{k'}$.
+\item \emph{Odd/even halves.} Write $\Sb=\eta\cdot\cT$ with $\cT=S_{\ell-3/2}(1,\nu_\eta^{-1})$. Then $\Db(\eta g)=\eta(\ell z)U_\ell(g)$
+  holds exactly, because $\Phi\eta=\eta(\ell^2z)$, and $\Ub(\eta(\ell z)h)=\eta\,U_\ell(h)$. So $\Db$ and $\Ub|_\cV$ are the two
+  halves $\cT\to\cS$ and $\cS\to\cT$ of $U_{\ell^2}=U_\ell\circ U_\ell$.
+\item \emph{The partition vector.} $\Lb(1)=\Db(1)=\eta(\ell z)U_\ell(1/\eta)$. In the coordinates
+  $W(G)=$ (the coefficients of $q^1,\dots,q^R$ in $G\prod_n(1-q^n)^{-j}$), it is the vector $(p(\ell n-\rho)\bmod\ell)_{1\le n\le R}$.
+\end{enumerate}
+
+\subsection{Yang's isomorphism}
+\begin{theorem}[Yang~{\cite[Thm.~1]{Yang2014}}]\label{thm:yang}
+Let $0<r<24$ with $(r,6)=1$, and let $s\ge0$ be even. Put $S_{r,s}=\{\eta(24\tau)^rf(24\tau):f\in M_s(1)\}\subset S_{r/2+s}(576,\leg{12}{\cdot})$.
+The Shimura correspondence gives an isomorphism of Hecke modules
+\[
+  S_{r,s}\ \cong\ S^{\mathrm{new}}_{r+2s-1}\big(6,\ -\leg{8}{r},\ -\leg{12}{r}\big)\otimes\leg{12}{\cdot},
+\]
+where the last two entries are the eigenvalues of the Atkin--Lehner involutions $W_2$ and $W_3$. Under this isomorphism
+$T_{p^2}$ corresponds to $\leg{12}{p}T_p$ for $p\nmid6$.
+\end{theorem}
+
+\begin{remark}[checking the citation]\label{rem:yangcheck}
+We apply the theorem with $r=24-j$ and $s=12t+j-13=(\ell-r-2)/2$. Then:
+\begin{itemize}
+\item $\nu_\eta^{-\ell}=\nu_\eta^r$, and $S_{r,s}(1)=\eta^rM_s(1)$~\cite[Prop.~6]{Yang2014} is all of $\cS$; this agrees
+  with (D1) because $G/\eta^j=\eta^r\cdot G/\Delta$.
+\item The weights match: $(r-1)/2+s=\lambda$ and $r+2s-1=\ell-3$.
+\item The hypotheses hold for every $\ell\ge13$: $s$ is even, and $s\ge0$ exactly when $\ell\ge13$.
+\item The characters $\leg{8}{\cdot}$ and $\leg{12}{\cdot}$ are even, so the sign class is $(-\leg{2}{\ell},-\leg{3}{\ell})$.
+\item The Atkin--Lehner convention is $a_p=-\varepsilon_p\,p^{k/2-1}$, which is the same as PARI's.
+\item Yang's $T_{\ell^2}$~\cite[Prop.~11]{Yang2014} is the operator in (D3).
+\item The map is onto the whole newform eigenspace of the class, and multiplicity one holds~\cite[Cor.~1]{Yang2014}.
+\end{itemize}
+These points were checked against arXiv:1110.1810v1, and independently by an external reviewer. The published version
+was not opened. Numerically, for $\ell\in\{29,31,37,41,43,47,53,59,61,67,71,73,83\}$, which covers all eight classes of
+$\ell\bmod24$, the class $(-\leg2\ell,-\leg3\ell)$ is the one whose $T_\ell$-characteristic polynomial modulo $\ell$, after
+$x\mapsto\leg{12}{\ell}x$, equals $\charpoly(\Xb|_\cV)$. A separate PARI scan confirmed $a_2=-w_22^{(\ell-5)/2}$ and
+$a_3=-w_33^{(\ell-5)/2}$ for every newform in $S^{\mathrm{new}}_{\ell-3}(\Gamma_0(6))$ for the primes $13\le\ell\le103$
+other than $79$ and $89$. \TODO{Check against the published version; complete the scan for $\ell=79,89$.}
+\end{remark}
+
+Consequently $\det(T_{\ell^2}|\cS)=\leg{12}{\ell}^R\prod_Fa_\ell(F)$, where $F$ runs over the newforms of weight $\ell-3$ on
+$\Gamma_0(6)$ in the class $(-\leg2\ell,-\leg3\ell)$, counted with all embeddings.
+
+\subsection{The proof}
+\begin{proof}[Proof of Theorem~\ref{thm:B}]
+Suppose some newform $F$ in the class has $a_\ell(F)\equiv0\pmod{\mathfrak l}$ for a prime $\mathfrak l\mid\ell$. Its reduction
+$\bar F$ is a nonzero mod-$\mathfrak l$ eigenform on $\Gamma_0(6)$ with $\bar F|U=0$. Its filtration is $\ell-3$, since the only
+smaller weight in its class is $-2$. Lemma~\ref{lem:T} with $k=\ell-3$ gives $\w(\theta^4\bar F)=6$. So $\tilde G:=\theta^4\bar F$ is a
+nonzero mod-$\mathfrak l$ cuspidal eigenform in $S_6(\Gamma_0(6))\otimes\bar\F_\ell$. Since $a_{pn}(\theta^4F)=p^4n^4a_{pn}(F)$, its
+eigenvalues are $p^4a_p(F)$ for $T_p$ with $p\nmid6\ell$, $16a_2(F)$ for $U_2$, and $81a_3(F)$ for $U_3$. By the Deligne--Serre lifting
+lemma~\cite{DeligneSerre1974}, this system of eigenvalues lifts to an eigenform in $S_6(\Gamma_0(6))$.
+
+The space $S_6(\Gamma_0(6))$ is three-dimensional, because $S_6(\Gamma_0(2))=S_6(\SL)=0$ and $S_6(\Gamma_0(3))$ is one-dimensional. It is spanned by:
+\begin{itemize}
+\item the newform $6.6.a.a=q+4q^2-9q^3+16q^4-66q^5+\cdots$, with $(w_2,w_3)=(-1,+1)$;
+\item the two $U_2$-eigen-oldforms from $3.6.a.a$, whose $U_2$-eigenvalues are the roots of $x^2+6x+32$ and whose $U_3$-eigenvalue is $9$.
+\end{itemize}
+These data were computed with PARI/GP~\cite{PARI}; see also~\cite{LMFDB}.
+
+Next we compute the $U_2$ and $U_3$ eigenvalues of $\tilde G$. Since $w_2(F)=-\leg2\ell$, we have
+$a_2(F)=\leg2\ell2^{(\ell-5)/2}$. Because $2^{(\ell-1)/2}\equiv\leg2\ell$, this gives $a_2(F)\equiv2^{-2}$; likewise
+$a_3(F)\equiv3^{-2}$. Hence $\tilde G$ has $U_2$-eigenvalue $4$ and $U_3$-eigenvalue $9$. This rules out both
+possibilities for the lift:
+\begin{itemize}
+\item The newform $6.6.a.a$ has $U_3$-eigenvalue $-9$. Then $9\equiv-9$ would force $\ell\mid18$, which is impossible.
+\item For the oldforms, $U_2$-eigenvalue $4$ would require $16+24+32=72\equiv0\pmod\ell$, which is impossible for $\ell\ge5$.
+\end{itemize}
+Therefore every $a_\ell(F)$ is a unit, and $\det(T_{\ell^2}|\cS)$ is an $\ell$-adic unit.
+\end{proof}
+
+\begin{remark}[why the sign matters; $\ell=859$]\label{rem:859}
+The newform $6.6.a.a$ is not ordinary at $\ell=859$: $a_{859}=-33566284=-859\cdot39076$. This was found by a PARI scan of
+$\ell\le3\cdot10^5$, which was interrupted after $859$; we have not established whether $859$ is the smallest such prime.
+For this $\ell$, $\theta^{\ell-5}(6.6.a.a)$ is a non-ordinary eigenform of weight $\ell-3$ in the class
+$(-\leg2\ell,+\leg3\ell)$, which is the \emph{wrong} class. If Yang's class had the sign $+\leg3\ell$, Theorem~\ref{thm:B} would fail at
+$\ell=859$, contradicting Boylan--Webb's computation $d_{859}=0$. A direct computation at $\ell=859$ confirms
+Theorem~\ref{thm:B} (\S\ref{sec:numerics}): $\det(\Xb|_\cV)\equiv318\not\equiv0\pmod{859}$.
+\end{remark}
+
+\subsection{Proof of Corollary~\ref{cor:dl}}
+(i) By Theorem~\ref{thm:B} and (D2), $\cV=\Xb(\cV)\subseteq\Db(\Sb)\subseteq\Db(\Mb)\subseteq\cV$, using
+Lemma~\ref{lem:imageD}, so all of these are equal. Lemma~\ref{lem:dims} gives the rank.
+(ii) $\ker\Xb=\Ub^{-1}(\ker\Db)$ has dimension $d-R$ by Lemma~\ref{lem:Uinv}. Since $\Xb(\Sb)\subseteq\cV$ and
+$\Xb|_\cV$ is invertible, $\Sb=\cV\oplus\ker\Xb$ and $\rank\Xb^k=R$ for all $k\ge1$.
+(iii) By (ii), $\cV_{\mathrm{inv}}=\operatorname{im}\Xb^d=\cV\supseteq\Db(\Mb)$, so $d_\ell=0$ in~\eqref{eq:dl}.
+(iv) This is~\cite[Thm.~1.2]{BoylanWebb2013}.
+(v) The number of zero slopes of $X$ on the odd overconvergent space equals the dimension of the generalized nonzero
+eigenspace of $\Xb$ on the reduction of an $X$-stable lattice. On the envelope lattice $A_1$, $\Xb$ factors through the
+reduction $A_1\to\Sb$ to block $1$, whose nonzero generalized eigenspace is $\cV$, of dimension $R$. \qed
+
+\begin{remark}
+Note that $d_\ell=0$ is a condition on all of $M_{\ell-1}$, including the Eisenstein direction. An exact computational test is
+$d_\ell=0\iff\rank[\Xb^d\mid\Db|_{\Mb}]=\rank\Xb^d$, which needs no semisimplicity assumption.
+\end{remark}
+
+\subsection{An independent proof of the upper bound}\label{sec:upper}
+Assume the envelope lemma (Lemma~\ref{lem:env}) for $\ell$. Its inputs (I1)--(I3) are standard, but this is gap G3, and
+it is formalized only in the sense of the uniformity remark in \S\ref{sec:lean}. Then Theorem~\ref{thm:B} gives
+$b_\ell(m)\le2m-1$ without Boylan--Webb's $d_\ell$ machinery.
+
+Let $Y\oplus Z$ be the Riesz decomposition of $X$ on the odd space, with $Y$ the unit-root part. Write $L(1)=y+z$ with
+$y=e_YL(1)$, where $e_Y=\lim X^{n!}$. The reduction $\rho:A_1\to\Sb$ has kernel $\ell A_2$ and is $X$-equivariant. If
+$x\in Z\cap A_1$, then $\rho(x)$ lies in the generalized kernel of $\Xb$, which is $\ker\Xb$ by Corollary~\ref{cor:dl}(ii). By
+induction, $w_k:=X^kz/\ell^{k+1}\in A_2\cap Z$ for all $k$:
+\begin{itemize}
+\item \emph{Base.} $\rho(z)\in\ker\Xb\cap\cV=0$.
+\item \emph{Step.} $\rho(Xw_k)=\Db\rho_\alpha(Uw_k)\in\cV\cap\ker\Xb=0$.
+\end{itemize}
+So $v(X^kz)\ge k+1$, which gives $b_\ell(m)\le2m-1$ (Proposition~\ref{prop:reduction}). For $d=1$ we have $\ker\Xb=0$, and the
+same argument run one $T$-step at a time is the proof of Theorem~\ref{thm:A}.
+
+% =====================================================================
+\section{Rank attainment and the prime $607$}\label{sec:rank}
+% =====================================================================
+
+Assume Theorem~\ref{thm:B}. Then $Y$ has rank $R$, $\bar z=0$, and $\bar y=\Lb(1)=\eta(\ell z)U_\ell(1/\eta)\in\cV$. The stable
+odd module is $\Omega(m)=\Zl[X]y\bmod\ell^m$. Since $\Xb|_\cV$ is invertible, the mod-$\ell$ stable span of the $\Lb(b)$ is
+the Krylov span $\Fl[\Xb]\Lb(1)$. Hence:
+
+\begin{proposition}\label{prop:krylov}
+$r_\ell(1)=\dim_{\Fl}\Fl[T_{\ell^2}]\cdot U_\ell(1/\eta)$, the Krylov rank of $\Lb(1)$ in $\cS\otimes\Fl\cong\cV$.
+\end{proposition}
+
+\begin{proposition}[Nakayama direction]\label{prop:nakayama}
+If $\Lb(1)$ is a cyclic vector of $\Xb|_\cV\cong T_{\ell^2}|_{\cS\otimes\Fl}$, then $\Omega(m)$ is free of rank $R$ for every $m\ge1$.
+\end{proposition}
+\begin{proof}
+$\Zl[X]y$ is a submodule of the rank-$R$ lattice of $Y$ whose image modulo $\ell$ is all of $\bar Y=\cV$. By Nakayama's lemma it is the
+whole lattice.
+\end{proof}
+
+\begin{remark}[gap G6]\label{rem:G6}
+The converse fails at the level of linear algebra: non-cyclicity modulo $\ell$ does not by itself force a rank deficit at
+higher precision. For example, $A=\mathrm{diag}(1,1+\ell)$ and $y=(1,1)$ generate a rank-$2$ lattice whose image modulo $\ell$ is
+one-dimensional. So the statement ``$r_\ell(m)$ equals the Krylov rank of $\Lb(1)$ for all $m$'' needs a lattice argument
+that we have not written out. In the same vein, cyclicity of $\Lb(1)$ requires that the minimal polynomial of $T_{\ell^2}$
+modulo $\ell$ equal its characteristic polynomial, and that $\Lb(1)$ have a nonzero component in each primary component.
+Repeated eigenvalues are neither necessary nor sufficient for non-cyclicity. A geometric multiplicity $\ge2$ is
+sufficient.
+\end{remark}
+\TODO{Re-read the end of docs/BL\_SHARPNESS\_PROOF.md before submission: a gap-closing pass on G6 is in progress. On the
+date of this draft no ``Gap closure'' section existed.}
+
+\subsection{The prime $\ell=607$}\label{sec:607}
+\st{Computed}. The computation used \texttt{halfint.py} over $\F_{607}$, with $q$-expansions to $\ell^2R\approx9.2\cdot10^6$ terms
+(about 30 minutes). It gave $d=50$ and $R=25$. Moreover:
+\begin{itemize}
+\item $\rank\Xb|_\cV=25$ and $\det\neq0$. So Theorem~\ref{thm:B} holds at $607$: $d_{607}=0$, $\rank\Db=25$, and $\Xb$ is
+  semisimple at $0$.
+\item $\charpoly(\Xb|_\cV)=f_{22}(x)\,(x+201)\,(x+367)^2$, where $f_{22}$ is irreducible of degree $22$.
+\item $\dim\ker(\Xb|_\cV+367)=2$. So $T_{607^2}$ has a two-dimensional eigenspace modulo $607$, and no vector of
+  $\cS\otimes\F_{607}$ is cyclic.
+\item The Krylov rank of $\Lb(1)$ is $24=R-1$. This equals Boylan--Webb's $r_{607}=R_{607}-1$~\cite[\S6.1]{BoylanWebb2013}.
+\end{itemize}
+Under Yang's isomorphism, the repeated eigenvalue means that two Galois orbits of newforms of weight $604$ on $\Gamma_0(6)$ in the
+class have congruent $a_{607}$ modulo a prime above $607$. The deficit at $607$ is therefore forced by the Hecke module
+itself, not by the particular vector, and it is consistent with $d_{607}=0$. Boylan--Webb assert only that $d_\ell>0$
+forces a deficit, not the converse~\cite[\S6.2]{BoylanWebb2013}. The composition method of \S\ref{sec:methods} reproduces the
+factor $(x+367)^2$ exactly.
+\TODO{Determine whether Boylan--Webb prove $r_{607}(m)=R-1$ for all $m$ or compute it for $m=1$ only.}
+\TODO{``Two Galois orbits'' versus ``two embeddings of one orbit'': determine which occurs.}
+
+\subsection{A heuristic for the exceptional set}
+A random monic polynomial over $\Fl$ fails to be squarefree with probability $1/\ell$. A fixed vector fails to be cyclic for
+a regular matrix with probability about $(\#\text{primary components})/\ell^{\deg}$, which is $\lesssim1/\ell$. The model
+therefore predicts that rank attainment fails at $\ell$ with probability $\asymp1/\ell$. Summing over primes, it predicts
+about $\sum_{29\le\ell\le1300}1/\ell\approx0.8$ failures below $1300$ (Boylan--Webb found exactly one, $\ell=607$), and
+infinitely many failures in total, forming a set of relative density zero among the primes. \st{Heuristic.}
+
+% =====================================================================
+\section{Sharpness of $2m-1$: reduction and numerics}\label{sec:numerics}
+% =====================================================================
+
+\subsection{Reduction to valuations}
+\begin{proposition}[assuming Theorem~\ref{thm:B}]\label{prop:reduction}
+With $z=L(1)-e_YL(1)$ as in \S\ref{sec:upper},
+\[
+  b_\ell(m)=\min(2k_o+1,\,2k_e+2),\quad k_o=\min\{k:v(X^kz)\ge m\},\quad k_e=\min\{k:v(UX^kz)\ge m\}.
+\]
+Hence $b_\ell(m)\le2m-1$ for all $m$ iff $v(X^kz)\ge k+1$ for all $k$, and $b_\ell(m)=2m-1$ for all $m$ iff in addition
+$v(UX^kz)=k+1$ for all $k$.
+\end{proposition}
+\begin{proof}[Sketch]
+$q$-expansion integrality is equivalent to integrality of Katz coordinates. Since $X|_Y$ is invertible and $X^{-1}|_Y$ is a
+polynomial in $X$, $\Span\{X^iy:i\ge k\}=\Zl[X]y$; this gives ``$\Leftarrow$''. For ``$\Rightarrow$'', project with the
+integral idempotent $e_Z$.
+\end{proof}
+
+\subsection{The second-order operator $\Theta$}\label{sec:theta}
+Let $u_k=Uw_k\in A_1(\alpha)$ and $\bar u_k=\rho(u_k)\in\Sb$. By \S\ref{sec:upper}, $\Db\bar u_k=0$, so
+$\bar u_k\in\bar K:=\ker\Db|_{\Sb}$, which has dimension $\lfloor d/2\rfloor$. Write $\Sb=\Ub(\cV)\oplus\bar K$, and let $\pi_K$ be
+the projection along $\Ub(\cV)$. Define
+\[
+  \Theta:\bar K\to\bar K,\qquad\Theta(\bar u)=\pi_K\rho\big(U(D\tilde u/\ell)\big),
+\]
+for any lift $\tilde u\in A_1(\alpha)$ of $\bar u$. This is well defined: $D\tilde u/\ell\in A_2$, and changing the lift changes the
+value by an element of $\Ub\Db(\cdot)\subseteq\Ub(\cV)$. Then $\bar u_{k+1}=\Theta\bar u_k$, so
+\[
+  b_\ell(m)=2m-1\ \text{for all }m\iff\Theta^k\bar u_0\ne0\ \text{for all }k,
+\]
+and a sufficient condition is that $\Theta$ is invertible and $\bar u_0\ne0$. In half-integral terms,
+$\Theta(\bar u)=\pi_K\big[(U_{\ell^2}\tilde g)/\ell-U_{\ell^2}(e_1\tilde g)\big]$, where $\tilde u=\eta\tilde g$ and $E_{\ell-1}=1+\ell e_1$.
+The first term is the slope-$1$ part of $T_{\ell^2}$ on the classical weight-$(\ell-\frac32)$ space; the second is a
+weight-derivative correction. \st{Proved for the reduction} (given Theorem~\ref{thm:B} and the envelope lemma);
+\st{open} in general.
+
+\begin{computation}[conditional]\label{comp:theta}
+For every prime $29\le\ell\le113$, $\Theta$ has full rank $\lfloor d/2\rfloor$ with squarefree characteristic polynomial, and
+$\bar u_0\ne0$ (Table~\ref{tab:theta}). Hence $b_\ell(m)=2m-1$ for \emph{all} $m\ge1$ for these $\ell$, subject to three
+conditions: (a) Theorem~\ref{thm:B}; (b) the envelope lemma for these $\ell$ (gap G3); and (c) the validity of the truncated Katz
+model ($\mathrm{PR}=3$, $N=6$) used to compute $\Theta$. Condition (c) holds because $\Theta$ modulo $\ell$ sees only Katz
+blocks $i$ with $\alpha(i),\beta(i)\le2$, but this routine justification has \emph{not yet been written out}. The
+independent external review reproduced $\Theta$ for all $21$ primes and recorded the same qualification.
+\end{computation}
+
+For $29\le\ell\le47$ we have $\dim\bar K=1$, and the eigenvalue of $\Theta$ equals $\mu=\lambda_{\text{slope }1}/\ell\bmod\ell$, read off
+from the Newton polygon of $\charpoly(X)$ in the Katz model. This supports the expectation that $\Theta$ is the reduction of $X/\ell$
+on the slope-$1$ part.
+
+\begin{table}[ht]
+\centering\small
+\caption{$\Theta$ on $\bar K$ (\texttt{theta2.py}, Katz model $\mathrm{PR}=3$, $N=6$). For $\dim\bar K=1$ we list the eigenvalue $\mu$,
+$\bar u_0$ and $\bar u_1=\Theta\bar u_0$; for $\dim\bar K\ge2$, the factorization of $\charpoly\Theta$ over $\Fl$.}\label{tab:theta}
+\begin{tabular}{@{}rcl@{}}
+\toprule
+$\ell$ & $\dim\bar K$ & $\Theta$\\
+\midrule
+29 & 1 & $\mu=23$, $\bar u_0=8$, $\bar u_1=10$\\
+31 & 1 & $\mu=2$, $\bar u_0=5$, $\bar u_1=10$\\
+37 & 1 & $\mu=20$, $\bar u_0=9$, $\bar u_1=32$\\
+41 & 1 & $\mu=31$, $\bar u_0=26$, $\bar u_1=27$\\
+43 & 1 & $\mu=31$, $\bar u_0=40$, $\bar u_1=36$\\
+47 & 1 & $\mu=17$, $\bar u_0=19$, $\bar u_1=41$\\
+53 & 2 & $(x+18)(x+28)$\\
+59 & 2 & $(x+46)(x+58)$\\
+61 & 2 & $x^2+44x+4$\\
+67 & 2 & $x^2+35x+17$\\
+71 & 2 & $x^2+34x+30$\\
+73 & 3 & $(x+14)(x^2+31x+43)$\\
+79 & 3 & $x^3+31x^2+22x+32$\\
+83 & 3 & $(x+53)(x^2+64x+57)$\\
+89 & 3 & $x^3+41x^2+27x+81$\\
+97 & 4 & $(x+82)(x^3+36x^2+70x+27)$\\
+101 & 4 & $(x+5)(x+3)(x^2+92x+93)$\\
+103 & 4 & $(x+64)(x^3+41x^2+14x+56)$\\
+107 & 4 & $x^4+62x^3+81x+84$\\
+109 & 4 & $(x+81)(x+74)(x^2+23x+81)$\\
+113 & 4 & $x^4+51x^3+17x^2+94x+109$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Computational methods}\label{sec:methods}
+\begin{enumerate}[label=(M\arabic*)]
+\item \emph{Katz-coordinate iteration} (\texttt{katzmat.py}, \texttt{bstab.py}, \texttt{bigstab.py}). We iterate $L(b)$ in Katz coordinates
+  using the level-$1$ $U$- and $D$-matrices, and compute the stable modules exactly as Krylov spans, with Smith invariants over
+  $\Z/\ell^m$. The model was validated in three ways:
+  \begin{itemize}
+  \item truncation stability: $N=\mathrm{PR}+3$ and $N=\mathrm{PR}+6$ agree in every case;
+  \item zero mismatches against $p(n)$ data for $\ell=17,23,29,31$;
+  \item it reproduces the classical cases $\ell=5,11$ ($b=m$), $\ell=7$ (Watson's $7^{\lfloor b/2\rfloor+1}$) and $\ell=13$
+    (Atkin--O'Brien), and the values $\kappa^{(0)}_\ell=6,6,10,5$.
+  \end{itemize}
+\item \emph{Partition numbers.} We computed $p(n)$ modulo $17^5$, $19^4$, $23^4$ (and modulo powers of $13$, $29$, $31$) for $n\le10^8$
+  by FLINT series inversion~\cite{FLINT}.
+\item \emph{Half-integral weight} (\texttt{halfint.py}). This computes $\Xb|_\cV$ as $U_{\ell^2}$ in the coordinates $W$ of (D5), using
+  $q$-expansions to $\ell^2R$ terms. For every $29\le\ell\le113$, its characteristic polynomial agrees factor by factor with the nonzero
+  part of $\charpoly(\Xb|_{\Sb})$ computed independently in Katz coordinates.
+\item \emph{Composition} (\texttt{l859\_compose.py}). This composes $\Db\circ\Ub$ with re-expansion in the basis $\Delta^iE_4^aE_6^b$. It
+  needs only $O(\ell d)$ $q$-coefficients: at $\ell=859$, about $7\cdot10^4$ terms, $7$ seconds and $280$ MB. It was validated at
+  $\ell=29,47,71,113$ and $607$. Before the run, an external reviewer checked it against the original script's full matrices at
+  $15$ smaller primes and recomputed $\ell=859$ by the $\ell^2R$ method (about $2.6\cdot10^7$ coefficients, $4.5$ minutes, $3.5$ GB).
+\item \emph{Level~$6$} (\texttt{yang.gp}). PARI/GP computation of $T_\ell$ modulo $\ell$ on $S^{\mathrm{new}}_{\ell-3}(\Gamma_0(6))$, split by
+  Atkin--Lehner signs.
+\end{enumerate}
+
+\subsection{Data}
+\begin{table}[ht]
+\centering\small
+\caption{Constants $\kappa_\ell\bmod\ell^m$ determined from $p(n)$, $n\le10^8$ (method M2), with the number of independent tests in
+parentheses where recorded. In each case the proportionality fails modulo $\ell^{m+1}$ at $b=m$. The entries are compatible:
+each reduces to the previous one, consistent with a single $\kappa_\ell\in\Zl$.}\label{tab:kappa}
+\begin{tabular}{@{}rllll@{}}
+\toprule
+$\ell$ & $m=1$ & $m=2$ & $m=3$ & $m=4$\\
+\midrule
+13 & 6 & 45 (Atkin--O'Brien's $K_2$) & 214 & --\\
+17 & 6 (20354) & 210 (1197) & 3678 (71) & 38069 (4)\\
+19 & 10 & 48 & 3658 (41) & --\\
+23 & 5 & 465 & 4697 (16) & --\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering\small
+\caption{Katz-coordinate sweep (method M1). The columns give: $d=\dim S_{\ell-1}$; the FKO bound $R_\ell$; the largest $m$
+tested; the observed $b_\ell(m)$ for all tested $m$; and the stable rank modulo $\ell^m$ (the same for all tested $m$). The
+stable modules are free in every case, truncation stability holds, and the unit-root count equals $R_\ell$. Rows with
+$m_{\max}=16$ come from \texttt{bigm.log}; the others from \texttt{scan\_5\_60.json} and \texttt{scan\_60\_230.json}.}\label{tab:sweep}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+$\ell$ & $d$ & $R_\ell$ & $m_{\max}$ & $b_\ell(m)$, rank\\
+\midrule
+13, 17, 19, 23 & 1 & 1 & 16 & $m$, rank 1\\
+29, 31 & 2 & 1 & 16 & $2m-1$, rank 1\\
+37, 41 & 3 & 2 & 16 & $2m-1$, rank 2\\
+43, 47 & 3 & 2 & 9 & $2m-1$, rank 2\\
+53, 59 & 4 & 2 & 9 & $2m-1$, rank 2\\
+61, 67, 71 & 5 & 3 & 9 & $2m-1$, rank 3\\
+73, 79, 83 & 6 & 3 & 9 & $2m-1$, rank 3\\
+89 & 7 & 4 & 9 & $2m-1$, rank 4\\
+97, 101, 103, 107 & 8 & 4 & 9 & $2m-1$, rank 4\\
+109, 113 & 9 & 5 & 9 & $2m-1$, rank 5\\
+127, 131 & 10 & 5 & 8 & $2m-1$, rank 5\\
+137, 139 & 11 & 6 & 8 & $2m-1$, rank 6\\
+149, 151 & 12 & 6 & 8 & $2m-1$, rank 6\\
+157, 163, 167 & 13 & 7 & 8 & $2m-1$, rank 7\\
+173, 179 & 14 & 7 & 8 & $2m-1$, rank 7\\
+181, 191 & 15 & 8 & 8 & $2m-1$, rank 8\\
+193, 197, 199 & 16 & 8 & 8 & $2m-1$, rank 8\\
+211 & 17 & 9 & 8 & $2m-1$, rank 9\\
+223, 227 & 18 & 9 & 7 & $2m-1$, rank 9\\
+229 & 19 & 10 & 7 & $2m-1$, rank 10\\
+\bottomrule
+\end{tabular}
+\end{table}
+For the primes $5,7,11$ the same sweep gives $b_\ell(m)=m$ for $\ell=5,11$, and $1,2,4,6,\dots,2m-2$ for $\ell=7$, consistent with
+Watson and Atkin. For $29\le\ell\le179$ the Newton polygon of $X$ in the Katz model shows $R_\ell$ slopes $0$ followed by
+exactly $\lfloor d/2\rfloor$ slopes $1$; for $d=1$ the slopes are $0,2,2,4,\dots$ (no slope $1$). For $181\le\ell\le229$ the
+truncated models ($\mathrm{PR}=8,7$) show fewer than $\lfloor d/2\rfloor$ slopes $1$. We attribute this to truncation, but
+we have not checked it. \TODO{Recompute the slopes for $181\le\ell\le229$ at higher precision.}
+
+\begin{table}[ht]
+\centering\small
+\caption{$\charpoly(\Xb|_{\Sb_{\ell-1}})$ over $\Fl$ for $13\le\ell\le113$ (\texttt{structure\_13\_60.log},
+\texttt{structure\_61\_230.log}). In every case $\rank\Ub=d$, $\rank\Db=\rank\Xb=\rank\Xb^k=R_\ell$, and the factor $x^{d-R}$ is
+the semisimple kernel of Corollary~\ref{cor:dl}(ii).}\label{tab:charpoly}
+\begin{tabular}{@{}rl@{}}
+\toprule
+$\ell$ & $\charpoly(\Xb|_{\Sb})$\\
+\midrule
+13 & $x+7$\\
+17 & $x+11$\\
+19 & $x+9$\\
+23 & $x+18$\\
+29 & $(x+26)\,x$\\
+31 & $(x+1)\,x$\\
+37 & $(x+22)(x+3)\,x$\\
+41 & $(x+18)(x+10)\,x$\\
+43 & $(x+12)(x+37)\,x$\\
+47 & $(x^2+18x+19)\,x$\\
+53 & $(x+46)(x+10)\,x^2$\\
+59 & $(x^2+53x+57)\,x^2$\\
+61 & $(x+29)(x^2+2x+18)\,x^2$\\
+67 & $(x+26)(x^2+42x+65)\,x^2$\\
+71 & $(x^3+18x^2+2x+2)\,x^2$\\
+73 & $(x^3+65x^2+71x+29)\,x^3$\\
+79 & $(x+61)(x^2+70x+51)\,x^3$\\
+83 & $(x+67)(x^2+9x+79)\,x^3$\\
+89 & $(x^2+14x+78)(x^2+9x+25)\,x^3$\\
+97 & $(x+69)(x^3+50x^2+8x+33)\,x^4$\\
+101 & $(x+27)(x^3+60x^2+22x+59)\,x^4$\\
+103 & $(x+90)(x^3+35x^2+61x+81)\,x^4$\\
+107 & $(x^4+47x^3+31x^2+23x+36)\,x^4$\\
+109 & $(x^5+61x^4+20x^3+35x^2+42x+40)\,x^4$\\
+113 & $(x+41)(x+50)(x^3+81x^2+56)\,x^4$\\
+\bottomrule
+\end{tabular}
+\end{table}
+For $\ell=13,17,19,23$, the eigenvalue $-c$ of the factor $x+c$ is $\kappa^{(0)}_\ell$: $-7\equiv6$, $-11\equiv6$, $-9\equiv10$ and
+$-18\equiv5$. For $\ell\ge59$ some unit eigenvalues are irreducible over $\Fl$, so for rank $\ge2$ the analogue of
+``$L(b+2)\equiv\kappa L(b)$'' is a linear recurrence of order $R_\ell$.
+
+\paragraph{$\ell=859$} \st{Computed} with method (M4), and confirmed independently by the $\ell^2R$ method. Here $d=71$ and $R=36$.
+The results:
+\begin{itemize}
+\item $\det(\Xb|_\cV)=318\bmod859$, so $\rank\Xb|_\cV=36$;
+\item $\rank\Db=36$ on both $\Sb$ and $\Mb$;
+\item $\rank\Xb^k=36$ for $k\le72$;
+\item $d_{859}=0$ by the exact test $\rank[\Xb^d\mid\Db_M]=\rank\Xb^d$;
+\item the Krylov rank of $\Lb(1)$ is $36$, and $\charpoly(\Xb|_\cV)$ is squarefree.
+\end{itemize}
+So at the first prime where $6.6.a.a$ is known to be non-ordinary, Theorem~\ref{thm:B}, $d_\ell=0$ and rank attainment all hold.
+
+% =====================================================================
+\section{Open problems}\label{sec:open}
+% =====================================================================
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Sharpness for all $\ell\ge29$.} \st{Conjecture.} For every prime $\ell\ge29$ and every $m\ge1$, $b_\ell(m)=2m-1$. This would follow from
+  (a) the slope-$1$ count: $X$ has exactly $\lfloor d/2\rfloor$ slopes equal to $1$, and $\Theta$ is invertible (gap G4); together with
+  (b) $\bar u_0\ne0$, a nonvanishing statement for one explicit vector (gap G5). A possible route to (a) uses Ramsey and
+  Coleman~\cite{FKO2012,Coleman1996}: the ordinary part of a $\theta$-twisted space of weight $\ell-5$ and level $6$.
+  We have not worked this out.
+\item \textbf{Equality $b_\ell(m)=m$ for $\ell\in\{13,17,19,23\}$.} Theorem~\ref{thm:A} gives $b_\ell(m)\le m$; equality is computed for
+  $m\le16$. A proof of the lower bound requires the nonvanishing of the slope-$2$ component.
+\item \textbf{Rank at higher precision (G6).} Show that $r_\ell(m)$ equals the Krylov rank of $\Lb(1)$ for every $m$, or find a
+  counterexample.
+\item \textbf{The exceptional set.} Is $\cE=\{\ell:\Lb(1)\text{ is not cyclic for }T_{\ell^2}\bmod\ell\}$ infinite? What is
+  the second element after $607$? Is non-cyclicity always caused by a repeated $T_{\ell^2}$-eigenvalue in practice?
+\item \textbf{Coloured partitions.} Extend Theorem~\ref{thm:B} and Corollary~\ref{cor:dl} to the BLMT invariant $d_\ell(r)$ for
+  $\ell\ge r+5$~\cite{BLMT2014}.
+\item \textbf{Formalization of Theorem~\ref{thm:B}.} This would require half-integral-weight forms and Yang's isomorphism (or a substitute)
+  in Mathlib. A more modest target is the formalization of the finite computations at a fixed $\ell$.
+\item \textbf{Explicit $\kappa_\ell$.} Express $\kappa_\ell\in\Zl^\times$ in terms of the unit-root $U_{\ell^2}$-eigenvalue on overconvergent
+  half-integral weight forms (Ramsey's appendix to~\cite{FKO2012}). Is there a closed formula for $\kappa_\ell\bmod\ell^2$?
+\end{enumerate}
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+% =====================================================================
+% TODO list (keep in sync with the report)
+%  1. Conventions: check Definition 1.1 against BW Sec. 1 / Thm 1.4 / Remark 1.
+%  2. Novelty of l = 17, 19, 23 (Atkin 1968; specialists).
+%  3. Unchecked citations: Katz 2.6.2, 3.11.2, 3.11.3, App. 2; Coleman p. 221; Yang published version;
+%     Deligne--Serre lemma number; theta-cycle references (G2); all page ranges marked TODO in refs.bib.
+%  4. Garvan--Shomanov, El-Guindy--Ghazy, Webb thesis: complete the bib entries.
+%  5. Lean: pin commit; run lean4checker; package UB/DB/HQ for all l >= 13.
+%  6. G6 status: re-read docs/BL_SHARPNESS_PROOF.md (a gap-closing pass is running in parallel).
+%  7. Truncation justification for Computational result 6.2 (theta, PR = 3, N = 6).
+%  8. l = 607: BW for all m or m = 1; one vs two Galois orbits.
+%  9. Slope counts for 181 <= l <= 229 at higher precision.
+% 10. Rename dim S_{l-1} to avoid the clash with the BW invariant d_l.
+% 11. Authorship, acknowledgements, AI-assistance disclosure.
+% =====================================================================
+\end{document}

@@ -9,6 +9,8 @@ proves the equivalence between persistent vanishing of the actual product
 coefficients and an exact projective root certificate, under
 `AdmissibleSparseTriple p i j k` and `R < p`.
 See the [verification record](docs/verification/full_converse_lean.json).
+The [four-factor follow-up](#four-factor-and-first-witness-follow-up-2026-11-01)
+settles the fixed example at 41 and records the remaining universal targets.
 Earlier frontier notes below are retained as historical research steps.
 The exact coefficient scanner in `scripts/quintuple_vanishing_scan.py` reproduces all five
 examples reported in the March and June 2026 papers and tests proposed extensions.
@@ -1731,3 +1733,419 @@ count, while `Σ c(K)²` ≈ point count. This is the signature of a cusp form w
 * The census through `p ≤ 2600` (exact witnesses for every non-root residue, formal vanishing for every
   root residue) is already an exact verification of the root–vanishing equivalence for all those `p`.
   It relies on the exact Python scanner, not on Lean.
+
+
+## Four-factor and first-witness follow-up (2026-11-01)
+
+The fixed four-factor example in [Daniels–Huber–McLaughlin–Ye, §5](https://arxiv.org/html/2606.06701v1#S5)
+now has a complete Lean proof. Write
+
+```text
+Q(q,q^41) Q(q^4,q^41) Q(q^5,q^41) Q(q^9,q^41) = Σ a(n) q^n.
+```
+
+For every R<41, `four41_persistent_vanishing_iff` proves
+
+```text
+(∀ N≥0, a(41N+R)=0)  ↔  R∈{21,25,26,30}.
+```
+
+[FourCancellation](RamanujanTau/MultiQuintupleFourCancellation.lean)
+extends the actual-product Watson coefficient formula to four factors.
+[FourFortyOne](RamanujanTau/MultiQuintupleFourFortyOne.lean) gives explicit
+integer affine maps on each of the sixteen residue-restricted Watson branches.
+Lean checks preservation of the exponent, reversal of the sign, and the
+involution law. Finite coefficient support then proves cancellation for every
+N. The linear maps found in the discovery calculation reverse a two-dimensional
+plane; the formal proof checks the explicit affine identities directly.
+
+[FourFortyOneConverse](RamanujanTau/MultiQuintupleFourFortyOneConverse.lean)
+checks a nonzero coefficient in each of the other 37 residues. All have N≤5.
+It follows that checking N=0,…,5 is an exact finite test for this fixed product.
+This does not extrapolate a finite zero scan into persistent vanishing: the
+four zero progressions have the separate involution proof.
+
+The independent exact-rational checker validates 32 affine identities per
+certificate, including a determinant check that the branch lattice is the full
+residue kernel. Corrupting a translation by one fails its negative control.
+Further certificates found by the same search are:
+
+| Prime | Indices | Certified zero residues | Lean scope |
+|---|---|---|---|
+| 41 | 1,4,5,9 | 21,25,26,30 | Full classification of this product |
+| 53 | 2,5,7,9 | 29,31,36,38 | Full classification of this product; every other residue has a witness with N≤8 |
+| 97 | 4,5,9,13 | 9,13,55,64 | Infinite zero progressions proved in Lean; exclusion of other residues is still only a finite computation |
+
+These examples led to indices obtained by sorting `(m−n,n,m,m+n)` at
+modulus `m²+n²`. The unrestricted parameterization is not a vanishing theorem:
+the same search finds no branch matching in several examples, including
+p=13,29,61. A failed matching search does not prove nonvanishing. The
+congruence-restricted two-parameter theorem and infinite family below now have Lean proofs. The universal
+four-factor classification remains open, and a claim of novelty in the
+literature would need a broader review.
+
+### A second quadratic family beyond sums of two squares
+
+[MultiQuintupleFourBinary](RamanujanTau/MultiQuintupleFourBinary.lean)
+proves `coeff_fourBinary_zero` for the actual infinite product
+
+```text
+Q(q^(2m),q^p) Q(q^(4m),q^p) Q(q^n,q^p) Q(q^(3n),q^p),
+p = 2m²+n².
+```
+
+For positive natural m,n, assume
+
+```text
+8m < p,    6n < p,    3 | m,    5 | n,    gcd(30m,p)=1.
+```
+
+Every coefficient at pN+R vanishes, for all N≥0, when either
+`R ≡ 3m+2n−30 (mod p)` or `R ≡ 3m+2n (mod p)`. Primality is not
+required. The new proof uses denominator-five affine involutions, with
+integrality checked modulo fifteen. The earlier family uses denominator-three
+maps and a modulo-nine condition. In each case the map preserves the exponent,
+reverses the sign, and pairs every term in the actual Watson coefficient sum.
+
+[MultiQuintupleFourBinaryFamily](RamanujanTau/MultiQuintupleFourBinaryFamily.lean)
+discharges every hypothesis for `m=15t+3, n=5`. Thus
+`coeff_fourBinary_family` proves, for every natural t,N, two permanent zero
+progressions for
+
+```text
+p(t) = 450t²+180t+43,
+indices = (30t+6, 60t+12, 5, 15),
+R₁(t) = 45t+19,
+R₂(0) = 32,    R₂(t) = 45t−11 for t≥1.
+```
+
+Lean also proves that the moduli strictly increase and that the two residues
+are distinct and lie below p(t). At t=0 this gives indices `(6,12,5,15)` and
+zero residues **19 and 32 at 43**. The theorem
+`fourBinaryFamily_even_not_sum_squares` proves that, for every t, p(2t) is
+not a sum of two integer squares: it is 3 modulo 4. Consequently an unbounded
+set of these proved examples lies outside every modulus of the earlier
+sum-of-two-squares family. This is an extension of the repository's results;
+no literature-priority claim is made.
+
+The [verification record](docs/verification/four_binary.json) records the
+9,364-job full build and 20-declaration standard-axiom audit. The
+[independent checker](scripts/check_four_binary.py) compares direct Pochhammer
+multiplication with Watson sums: **259,467 coefficients across 17 parameter
+pairs**, including composite moduli and t=0,…,4. Its
+[report](docs/verification/four_binary_check.json) also contains a finite
+origin-compatibility test; that test is not a formal converse theorem.
+Neither the two-parameter theorem nor its all-parameter specialization
+excludes further zero residues. The universal four-factor converse remains open.
+
+### The four-factor quarter bound fails
+
+The obstruction now has actual-product Lean proofs, including a stronger
+small-prime example. [FourWitness17](RamanujanTau/MultiQuintupleFourWitness17.lean)
+proves `first_witness_four17`: for the product with indices `(2,3,5,8)` at
+prime 17, all coefficients at `17N+5` vanish for N<7 and the coefficient at
+N=7 is **1**. The indices are distinct and canonical, and their squared sum
+is 102=6·17, so this is an admissible isotropic four-tuple.
+
+[FourWitnessBound](RamanujanTau/MultiQuintupleFourWitnessBound.lean) defines
+`FourWitnessLinearBound c` for real c: every nonvanishing progression of every
+admissible prime-modulus four-tuple has a witness N≤cp. The theorem
+`fourWitnessLinearBound_ge` proves that this property implies **c≥7/17**.
+In particular, both c=1/4 and c=2/5 are impossible. This is a necessary lower
+bound, not a proof that c=7/17 works and not an asymptotic optimality claim.
+
+The previous finite scans suggested extending the triple-product first-witness
+bound to the four-congruence family below. An exact calculation now gives a
+counterexample inside that family:
+
+```text
+p = 2521 = 36²+35²,    9 | 36,
+indices = (1,35,36,71),    floor(p/4) = 630.
+```
+
+| Residue R | First nonzero N | Exponent pN+R | Coefficient |
+|---|---|---|---|
+| 67 | 631 | 1,590,818 | −1 |
+| 2273 | 632 | 1,595,545 | 1 |
+
+All preceding terms of each progression, starting at N=0, are zero. The
+[exact replay](scripts/check_four_quarter_counterexample.py) checks two
+independent enumerations of the Watson exponents and two different pairings
+of the four factors. The [earlier saved certificate](docs/verification/four_quarter_counterexample.json)
+remains a historical integer-computation record. Residue **2273** now has a
+separate all-preceding-zeros Lean proof in
+[FourWitness2521](RamanujanTau/MultiQuintupleFourWitness2521.lean):
+`first_witness_four2521` proves the first witness is exactly N=632. Thus even
+rounding p/4 upward to 631 does not repair the cutoff in this reflection family.
+The residue-67 calculation has not been separately formalized.
+
+For the larger proof, Lean first bounds every contributing Watson integer by
+20 in absolute value. The residue equation uniquely determines the fourth
+branch from the other three. The
+[generated data](RamanujanTau/MultiQuintupleFourWitness2521Data.lean) then
+checks **82 slices** in the kernel, covering **5,091 contributing terms**.
+Sorting the positive and negative doubled exponents certifies their exact
+pairing, with one positive term left at degree 1,595,545. The generator is
+outside the trusted proof; each generated slice is independently checked by
+`decide +kernel`.
+
+The [verification record](docs/verification/four_witnesses.json) and
+[dedicated audit](scripts/audit/four_witnesses.lean) cover the new actual-product
+theorems and the universal linear-bound obstruction. An
+[independent check](docs/verification/four_witnesses_check.json) also compares
+direct Pochhammer products with Watson sums for six small counterexamples and
+replays the 2521 calculation. The original 37-pair observations remain valid
+finite results; their proposed extension is false.
+The original **triple-product** quarter-prime conjecture is a separate
+statement and is unaffected.
+
+### A finite frontier beyond the proved families
+
+The [frontier scan](scripts/scan_four_quintuple_frontier.py) checks all
+**3,174** distinct canonical four-tuples at primes through 71 satisfying
+`p | i²+j²+k²+l²`. Testing through N=2p leaves **289 products** with at least
+one zero-progression candidate; the [record](docs/verification/four_quintuple_frontier.json)
+lists the tuples and residues. These are finite observations, not 289 proved
+infinite vanishings. They provide explicit targets for finding additional
+affine cancellation maps and a broader classification.
+
+### Four congruence families and an exact reflection criterion
+
+The [uniform reflection theorem](RamanujanTau/MultiQuintupleFourReflection.lean)
+extends the earlier condition `9 | m+n` to **any one** of
+
+```text
+9 | m,    9 | n,    9 | m−n,    9 | m+n.
+```
+
+The other hypotheses are
+
+```text
+0 < n < m,    p = m²+n²,    2(m+n) < p,
+gcd(6,p) = gcd(n,p) = 1.
+```
+
+For the actual product with indices `(m−n,n,m,m+n)`,
+`coeff_fourReflection_family_zero` proves that every coefficient at `pN+R`
+vanishes, for all N≥0, whenever R satisfies any of the following conditions:
+
+| Long direction | Residue condition modulo p |
+|---|---|
+| 0 | 2R ≡ 3m+n−18 |
+| 1 | 2R ≡ 3m+n |
+| 2 | (n−m)R ≡ n(m+2n−9) |
+| 3 | (m+n)R ≡ n(2m−n−9) |
+
+The prime-modulus corollary removes the two coprimality hypotheses. The general
+result also covers composite moduli, including 85, 125, and 145. Examples of
+the four parameter congruences are:
+
+| Divisible by nine | m,n | p | Indices | Guaranteed zero residues |
+|---|---|---|---|---|
+| m+n | 5,4 | 41 | 1,4,5,9 | 21,25,26,30 |
+| m | 9,4 | 97 | 5,4,9,13 | 9,13,55,64 |
+| m−n | 10,1 | 101 | 9,1,10,11 | 56,57,66,67 |
+| n | 10,9 | 181 | 1,9,10,19 | 10,20,101,110 |
+
+In particular, `coeff_fourReflection_97` promotes the earlier certificate at
+97 to an actual all-N Lean theorem. The full coefficient converse at 97 is
+not yet formalized; the complete Lean classifications remain those at 41
+and 53.
+
+The [algebra](RamanujanTau/MultiQuintupleFourReflectionAlgebra.lean) pairs one
+of four short directions with one of four long directions. All sixteen maps
+preserve the exponent and square to the identity on the appropriate residue
+fibers. A valid map reverses the Watson sign, so the actual coefficient sum
+cancels. This unifies the previously separate examples.
+
+There is also a precise converse **for this collection of maps**.
+[FourReflectionCriterion](RamanujanTau/MultiQuintupleFourReflectionCriterion.lean)
+proves `fourReflection_branch_iff`: with unit norm modulo nine, each specified
+map respects every signed Watson branch if and only if its listed linear
+congruence holds. `fourReflection_exists_iff` says that a compatible map exists
+in this sixteen-map collection exactly when one of m,n,m−n,m+n is zero modulo
+nine. Necessity is already detected at the all-zero branch point; Lean's
+kernel checks the finite residue calculation. Sufficiency is proved on every
+integer branch, not just a finite sample.
+
+This is **not** the universal coefficient-vanishing converse. It does not show
+that arbitrary vanishing must come from one of these maps, or that arbitrary
+four-factor tuples have the form used here.
+
+The [verification record](docs/verification/four_reflection.json) and
+[dedicated audit](scripts/audit/four_reflection.lean) cover the new theorems.
+The [independent checker](scripts/check_four_reflection.py) compares **152,284**
+coefficients from direct Pochhammer multiplication with Watson sums over all
+**37** eligible pairs with m≤24, through N=10. It also verifies the origin
+criterion on all 1,152 unit-norm map/parameter combinations modulo nine.
+Its [report](docs/verification/four_reflection_check.json) separately records
+a finite converse search: every other residue in those 37 cases has a nonzero
+witness by N=⌊p/4⌋. This last statement is a finite experiment, not a uniform
+theorem. The counterexample at 2521 above shows that it does not extend to all
+parameters of this expanded family.
+
+### Two-parameter plane theorem
+
+The [plane theorem](RamanujanTau/MultiQuintupleFourPlane.lean),
+`coeff_fourPlane_eq_zero`, proves a sufficient vanishing criterion for the
+actual infinite products. Take natural numbers m,n with
+
+```text
+0 < n < m,    p = m²+n²,    2(m+n) < p,
+9 | m+n,     gcd(n,9) = gcd(6,p) = gcd(n,p) = 1.
+```
+
+Write
+
+```text
+Q(q^(m−n),q^p) Q(q^n,q^p) Q(q^m,q^p) Q(q^(m+n),q^p) = Σ a(k) q^k.
+```
+
+For any nonnegative residue representative R satisfying any one of these
+congruences, **a(pN+R)=0 for every N≥0**:
+
+| Plane | Residue condition modulo p |
+|---|---|
+| 0 | 2R ≡ 3m+n−18 |
+| 1 | (n−m)R ≡ n(m+2n−9) |
+| 2 | (m+n)R ≡ n(2m−n−9) |
+| 3 | 2R ≡ 3m+n |
+
+`coeff_fourPlane_prime_eq_zero` removes the two coprimality hypotheses modulo
+p when p is prime. Primality is not required by the general theorem.
+
+| m,n | p | Factor indices | Guaranteed zero residues |
+|---|---|---|---|
+| 5,4 | 41 | 1,4,5,9 | 21,25,26,30 |
+| 7,2 | 53 | 5,2,7,9 | 29,31,36,38 |
+| 8,1 | 65 | 7,1,8,9 | 36,37,44,45 |
+| 14,13 | 365 | 1,13,14,27 | 201,327,84,210 |
+
+The proof uses integer coordinates z=3u+b on each Watson branch. In these
+coordinates, three times the doubled exponent is
+`p Σ(z_i²−z_i)+6(m−n,n,m,m+n)·z`. Four explicit affine maps preserve this
+quadratic expression. The congruence modulo nine makes each map carry valid
+branches to branches of the opposite sign, and applying a map twice recovers
+the original term. The finite coefficient-sum bridge therefore cancels every
+term at every exponent in the progression. The
+[coordinate identities](RamanujanTau/MultiQuintupleFourPlaneCoordinates.lean)
+and [plane algebra](RamanujanTau/MultiQuintupleFourPlaneAlgebra.lean) are
+kernel checked. No infinite statement is inferred from a finite scan.
+
+For the fixed product at **53**, the
+[converse](RamanujanTau/MultiQuintupleFourFiftyThreeConverse.lean) also proves
+that these are the only permanently vanishing residues. Its 49 other residues
+have kernel-checked nonzero witnesses with N≤8. Consequently, checking the
+first nine coefficients of a residue progression is an exact test for this
+one product (`four53_finite_test_iff`). The
+[witness generator](scripts/generate_four53_converse.py) is not trusted by Lean.
+
+The [verification record](docs/verification/four_plane.json) and
+[axiom audit](scripts/audit/four_plane.lean) cover this development. The
+[independent finite check](docs/verification/four_plane_check.json) compares
+45,926 coefficients from direct Pochhammer multiplication with Watson sums,
+across all 11 parameter pairs with m≤24 meeting the hypotheses, through N=10.
+Run it with `python3 scripts/check_four_plane.py`.
+
+A separate [finite converse scan](docs/verification/four_plane_witness_scan.json)
+finds a nonzero coefficient in every other residue for those same 11 pairs,
+through N=⌊p/4⌋: 4,187 nonzero-residue witnesses in total. The latest first
+witness occurs at N=239 for modulus 1013. These are exact integer computations,
+not a Lean proof of the general converse or the quarter-prime bound. Reproduce
+with `python3 scripts/scan_four_plane_witnesses.py`.
+
+The earlier one-parameter family below is contained in these arithmetic
+conditions, after reordering factors. This broader sufficient theorem still
+does **not** classify arbitrary four-factor products or exclude extra zero
+residues for every parameter pair. The case at 97 has m+n=13 and lies outside
+this earlier congruence class; it is covered by the broader theorem above. No literature-priority claim is made.
+
+### An infinite four-factor family
+
+For every t≥0 define
+
+```text
+p_t = (72t+5)²+4² = 5184t²+720t+41,
+F_t(q) = Q(q^(72t+1),q^p_t) Q(q^(72t+5),q^p_t)
+         Q(q^(72t+9),q^p_t) Q(q^4,q^p_t) = Σ a_t(n)q^n.
+```
+
+[FourFamily](RamanujanTau/MultiQuintupleFourFamily.lean) proves the following
+statement for the actual infinite products, with no primality premise:
+
+```text
+For every t,N≥0, a_t(p_t N+R)=0 for each of the four residues
+R₀(t) = 2592t²+468t+21,
+R₁(t) = 3240t²+477t+25,
+R₂(t) = 1944t²+459t+26,
+R₃(t) = 2592t²+468t+30.
+```
+
+`fourFamilyP_strictMono`, `fourFamilyR_lt`, and `fourFamilyR_injective`
+prove that the moduli increase strictly and the four residues are distinct
+and canonical. Thus the theorem supplies four persistent zero progressions
+at infinitely many moduli. It does not claim these are the only zero
+progressions when t>0.
+
+| t | Modulus | Indices, in product order | Guaranteed zero residues |
+|---|---|---|---|
+| 0 | 41 | 1,5,9,4 | 21,25,26,30 |
+| 1 | 5945 | 73,77,81,4 | 3081,3742,2429,3090 |
+| 2 | 22217 | 145,149,153,4 | 11325,13939,8720,11334 |
+
+The mechanism is exact cancellation. On each residue, every signed Watson
+term is paired with a term having the same exponent and the opposite sign.
+The maps undo themselves, so every finite coefficient sum is zero. Lean
+checks all sixteen branch formulas symbolically for every t and N.
+
+The discovery calculation starts with `m=72t+5`, `n=4` and
+`v=(m−n,n,m,m+n)`. In the orthogonal basis with columns
+
+```text
+E = [(1,0,1,1), (−1,1,0,1), (1,1,−1,0), (0,−1,−1,1)],
+EᵀE = 3I,  v = E(m,n,0,0),  v·v = 3(m²+n²),
+```
+
+the relevant rational orthogonal maps split into two 2×2 blocks. The first
+block is `H` or `JH`, with
+
+```text
+H = [[n²−m², −2mn], [−2mn, m²−n²]] / (m²+n²),
+J = [[0,−1], [1,0]].
+```
+
+The second block is a signed coordinate permutation. The conditions on m
+allow the induced maps on the residue fibers to have polynomial integer
+coefficients. The SymPy
+[generator](scripts/generate_four_quintuple_family.py) constructs those
+formulas; [FourFamilyData](RamanujanTau/MultiQuintupleFourFamilyData.lean)
+stores them. The proof establishes the full residue-fiber representation,
+sign reversal, exponent preservation, and the involution law directly, so
+neither SymPy nor the geometric discovery argument is trusted by Lean.
+
+The [finite independent check](docs/verification/four_quintuple_family_check.json)
+compares direct Pochhammer products with Watson sums at t=0,…,4, through
+N=6 in all four progressions. This includes composite moduli and compares
+every coefficient up to the truncation, not just the predicted zeros.
+The generator reproduces its JSON and Lean output byte for byte. The
+[verification record](docs/verification/four_family.json) records the build
+and the [dedicated axiom audit](scripts/audit/four_family.lean).
+
+### First-witness follow-up
+
+The quarter-prime witness search now tests **all 4,539 canonical distinct
+isotropic triples through p=151**, plus **800 deterministic sampled projective
+rescalings at primes above 151 and at most 3000**. There were no violations.
+The distinction matters: normalizing a projective line does not automatically
+preserve the index of its first coefficient witness.
+
+The latest witness relative to p in this run is `(103;1,22,37;R=63)`, with
+N=23 and coefficient −1. [Witness103](RamanujanTau/MultiQuintupleWitness103.lean)
+proves the exact statement for the actual product, including all preceding
+zeros. Any proposed uniform bound `N≤c·p` must therefore allow `c≥23/103`.
+The scan still does not prove the conjectural `N≤⌊p/4⌋`: a geometric point
+bound alone would not prevent cancellation of the signed sum.
+
+Reproduction and the precise four-track boundary are in
+[the certificate guide](docs/FINITE_ARITHMETIC.md#four-direction-follow-up-certificates)
+and [verification record](docs/verification/four_directions.json).

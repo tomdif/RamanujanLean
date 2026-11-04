@@ -1,0 +1,11 @@
+'RamanujanTau.FiniteArithmetic.Rank607Structure.lam_structure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.lamEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.gen_relation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.S_eq_Lam' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.w_torsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.L53_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.elim_ok' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.rel53_ok' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Structure.tor_ok' depends on axioms: [propext, Classical.choice, Quot.sound]

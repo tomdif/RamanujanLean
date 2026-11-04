@@ -1,0 +1,6 @@
+'RamanujanTau.FiniteArithmetic.Rank607One.rEll_607_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607One.lamEquiv1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607One.S1_eq_Lam' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607One.W_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607One.inv_ok' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607One.rel1_ok' depends on axioms: [propext, Classical.choice, Quot.sound]

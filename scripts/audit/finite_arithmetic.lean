@@ -5,6 +5,9 @@ import RamanujanTau.FiniteArithmetic.Complete29
 import RamanujanTau.FiniteArithmetic.Complete31
 import RamanujanTau.FiniteArithmetic.Evaluate29Powers
 import RamanujanTau.FiniteArithmetic.WeightedTilings
+import RamanujanTau.FiniteArithmetic.EnvelopePrecision
+import RamanujanTau.FiniteArithmetic.DeterminantRank
+import RamanujanTau.FiniteArithmetic.RankLifting
 import Mathlib.Algebra.Field.ZMod
 import Mathlib.Tactic.NormNum.Prime
 
@@ -148,3 +151,23 @@ example : Evaluate29Powers.evaluate 1 8 24 1000000000000 = 27 := by decide +kern
 #print axioms RamanujanTau.FiniteArithmetic.Complete31.even_exact
 #print axioms RamanujanTau.FiniteArithmetic.Complete31.partition_count_obstruction
 #print axioms RamanujanTau.FiniteArithmetic.Complete31.partition_threshold
+
+#print axioms ModP.X_pow_dvd_of_disc_mul
+#print axioms ModP.iso_eq_zero_of_coeff_prefix
+#print axioms ModP.ev_eq_of_coeff_prefix
+#print axioms RamanujanTau.FiniteArithmetic.envelope_clear_denominator
+#print axioms RamanujanTau.FiniteArithmetic.envelopes_ge_three
+#print axioms RamanujanTau.FiniteArithmetic.odd_partition_envelope
+#print axioms RamanujanTau.FiniteArithmetic.even_partition_envelope
+#print axioms RamanujanTau.FiniteArithmetic.partition_clear_denominator_two
+#print axioms RamanujanTau.FiniteArithmetic.quotient_eq_of_coeff_prefix
+#print axioms RamanujanTau.FiniteArithmetic.partition_two_eq_of_coeff_prefix
+#print axioms RamanujanTau.FiniteArithmetic.card_le_of_alternating_ne_zero
+#print axioms RamanujanTau.FiniteArithmetic.card_le_of_coeff_det_ne_zero
+#print axioms RamanujanTau.FiniteArithmetic.rank607_eq_of_det
+
+#print axioms RamanujanTau.FiniteArithmetic.alternating_eq_mul_of_relation
+#print axioms RamanujanTau.FiniteArithmetic.prime_pow_ne_zero_iff
+#print axioms RamanujanTau.FiniteArithmetic.relation_visible_iff
+#print axioms RamanujanTau.FiniteArithmetic.card_le_of_lifted_relation
+#print axioms RamanujanTau.FiniteArithmetic.orbit_span_eq_of_divided_relation

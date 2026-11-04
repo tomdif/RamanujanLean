@@ -1,0 +1,42 @@
+{
+  "scope": "Exact four-factor counterexample; original triple-product conjecture unaffected",
+  "lean_checked": false,
+  "all_checks_passed": true,
+  "modulus": 2521,
+  "indices": [
+    1,
+    35,
+    36,
+    71
+  ],
+  "parameters": {
+    "m": 36,
+    "n": 35
+  },
+  "quarter_bound": 630,
+  "terms_compared_per_residue": 633,
+  "independent_checks": [
+    "monotone Watson enumerator versus bounded doubled-exponent enumerator",
+    "pairings (0,1)|(2,3) and (0,2)|(1,3)"
+  ],
+  "counterexamples": [
+    {
+      "residue": 67,
+      "first_nonzero_N": 631,
+      "exponent": 1590818,
+      "coefficient": -1,
+      "preceding_zero_terms_checked": 631
+    },
+    {
+      "residue": 2273,
+      "first_nonzero_N": 632,
+      "exponent": 1595545,
+      "coefficient": 1,
+      "preceding_zero_terms_checked": 632
+    }
+  ],
+  "sha256": {
+    "check_four_quarter_counterexample.py": "731096f5dea202a6e81f888b9463c8527d90af66deeb6b0d330a90f432e409b7",
+    "quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

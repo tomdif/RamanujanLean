@@ -1,0 +1,18 @@
+import RamanujanTau.MultiQuintupleFourReflectionCriterion
+
+#print axioms Ramanujan.MultiQuintuple.fourReflection_energy_raw
+#print axioms Ramanujan.MultiQuintuple.fourReflection_raw_involutive
+#print axioms Ramanujan.MultiQuintuple.fourReflection_num_next
+#print axioms Ramanujan.MultiQuintuple.fourReflection_mod_nine_identity
+#print axioms Ramanujan.MultiQuintuple.fourReflection_num_zero
+#print axioms Ramanujan.MultiQuintuple.fourReflection_partner_coords
+#print axioms Ramanujan.MultiQuintuple.fourReflection_partner_energy
+#print axioms Ramanujan.MultiQuintuple.fourReflection_partner_involutive
+#print axioms Ramanujan.MultiQuintuple.fourReflection_condition_exists
+#print axioms Ramanujan.MultiQuintuple.coeff_fourReflection_eq_zero
+#print axioms Ramanujan.MultiQuintuple.coeff_fourReflection_family_zero
+#print axioms Ramanujan.MultiQuintuple.coeff_fourReflection_prime_zero
+#print axioms Ramanujan.MultiQuintuple.coeff_fourReflection_97
+#print axioms Ramanujan.MultiQuintuple.fourReflection_origin_iff
+#print axioms Ramanujan.MultiQuintuple.fourReflection_branch_iff
+#print axioms Ramanujan.MultiQuintuple.fourReflection_exists_iff

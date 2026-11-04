@@ -1,0 +1,33 @@
+'Ramanujan.MultiQuintuple.coeff_quad_eq_finiteBox' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.coeff_quad_eq_zero_of_expInvolution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.four41Partner_weight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four41Partner_exponent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four41Partner_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.coeff_four_quintuple_p41_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.coeff_four41_eq_short' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four41_residue_or_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four41_persistent_vanishing_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four41_finite_test_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.first_witness103' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.cubic_idempotent_lift' depends on axioms: [propext, Quot.sound]
+'RamanujanTau.FiniteArithmetic.matrix_seed_survives' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.SeedModels.survives233' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.SeedModels.survives257' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.SeedModels.survives307' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.SeedModels.survives401' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.SeedModels.survives607' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Witness.elimination_checked' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Witness.upper_triangular' depends on axioms: [propext, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Witness.diagonal_nonzero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Witness.determinant_nonzero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Witness.actual_rank_of_entries' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

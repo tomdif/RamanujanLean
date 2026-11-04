@@ -1,0 +1,63 @@
+{
+ "date": "2026-11-02T01:13:19.581236+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs; unchanged tracked inputs are supplied by base_commit. The root RamanujanTau.lean is not pinned here: it later gained the Rank607Final import. The 9,368-job build predates that; rank607_final.json records the later 9,375-job build, which includes these modules.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9368
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/four_witnesses.lean",
+  "exit_code": 0,
+  "declarations": 14,
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": "docs/verification/four_witnesses.axioms.txt",
+  "theorems": [
+   "Ramanujan.MultiQuintuple.coeff_four17_eq_short",
+   "Ramanujan.MultiQuintuple.first_witness_four17",
+   "Ramanujan.MultiQuintuple.four17_cutoff_six_fails",
+   "Ramanujan.MultiQuintuple.witness2521_signed_balance",
+   "Ramanujan.MultiQuintuple.witness2521_complete_eq",
+   "Ramanujan.MultiQuintuple.coeff_four2521_eq_completed",
+   "Ramanujan.MultiQuintuple.witness2521_entries_eval",
+   "Ramanujan.MultiQuintuple.coeff_four2521_first_range",
+   "Ramanujan.MultiQuintuple.first_witness_four2521",
+   "Ramanujan.MultiQuintuple.four2521_quarter_plus_one_fails",
+   "Ramanujan.MultiQuintuple.four2521_parameters",
+   "Ramanujan.MultiQuintuple.fourWitnessLinearBound_ge",
+   "Ramanujan.MultiQuintuple.not_fourWitnessQuarterBound",
+   "Ramanujan.MultiQuintuple.not_fourWitnessTwoFifthsBound"
+  ]
+ },
+ "results": {
+  "first_witness_four17": "(17;2,3,5,8;R=5) first becomes nonzero at N=7",
+  "first_witness_four2521": "(2521;1,35,36,71;R=2273) vanishes for N<632, with coefficient 1 at N=632",
+  "fourWitnessLinearBound_ge": "any universal cutoff N<=cp for admissible four-tuples requires c>=7/17",
+  "scope": "A lower bound on any linear cutoff only. No sufficient bound is asserted. The original triple-product conjecture is not affected."
+ },
+ "certificate_repair": "The first attempt at the 2521 certificate failed to build: decide +kernel is stuck on the well-founded List.mergeSort. witness2521_signed_balance now states a permutation, proved with a structural fuelled merge sort; sortedness is not assumed.",
+ "independent_check": "Independent finite checks; Lean verification recorded separately.",
+ "sha256": {
+  "RamanujanTau/MultiQuintupleFourWitness17.lean": "4536fc43d9dd3b232348205018a093bdec913ec9c64012aaa169df84983bc251",
+  "RamanujanTau/MultiQuintupleFourWitness2521Data.lean": "24201f499ff7adcc36f6f90189dd09862720d459d1e3c867530cfe0538a3507a",
+  "RamanujanTau/MultiQuintupleFourWitness2521.lean": "c49e9e14da7f627c39f3ba9740ec1fb303524088e91930e630ad0a58e6f83dcb",
+  "RamanujanTau/MultiQuintupleFourWitnessBound.lean": "7c7f48e6f3a105edea398f150dcdb3ab50bc59c7040e4e0fa35e3272e3ff595f",
+  "RamanujanTau/MultiQuintupleWitness103.lean": "59e2267d3a512a1a719fd6e968bcadad0ee84c63adfb0af3075d01be8b33d7dd",
+  "scripts/audit/four_witnesses.lean": "ce922d58fb8208ece3088bdc8e8fecde3102df517100ef397cc7cf0cc6f73232",
+  "scripts/generate_four2521_certificate.py": "73cb48cb3400b978a2c356210e7a2ecf599e1321a4e649a54ec0dbb9c1cd887e",
+  "scripts/check_four_witnesses.py": "01de3cad45d8c8179bae966efcccba5e2977eaee349daeb5133db3fb070e8cb2",
+  "docs/verification/four_witnesses_check.json": "8ff74e2247c21a17eeab86af2fd2f65c9c6f47e245feb6eea3e31affd2fedbde",
+  "docs/verification/four_witnesses.axioms.txt": "4b80a8f250f7fdac898d1797f55049ed573d61d2f6ab9676c3ac9e8a413e04b5"
+ },
+ "diff_check": {
+  "command": "git diff --check",
+  "exit_code": 0
+ }
+}

@@ -18,6 +18,7 @@ import RamanujanTau.ThetaLift.KernelFold
 import RamanujanTau.ThetaLift.Final
 import RamanujanTau.BLBound.Classification
 import RamanujanTau.BLBound.RCLift
+import RamanujanTau.BLBound.RankGrowth
 import RamanujanTau.ThetaLift.LiftKernel
 import RamanujanTau.TheoremA.WeightEightOrdinarity
 
@@ -359,6 +360,10 @@ import RamanujanTau.TheoremA.WeightEightOrdinarity
 #print axioms RamanujanTau.BLBound.card_socle_le
 #print axioms RamanujanTau.BLBound.rank_Lam_le
 #print axioms RamanujanTau.BLBound.rEll_le
+#print axioms RamanujanTau.BLBound.Lam_stable_eq
+#print axioms RamanujanTau.BLBound.precisionMap_Lam
+#print axioms RamanujanTau.BLBound.rEll_mono
+#print axioms RamanujanTau.BLBound.rEll_eq_bound_of_le
 #print axioms RamanujanTau.BLBound.finrank_Sbar
 #print axioms RamanujanTau.BLBound.R_eq_half
 #print axioms RamanujanTau.BLBound.finrank_ker_Xbar

@@ -1,0 +1,5 @@
+'RamanujanTau.FiniteArithmetic.Exact29.bEll_29' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Exact31.bEll_31' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.BLBound.bEll_eq_of_not_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.BLBound.not_mem_bSet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.BLBound.not_mem_of_errors' depends on axioms: [propext, Classical.choice, Quot.sound]

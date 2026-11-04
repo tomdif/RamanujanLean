@@ -121,6 +121,18 @@ private lemma b28 : bernoulli' 28 = (-23749461029 : ℚ) / 870 := by
   rw [bernoulli'_def]
   norm_num [Nat.choose, Finset.sum_range_succ, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27]
 
+theorem value12 : bernoulli 12 = (-691 : ℚ) / 2730 := by
+  rw [bernoulli_eq_bernoulli'_of_ne_one (by decide), b12]
+
+theorem value16 : bernoulli 16 = (-3617 : ℚ) / 510 := by
+  rw [bernoulli_eq_bernoulli'_of_ne_one (by decide), b16]
+
+theorem value18 : bernoulli 18 = (43867 : ℚ) / 798 := by
+  rw [bernoulli_eq_bernoulli'_of_ne_one (by decide), b18]
+
+theorem value22 : bernoulli 22 = (854513 : ℚ) / 138 := by
+  rw [bernoulli_eq_bernoulli'_of_ne_one (by decide), b22]
+
 theorem value : bernoulli 28 = (-23749461029 : ℚ) / 870 := by
   rw [bernoulli_eq_bernoulli'_of_ne_one (by decide), b28]
 

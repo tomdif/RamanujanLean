@@ -80,3 +80,31 @@
 'RamanujanTau.FiniteArithmetic.Complete31.partition_threshold' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'ModP.X_pow_dvd_of_disc_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModP.iso_eq_zero_of_coeff_prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ModP.ev_eq_of_coeff_prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.envelope_clear_denominator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.envelopes_ge_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.odd_partition_envelope' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.even_partition_envelope' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.partition_clear_denominator_two' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.quotient_eq_of_coeff_prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.partition_two_eq_of_coeff_prefix' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.card_le_of_alternating_ne_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.card_le_of_coeff_det_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.rank607_eq_of_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.alternating_eq_mul_of_relation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.FiniteArithmetic.prime_pow_ne_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.relation_visible_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.card_le_of_lifted_relation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.orbit_span_eq_of_divided_relation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

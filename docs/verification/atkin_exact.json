@@ -1,0 +1,71 @@
+{
+ "date": "2026-11-03T04:03:57.378075+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "theorems": [
+  "RamanujanTau.FiniteArithmetic.AtkinExact.bEll_13 : ∀ m ≥ 1, bEll 13 m = 2*(m/2)+1",
+  "RamanujanTau.FiniteArithmetic.AtkinExact.bEll_17 : ∀ m ≥ 1, bEll 17 m = 2*(m/2)+1",
+  "RamanujanTau.FiniteArithmetic.AtkinExact.bEll_19 : ∀ m ≥ 1, bEll 19 m = 2*(m/2)+1",
+  "RamanujanTau.FiniteArithmetic.AtkinExact.bEll_23 : ∀ m ≥ 1, bEll 23 m = 2*(m/2)+1",
+  "RamanujanTau.FiniteArithmetic.ExactAtkin13.exact : ∀ b ≥ 1, ∀ c, ¬ 13^(b+1) ∣ L(b+2) − c·L(b)",
+  "RamanujanTau.FiniteArithmetic.ExactAtkin17.exact : ∀ b ≥ 1, ∀ c, ¬ 17^(b+1) ∣ L(b+2) − c·L(b)",
+  "RamanujanTau.FiniteArithmetic.ExactAtkin19.exact : ∀ b ≥ 1, ∀ c, ¬ 19^(b+1) ∣ L(b+2) − c·L(b)",
+  "RamanujanTau.FiniteArithmetic.ExactAtkin23.exact : ∀ b ≥ 1, ∀ c, ¬ 23^(b+1) ∣ L(b+2) − c·L(b)",
+  "RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_13 : ∀ b ≥ 1, ∀ c : ℤ_13, ∃ n, 24 ∣ 13^b n+1 ∧ ¬ 13^(b+1) ∣ p((13^(b+2)n+1)/24) − c·p((13^b n+1)/24)",
+  "RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_17 : ∀ b ≥ 1, ∀ c : ℤ_17, ∃ n, 24 ∣ 17^b n+1 ∧ ¬ 17^(b+1) ∣ p((17^(b+2)n+1)/24) − c·p((17^b n+1)/24)",
+  "RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_19 : ∀ b ≥ 1, ∀ c : ℤ_19, ∃ n, 24 ∣ 19^b n+1 ∧ ¬ 19^(b+1) ∣ p((19^(b+2)n+1)/24) − c·p((19^b n+1)/24)",
+  "RamanujanTau.FiniteArithmetic.AtkinExactPartition.partition_23 : ∀ b ≥ 1, ∀ c : ℤ_23, ∃ n, 24 ∣ 23^b n+1 ∧ ¬ 23^(b+1) ∣ p((23^(b+2)n+1)/24) − c·p((23^b n+1)/24)"
+ ],
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9403,
+  "sorry_warnings": 0
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/atkin_exact.lean",
+  "exit_code": 0,
+  "declarations": 20,
+  "report": "docs/verification/atkin_exact.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "method": "Normalized errors g_b=(L(b+2)−κL(b))/ℓ^b lie in the offset-2 Katz envelope with T_b g_b = ℓ g_{b+1} (ExactAtkin.errors). The offset-3 tail of one U/D step reduces into F_ℓ + F_ℓ f̄ (U_tail, D_tail via AtkinOBrienFinal.transfer; tail_reduce). Coefficient functionals killing 1 and f̄ then see ḡ_{b+1} through residues mod ℓ² of U(B_k/E²), D(B_k/E²); a kernel-decided check over F_ℓ^n propagates ḡ_b ≠ 0 (ExactAtkin.step, exact_of_model). Base: the mod-ℓ² partition determinant (SmallThreshold.fail_of_detOk).",
+ "certificates": {
+  "generator": "scripts/boylanwebb/gen_exact_atkin.py (proposal only; all lists, products, inverses, Eisenstein formulas and finite checks re-verified by decide +kernel)",
+  "precision": "mod ℓ², degree 2ℓ (13, 17) or 3ℓ (19, 23)",
+  "basis": "Δ^j E4^a cusp forms of weight 2(ℓ−1): 13: ΔE4³, Δ²; 17: ΔE4⁵, Δ²E4²; 19: ΔE4⁶, Δ²E4³, Δ³; 23: ΔE4⁸, Δ²E4⁵, Δ³E4²",
+  "independent_check": "A Python model (direct q-series mod ℓ², independent of the Lean lists) gave the same nonvanishing for every admissible state at both U and D steps before formalization; numerics in scripts/frontier/pattern/bigm.log give b=m (Atkin index) for m ≤ 16."
+ },
+ "controls": {
+  "negative_control": "Rejected by the kernel: a perturbed coefficient in the 13 divisibility certificate; the 13 D-step check with the observation zeroed; the 17 D-step check with both tau entries zero; the false claim bEll 19 6 = 5."
+ },
+ "scope": {
+  "proved": "b_ℓ(m) = 2⌊m/2⌋+1 for all m ≥ 1 and exactness of ℓ^b ∣ L(b+2) − κL(b) at every b ≥ 1, ℓ ∈ {13,17,19,23}.",
+  "also_proved": "Partition-number form (AtkinExactPartition.partition_ℓ): for every b ≥ 1 and c ∈ ℤ_ℓ some n with 24 ∣ ℓ^b n+1 has ℓ^(b+1) ∤ p((ℓ^(b+2)n+1)/24) − c·p((ℓ^b n+1)/24); numerically at ℓ=13, b=1 every c mod 169 fails within 17 values of n.",
+  "not_proved": [
+   "Primes ℓ ≥ 37 (rank ≥ 2) are not covered by this method as formalized (it assumes ℓ ≤ 24, dim S_{ℓ−1} = 1)."
+  ]
+ },
+ "review": "Machine-checked; no human expert review.",
+ "sha256": {
+  "RamanujanTau/FiniteArithmetic/ExactAtkin.lean": "fd9b36b9a0b73eab4d4bf77390f18484c310e65d0dc4ecc4c4028ccb9641dffd",
+  "RamanujanTau/FiniteArithmetic/ExactAtkinPrecision.lean": "8a47deb0464319cb1e0823b1c053c78935bef8cdce5cb5ad0eb5838edbee5f9e",
+  "RamanujanTau/FiniteArithmetic/ExactAtkin13.lean": "99c9e083cb93f7290f38969bff5af3b6f1d175eb7bfa5de7364e9e302889dc7d",
+  "RamanujanTau/FiniteArithmetic/ExactAtkin17.lean": "0f664fc276ab1db6c5bccc66c5f34b9875fa07d9df601f1b1ecc6042fcd612a6",
+  "RamanujanTau/FiniteArithmetic/ExactAtkin19.lean": "238c423ff7c4f3cd3d39586c6ea38daf70a5f04d4945009ba9219d9ec4140e40",
+  "RamanujanTau/FiniteArithmetic/ExactAtkin23.lean": "b334b5d5105bdb646118fd414870d0ba3ff3a9af12c94d29c3d0abdbbfe28cc7",
+  "RamanujanTau/FiniteArithmetic/AtkinExact.lean": "986ae535e678b2633daaa78fde651441621be3d06cb678dfeef0c0dbb433d994",
+  "RamanujanTau/FiniteArithmetic/AtkinExactPartition.lean": "33779f4f7105dcf640da42ca31e8e05d52bb7a8b22fcc5207eecc8072bdf1a88",
+  "RamanujanTau/FiniteArithmetic/Bernoulli28.lean": "5745d553e2272a7bee2e945a27788f04af68702ceb01da5e6c832e87885a60cb",
+  "scripts/boylanwebb/gen_exact_atkin.py": "4f907380cf86cb999b63b1dbb0307ad94a7f2fd33346575336e408c970c5cf39",
+  "scripts/audit/atkin_exact.lean": "e62ffca0d8b8977c6bdc3c8cbcf8ecde81a68a6d19d36aef35f586468609677f",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "docs/verification/atkin_exact.axioms.txt": "77ec3aee7ce5723535d8bd91426cf4014bda87b19b34d9b32df0fe75a4fce460"
+ }
+}

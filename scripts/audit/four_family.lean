@@ -1,0 +1,14 @@
+import RamanujanTau.MultiQuintupleFourFamily
+import RamanujanTau.FiniteArithmetic.PrecisionSquare
+
+#print axioms Ramanujan.MultiQuintuple.fourFamily_fiber_representation
+#print axioms Ramanujan.MultiQuintuple.fourFamilyPartner_weight
+#print axioms Ramanujan.MultiQuintuple.fourFamilyPartner_exponent
+#print axioms Ramanujan.MultiQuintuple.fourFamilyPartner_involutive
+#print axioms Ramanujan.MultiQuintuple.coeff_four_family_zero
+#print axioms Ramanujan.MultiQuintuple.fourFamilyP_strictMono
+#print axioms Ramanujan.MultiQuintuple.fourFamilyR_lt
+#print axioms Ramanujan.MultiQuintuple.fourFamilyR_injective
+#print axioms RamanujanTau.FiniteArithmetic.padicNorm_kappa_add_two_p
+#print axioms RamanujanTau.FiniteArithmetic.map_E_square_general
+#print axioms RamanujanTau.FiniteArithmetic.map_Einv_square_squared_general

@@ -1,0 +1,73 @@
+{"l": 13, "detXi": 6, "krylov": 1, "rkX": 1, "rk_aug": 1, "rkXd": 1, "charpolyXi": "(x + 7)", "rkD_M": 1}
+{"l": 17, "detXi": 6, "krylov": 1, "rkX": 1, "rk_aug": 1, "rkXd": 1, "charpolyXi": "(x + 11)", "rkD_M": 1}
+{"l": 19, "detXi": 10, "krylov": 1, "rkX": 1, "rk_aug": 1, "rkXd": 1, "charpolyXi": "(x + 9)", "rkD_M": 1}
+{"l": 23, "detXi": 5, "krylov": 1, "rkX": 1, "rk_aug": 1, "rkXd": 1, "charpolyXi": "(x + 18)", "rkD_M": 1}
+{"l": 29, "detXi": 3, "krylov": 1, "rkX": 1, "rk_aug": 1, "rkXd": 1, "charpolyXi": "(x + 26)", "rkD_M": 1}
+{"l": 31, "detXi": 30, "krylov": 1, "rkX": 1, "rk_aug": 1, "rkXd": 1, "charpolyXi": "(x + 1)", "rkD_M": 1}
+{"l": 37, "detXi": 29, "krylov": 2, "rkX": 2, "rk_aug": 2, "rkXd": 2, "charpolyXi": "(x + 3) * (x + 22)", "rkD_M": 2}
+{"l": 41, "detXi": 16, "krylov": 2, "rkX": 2, "rk_aug": 2, "rkXd": 2, "charpolyXi": "(x + 18) * (x + 10)", "rkD_M": 2}
+{"l": 43, "detXi": 14, "krylov": 2, "rkX": 2, "rk_aug": 2, "rkXd": 2, "charpolyXi": "(x + 12) * (x + 37)", "rkD_M": 2}
+{"l": 47, "detXi": 19, "krylov": 2, "rkX": 2, "rk_aug": 2, "rkXd": 2, "charpolyXi": "(x^2 + 18*x + 19)", "rkD_M": 2}
+{"l": 53, "detXi": 36, "krylov": 2, "rkX": 2, "rk_aug": 2, "rkXd": 2, "charpolyXi": "(x + 46) * (x + 10)", "rkD_M": 2}
+{"l": 59, "detXi": 57, "krylov": 2, "rkX": 2, "rk_aug": 2, "rkXd": 2, "charpolyXi": "(x^2 + 53*x + 57)", "rkD_M": 2}
+{"l": 61, "detXi": 27, "krylov": 3, "rkX": 3, "rk_aug": 3, "rkXd": 3, "charpolyXi": "(x + 29) * (x^2 + 2*x + 18)", "rkD_M": 3}
+{"l": 67, "detXi": 52, "krylov": 3, "rkX": 3, "rk_aug": 3, "rkXd": 3, "charpolyXi": "(x + 26) * (x^2 + 42*x + 65)", "rkD_M": 3}
+{"l": 71, "detXi": 69, "krylov": 3, "rkX": 3, "rk_aug": 3, "rkXd": 3, "charpolyXi": "(x^3 + 18*x^2 + 2*x + 2)", "rkD_M": 3}
+{"l": 73, "detXi": 44, "krylov": 3, "rkX": 3, "rk_aug": 3, "rkXd": 3, "charpolyXi": "(x^3 + 65*x^2 + 71*x + 29)", "rkD_M": 3}
+{"l": 79, "detXi": 49, "krylov": 3, "rkX": 3, "rk_aug": 3, "rkXd": 3, "charpolyXi": "(x + 61) * (x^2 + 70*x + 51)", "rkD_M": 3}
+{"l": 83, "detXi": 19, "krylov": 3, "rkX": 3, "rk_aug": 3, "rkXd": 3, "charpolyXi": "(x + 67) * (x^2 + 9*x + 79)", "rkD_M": 3}
+{"l": 89, "detXi": 81, "krylov": 4, "rkX": 4, "rk_aug": 4, "rkXd": 4, "charpolyXi": "(x^2 + 14*x + 78) * (x^2 + 9*x + 25)", "rkD_M": 4}
+{"l": 97, "detXi": 46, "krylov": 4, "rkX": 4, "rk_aug": 4, "rkXd": 4, "charpolyXi": "(x + 69) * (x^3 + 50*x^2 + 8*x + 33)", "rkD_M": 4}
+{"l": 101, "detXi": 78, "krylov": 4, "rkX": 4, "rk_aug": 4, "rkXd": 4, "charpolyXi": "(x + 27) * (x^3 + 60*x^2 + 22*x + 59)", "rkD_M": 4}
+{"l": 103, "detXi": 80, "krylov": 4, "rkX": 4, "rk_aug": 4, "rkXd": 4, "charpolyXi": "(x + 90) * (x^3 + 35*x^2 + 61*x + 81)", "rkD_M": 4}
+{"l": 107, "detXi": 36, "krylov": 4, "rkX": 4, "rk_aug": 4, "rkXd": 4, "charpolyXi": "(x^4 + 47*x^3 + 31*x^2 + 23*x + 36)", "rkD_M": 4}
+{"l": 109, "detXi": 69, "krylov": 5, "rkX": 5, "rk_aug": 5, "rkXd": 5, "charpolyXi": "(x^5 + 61*x^4 + 20*x^3 + 35*x^2 + 42*x + 40)", "rkD_M": 5}
+{"l": 113, "detXi": 8, "krylov": 5, "rkX": 5, "rk_aug": 5, "rkXd": 5, "charpolyXi": "(x + 41) * (x + 50) * (x^3 + 81*x^2 + 56)", "rkD_M": 5}
+{"l": 127, "detXi": 116, "krylov": 5, "rkX": 5, "rk_aug": 5, "rkXd": 5, "charpolyXi": "(x + 78) * (x^4 + 117*x^2 + x + 119)", "rkD_M": 5}
+{"l": 131, "detXi": 16, "krylov": 5, "rkX": 5, "rk_aug": 5, "rkXd": 5, "charpolyXi": "(x^5 + 40*x^4 + 12*x^3 + 40*x^2 + 26*x + 115)", "rkD_M": 5}
+{"l": 137, "detXi": 54, "krylov": 6, "rkX": 6, "rk_aug": 6, "rkXd": 6, "charpolyXi": "(x + 127) * (x^2 + 26*x + 8) * (x^3 + 52*x^2 + 37*x + 37)", "rkD_M": 6}
+{"l": 139, "detXi": 30, "krylov": 6, "rkX": 6, "rk_aug": 6, "rkXd": 6, "charpolyXi": "(x + 55) * (x + 69) * (x^2 + 133*x + 1) * (x^2 + 62*x + 100)", "rkD_M": 6}
+{"l": 149, "detXi": 11, "krylov": 6, "rkX": 6, "rk_aug": 6, "rkXd": 6, "charpolyXi": "(x + 67) * (x + 126) * (x^4 + 93*x^3 + 143*x^2 + 124*x + 29)", "rkD_M": 6}
+{"l": 151, "detXi": 68, "krylov": 6, "rkX": 6, "rk_aug": 6, "rkXd": 6, "charpolyXi": "(x + 108) * (x + 93) * (x^4 + 22*x^3 + 74*x^2 + 36*x + 148)", "rkD_M": 6}
+{"l": 157, "detXi": 124, "krylov": 7, "rkX": 7, "rk_aug": 7, "rkXd": 7, "charpolyXi": "(x + 120) * (x + 19) * (x^5 + 43*x^4 + 145*x^3 + 152*x^2 + 154*x + 144)", "rkD_M": 7}
+{"l": 163, "detXi": 134, "krylov": 7, "rkX": 7, "rk_aug": 7, "rkXd": 7, "charpolyXi": "(x + 3) * (x^6 + 61*x^5 + 46*x^4 + 120*x^3 + 16*x^2 + 108*x + 64)", "rkD_M": 7}
+{"l": 167, "detXi": 33, "krylov": 7, "rkX": 7, "rk_aug": 7, "rkXd": 7, "charpolyXi": "(x + 96) * (x^2 + 147*x + 45) * (x^4 + 73*x^3 + 93*x^2 + 151*x + 85)", "rkD_M": 7}
+{"l": 173, "detXi": 83, "krylov": 7, "rkX": 7, "rk_aug": 7, "rkXd": 7, "charpolyXi": "(x + 88) * (x + 69) * (x^5 + 64*x^4 + 83*x^3 + 89*x^2 + 64*x + 46)", "rkD_M": 7}
+{"l": 179, "detXi": 39, "krylov": 7, "rkX": 7, "rk_aug": 7, "rkXd": 7, "charpolyXi": "(x + 168) * (x + 152) * (x + 80) * (x^4 + 31*x^3 + 158*x^2 + 137*x + 77)", "rkD_M": 7}
+{"l": 181, "detXi": 34, "krylov": 8, "rkX": 8, "rk_aug": 8, "rkXd": 8, "charpolyXi": "(x + 169) * (x^2 + 11*x + 56) * (x^5 + 4*x^4 + 38*x^3 + 131*x^2 + 24*x + 119)", "rkD_M": 8}
+{"l": 191, "detXi": 5, "krylov": 8, "rkX": 8, "rk_aug": 8, "rkXd": 8, "charpolyXi": "(x^2 + 147*x + 174) * (x^3 + 183*x^2 + 14*x + 6) * (x^3 + 36*x^2 + 149*x + 58)", "rkD_M": 8}
+{"l": 193, "detXi": 24, "krylov": 8, "rkX": 8, "rk_aug": 8, "rkXd": 8, "charpolyXi": "(x^2 + 51*x + 36) * (x^3 + 119*x^2 + 98*x + 68) * (x^3 + 121*x^2 + 46*x + 123)", "rkD_M": 8}
+{"l": 197, "detXi": 120, "krylov": 8, "rkX": 8, "rk_aug": 8, "rkXd": 8, "charpolyXi": "(x + 78) * (x^7 + 6*x^6 + 14*x^5 + 93*x^4 + 188*x^3 + 152*x^2 + 55*x + 47)", "rkD_M": 8}
+{"l": 199, "detXi": 124, "krylov": 8, "rkX": 8, "rk_aug": 8, "rkXd": 8, "charpolyXi": "(x^3 + 170*x^2 + 111*x + 4) * (x^5 + 108*x^4 + 79*x^3 + 3*x^2 + 127*x + 31)", "rkD_M": 8}
+{"l": 211, "detXi": 50, "krylov": 9, "rkX": 9, "rk_aug": 9, "rkXd": 9, "charpolyXi": "(x + 25) * (x^3 + 103*x^2 + 35*x + 155) * (x^5 + 14*x^4 + 15*x^3 + 15*x^2 + 190*x + 98)", "rkD_M": 9}
+{"l": 223, "detXi": 132, "krylov": 9, "rkX": 9, "rk_aug": 9, "rkXd": 9, "charpolyXi": "(x + 27) * (x^8 + 180*x^7 + 157*x^6 + 10*x^5 + 186*x^4 + 107*x^3 + 43*x^2 + 15*x + 119)", "rkD_M": 9}
+{"l": 227, "detXi": 173, "krylov": 9, "rkX": 9, "rk_aug": 9, "rkXd": 9, "charpolyXi": "(x + 14) * (x + 29) * (x^2 + 65*x + 125) * (x^2 + 7*x + 200) * (x^3 + 36*x^2 + 196*x + 139)", "rkD_M": 9}
+{"l": 229, "detXi": 225, "krylov": 10, "rkX": 10, "rk_aug": 10, "rkXd": 10, "charpolyXi": "(x + 12) * (x^3 + 184*x^2 + 26*x + 79) * (x^6 + 80*x^5 + 157*x^4 + 176*x^3 + 87*x^2 + 223*x + 143)", "rkD_M": 10}
+{"l": 233, "detXi": 13, "krylov": 10, "rkX": 10, "rk_aug": 10, "rkXd": 10, "charpolyXi": "(x^3 + 142*x^2 + 32*x + 120) * (x^7 + 180*x^6 + 150*x^5 + 31*x^4 + 78*x^3 + 63*x^2 + 169*x + 37)", "rkD_M": 10}
+{"l": 239, "detXi": 86, "krylov": 10, "rkX": 10, "rk_aug": 10, "rkXd": 10, "charpolyXi": "(x^2 + 168*x + 155) * (x^2 + 211*x + 93) * (x^3 + 95*x^2 + 79*x + 30) * (x^3 + 21*x^2 + 58*x + 194)", "rkD_M": 10}
+{"l": 241, "detXi": 65, "krylov": 10, "rkX": 10, "rk_aug": 10, "rkXd": 10, "charpolyXi": "(x^2 + 133*x + 227) * (x^4 + 3*x^3 + 147*x^2 + 92*x + 60) * (x^4 + 93*x^3 + 55*x^2 + 40*x + 53)", "rkD_M": 10}
+{"l": 251, "detXi": 1, "krylov": 10, "rkX": 10, "rk_aug": 10, "rkXd": 10, "charpolyXi": "(x + 234) * (x + 100) * (x^2 + 165*x + 55) * (x^6 + 50*x^5 + 178*x^4 + 138*x^3 + 141*x^2 + 68*x + 100)", "rkD_M": 10}
+{"l": 257, "detXi": 135, "krylov": 11, "rkX": 11, "rk_aug": 11, "rkXd": 11, "charpolyXi": "(x^2 + 159*x + 139) * (x^3 + 230*x^2 + 39*x + 11) * (x^6 + 105*x^5 + 64*x^4 + 215*x^3 + 105*x^2 + 172*x + 129)", "rkD_M": 11}
+{"l": 263, "detXi": 215, "krylov": 11, "rkX": 11, "rk_aug": 11, "rkXd": 11, "charpolyXi": "(x^5 + 165*x^4 + 30*x^3 + 84*x^2 + 252*x + 63) * (x^6 + 80*x^5 + 42*x^4 + 94*x^3 + 166*x^2 + 15*x + 126)", "rkD_M": 11}
+{"l": 269, "detXi": 40, "krylov": 11, "rkX": 11, "rk_aug": 11, "rkXd": 11, "charpolyXi": "(x + 204) * (x + 25) * (x + 22) * (x^2 + 63*x + 2) * (x^2 + 146*x + 17) * (x^4 + 184*x^3 + 128*x^2 + 89*x + 99)", "rkD_M": 11}
+{"l": 271, "detXi": 3, "krylov": 11, "rkX": 11, "rk_aug": 11, "rkXd": 11, "charpolyXi": "(x^11 + 8*x^10 + 187*x^9 + 158*x^8 + 123*x^7 + 267*x^6 + 66*x^5 + 176*x^4 + 240*x^3 + 117*x^2 + 125*x + 268)", "rkD_M": 11}
+{"l": 277, "detXi": 165, "krylov": 12, "rkX": 12, "rk_aug": 12, "rkXd": 12, "charpolyXi": "(x + 149) * (x + 29) * (x^3 + 194*x^2 + 89*x + 256) * (x^7 + 100*x^6 + 273*x^5 + 186*x^4 + 11*x^3 + 178*x^2 + 4*x + 158)", "rkD_M": 12}
+{"l": 281, "detXi": 226, "krylov": 12, "rkX": 12, "rk_aug": 12, "rkXd": 12, "charpolyXi": "(x + 249) * (x^2 + 280*x + 146) * (x^2 + 254*x + 51) * (x^2 + 28*x + 103) * (x^5 + 93*x^4 + 73*x^3 + 196*x^2 + 84*x + 68)", "rkD_M": 12}
+{"l": 283, "detXi": 23, "krylov": 12, "rkX": 12, "rk_aug": 12, "rkXd": 12, "charpolyXi": "(x + 109) * (x^11 + 160*x^10 + 61*x^9 + 118*x^8 + 192*x^7 + 151*x^6 + 112*x^5 + 17*x^4 + 64*x^3 + 155*x^2 + 161*x + 8)", "rkD_M": 12}
+{"l": 293, "detXi": 111, "krylov": 12, "rkX": 12, "rk_aug": 12, "rkXd": 12, "charpolyXi": "(x^5 + 290*x^4 + 4*x^3 + 3*x^2 + 228*x + 216) * (x^7 + 113*x^6 + 253*x^5 + 6*x^4 + 51*x^3 + 37*x^2 + 199*x + 29)", "rkD_M": 12}
+{"l": 307, "detXi": 149, "krylov": 13, "rkX": 13, "rk_aug": 13, "rkXd": 13, "charpolyXi": "(x + 38) * (x^4 + 209*x^3 + 8*x^2 + 62*x + 249) * (x^8 + 99*x^7 + 241*x^6 + 232*x^5 + 101*x^4 + 165*x^3 + 170*x^2 + 205*x + 159)", "rkD_M": 13}
+{"l": 311, "detXi": 216, "krylov": 13, "rkX": 13, "rk_aug": 13, "rkXd": 13, "charpolyXi": "(x + 108) * (x^12 + 178*x^11 + 200*x^10 + 105*x^9 + 155*x^8 + 56*x^7 + 48*x^6 + 29*x^5 + 42*x^4 + 307*x^3 + 192*x^2 + 61*x + 309)", "rkD_M": 13}
+{"l": 313, "detXi": 281, "krylov": 13, "rkX": 13, "rk_aug": 13, "rkXd": 13, "charpolyXi": "(x + 185) * (x + 177) * (x^11 + 137*x^10 + 307*x^9 + 131*x^8 + 305*x^7 + 240*x^6 + 284*x^5 + 211*x^4 + 175*x^3 + 171*x^2 + 221*x + 271)", "rkD_M": 13}
+{"l": 317, "detXi": 156, "krylov": 13, "rkX": 13, "rk_aug": 13, "rkXd": 13, "charpolyXi": "(x^13 + 88*x^12 + 99*x^11 + 312*x^10 + 130*x^9 + 45*x^8 + 135*x^7 + 257*x^6 + 87*x^5 + 170*x^4 + 218*x^3 + 181*x^2 + 305*x + 161)", "rkD_M": 13}
+{"l": 331, "detXi": 279, "krylov": 14, "rkX": 14, "rk_aug": 14, "rkXd": 14, "charpolyXi": "(x + 250) * (x^4 + 250*x^3 + 233*x^2 + 111*x + 113) * (x^9 + 197*x^8 + 224*x^7 + 221*x^6 + 265*x^5 + 196*x^4 + 192*x^3 + 194*x^2 + 152*x + 178)", "rkD_M": 14}
+{"l": 337, "detXi": 102, "krylov": 14, "rkX": 14, "rk_aug": 14, "rkXd": 14, "charpolyXi": "(x^14 + 278*x^13 + 310*x^12 + 322*x^11 + 319*x^10 + 118*x^9 + 34*x^8 + 320*x^7 + 151*x^6 + 160*x^5 + 157*x^4 + 105*x^3 + 185*x^2 + 266*x + 102)", "rkD_M": 14}
+{"l": 347, "detXi": 291, "krylov": 14, "rkX": 14, "rk_aug": 14, "rkXd": 14, "charpolyXi": "(x + 222) * (x^2 + 208*x + 118) * (x^11 + 311*x^10 + 37*x^9 + 22*x^8 + 93*x^7 + 179*x^6 + 275*x^5 + 67*x^4 + 153*x^3 + 40*x^2 + 112*x + 300)", "rkD_M": 14}
+{"l": 349, "detXi": 292, "krylov": 15, "rkX": 15, "rk_aug": 15, "rkXd": 15, "charpolyXi": "(x^8 + 162*x^7 + 173*x^6 + 256*x^5 + 244*x^4 + 227*x^3 + 297*x^2 + 14*x + 252) * (x + 166) * (x^2 + 176*x + 341) * (x^4 + 249*x^3 + 281*x^2 + 51*x + 221)", "rkD_M": 15}
+{"l": 353, "detXi": 65, "krylov": 15, "rkX": 15, "rk_aug": 15, "rkXd": 15, "charpolyXi": "(x^11 + 177*x^10 + 170*x^9 + 271*x^8 + 77*x^7 + 120*x^6 + 50*x^5 + 265*x^4 + 60*x^3 + 299*x^2 + 104*x + 274) * (x + 187) * (x + 273) * (x^2 + 204*x + 281)", "rkD_M": 15}
+{"l": 359, "detXi": 132, "krylov": 15, "rkX": 15, "rk_aug": 15, "rkXd": 15, "charpolyXi": "(x^6 + 240*x^5 + 105*x^4 + 40*x^3 + 27*x^2 + 155*x + 226) * (x^2 + 336*x + 51) * (x^2 + 90*x + 195) * (x^5 + 167*x^4 + 288*x^3 + 108*x^2 + 275*x + 168)", "rkD_M": 15}
+{"l": 367, "detXi": 316, "krylov": 15, "rkX": 15, "rk_aug": 15, "rkXd": 15, "charpolyXi": "(x^13 + 323*x^12 + 75*x^11 + 281*x^10 + 354*x^9 + 104*x^8 + 344*x^7 + 90*x^6 + 52*x^5 + 68*x^4 + 28*x^3 + 57*x^2 + 266*x + 303) * (x^2 + 29*x + 349)", "rkD_M": 15}
+{"l": 373, "detXi": 157, "krylov": 16, "rkX": 16, "rk_aug": 16, "rkXd": 16, "charpolyXi": "(x^9 + 253*x^8 + 360*x^7 + 18*x^6 + 283*x^5 + 118*x^4 + 221*x^3 + 275*x^2 + 15*x + 127) * (x + 102) * (x^2 + 218*x + 253) * (x^4 + 92*x^3 + 260*x^2 + 320*x + 161)", "rkD_M": 16}
+{"l": 379, "detXi": 107, "krylov": 16, "rkX": 16, "rk_aug": 16, "rkXd": 16, "charpolyXi": "(x^8 + 249*x^7 + 121*x^6 + 348*x^5 + 362*x^4 + 336*x^3 + 375*x^2 + 352*x + 5) * (x^2 + 353*x + 15) * (x^6 + 359*x^5 + 160*x^4 + 196*x^3 + 364*x^2 + 318*x + 340)", "rkD_M": 16}
+{"l": 383, "detXi": 1, "krylov": 16, "rkX": 16, "rk_aug": 16, "rkXd": 16, "charpolyXi": "(x^7 + 206*x^6 + 129*x^5 + 370*x^4 + 19*x^3 + 301*x^2 + 79*x + 131) * (x + 221) * (x + 30) * (x + 208) * (x^2 + 71*x + 110) * (x^4 + 265*x^3 + 198*x^2 + 175*x + 200)", "rkD_M": 16}
+{"l": 389, "detXi": 89, "krylov": 16, "rkX": 16, "rk_aug": 16, "rkXd": 16, "charpolyXi": "(x^12 + 100*x^11 + 195*x^10 + 166*x^9 + 374*x^8 + 242*x^7 + 173*x^6 + 104*x^5 + 309*x^4 + 334*x^3 + 233*x^2 + 206*x + 199) * (x^4 + 147*x^3 + 186*x^2 + 283*x + 63)", "rkD_M": 16}
+{"l": 397, "detXi": 295, "krylov": 17, "rkX": 17, "rk_aug": 17, "rkXd": 17, "charpolyXi": "(x^14 + 49*x^13 + 375*x^12 + 35*x^11 + 203*x^10 + 280*x^9 + 251*x^8 + 391*x^7 + 119*x^6 + 264*x^5 + 386*x^4 + 100*x^3 + 154*x^2 + 18*x + 179) * (x + 363) * (x^2 + 151*x + 275)", "rkD_M": 17}

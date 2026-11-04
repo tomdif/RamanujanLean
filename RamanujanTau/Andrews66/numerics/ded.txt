@@ -1,0 +1,1 @@
+termwise congruence 2s(h,k)-4s(h,2k)+k == floor((k+1)/2)+h(1+(-1)^k)/4 mod 2: failures 0 of 663

@@ -1,0 +1,1205 @@
+{
+  "scope": "Exact finite experiments; uniform infinite vanishing and reflection compatibility are proved separately in Lean",
+  "max_m": 24,
+  "depth": 10,
+  "origin_check": {
+    "map_parameter_combinations_checked": 1152,
+    "compatible_combinations": 96,
+    "compatible_parameter_classes": 24,
+    "passed": true
+  },
+  "all_coefficient_checks_passed": true,
+  "cases": [
+    {
+      "m": 5,
+      "n": 4,
+      "modulus": 41,
+      "indices": [
+        1,
+        4,
+        5,
+        9
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        21,
+        25,
+        26,
+        30
+      ],
+      "all_coefficients_compared": 441,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 10,
+        "nonzero_residues_checked": 37,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 5,
+          "R": 10,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 7,
+      "n": 2,
+      "modulus": 53,
+      "indices": [
+        5,
+        2,
+        7,
+        9
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        29,
+        31,
+        36,
+        38
+      ],
+      "all_coefficients_compared": 569,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 13,
+        "nonzero_residues_checked": 49,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 8,
+          "R": 24,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 8,
+      "n": 1,
+      "modulus": 65,
+      "indices": [
+        7,
+        1,
+        8,
+        9
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        36,
+        37,
+        44,
+        45
+      ],
+      "all_coefficients_compared": 696,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 16,
+        "nonzero_residues_checked": 61,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 8,
+          "R": 46,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 9,
+      "n": 2,
+      "modulus": 85,
+      "indices": [
+        7,
+        2,
+        9,
+        11
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        9,
+        11,
+        48,
+        57
+      ],
+      "all_coefficients_compared": 908,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 21,
+        "nonzero_residues_checked": 81,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 13,
+          "R": 50,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 9,
+      "n": 4,
+      "modulus": 97,
+      "indices": [
+        5,
+        4,
+        9,
+        13
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        9,
+        13,
+        55,
+        64
+      ],
+      "all_coefficients_compared": 1035,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 24,
+        "nonzero_residues_checked": 93,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 15,
+          "R": 54,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 9,
+      "n": 8,
+      "modulus": 145,
+      "indices": [
+        1,
+        8,
+        9,
+        17
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        9,
+        17,
+        81,
+        90
+      ],
+      "all_coefficients_compared": 1541,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 36,
+        "nonzero_residues_checked": 141,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 26,
+          "R": 86,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 10,
+      "n": 1,
+      "modulus": 101,
+      "indices": [
+        9,
+        1,
+        10,
+        11
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        56,
+        57,
+        66,
+        67
+      ],
+      "all_coefficients_compared": 1078,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 25,
+        "nonzero_residues_checked": 97,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 15,
+          "R": 76,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 10,
+      "n": 9,
+      "modulus": 181,
+      "indices": [
+        1,
+        9,
+        10,
+        19
+      ],
+      "divisible_by_nine": [
+        "n"
+      ],
+      "zero_residues": [
+        10,
+        20,
+        101,
+        110
+      ],
+      "all_coefficients_compared": 1921,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 45,
+        "nonzero_residues_checked": 177,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 34,
+          "R": 115,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 11,
+      "n": 2,
+      "modulus": 125,
+      "indices": [
+        9,
+        2,
+        11,
+        13
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        69,
+        71,
+        80,
+        82
+      ],
+      "all_coefficients_compared": 1333,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 31,
+        "nonzero_residues_checked": 121,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 22,
+          "R": 84,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 13,
+      "n": 4,
+      "modulus": 185,
+      "indices": [
+        9,
+        4,
+        13,
+        17
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        101,
+        105,
+        114,
+        118
+      ],
+      "all_coefficients_compared": 1969,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 46,
+        "nonzero_residues_checked": 181,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 33,
+          "R": 130,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 14,
+      "n": 5,
+      "modulus": 221,
+      "indices": [
+        9,
+        5,
+        14,
+        19
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        120,
+        125,
+        134,
+        139
+      ],
+      "all_coefficients_compared": 2350,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 55,
+        "nonzero_residues_checked": 217,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 41,
+          "R": 159,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 14,
+      "n": 9,
+      "modulus": 277,
+      "indices": [
+        5,
+        9,
+        14,
+        23
+      ],
+      "divisible_by_nine": [
+        "n"
+      ],
+      "zero_residues": [
+        14,
+        28,
+        155,
+        164
+      ],
+      "all_coefficients_compared": 2935,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 69,
+        "nonzero_residues_checked": 273,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 55,
+          "R": 199,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 14,
+      "n": 13,
+      "modulus": 365,
+      "indices": [
+        1,
+        13,
+        14,
+        27
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        84,
+        201,
+        210,
+        327
+      ],
+      "all_coefficients_compared": 3978,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 91,
+        "nonzero_residues_checked": 361,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 77,
+          "R": 271,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 16,
+      "n": 7,
+      "modulus": 305,
+      "indices": [
+        9,
+        7,
+        16,
+        23
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        164,
+        171,
+        180,
+        187
+      ],
+      "all_coefficients_compared": 3238,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 76,
+        "nonzero_residues_checked": 301,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 62,
+          "R": 229,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 16,
+      "n": 9,
+      "modulus": 337,
+      "indices": [
+        7,
+        9,
+        16,
+        25
+      ],
+      "divisible_by_nine": [
+        "n"
+      ],
+      "zero_residues": [
+        16,
+        32,
+        188,
+        197
+      ],
+      "all_coefficients_compared": 3568,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 84,
+        "nonzero_residues_checked": 333,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 69,
+          "R": 253,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 16,
+      "n": 11,
+      "modulus": 377,
+      "indices": [
+        5,
+        11,
+        16,
+        27
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        87,
+        209,
+        218,
+        340
+      ],
+      "all_coefficients_compared": 4111,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 94,
+        "nonzero_residues_checked": 373,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 80,
+          "R": 285,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 17,
+      "n": 8,
+      "modulus": 353,
+      "indices": [
+        9,
+        8,
+        17,
+        25
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        189,
+        197,
+        206,
+        214
+      ],
+      "all_coefficients_compared": 3745,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 88,
+        "nonzero_residues_checked": 349,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 72,
+          "R": 270,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 17,
+      "n": 10,
+      "modulus": 389,
+      "indices": [
+        7,
+        10,
+        17,
+        27
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        92,
+        216,
+        225,
+        349
+      ],
+      "all_coefficients_compared": 4240,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 97,
+        "nonzero_residues_checked": 385,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 81,
+          "R": 298,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 18,
+      "n": 1,
+      "modulus": 325,
+      "indices": [
+        17,
+        1,
+        18,
+        19
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        104,
+        181,
+        190,
+        267
+      ],
+      "all_coefficients_compared": 3518,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 81,
+        "nonzero_residues_checked": 321,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 65,
+          "R": 276,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 18,
+      "n": 5,
+      "modulus": 349,
+      "indices": [
+        13,
+        5,
+        18,
+        23
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        111,
+        195,
+        204,
+        288
+      ],
+      "all_coefficients_compared": 3779,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 87,
+        "nonzero_residues_checked": 345,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 71,
+          "R": 275,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 18,
+      "n": 7,
+      "modulus": 373,
+      "indices": [
+        11,
+        7,
+        18,
+        25
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        121,
+        208,
+        217,
+        304
+      ],
+      "all_coefficients_compared": 4035,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 93,
+        "nonzero_residues_checked": 369,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 77,
+          "R": 291,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 18,
+      "n": 11,
+      "modulus": 445,
+      "indices": [
+        7,
+        11,
+        18,
+        29
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        142,
+        246,
+        255,
+        359
+      ],
+      "all_coefficients_compared": 4810,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 111,
+        "nonzero_residues_checked": 441,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 95,
+          "R": 347,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 18,
+      "n": 13,
+      "modulus": 493,
+      "indices": [
+        5,
+        13,
+        18,
+        31
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        149,
+        271,
+        280,
+        402
+      ],
+      "all_coefficients_compared": 5333,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 123,
+        "nonzero_residues_checked": 489,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 107,
+          "R": 387,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 18,
+      "n": 17,
+      "modulus": 613,
+      "indices": [
+        1,
+        17,
+        18,
+        35
+      ],
+      "divisible_by_nine": [
+        "m"
+      ],
+      "zero_residues": [
+        180,
+        333,
+        342,
+        495
+      ],
+      "all_coefficients_compared": 6626,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 153,
+        "nonzero_residues_checked": 609,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 138,
+          "R": 491,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 19,
+      "n": 8,
+      "modulus": 425,
+      "indices": [
+        11,
+        8,
+        19,
+        27
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        97,
+        236,
+        245,
+        384
+      ],
+      "all_coefficients_compared": 4635,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 106,
+        "nonzero_residues_checked": 421,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 89,
+          "R": 336,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 19,
+      "n": 10,
+      "modulus": 461,
+      "indices": [
+        9,
+        10,
+        19,
+        29
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        245,
+        255,
+        264,
+        274
+      ],
+      "all_coefficients_compared": 4885,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 115,
+        "nonzero_residues_checked": 457,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 98,
+          "R": 364,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 19,
+      "n": 18,
+      "modulus": 685,
+      "indices": [
+        1,
+        18,
+        19,
+        37
+      ],
+      "divisible_by_nine": [
+        "n"
+      ],
+      "zero_residues": [
+        209,
+        371,
+        380,
+        542
+      ],
+      "all_coefficients_compared": 7393,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 171,
+        "nonzero_residues_checked": 681,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 156,
+          "R": 556,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 20,
+      "n": 7,
+      "modulus": 449,
+      "indices": [
+        13,
+        7,
+        20,
+        27
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        106,
+        249,
+        258,
+        401
+      ],
+      "all_coefficients_compared": 4892,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 112,
+        "nonzero_residues_checked": 445,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 96,
+          "R": 361,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 20,
+      "n": 9,
+      "modulus": 481,
+      "indices": [
+        11,
+        9,
+        20,
+        29
+      ],
+      "divisible_by_nine": [
+        "n"
+      ],
+      "zero_residues": [
+        20,
+        40,
+        266,
+        275
+      ],
+      "all_coefficients_compared": 5086,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 120,
+        "nonzero_residues_checked": 477,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 103,
+          "R": 385,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 20,
+      "n": 11,
+      "modulus": 521,
+      "indices": [
+        9,
+        11,
+        20,
+        31
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        276,
+        287,
+        296,
+        307
+      ],
+      "all_coefficients_compared": 5518,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 130,
+        "nonzero_residues_checked": 517,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 114,
+          "R": 417,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 22,
+      "n": 5,
+      "modulus": 509,
+      "indices": [
+        17,
+        5,
+        22,
+        27
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        113,
+        281,
+        290,
+        458
+      ],
+      "all_coefficients_compared": 5549,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 127,
+        "nonzero_residues_checked": 505,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 109,
+          "R": 423,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 22,
+      "n": 9,
+      "modulus": 565,
+      "indices": [
+        13,
+        9,
+        22,
+        31
+      ],
+      "divisible_by_nine": [
+        "n"
+      ],
+      "zero_residues": [
+        22,
+        44,
+        311,
+        320
+      ],
+      "all_coefficients_compared": 5971,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 141,
+        "nonzero_residues_checked": 561,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 123,
+          "R": 463,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 22,
+      "n": 13,
+      "modulus": 653,
+      "indices": [
+        9,
+        13,
+        22,
+        35
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        344,
+        357,
+        366,
+        379
+      ],
+      "all_coefficients_compared": 6910,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 163,
+        "nonzero_residues_checked": 649,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 145,
+          "R": 535,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 23,
+      "n": 4,
+      "modulus": 545,
+      "indices": [
+        19,
+        4,
+        23,
+        27
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        126,
+        300,
+        309,
+        483
+      ],
+      "all_coefficients_compared": 5934,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 136,
+        "nonzero_residues_checked": 541,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 118,
+          "R": 460,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 23,
+      "n": 14,
+      "modulus": 725,
+      "indices": [
+        9,
+        14,
+        23,
+        37
+      ],
+      "divisible_by_nine": [
+        "m-n"
+      ],
+      "zero_residues": [
+        381,
+        395,
+        404,
+        418
+      ],
+      "all_coefficients_compared": 7669,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 181,
+        "nonzero_residues_checked": 721,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 163,
+          "R": 600,
+          "coefficient": -1
+        }
+      }
+    },
+    {
+      "m": 23,
+      "n": 18,
+      "modulus": 853,
+      "indices": [
+        5,
+        18,
+        23,
+        41
+      ],
+      "divisible_by_nine": [
+        "n"
+      ],
+      "zero_residues": [
+        258,
+        461,
+        470,
+        673
+      ],
+      "all_coefficients_compared": 9204,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 213,
+        "nonzero_residues_checked": 849,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 197,
+          "R": 712,
+          "coefficient": 1
+        }
+      }
+    },
+    {
+      "m": 23,
+      "n": 22,
+      "modulus": 1013,
+      "indices": [
+        1,
+        22,
+        23,
+        45
+      ],
+      "divisible_by_nine": [
+        "m+n"
+      ],
+      "zero_residues": [
+        345,
+        543,
+        552,
+        750
+      ],
+      "all_coefficients_compared": 10881,
+      "zero_progression_terms_checked": 11,
+      "finite_converse_search": {
+        "depth": 253,
+        "nonzero_residues_checked": 1009,
+        "unresolved_residues": [],
+        "largest_first_witness": {
+          "N": 239,
+          "R": 856,
+          "coefficient": -1
+        }
+      }
+    }
+  ],
+  "total_coefficients_compared": 152284,
+  "total_nonzero_residue_witnesses": 14037,
+  "sha256": {
+    "check_four_reflection.py": "1ac8970d848012df4a9d2781bee6ca4156ba76e6da71526471eb497cf7fa10ad",
+    "check_four_plane.py": "0d10208705f7297528ab30ad277f69a1d3711f38448dc81f408907ae80bd2c3e",
+    "quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

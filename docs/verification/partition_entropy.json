@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-03",
+  "snapshot": "Development working tree, not a published commit. Existing unrelated local changes are preserved.",
+  "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+  "toolchain": "leanprover/lean4:v4.30.0-rc2",
+  "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+  "mathlib_working_tree_clean": true,
+  "focused_build": {
+    "command": "lake build RamanujanTau.CardySaddle RamanujanTau.HardyRamanujan.Entropy",
+    "exit_code": 0,
+    "jobs": 8491,
+    "note": "Final sources passed the focused build after the unrelated full-build attempt was interrupted."
+  },
+  "full_build": {
+    "command": "lake build",
+    "status": "interrupted; not verified",
+    "exit_code": 143,
+    "last_progress": "9432/9436",
+    "new_entropy_module_built": true,
+    "unfinished_preexisting_modules": [
+      "RamanujanTau.FiniteArithmetic.RankRAt137",
+      "RamanujanTau.FiniteArithmetic.RankRAt139"
+    ],
+    "reason": "Stopped after approximately 24 minutes while two pre-existing kernel certificates were still computing and the machine was under heavy swapping. A temporary attempt to serialize the workers did not finish the check. No Lean error had been reported.",
+    "consequence": "The new module remains a standalone import; its addition to the root import graph was withdrawn."
+  },
+  "audit": {
+    "command": "lake env lean scripts/audit/partition_entropy.lean",
+    "exit_code": 0,
+    "declarations": 10,
+    "report": "docs/verification/partition_entropy.axioms.txt",
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "theorems": [
+      "Cardy.saddle_sub_leading",
+      "Cardy.leading_le_saddle",
+      "Cardy.saddle_eq_leading_of_balance",
+      "HardyRamanujan.partition_count_pos",
+      "HardyRamanujan.entropy_remainder_tendsto_zero",
+      "HardyRamanujan.entropy_log_correction",
+      "HardyRamanujan.entropy_sqrt_limit",
+      "HardyRamanujan.partition_cardy_leading",
+      "HardyRamanujan.partition_saddle_minimum",
+      "HardyRamanujan.entropy_cardy_log_correction"
+    ]
+  },
+  "public_root_import": false,
+  "count": "p(n) = Fintype.card (Nat.Partition n)",
+  "entropy": {
+    "logarithmic_correction": "log p(n) - pi*sqrt(2*n/3) + log n tends to -log(4*sqrt 3)",
+    "leading_limit": "log p(n)/sqrt n tends to pi*sqrt(2/3)",
+    "hypotheses": "No additional hypotheses; n ranges over natural numbers tending to infinity."
+  },
+  "saddle": {
+    "general_hypotheses": "C >= 0, E >= 0, beta > 0",
+    "exponent": "2*pi^2*C/beta + beta*E",
+    "leading_term": "2*pi*sqrt(2*C*E)",
+    "partition_normalization": "C=1/12, E=n",
+    "attainment": "For n>=1 the global minimum over beta>0 occurs at beta=pi/sqrt(6*n)."
+  },
+  "reuse": "Isolated saddle algebra ported from unifiedtheory; the existing Hardy-Ramanujan proof here supplies the coefficient asymptotic.",
+  "not_proved": [
+    "24-colored partition entropy or half-BPS state identification",
+    "DMZ mock Jacobi coefficients and their completion",
+    "black-hole area law from a microscopic model"
+  ],
+  "novelty_claim": false,
+  "sha256": {
+    "RamanujanTau/CardySaddle.lean": "7e0fd15cef1136181a3ee622096bd8c2cd82d52d11ebdadc3cf6558ea56e1739",
+    "RamanujanTau/HardyRamanujan/Entropy.lean": "4defd7aa0771c687a71329dcd0f88ace4d76eef6f2850890766df78d02d6a3d0",
+    "scripts/audit/partition_entropy.lean": "7729d3e850860271d8502514d660add0d922517fcfa584e6760fb536a494382b",
+    "docs/verification/partition_entropy.axioms.txt": "31c0bd6447b20f798a0aa174160de9864dbe835e22488a19aa89582af87f8ec6",
+    "RamanujanTau/HardyRamanujan/Bounds.lean": "85c5677d9712d595fe27309d385935bb9df321bb2867cefffb9bd942fb6811a9",
+    "RamanujanTau/HardyRamanujan/Coeff.lean": "d0bafb3cabcd52042957c85a3cc3de322664a909a2131e21629e9fb55cbd747c",
+    "RamanujanTau/HardyRamanujan/GenFun.lean": "00b7735c4d2e8028b8178ade8256615d48661a13625e98a9e5ed4e8bebff4188",
+    "RamanujanTau/HardyRamanujan/Main.lean": "d40573c3a67b67678339283577ad8419735e71133f872a0fc2b5aef1c071cdfd",
+    "RamanujanTau/HardyRamanujan/Major.lean": "7946fe98c7bb265049c374ad626023fb5331e6b2e08f7b6d4f661e250edd8b9c",
+    "RamanujanTau/HardyRamanujan/Minor.lean": "5ec31ca270593afee2752a35d8d61491438c9c4d605bc0426a3d00cd4dc11e8d",
+    "RamanujanTau/HardyRamanujan/Modular.lean": "51116f88d7b796e2221cdb9b96a00740d23c273e979c9049e0e1de4e05d02f6e",
+    "RamanujanTau/HardyRamanujan/Param.lean": "7eaddb7abe098c334555ffcfdeb7a55c9f51658b92bbf26dfabd9c40d4f48ffb"
+  },
+  "repository_check": {
+    "command": "python3 scripts/check_repository.py",
+    "exit_code": 0,
+    "scope": "Temporary copy of the Git index plus the 13 intended new files from this work; the actual index is unchanged.",
+    "output": "Passed: 1102 Lean source/audit files, 26 Markdown files, 539 local links; project imports and source hygiene checked.\nThis is a source/documentation check, not Lean proof verification.",
+    "new_files": [
+      "RamanujanTau/Cylindric/Slices.lean",
+      "scripts/audit/cylindric_slices.lean",
+      "scripts/cylindric_positivity.py",
+      "docs/CYLINDRIC_RESEARCH.md",
+      "docs/verification/cylindric_positivity_4_5.json",
+      "docs/verification/cylindric_positivity_4_7.json",
+      "docs/verification/cylindric_slices.json",
+      "docs/verification/cylindric_slices.axioms.txt",
+      "RamanujanTau/CardySaddle.lean",
+      "RamanujanTau/HardyRamanujan/Entropy.lean",
+      "scripts/audit/partition_entropy.lean",
+      "docs/verification/partition_entropy.json",
+      "docs/verification/partition_entropy.axioms.txt"
+    ]
+  },
+  "git_diff_check": "passed",
+  "import": "RamanujanTau.HardyRamanujan.Entropy"
+}

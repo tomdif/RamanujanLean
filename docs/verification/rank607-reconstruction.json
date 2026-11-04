@@ -1,0 +1,55 @@
+{
+ "date": "2026-11-01",
+ "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
+ "working_tree_changes": true,
+ "sha256": {
+  "RamanujanTau/FiniteArithmetic/FormalSturm.lean": "d731cc6bcb55bbcea3958ec283658990fadd772d3c4b2f7256650871ec7a1bb1",
+  "RamanujanTau/FiniteArithmetic/EnvelopePrecision.lean": "e322e6746ea809d3b9f8ce3da9870b60abc002f5eed6dae49decfe11e1f9dae3",
+  "RamanujanTau/FiniteArithmetic/DeterminantRank.lean": "98d67ba92cb3a05bf50fb88bd56b228837bfeeecfaa9db3fab18104477bb2fed",
+  "scripts/frontier/pattern/verify_rank607_series.py": "6b687b34b2cef75a875a2ad4a5a335bbcbaebf9a18d989798552a4225859689b",
+  "scripts/frontier/pattern/check_rank607_hidden_direction.py": "c378ad51e3f78265f76f3c6e56b0b942322090d32229992bd8e1697d5e1ba116",
+  "docs/verification/rank607-integer-replay.json": "cfb85eedad53be2da7a5e48245fd8af33ce56f983d44ffda5cecc68752ba3b2b",
+  "docs/verification/rank607-hidden-direction.json": "f497b39f1222361a5fe2c64655650ade1393465327340e1b6f3fb748b7c34ec3"
+ },
+ "full_build": {
+  "command": "lake build",
+  "jobs": 9291,
+  "passed": true
+ },
+ "axiom_audit": {
+  "command": "lake env lean scripts/audit/finite_arithmetic.lean",
+  "declarations": 71,
+  "new_declarations": 13,
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "passed": true
+ },
+ "repository_check": {
+  "lean_files": 936,
+  "markdown_files": 25,
+  "links": 204,
+  "passed": true
+ },
+ "independent_arithmetic": {
+  "standard_library_replay": true,
+  "coefficient_length": 61308,
+  "reconstruction_dimension": 102,
+  "matched_coefficients": 2160,
+  "full_mod607_relation": true,
+  "det24_mod607": 112,
+  "det25_mod607_squared": 305928,
+  "det25_div607_mod607": 504,
+  "hidden_quotient_eigenvalue": 240,
+  "corrupted_coordinate_rejected": true,
+  "prime29_checker_passed": true
+ },
+ "formal_boundary": {
+  "infinite_series_reconstruction_bound_proved": true,
+  "determinant_implies_all_higher_ranks_proved": true,
+  "numerical_prime607_arithmetic_checked_in_kernel": false,
+  "unconditional_prime607_rank_theorem": false
+ }
+}
