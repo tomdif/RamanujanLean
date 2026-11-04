@@ -14,10 +14,11 @@ whole conjecture is **equivalent** to its restriction to prime powers,
 This is honest partial progress, not a proof of the conjecture: it does not close the open problem,
 it *locates* it. Every remaining bit of open content sits in the prime-power values `τ(pᵏ)`.
 
-Note this is the *correct* reduction — it does **not** go further, to primes alone. `τ(pᵏ)` can
-vanish independently of `τ(p)`: by the Hecke recurrence `τ(pᵏ) = p^{11k/2}·sin((k+1)θ_p)/sin θ_p`
-with `cos θ_p = τ(p)/(2p^{11/2})`, so `τ(pᵏ) = 0 ⇔ (k+1)θ_p ∈ πℤ`, which can happen with `τ(p) ≠ 0`
-(i.e. `θ_p ≠ π/2`) whenever `θ_p/π` is rational. So prime powers, not primes, is the true floor.
+Correction (2026-11-04): an earlier version of this note claimed `τ(pᵏ)` can vanish with
+`τ(p) ≠ 0`. That is false for the integer values of `τ`: `τ(pᵏ) = 0` would force `θ_p/π` rational,
+hence `τ(p)² = m·p¹¹` with `m ∈ {0,…,4}`, which a `p`-adic valuation count rules out for `τ(p) ≠ 0`.
+This is proved as `LehmerSmall.tau_prime_pow_ne_zero`, so the reduction does go down to primes
+(`LehmerSmall.tau_ne_zero_of_primes_below`).
 -/
 
 namespace RamanujanTau

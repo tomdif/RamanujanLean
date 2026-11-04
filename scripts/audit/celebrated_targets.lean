@@ -59,3 +59,5 @@ with no exceptions. -/
 #print axioms RamanujanTau.EisensteinReal.rankinSelberg_asymptotic_of_horocycle
 #print axioms GORZXiEff.turan_gamma_unconditional
 #print axioms GORZXiEff.jensen2_gamma_unconditional
+#print axioms RamanujanTau.LehmerSmall.lehmer_below_74627999
+#print axioms RamanujanTau.LehmerSmall.tau_prime_pow_ne_zero

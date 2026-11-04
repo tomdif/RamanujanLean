@@ -111,6 +111,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - `GORZXiEff.gamma_eq_mom` — the Taylor coefficients of Ξ as moments of Riemann's Φ; **`GORZXiEff.turan_gamma_unconditional`** — the Turán inequalities for the Taylor coefficients of Ξ for every n (Csordas–Norfolk–Varga), unconditional.
 - `EisensteinReal.karamata` — Karamata's Tauberian theorem for power series with nonnegative coefficients; `rankinSelberg_asymptotic_of_horocycle` (conditional on `HorocycleLimit`).
 - `RankinSelberg.rankinSelberg_two_sided` — `c₁N ≤ Σ_{n≤N} τ(n)²/n¹¹ ≤ c₂N`: the order of magnitude in Rankin–Selberg.
+- `LehmerSmall.lehmer_below_74627999` — `τ(n) ≠ 0` for all `1 ≤ n < 74627999`; `LehmerSmall.tau_prime_pow_ne_zero` — `τ(p) ≠ 0 ⇒ τ(pᵏ) ≠ 0`; `tau_mod7_all`, `tau_mod25_all`, `tau_mod3_all` — Ramanujan-type congruences for every n.
 - **`StepanovAS.weilPrimeBound`** — Weil's bound `|S(1,b;p)| ≤ 2√p` for every prime p and b ≢ 0; **`StepanovAS.tau_isBigO_23_4_unconditional`** — `τ(n) = O(n^{23/4+ε})` (Weil 1948).
 - `Stepanov.hasseWeil_charSum_le` — Stepanov's bound `|Σ_{x∈F_p} χ(f(x))| ≤ 12m²√p` for squarefree f of degree m; `Stepanov.hasse_elliptic` — Hasse's theorem up to the constant, `|#{y² = f(x)} − p| ≤ 108√p` for squarefree cubics; `Stepanov.saliePrimeBound` and `tau_isBigO_35_6_unconditional` — `τ(n) = O(n^{35/6+ε})`.
 - `KloostermanL.kloosterman_L_rational` — rationality of the Kloosterman L-function over any finite field: L(T) = 1 + K₁T + qT², so K_r = −(α^r+β^r); `tau_isBigO_23_4_of_stepanov` — Weil's τ bound from the named Stepanov hypothesis.
