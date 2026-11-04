@@ -89,3 +89,6 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauSigns.card_signChanges_ge_sharp
 #print axioms RamanujanTau.RankinSharpGeneral.rankinSelberg_power_saving_sharp_general
 #print axioms RamanujanTau.KolbergTau.instTauMod2_11
+#print axioms RamanujanTau.HeckeL.heckeLambda_functional_equation
+#print axioms RamanujanTau.HeckeL.tauLSeries_entire
+#print axioms RamanujanTau.HeckeL.tauLSeries_center_pos

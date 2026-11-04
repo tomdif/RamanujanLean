@@ -68,6 +68,8 @@ Consequences (`TauModular`):
 
 Deligne and Lehmer are documented as hypotheses, not defects.
 
+**Hecke's functional equation (2026-11-04).** `HeckeL.heckeLambda_entire` and `HeckeL.heckeLambda_functional_equation`: Λ(s) = (2π)^{−s}Γ(s)L(Δ,s) is entire with Λ(12−s) = Λ(s), so L(Δ,s) is entire (`HeckeL.tauLSeries_entire`).
+
 ## Summary
 
 | Question | Verdict | Exact missing piece |

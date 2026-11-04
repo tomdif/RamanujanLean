@@ -608,3 +608,5 @@ import RamanujanTau.RankinSharp.Sharp
 import RamanujanTau.TauSigns.Sharp
 import RamanujanTau.RankinSharpGeneral.Main
 import RamanujanTau.KolbergTau.Main
+import RamanujanTau.HeckeL.Positivity
+import RamanujanTau.HeckeL.Growth
