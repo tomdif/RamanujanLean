@@ -108,7 +108,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - `TauBound.tau_isBigO_47_8_unconditional` — `τ(n) =O n^{47/8+ε}` for every ε > 0 (Kloosterman 1927), unconditional.
 - **`GORZXi.xi_gorz_unconditional`** — GORZ Theorem 1 for Riemann Ξ, unconditional (`xiKernelHyp_holds`); `GORZXi.gorz_thm3` — the abstract GORZ Theorem 3 (unconditional); `GORZXi.gammaMathlib_eq` — integral formula for the Taylor coefficients of Ξ from Mathlib's completed zeta.
 - `GORZ.jensen_eventually_hyperbolic` — for every d, `J^{d,n}` is hyperbolic for all large n (Griffin–Ono–Rolen–Zagier 2019, partition case); `GORZ.tendsto_coeff_Jhat` — renormalized Jensen polynomials → Hermite.
-- `GORZXiEff.gamma_eq_mom` — the Taylor coefficients of Ξ as moments of Riemann's Φ; `GORZXiEff.jensen2_gamma` (conditional on `CVHyp`) — the Turán inequalities for Ξ for every n.
+- `GORZXiEff.gamma_eq_mom` — the Taylor coefficients of Ξ as moments of Riemann's Φ; **`GORZXiEff.turan_gamma_unconditional`** — the Turán inequalities for the Taylor coefficients of Ξ for every n (Csordas–Norfolk–Varga), unconditional.
 - `EisensteinReal.karamata` — Karamata's Tauberian theorem for power series with nonnegative coefficients; `rankinSelberg_asymptotic_of_horocycle` (conditional on `HorocycleLimit`).
 - `RankinSelberg.rankinSelberg_two_sided` — `c₁N ≤ Σ_{n≤N} τ(n)²/n¹¹ ≤ c₂N`: the order of magnitude in Rankin–Selberg.
 - **`StepanovAS.weilPrimeBound`** — Weil's bound `|S(1,b;p)| ≤ 2√p` for every prime p and b ≢ 0; **`StepanovAS.tau_isBigO_23_4_unconditional`** — `τ(n) = O(n^{23/4+ε})` (Weil 1948).

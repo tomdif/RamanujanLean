@@ -57,3 +57,5 @@ with no exceptions. -/
 #print axioms GORZXiD3.disc_jensen3
 #print axioms RamanujanTau.EisensteinReal.karamata
 #print axioms RamanujanTau.EisensteinReal.rankinSelberg_asymptotic_of_horocycle
+#print axioms GORZXiEff.turan_gamma_unconditional
+#print axioms GORZXiEff.jensen2_gamma_unconditional
