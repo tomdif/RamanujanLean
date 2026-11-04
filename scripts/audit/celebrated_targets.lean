@@ -71,3 +71,5 @@ with no exceptions. -/
 #print axioms RamanujanTau.Discharge.Kloosterman.stepanovKloosterman_unconditional
 #print axioms RamanujanTau.LehmerSmall.lehmer_below_214928639999
 #print axioms RamanujanTau.RankinError.rankinSelberg_power_saving_of_unfold
+#print axioms RamanujanTau.RankinError.rsUnfold
+#print axioms RamanujanTau.RankinError.rankinSelberg_power_saving_84

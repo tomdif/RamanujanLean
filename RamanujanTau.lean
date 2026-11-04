@@ -597,3 +597,5 @@ import RamanujanTau.Discharge.Kloosterman
 import RamanujanTau.Discharge.AtkinInputs
 import RamanujanTau.LehmerSmall.Lehmer1947
 import RamanujanTau.RankinError.Main
+import RamanujanTau.RankinError.RSUnfoldProof
+import RamanujanTau.RankinError.PowerSaving84

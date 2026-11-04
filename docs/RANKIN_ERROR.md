@@ -1,35 +1,37 @@
-# A power-saving error term for the Rankin–Selberg mean square of τ (`RamanujanTau/RankinError/`)
+# A power-saving error term for the Rankin–Selberg mean square of `τ` (`RamanujanTau/RankinError/`)
 
-**Status (2026-11-04).** The goal is
+**Status (2026-11-04, evening).** The theorem
 
-    S(N) = ∑_{n≤N} τ(n)²/n¹¹ = c·N + O(N^{1−δ}),   c = (3/π)(4π)¹²‖Δ‖²/11! = 0.384084…,
+    S(N) = ∑_{n≤N} τ(n)²/n¹¹ = c·N + O(N^{1−1/84}),   c = (3/π)(4π)¹²‖Δ‖²/11! = 0.384084…,
 
-for some explicit δ > 0. What is proved:
+is now **proved unconditionally**:
 
-* **Evidence level 2 (Lean, conditional on one named hypothesis).**
-  `rankinSelberg_power_saving_of_unfold`: if `RSUnfold` holds, then
-  `|S(N) − c·N| ≤ C·N^{1 − 2^{−22}}` for all `N ≥ 1`, with Zagier's constant `c`.
+* **Evidence level 1 (Lean, axiom-clean, no hypotheses).**
+  * **`rankinSelberg_power_saving_84`** (`PowerSaving84.lean`):
+    `∃ C, ∀ N ≥ 1, |S(N) − c·N| ≤ C·N^{1 − 1/84}`, with Zagier's constant `c`.
+  * `rankinSelberg_power_saving_unconditional` (`RSUnfoldProof.lean`): the same with the older
+    exponent `1 − 2^{−22}` (halving descent).
 
-  `RSUnfold` is only the classical unfolding identity for real-part `> 2`:
+  Both rest on `rsUnfold : RSUnfold`, the Rankin–Selberg unfolding identity
 
-      mellin(Φ − ‖Δ‖²)(s) = γ(s) ζ(2s) ∑ τ(n)² n^{−s−11},      Φ(t) = ∫_𝓕 |Δ|²y¹² Θ_z(t) dμ.
+      mellin(Φ − ‖Δ‖²)(s) = γ(s) ζ(2s) ∑ τ(n)² n^{−s−11}     (Re s > 2),
+      Φ(t) = ∫_𝓕 |Δ|²y¹² Θ_z(t) dμ,
 
-  It involves no analytic continuation. The continuation, the functional equation and the
-  boundedness on vertical strips of the completed Rankin–Selberg integral are **proved**
-  (`rsFE`, `rsFE_Λ₀_bdd`, `rsData_of_unfold`).
-* **Evidence level 1 (Lean, axiom-clean, no hypotheses).** The rest of the chain:
-  * Riesz means, the Mellin inversion of the Riesz kernel, and the contour shift;
-  * bounds for Γ in vertical strips, and Phragmén–Lindelöf for the completed L-function;
-  * the descent from Riesz means to partial sums;
-  * the transformation law of the lattice theta function, `Θ(1/t) = tΘ(t)`;
-  * `Φ(1/t) = tΦ(t)`, with rapid decay of `Φ − ‖Δ‖²`;
-  * the weak functional-equation pair `rsFE`, which gives an entire, symmetric `Λ₀`, bounded
-    on strips.
+  proved in five new files (F4–F6 below, about 1000 lines): `HMeasure`, `Coset`,
+  `UnfoldTheta`, `RSMellin`, `RSUnfoldProof`. The exponent `1/84` comes from `RieszK.lean`
+  (one 20-th order difference instead of 20 halvings, about 410 lines).
+* Everything upstream (continuation, functional equation, strip bounds, Phragmén–Lindelöf,
+  Perron/Riesz) was already axiom-clean; see the tables below.
 
 No sorry, no new axiom, no `native_decide`. Every headline prints
-`[propext, Classical.choice, Quot.sound]` (`Main.lean`). Build only these files:
-`nice -n 10 lake build RamanujanTau.RankinError.Main`. This builds all 16 files, about 2700 lines.
-Nothing outside `RankinError/` was modified. The root file does not import this directory.
+`[propext, Classical.choice, Quot.sound]`. Build only these files:
+`nice -n 10 lake build RamanujanTau.RankinError.PowerSaving84` (all 23 files of the directory,
+about 4200 lines). `RankinError/Main.lean` (unchanged) still prints the older headlines.
+Nothing outside `RankinError/` and this write-up was modified. The root file does not import
+this directory.
+
+**Superseded:** the conditional `rankinSelberg_power_saving_of_unfold` (evidence level 2 until
+today) is now only an intermediate step.
 
 ## Route A (horocycle with a rate, then a Tauberian theorem) cannot give a power saving
 
@@ -72,7 +74,34 @@ implemented here, arranged to need as little as possible:
 
 ## Headline theorems
 
-### Evidence level 2 (conditional)
+### Evidence level 1: the unconditional theorem and the unfolding identity (new)
+
+| Theorem | File | Statement |
+|---|---|---|
+| **`rankinSelberg_power_saving_84`** | `PowerSaving84` | `∃ C, ∀ N ≥ 1, \|∑_{n=1}^N τ(n)²/n¹¹ − (3/π)(4π)¹² petNormSq/11! · N\| ≤ C N^{1−1/84}` |
+| `power_saving_84_of_RSData` | `PowerSaving84` | `power_saving_of_RSData` with exponent `1 − 1/84` |
+| **`riesz_kdiff`** | `RieszK` | `aₙ ≥ 0`, `c ≥ 0`, `0 < θ ≤ 1`: `RieszAsymp a c k θ → RieszAsymp a c 0 (θ/(k+1))` |
+| `bracket` | `RieszK` | if `F_{j+1}(x+h) − F_{j+1}(x) = (j+1)∫₀^h F_j(x+s)ds` and `F_0` is monotone, then `k!h^kF_0(x) ≤ Δ_h^k F_k(x) ≤ k!h^kF_0(x+kh)` |
+| `W_rel`, `psi_ftc` | `RieszK` | `W_{j+1}(x+h) − W_{j+1}(x) = (j+1)∫₀^h W_j(x+s)ds`, from `ψ_{j+1}(b) − ψ_{j+1}(a) = (j+1)∫_a^b ψ_j`, `ψ_j(u) = u_+^j` |
+| `abs_Dk_le` | `RieszK` | `\|Δ_h^k f(x)\| ≤ 2^k sup_{[x,x+kh]}\|f\|` |
+| `rankinSelberg_power_saving_unconditional` | `RSUnfoldProof` | `∃ C, ∀ N ≥ 1, \|∑_{n=1}^N τ(n)²/n¹¹ − (3/π)(4π)¹² petNormSq/11! · N\| ≤ C N^{1−1/2²²}` |
+| **`rsUnfold`** | `RSUnfoldProof` | `RSUnfold` |
+| `RSUnfold_real` | `RSUnfoldProof` | `RSUnfold` at real `σ > 2` |
+| `lintegral_mellin_Phi` | `RSMellin` | for real `σ > 0`, in `[0,∞]`: `∫₀^∞ t^{σ−1}(Φ(t)−‖Δ‖²)dt = 2Γ(σ)π^{−σ}·∑_{g≥1}g^{−2σ}·∑ₙ τ(n)²Γ(σ+11)(4πn)^{−σ−11}` |
+| `lintegral_hfun` | `RSMellin` | `∫₀^∞ t^{σ−1} ∑_{g≥1} e^{−πtg²/v} dt = Γ(σ)π^{−σ}v^σ ∑_{g≥1} g^{−2σ}` |
+| **`unfold_theta`** | `UnfoldTheta` | for `t > 0`, in `[0,∞]`: `∫_𝓕 G(z)(Θ_z(t)−1) dxdy/y² = 2∫₀^∞ I(v) ∑_{g≥1}e^{−πtg²/v} dv/v²`, `I(v) = ∫₀¹ G(x+iv)dx` |
+| `lintegral_Psi` | `UnfoldTheta` | `∫_ℍ 1_{0≤Re<1}(w) G(w) h_t(Im w) dμ = ∫₀^∞ I(v)h_t(v) dv/v²` (Tonelli) |
+| **`theta_coset`** | `Coset` | `∑_{(m,n)∈ℤ²} e^{−πtQ_z(m,n)} = 1 + ∑_{γ∈SL₂(ℤ)} 1_{0≤Re<1}(γz) h_t(Im γz)` |
+| `tsum_strip_eq` | `Coset` | for `T`-invariant `H ≥ 0`: `∑_γ 1_{strip}(γz)H(γz) = ∑_{(a,c) coprime} H(M(a,c)⁻¹z)` |
+| `tsum_theta_split` | `Coset` | `ℤ²∖0 = ℕ₊ × {coprime}`: `∑_{(m,n)} e^{−πtQ} = 1 + ∑_{g≥1}∑_{(a,c)} e^{−πtg²Q(−c,a)}` |
+| `im_inv_mat_smul` | `Coset` | `Im(M(a,c)⁻¹z) = 1/Q_z(−c,a)` |
+| **`lintegral_unfold_U`** | `HMeasure` | for measurable `Ψ ≥ 0` on `ℍ`: `∫_ℍ 1_U(z)∑_γ Ψ(γz) dμ = 2∫_ℍ Ψ dμ`, `U = {−½≤Re<½, \|z\|≥1}` |
+| `ae_tsum_ind_U` | `HMeasure` | for a.e. `w ∈ ℍ`: `∑_γ 1_U(γw) = 2` |
+| `volume_circ` | `HMeasure` | the unit circle is null for the invariant measure |
+| `measurePreserving_sl` | `HMeasure` | `w ↦ γw` preserves `dxdy/y²` (from Mathlib's `SMulInvariantMeasure (GL(2,ℝ)) ℍ`) |
+| `lintegral_H` | `HMeasure` | `∫_ℍ φ dμ = ∫_{y>0} φ(x+iy) dxdy/y²` |
+
+### Evidence level 2 (conditional; now discharged by `rsUnfold`)
 
 ```lean
 def RSUnfold : Prop :=
@@ -168,12 +197,9 @@ has simple poles at `s = 0, 1`. Then `Λ₀ = Λ − κ(1/(s−1) − 1/s)` is e
    `D = F + c₀/(s−1)`, `c₀ = κ g(1) = 3κ(4π)¹²/(π 11!)`, and on `[¾, 5/2]` we have
    `‖F‖ ≤ B(1+|t|)¹⁹`, using `‖1/ζ(w)‖ ≤ ∑ |μ(n)| n^{−3/2}`.
 
-The exponent `δ = 2^{−22}` is wasteful but explicit. Two improvements would raise it:
-
-* Replace the halving descent by one k-th order difference. That uses the integral
-  representation `Δ_h^k W_k = k!∫_{[0,h]^k} W_0(x + Σtᵢ)`, and gives `δ = (1−σ₁)/(k+1)`,
-  about `1/84`.
-* With convexity done sharply (Stirling) one gets Rankin–Selberg's `δ = 2/5`.
+The halving descent gives `δ = 2^{−22}`. It is now superseded by the single 20-th order
+difference (`riesz_kdiff`, below), which gives `δ = (1−σ₁)/(k+1) = 1/84`. With convexity done
+sharply (Stirling) one would get Rankin–Selberg's `δ = 2/5`.
 
 ## Numerical evidence (level 4)
 
@@ -192,35 +218,70 @@ The error grows roughly like `x^{0.4}` (`/x^{1/2}` slowly decreasing). That is c
 Rankin–Selberg's `O(x^{3/5})` and with the conjectured `x^{3/8+ε}`. Horocycle numerics are in
 `docs/EISENSTEIN_REAL.md`: `(I(y)/L − 1)/√y` stays bounded.
 
-## What remains: the unfolding identity `RSUnfold`
+## The unfolding identity `RSUnfold` (proved 2026-11-04)
 
-F1–F3 and F7 below are done, so the continuation and the functional equation are proved. Only
-the identity of `mellin(Φ−κ)` with the Dirichlet series is missing. That is a statement for
-`Re s > 2`, where everything converges absolutely. The cheapest arrangement unfolds **before**
-taking the Mellin transform, so the measure-theoretic part is a nonnegative (ENNReal) identity
-for each fixed `t`:
+The unfolding is done **before** the Mellin transform, so the measure-theoretic part is a
+nonnegative (`[0,∞]`) identity for each fixed `t`:
 
     Φ(t) − ‖Δ‖² = 2 ∫₀^∞ I(v) ∑_{g≥1} e^{−πt g²/v} dv/v²,     I(v) = ∫₀¹ G(x+iv) dx.     (U)
 
-Then `∫₀^∞ t^{s−1} ∑_g e^{−πtg²/v} dt = π^{−s}Γ(s)ζ(2s)v^s`. Combined with the complex-`s`
-form of E3a, `∫₀^∞ I(v)v^{s−2}dv = ∑ τ(n)²Γ(s+11)(4πn)^{−s−11}`, this gives `RSUnfold`.
-
-| Piece | Content | Estimate |
+| Piece | Content | Lines |
 |---|---|---|
-| F1 ✅ | `theta_inv` | done |
-| F2 ✅ | `Φ_inv`, local integrability (`Φ` is antitone), cusp decay of `G` | done |
-| F3 ✅ | `Φ − κ = O(t^{−R})` | done |
-| F7 ✅ | `rsFE`, `Λ₀` bounded and symmetric, `rsData_of_unfold` | done |
-| F5 | (U): split `ℤ²∖0 = ℕ₊ × {coprime}` (`g·(c,d)`), then `∑_{γ∈SL₂(ℤ)} 1_{strip}(γz) h(Im γz) = ∑_{(c,d) coprime} h(y/\|cz+d\|²)` (`HoroUnfold`'s `SL₂(ℤ) ≃ coprime × ℤ`, applied to `γ⁻¹`), then `∫_S ∑_γ φ̃∘γ = ∑_γ ∫_{γS} φ̃ = 2∫ φ̃`, using `SMulInvariantMeasure (GL(2,ℝ)) ℍ volume`, `smul_mem_S_unique`, `exists_smul_mem_U`, `two_le_tsum`/`tsum_le_two`, and the unit circle being null. Plus the change of coordinates `ℍ ↔ ℝ²` against `Freg`/`gR` | 450 |
-| F4 | Fubini in `(t, v)` and the Gamma integral `∫ t^{s−1}e^{−at} = Γ(s)a^{−s}` termwise | 150 |
-| F6 | complex-`s` E3a, by dominated convergence from the real version `lintegral_mellin_horocycle` | 120 |
+| F1 ✅ | `theta_inv` | (earlier) |
+| F2 ✅ | `Φ_inv`, local integrability (`Φ` is antitone), cusp decay of `G` | (earlier) |
+| F3 ✅ | `Φ − κ = O(t^{−R})` | (earlier) |
+| F7 ✅ | `rsFE`, `Λ₀` bounded and symmetric, `rsData_of_unfold` | (earlier) |
+| F5a ✅ | `HMeasure`: real coordinates for Mathlib's invariant measure on `ℍ`; null unit circle; a.e. `∑_γ 1_U(γw) = 2` (from `exists_smul_mem_U`, `smul_mem_S_unique`, `two_le_tsum`, `tsum_le_two`); the abstract unfolding `∫ 1_U ∑_γ Ψ∘γ = 2∫Ψ` | 215 |
+| F5b ✅ | `Coset`: `ℤ²∖0 = ℕ₊ × coprime` (`latMap`, via `Int.gcd_div_gcd_div_gcd`), the coset sum via `slEquiv` applied to `γ⁻¹`, `Im(M⁻¹z) = 1/Q(−c,a)` | 210 |
+| F5c ✅ | `UnfoldTheta`: (U), with `𝓕` replaced by `{−½ ≤ x < ½}` up to the null line `x = ½` | 176 |
+| F4 ✅ | `RSMellin`: Tonelli in `(t, v)`, Euler's integral termwise, E3a (`lintegral_mellin_horocycle`) | 171 |
+| F6 ✅ | `RSUnfoldProof`: real form at `σ > 2` (all quantities real: `Γ`, `ζ(2σ)`, `L(σ)`), then the **identity theorem** on `Re s > 2`: `mellin(Φ−κ) = Λ₀(s) − κ/s − κ/(1−s)` and `γζL` are holomorphic there and agree on `3 + 1/(n+1)` | 227 |
 
-Total remaining: about 700 lines. After that, `rankinSelberg_power_saving_of_unfold` is
-unconditional with no other change.
+Design choices that kept it short:
 
-Sanity check of the normalisation (paper): both sides of `RSUnfold` have the residue `κ` at
-`s = 1`. Indeed `γ(1)ζ(2)·c = κ` with `c = 3κ(4π)¹²/(π·11!)`, which is the constant of the
-already-proved asymptotic `rankinSelberg_asymptotic_zagier_unconditional`.
+* **No complex dominated convergence.** The planned F6 (complex-`s` E3a by dominated convergence)
+  was replaced by analytic continuation: the identity is proved for real `σ` in `[0,∞]` and
+  extended by `AnalyticOnNhd.eqOn_of_preconnected_of_frequently_eq`. Holomorphy of the left side
+  comes free from `rsFE` (`mellin(Φ−κ) = rsFE.Λ` for `Re s > 1`), of `L(s)` from
+  `LSeries_differentiableOn` with abscissa `≤ 2` (`τ(n)²/n¹¹ ≪ n`).
+* **The unfolding is in `[0,∞]` throughout**, so Tonelli and `lintegral_tsum` need only
+  measurability, never integrability.
+* **Fundamental domain without boundary bookkeeping.** `∑_γ 1_U(γw) = 2` holds off the countable
+  union of `SL₂(ℤ)`-translates of the unit circle, which is null by invariance of the measure.
+  The edge `Re = ½` is removed in real coordinates (a line in `ℝ²`).
+* Measurability of `I(v)` is avoided by replacing it with its Parseval series `∑ τ(n)²v¹²e^{−4πnv}`
+  (`hasSum_mterm`) inside the integrals.
+
+Sanity check of the normalisation (paper, now also implied by the Lean proof): both sides of
+`RSUnfold` have residue `κ` at `s = 1`, and `γ(1)ζ(2)·c = κ` with `c = 3κ(4π)¹²/(π·11!)`, the
+constant of `rankinSelberg_asymptotic_zagier_unconditional`.
+
+## The exponent `1/84` (`RieszK`, `PowerSaving84`)
+
+`rieszAsymp_of_continuation` gives the Riesz mean of order `k = 20` with saving `θ = 1 − σ₁ = 1/4`
+(order `20 = K + 1`, where `K = 19` is the growth exponent of `Ffun_bound`). The halving descent
+turned that into `θ/2^{20}`. `riesz_kdiff` takes one `k`-th forward difference instead:
+
+* `ψ_{j+1}' = (j+1)ψ_j` (right derivative; `ψ_j(u) = u_+^j`) gives the exact relation
+  `ΔW_{j+1} = (j+1)∫₀^h W_j(·+s)ds`. The main terms `M_j = c x^{j+1}/(j+1)` satisfy the same
+  relation.
+* `bracket` (induction on `k`, using that `Δ^k` commutes with `∫₀^h ·(·+s)ds`):
+  `k!h^kF_0(x) ≤ Δ_h^kF_k(x) ≤ k!h^kF_0(x+kh)` for both families (`W_0` is monotone since
+  `aₙ ≥ 0`).
+* The error `E = W_k − M_k = O(x^{k+1−θ})` contributes `|Δ^kE| ≤ 2^k sup|E|`. With
+  `h = x^{1−θ/(k+1)}/(k+1)` both `ckh` and `2^k sup|E|/(k!h^k)` are `O(x^{1−θ/(k+1)})`.
+
+So `δ = (1/4)/21 = 1/84`.
+
+## What remains
+
+Nothing for the stated theorem. Further improvements of the exponent:
+
+* lower the growth exponent `19` in `Ffun_bound`. That lowers the order `k` of the Riesz mean
+  and raises `δ = (1−σ₁)/(k+1)`. The `19` comes from the crude polynomial normalisation
+  `(s+3)^{19}` in the Phragmén–Lindelöf function. With the real convexity bound (a growth
+  exponent below 1 near `σ = 1`) one gets `δ` around `1/10`;
+* with Stirling and an optimised contour one reaches Rankin–Selberg's `δ = 2/5`.
 
 ## Literature
 
