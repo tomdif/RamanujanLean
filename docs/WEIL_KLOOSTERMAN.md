@@ -1,3 +1,4 @@
+> **Update (2026-11-04):** `WeilPrimeBound` is proved (`StepanovAS.weilPrimeBound`), so τ(n) = O(n^{23/4+ε}) holds unconditionally (`StepanovAS.tau_isBigO_23_4_unconditional`); see [STEPANOV_ARTIN_SCHREIER](STEPANOV_ARTIN_SCHREIER.md).
 > **Update (2026-11-04):** `SaliePrimeBound` is proved (`Stepanov.saliePrimeBound`), giving τ(n) = O(n^{35/6+ε}) unconditionally. Correction: the fibre character sum in the sixth moment is a quartic (genus 1), not a quintic; see [STEPANOV](STEPANOV.md).
 
 # Salié and Weil exponents for τ via Kloosterman sums (`RamanujanTau/WeilKloosterman/`)

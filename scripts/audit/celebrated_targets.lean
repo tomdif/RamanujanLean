@@ -48,3 +48,5 @@ with no exceptions. -/
 #print axioms RamanujanTau.Stepanov.hasseWeil_charSum_le
 #print axioms RamanujanTau.Stepanov.hasse_elliptic
 #print axioms RamanujanTau.Stepanov.tau_isBigO_35_6_unconditional
+#print axioms RamanujanTau.StepanovAS.weilPrimeBound
+#print axioms RamanujanTau.StepanovAS.tau_isBigO_23_4_unconditional
