@@ -83,3 +83,4 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauSigns.tau_sign_changes
 #print axioms RamanujanTau.TauSigns.tau_sign_change_short_interval
 #print axioms RamanujanTau.TauSigns.card_signChanges_ge
+#print axioms RamanujanTau.RankinErrorGeneral.rankinSelberg_power_saving_general
