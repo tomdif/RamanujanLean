@@ -80,3 +80,6 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinSelbergGeneral.rankinSelberg_weight16
 #print axioms RamanujanTau.TauDensity.tau_norm_form_ne_zero
 #print axioms RamanujanTau.TauDensity.card_tau_ne_zero_ge_div_log
+#print axioms RamanujanTau.TauSigns.tau_sign_changes
+#print axioms RamanujanTau.TauSigns.tau_sign_change_short_interval
+#print axioms RamanujanTau.TauSigns.card_signChanges_ge
