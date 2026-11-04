@@ -76,3 +76,5 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauDensity.tau_eq_zero_iff
 #print axioms RamanujanTau.TauDensity.card_tau_ne_zero_ge_sqrt
 #print axioms RamanujanTau.TauDensity.card_tau_ne_zero_ge_rpow
+#print axioms RamanujanTau.RankinSelbergGeneral.rankinSelberg_asymptotic
+#print axioms RamanujanTau.RankinSelbergGeneral.rankinSelberg_weight16
