@@ -304,7 +304,7 @@ with the build and audit commands in the [overview](../README.md#build-and-verif
 
 | Track | Lean status | Remaining |
 |---|---|---|
-| Kloosterman τ bound | `TauBound.tau_isBigO_47_8_unconditional`: τ(n) = O(n^{47/8+ε}), no hypotheses | Salié/Weil bounds would plug into the same framework |
+| Kloosterman τ bound | `TauBound.tau_isBigO_47_8_unconditional`: τ(n) = O(n^{47/8+ε}), no hypotheses. `WeilKloosterman`: sharp prime-power bound |S(1,n;p^k)| ≤ 6√(p^k) for k ≥ 2 (unconditional), and τ(n) = O(n^{35/6+ε}) / O(n^{23/4+ε}) conditional on the named prime-modulus bounds `SaliePrimeBound` / `WeilPrimeBound` | the prime case: Hasse–Weil for hyperelliptic curves (Salié) or Stepanov + rationality for Kloosterman sums (Weil) |
 | GORZ for Riemann Ξ | **`GORZXi.xi_gorz_unconditional`**: for every d, the Jensen polynomials of the Taylor coefficients γ(n) of (−1+4z²)Λ(1/2+z) (Mathlib's `completedRiemannZeta`) are hyperbolic for all large n and the renormalized polynomials → H_d; no hypotheses (`xiKernelHyp_holds`, elementary Stein-identity moment bounds). Also the abstract GORZ Theorems 3 and 6 and the integral formula `gammaMathlib_eq` | effective thresholds; GORZ Theorem 2 (d ≤ 8 for all n) |
 | GORZ for p(n) | `GORZ.jensen_eventually_hyperbolic` (every d), `tendsto_coeff_Jhat` (Hermite limit), no hypotheses | explicit N(d) beyond d = 7; abstract GORZ Theorem 3 for general sequences |
 | Jensen thresholds | `JensenThreshold.jensen6_threshold_unconditional` (N(6)=610) and `jensen7_threshold_unconditional` (N(7)=908), Larson–Wagner convention, no hypotheses | d ≥ 8; Lean versions of d ≤ 5 |

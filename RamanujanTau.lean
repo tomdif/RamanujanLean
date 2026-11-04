@@ -578,3 +578,4 @@ import RamanujanTau.AndrewsDragonette.Main
 import RamanujanTau.AndrewsDragonette.Obstruction
 import RamanujanTau.GORZXi.Main
 import RamanujanTau.GORZXi.XiUncond
+import RamanujanTau.WeilKloosterman.Main

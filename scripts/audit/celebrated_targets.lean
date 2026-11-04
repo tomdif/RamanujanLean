@@ -5,6 +5,8 @@ Boylan–Webb lower-bound results. Expected: only propext, Classical.choice, Quo
 with no exceptions. -/
 #print axioms RamanujanTau.TauBound.tau_isBigO_47_8_unconditional
 #print axioms RamanujanTau.TauBound.poincareIsCuspForm
+#print axioms RamanujanTau.WeilKloosterman.norm_kloosterman_primePow_le_sqrt
+#print axioms RamanujanTau.WeilKloosterman.tau_isBigO_23_4_of_weil
 #print axioms JensenThreshold.jensen6_threshold_unconditional
 #print axioms JensenThreshold.jensen7_threshold_unconditional
 #print axioms GORZ.jensen_eventually_hyperbolic
