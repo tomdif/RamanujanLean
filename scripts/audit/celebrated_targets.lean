@@ -45,3 +45,6 @@ with no exceptions. -/
 #print axioms RamanujanTau.BWSharpAll.bEll_eq_all_of_int_dets
 #print axioms RamanujanTau.KloostermanL.kloosterman_L_rational
 #print axioms RamanujanTau.KloostermanL.tau_isBigO_23_4_of_stepanov
+#print axioms RamanujanTau.Stepanov.hasseWeil_charSum_le
+#print axioms RamanujanTau.Stepanov.hasse_elliptic
+#print axioms RamanujanTau.Stepanov.tau_isBigO_35_6_unconditional

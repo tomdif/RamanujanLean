@@ -1,3 +1,5 @@
+> **Update (2026-11-04):** `SaliePrimeBound` is proved (`Stepanov.saliePrimeBound`), giving τ(n) = O(n^{35/6+ε}) unconditionally. Correction: the fibre character sum in the sixth moment is a quartic (genus 1), not a quintic; see [STEPANOV](STEPANOV.md).
+
 # Salié and Weil exponents for τ via Kloosterman sums (`RamanujanTau/WeilKloosterman/`)
 
 **Status (2026-11-04).** Everything is proved except the bound for **prime moduli**:
