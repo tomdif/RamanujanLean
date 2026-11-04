@@ -109,6 +109,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - **`GORZXi.xi_gorz_unconditional`** — GORZ Theorem 1 for Riemann Ξ, unconditional (`xiKernelHyp_holds`); `GORZXi.gorz_thm3` — the abstract GORZ Theorem 3 (unconditional); `GORZXi.gammaMathlib_eq` — integral formula for the Taylor coefficients of Ξ from Mathlib's completed zeta.
 - `GORZ.jensen_eventually_hyperbolic` — for every d, `J^{d,n}` is hyperbolic for all large n (Griffin–Ono–Rolen–Zagier 2019, partition case); `GORZ.tendsto_coeff_Jhat` — renormalized Jensen polynomials → Hermite.
 - `GORZXiEff.gamma_eq_mom` — the Taylor coefficients of Ξ as moments of Riemann's Φ; **`GORZXiEff.turan_gamma_unconditional`** — the Turán inequalities for the Taylor coefficients of Ξ for every n (Csordas–Norfolk–Varga), unconditional.
+- **`EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional`** — the Rankin–Selberg asymptotic `Σ_{n≤N} τ(n)²/n¹¹ ~ (3/π)(4π)¹²‖Δ‖²/11!·N`, unconditional; `horocycleLimit_zagier` — horocycle equidistribution for |Δ|²y¹².
 - `EisensteinReal.karamata` — Karamata's Tauberian theorem for power series with nonnegative coefficients; `rankinSelberg_asymptotic_of_horocycle` (conditional on `HorocycleLimit`).
 - `RankinSelberg.rankinSelberg_two_sided` — `c₁N ≤ Σ_{n≤N} τ(n)²/n¹¹ ≤ c₂N`: the order of magnitude in Rankin–Selberg.
 - `LehmerSmall.lehmer_below_74627999` — `τ(n) ≠ 0` for all `1 ≤ n < 74627999`; `LehmerSmall.tau_prime_pow_ne_zero` — `τ(p) ≠ 0 ⇒ τ(pᵏ) ≠ 0`; `tau_mod7_all`, `tau_mod25_all`, `tau_mod3_all` — Ramanujan-type congruences for every n.

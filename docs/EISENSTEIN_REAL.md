@@ -1,25 +1,28 @@
-# Rankin–Selberg asymptotic for τ: Karamata, `E(z,s)`, the strip Mellin identity (`RamanujanTau/EisensteinReal/`)
+# Rankin–Selberg asymptotic for τ: Karamata, horocycle equidistribution, `E(z,s)` (`RamanujanTau/EisensteinReal/`)
 
-**Status (2026-11-04).** The asymptotic
+**Status (2026-11-04, Route B completed).** The asymptotic
 
     (1/N) ∑_{n≤N} τ(n)²/n¹¹  →  c = (3/π)(4π)¹² ‖Δ‖² / 11! = 0.384084054468170…
 
-is proved in Lean, **conditional on one named hypothesis**: `HorocycleLimit L`, the equidistribution
-of long closed horocycles for the single invariant function `G(z) = |Δ(z)|²(Im z)¹²`.
-Everything else in the chain is axiom-clean: Karamata's Tauberian theorem, Abel summation,
-Parseval (from `RankinSelberg/`), and the identification of the constant. The hypothesis is the
-classical theorem of Zagier (1979) and Sarnak (1981). It is **equivalent** to the conclusion, by
-the easy Abelian converse (paper level, not formalized). So all the depth of the asymptotic is in
-this one statement. It is not yet proved.
+is now proved in Lean **unconditionally**, with Zagier's constant
+(`rankinSelberg_asymptotic_zagier_unconditional`). The former named hypothesis
+`HorocycleLimit L` (equidistribution of long closed horocycles for `G(z) = |Δ(z)|²(Im z)¹²`) is
+discharged: `horocycleLimit_zagier : HorocycleLimit ((3/π)·petNormSq)`, and also the bare
+existence `exists_horocycleLimit : ∃ L, HorocycleLimit L`. The proof is the elementary Route B
+below (lattice-point counts, Möbius, a sandwich): no `E(z,s)`, no spectral theory, no Fourier
+expansion in `x`, no `K`-Bessel functions.
 
-Also done, axiom-clean: milestone E1 (the real-analytic Eisenstein series `E(z,s)` for real
-`s > 1`, with convergence and `SL₂(ℤ)`-invariance), and the strip half E3a of the unfolding identity.
+Also done, axiom-clean: Karamata's Tauberian theorem, Abel summation, milestone E1 (the
+real-analytic Eisenstein series `E(z,s)` for real `s > 1`), and the strip half E3a of the
+unfolding identity. Those remain, but `E(z,s)` is no longer needed for the asymptotic.
 
 No sorry, no new axiom, no `native_decide`. Every headline prints
 `[propext, Classical.choice, Quot.sound]`.
-Build only these files: `nice -n 10 lake build RamanujanTau.EisensteinReal.Main`.
-Nothing in `RankinSelberg/`, `TauBound/` or `GORZXi/` was modified. The root `RamanujanTau.lean`
-does not import these files.
+Build only these files: `nice -n 10 lake build RamanujanTau.EisensteinReal.HoroIdent`
+(this imports everything in this directory except `Mellin`/`Eisenstein`; for those use
+`lake build RamanujanTau.EisensteinReal.Main`).
+Nothing outside `EisensteinReal/` was modified, and the files `Karamata`, `Asymptotic`, `Mellin`,
+`Eisenstein`, `Main` are unchanged. The root `RamanujanTau.lean` does not import these files.
 
 | File | Lines | Content |
 |---|---|---|
@@ -27,7 +30,16 @@ does not import these files.
 | `Asymptotic.lean` | 240 | Abel summation with a Cesàro mean; `HorocycleLimit`; the conditional asymptotic |
 | `Mellin.lean` | 101 | E3a: `∫₀^∞ I(y) y^{s-2} dy = ∑ τ(n)² Γ(s+11)/(4πn)^{s+11}` in `[0,∞]` |
 | `Eisenstein.lean` | 112 | E1: `E(z,s)` for real `s > 1`: summability, Γ-invariance, `E ≥ y^s` |
-| `Main.lean` | 20 | imports and `#print axioms` |
+| `Main.lean` | 20 | imports and `#print axioms` (unchanged; does not import the `Horo*` files) |
+| `HoroArith.lean` | 409 | coprime count in an interval (Möbius), divisor rearrangement, harmonic error, Riemann sum for `√(1−t²)`, dominated convergence for `∑ μ(e)/e²·S(se)` |
+| `HoroUnfold.lean` | 163 | `SL₂(ℤ) ≃ {(a,c) coprime} × ℤ`; unfolding `∫₀¹ ∑_γ F(γz) dx = ∑_{(a,c)} ∫_ℝ F(M(a,c)z) dx` |
+| `HoroCount.lean` | 325 | rectangle count `N_R`, its horocycle mean as `2∑_{c≥1} G(c)`, two-sided bounds on `G(c)` |
+| `HoroLimit.lean` | 336 | explicit error bound and the limit `∫₀¹ N_R(x+iy) dx → K₀(β−α)/A` |
+| `HoroSandwich.lean` | 270 | fundamental-domain facts (orbit meets `U`; meets `S` only at `±γ`); box counts |
+| `HoroMain.lean` | 444 | the `1/K`-grid adapted to the arc, pointwise upper/lower bounds for `G` |
+| `HoroFinal.lean` | 417 | integration, gap bound, Cauchy argument: `∃ L, HorocycleLimit L` and the unconditional asymptotic |
+| `HoroConst.lean` | 74 | `κ = ∑μ(e)/e² = 6/π²`, `W = π/4`, `K₀ = 6/π` |
+| `HoroIdent.lean` | 575 | `∑c⁻μ ≤ ‖Δ‖² ≤ ∑c⁺μ + M/L` (Fubini on boxes), hence `L = (3/π)‖Δ‖²` |
 | `scripts/eisensteinreal/horocycle_check.gp` | | numerics (PARI) |
 
 ## Headline theorems
@@ -42,8 +54,20 @@ does not import these files.
 | `summable_eSummand` | For `s > 1`, `v ↦ y^s |v₀z + v₁|^{−2s}` is summable over `ℤ²`. |
 | `E_smul` | `E(γz, s) = E(z, s)` for `γ ∈ SL₂(ℤ)`, where `E(z,s) = ½ ∑_{gcd(c,d)=1} y^s|cz+d|^{−2s}`. |
 | `E_ge`, `E_pos` | `E(z,s) ≥ y^s > 0` for `s > 1`. |
+| **`rankinSelberg_asymptotic_zagier_unconditional`** | `(∑_{n≤N} τ(n)²/n¹¹)/N → (3/π)(4π)¹²·petNormSq/11!` (no hypotheses) |
+| **`horocycleLimit_zagier`** | `HorocycleLimit ((3/π)·petNormSq)`: `∫₀¹ G(x+iy) dx → (3/π)‖Δ‖²` |
+| **`exists_horocycleLimit`** | `∃ L, HorocycleLimit L` |
+| **`rankinSelberg_asymptotic_unconditional`** | `∃ c > 0, (∑_{n≤N} τ(n)²/n¹¹)/N → c` |
+| `sum_tau_sq_asymptotic_unconditional` | `∃ c > 0, (∑_{n≤N} τ(n)²)/N¹² → c` |
+| `Horo.tendsto_horoR_const` | for `α ≤ β`, `A > 0`: `∫₀¹ #{γ ∈ SL₂(ℤ) : γ(x+iy) ∈ [α,β)×[A,∞)} dx → (6/π)(β−α)/A` |
+| `Horo.horo_bound` | explicit error: for `0<y<A`, `Ay ≤ 1`, `s=√(Ay)`: `|mean − 4(β−α)T(s)/A| ≤ (4s/A)(1+log(1/s))²` |
+| `Horo.lintegral_unfold` | `∫₀¹ ∑_{γ∈SL₂(ℤ)} F(γ(x+iy)) dx = ∑_{(a,c) coprime} ∫_ℝ F(M(a,c)(x+iy)) dx` for measurable `F ≥ 0` |
+| `Horo.coprimeCount_bound` | `|#{a ∈ [u,v) : (a,c)=1} − (v−u)∑_{e∣c}μ(e)/e| ≤ d(c)` |
+| `Horo.smul_mem_S_unique` | if `γz, γ′z ∈ {−½ ≤ Re < ½, |w|>1}` then `γ′ = ±γ` |
+| `Horo.petNormSq_ge`, `Horo.petNormSq_le` | the grid brackets `‖Δ‖²` |
+| `Horo.kappa_eq`, `Horo.Wc_eq` | `∑ μ(e)/e² = 6/π²`, `∫₀¹ √(1−t²) dt = π/4` |
 
-### Evidence level 2 (Lean, conditional on the named hypothesis `HorocycleLimit`)
+### Evidence level 1, reduction steps (Lean; formerly the only route, now fed by `horocycleLimit_zagier`)
 
 ```lean
 def HorocycleLimit (L : ℝ) : Prop :=
@@ -111,52 +135,57 @@ which is about 1500 lines and is not in Mathlib. That is strictly more work than
   1.0659, 1.0134, 1.0419, 1.0052, 1.0065, 0.99552, 0.99740, 0.99810, 1.00056, 1.00079, 1.00031.
 * `(I(y)/L − 1)/√y` stays in `[−0.05, +0.14]`, which fits Zagier's `O(y^{1/2})` error term.
 * `docs/RANKIN_SELBERG.md` has `S(x)/x = 0.38403` at `x = 10⁵`.
+* Rectangle counts (Python, direct enumeration of `(c,d)`, 5000–20000 points in `x`). The
+  horocycle mean of `N_R` divided by `(6/π)(β−α)/A` is 0.986–1.004 for `y ∈ {10⁻³, 10⁻⁴, 10⁻⁵}`
+  and three rectangles. This was checked before formalizing `tendsto_horoR_const`.
 
-## What remains: proving `HorocycleLimit`
+## How `HorocycleLimit` is proved (Route B, as formalized)
 
-Three routes.
+The previous sketch (Fourier modes in `x`, Ramanujan sums, a partition of unity) was checked on
+paper and then **simplified**: no Fourier expansion and no partition of unity are needed. The
+formalized argument has four steps.
 
-**Route A: Eisenstein series / Zagier (as briefed).** Remaining work, with estimates:
+1. **Unfold a lattice-point count** (`HoroUnfold`, `HoroCount`). For the rectangle
+   `R = [α,β) × [A,∞)` put `N_R(z) = #{γ ∈ SL₂(ℤ) : γz ∈ R}` (summed over the whole group, so
+   no periodization and no choice of coset representatives). Writing `γ = M(a,c)·Tᵏ` with left
+   column `(a,c)` gives `∫₀¹ N_R(x+iy) dx = ∑_{(a,c)} ∫_ℝ 1_R(a/c − 1/(c²(x+iy))) dx`. For
+   `y < A` the `c = 0` terms vanish, `±(a,c)` contribute equally, and for `c ≥ 1` the inner sum
+   over `a` is the number of `a` coprime to `c` in an interval of length `c(β−α)`.
+2. **Möbius** (`HoroArith.coprimeCount_bound`): that number is `c(β−α)ν(c) + O(d(c))`, with
+   `ν(c) = ∑_{e∣c}μ(e)/e`. The `x`-measure of `{A ≤ y/(c²(x²+y²))}` is
+   `λ_c = 2√(y/(Ac²) − y²)`.
+3. **Limit** (`HoroLimit`). With `s = √(Ay)` and `w(t) = √(1−t²)`:
+   `∑_c cν(c)λ_c = (2/A)∑_e μ(e)/e² · S(se)`, where `S(h) = ∑_{1≤m≤1/h} h·w(mh)`, so
+   `|S(h) − ∫₀¹w| ≤ h`, and dominated convergence applies. The error is
+   `∑_c d(c)λ_c ≤ (2s/A)(1+log(1/s))²`. So the mean tends to `4κW(β−α)/A = (6/π)(β−α)/A`.
+4. **Sandwich** (`HoroSandwich`, `HoroMain`, `HoroFinal`). Two facts about `SL₂(ℤ)` are used:
+   every orbit meets `U = {−½ ≤ Re < ½, |w| ≥ 1}`, and an orbit meets
+   `S = {−½ ≤ Re < ½, |w| > 1}` only at `±γ`. A `1/K`-grid of boxes, adapted column by column
+   to the arc (`√(1−x²)` is 1-Lipschitz on `[−½,½]`), plus uniform continuity of `G` on
+   `[−½,½]×[¼, L+2]` gives
+   `∑_γ lo(γz) ≤ 2G(z) ≤ ∑_γ up(γz)`. Here `up`/`lo` are box combinations with coefficients
+   `G(corner) ± δ`, and `up` has one cusp rectangle with coefficient `M = sup G`. Each box count
+   has a horocycle limit, and the two limits differ by at most
+   `|K₀|(16(M+δ)/K + 8δL + M/L)`. A Cauchy argument then gives `∃ L`.
+   **Identification** (`HoroIdent`): the same grid brackets
+   `‖Δ‖² = ∫_𝓕 G dx dy/y²`, because `∫_{box} dx dy/y² = (β−α)(1/a−1/b)` by Fubini, which matches
+   the box-count limit. With `K₀/2 = 3/π` (`κ = 6/π²` from `L(μ,2) = 1/ζ(2)`, and `W = π/4`),
+   this gives `L = (3/π)‖Δ‖²`.
 
-| Piece | Lines |
-|---|---|
-| E1 for complex `s` and holomorphy in `s` (`differentiableOn_tsum_of_summable_norm`) | 200 |
-| E2: Fourier expansion by Poisson summation in `d`. Mathlib has no `K`-Bessel function, so define it by its integral. Includes continuation to `Re s > 1/2`, `φ(s) = √π Γ(s−½)ζ(2s−1)/(Γ(s)ζ(2s))`, and its residue `3/π` | 1500–2200 |
-| E3b: `ModularGroup.fd` as a measure-theoretic fundamental domain, and the unfolding `∫_{Γ\ℍ} G E dμ = ∫_{strip} G y^s dμ`. With E3a (done) this gives the Rankin–Selberg integral | 900–1300 |
-| Zagier's step: growth of `⟨G, E(·,σ+it)⟩` in `t`, Mellin inversion of `I(y)` with the contour moved to `Re s = 1/2`, which gives `HorocycleLimit` with error `O(y^{1/2})` | 1200–2000 |
+Actual cost: 3013 lines (estimate was 1800–2500). The error term `O(√y log²(1/y))` for box
+counts is explicit (`horo_bound`), but no rate is extracted for `G` itself, because the
+uniform-continuity step is not quantitative. An `O(x^{3/5})` error for the asymptotic would need
+Lipschitz bounds on `G` and is not attempted.
 
-Total: about **3800–5700 lines**.
-
-**Route B: Farey fractions and Ramanujan sums (recommended; cheaper, my own sketch, evidence level 3).**
-It needs no `E(z,s)`, no spectral theory, and no measure-theoretic fundamental domain.
-
-* **Write `G` as a sum over cosets.** Write `G = ∑_{Γ∞\Γ} h(γz)`, with `h = G·r(Im z)/E(z|r)`.
-  Here `r ∈ C_c(0,∞)` is nonnegative and positive on `[√3/2, Y]`, and `E(·|r)` is the incomplete
-  Eisenstein series, which is a finite sum locally. Cut off the cusp separately, using
-  `sup_{Im ≥ Y} G → 0` on `𝓕`.
-* **Unfold the horocycle integral.** Bruhat decomposition of `Γ∞\Γ/Γ∞` gives
-  `I_h(y) = ∫₀¹ h + ∑_{c≥1} ∑*_{a mod c} ∫_ℝ h(a/c − 1/(c²(x+iy))) dx`.
-* **Main term.** Expand `h` in Fourier modes in `Re`. Since `∑*_a e(ma/c) = c_c(m)` (Ramanujan
-  sum), the `m = 0` term is `y ∑_c φ(c) F(c²y)`. By `∑_{c≤X} φ(c) ~ 3X²/π²`, it tends to
-  `(3/π²)∫F = (3/π)∫_{strip} h dμ`.
-* **Error terms.** For `m ≠ 0`, `|c_c(m)| ≤ gcd(c,m)`, so each term is `O_m(y^{1/2})`. A
-  Fejér approximation in `Re` controls the tail in `m`.
-
-Estimated cost: `∑φ ~ 3X²/π²` about 250 lines (Mathlib has `ζ(2) = π²/6`), the coset
-parametrization and unfolding about 500, the Riemann-sum limit about 300, the Fourier truncation
-about 300, the partition of unity and cusp cut-off about 500. Total about **1800–2500 lines**.
-
-This route proves `∃ L, HorocycleLimit L` with
-`L = (3/π)∫_{strip} h dμ`, and so `∑ τ²/n¹¹ ~ c x` for some `c > 0`. Identifying `L` with
-`(3/π)‖Δ‖²` needs `∫_{strip} h dμ = ∫_𝓕 G dμ`, which is the only place `𝓕` enters.
-
-**Route C: dynamics** (mixing of the geodesic flow, Margulis thickening; Sarnak, Dani–Smillie).
-This is the heaviest route in Lean.
-
-Error term `O(x^{3/5})`: unchanged from `docs/RANKIN_SELBERG.md`. It needs the functional
-equation of `L(Δ⊗Δ, s)` and Landau's lemma.
+**Route A** (`E(z,s)`, Fourier expansion, Zagier's contour shift, estimated 3800–5700 lines) is
+superseded. E1/E3a stay as independent results. **Route C** (mixing) is not needed.
 
 ## Literature
+
+* The lattice-point/sandwich proof here is self-contained. Its main term is the classical
+  equidistribution of Farey fractions with weights `φ(c)/c`. Its structure (unfold, count, sandwich
+  on a fundamental domain) is the standard elementary route to horocycle equidistribution on
+  `SL₂(ℤ)\ℍ` for compactly supported test functions.
 
 * J. Karamata, *Über die Hardy–Littlewoodschen Umkehrungen des Abelschen Stetigkeitssatzes*,
   Math. Z. 32 (1930). The proof used here is the one in Titchmarsh, *Theory of Functions*, §7.53.

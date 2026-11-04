@@ -588,3 +588,4 @@ import RamanujanTau.GORZXiD3.Main
 import RamanujanTau.EisensteinReal.Main
 import RamanujanTau.GORZXiEff.CVMain
 import RamanujanTau.LehmerSmall.Final
+import RamanujanTau.EisensteinReal.HoroIdent
