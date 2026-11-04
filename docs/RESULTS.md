@@ -108,6 +108,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - `TauBound.tau_isBigO_47_8_unconditional` — `τ(n) =O n^{47/8+ε}` for every ε > 0 (Kloosterman 1927), unconditional.
 - **`GORZXi.xi_gorz_unconditional`** — GORZ Theorem 1 for Riemann Ξ, unconditional (`xiKernelHyp_holds`); `GORZXi.gorz_thm3` — the abstract GORZ Theorem 3 (unconditional); `GORZXi.gammaMathlib_eq` — integral formula for the Taylor coefficients of Ξ from Mathlib's completed zeta.
 - `GORZ.jensen_eventually_hyperbolic` — for every d, `J^{d,n}` is hyperbolic for all large n (Griffin–Ono–Rolen–Zagier 2019, partition case); `GORZ.tendsto_coeff_Jhat` — renormalized Jensen polynomials → Hermite.
+- `KloostermanL.kloosterman_L_rational` — rationality of the Kloosterman L-function over any finite field: L(T) = 1 + K₁T + qT², so K_r = −(α^r+β^r); `tau_isBigO_23_4_of_stepanov` — Weil's τ bound from the named Stepanov hypothesis.
 - `WeilKloosterman.norm_kloosterman_primePow_le_sqrt` — `|S(1,n;p^k)| ≤ 6√(p^k)` for every prime p and k ≥ 2; `tau_isBigO_23_4_of_weil` — Weil's `τ(n) = O(n^{23/4+ε})` from the named prime bound `WeilPrimeBound`.
 - `JensenThreshold.jensen6_threshold_unconditional` / `jensen7_threshold_unconditional` — `J^{6,n}` hyperbolic ⟺ (n ≥ 610 among n ≥ 609); `J^{7,n}` likewise at 908.
 - `Dragonette.dragonette_literal` — `α(n) ~ (−1)^{n+1} e^{π√(n/6−1/144)}/(2√(n−1/24))` for `α(n) = [qⁿ]f(q) = N(0,2,n)−N(1,2,n)`.
