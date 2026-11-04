@@ -50,3 +50,4 @@ with no exceptions. -/
 #print axioms RamanujanTau.Stepanov.tau_isBigO_35_6_unconditional
 #print axioms RamanujanTau.StepanovAS.weilPrimeBound
 #print axioms RamanujanTau.StepanovAS.tau_isBigO_23_4_unconditional
+#print axioms RamanujanTau.RankinSelberg.rankinSelberg_two_sided
