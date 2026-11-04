@@ -1,0 +1,371 @@
+⚠ [8461/8515] Replayed RamanujanTau.MockTheta5QuintIdentity
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:72:65: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+info: RamanujanTau/MockTheta5QuintIdentity.lean:75:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: RamanujanTau/MockTheta5QuintIdentity.lean:555:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: RamanujanTau/MockTheta5QuintIdentity.lean:575:4: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:591:27: This simp argument is unused:
+  zero_sub
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, z̵e̵r̵o̵_̵s̵u̵b̵,̵ ̵add_zero, zero_add, neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:591:57: This simp argument is unused:
+  neg_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, zero_sub, add_zero, zero_add,̵ ̵n̵e̵g̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:612:27: This simp argument is unused:
+  zero_sub
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, z̵e̵r̵o̵_̵s̵u̵b̵,̵ ̵add_zero, zero_add, neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:612:37: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, zero_sub, a̵d̵d̵_̵zero,̵ ̵z̵e̵r̵o̵_add, neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:612:57: This simp argument is unused:
+  neg_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, zero_sub, add_zero, zero_add,̵ ̵n̵e̵g̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:635:37: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, zero_sub, a̵d̵d̵_̵zero,̵ ̵z̵e̵r̵o̵_add, neg_zero, map_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:635:57: This simp argument is unused:
+  neg_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, zero_sub, add_zero, zero_add, n̵e̵g̵_̵z̵e̵r̵o̵,̵ ̵map_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/MockTheta5QuintIdentity.lean:658:57: This simp argument is unused:
+  neg_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [sub_zero, zero_sub, add_zero, zero_add, n̵e̵g̵_̵z̵e̵r̵o̵,̵ ̵map_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8469/8515] Replayed RamanujanTau.PartitionCongruenceMod11
+warning: RamanujanTau/PartitionCongruenceMod11.lean:89:46: This simp argument is unused:
+  smul_eq_mul
+
+Hint: Omit it from the simp argument list.
+  simp only [RingHom.toAddMonoidHom_eq_coe,̵ ̵s̵m̵u̵l̵_̵e̵q̵_̵m̵u̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:137:86: 'omega' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:137:86: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:137:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:618:4: 'push_cast at ht ⊢' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:644:50: 'push_cast' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:649:27: This simp argument is unused:
+  Finset.mem_coe
+
+Hint: Omit it from the simp argument list.
+  simp only [Finset.mem_c̵o̵e̵,̵ ̵F̵i̵n̵s̵e̵t̵.̵m̵e̵m̵_̵Icc, Finset.coe_Icc, Set.mem_Icc] at hx ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:649:59: This simp argument is unused:
+  Finset.coe_Icc
+
+Hint: Omit it from the simp argument list.
+  simp only [Finset.mem_coe, Finset.mem_Icc, F̵i̵n̵s̵e̵t̵.̵c̵o̵e̵_̵I̵c̵c̵,̵ ̵Set.mem_Icc] at hx ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:649:75: This simp argument is unused:
+  Set.mem_Icc
+
+Hint: Omit it from the simp argument list.
+  simp only [Finset.mem_coe, Finset.mem_Icc, Finset.coe_Icc,̵ ̵S̵e̵t̵.̵m̵e̵m̵_̵I̵c̵c̵] at hx ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:650:27: This simp argument is unused:
+  Finset.mem_coe
+
+Hint: Omit it from the simp argument list.
+  simp only [Finset.mem_c̵o̵e̵,̵ ̵F̵i̵n̵s̵e̵t̵.̵m̵e̵m̵_̵Icc, Finset.coe_Icc, Set.mem_Icc] at hx ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:650:59: This simp argument is unused:
+  Finset.coe_Icc
+
+Hint: Omit it from the simp argument list.
+  simp only [Finset.mem_coe, Finset.mem_Icc, F̵i̵n̵s̵e̵t̵.̵c̵o̵e̵_̵I̵c̵c̵,̵ ̵Set.mem_Icc] at hx ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/PartitionCongruenceMod11.lean:650:75: This simp argument is unused:
+  Set.mem_Icc
+
+Hint: Omit it from the simp argument list.
+  simp only [Finset.mem_coe, Finset.mem_Icc, Finset.coe_Icc,̵ ̵S̵e̵t̵.̵m̵e̵m̵_̵I̵c̵c̵] at hx ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8471/8515] Replayed RamanujanTau.CrankAndrewsGarvan
+warning: RamanujanTau/CrankAndrewsGarvan.lean:90:51: unused variable `hA`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: RamanujanTau/CrankAndrewsGarvan.lean:139:39: unused variable `hm`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: RamanujanTau/CrankAndrewsGarvan.lean:353:26: unused variable `c`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: RamanujanTau/CrankAndrewsGarvan.lean:361:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: RamanujanTau/CrankAndrewsGarvan.lean:761:13: This simp argument is unused:
+  LaurentPolynomial.eval₂_C
+
+Hint: Omit it from the simp argument list.
+  simp [evU,̵ ̵L̵a̵u̵r̵e̵n̵t̵P̵o̵l̵y̵n̵o̵m̵i̵a̵l̵.̵e̵v̵a̵l̵₂̵_̵C̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8472/8515] Replayed RamanujanTau.RankGF
+warning: RamanujanTau/RankGF.lean:31:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: RamanujanTau/RankGF.lean:212:57: `Polynomial.eval₂_finset_sum` has been deprecated: Use `Polynomial.eval₂_finsetSum` instead
+warning: RamanujanTau/RankGF.lean:216:4: `Polynomial.eval₂_finset_prod` has been deprecated: Use `Polynomial.eval₂_finsetProd` instead
+warning: RamanujanTau/RankGF.lean:215:55: This simp argument is unused:
+  Polynomial.eval₂_X_pow
+
+Hint: Omit it from the simp argument list.
+  simp only [Polynomial.eval₂_mul, Polynomial.eval₂_C, Polynomial.eval₂_X_̵p̵o̵w̵, ̵P̵o̵l̵y̵n̵o̵m̵i̵a̵l̵.̵e̵v̵a̵l̵₂̵_̵X̵,̵
+      Polynomial.eval₂_finset_prod, Polynomial.eval₂_sub, Polynomial.eval₂_one, Polynomial.eval₂_pow,
+  ̲  ̲ ̲ ̲map_mul, map_pow,
+  ̵  ̵ ̵ ̵MockTheta5.JTP.ψC, PowerSeries.map_X]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankGF.lean:354:41: This simp argument is unused:
+  zero_add
+
+Hint: Omit it from the simp argument list.
+  simp only [pow_zero, map_one, one_mul, z̵e̵r̵o̵_̵a̵d̵d̵,̵ ̵show m - 0 = m by omega,
+      gaussBinom_eq_zero_of_lt (show m - 1 < m by omega), map_zero, mul_zero, zero_mul, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankGF.lean:436:15: This simp argument is unused:
+  Finset.Icc_self
+
+Hint: Omit it from the simp argument list.
+  simp only [F̵i̵n̵se̵t̵.̵I̵c̵c̵_̵s̵e̵l̵f̵,̵ ̵s̵how ¬ ̵(1 ≤ 0) from by omega, Finset.Icc_eq_empty, not_false_eq_true,
+       ̵ ̵Finset.sum_empty, add_zero, map_one, coeff_zero_eq_constantCoeff]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8473/8515] Replayed RamanujanTau.CrankWinquistMod11
+warning: RamanujanTau/CrankWinquistMod11.lean:224:16: `Int.emod_add_ediv` has been deprecated: Use `Int.emod_add_mul_ediv` instead
+warning: RamanujanTau/CrankWinquistMod11.lean:225:16: `Int.emod_add_ediv` has been deprecated: Use `Int.emod_add_mul_ediv` instead
+⚠ [8478/8515] Replayed RamanujanTau.FourSquaresWZ
+warning: RamanujanTau/FourSquaresWZ.lean:169:37: This simp argument is unused:
+  qfac_zero
+
+Hint: Omit it from the simp argument list.
+  simp [St, Ct, mfac_zero,̵ ̵q̵f̵a̵c̵_̵z̵e̵r̵o̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8489/8515] Replayed RamanujanTau.RankHR1
+warning: RamanujanTau/RankHR1.lean:34:27: `Polynomial.eval₂_finset_prod` has been deprecated: Use `Polynomial.eval₂_finsetProd` instead
+warning: RamanujanTau/RankHR1.lean:34:57: `Polynomial.eval₂_finset_sum` has been deprecated: Use `Polynomial.eval₂_finsetSum` instead
+warning: RamanujanTau/RankHR1.lean:35:88: This simp argument is unused:
+  Polynomial.eval₂_X_pow
+
+Hint: Omit it from the simp argument list.
+  simp only [qprod, qbRHS, Polynomial.eval₂_finset_prod, Polynomial.eval₂_finset_sum,
+  ̲  ̲ ̲ ̲Polynomial.eval₂_add, Polynomial.eval₂_one, Polynomial.eval₂_mul, Polynomial.eval₂_C,
+  ̲  ̲ ̲ ̲Polynomial.eval₂_X, P̵o̵l̵y̵n̵o̵m̵i̵a̵l̵.̵e̵v̵a̵l̵₂̵_̵X̵_̵p̵o̵w̵,̵Polynomial.eval₂_pow, qcoeff, map_mul, map_pow, PowerSeries.map_X, qq] at h
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankHR1.lean:41:15: This simp argument is unused:
+  map_mul
+
+Hint: Omit it from the simp argument list.
+  simp only [map_m̵u̵l̵,̵ ̵m̵a̵p_̵p̵ow, map_neg, map_one, one_pow, mul_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankHR1.lean:41:42: This simp argument is unused:
+  map_one
+
+Hint: Omit it from the simp argument list.
+  simp only [map_mul, map_pow, map_neg, m̵a̵p̵_̵one,̵ ̵o̵n̵e̵_pow, mul_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankHR1.lean:41:51: This simp argument is unused:
+  one_pow
+
+Hint: Omit it from the simp argument list.
+  simp only [map_mul, map_pow, map_neg, map_one, o̵n̵e̵_̵p̵o̵w̵,̵ ̵mul_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankHR1.lean:41:60: This simp argument is unused:
+  mul_one
+
+Hint: Omit it from the simp argument list.
+  simp only [map_mul, map_pow, map_neg, map_one, one_pow,̵ ̵m̵u̵l̵_̵o̵n̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8490/8515] Replayed RamanujanTau.RankHR2Core
+warning: RamanujanTau/RankHR2Core.lean:147:20: This simp argument is unused:
+  rotpF
+
+Hint: Omit it from the simp argument list.
+  simp only [rotmF, r̵o̵t̵p̵F̵,̵ ̵nrP, negU] at *
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8493/8515] Replayed RamanujanTau.RankHR2
+warning: RamanujanTau/RankHR2.lean:86:27: `Polynomial.eval₂_finset_prod` has been deprecated: Use `Polynomial.eval₂_finsetProd` instead
+warning: RamanujanTau/RankHR2.lean:86:57: `Polynomial.eval₂_finset_sum` has been deprecated: Use `Polynomial.eval₂_finsetSum` instead
+warning: RamanujanTau/RankHR2.lean:97:15: This simp argument is unused:
+  map_mul
+
+Hint: Omit it from the simp argument list.
+  simp only [̵m̵a̵p̵_̵m̵u̵l̵,̵ ̵m̵a̵p̵_̵p̵o̵w̵,̵[̲m̲a̲p̲_̲p̲o̲w̲,̲ map_neg, map_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankHR2.lean:97:42: This simp argument is unused:
+  map_one
+
+Hint: Omit it from the simp argument list.
+  simp only [map_mul, map_pow, map_neg,̵ ̵m̵a̵p̵_̵o̵n̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankHR2.lean:227:22: unused variable `hz`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: RamanujanTau/RankHR2.lean:230:17: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [wz, i̵f̵_̵p̵os̵ ̵r̵f̵l̵,̵ ̵o̵ne_mul, Nat.cast_zero, zpow_zero, Int.natAbs_zero, add_eq_zero, one_ne_zero,
+      and_false, if_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8494/8515] Replayed RamanujanTau.RankTheta
+warning: RamanujanTau/RankTheta.lean:133:27: `Polynomial.eval₂_finset_prod` has been deprecated: Use `Polynomial.eval₂_finsetProd` instead
+warning: RamanujanTau/RankTheta.lean:133:57: `Polynomial.eval₂_finset_sum` has been deprecated: Use `Polynomial.eval₂_finsetSum` instead
+warning: RamanujanTau/RankTheta.lean:140:15: This simp argument is unused:
+  one_pow
+
+Hint: Omit it from the simp argument list.
+  simp only [o̵n̵e̵_̵p̵o̵w̵,̵ ̵mul_one, map_pow, map_neg, map_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: RamanujanTau/RankTheta.lean:140:24: This simp argument is unused:
+  mul_one
+
+Hint: Omit it from the simp argument list.
+  simp only [one_pow, mu̵l̵_̵o̵n̵e̵,̵ ̵m̵ap_pow, map_neg, map_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8495/8515] Replayed RamanujanTau.TauCongruences
+warning: RamanujanTau/TauCongruences.lean:270:24: This simp argument is unused:
+  map_pow
+
+Hint: Omit it from the simp argument list.
+  simp only [map_mul,̵ ̵m̵a̵p̵_̵p̵o̵w̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+ℹ [8499/8515] Replayed RamanujanTau.LehmerSmall.PrimePower
+info: RamanujanTau/LehmerSmall/PrimePower.lean:197:0: 'RamanujanTau.LehmerSmall.tau_prime_pow_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/PrimePower.lean:198:0: 'RamanujanTau.LehmerSmall.exists_prime_dvd_tau_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8508/8515] Replayed RamanujanTau.LehmerSmall.Congruences
+info: RamanujanTau/LehmerSmall/Congruences.lean:268:0: 'RamanujanTau.LehmerSmall.E4_mul_E6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/Congruences.lean:269:0: 'RamanujanTau.LehmerSmall.tau_mod7_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/Congruences.lean:270:0: 'RamanujanTau.LehmerSmall.tau_mod25_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/Congruences.lean:271:0: 'RamanujanTau.LehmerSmall.tau_mod3_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8509/8515] Replayed RamanujanTau.LehmerSmall.Refined
+info: RamanujanTau/LehmerSmall/Refined.lean:121:0: 'RamanujanTau.LehmerSmall.tau_mod9_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/Refined.lean:122:0: 'RamanujanTau.LehmerSmall.two_adic_of_tau_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8510/8515] Replayed RamanujanTau.LehmerSmall.Final
+info: RamanujanTau/LehmerSmall/Final.lean:117:0: 'RamanujanTau.LehmerSmall.prime_zero_conditions' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/Final.lean:118:0: 'RamanujanTau.LehmerSmall.lehmer_below_74627999' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8511/8515] Replayed RamanujanTau.LehmerSmall.TwoAdic64
+info: RamanujanTau/LehmerSmall/TwoAdic64.lean:166:0: 'RamanujanTau.LehmerSmall.S3_cube_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/TwoAdic64.lean:167:0: 'RamanujanTau.LehmerSmall.prime_zero_mod64' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8512/8515] Replayed RamanujanTau.LehmerSmall.Final64
+info: RamanujanTau/LehmerSmall/Final64.lean:43:0: 'RamanujanTau.LehmerSmall.lehmer_below_258710399' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8513/8515] Replayed RamanujanTau.LehmerSmall.QuasiLin
+info: RamanujanTau/LehmerSmall/QuasiLin.lean:261:0: 'RamanujanTau.LehmerSmall.linA' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/QuasiLin.lean:262:0: 'RamanujanTau.LehmerSmall.linB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: RamanujanTau/LehmerSmall/QuasiLin.lean:263:0: 'RamanujanTau.LehmerSmall.prime_zero_deep' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8514/8515] Replayed RamanujanTau.LehmerSmall.FinalDeep
+info: RamanujanTau/LehmerSmall/FinalDeep.lean:46:0: 'RamanujanTau.LehmerSmall.lehmer_below_21492863999' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [8515/8515] Replayed RamanujanTau.LehmerSmall.Wilton23Pent
+warning: RamanujanTau/LehmerSmall/Wilton23Pent.lean:125:29: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: RamanujanTau/LehmerSmall/Wilton23Pent.lean:127:29: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: RamanujanTau/LehmerSmall/Wilton23Pent.lean:190:34: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: RamanujanTau/LehmerSmall/Wilton23Pent.lean:190:34: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: RamanujanTau/LehmerSmall/Wilton23Pent.lean:300:24: This simp argument is unused:
+  map_pow
+
+Hint: Omit it from the simp argument list.
+  simp only [map_mul,̵ ̵m̵a̵p̵_̵p̵o̵w̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: RamanujanTau/LehmerSmall/Wilton23Pent.lean:349:0: 'RamanujanTau.LehmerSmall.tau_mod23_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (8515 jobs).
+EXIT 0
