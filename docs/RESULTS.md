@@ -111,6 +111,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - `GORZXiEff.gamma_eq_mom` — the Taylor coefficients of Ξ as moments of Riemann's Φ; **`GORZXiEff.turan_gamma_unconditional`** — the Turán inequalities for the Taylor coefficients of Ξ for every n (Csordas–Norfolk–Varga), unconditional.
 - `RankinErrorGeneral.rankinSelberg_power_saving_general` — for every level-one cusp form, `|Σ_{n≤N}|a_f(n)|²/n^{k−1} − c_f N| ≤ C_f N^{1−1/84}`.
 - **`RankinSelbergGeneral.rankinSelberg_asymptotic`** — the Rankin–Selberg asymptotic for every level-one cusp form f: `(1/N)Σ_{n≤N}|a_f(n)|²/n^{k−1} → (3/π)(4π)^k‖f‖²/(k−1)!`; `rankinSelberg_weight16` … `rankinSelberg_weight26` for ΔE₄, ΔE₆, ΔE₈, ΔE₁₀, ΔE₁₄.
+- **`RankinSharp.rankinSelberg_power_saving_sharp`** — `|Σ_{n≤N} τ(n)²/n¹¹ − cN| ≤ C N^{1−δ}` for every δ < 1/5 (supersedes the 1/84 exponent; Rankin's is 2/5).
 - **`RankinError.rankinSelberg_power_saving_84`** — `|Σ_{n≤N} τ(n)²/n¹¹ − cN| ≤ C·N^{1−1/84}`, unconditional power-saving error (Rankin's is 2/5).
 - **`EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional`** — the Rankin–Selberg asymptotic `Σ_{n≤N} τ(n)²/n¹¹ ~ (3/π)(4π)¹²‖Δ‖²/11!·N`, unconditional; `horocycleLimit_zagier` — horocycle equidistribution for |Δ|²y¹².
 - `EisensteinReal.karamata` — Karamata's Tauberian theorem for power series with nonnegative coefficients; `rankinSelberg_asymptotic_of_horocycle` (conditional on `HorocycleLimit`).
