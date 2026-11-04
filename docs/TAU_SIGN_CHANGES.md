@@ -1,6 +1,7 @@
 # Sign changes of Ramanujan's τ (`RamanujanTau/TauSigns/`)
 
-**Status (2026-11-04).** Three results are **proved unconditionally**: τ changes sign
+**Status (2026-11-04).** *Update: the quantitative exponents are now `x^{4/5+ε}` and
+`X^{1/5−ε}`. See the next section.* Three results are **proved unconditionally**: τ changes sign
 infinitely often, it changes sign in every interval `(x, x + A·x^{83/84}]` for large `x`, and it
 has `≫ X^{1/84}` sign changes in `[1, X]`. There are no hypotheses, no sorry, no new axiom and
 no `native_decide`. Every headline prints `[propext, Classical.choice, Quot.sound]`.
@@ -10,6 +11,41 @@ Build only these files (about 970 lines):
 `Qualitative`, `HeckeSum`, `Window` and `Count`, which were produced with `lake env lean -o`.
 `lake build RamanujanTau.TauSigns.Main` should also work, but it was not run because it might rebuild stale upstream modules. Nothing outside `TauSigns/`,
 `scripts/tausigns/` and this write-up was modified. The root file does not import the directory.
+
+## Update (2026-11-04): sharp Rankin–Selberg exponent, windows `x^{4/5+ε}`, `≫ X^{1/5−ε}`
+
+Three new files: `WindowGeneral.lean` (218 lines), `CountGeneral.lean` (165 lines) and
+`Sharp.lean` (56 lines). They are built with `lake build RamanujanTau.TauSigns.Sharp`, which
+completed without rebuilding upstream modules. The original five files are unchanged. All headlines
+print `[propext, Classical.choice, Quot.sound]` (evidence level 1).
+
+| Theorem | File | Statement |
+|---|---|---|
+| **`tau_sign_change_short_interval_of_power_saving`** | `WindowGeneral` | if `∃ C, ∀ N ≥ 1, \|S(N) − cN\| ≤ C N^{1−δ}`, then for every `θ` with `3/4 < θ ≤ 1` and `1 − δ ≤ θ`: `∃ A > 0, X₀, ∀ x h, X₀ ≤ x → A x^θ ≤ h → h ≤ x →` both signs in `(x, x+h]` |
+| `card_signChanges_ge_of_window` | `CountGeneral` | windows of exponent `θ ∈ [0,1)` ⇒ `∃ c > 0, X₀, ∀ X ≥ X₀, c X^{1−θ} ≤ #signChanges X` |
+| `card_signChanges_ge_of_power_saving` | `CountGeneral` | the same RS hypothesis and `3/4 < θ < 1`, `1 − δ ≤ θ` ⇒ `≫ X^{1−θ}` sign changes |
+| **`tau_sign_change_short_interval_sharp`** | `Sharp` | for every `4/5 < θ ≤ 1`: both signs in every `(x, x+h]` with `A x^θ ≤ h ≤ x`, `x ≥ X₀` |
+| **`card_signChanges_ge_sharp`** | `Sharp` | for every `0 < η < 1/5`: `∃ c > 0, X₀, ∀ X ≥ X₀, c X^η ≤ #signChanges X` |
+
+Here `S(N) = ∑_{n≤N} τ(n)²/n¹¹` and `c = (3/π)(4π)¹²‖Δ‖²/11!`. The hypothesis is stated
+verbatim in the form of `RankinSharp.rankinSelberg_power_saving_sharp` and
+`RankinError.rankinSelberg_power_saving_84`. A future improvement of `δ` therefore feeds through
+with a one-line proof. `Sharp.lean` takes `δ = ((1−θ) + 1/5)/2` for the window and `δ = η`,
+`θ = 1 − η` for the count. Concrete instances in `Sharp.lean` are windows `x^{81/100}` and
+`≫ X^{19/100}` sign changes. The old exponents were `x^{83/84}` and `X^{1/84}`.
+
+**Optimal exponent for this method.** On a one-signed window, Hecke and Weil give
+`∑_W τ²/n¹¹ ≪ x^{−11}·x^{23/4+ε}·x^{6+ε} = x^{3/4+2ε}`, and Rankin–Selberg gives `≥ c h − O(x^{1−δ})`.
+So the method yields `θ = max(1 − δ, 3/4) + ε` and a count of `X^{1−θ}`. In the proof,
+`ε = (θ − 3/4)/4`, which leaves a gap of `(θ − 3/4)/2 > 0`.
+
+* With `δ < 1/5`, the RS term dominates, since `1 − δ > 4/5 > 3/4`. That gives windows
+  `x^{4/5+ε}` and `≫ X^{1/5−ε}` sign changes. These are the best values available from the
+  current RS exponent.
+* Every `δ ≥ 1/4` gives the Hecke × Weil limit: windows `x^{3/4+ε}` and `≫ X^{1/4−ε}`.
+  Rankin's classical `δ = 2/5` lands here. The RS exponent stops mattering at `δ = 1/4`.
+* Going below `3/4` would need something other than "max|τ| × ∑|τ|". Deligne's bound
+  `|τ(n)| ≪ n^{11/2+ε}` would give `x^{1/2+2ε}` on that side, so `θ = max(1−δ, 1/2)`.
 
 ## Headline theorems (evidence level 1: Lean, axiom-clean)
 
