@@ -789,8 +789,9 @@ Reproduce with `lake env lean scripts/audit/atkin_obrien_closure.lean`.
   meaning.
 * **No hidden hypotheses at the mathematical level.** Every intermediate hypothesis introduced during the
   development (UB, DB, HQ, HV, HG, HVQ, HConj, QuotValBound, QuotEBound, OrdBound, OrdEBound, hKer, hAlg, hT,
-  R1, R2, RamanujanODE, Deligne, …) was eventually *proved*. Otherwise the final theorems would still carry it
-  as an argument.
+  R1, R2, RamanujanODE, Deligne, …) was eventually either *proved* or *bypassed* by another route; the
+  final theorems carry none of them as arguments. (Correction, 2026-11-04: `HV`, `HVQ`, `HW`, `UBound.GeomU`
+  were bypassed, e.g. via `VLayer.DB_of_UB_HQ`, not proved; see [DISCHARGED_HYPOTHESES](DISCHARGED_HYPOTHESES.md).)
 * **Numerical cross-check:**
   * m = 1 against p(n) for all four primes;
   * ℓ = 13, m = 2 forces κ ≡ 45 (mod 169), Atkin–O'Brien's K₂.

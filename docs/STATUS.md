@@ -335,6 +335,14 @@ Audit: `lake env lean scripts/audit/celebrated_targets.lean`. Details are in the
 [Atkin/Ono–Weaver](ATKIN_SPORADIC_CONGRUENCES.md), [BW sharpness](BW_SHARPNESS_ALL_PRIMES.md).
 These proofs are machine-checked and have not been reviewed by a human expert; novelty claims are pending literature review.
 
+## Discharged hypothesis classes (2026-11-04)
+
+The long-standing hypothesis classes `TauMod7`, `TauMod25`, `TauMod23`, `TauMod27`, `TauMod2_8` and
+`TauMatchesDiscriminant` now have global instances (`Discharge.*`, `LehmerSmall.TauModInstances`); only
+`TauMod2_11` (Kolberg), `DeligneBound` and `LehmerConjecture` remain hypotheses. About 40 conditional
+Atkin–O'Brien variants and the uniform Stepanov bound now have unconditional corollaries. Full table:
+[DISCHARGED_HYPOTHESES](DISCHARGED_HYPOTHESES.md).
+
 ## Open work
 
 - Have an expert settle whether `Rank607Final.rEll_607` (25 generators for every m≥2)

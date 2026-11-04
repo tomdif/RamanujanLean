@@ -591,3 +591,7 @@ import RamanujanTau.LehmerSmall.Final
 import RamanujanTau.EisensteinReal.HoroIdent
 import RamanujanTau.LehmerSmall.FinalDeep
 import RamanujanTau.LehmerSmall.TauModInstances
+import RamanujanTau.Discharge.Congruences
+import RamanujanTau.Discharge.Bridge
+import RamanujanTau.Discharge.Kloosterman
+import RamanujanTau.Discharge.AtkinInputs
