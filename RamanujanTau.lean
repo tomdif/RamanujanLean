@@ -585,3 +585,4 @@ import RamanujanTau.StepanovAS.Main
 import RamanujanTau.RankinSelberg.Main
 import RamanujanTau.GORZXiEff.Main
 import RamanujanTau.GORZXiD3.Main
+import RamanujanTau.EisensteinReal.Main
