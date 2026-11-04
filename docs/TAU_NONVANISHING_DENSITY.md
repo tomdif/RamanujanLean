@@ -1,8 +1,9 @@
 # Counting the n with τ(n) ≠ 0: lower bounds (2026-11-04)
 
-Lean directory: `RamanujanTau/TauDensity/` (`Structure.lean`, `Analytic.lean`, `Proportion.lean`, `Main.lean`).
-Numerics: `scripts/taudensity/validate.gp`.
-Build: `lake build RamanujanTau.TauDensity.Main` (exit 0). No `sorry`, `native_decide` or new axiom is used.
+Lean directory: `RamanujanTau/TauDensity/` (`Structure.lean`, `Analytic.lean`, `Proportion.lean`, `Main.lean`;
+norm-form route: `NormForm.lean`, `NormFormCount.lean`, `NormFormDensity.lean`, `NormFormSharp.lean`).
+Numerics: `scripts/taudensity/validate.gp`, `scripts/taudensity/normform_validate.py`.
+Build: `lake build RamanujanTau.TauDensity.Main` and `lake build RamanujanTau.TauDensity.NormFormSharp` (both exit 0). No `sorry`, `native_decide` or new axiom is used.
 Every headline below prints `[propext, Classical.choice, Quot.sound]`.
 
 Notation: `Z(N) = #{n ∈ [1,N] : τ(n) ≠ 0}`.
@@ -26,6 +27,12 @@ Notation: `Z(N) = #{n ∈ [1,N] : τ(n) ≠ 0}`.
 | 11 | `card_tau_eq_zero_le` | #{n ≤ N : τ(n)=0} ≤ N(1+log N)/10 746 432 000 | #4, #7, `harmonic_le_one_add_log` | (1) |
 | 12 | `card_tau_ne_zero_ge_proportion` | N(1 − (1+log N)/10 746 432 000) ≤ Z(N) | #11 | (1) |
 | 13 | `card_tau_ne_zero_ge_nine_tenths` | log N ≤ 10⁹ ⇒ 0.9·N ≤ Z(N) | #12 | (1) |
+| 14 | `neg691_not_square` | q prime, q ≡ −1 (mod 691) ⇒ −691 is not a square mod q | Jacobi symbol (`jacobiSym.mod_right` + `norm_num`) | (1) |
+| 15 | `even_factorization_norm` | q as in #14 ⇒ v_q(x² + 691y²) is even (x² + 691y² ≠ 0) | #14, descent | (1) |
+| 16 | `tau_norm_form_ne_zero` | τ(x² + 691y²) ≠ 0 whenever x² + 691y² ≥ 1 | #15 + #8 | (1) |
+| 17 | `card_tau_ne_zero_ge_div_log_sq` | ∀N, N/(221 120·(1+log N)²) ≤ Z(N) | #16 + Cauchy–Schwarz + crude energy bound | (1) |
+| 18 | `card_tau_ne_zero_ge_rpow_one_sub` | ∀ε>0 ∃c>0 ∀N≥1, c·N^{1−ε} ≤ Z(N) | #17 + `Real.log_le_rpow_div` | (1) |
+| 19 | `card_tau_ne_zero_ge_div_log` | **∀N, N/(585 103·(1+log N)) ≤ Z(N)** | #16 + Cauchy–Schwarz + energy O(N log N) | (1) |
 
 ## Proofs, briefly
 
@@ -44,6 +51,30 @@ By #4, only primes with odd exponent matter.
 M = 10 746 432 000 and 1 ≤ i ≤ N. So
 #zeros ≤ Σ_{i≤N} ⌊N/(iM+M−1)⌋ ≤ (N/M)·H_N ≤ N(1+log N)/M.
 
+**#14–#16 (the norm form x² + 691y²).** Let q be prime with q ≡ −1 (mod 691). Then q is odd, and q mod 2764 is
+1381 or 2763. The Jacobi symbol J(−691 | q) depends only on q mod 4·691 = 2764 (`jacobiSym.mod_right`), and
+`norm_num` evaluates J(−691 | 1381) = J(−691 | 2763) = −1. So −691 is a non-residue mod q. (Check by hand:
+(−691/q) = (q/691) because 691 ≡ 3 mod 4, and (q/691) = (−1/691) = −1.) If q ∣ x² + 691y² and q ∤ y, then
+(x/y)² ≡ −691 (mod q), which is impossible. So q ∣ y, hence q ∣ x, and x² + 691y² = q²(x′² + 691y′²). Strong
+induction then shows v_q is even. **No coprimality condition is needed.** By #8, τ(x² + 691y²) ≠ 0.
+
+**#17, #19 (counting the values).** Take A = ⌊√(N/2)⌋, B = ⌊√(N/1382)⌋ and the box P = [1,A]×[1,B]. Every
+value f(x,y) = x² + 691y² on P lies in [1,N] and has τ ≠ 0. Cauchy–Schwarz (`card_sq_le_card_image_mul_energy`)
+gives #f(P) ≥ |P|²/E, where E = #{(p,q) ∈ P² : f(p) = f(q)}.
+
+The energy E counts the diagonal |P| = AB, plus twice the coincidences with y < v. For such a coincidence put
+a = x−u, b = x+u, c = v−y, d = v+y. Then ab = 691cd (`coincidence_facts`). Set g = gcd(a, 691c), s = a/g,
+t = 691c/g and h = b/t. Then t ∣ b by coprimality, and a = gs, b = th, 691c = gt, d = sh (`factor_facts`).
+The map to (g,s,t,h) is injective. Its image satisfies gs ≤ 2A, th ≤ 2A, gt ≤ 691B and sh ≤ 2B.
+
+* Crude count (#17): use only gs, th ≤ M = 2A. That gives ≤ (M·H_M)² = O(N log²N).
+* Refined count (#19, `card_quadBox_le`): fix (s,t). If t ≤ s, there are ≤ (2A/s)(2B/s) pairs (g,h). If s ≤ t,
+  there are ≤ (691B/t)(2A/t). Also ∑_{s,t≤M} [t≤s]/s² = H_M (`tri_sum_le`). So the coincidences number at
+  most 1386·AB·(1+log 2A), and E ≤ 2773·AB·(1+log N).
+
+Finally A² ≥ N/8 and B² ≥ N/5528 give AB ≥ N/211. Then Z(N) ≥ #f(P) ≥ AB/(2773(1+log N)) ≥ N/(585 103(1+log N))
+for N ≥ 1382. Smaller N follow from Lehmer's range (#10).
+
 ## What the results say
 
 * **The elementary bound beats the analytic one.** #6 gives ⌊√N⌋ ≤ Z(N), and #2 gives c_ε N^{1/2−ε}. The
@@ -59,11 +90,22 @@ M = 10 746 432 000 and 1 ≤ i ≤ N. So
   {n : τ(n) ≠ 0} has natural density ∏_{τ(p)=0} (1 − 1/(p+1)) > 0. Lehmer's conjecture says this density is 1.
   Making Serre's argument formal needs Chebotarev and the open image of the mod-ℓ Galois representations.
   That is far beyond the repo.
-* **An N^{1−ε} route (not done).** If p ∣ x² + 691y² with gcd(x, 691y) = 1 and p ≠ 2, then (−691/p) = 1. That
-  means (p/691) = 1, so p is a square mod 691, while −1 is not (691 ≡ 3 mod 4). So every value x² + 691y²
-  (gcd(x, 691y) = 1) avoids primes ≡ −1 (mod 691) and has τ ≠ 0 by #8′. The values up to N number about N^{1−ε}
-  (≫ N/(log N)^{1/2} by Landau–Bernays). Formalising this needs quadratic reciprocity (in Mathlib) plus a
-  representation-multiplicity bound r(n) ≪ n^ε, or a second-moment count. Estimate: 1–2 days of Lean.
+* **N/log N, unconditionally and for all N (#19, done 2026-11-04).** This is the first bound in the repo that
+  is asymptotically within a log of linear. It beats √N (#6) and N^{1/2−ε} (#2) for all large N. In absolute
+  terms the constant 585 103 is large. For N ≤ e^{10⁹}, the elementary proportion bound #12–#13 (≥ 0.9N) is
+  far stronger. #19 takes over only where #12 becomes vacuous, near log N ≈ 10¹⁰.
+* **The norm-form method is limited to N/√log N.** That is the Landau–Bernays count of the integers represented
+  by x² + 691y². Cauchy–Schwarz loses only the energy factor. Numerically E/|P| ≈ 1.02–1.05 for N ≤ 4·10⁶,
+  so the log in #19 comes from the counting proof, not the truth. Reaching N/√log N needs Landau–Bernays
+  (a Selberg–Delange-type argument, a large formalisation). Beating it needs the full semigroup of #8′ (Wirsing, see Gaps) or Serre.
+
+## Numerical validation of the norm-form route (evidence level 4; `normform_validate.py`, about 1 min)
+
+* −691 is a non-residue mod q for all 305 primes q ≡ −1 (mod 691) below 3·10⁶ (0 failures).
+* v_q(x² + 691y²) is even for every q ≡ −1 (mod 691), x < 300, y < 40 (0 failures).
+* Box P = [1,A]×[1,B]: at N = 10⁵, 10⁶, 4·10⁶, |P| = 1784, 18382, 74942. The energy is E/|P| = 1.000, 1.021, 1.047
+  and the distinct values number 1784, 18190, 73191. Z(N) ≥ #values ≈ 0.25·N/log N. All values of
+  x² + 691y² up to N number about 0.11·N/√log N, consistent with Landau–Bernays.
 
 ## Numerical validation (evidence level 4; `validate.gp`, PARI, N = 2·10⁵, about 2 min)
 
@@ -80,6 +122,11 @@ M = 10 746 432 000 and 1 ≤ i ≤ N. So
 ## Gaps / next steps
 
 * An asymptotic positive proportion (Serre) is out of reach: it needs Chebotarev and ℓ-adic images.
-* N^{1−ε} through the norm form x² + 691y², as sketched above: about 1–2 days.
+* ~~N^{1−ε} through the norm form x² + 691y²~~: done, in the stronger form N/log N (#19).
+* Better log powers (literature, evidence level 3). Landau–Bernays for x² + 691y² gives ≍ N/(log N)^{1/2}.
+  The semigroup of n with no prime factor ≡ −1 (mod 691), which #8′ already covers, has
+  ≍ N/(log N)^{1/690} elements, by Wirsing / Selberg–Delange, since those primes have Dirichlet density 1/690.
+  Either one needs Selberg–Delange or Wirsing's mean-value theorem, plus the prime number theorem in
+  progressions mod 691. Estimate: weeks.
 * An explicit constant in #2 needs explicit c₁ (Rankin–Selberg) and explicit C (Weil), which the upstream
   existence proofs do not export.
