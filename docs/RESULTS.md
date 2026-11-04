@@ -112,7 +112,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - **`EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional`** — the Rankin–Selberg asymptotic `Σ_{n≤N} τ(n)²/n¹¹ ~ (3/π)(4π)¹²‖Δ‖²/11!·N`, unconditional; `horocycleLimit_zagier` — horocycle equidistribution for |Δ|²y¹².
 - `EisensteinReal.karamata` — Karamata's Tauberian theorem for power series with nonnegative coefficients; `rankinSelberg_asymptotic_of_horocycle` (conditional on `HorocycleLimit`).
 - `RankinSelberg.rankinSelberg_two_sided` — `c₁N ≤ Σ_{n≤N} τ(n)²/n¹¹ ≤ c₂N`: the order of magnitude in Rankin–Selberg.
-- `LehmerSmall.lehmer_below_21492863999` — `τ(n) ≠ 0` for all `1 ≤ n < 21492863999` (supersedes `lehmer_below_74627999`, `lehmer_below_258710399`; see [LEHMER_SMALL_N](LEHMER_SMALL_N.md)); `LehmerSmall.tau_prime_pow_ne_zero` — `τ(p) ≠ 0 ⇒ τ(pᵏ) ≠ 0`; `tau_mod7_all`, `tau_mod25_all`, `tau_mod3_all` — Ramanujan-type congruences for every n.
+- `LehmerSmall.lehmer_below_214928639999` — `τ(n) ≠ 0` for all `1 ≤ n < 214928639999`, exactly Lehmer's 1947 bound (supersedes `lehmer_below_74627999`, `lehmer_below_258710399`, `lehmer_below_21492863999`; see [LEHMER_SMALL_N](LEHMER_SMALL_N.md)); `LehmerSmall.tau_prime_pow_ne_zero` — `τ(p) ≠ 0 ⇒ τ(pᵏ) ≠ 0`; `tau_mod7_all`, `tau_mod25_all`, `tau_mod3_all` — Ramanujan-type congruences for every n.
 - **`StepanovAS.weilPrimeBound`** — Weil's bound `|S(1,b;p)| ≤ 2√p` for every prime p and b ≢ 0; **`StepanovAS.tau_isBigO_23_4_unconditional`** — `τ(n) = O(n^{23/4+ε})` (Weil 1948).
 - `Stepanov.hasseWeil_charSum_le` — Stepanov's bound `|Σ_{x∈F_p} χ(f(x))| ≤ 12m²√p` for squarefree f of degree m; `Stepanov.hasse_elliptic` — Hasse's theorem up to the constant, `|#{y² = f(x)} − p| ≤ 108√p` for squarefree cubics; `Stepanov.saliePrimeBound` and `tau_isBigO_35_6_unconditional` — `τ(n) = O(n^{35/6+ε})`.
 - `KloostermanL.kloosterman_L_rational` — rationality of the Kloosterman L-function over any finite field: L(T) = 1 + K₁T + qT², so K_r = −(α^r+β^r); `tau_isBigO_23_4_of_stepanov` — Weil's τ bound from the named Stepanov hypothesis.
@@ -997,7 +997,7 @@ derive the vacuum offset or a physical black-hole interpretation. Use
 * **Sub-Hecke bounds (2026-11-03/04), unconditional:** `TauBound.tau_isBigO_47_8_unconditional` (Kloosterman, 47/8),
   `Stepanov.tau_isBigO_35_6_unconditional` (Salié, 35/6), and the current best,
   `StepanovAS.tau_isBigO_23_4_unconditional` (Weil, `τ(n) = O(n^{23/4+ε})`). Lehmer's non-vanishing is now proved
-  for `n < 21,492,863,999` (`LehmerSmall.lehmer_below_21492863999`).
+  for `n < 214,928,639,999 (Lehmer 1947)` (`LehmerSmall.lehmer_below_214928639999`).
 
 ### `MTC/` — the Mock Theta Conjectures (Hickerson–Mortenson route)
 ```lean
@@ -1649,7 +1649,7 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
 instance, so `TauMultiplicative` and `TauHeckeRecurrence` hold unconditionally (Mordell 1917). `TauMod691` is
 also a theorem (`TauModular`). `DeligneBound` *is* Deligne's proof of the Weil conjectures (out of reach; the best proved exponent is Weil's
 23/4, `StepanovAS.tau_isBigO_23_4_unconditional`), and `LehmerConjecture` is open (proved for
-`n < 21,492,863,999`, `LehmerSmall.lehmer_below_21492863999`).
+`n < 214,928,639,999 (Lehmer 1947)`, `LehmerSmall.lehmer_below_214928639999`).
 
 - **`HeckeCore` / `HeckeForm` / `HeckeQExp`** — **the Hecke operators `T_p` on level-one cusp forms, and
   Mordell's theorem for `τ`**. For a prime `p`, `T_p f(z) = p^{k−1}f(pz) + p⁻¹Σ_{j<p} f((z+j)/p)`.

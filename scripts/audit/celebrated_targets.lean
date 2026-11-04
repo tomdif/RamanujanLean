@@ -69,3 +69,4 @@ with no exceptions. -/
 #print axioms RamanujanTau.Discharge.tau_mod23_unconditional
 #print axioms RamanujanTau.Discharge.tauMatchesDiscriminant
 #print axioms RamanujanTau.Discharge.Kloosterman.stepanovKloosterman_unconditional
+#print axioms RamanujanTau.LehmerSmall.lehmer_below_214928639999
