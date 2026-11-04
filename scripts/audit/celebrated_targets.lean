@@ -73,3 +73,6 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinError.rankinSelberg_power_saving_of_unfold
 #print axioms RamanujanTau.RankinError.rsUnfold
 #print axioms RamanujanTau.RankinError.rankinSelberg_power_saving_84
+#print axioms RamanujanTau.TauDensity.tau_eq_zero_iff
+#print axioms RamanujanTau.TauDensity.card_tau_ne_zero_ge_sqrt
+#print axioms RamanujanTau.TauDensity.card_tau_ne_zero_ge_rpow
