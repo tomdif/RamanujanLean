@@ -64,3 +64,5 @@ with no exceptions. -/
 #print axioms RamanujanTau.EisensteinReal.horocycleLimit_zagier
 #print axioms RamanujanTau.EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional
 #print axioms RamanujanTau.LehmerSmall.lehmer_below_21492863999
+#print axioms RamanujanTau.LehmerSmall.instTauMod27
+#print axioms RamanujanTau.LehmerSmall.instTauMod2_8

@@ -590,3 +590,4 @@ import RamanujanTau.GORZXiEff.CVMain
 import RamanujanTau.LehmerSmall.Final
 import RamanujanTau.EisensteinReal.HoroIdent
 import RamanujanTau.LehmerSmall.FinalDeep
+import RamanujanTau.LehmerSmall.TauModInstances

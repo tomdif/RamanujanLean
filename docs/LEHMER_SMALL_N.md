@@ -47,6 +47,9 @@ Earlier headlines in the same directory, still valid and axiom-clean:
 | `QuasiLin.lean` | `condA`, `condB` | at a prime `p` with `τ(p)=0`: `2⁹3⁵ ∣ Q_A(p)` and `5³ ∣ Q_B(p)` (polynomials below) |
 | `QuasiLin.lean` | `prime_zero_deep` | `τ p = 0` ⇒ `p ≡ −1` mod `512`, mod `243` and mod `125` |
 | `FinalDeep.lean` | `no_candidate_below_21492863999`, `lehmer_below_21492863999` | the sieve and the headline |
+| `TauModInstances.lean` | `linA_coeff` | `linA` at every `n ≥ 1`: `2520·24²·288²·[qⁿ]S₁²(θS₁)² = Σ_{d∣n} P_A(n,d) + 27648τ(n)` |
+| `TauModInstances.lean` | `tau_mod27_coprime`, `instTauMod27` | `τ(n) ≡ n²σ₇(n) (mod 27)` for `3 ∤ n`; fills the hypothesis class `TauMod27` |
+| `TauModInstances.lean` | `tau_mod256_odd`, `instTauMod2_8` | `τ(n) ≡ σ₁₁(n) (mod 2⁸)` for odd `n`; fills `TauMod2_8` |
 
 ## Method
 
@@ -84,6 +87,21 @@ Earlier headlines in the same directory, still valid and axiom-clean:
    * Below `74 627 999 = 15·4975200 − 1`, every `4975200j − 1` (`1 ≤ j ≤ 14`) is either composite
      (`norm_num`) or `≢ 3,5,6 (mod 7)`. `74 627 999` itself is prime, `≡ 5 (mod 7)`, and is the first
      candidate.
+
+### The classical all-`n` congruences mod 27 and mod 2⁸ (`TauModInstances.lean`)
+
+Both follow from the same identity `linA`, read at an arbitrary `n`. Write `n = de`.
+
+* **mod 27.** `P_A(de,d) + 27648(de)²d⁷ = 2¹⁰3⁵·d⁴e²(d−e)h(d,e)`, and `(d−e)h(d,e) ≡ 0 (mod 3)` for `3 ∤ d, e`
+  (checked over `ZMod 3`). So `27648(τ − n²σ₇) ≡ 0 (mod 3⁶)`.
+* **mod 2⁸.** Put `g(d) = P_A(n,d) + 27648d¹¹`.
+  * `g(d) + g(e) = 27648(d−e)²(d+e)k(d,e)`, and `2⁸ ∣ (d−e)²(d+e)k(d,e)` for odd `d, e`
+    (`decide +kernel` over `ZMod 256`).
+  * `g(d) = 0` when `d = e`.
+  * The involution `d ↦ n/d` on the divisors then gives `Σ g ≡ 0 (mod 2¹⁸)`, i.e. `27648(τ − σ₁₁) ≡ 0 (mod 2¹⁸)`.
+
+Kolberg's mod-2¹¹ class `TauMod2_11` is **not** reached: the `2`-power on the left of `linA` caps this route at
+`τ` mod `2⁹`.
 
 ### Deeper congruences: quasimodular integrality (`TwoAdic64.lean`, `QuasiLin.lean`)
 
@@ -149,7 +167,20 @@ The first candidate under each set of conditions:
 
 ## What remains (to reach and pass Lehmer's 2.1·10¹¹)
 
-* **Wilton mod 23, the cleanest route to exactly Lehmer's bound.** Needed: `(p/23) = 1` ⇒ `τ(p) ≢ 0 (mod 23)`.
+* **Only two candidates stand between us and Lehmer's bound** (numerical, PARI/sympy).
+  * Below `214 928 639 999`, the numbers `k·10746432000 − 1` that are prime and `≡ 3,5,6 (mod 7)` are exactly
+    `k = 2` (`21 492 863 999`) and `k = 7` (`75 225 023 999`).
+  * Both have `(p/23) = +1`.
+  * The coefficient `a(p)` of `q∏(1−qⁿ)(1−q²³ⁿ)` is `−1` for the first and `2` for the second. This was computed
+    by the pentagonal double sum `a(p) = Σ_l (−1)^{k+l}` over `ω(k) + 23ω(l) = p − 1`.
+  * `Δ ≡ η(z)η(23z) (mod 23)` is already proved in the repo (`hΨ` inside `TauCong.tau_mod23`). So
+    `τ(p) ≡ a(p) ≢ 0 (mod 23)` for both, which would give Lehmer's bound **without** Wilton's general theorem.
+  * What is needed is a Lean certificate of `a(p)` for these two `p`:
+    * reindex the antidiagonal sum to the `~2·10⁵` values of `l`, using `coeff_pentSeries_support`;
+    * kernel-check the non-pentagonality of `p − 1 − 23ω(l)`, using `r² < 24m+1 < (r+1)²` with a fuel-bounded
+      integer square root.
+  * Estimate: 1 session.
+* **Wilton mod 23 in general.** Needed: `(p/23) = 1` ⇒ `τ(p) ≢ 0 (mod 23)`.
   * `Δ ≡ η(z)η(23z) (mod 23)` is elementary; the repo's `tau_mod23` uses it in the other direction.
   * The missing input is the weight-1 theta identity `η(z)η(23z) = ½(θ_{x²+xy+6y²} − θ_{2x²+xy+3y²})`. It gives
     `a(p) ∈ {2, −1}` for split `p`.
