@@ -22,7 +22,7 @@ Build only these files: `nice -n 10 lake build RamanujanTau.EisensteinReal.HoroI
 (this imports everything in this directory except `Mellin`/`Eisenstein`; for those use
 `lake build RamanujanTau.EisensteinReal.Main`).
 Nothing outside `EisensteinReal/` was modified, and the files `Karamata`, `Asymptotic`, `Mellin`,
-`Eisenstein`, `Main` are unchanged. The root `RamanujanTau.lean` does not import these files.
+`Eisenstein`, `Main` are unchanged. These files were written outside the root import; they have since been added to `RamanujanTau.lean`.
 
 | File | Lines | Content |
 |---|---|---|
@@ -51,8 +51,8 @@ Nothing outside `EisensteinReal/` was modified, and the files `Karamata`, `Asymp
 | `karamata` | If `aₙ ≥ 0`, `∑ aₙe^{-nt}` converges for `t > 0`, and `t^ρ ∑ aₙe^{-nt} → K` as `t → 0⁺` with `ρ ≥ 1` (bundled as `KarHyp a ρ K`), then `(∑_{n≤N} aₙ)/N^ρ → K/Γ(ρ+1)`. |
 | `tendsto_sum_div_pow` | If `(∑_{n≤N} bₙ)/N^{k+1} → α`, then `(∑_{n≤N} bₙ/nᵏ)/N → (k+1)α`. |
 | `lintegral_mellin_horocycle` | For real `s > −11`: `∫⁻_{y>0} I(y) y^{s−2} dy = ∑' τ(n)² Γ(s+11)/(4πn)^{s+11}`, where `I(y) = ∫₀¹ G(x+iy) dx` (`Ihor`). |
-| `summable_eSummand` | For `s > 1`, `v ↦ y^s |v₀z + v₁|^{−2s}` is summable over `ℤ²`. |
-| `E_smul` | `E(γz, s) = E(z, s)` for `γ ∈ SL₂(ℤ)`, where `E(z,s) = ½ ∑_{gcd(c,d)=1} y^s|cz+d|^{−2s}`. |
+| `summable_eSummand` | For `s > 1`, `v ↦ y^s \|v₀z + v₁\|^{−2s}` is summable over `ℤ²`. |
+| `E_smul` | `E(γz, s) = E(z, s)` for `γ ∈ SL₂(ℤ)`, where `E(z,s) = ½ ∑_{gcd(c,d)=1} y^s\|cz+d\|^{−2s}`. |
 | `E_ge`, `E_pos` | `E(z,s) ≥ y^s > 0` for `s > 1`. |
 | **`rankinSelberg_asymptotic_zagier_unconditional`** | `(∑_{n≤N} τ(n)²/n¹¹)/N → (3/π)(4π)¹²·petNormSq/11!` (no hypotheses) |
 | **`horocycleLimit_zagier`** | `HorocycleLimit ((3/π)·petNormSq)`: `∫₀¹ G(x+iy) dx → (3/π)‖Δ‖²` |
@@ -60,10 +60,10 @@ Nothing outside `EisensteinReal/` was modified, and the files `Karamata`, `Asymp
 | **`rankinSelberg_asymptotic_unconditional`** | `∃ c > 0, (∑_{n≤N} τ(n)²/n¹¹)/N → c` |
 | `sum_tau_sq_asymptotic_unconditional` | `∃ c > 0, (∑_{n≤N} τ(n)²)/N¹² → c` |
 | `Horo.tendsto_horoR_const` | for `α ≤ β`, `A > 0`: `∫₀¹ #{γ ∈ SL₂(ℤ) : γ(x+iy) ∈ [α,β)×[A,∞)} dx → (6/π)(β−α)/A` |
-| `Horo.horo_bound` | explicit error: for `0<y<A`, `Ay ≤ 1`, `s=√(Ay)`: `|mean − 4(β−α)T(s)/A| ≤ (4s/A)(1+log(1/s))²` |
+| `Horo.horo_bound` | explicit error: for `0<y<A`, `Ay ≤ 1`, `s=√(Ay)`: `\|mean − 4(β−α)T(s)/A\| ≤ (4s/A)(1+log(1/s))²` |
 | `Horo.lintegral_unfold` | `∫₀¹ ∑_{γ∈SL₂(ℤ)} F(γ(x+iy)) dx = ∑_{(a,c) coprime} ∫_ℝ F(M(a,c)(x+iy)) dx` for measurable `F ≥ 0` |
-| `Horo.coprimeCount_bound` | `|#{a ∈ [u,v) : (a,c)=1} − (v−u)∑_{e∣c}μ(e)/e| ≤ d(c)` |
-| `Horo.smul_mem_S_unique` | if `γz, γ′z ∈ {−½ ≤ Re < ½, |w|>1}` then `γ′ = ±γ` |
+| `Horo.coprimeCount_bound` | `\|#{a ∈ [u,v) : (a,c)=1} − (v−u)∑_{e∣c}μ(e)/e\| ≤ d(c)` |
+| `Horo.smul_mem_S_unique` | if `γz, γ′z ∈ {−½ ≤ Re < ½, \|w\|>1}` then `γ′ = ±γ` |
 | `Horo.petNormSq_ge`, `Horo.petNormSq_le` | the grid brackets `‖Δ‖²` |
 | `Horo.kappa_eq`, `Horo.Wc_eq` | `∑ μ(e)/e² = 6/π²`, `∫₀¹ √(1−t²) dt = π/4` |
 

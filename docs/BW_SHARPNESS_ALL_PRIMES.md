@@ -2,6 +2,11 @@
 
 Lean: `RamanujanTau/BWSharpAll/`. Scripts: `scripts/bwsharpall/`.
 
+> **Context (2026-11-04).** Independently of the uniform question treated here, sharpness b_ℓ(m) = 2m − 1 for
+> every m is proved prime by prime at every prime 29 ≤ ℓ ≤ 139 (`Exact29`/`Exact31`, `Rank2At37`–`Rank2At47`,
+> `RankSAt53`/`RankSAt59`, `RankRAt61`–`RankRAt139`; see [STATUS](STATUS.md)). The uniform (all-prime) statement,
+> i.e. G5, remains open.
+
 **Outcome.** No uniform proof of sharpness was found. The uniform argument stops at one
 non-vanishing statement (G5), and §3 explains why the available mod-ℓ tools cannot settle it.
 This pass adds four things:

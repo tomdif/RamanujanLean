@@ -27,7 +27,7 @@ ansatz in sympy (`scripts/mtc_gap/f0_pair_certificate.py`) and the Lean proofs a
 | function | pair (relative to) | `α_n` | certificate | file |
 |---|---|---|---|---|
 | `f₀` | `β_n = 1/(−q;q)_n`, `a = 1` | `q^{T(n)} V_n − q^{T(n)+n−1} V_{n−1}` | `G(n,s) = qⁿ((1−qⁿ)q^{T(s)+s}V_s + 2(−1)^s q^{T(s)}) / ((q)_{n−s−1}(q)_{n+s})` | `MockTheta5F0Pair` |
-| `f₁` | `β_n = 1/(−q;q)_n`, `a = q` | `q^{(3n²+n)/2}(1−q^{2n+1})/(1−q) · Σ_{|j|≤n}(−1)^j q^{−j²}` | `G1term` (see file) | `MockTheta5F1Pair` |
+| `f₁` | `β_n = 1/(−q;q)_n`, `a = q` | `q^{(3n²+n)/2}(1−q^{2n+1})/(1−q) · Σ_{\|j\|≤n}(−1)^j q^{−j²}` | `G1term` (see file) | `MockTheta5F1Pair` |
 
 Through the limiting Bailey lemma (`a = 1` and `a = q`) these give
 `(q;q)_∞ f₀ = Σ_{n≥0} Σ_{|j|≤n} (−1)^j q^{n(5n+1)/2 − j²}(1 − q^{4n+2})` and

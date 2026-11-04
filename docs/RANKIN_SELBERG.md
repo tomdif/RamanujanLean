@@ -1,5 +1,12 @@
 # The Rankin–Selberg mean square of τ (`RamanujanTau/RankinSelberg/`)
 
+> **Update (2026-11-04):** milestone 2 below (the asymptotic `∑_{n≤N} τ(n)²/n¹¹ ~ cN` with Zagier's
+> constant `c = (3/π)(4π)¹²‖Δ‖²/11!`) is now proved unconditionally,
+> `EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional`, by an elementary horocycle-equidistribution
+> argument and Karamata's Tauberian theorem; see [EISENSTEIN_REAL](EISENSTEIN_REAL.md). The constants `c₁, c₂` of
+> `rankinSelberg_two_sided` remain ineffective, and the error term `O(N^{3/5})` is not proved in this directory.
+> The text below describes this directory as written.
+
 **Status (2026-11-04).** First milestone reached, with no hypotheses: the mean square has the right
 order of magnitude,
 
@@ -11,15 +18,15 @@ Every headline prints `[propext, Classical.choice, Quot.sound]`.
 The asymptotic `∑ ~ c·N` and the error term `O(N^{3/5})` are **not** proved. See "What remains".
 
 Build (only these files): `nice -n 10 lake build RamanujanTau.RankinSelberg.Main`. The `#print axioms`
-block at the end of `Main.lean` covers the headlines. None of these files is imported by the root
-`RamanujanTau.lean`. Nothing in `TauBound/`, `WeilKloosterman/` or `StepanovAS/` was modified; only
+block at the end of `Main.lean` covers the headlines. These files were written outside the root
+import; they have since been added to `RamanujanTau.lean`. Nothing in `TauBound/`, `WeilKloosterman/` or `StepanovAS/` was modified; only
 `TauBound.Reduction` is imported, for the bridge `qExpansion_discriminant_coeff_tau`.
 
 | File | Lines | Content |
 |---|---|---|
 | `Parseval.lean` | 129 | Parseval on a horizontal line for any level-one cusp form |
 | `Upper.lean` | 183 | Hecke–Parseval upper bound; summation by parts |
-| `Band.lean` | 168 | the invariant `G = |Δ|² y¹²`; `G ≥ m > 0` on a band; the Farey step |
+| `Band.lean` | 168 | the invariant `G = \|Δ\|² y¹²`; `G ≥ m > 0` on a band; the Farey step |
 | `Lower.lean` | 274 | counting coprime pairs; disjoint Farey intervals; the horocycle lower bound |
 | `Main.lean` | 213 | truncation (tail) argument; the two-sided bound; `Θ` form |
 | `scripts/rankinselberg/mean_square.gp` | | numerical check (PARI) |
@@ -41,17 +48,17 @@ and Rankin–Selberg says `∑_{n≤x} τ(n)²/n¹¹ = c x + O(x^{3/5})`. With P
 
 | Theorem | File | Statement |
 |---|---|---|
-| `hasSum_normSq_coeff` | `Parseval` | for `f` a cusp form of weight `k` for `SL₂(ℤ)` and `y > 0`: `∑ₙ |aₙ(f)|² e^{-4πny} = ∫₀¹ |f(x+iy)|² dx` |
-| `hasSum_tau_sq` | `Upper` | `∑ τ(n)² e^{-4πny} = ∫₀¹ |Δ(x+iy)|² dx` |
-| `exists_integral_le` | `Upper` | `∫₀¹ |Δ(x+iy)|² dx ≤ C/y¹²` |
+| `hasSum_normSq_coeff` | `Parseval` | for `f` a cusp form of weight `k` for `SL₂(ℤ)` and `y > 0`: `∑ₙ \|aₙ(f)\|² e^{-4πny} = ∫₀¹ \|f(x+iy)\|² dx` |
+| `hasSum_tau_sq` | `Upper` | `∑ τ(n)² e^{-4πny} = ∫₀¹ \|Δ(x+iy)\|² dx` |
+| `exists_integral_le` | `Upper` | `∫₀¹ \|Δ(x+iy)\|² dx ≤ C/y¹²` |
 | `exists_sum_tau_sq_le` | `Upper` | `∑_{n≤N} τ(n)² ≤ K N¹²` |
 | `sum_div_pow_le` | `Upper` | summation by parts: `∑_{n≤N} bₙ ≤ K N^{k+1}` (with `bₙ ≥ 0`) implies `∑_{n≤N} bₙ/nᵏ ≤ (k+1)K N` |
 | `exists_sum_tau_sq_div_le` | `Upper` | **upper bound** `∑_{n≤N} τ(n)²/n¹¹ ≤ K N` |
-| `G_smul`, `exists_band_lower` | `Band` | `G(z) = |Δ(z)|²(Im z)¹²` is `SL₂(ℤ)`-invariant, and `G ≥ m > 0` on `4/5 ≤ Im z ≤ 16` |
-| `exists_smul_mem_band`, `normSq_farey_lower` | `Band` | if `(a,c) = 1`, `1 ≤ a ≤ c ≤ C` and `a/c − x ∈ [1/(4cC), 1/(2cC)]`, some `γ` with bottom row `(c, −a)` puts `x + i/C²` in the band; hence `|Δ(x+i/C²)|² ≥ m C²⁴` |
+| `G_smul`, `exists_band_lower` | `Band` | `G(z) = \|Δ(z)\|²(Im z)¹²` is `SL₂(ℤ)`-invariant, and `G ≥ m > 0` on `4/5 ≤ Im z ≤ 16` |
+| `exists_smul_mem_band`, `normSq_farey_lower` | `Band` | if `(a,c) = 1`, `1 ≤ a ≤ c ≤ C` and `a/c − x ∈ [1/(4cC), 1/(2cC)]`, some `γ` with bottom row `(c, −a)` puts `x + i/C²` in the band; hence `\|Δ(x+i/C²)\|² ≥ m C²⁴` |
 | `card_fareyPairs_ge` | `Lower` | `#{(a,c) : 1 ≤ a ≤ c ≤ C, (a,c) = 1} ≥ C²/8` (union bound with `∑_{d≥2} d⁻² ≤ 3/4`, then symmetry) |
-| `fareyJ_disjoint` | `Lower` | the Farey intervals `J(a,c) = [a/c − 1/(2cC), a/c − 1/(4cC)]` are pairwise disjoint, using `|ac' − a'c| < 1` |
-| `integral_lower` | `Lower` | **horocycle lower bound** `∫₀¹ |Δ(x + i/C²)|² dx ≥ (m/32) C²⁴` for all `C ≥ 1` |
+| `fareyJ_disjoint` | `Lower` | the Farey intervals `J(a,c) = [a/c − 1/(2cC), a/c − 1/(4cC)]` are pairwise disjoint, using `\|ac' − a'c\| < 1` |
+| `integral_lower` | `Lower` | **horocycle lower bound** `∫₀¹ \|Δ(x + i/C²)\|² dx ≥ (m/32) C²⁴` for all `C ≥ 1` |
 | `exists_sum_tau_sq_ge_trunc` | `Main` | `∑_{n≤L} τ(n)² ≥ (m/32)C²⁴ − e^{-2πL/C²}·K2¹²C²⁴` |
 | `exists_sum_tau_sq_ge` | `Main` | `∑_{n≤N} τ(n)² ≥ k N¹²` |
 | **`rankinSelberg_two_sided`** | `Main` | **`∃ c₁ c₂ > 0, ∀ N ≥ 1, c₁N ≤ ∑_{n=1}^N τ(n)²/n¹¹ ≤ c₂N`** |
@@ -109,8 +116,9 @@ Here `S(x) = ∑_{n≤x} τ(n)²/n¹¹` and `A(x) = ∑_{n≤x} τ(n)²`.
 
 ## What remains (assessment)
 
-**Milestone 2: the asymptotic `∑_{n≤x} τ(n)²/n¹¹ ~ c x`.** This is not reached, and there is no
-cheap route. It is equivalent to the equidistribution of long horocycles for the single function
+**Milestone 2: the asymptotic `∑_{n≤x} τ(n)²/n¹¹ ~ c x`.** (Superseded: now proved in `EisensteinReal/`, by a
+cheaper elementary route than the one estimated here; see the update at the top.) At the time of writing this was
+not reached, and there seemed to be no cheap route. It is equivalent to the equidistribution of long horocycles for the single function
 `G`, namely `∫₀¹ G(x+iy)dx → (3/π)‖Δ‖²` as `y → 0`, combined with a Tauberian step. Both standard
 proofs of horocycle equidistribution use spectral theory (Zagier's proof goes through `E(z,s)`) or
 mixing. Mathlib has (checked 2026-11-04):
@@ -128,7 +136,7 @@ Honest line estimates:
 | Piece | Lines |
 |---|---|
 | `E(z,s)` for `Re s > 1`, its Fourier expansion (`K_{s−1/2}`-Bessel), and continuation to `Re s > 1/2` with simple pole and residue `3/π` (Chowla–Selberg / Poisson summation) | 2500–4000 |
-| Fundamental domain as an `IsFundamentalDomain`, and the unfolding identity for `|Δ|²y¹²E(z,s)` | 1000–1500 |
+| Fundamental domain as an `IsFundamentalDomain`, and the unfolding identity for `\|Δ\|²y¹²E(z,s)` | 1000–1500 |
 | A Tauberian theorem. Karamata's, for the Laplace transform `∑ τ(n)²e^{-4πny} ~ c'y^{-12}`, is the cheapest; Weierstrass approximation is in Mathlib | 500–800 |
 
 Total for `~ c x`: about **4000–6000 lines**.

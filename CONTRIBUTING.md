@@ -26,6 +26,14 @@ lake env lean scripts/audit/finite_arithmetic.lean
 python3 scripts/boylanwebb/check_cert29_error.py
 ```
 
+For the analytic and congruence tracks of 2026-11-03/04 (τ bounds, Rankin–Selberg,
+GORZ, Jensen, Andrews/Dragonette, Atkin/Ono–Weaver, Lehmer), run the focused build of
+the changed module, then, after a full `lake build`,
+
+```sh
+lake env lean scripts/audit/celebrated_targets.lean
+```
+
 Regeneration commands and the distinction between discovery, checking, and
 evaluation are documented in [the finite-arithmetic guide](docs/FINITE_ARITHMETIC.md).
 

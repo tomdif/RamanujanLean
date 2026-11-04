@@ -211,5 +211,7 @@ Lean proof).
 * Q ≥ 500 not scanned; the method is the same (one longer prefix per ℓ: index ≈ 6Q² at ℓ = 13,
   ≈ 23Q² at ℓ = 29).
 * ℓ = 37, 41, … : `S_{k'}` and `W` become higher-dimensional; not attempted.
-* Atkin's twisted j = 1 case (`AtkinSporadic.atkin_13`, `EtaHeckeMod 13 11 168 1`) is untouched.
-* The root `RamanujanTau.lean`, README, STATUS, RESULTS were not edited (per instructions).
+* Atkin's twisted j = 1 case (`AtkinSporadic.atkin_13`, `EtaHeckeMod 13 11 168 1`) is untouched here (it was
+  made unconditional separately: `Atkin13.atkin_13_unconditional`, [HALF_INTEGRAL_HECKE](HALF_INTEGRAL_HECKE.md)).
+* The root `RamanujanTau.lean`, README, STATUS, RESULTS were not edited by this pass (per instructions); they have
+  since been updated and `OnoWeaverMore.All` is in the root import.

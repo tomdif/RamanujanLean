@@ -2,6 +2,13 @@
 
 `f(q) = Σ q^{n²}/(−q;q)_n² = Σ α(n) qⁿ`, where `α(n) = N(0,2,n) − N(1,2,n)` (`Dragonette.α`).
 
+> **Later status (2026-11-04): `Hb` is proved, so everything below is unconditional.** `MockCusp.Hb_holds`
+> proves `Hb (max Ceven Codd) (3/2)` and `MockCusp.HbSharp_holds` proves `Hb Csharp 1`. Plugged into the
+> conditional theorems of this document they give `MockCusp.andrews_1966_unconditional` (printed main term,
+> error `O(n log n)`) and **`MockCusp.andrews_1966_sqrt_log_unconditional`** (printed main term, Andrews' own
+> error `O(√n log n)`); see [MOCK_THETA_CUSPS](MOCK_THETA_CUSPS.md). The "paper only" and "what is left"
+> items below describe the state before that, and all these files are now in the root import.
+
 Andrews (1966) proved
 
   `α(n) = π(24n−1)^{−1/4} Σ_{k ≤ √n} (−1)^{⌊(k+1)/2⌋} A_{2k}(n − k(1+(−1)^k)/4)/k · I_{1/2}(π√(24n−1)/(12k)) + O(√n log n)`.
@@ -286,8 +293,8 @@ Remarks:
 | `Andrews66/numerics/` | — | `hb2.py`/`hb3.py` (+ outputs): `Hb` check; `mainsum*.py`: main sum vs α(n) and the identification; `ded.py`: the congruence |
 
 Each file was compiled with `lake env lean` and `lake build RamanujanTau.Andrews66.<File>`. Nothing outside
-`Andrews66/` was modified apart from this document. To add the track, the coordinator should add
-`import RamanujanTau.Andrews66.Main` and `import RamanujanTau.Andrews66.Printed` to the root. `Printed` imports
+`Andrews66/` was modified apart from this document. Both
+`RamanujanTau.Andrews66.Main` and `RamanujanTau.Andrews66.Printed` have since been added to the root import. `Printed` imports
 `Ded`, `OmegaB` and `Final`, which import everything else.
 
 ## Evidence levels
@@ -308,14 +315,15 @@ Each file was compiled with `lake env lean` and `lake build RamanujanTau.Andrews
    - `arc_bound`: the per-arc bound.
 3. **Paper only.**
    - The truth of `Hb`. It is a consequence of the general-cusp transformation of `f` (Watson 1936; Andrews 1966,
-     §§3–4; Gordon–McIntosh), but that is not formalized.
+     §§3–4; Gordon–McIntosh), but that is not formalized. (Superseded: `Hb` is now proved in Lean by a different
+     route, `MockCusp.Hb_holds` / `MockCusp.HbSharp_holds`.)
 4. **Numerical.**
    - `Hb(3,1)` and `Hb(3,1/2)` at 772 points.
    - The termwise Dedekind congruence for `k ≤ 40`, now proved for all `k`.
    - `|α(n) − andrewsMain(n)| ≤ 3` and `|α(n) − andrewsPrinted(n)| ≤ 0.65` for all `n ≤ 2000`.
    - The table in Part I.
 
-## What is left
+## What was left (historical; `Hb` is now proved, see the status note at the top)
 
 - **M-b, discharging `Hb`.** This is the hard part, estimated at 3–6k lines. It needs a transformation law for `f`
   at every cusp `h/K`, at least up to a polynomially bounded remainder:

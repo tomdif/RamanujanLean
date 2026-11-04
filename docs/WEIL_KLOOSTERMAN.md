@@ -3,16 +3,17 @@
 
 # Salié and Weil exponents for τ via Kloosterman sums (`RamanujanTau/WeilKloosterman/`)
 
-**Status (2026-11-04).** Everything is proved except the bound for **prime moduli**:
+**Status at the time of writing (2026-11-04, before the two updates above; both prime-modulus bounds are now
+proved).** Everything in this directory is proved except the bound for **prime moduli**:
 
 * `τ(n) = O(n^{35/6+ε})` (Salié 1931/32, Davenport 1933) is proved assuming `SaliePrimeBound`.
 * `τ(n) = O(n^{23/4+ε})` (Weil 1948) is proved assuming `WeilPrimeBound`.
 
 All prime-power and composite-modulus work is done and axiom-clean, and so is the reduction from a
-Kloosterman exponent to a τ exponent. Neither prime-modulus bound has been proved yet; the assessment
-below explains what each one would cost.
+Kloosterman exponent to a τ exponent. Neither prime-modulus bound was proved in this directory; the assessment
+below explains what each one would cost. (Both were later proved: see the updates at the top.)
 
-Files (new; nothing in `TauBound/` was modified, and nothing is imported by the root `RamanujanTau.lean`):
+Files (new; nothing in `TauBound/` was modified; written outside the root import, since added to `RamanujanTau.lean`):
 
 | File | Lines | Content |
 |---|---|---|
@@ -32,12 +33,12 @@ Build (only these files):
 
 | Theorem | File | Statement |
 |---|---|---|
-| `qsum_normSq` | OddPrimePow | `|∑_t ψ(tA+t²B)|² = N ∑_{h: 2hB=0} ψ(hA+h²B)` on `ZMod N` |
-| **`norm_kl_primePow_odd_le`** | OddPrimePow | for `p` an odd prime, `k = 2j+1`, `j ≥ 1`, and any `b`: `|S(1,b;p^k)| ≤ 4√(p^k)` |
-| **`norm_kloosterman_primePow_le_sqrt`** | Main | for every prime `p` (including 2), `k ≥ 2`, and any `n`: `|S(1,n;p^k)| ≤ 6√(p^k)` |
+| `qsum_normSq` | OddPrimePow | `\|∑_t ψ(tA+t²B)\|² = N ∑_{h: 2hB=0} ψ(hA+h²B)` on `ZMod N` |
+| **`norm_kl_primePow_odd_le`** | OddPrimePow | for `p` an odd prime, `k = 2j+1`, `j ≥ 1`, and any `b`: `\|S(1,b;p^k)\| ≤ 4√(p^k)` |
+| **`norm_kloosterman_primePow_le_sqrt`** | Main | for every prime `p` (including 2), `k ≥ 2`, and any `n`: `\|S(1,n;p^k)\| ≤ 6√(p^k)` |
 | `norm_kl_prime_zero_le` | Main | `S(1,0;p) = −1` |
 | `const_pow_omega_le` | Assembly | `C^{ω(c)} ≤ K_δ c^δ` (for any `C ≥ 1`) |
-| `norm_kloosterman_le_major` | Assembly | `LocalKlBound α C ⟹ |S(1,n;c)| ≤ C^{ω(c)} c^α` (twisted multiplicativity) |
+| `norm_kloosterman_le_major` | Assembly | `LocalKlBound α C ⟹ \|S(1,n;c)\| ≤ C^{ω(c)} c^α` (twisted multiplicativity) |
 | **`kloostermanBound_of_local`** | Assembly | `LocalKlBound α C ⟹ ∀δ>0, KloostermanBound (α+δ)` |
 | **`tau_isBigO_of_kloostermanFamily`** | Assembly | `0 ≤ α`, `∀δ>0, KloostermanBound(α+δ)` ⟹ `∀ε>0, τ(n) = O(n^{(11+α)/2+ε})`, using the unconditional `PoincareFormula` from `TauBound` |
 | `localKlBound_half`, `localKlBound_twoThirds` | Main | `PrimeKlBound (1/2)` resp. `(2/3)` ⟹ `LocalKlBound` with the same exponent |
@@ -73,7 +74,7 @@ The named hypotheses are statements about prime moduli only, and both are true t
 | **`tau_isBigO_35_6_of_salie`** | `SaliePrimeBound → ∀ε>0, τ(n) = O(n^{35/6+ε})` (**G1**) |
 | `kloostermanBound_half_of_weil` | `WeilPrimeBound → ∀δ>0, KloostermanBound (1/2+δ)` (**G2 Kloosterman part**) |
 | **`tau_isBigO_23_4_of_weil`** | `WeilPrimeBound → ∀ε>0, τ(n) = O(n^{23/4+ε})` (**G2**, Weil 1948) |
-| `tau_isBigO_23_4_of_primeKlBound` | the same conclusion from `|S(1,b;p)| ≤ C√p` with any constant `C` |
+| `tau_isBigO_23_4_of_primeKlBound` | the same conclusion from `\|S(1,b;p)\| ≤ C√p` with any constant `C` |
 
 Not formalized in the exact sharp form: `|S(a,b;c)| ≤ τ(c) gcd(a,b,c)^{1/2} c^{1/2}`. It is not needed for τ,
 because the `C^{ω(c)} ≪ c^δ` form is enough. With the pieces above, the remaining gaps would be the factor
@@ -87,7 +88,7 @@ because the `C^{ω(c)} ≪ c^δ` form is enough. With the pieces above, the rema
 * `q = p³` and `3⁵`: at most 2.000;
 * `q = 2^k`, `k = 3, …, 9`: at most 2.83, which is below `2√2` and below 6.
 
-## What remains: the prime modulus
+## What remained: the prime modulus (historical; both G1 and G2 are now proved)
 
 ### G1 (`SaliePrimeBound`): assessment
 

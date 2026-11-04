@@ -197,7 +197,7 @@ All files are new. Nothing in `GORZXi/`, `GORZ/` or `JensenThreshold/` was modif
 
 To build, run one process: `lake build RamanujanTau.GORZXiEff.Main`. Each module takes about 15 s once
 `GORZXi` is built. For the unconditional results, build `lake build RamanujanTau.GORZXiEff.CVMain` and then
-the data modules one at a time (about 3 min in total). The root `RamanujanTau.lean` is not modified.
+the data modules one at a time (about 3 min in total). The root `RamanujanTau.lean` was not modified at the time; `GORZXiEff.Main` and `GORZXiEff.CVMain` have since been added to it.
 
 ## What remains
 

@@ -22,9 +22,11 @@ those theorems' statements.
 | Ramanujan's τ | Multiplicativity, the Hecke recurrence, and the mod-691 congruence for the computable Euler-product coefficients | [TauModular](RamanujanTau/TauModular.lean) |
 | Hasse–Weil via Stepanov | Character sums of squarefree polynomials over F_p are O(m²√p); Hasse's bound for elliptic curves up to the constant; Salié's Kloosterman bound | [Main](RamanujanTau/Stepanov/Main.lean), [Salié](RamanujanTau/Stepanov/Salie.lean), [write-up](docs/STEPANOV.md) |
 | Rankin–Selberg | Σ_{n≤N} τ(n)²/n¹¹ ~ (3/π)(4π)¹²‖Δ‖²/11!·N, via horocycle equidistribution and Karamata's Tauberian theorem | [HoroIdent](RamanujanTau/EisensteinReal/HoroIdent.lean), [write-up](docs/EISENSTEIN_REAL.md) |
-| Weil's bound for τ | Weil's Kloosterman bound |S(1,b;p)| ≤ 2√p (Stepanov for Artin–Schreier curves, rationality of the Kloosterman L-function, amplification), hence τ(n) = O(n^{23/4+ε}) | [StepanovAS](RamanujanTau/StepanovAS/Main.lean), [write-up](docs/STEPANOV_ARTIN_SCHREIER.md) |
-| Kloosterman's bound for τ | τ(n) = O(n^{35/6+ε}) via Salié's bound (earlier: O(n^{47/8+ε})), the first bound below Hecke's n⁶, with Kloosterman's sum bound, Poincaré-series unfolding, and the cusp-form property all proved | [Unconditional](RamanujanTau/TauBound/Unconditional.lean), [write-up](docs/TAU_SUBHECKE_BOUND.md) |
+| Weil's bound for τ | Weil's Kloosterman bound \|S(1,b;p)\| ≤ 2√p (Stepanov for Artin–Schreier curves, rationality of the Kloosterman L-function, amplification), hence τ(n) = O(n^{23/4+ε}) | [StepanovAS](RamanujanTau/StepanovAS/Main.lean), [write-up](docs/STEPANOV_ARTIN_SCHREIER.md) |
+| Earlier τ exponents | τ(n) = O(n^{47/8+ε}) (Kloosterman 1927), the first bound below Hecke's n⁶, with Kloosterman's sum bound, Poincaré-series unfolding, and the cusp-form property all proved; then O(n^{35/6+ε}) via Salié's bound. Both are superseded by Weil's 23/4 above (Rankin's 29/5 lies in between and is not formalized) | [Kloosterman](RamanujanTau/TauBound/Unconditional.lean), [Salié](RamanujanTau/Stepanov/Salie.lean), [write-up](docs/TAU_SUBHECKE_BOUND.md) |
+| Lehmer's conjecture, small n | τ(n) ≠ 0 for every 1 ≤ n < 21,492,863,999, from congruences for τ at a hypothetical least (prime) zero | [FinalDeep](RamanujanTau/LehmerSmall/FinalDeep.lean), [write-up](docs/LEHMER_SMALL_N.md) |
 | Jensen polynomials of Riemann Ξ | Griffin–Ono–Rolen–Zagier Theorem 1: for every d, the Jensen polynomials of the Taylor coefficients of Ξ (from Mathlib's completed zeta) are real-rooted for all large n and converge to Hermite polynomials | [XiUncond](RamanujanTau/GORZXi/XiUncond.lean), [write-up](docs/GORZ_XI.md) |
+| Turán inequalities for Ξ | γ(n)γ(n+2) ≤ γ(n+1)² for every n ≥ 0 (Csordas–Norfolk–Varga), so the degree-2 Jensen polynomials of Ξ are real-rooted for every n; the Csordas–Varga monotonicity is proved with kernel-checked interval cells | [CVMain](RamanujanTau/GORZXiEff/CVMain.lean), [write-up](docs/GORZ_XI_EFFECTIVE.md) |
 | Jensen polynomials, every degree | Griffin–Ono–Rolen–Zagier for p(n): for every d the degree-d Jensen polynomial is real-rooted for all large n, and the renormalized polynomials converge to Hermite polynomials | [GORZ](RamanujanTau/GORZ/Main.lean), [write-up](docs/GORZ_PARTITIONS.md) |
 | Jensen thresholds d = 6, 7 | The degree-6 Jensen polynomial of p is real-rooted for every n ≥ 610 and not at 609; degree 7: every n ≥ 908, not at 907 | [Final](RamanujanTau/JensenThreshold/Final.lean), [write-up](docs/JENSEN_THRESHOLDS.md) |
 | Andrews' 1966 asymptotic | α(n) equals Andrews' printed sum over k ≤ √n of A_{2k}·I_{1/2} terms up to O(√n log n) (Andrews' own error term), via uniform bounds on f ± b near every root of unity | [SharpHb](RamanujanTau/MockCusp/SharpHb.lean), [write-ups](docs/ANDREWS_1966_ASYMPTOTIC.md), [cusps](docs/MOCK_THETA_CUSPS.md) |
@@ -101,7 +103,8 @@ It also holds at 53 and 59 (`RankSAt53.bEll_53`, `RankSAt59.bEll_59`), where the
 vector moved by a 2×2 matrix ([RankSPacked](RamanujanTau/FiniteArithmetic/RankSPacked.lean)), and at every
 prime 61 ≤ ℓ ≤ 139 (`RankRAt61.bEll_61`, …, `RankRAt139.bEll_139`) by an order-r version
 ([RankRPacked](RamanujanTau/FiniteArithmetic/RankRPacked.lean)). So b_ℓ(m) is known for every m at
-every prime 13 ≤ ℓ ≤ 139.
+every prime 13 ≤ ℓ ≤ 139. (The recorded full build and audit cover the primes through 113; 127 and 131 have
+passed focused builds; the certificates at 137 and 139 have not yet been built.)
 At ℓ = 13, 17, 19, 23 the threshold is smaller:
 [SmallThreshold](RamanujanTau/FiniteArithmetic/SmallThreshold.lean) proves
 b_ℓ(m) ≤ 2⌊m/2⌋+1 for every m, and b_ℓ(2) = b_ℓ(3) = 3;
@@ -143,7 +146,8 @@ lake build
 [lake-manifest.json](lake-manifest.json) pins Mathlib; keep it when reproducing a
 build. A Mathlib cache download does not include this project's certificates.
 Fresh certificate checks can take substantial time and memory; later builds
-reuse the compiled proofs. The multi-quintuple proof includes eight stable
+reuse the compiled proofs. Some certificates are memory-heavy: for example `GORZXiEff.CVData*` peaks near 9 GB and
+each `RankRAt*` packed certificate can need up to about 16 GB. The multi-quintuple proof includes eight stable
 small-prime certificate blocks; [regeneration commands](docs/FINITE_ARITHMETIC.md#multi-quintuple-classification-certificates)
 are documented separately.
 
@@ -166,6 +170,12 @@ lake env lean scripts/audit/celebrated_targets.lean
 lake env lean --run scripts/finite_arithmetic/demo.lean 1000000000000
 ```
 
+A full root `lake build` has **not** been re-run since the 2026-11-03/04 campaign added the analytic tracks
+(τ bounds, Rankin–Selberg, GORZ, Andrews, Atkin/Ono–Weaver, Lehmer) to the root import: those modules passed
+focused builds, and their headline theorems print only the three standard axioms when their modules are imported
+directly. `RankRAt137` and `RankRAt139` have not yet been built, so a fresh `lake build` (needed before
+`scripts/audit/celebrated_targets.lean`, which imports the whole root) also has to compile them. See [Current status](docs/STATUS.md#verification).
+
 The audits report axiom dependencies. The finite-arithmetic audit also checks
 small counting values and an enormous recurrence exponent. The expected axiom
 set is a subset of `propext`, `Classical.choice`, and `Quot.sound`.
@@ -184,15 +194,15 @@ not substitute for `lake build` or the Lean axiom audits.
 
 The [documentation guide](docs/README.md) distinguishes current results from
 historical plans, numerical experiments, and proposed paper arguments.
-Current open work includes efficient high-precision seed computation, extending
-certified arithmetic representations beyond prime 29, and extensions beyond
+Current open work includes efficient high-precision seed computation, a uniform
+(all-prime) proof of Boylan–Webb sharpness, and extensions beyond
 the proved admissible sparse triple multi-quintuple classification, such as
 four-factor products and quantitative first-witness bounds. The
 [four-factor results](RESEARCH_MULTI_QUINTUPLE.md#a-second-quadratic-family-beyond-sums-of-two-squares)
 now include families at both m²+n² and 2m²+n². Complete fixed-product coefficient
 classifications are proved at 41 and 53; infinite zero progressions are also
-proved at 43 and 97. Deligne's τ bound
-is not formalized here; Lehmer's conjecture remains open.
+proved at 43 and 97. Weil's exponent 23/4 is the best formalized τ bound;
+Deligne's 11/2 is not formalized here, and Lehmer's conjecture remains open.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for proof, certificate, and documentation
 conventions. The project is [MIT licensed](LICENSE).

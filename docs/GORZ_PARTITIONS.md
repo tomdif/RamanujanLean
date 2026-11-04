@@ -106,7 +106,7 @@ theorem GORZ.H_alternating (d : ℕ) : ∃ y : ℕ → ℝ, (∀ i < d, y i < y 
 
 Dependencies: `JensenThreshold.Basic`, `JensenThreshold.Tail.{Calculus, Model, Setup, Link, Box2}` (definitions
 `jensen`, `Hyperbolic`, `hyperbolic_of_alternating`, `fch`, `Pz`, `δv`, `Φv`, `gs`, `taylor_bounds`, `wv`,
-`gamv`, `rel_err`). None of those files is modified. Nothing is added to the root `RamanujanTau.lean`.
+`gamv`, `rel_err`). None of those files is modified. Nothing was added to the root `RamanujanTau.lean` at the time; `RamanujanTau.GORZ.Main` has since been added.
 
 Build (one process, this machine):
 
@@ -124,6 +124,9 @@ This assumes the `JensenThreshold.Tail` oleans are already built. `Main` takes 1
   an explicit quantitative version of the Hermite sign margins at the alternation points (step 1 is
   non-constructive: `Y` and the `r_i` come from the IVT and `atTop`). Not attempted.
 * **The general GORZ Theorem 3** (arbitrary sequences with `log α(n+j) = log α(n) + A(n)j − δ(n)²j² + o(δ^d)`)
-  is not stated abstractly. The proof here is specific to `p(n)` through `Mmain` and the `Pz` data. The same
+  was not stated abstractly here. (Since done: `GORZXi.gorz_thm3`, with `GORZXi.partition_gorz` re-deriving this case;
+  see [GORZ_XI](GORZ_XI.md).) The proof here is specific to `p(n)` through `Mmain` and the `Pz` data. The same
   structure (Taylor + `gs` domination + `gs_tendsto` + `H_alternating`) would abstract with moderate effort.
-* Riemann ξ / Taylor coefficients of `Ξ` (the other GORZ application) is not touched.
+* Riemann ξ / Taylor coefficients of `Ξ` (the other GORZ application) was not touched here. (Since done,
+  unconditionally: `GORZXi.xi_gorz_unconditional`, [GORZ_XI](GORZ_XI.md); Turán / `d = 2` for every `n`:
+  `GORZXiEff.turan_gamma_unconditional`, [GORZ_XI_EFFECTIVE](GORZ_XI_EFFECTIVE.md).)

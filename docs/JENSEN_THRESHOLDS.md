@@ -51,12 +51,14 @@ depends on nothing outside the repository and Mathlib.
 | `Tail/Interval.lean`, `Tail/IvLemmas.lean` | Soundness of every interval operation (`mem_add`, `mem_mul`, `mem_inv`, `mem_sqrt`, `mem_pow`, …) and of the composite routines (`mem_evalQIv`, `mem_sumIv`, `mem_powFact`, `mem_prodT`, `mem_recIv`). |
 | `Tail/Calculus.lean` | `taylor_bounds` (Taylor remainder bounds along an explicit `HasDerivAt` chain, by monotonicity); `gs` = Leibniz chain for `e^φ` with `gs_hasDerivAt`; homogeneity `gs_scale`. |
 | `Tail/Model.lean` | `fch U₀ m` = `m`-th derivative of `s ↦ F(√(U₀²+as))`, **`fch_hasDerivAt`** (a generic derivative lemma for `(u,w)`-polynomials plus merging); `evalZ_eq_Q` (factor `U^{-(2m−1)}`). |
-| `Tail/Setup.lean`, `Tail/Link.lean` | `δ = √(−f''(0)/2) = (a/2)t₀³√c₂`, `A = f'(0)`, `φ`, `Φ_m = φ^{(m)}/δ^m` and their closed forms in `t₀ = U^{-1/2}`, `ρ = U(s)/U₀`; `uk 1 (n+j) = √(U₀² + a j)`, `Mmain = (Kc/2)e^{F(U)}`, the relative error `|p/Mmain − 1| ≤ 2U³e^{−U/2}/(U−1)`, exponential lower bounds. |
+| `Tail/Setup.lean`, `Tail/Link.lean` | `δ = √(−f''(0)/2) = (a/2)t₀³√c₂`, `A = f'(0)`, `φ`, `Φ_m = φ^{(m)}/δ^m` and their closed forms in `t₀ = U^{-1/2}`, `ρ = U(s)/U₀`; `uk 1 (n+j) = √(U₀² + a j)`, `Mmain = (Kc/2)e^{F(U)}`, the relative error `\|p/Mmain − 1\| ≤ 2U³e^{−U/2}/(U−1)`, exponential lower bounds. |
 | `Tail/Box1.lean`, `Tail/Box2.lean` | Interval membership of every real quantity; `taylor_g`, `eps_scaled`, `gam_mem`, `G_mem`, `eval_jensen_eq` (`J(e^{−A}(δx−1)) = Mmain(n)·δ^d·G(x)` via the Newton identity); **`box_sound`**. |
 | `Tail/Newton.lean`, `Tail/Cover.lean` | Newton forward-difference identity for d = 6, 7; `coverOK_spec`, `t0_le_tmax` (π > 3.14159 ⇒ `t₀(n) ≤ t_max` for `n ≥ n₀`). |
 | `Tail/Data6.lean`, `Tail/Data7.lean`, `Tail/Check6.lean`, `Tail/Check7.lean` | Generated boxes (16 for d=6 covering `U ≥ 90.9991`, 25 with per-box test points for d=7 covering `U ≥ 104.998`; last box `t₀ ∈ [0, ·]` is infinite) and the kernel checks `boxes{6,7}_ok`, `cover{6,7}_ok`. |
 
-Exact headline statements:
+Exact statements of the finite parts and the conditional forms (the tails `JensenTail 6 1259`, `JensenTail 7 1676`
+are now proved, `jensen6_tail`, `jensen7_tail`, giving the unconditional `jensen{6,7}_threshold_unconditional` in
+`Final.lean`):
 
 ```lean
 theorem jensen6_finite {n : ℕ} (h1 : 610 ≤ n) (h2 : n ≤ 1258) : Hyperbolic (jensen 6 n)
@@ -155,7 +157,7 @@ python3 gen_lean.py 6; python3 gen_lean.py 7
 cd ../.. && lake build RamanujanTau.JensenThreshold.Jensen6 RamanujanTau.JensenThreshold.Jensen7
 ```
 
-The root import `RamanujanTau.lean` does not yet import these modules. That is left to the coordinator.
+`RamanujanTau.JensenThreshold.Final` (and hence these modules) has since been added to the root import `RamanujanTau.lean`.
 
 ## How the formalized tail works (differences from `tail_cert.py`)
 

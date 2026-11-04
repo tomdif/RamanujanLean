@@ -2,6 +2,13 @@
 
 `f(q) = Σ q^{n²}/(−q;q)_n² = Σ α(n) qⁿ`, where `α(n) = N(0,2,n) − N(1,2,n)` (`MockTheta3.f3_rank`).
 
+> **Later status (2026-11-04).** Several gaps listed below are closed elsewhere:
+> the sign `(−1)^{n+1}α(n) > 0` holds for **every** `n ≥ 1` (`Andrews.alpha_sign`, elementary; see
+> [ANDREWS_1966](ANDREWS_1966.md)), so the "explicit N" gap is moot; **M2** (Andrews 1966, error `O(√n log n)`) is
+> proved unconditionally (`MockCusp.andrews_1966_sqrt_log_unconditional`; see [ANDREWS_1966_ASYMPTOTIC](ANDREWS_1966_ASYMPTOTIC.md)
+> and [MOCK_THETA_CUSPS](MOCK_THETA_CUSPS.md)); **M3** (the exact formula) remains open, see
+> [ANDREWS_DRAGONETTE_EXACT](ANDREWS_DRAGONETTE_EXACT.md). All of these files are now in the root import.
+
 ## Result: M1 reached. Lean-proved and axiom-clean
 
 `RamanujanTau/Dragonette/Main.lean`, namespace `Dragonette`. Here `α n := PowerSeries.coeff n MockTheta3.f3`.
@@ -98,8 +105,8 @@ Put `s = e^{−z}`, `z = t + iθ`, `t = π/√(24n)` and `A = nt = π²/(24t)`, 
 | `Dragonette/Literal.lean` | `dragonette_literal` (original normalization) |
 | `Dragonette/Main.lean` | arc bounds, `decomp_D`, `dragonette`, `dragonette_isEquivalent`, `dragonette_sign`, `rank_parity_sign` |
 
-About 1,900 lines in total. None of these files is imported by `RamanujanTau.lean`; the coordinator should add
-`import RamanujanTau.Dragonette.Main`.
+About 1,900 lines in total. These files were written outside the root import; `RamanujanTau.Dragonette.Literal` (which imports
+`Dragonette.Main`) has since been added to `RamanujanTau.lean`.
 
 ## The explicit sign theorem: status and analysis (follow-up)
 
@@ -140,13 +147,14 @@ than formalize a useless `N`.
 
 ## Gaps
 
-- **An explicit N for the sign theorem.** This is not done. The analytic constants are explicit: the decay rate
+- **An explicit N for the sign theorem.** (Moot: `Andrews.alpha_sign` now proves the sign for every `n ≥ 1`.) This was not done. The analytic constants are explicit: the decay rate
   is 1/2400 in `1/t`, and `C0 = Σ p(k)2^{−k}` is bounded. However, the main-term convergence `J_n → √π` is
   proved by dominated convergence, which is ineffective. Even with an effective Laplace step, the crude rate
   `e^{−√(24n)/(2400π)}` would put N far beyond any finite check (around 10⁸ or more). Getting a usable N needs
   either sharper constants (exact Li₂-type bounds for φ) or a Rademacher-type error bound. In either case one
   then still needs a finite check up to that N, by kernel `decide` or a certificate.
-- **M2, Andrews 1966** (error `O(√n)`, or `O(n^{1/2+ε})`). Not attempted. It needs the behaviour of f at every
+- **M2, Andrews 1966** (error `O(√n)`, or `O(n^{1/2+ε})`). (Since proved with Andrews' error `O(√n log n)`:
+  `MockCusp.andrews_1966_sqrt_log_unconditional`.) Not attempted here. It needs the behaviour of f at every
   even-order cusp `q → e^{2πih/2k}`. That means Watson's 1936 transformation of `f` in general (`f` is related
   to `ω` and a Mordell integral), Kloosterman-type sums `A_{2k}`, and a Farey dissection like the repo's
   `Rademacher/`. None of the general-cusp transformations of `f` exist in the repo. The q → −1 route used here

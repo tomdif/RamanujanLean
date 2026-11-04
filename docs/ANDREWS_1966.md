@@ -2,6 +2,11 @@
 
 `f(q) = Σ q^{n²}/(−q;q)_n² = Σ α(n) qⁿ`. Here `α(n) = N(0,2,n) − N(1,2,n)` (`MockTheta3.f3_rank`).
 
+> **Later status (2026-11-04).** G2 below was later proved, by a different (inequality-only) route than the one
+> assessed here: Andrews' 1966 theorem with his printed main term and error `O(√n log n)` is
+> `MockCusp.andrews_1966_sqrt_log_unconditional` (no hypotheses). See [ANDREWS_1966_ASYMPTOTIC](ANDREWS_1966_ASYMPTOTIC.md)
+> and [MOCK_THETA_CUSPS](MOCK_THETA_CUSPS.md). The G2 section below is the original assessment.
+
 ## G1: done for every n ≥ 1, by an elementary proof (Lean, axiom-clean)
 
 ```lean
@@ -105,7 +110,7 @@ The structure of a proof:
 
 ## Remaining gaps (precise)
 
-- G2: everything above. Nothing is formalized; this is an assessment only.
+- G2: everything above was an assessment only at the time; G2 is now proved (see the status note at the top).
 - G1: none.
 
 **Literature note (2026-11-04).** arXiv:2606.31606 (Ghosh Dastidar, "Sign Laws and Mock Theta Functions") proves a mod-3 sign law for the coefficients of ρ(q) (via ω(q) and Watson's identity, plus a finite computation) and mentions extensions to φ(q) and χ(q). Per its abstract it does not treat f(q) or N(0,2,n)−N(1,2,n). Novelty of `Andrews.alpha_sign` remains unclaimed pending a fuller search; the argument may be folklore.

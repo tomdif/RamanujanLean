@@ -48,16 +48,25 @@ Consequences (`TauModular`):
 - the mod-691 congruence for the combinatorial and computable `τ` (`tau_computable_mod691`);
 - the integer identity `1728·q(q;q)²⁴_∞ = E₄³ − E₆²` in `ℤ⟦q⟧` (`discriminant_formal_identity`).
 
-## 3. `τ` multiplicativity — CLOSED (proved, 2026-10-04); Deligne / Lehmer — out of scope
+## 3. `τ` multiplicativity — CLOSED (proved, 2026-10-04); size of `τ`: Weil's bound proved, Deligne open here; Lehmer — partial
 
 - **Multiplicativity and the Hecke recurrence are proved** (`RamanujanTau.tau_mul_coprime` in `HeckeQExp.lean`,
   `tau_hecke_recurrence`; axiom-clean). `HeckeCore`/`HeckeForm` build `T_p` on `CuspForm 𝒮ℒ k` by the
   elementary coset computation, without Mathlib's double-coset machinery. `HeckeQExp` computes its
   q-expansion, which gives a `HeckeData` term and an instance of `TauHeckeMaster`.
-- `DeligneBound` states Deligne's bound as a named hypothesis; its proof is not formalized here.
-- `LehmerConjecture` (`τ(n) ≠ 0`) is a famous open problem.
+- **Bounds on `|τ(n)|`.** Hecke's `τ(n) = O(n⁶)` (`tau_isBigO`, `TauLSeries.lean`) has been improved, unconditionally
+  and axiom-clean, three times (2026-11-03/04): Kloosterman's `O(n^{47/8+ε})`
+  (`TauBound.tau_isBigO_47_8_unconditional`), Salié's `O(n^{35/6+ε})` (`Stepanov.tau_isBigO_35_6_unconditional`), and
+  **Weil's `O(n^{23/4+ε})`** (`StepanovAS.tau_isBigO_23_4_unconditional`, via Weil's Kloosterman bound
+  `StepanovAS.weilPrimeBound`). See [TAU_SUBHECKE_BOUND](docs/TAU_SUBHECKE_BOUND.md),
+  [STEPANOV](docs/STEPANOV.md), [STEPANOV_ARTIN_SCHREIER](docs/STEPANOV_ARTIN_SCHREIER.md). (Rankin's 1939 `29/5`
+  lies between 35/6 and 23/4 and is not formalized.)
+- `DeligneBound` states Deligne's bound (`|τ(p)| ≤ 2p^{11/2}`) as a named hypothesis; its proof is not formalized
+  here (it needs the Weil conjectures).
+- `LehmerConjecture` (`τ(n) ≠ 0`) is a famous open problem. The finite range `τ(n) ≠ 0` for `1 ≤ n < 21,492,863,999`
+  is proved (`LehmerSmall.lehmer_below_21492863999`; see [LEHMER_SMALL_N](docs/LEHMER_SMALL_N.md)).
 
-The last two are documented as hypotheses, not defects.
+Deligne and Lehmer are documented as hypotheses, not defects.
 
 ## Summary
 
@@ -67,6 +76,7 @@ The last two are documented as hypotheses, not defects.
 | general product bridge | **proved** | — (`qExpansion_discriminant_coeff`) |
 | multiplicativity | **proved** | — (`tau_mul_coprime`, via constructed `T_p`) |
 | Euler product of `L(Δ,s)` | **proved** (`Re s > 7`) | — (`LSeries_tau_eulerProduct`, Hecke bound `tau_isBigO`) |
-| Deligne / Lehmer | out of scope | the Weil conjectures / an open problem |
+| sub-Hecke bound | **proved**, `O(n^{23/4+ε})` (Weil) | — (`StepanovAS.tau_isBigO_23_4_unconditional`) |
+| Deligne / Lehmer | open here | the Weil conjectures / an open problem (Lehmer proved for `n < 21,492,863,999`) |
 
 Every question on the `τ` arc is now proved and axiom-clean, except Deligne's bound and Lehmer's conjecture.

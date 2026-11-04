@@ -12,14 +12,14 @@ Every `#print axioms` prints `[propext, Classical.choice, Quot.sound]`.
 
 Build (only these files):
 `nice -n 10 lake build RamanujanTau.Stepanov.Salie`. This builds Basic, Aux, Main and SalieCount, and imports
-`TauBound/KlPrime` and `WeilKloosterman/Main` unchanged. The root `RamanujanTau.lean` does not import any of it.
+`TauBound/KlPrime` and `WeilKloosterman/Main` unchanged. Written outside the root import; since added to `RamanujanTau.lean`.
 
 | File | Lines | Content |
 |---|---|---|
 | `Stepanov/Basic.lean` | 238 | base-`X^p` digit uniqueness, `NotConstSq`, squarefree ⟹ `NotConstSq`, **nonvanishing lemma** |
 | `Stepanov/Aux.lean` | 311 | derivative formula, auxiliary polynomial, dimension count, multiplicity, **one-sided bound** |
 | `Stepanov/Main.lean` | 305 | parameter choice, real one-sided bound, two-sided bound, all-`p` bound, point count, **Hasse** |
-| `Stepanov/SalieCount.lean` | 412 | fibre count `M(u,v)` of the sixth moment, reduction to a **quartic** (genus 1), `|M−p| ≪ √p` |
+| `Stepanov/SalieCount.lean` | 412 | fibre count `M(u,v)` of the sixth moment, reduction to a **quartic** (genus 1), `\|M−p\| ≪ √p` |
 | `Stepanov/Salie.lean` | 290 | sixth-moment identity, orbit argument, **`saliePrimeBound`**, **`tau_isBigO_35_6_unconditional`** |
 | `scripts/stepanov/check_stepanov.py` | | numerical validation (see (4) below) |
 
@@ -40,15 +40,15 @@ Build (only these files):
 | `natDegree_qLin_lt` | `deg Q_k < D := A+J−1+(ℓ−1)(m−1)` for `k < ℓ` |
 | **`stepanov_card_le`** | (combinatorial one-sided bound) `ε ≠ 0`, `2 ≤ A`, `ℓ ≤ A`, `ℓ ≤ p`, `2(A−1)+m < p`, `J+m ≤ p`, and `ℓ·D < 2JA` ⟹ `ℓ·#{x : f(x)^c = ε} ≤ A−1 + cm + p(J−1)` |
 | **`stepanov_card_le_real`** | `p ≥ 144m²` ⟹ `#{x : f(x)^c = ε} ≤ p/2 + 2m√m√p` |
-| **`stepanov_charSum_le`** | `p ≥ 144m²` ⟹ `|∑_x χ(f(x))| ≤ 4m√m√p + m` |
-| **`hasseWeil_charSum_le`** | **every** odd prime `p`, `f` squarefree with `deg f ≥ 1`: `|∑_x χ(f(x))| ≤ 12m²√p` (`…_of_notConstSq` is the general form) |
-| **`hasseWeil_pointCount`** | `|#{(x,y) : y² = f(x)} − p| ≤ 12m²√p` |
-| **`hasse_elliptic`** | squarefree cubic: `|#{(x,y) : y² = f(x)} − p| ≤ 108√p` (Hasse 1933, up to the constant) |
+| **`stepanov_charSum_le`** | `p ≥ 144m²` ⟹ `\|∑_x χ(f(x))\| ≤ 4m√m√p + m` |
+| **`hasseWeil_charSum_le`** | **every** odd prime `p`, `f` squarefree with `deg f ≥ 1`: `\|∑_x χ(f(x))\| ≤ 12m²√p` (`…_of_notConstSq` is the general form) |
+| **`hasseWeil_pointCount`** | `\|#{(x,y) : y² = f(x)} − p\| ≤ 12m²√p` |
+| **`hasse_elliptic`** | squarefree cubic: `\|#{(x,y) : y² = f(x)} − p\| ≤ 108√p` (Hasse 1933, up to the constant) |
 | `notConstSq_fUV`, `M3_sub_p_le`, `M3_sub_p_sq_le` | sixth-moment fibres (see below) |
-| `sum_norm_kl_pow_six` | `∑_{a,b}|S(a,b;p)|⁶ = p² N₆` |
+| `sum_norm_kl_pow_six` | `∑_{a,b}\|S(a,b;p)\|⁶ = p² N₆` |
 | `card_pairs_eq_sum_sq` | `#{(x,y) : g x = g y} = ∑_b #g⁻¹(b)²` |
 | `sum_M3_sub_sq_le` | `∑_{u,v}(M(u,v) − p)² ≤ (196²+18) p³` |
-| **`norm_kl_prime_pow_six_le`** | odd `p`: `|S(1,b;p)|⁶ ≤ 2(196²+18) p⁴` |
+| **`norm_kl_prime_pow_six_le`** | odd `p`: `\|S(1,b;p)\|⁶ ≤ 2(196²+18) p⁴` |
 | **`saliePrimeBound`** | `WeilKloosterman.SaliePrimeBound` (`C = max((2(196²+18))^{1/6}, 2)`, about 6.6) |
 | **`tau_isBigO_35_6_unconditional`** | `∀ε>0, τ(n) = O(n^{35/6+ε})` |
 
@@ -113,7 +113,8 @@ Build (only these files):
   `X^q`-digits of degree `< q` and specialisation at `q − m` points; both also carry over. The present files are
   written for `ZMod p` only. A port is mechanical: about 100 lines of edits, mostly changing `F := ZMod p` to a
   variable `[Field K] [Fintype K] [CharP K p]`.
-* Not needed for τ and not done: the Artin–Schreier analogue (Weil's `2√p`), which is being done separately.
+* Not needed for τ and not done: the Artin–Schreier analogue (Weil's `2√p`), done separately in `StepanovAS/`
+  ([STEPANOV_ARTIN_SCHREIER](STEPANOV_ARTIN_SCHREIER.md)), which supersedes 35/6 with 23/4.
 
 ## Literature
 

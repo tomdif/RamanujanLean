@@ -7,8 +7,8 @@ hypotheses. No sorry, no new axiom, no `native_decide`. Every headline theorem p
 `[propext, Classical.choice, Quot.sound]`.
 
 Build (only these files): `nice -n 10 lake build RamanujanTau.StepanovAS.Main`. The `#print axioms`
-block at the end of `Main.lean` covers the headlines. These files are not imported by the root
-`RamanujanTau.lean`. Nothing in `KloostermanL/`, `WeilKloosterman/`, `TauBound/` or `Stepanov/` was
+block at the end of `Main.lean` covers the headlines. These files were written outside the root
+import; they have since been added to `RamanujanTau.lean`. Nothing in `KloostermanL/`, `WeilKloosterman/`, `TauBound/` or `Stepanov/` was
 modified; the first three are only imported.
 
 | File | Lines | Content |
@@ -16,7 +16,7 @@ modified; the first three are only imported.
 | `StepanovAS/Hasse.lean` | 70 | Hasse derivatives in char `p`: polynomials in `X^{p^s}` are constants for orders `< p^s`; multiplicity from vanishing Hasse derivatives |
 | `StepanovAS/Aux.lean` | 309 | abstract Stepanov bound with Hasse derivatives (auxiliary polynomial, dimension count, nonvanishing by distinct degrees, root counting) |
 | `StepanovAS/Kloosterman.lean` | 241 | the curve `y^p − y = x + b/x`: the polynomials `Y`, `Z`, the identity `Y(x)x^e = Z(x)` on trace fibres, degrees, parameter choice, fibre bound |
-| `StepanovAS/Main.lean` | 156 | fibre decomposition of `K_r`, from one-sided fibre bounds to `|K_r|`, then `StepanovKloostermanEventually`, Weil, τ |
+| `StepanovAS/Main.lean` | 156 | fibre decomposition of `K_r`, from one-sided fibre bounds to `\|K_r\|`, then `StepanovKloostermanEventually`, Weil, τ |
 | `scripts/stepanovAS/check_counts.py` | | numerical check |
 
 ## Headline theorems (evidence level 1: Lean, axiom-clean, no hypotheses)
@@ -25,15 +25,15 @@ modified; the first three are only imported.
 |---|---|
 | `hasseDeriv_mul_expand` | `ℓ < p^s` ⟹ `D^{(ℓ)}(f · expand (p^s) g) = D^{(ℓ)} f · expand (p^s) g` (char `p`) |
 | `le_rootMultiplicity_of_hasseDeriv` | `f ≠ 0` and `D^{(ℓ)}f(x) = 0` for all `ℓ < M` ⟹ `M ≤ rootMultiplicity x f` |
-| **`stepanov_hasse_card_le`** | abstract Stepanov bound: `M·|S| ≤ A − 1 + q(J−1) + (P−1)·deg Y` (hypotheses below) |
+| **`stepanov_hasse_card_le`** | abstract Stepanov bound: `M·\|S\| ≤ A − 1 + q(J−1) + (P−1)·deg Y` (hypotheses below) |
 | `eval_Y_mul_eq_Z` | on `S_c`: `Y(x)·x^{p^{s−1}} = Z(x)` |
 | **`card_traceFiber_le`** | `[L:F_p] = s+t`, `1 ≤ s ≤ t`, `3 ≤ t`, any `b, c`: `#{x ∈ L^× : Tr(x + b/x) = c} ≤ p^{s−1}p^t + 3p·p^t` (i.e. `q/p + 3p·p^t`) |
 | `sum_units_eq_sum_fiber` | `Σ_{x∈L^×} ψ(Tr(x + b/x)) = Σ_{c∈F_p} #S_c · ψ(c)` |
-| `norm_sum_le_of_fiber_le` | `ψ ≠ 1` and `#S_c ≤ B` for all `c` ⟹ `|Σ_c #S_c ψ(c)| ≤ pB − (q−1)` |
-| **`norm_klL_le`** | `[L:F_p] = r ≥ 6`: `|K_r(1,b)| ≤ 3p²·p^{r−⌊r/2⌋} + 1` |
+| `norm_sum_le_of_fiber_le` | `ψ ≠ 1` and `#S_c ≤ B` for all `c` ⟹ `\|Σ_c #S_c ψ(c)\| ≤ pB − (q−1)` |
+| **`norm_klL_le`** | `[L:F_p] = r ≥ 6`: `\|K_r(1,b)\| ≤ 3p²·p^{r−⌊r/2⌋} + 1` |
 | `norm_klGF_le` | `r ≥ 6`: `‖klGF p r 1 b‖ ≤ (3p²+1)√p · √p^r` |
 | **`stepanovKloostermanEventually`** | `KloostermanL.StepanovKloostermanEventually`, with `C = (3p²+1)√p` and `r₀ = 6` |
-| **`weilPrimeBound`** | `WeilKloosterman.WeilPrimeBound`: `|S(1,b;p)| ≤ 2√p` for all primes `p`, `b ≢ 0` |
+| **`weilPrimeBound`** | `WeilKloosterman.WeilPrimeBound`: `\|S(1,b;p)\| ≤ 2√p` for all primes `p`, `b ≢ 0` |
 | **`tau_isBigO_23_4_unconditional`** | `∀ ε > 0, τ(n) = O(n^{23/4+ε})` |
 
 ## The argument

@@ -1,5 +1,10 @@
 # Rationality of the Kloosterman L-function and amplification (`RamanujanTau/KloostermanL/`)
 
+> **Update (2026-11-04):** `StepanovKloostermanEventually` is proved (`StepanovAS.stepanovKloostermanEventually`), so
+> `WeilPrimeBound` and `τ(n) = O(n^{23/4+ε})` are unconditional (`StepanovAS.weilPrimeBound`,
+> `StepanovAS.tau_isBigO_23_4_unconditional`); see [STEPANOV_ARTIN_SCHREIER](STEPANOV_ARTIN_SCHREIER.md).
+> The text below describes this directory as written.
+
 **Status (2026-11-04).** Parts (1) rationality and (3) amplification of the Weil-bound route are
 proved, axiom-clean. So Weil's bound `WeilKloosterman.WeilPrimeBound`, and with it
 `τ(n) = O(n^{23/4+ε})`, now follows from one named hypothesis, `StepanovKloosterman`: a bound
@@ -9,7 +14,7 @@ and is the target of the Stepanov track. No sorry, no new axiom, no `native_deci
 Build (only these files):
 `nice -n 10 lake build RamanujanTau.KloostermanL.Main`. The `#print axioms` block at the end of
 `Main.lean` prints `[propext, Classical.choice, Quot.sound]` for every headline theorem.
-These files are not imported by the root `RamanujanTau.lean`. Nothing in `WeilKloosterman/` or
+These files were written outside the root import; they have since been added to `RamanujanTau.lean`. Nothing in `WeilKloosterman/` or
 `TauBound/` was modified; both are only imported.
 
 | File | Lines | Content |
@@ -136,7 +141,7 @@ and `r ≤ 4` (`r ≤ 3` for `p = 7`):
 6. **Amplification.** Suppose `|α| > √p`. Then `|β| = p/|α| < √p`, so
    `|α|^r − √p^r ≤ |K_r| ≤ C√p^r`. That makes `(|α|/√p)^r` bounded, a contradiction.
 
-## What remains for `WeilPrimeBound`
+## What remained for `WeilPrimeBound` (now done in `StepanovAS/`)
 
 Only part (2), `StepanovKloosterman` or its eventual form: a Stepanov-type bound for
 `Σ_{x∈F_q^×} ψ(Tr(x + b/x))` over `F_q`, `q = p^r`. The constant must not depend on `r`. That is

@@ -189,7 +189,10 @@ The values below were computed in mpmath (50–70 digits) from the integral form
 
 Nothing remains for GORZ Theorem 1: `xi_gorz_unconditional` is level (1). Not attempted: effective thresholds
 (the proof gives explicit but huge constants, and the threshold in `n` comes from `cRoot → ∞` and
-`log(M+1)^4 ≤ (M+1)/4`), and GORZ Theorem 2 (`d ≤ 8` for all `n`).
+`log(M+1)^4 ≤ (M+1)/4`), and GORZ Theorem 2 (`d ≤ 8` for all `n`). (Later: the `d = 2` case of Theorem 2, i.e. the
+Turán inequalities for every `n`, is proved unconditionally in `GORZXiEff/` — `GORZXiEff.turan_gamma_unconditional`,
+[GORZ_XI_EFFECTIVE](GORZ_XI_EFFECTIVE.md); `d = 3` is reduced to the higher-order Turán inequalities in `GORZXiD3/`,
+[GORZ_XI_D3](GORZ_XI_D3.md), which is a restatement, not a proof.)
 
 ## Files (`RamanujanTau/GORZXi/`)
 
@@ -212,7 +215,7 @@ Nothing remains for GORZ Theorem 1: `xi_gorz_unconditional` is level (1). Not at
 | `MainUncond.lean` | `#print axioms` for the unconditional track |
 
 Imports: `RamanujanTau.GORZ.*` and `JensenThreshold.*`, unmodified, plus Mathlib. Nothing was added to the root
-`RamanujanTau.lean`. Build with a single process (each module takes 13–20 s once the dependencies are built):
+`RamanujanTau.lean` at the time; `GORZXi.Main` and `GORZXi.XiUncond` have since been added. Build with a single process (each module takes 13–20 s once the dependencies are built):
 
 ```
 lake build RamanujanTau.GORZXi.Main

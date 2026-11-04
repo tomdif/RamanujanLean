@@ -24,6 +24,22 @@ earlier open-problem and partial-formalization notes.
 | [Nested radicals](RESULTS.md#ramanujans-nested-radical) | Values 3 and 4, the affine family and full converse for linear limits, and exponential error bounds proved in Lean |
 | [Contribution guide](../CONTRIBUTING.md) | Proof policy, verification commands, and documentation conventions |
 
+## Analytic and congruence write-ups (2026-11-03/04)
+
+Each file records its own evidence levels; later results are noted in a status line at the top where an
+earlier section is superseded. The summary table is [Results of 2026-11-03](STATUS.md#results-of-2026-11-03).
+
+| Document | Topic |
+|---|---|
+| [TAU_SUBHECKE_BOUND](TAU_SUBHECKE_BOUND.md), [WEIL_KLOOSTERMAN](WEIL_KLOOSTERMAN.md), [KLOOSTERMAN_L](KLOOSTERMAN_L.md), [STEPANOV](STEPANOV.md), [STEPANOV_ARTIN_SCHREIER](STEPANOV_ARTIN_SCHREIER.md) | τ(n) = O(n^{47/8+ε}), then O(n^{35/6+ε}) (Salié), then O(n^{23/4+ε}) (Weil) |
+| [LEHMER_SMALL_N](LEHMER_SMALL_N.md) | τ(n) ≠ 0 for n < 21,492,863,999 |
+| [RANKIN_SELBERG](RANKIN_SELBERG.md), [EISENSTEIN_REAL](EISENSTEIN_REAL.md) | Mean square of τ: order of magnitude, then the asymptotic with Zagier's constant |
+| [JENSEN_THRESHOLDS](JENSEN_THRESHOLDS.md), [GORZ_PARTITIONS](GORZ_PARTITIONS.md) | Jensen polynomials of p(n): N(6), N(7), and GORZ in every degree |
+| [GORZ_XI](GORZ_XI.md), [GORZ_XI_EFFECTIVE](GORZ_XI_EFFECTIVE.md), [GORZ_XI_D3](GORZ_XI_D3.md) | Jensen polynomials of Riemann Ξ: GORZ Theorem 1, Turán (d = 2) for every n, and the d = 3 reduction |
+| [ANDREWS_DRAGONETTE](ANDREWS_DRAGONETTE.md), [ANDREWS_1966](ANDREWS_1966.md), [ANDREWS_1966_ASYMPTOTIC](ANDREWS_1966_ASYMPTOTIC.md), [MOCK_THETA_CUSPS](MOCK_THETA_CUSPS.md), [ANDREWS_DRAGONETTE_EXACT](ANDREWS_DRAGONETTE_EXACT.md) | Coefficients of f(q): Dragonette, the sign for every n, Andrews 1966 with O(√n log n), and the limits of the method for the exact formula |
+| [ATKIN_SPORADIC_CONGRUENCES](ATKIN_SPORADIC_CONGRUENCES.md), [HALF_INTEGRAL_HECKE](HALF_INTEGRAL_HECKE.md), [GAUSS_SIGN](GAUSS_SIGN.md), [ONO_WEAVER_EXTENSIONS](ONO_WEAVER_EXTENSIONS.md), [ATKIN_TWISTED_ALL_Q](ATKIN_TWISTED_ALL_Q.md) | Atkin's 13 ∣ p(17303n+237), Ono–Weaver families, T(Q²) on η-multiplier forms, Gauss's sign |
+| [BW_SHARPNESS_ALL_PRIMES](BW_SHARPNESS_ALL_PRIMES.md) | Uniform Boylan–Webb sharpness: what is proved, and the open seed condition G5 |
+
 ## Research records and completed plans
 
 | Document | How to read it |

@@ -3,7 +3,7 @@
 2026-11-04. Lean: `RamanujanTau/AtkinTwisted/` (Core, Group1–4, All; 749 lines, Groups generated).
 Scripts: `scripts/atkintwisted/` (`scan.py`, `crosscheck.py`, `exact_large.py`, `gen.py`, `make_table.py`,
 `audit.lean`, outputs `scan500.json`, `crosscheck.json`, `exact_large.txt`, `audit.out`, `table.md`).
-Imports `AtkinSporadic/`, `GaussSign/` without modifying them. Not added to the root import.
+Imports `AtkinSporadic/`, `GaussSign/` without modifying them. Not added to the root import at the time; `AtkinTwisted.All` has since been added.
 
 ## Results and evidence levels
 

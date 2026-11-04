@@ -5,11 +5,17 @@
 `#print axioms` gives `[propext, Classical.choice, Quot.sound]`. Build:
 `nice -n 10 lake build RamanujanTau.TauBound.Unconditional`.
 
+> **Superseded exponent (2026-11-04).** This 47/8 result has since been improved twice, reusing the unconditional
+> `PoincareFormula` from this directory: `Stepanov.tau_isBigO_35_6_unconditional` (Salié, 35/6; see
+> [STEPANOV](STEPANOV.md)) and `StepanovAS.tau_isBigO_23_4_unconditional` (Weil, 23/4; see
+> [STEPANOV_ARTIN_SCHREIER](STEPANOV_ARTIN_SCHREIER.md)). The repository's best τ bound is now Weil's
+> `τ(n) = O(n^{23/4+ε})`. Deligne's `11/2 + ε` is still not formalized.
+
 Goal: improve on Hecke's bound `τ(n) = O(n⁶)` (`tau_isBigO_real`, `TauHeckeBound.lean`) with Kloosterman's
-exponent `τ(n) = O(n^{47/8+ε})` (`47/8 = 6 − 1/8`). Deligne's `11/2 + ε` is out of scope.
+exponent `τ(n) = O(n^{47/8+ε})` (`47/8 = 6 − 1/8`). Deligne's `11/2 + ε` is out of scope (the 35/6 and 23/4 improvements are noted above).
 
 Directory: `RamanujanTau/TauBound/` (20 files, about 2900 lines). Scripts: `scripts/taubound/`.
-None of these files is imported by the root `RamanujanTau.lean`; the coordinator decides about integration.
+These files were written outside the root import; they have since been added to the root `RamanujanTau.lean`.
 
 ## Route chosen and why
 
@@ -40,14 +46,14 @@ Two choices keep the work elementary:
 |---|---|---|
 | `norm_kInt_le` | `Basic.lean` | `‖K(n,c;y)‖ ≤ M_r e^{2πny} (2πy/c²)^{-r} (y²)^{r-6} y J_r` for `0≤r<11/2`, `c≠0`, `y>0` |
 | `norm_kInt_inv_le` | `Endgame.lean` | `‖K(n,c;1/n)‖ ≤ B_r n^{11-r} c^{2r}` |
-| `tau_bound_of_kloosterman` | `Endgame.lean` | `KloostermanBound α → PoincareFormula → ∃C, ∀n≥1, |τ n| ≤ C n^{11-r}` whenever `0≤α`, `0≤r`, `α+2r<11` |
+| `tau_bound_of_kloosterman` | `Endgame.lean` | `KloostermanBound α → PoincareFormula → ∃C, ∀n≥1, \|τ n\| ≤ C n^{11-r}` whenever `0≤α`, `0≤r`, `α+2r<11` |
 | `tau_isBigO_47_8` | `Endgame.lean` | `(∀δ>0, KloostermanBound (3/4+δ)) → PoincareFormula → ∀ε>0, τ =O(n^{47/8+ε})` |
 | `kloosterman_eq_kl`, `kl_mul_left_unit`, `kl_mul_coprime` | `KlBasic.lean` | bridge to `ZMod`; `S(ta,b)=S(a,tb)`; twisted multiplicativity `S(m,n;qr)=S(um,un;q)S(vm,vn;r)` for `ur+vq=1` |
-| `sum_norm_kl_pow_four`, `card_solutions_le` | `KlPrime.lean` | `∑_{a,b}|S(a,b;p)|⁴ = p²N`, `N ≤ 3(p−1)²` |
-| `norm_kl_prime_pow_four_le` | `KlPrime.lean` | **Kloosterman 1927**: `|S(1,b;p)|⁴ ≤ 3p³` |
+| `sum_norm_kl_pow_four`, `card_solutions_le` | `KlPrime.lean` | `∑_{a,b}\|S(a,b;p)\|⁴ = p²N`, `N ≤ 3(p−1)²` |
+| `norm_kl_prime_pow_four_le` | `KlPrime.lean` | **Kloosterman 1927**: `\|S(1,b;p)\|⁴ ≤ 3p³` |
 | `kl_eq_sum_filter`, `card_sqrt_le` | `KlPrimePow.lean` | averaging identity; at most `4p^j` unit solutions of `p^j(u²−b)=0` mod `p^k` |
-| `norm_kl_primePow_le` | `KlPrimePow.lean` | `|S(1,b;p^k)| ≤ 4p^{⌈k/2⌉}` for `k ≥ 2` |
-| `norm_kloosterman_le_klMajor` | `KlAssembly.lean` | `|S(1,n;c)| ≤ 4^{ω(c)} c^{3/4}` for all `c`, `n` |
+| `norm_kl_primePow_le` | `KlPrimePow.lean` | `\|S(1,b;p^k)\| ≤ 4p^{⌈k/2⌉}` for `k ≥ 2` |
+| `norm_kloosterman_le_klMajor` | `KlAssembly.lean` | `\|S(1,n;c)\| ≤ 4^{ω(c)} c^{3/4}` for all `c`, `n` |
 | `four_pow_omega_le` | `KlAssembly.lean` | `4^{ω(c)} ≤ K_δ c^δ` |
 | `kloostermanBound_three_quarters` | `KlAssembly.lean` | **`KloostermanBound (3/4+δ)` for every `δ>0`** (hypothesis discharged) |
 | `tau_isBigO_47_8_of_poincare` | `Main.lean` | `PoincareFormula → ∀ε>0, τ(n) = O(n^{47/8+ε})` |
@@ -69,7 +75,7 @@ Two choices keep the work elementary:
 | `ee_smul_eq_of_bottom_row`, `pTerm_smul`, `pSeries_smul` | `CuspFormSlash.lean` | `e(gz)` depends only on the bottom row of `g ∈ SL₂ℤ`; with `pTerm v z = (cz+d)^{-12} e(γ_v z)` (`γ_v` from `bottom_row_surj`), `pSeries(γz) = j(γ,z)^{12} pSeries z` by re-indexing `v ↦ vγ` on `gammaSet 1 1 0` |
 | `pInd_pos`, `pInd_neg`, `pF_zero`, **`pSeries_eq_two_mul_poincare`** | `CuspFormSum.lean` | `c>0` terms are `poincareTerm` (top-left entry `≡ d̄ mod c`), `pTerm(−v) = pTerm v`, `c=0` gives `2e(z)`; hence `∑_{(c,d)=1} pTerm = 2·poincare` |
 | `mdiff_pSeries` | `CuspForm.lean` | holomorphy: `differentiableOn_tsum_of_summable_norm` on open strips, Eisenstein majorant |
-| `norm_pTerm_le_decay`, `norm_pSeries_le`, `isZeroAtImInfty_pHalf` | `CuspForm.lean` | `‖pTerm v z‖ ≤ |cz+d|^{-10}/y` (from `e^{-t} ≤ 1/t`); `‖pSeries z‖ ≤ C/y` for `y ≥ 1` after a `T`-translate |
+| `norm_pTerm_le_decay`, `norm_pSeries_le`, `isZeroAtImInfty_pHalf` | `CuspForm.lean` | `‖pTerm v z‖ ≤ \|cz+d\|^{-10}/y` (from `e^{-t} ≤ 1/t`); `‖pSeries z‖ ≤ C/y` for `y ≥ 1` after a `T`-translate |
 | **`poincareCuspForm`**, **`poincareIsCuspForm`** | `CuspForm.lean` | `pSeries/2 : CuspForm 𝒮ℒ 12`, equal to `poincare` on `ℍ`: **`PoincareIsCuspForm` discharged** |
 | **`tau_isBigO_47_8_unconditional`** | `Unconditional.lean` | **`∀ε>0, τ(n) = O(n^{47/8+ε})`, no hypotheses.** This is the headline. |
 
@@ -167,9 +173,11 @@ Nothing remains to be proved. All three former hypotheses are now theorems.
 * Kloosterman, *Asymptotische Formeln für die Fourierkoeffizienten ganzer Modulformen* (1927): exponent `k/2 − 1/8`
   via `S ≪ c^{3/4+ε}`.
 * Salié (1931/33) and Davenport (1933): `c^{2/3}`, giving `6 − 1/6`.
-* Rankin (1939): `29/5` via Rankin–Selberg.
+* Rankin (1939): `29/5` via Rankin–Selberg (stronger than Salié's `35/6`, weaker than Weil's `23/4`).
 * Weil (1948): `c^{1/2}`, giving `23/4`.
 * Iwaniec, *Topics*, §3 and §4.3 (the elementary prime-power Kloosterman bound).
 
 The framework here gives `11 − r` for every `r < (11−α)/2`. With Salié's `α = 2/3 + δ` it would give `6 − 1/6 + ε`,
-and with Weil's `α = 1/2 + δ` it would give `23/4 + ε`. Only `α = 3/4 + δ` is proved here.
+and with Weil's `α = 1/2 + δ` it would give `23/4 + ε`. Only `α = 3/4 + δ` is proved in this directory; both
+improvements were later supplied elsewhere through `WeilKloosterman.tau_isBigO_of_kloostermanFamily`
+(`Stepanov.saliePrimeBound` for `35/6`, `StepanovAS.weilPrimeBound` for `23/4`).

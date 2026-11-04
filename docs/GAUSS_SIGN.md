@@ -1,7 +1,8 @@
 # Gauss's sign of the quadratic Gauss sum, and `EtaHecke Q k 1` for every prime Q ≥ 5
 
 2026-11-04. Lean: `RamanujanTau/GaussSign/` (3 files, ~530 lines) plus `Audit.lean`.
-Imports `RamanujanTau/HalfHecke/` without modifying it. Not added to the root import.
+Imports `RamanujanTau/HalfHecke/` without modifying it. Not added to the root import at the time;
+`GaussSign.EtaHeckeAll` has since been added (`Audit.lean` is not imported).
 
 ## Results and evidence levels
 
@@ -70,6 +71,8 @@ Build: `nice -n 10 lake build RamanujanTau.GaussSign.EtaHeckeAll`, then
 * `(etaHecke_all Q hQ k hk).toMod ℓ : EtaHeckeMod ℓ Q k 1` for every prime `Q ≥ 5`, `k ≥ 2`, `ℓ`.
 * The Atkin mod-13 class theorems in `AtkinSporadic/Atkin13*.lean` also use Q-specific eigen data
   (`twisted_hecke`, `vanish_of_eigen`), so they do not extend to other `Q` from `etaHecke_all` alone.
+  (The Q-specific eigen data was later supplied for every prime `5 ≤ Q < 500`, `Q ≠ 13`:
+  `AtkinTwisted.eigen_all`, [ATKIN_TWISTED_ALL_Q](ATKIN_TWISTED_ALL_Q.md).)
 * `j ≠ 1` (`η^{−j}`) still needs the HalfHecke construction itself to be generalized. That is not done.
 * `gaussQuad_eval` works for any odd modulus. It gives the Landsberg–Schaar special case `q = 1` and
   could be reused for Gauss sums of Jacobi symbols.

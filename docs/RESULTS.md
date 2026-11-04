@@ -105,14 +105,14 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 ## Results at a glance
 
 **Added 2026-11-03** (see [STATUS](STATUS.md#results-of-2026-11-03)):
-- `TauBound.tau_isBigO_47_8_unconditional` — `τ(n) =O n^{47/8+ε}` for every ε > 0 (Kloosterman 1927), unconditional.
+- `TauBound.tau_isBigO_47_8_unconditional` — `τ(n) =O n^{47/8+ε}` for every ε > 0 (Kloosterman 1927), unconditional (superseded by the 35/6 and 23/4 entries below).
 - **`GORZXi.xi_gorz_unconditional`** — GORZ Theorem 1 for Riemann Ξ, unconditional (`xiKernelHyp_holds`); `GORZXi.gorz_thm3` — the abstract GORZ Theorem 3 (unconditional); `GORZXi.gammaMathlib_eq` — integral formula for the Taylor coefficients of Ξ from Mathlib's completed zeta.
 - `GORZ.jensen_eventually_hyperbolic` — for every d, `J^{d,n}` is hyperbolic for all large n (Griffin–Ono–Rolen–Zagier 2019, partition case); `GORZ.tendsto_coeff_Jhat` — renormalized Jensen polynomials → Hermite.
 - `GORZXiEff.gamma_eq_mom` — the Taylor coefficients of Ξ as moments of Riemann's Φ; **`GORZXiEff.turan_gamma_unconditional`** — the Turán inequalities for the Taylor coefficients of Ξ for every n (Csordas–Norfolk–Varga), unconditional.
 - **`EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional`** — the Rankin–Selberg asymptotic `Σ_{n≤N} τ(n)²/n¹¹ ~ (3/π)(4π)¹²‖Δ‖²/11!·N`, unconditional; `horocycleLimit_zagier` — horocycle equidistribution for |Δ|²y¹².
 - `EisensteinReal.karamata` — Karamata's Tauberian theorem for power series with nonnegative coefficients; `rankinSelberg_asymptotic_of_horocycle` (conditional on `HorocycleLimit`).
 - `RankinSelberg.rankinSelberg_two_sided` — `c₁N ≤ Σ_{n≤N} τ(n)²/n¹¹ ≤ c₂N`: the order of magnitude in Rankin–Selberg.
-- `LehmerSmall.lehmer_below_74627999` — `τ(n) ≠ 0` for all `1 ≤ n < 74627999`; `LehmerSmall.tau_prime_pow_ne_zero` — `τ(p) ≠ 0 ⇒ τ(pᵏ) ≠ 0`; `tau_mod7_all`, `tau_mod25_all`, `tau_mod3_all` — Ramanujan-type congruences for every n.
+- `LehmerSmall.lehmer_below_21492863999` — `τ(n) ≠ 0` for all `1 ≤ n < 21492863999` (supersedes `lehmer_below_74627999`, `lehmer_below_258710399`; see [LEHMER_SMALL_N](LEHMER_SMALL_N.md)); `LehmerSmall.tau_prime_pow_ne_zero` — `τ(p) ≠ 0 ⇒ τ(pᵏ) ≠ 0`; `tau_mod7_all`, `tau_mod25_all`, `tau_mod3_all` — Ramanujan-type congruences for every n.
 - **`StepanovAS.weilPrimeBound`** — Weil's bound `|S(1,b;p)| ≤ 2√p` for every prime p and b ≢ 0; **`StepanovAS.tau_isBigO_23_4_unconditional`** — `τ(n) = O(n^{23/4+ε})` (Weil 1948).
 - `Stepanov.hasseWeil_charSum_le` — Stepanov's bound `|Σ_{x∈F_p} χ(f(x))| ≤ 12m²√p` for squarefree f of degree m; `Stepanov.hasse_elliptic` — Hasse's theorem up to the constant, `|#{y² = f(x)} − p| ≤ 108√p` for squarefree cubics; `Stepanov.saliePrimeBound` and `tau_isBigO_35_6_unconditional` — `τ(n) = O(n^{35/6+ε})`.
 - `KloostermanL.kloosterman_L_rational` — rationality of the Kloosterman L-function over any finite field: L(T) = 1 + K₁T + qT², so K_r = −(α^r+β^r); `tau_isBigO_23_4_of_stepanov` — Weil's τ bound from the named Stepanov hypothesis.
@@ -124,7 +124,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - **`MockCusp.andrews_1966_sqrt_log_unconditional`** — Andrews' 1966 theorem exactly as stated: α(n) = his printed main term over k ≤ √n + O(√n log n), unconditional (`MockCusp.HbSharp_holds`; the cruder `andrews_1966_unconditional` has error O(n log n)).
 - `MockCusp.Hb_odd` — `‖f(q)‖ ≤ C‖z‖^{−3/2}` near every odd-denominator root of unity (uniform in h, K), the odd half of `Hb`.
 - `Andrews66.andrews_1966_printed_isBigO_of_Hb` (conditional on `Hb`) — Andrews' 1966 theorem with his printed main term over k ≤ √n: `α(n) − andrewsPrinted n = O(√n log n)`.
-- `AtkinTwisted.G1.atkin_13_89` etc. — 16 twisted mod-13 families for Q < 500, e.g. `13 ∣ p(9164597n+39275)`, `13 ∣ p(658489n+6788)`; `AtkinTwisted.eigen_all` — twisted series is a T(Q²)-eigenform mod 13 for every prime Q < 500.
+- `AtkinTwisted.G1.atkin_13_89` etc. — 16 twisted mod-13 families for Q < 500, e.g. `13 ∣ p(9164597n+39275)`, `13 ∣ p(658489n+6788)`; `AtkinTwisted.eigen_all` — twisted series is a T(Q²)-eigenform mod 13 for every prime 5 ≤ Q < 500, Q ≠ 13.
 - `GaussSign.gaussQuad_eval` — Gauss's sign: `Σ_{r mod N} e(r²/N) = √N` (N ≡ 1 mod 4) or `i√N` (N ≡ 3 mod 4) for every odd N; `GaussSign.etaHecke_all` — T(Q²) stabilizes η⁻¹S_k for every prime Q ≥ 5.
 - `Andrews66.andrews_k1_isBigO` — `α(n) − (−1)^{n+1}·√24/√(24n−1)·sinh(π√(24n−1)/12) = O(exp(π√(n/6) − √(24n)/(2450π)))`: Andrews' first term with a power saving.
 - `OnoWeaverMore.L<ℓ>.ono_ℓ_Q`, `atkin_ℓ_Q` — 81 congruence families mod ℓ ∈ {13,17,19,23,29,31} for every hit prime Q < 500, e.g. `L19.atkin_19_13_progression`: `19 ∣ p(41743n+669)`; `L29.atkin_29_17_progression`: `29 ∣ p(142477n+31778)`.
@@ -153,7 +153,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
 | **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
 | **Rademacher's exact formula** (1937) | `p(n) = Σ_{k≥1} A_k(n)·(π/12k)^{3/2}·2π·4(u_k cosh u_k − sinh u_k)/(√π u_k³ k)`, `u_k = (π/k)√((2/3)(n−1/24))`, as a convergent series (`Rademacher.rademacher_dedekind`). Here `A_k(n) = Σ_{(h,k)=1} e^{πi s(h,k) − 2πinh/k}` is Rademacher's Kloosterman sum, with `s(h,k)` the Dedekind sum. Dedekind's reciprocity law is proved too (`Rademacher.dsum_reciprocity`) |
-| **Log-concavity of `p(n)`** (DeSalvo–Pak 2015) | `p(n−1)p(n+1) < p(n)²` for every `n ≥ 26`, and it fails at every odd `n ≤ 25` (`LogConcave.partition_logConcave`, `logConcave_fails`). The proof uses an explicit Lehmer-type bound `|p(n) − Ke^U(U−1)/(2U³)| ≤ Ke^{U/2}`, read off Rademacher's series |
+| **Log-concavity of `p(n)`** (DeSalvo–Pak 2015) | `p(n−1)p(n+1) < p(n)²` for every `n ≥ 26`, and it fails at every odd `n ≤ 25` (`LogConcave.partition_logConcave`, `logConcave_fails`). The proof uses an explicit Lehmer-type bound `\|p(n) − Ke^U(U−1)/(2U³)\| ≤ Ke^{U/2}`, read off Rademacher's series |
 | **The Hardy–Ramanujan asymptotic formula** (1918) | `p(n) ~ e^{π√(2n/3)}/(4n√3)` for the honest partition count `p(n) = #(Nat.Partition n)` (`HardyRamanujan.hardy_ramanujan_isEquivalent`; ratio form `hardy_ramanujan`) |
 | **Partition entropy and Cardy saddle normalization** | For the same count, `log p(n) − π√(2n/3) + log n → −log(4√3)` and `log p(n)/√n → π√(2/3)` (`HardyRamanujan.entropy_log_correction`, `entropy_sqrt_limit`). The saddle at `C=1/12`, `E=n≥1` has this leading exponent (`partition_cardy_leading`, `partition_saddle_minimum`). No black-hole state identification is asserted. |
 | **Colored partition entropy and reciprocal discriminant** | For each fixed natural `k>0`, `log p_k(n)/√n → π√(2/3)√k`, where `p_k` is an actual finite count (`ColoredPartitions.entropy_sqrt_limit`). The generating-series coefficient bridge is exact. At 24 colors, `d(n)=p_24(n+1)` gives the nonnegative-charge coefficients of `1/Δ`, and `log d(n)/√n → 4π` (`degeneracy_entropy`); its ratio to the Cardy leading term at `C=2` tends to 1 (`degeneracy_cardy_ratio`). |
@@ -989,11 +989,15 @@ derive the vacuum offset or a physical black-hole interpretation. Use
 
 ### Bounds for τ
 
-* **Hecke's bound** `RamanujanTau.tau_isBigO : τ(n) = O(n⁶)` (`TauHeckeBound.lean`), from Mathlib's
+* **Hecke's bound** `RamanujanTau.tau_isBigO : τ(n) = O(n⁶)` (`TauLSeries.lean`; real-valued form `tau_isBigO_real` in `TauHeckeBound.lean`), from Mathlib's
   `CuspFormClass.qExpansion_isBigO` through the Δ bridge.
 * **Small cases, kernel-checked** (`TauSmallChecks.lean`, `decide +kernel`): Ramanujan's conjecture
   `τ(p)² ≤ 4p¹¹` for all primes `p < 50` (`ramanujan_bound_lt50`) and Lehmer's `τ(n) ≠ 0` for `n < 30`
   (`lehmer_lt30`). Deligne's theorem itself (étale cohomology of Kuga–Sato varieties) is out of reach of current Mathlib.
+* **Sub-Hecke bounds (2026-11-03/04), unconditional:** `TauBound.tau_isBigO_47_8_unconditional` (Kloosterman, 47/8),
+  `Stepanov.tau_isBigO_35_6_unconditional` (Salié, 35/6), and the current best,
+  `StepanovAS.tau_isBigO_23_4_unconditional` (Weil, `τ(n) = O(n^{23/4+ε})`). Lehmer's non-vanishing is now proved
+  for `n < 21,492,863,999` (`LehmerSmall.lehmer_below_21492863999`).
 
 ### `MTC/` — the Mock Theta Conjectures (Hickerson–Mortenson route)
 ```lean
@@ -1643,8 +1647,9 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
 [PlonkLean](https://github.com/tomdif/PlonkLean). The honest status of each:
 `TauHeckeMaster` is now a theorem: `HeckeQExp` constructs the Hecke operators `T_p` and provides an
 instance, so `TauMultiplicative` and `TauHeckeRecurrence` hold unconditionally (Mordell 1917). `TauMod691` is
-also a theorem (`TauModular`). `DeligneBound` *is* Deligne's proof of the Weil conjectures (out of reach), and
-`LehmerConjecture` is open.
+also a theorem (`TauModular`). `DeligneBound` *is* Deligne's proof of the Weil conjectures (out of reach; the best proved exponent is Weil's
+23/4, `StepanovAS.tau_isBigO_23_4_unconditional`), and `LehmerConjecture` is open (proved for
+`n < 21,492,863,999`, `LehmerSmall.lehmer_below_21492863999`).
 
 - **`HeckeCore` / `HeckeForm` / `HeckeQExp`** — **the Hecke operators `T_p` on level-one cusp forms, and
   Mordell's theorem for `τ`**. For a prime `p`, `T_p f(z) = p^{k−1}f(pz) + p⁻¹Σ_{j<p} f((z+j)/p)`.

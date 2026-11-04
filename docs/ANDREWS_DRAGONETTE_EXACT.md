@@ -114,7 +114,7 @@ theorem AndrewsDragonette.one_le_fA_real {t : ℝ} (h0 : 0 ≤ t) (h1 : t < 1) :
 | file | content |
 |---|---|
 | `Abel.lean` | `abel_identity` (summation by parts), `tendsto_of_abel` (convergence from a summable Abel remainder and vanishing boundary term) |
-| `Weight.lean` | `wt A B x = A√x sinh(B/x)`; `sinh_lip`; `w_le`: `|w(x)| ≤ AB cosh B · x^{−1/2}`; `w_sub_le`: `|w(x+1)−w(x)| ≤ 2AB cosh B · x^{−3/2}` |
+| `Weight.lean` | `wt A B x = A√x sinh(B/x)`; `sinh_lip`; `w_le`: `\|w(x)\| ≤ AB cosh B · x^{−1/2}`; `w_sub_le`: `\|w(x+1)−w(x)\| ≤ 2AB cosh B · x^{−3/2}` |
 | `Main.lean` | `adCoef`, `adTerm`, `adPartial`, `KSum`, **`HKS`**, `KSum_trivial`, `HKS_trivial`, `k_MK` (`k·M_{2k}(n) = w(k)`), **`adPartial_converges_of_HKS`** |
 | `Obstruction.lean` | `one_le_fA_real`, `qp_zero_one_real`, **`not_Hb_of_neg`** |
 | `numerics/partial_sums.py`, `.txt` | partial sums to `N = 8000` for `n ∈ {1,2,3,5,10,20,50,100}` |

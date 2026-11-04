@@ -11,15 +11,15 @@ Updated 2026-11-03 (third pass: Ono–Weaver now unconditional). Lean directory:
 | `Σ_{((24N−1)/13)=−1} p(N) qᴺ ≡ g·Σp(n)qⁿ (mod 13)` with `g ∈ S₁₆₈(SL₂ℤ)` integral (`Twist13.twisted_eq`) | **(1) Lean, axiom-clean, unconditional** |
 | `Σ_m p(ℓm−δ_ℓ) qᵐ ≡ c_ℓ f_ℓ·(Σp(n)qⁿ)^ℓ (mod ℓ)`, ℓ = 13,17,19,23 (`Weaver.Pser_eq` + existing `BoylanWebb.CertX.eigen`) | **(1) Lean, unconditional** |
 | Kernel certificates `chk11`, `chk37`, `chk_ℓ_Q` (first coefficients of `T(Q²)F − μF` vanish mod ℓ) | **(1) Lean, unconditional** (kernel `decide`) |
-| **Atkin: `13 ∣ p(17303n + 237)` for all n** (`Atkin13.atkin_13`) | **(2) Lean, conditional on `EtaHeckeMod 13 11 168 1`** |
-| `13 ∣ p(N)` whenever `24N−1 = 11²m`, `(m/11)=1`, `(m/13)=−1` (30 classes mod 17303) (`atkin_13_class`) | (2), same hypothesis |
-| `13 ∣ p(N)` whenever `24N−1 = 37²m`, `(m/37)=−1`, `(m/13)=−1` (`atkin_13_Q37_class`) | (2), `EtaHecke 37 168 1` |
+| **Atkin: `13 ∣ p(17303n + 237)` for all n** (`Atkin13.atkin_13`) | **(2) Lean, conditional on `EtaHeckeMod 13 11 168 1`**; now **(1) unconditional** as `Atkin13.atkin_13_unconditional` (see the update at the top) |
+| `13 ∣ p(N)` whenever `24N−1 = 11²m`, `(m/11)=1`, `(m/13)=−1` (30 classes mod 17303) (`atkin_13_class`) | (2), same hypothesis; now (1) as `atkin_13_class_unconditional` |
+| `13 ∣ p(N)` whenever `24N−1 = 37²m`, `(m/37)=−1`, `(m/13)=−1` (`atkin_13_Q37_class`) | (2), `EtaHecke 37 168 1`; now (1) as `atkin_13_Q37_class_unconditional` |
 | Ono: `13 ∣ p(13·59⁴n + 111247)` (`Weaver.ono_13_unconditional`), and `p((13·Q³n+1)/24) ≡ 0` for Q = 59, 73, `Q ∤ n` | **(1) Lean, axiom-clean, unconditional** (third pass) |
 | Weaver: `17 ∣ p(48037937n + 1122838)` (`Weaver.weaver_17_unconditional`); `p((17Q³n+1)/24) ≡ 0 (mod 17)` for Q = 41, 89, 103 | **(1) unconditional** |
 | `p((19·101³n+1)/24) ≡ 0 (mod 19)`, `101 ∤ n` (`ono_19_101_unconditional`) | **(1) unconditional** |
-| `p((23Q³n+1)/24) ≡ 0 (mod 23)` for Q = 5, 19, 37, 47, 67, `Q ∤ n` (`ono_23_Q_unconditional`); e.g. `23 ∣ p(14375s + r)`, r ∈ {3474, 6349, 9224, 12099} | **(1) unconditional** |
+| `p((23Q³n+1)/24) ≡ 0 (mod 23)` for Q = 5, 19, 37, 47, 67, `Q ∤ n` (`ono_23_5_unconditional`, …, `ono_23_67_unconditional`); e.g. `23 ∣ p(14375s + r)`, r ∈ {3474, 6349, 9224, 12099} | **(1) unconditional** |
 | `EtaHeckeMod ℓ Q (ℓ−1) ℓ` for ℓ ∈ {13,17,19,23} and **every** prime Q ≥ 5 (`EigenLift.etaHeckeMod_ℓ`); char-0 form `a(1)·T(Q²)(a/η^ℓ) = ν·(a/η^ℓ)` (`EigenLift.eigen_char0`) | **(1) Lean, axiom-clean** |
-| `EtaHecke`/`EtaHeckeMod` for the twisted Atkin case (k=168, j=1) | **(3) classical theorem, not formalized**; (4) checked numerically |
+| `EtaHecke`/`EtaHeckeMod` for the twisted Atkin case (k=168, j=1) | **(3) classical theorem, not formalized** at the time of this pass; (4) checked numerically. Since formalized: `HalfHecke.etaHecke_11_168`, `etaHecke_37_168`, and for every prime `Q ≥ 5` `GaussSign.etaHecke_all` |
 | All congruences above against actual `p(N) mod ℓ`, N ≤ 3·10⁶ | (4) numerical, 0 failures |
 
 All 23 audited declarations depend only on `propext`, `Classical.choice`, `Quot.sound`
@@ -85,7 +85,7 @@ cusp form of weight k (`BoylanWebb.IntForm k a`, constant term 0) there is anoth
 `heckeHalf Q j λ s (a·P^j) = a'·P^j`, λ = k − (j+1)/2, s = (12/Q)((−1)^λ/Q).
 
 Builds: each module via `lake build RamanujanTau.AtkinSporadic.<File>`; kernel certificates take
-seconds (largest prefix: 52,604 partition numbers mod 17). Not added to the root import.
+seconds (largest prefix: 52,604 partition numbers mod 17). Not added to the root import at the time (since added).
 
 ## The gap: `EtaHecke`
 
@@ -195,7 +195,8 @@ All 11 `EtaHeckeMod ℓ Q (ℓ−1) ℓ` instances used in `WeaverMain.lean` are
 `ono_13`, `weaver_17` and every `ono_ℓ_Q` hold unconditionally (level (1), axiom-clean: only
 `propext`, `Classical.choice`, `Quot.sound`; audit `scripts/atkinsporadic/audit_unconditional.lean`).
 In fact `EtaHeckeMod ℓ Q (ℓ−1) ℓ` is proved for ℓ ∈ {13,17,19,23} and *every* prime `Q ≥ 5`.
-Atkin's twisted j = 1 case (`atkin_13`, `EtaHeckeMod 13 11 168 1`) is unchanged: still level (2).
+Atkin's twisted j = 1 case (`atkin_13`, `EtaHeckeMod 13 11 168 1`) was unchanged by this pass (level (2)); it was
+made unconditional the next day (`Atkin13.atkin_13_unconditional`, see the update at the top).
 
 Headline statements (namespace `RamanujanTau.AtkinSporadic`):
 ```
@@ -217,7 +218,7 @@ theorem Equivariance.lift_heckeHalf ... (A : PowerSeries ℤ) :
       chi12 Q • HeckeQExp.Tq Q ((Q : ℤ) ^ (2 * halfWt ℓ - 1)) (liftSeries ℓ t A)
 ```
 
-New modules (all in `RamanujanTau/AtkinSporadic/`, not in the root import):
+New modules (all in `RamanujanTau/AtkinSporadic/`; not in the root import at the time, since added):
 
 | file | content |
 |---|---|
@@ -253,7 +254,8 @@ Kernel checks: `w2c_certificate` (eta products to q²⁸), `certℓ_basis/rows/i
 integer matrices with entries up to 46 digits), all `decide +kernel`; the whole of `DimOneData`
 compiles in ~30 s.
 
-What remains open in this track: Atkin's twisted j = 1 case (`atkin_13`, `atkin_13_class`,
-`atkin_13_Q37_class` still take `EtaHeckeMod 13 Q 168 1`); see the second-pass assessment above —
-W has dimension 7 there, so this route does not apply. ℓ = 29, 31 (two-dimensional `S_{ℓ−1}`) were
-not attempted; `eigen_char0`'s argument would need `dim W = 2` and a 2×2 Hecke computation.
+What remained open in this track at the time (both since closed): Atkin's twisted j = 1 case (`atkin_13`,
+`atkin_13_class`, `atkin_13_Q37_class` took `EtaHeckeMod 13 Q 168 1`; W has dimension 7 there, so this route
+does not apply; closed instead by an explicit T(Q²), [HALF_INTEGRAL_HECKE](HALF_INTEGRAL_HECKE.md)), and
+ℓ = 29, 31 (two-dimensional `S_{ℓ−1}`; done in [ONO_WEAVER_EXTENSIONS](ONO_WEAVER_EXTENSIONS.md), where the
+two-dimensional obstacle disappears).

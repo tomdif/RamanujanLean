@@ -71,12 +71,13 @@ even-`c` η-multiplier, double-coset theory and holomorphy at other cusps entire
 | `AtkinSporadic/Atkin13Unconditional.lean` | the three unconditional corollaries |
 
 Build: `nice -n 10 lake build RamanujanTau.AtkinSporadic.Atkin13Unconditional`, then
-`nice -n 10 lake env lean scripts/halfhecke/audit.lean`. Not added to the root import (not edited).
+`nice -n 10 lake env lean scripts/halfhecke/audit.lean`. Not added to the root import at the time (since added).
 
 ## What remains / extensions
 
 * `GaussSign Q k` for general `Q` is the classical Gauss sign theorem (level (3) here); proving it in
   general (e.g. via theta transformation) would make `EtaHecke Q k 1` unconditional for all `Q ≥ 5`.
-  For any specific `Q` it can be discharged as for 11 and 37.
+  For any specific `Q` it can be discharged as for 11 and 37. (Done: `GaussSign.etaHecke_all`, via
+  `GaussSign.gaussSign_of_even`, for every prime `Q ≥ 5` and `k ≥ 2`; see the caution at the top for odd `k`.)
 * Other `j` (`η^{−j}`, `gcd(j,6)=1`): the same construction should work with the translations `24x`
   and the multiplier exponents scaled by `j`; not done.
