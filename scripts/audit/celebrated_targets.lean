@@ -53,3 +53,5 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinSelberg.rankinSelberg_two_sided
 #print axioms GORZXiEff.gamma_eq_mom
 #print axioms GORZXiEff.jensen2_gamma
+#print axioms GORZXiD3.hyperbolic_cubic
+#print axioms GORZXiD3.disc_jensen3
