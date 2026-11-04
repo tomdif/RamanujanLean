@@ -51,3 +51,5 @@ with no exceptions. -/
 #print axioms RamanujanTau.StepanovAS.weilPrimeBound
 #print axioms RamanujanTau.StepanovAS.tau_isBigO_23_4_unconditional
 #print axioms RamanujanTau.RankinSelberg.rankinSelberg_two_sided
+#print axioms GORZXiEff.gamma_eq_mom
+#print axioms GORZXiEff.jensen2_gamma

@@ -583,3 +583,4 @@ import RamanujanTau.KloostermanL.Main
 import RamanujanTau.Stepanov.Salie
 import RamanujanTau.StepanovAS.Main
 import RamanujanTau.RankinSelberg.Main
+import RamanujanTau.GORZXiEff.Main
