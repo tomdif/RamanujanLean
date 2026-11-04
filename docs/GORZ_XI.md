@@ -36,12 +36,13 @@ The four levels are: (1) Lean, axiom-clean; (2) Lean, conditional on a named hyp
 | M1 | Sanity check: the partition case re-derived as an instance of the abstract theorem | `partition_gorz` | **(1)** |
 | M2 | Riemann's formula `Λ₀(s) = (M(s/2) + M((1−s)/2))/2`, `M(w) = ∫_1^∞ t^{w−1}(θ(t)−1)dt` | `completedRiemannZeta₀_eq` | **(1)** |
 | M2 | **`γ(n)` (from Mathlib's `completedRiemannZeta`) `= n!/(2n)!·2^{1−2n}·B(n)`**, all `n ≥ 1` | `gammaMathlib_eq` | **(1)** |
-| M3 | `XiKernelHyp`: `B(n) > 0` eventually and `n^{k/2}·Δ^k[log B](n) → 0` for every `k ≥ 2` | hypothesis `XiKernelHyp` | **(4)** numerically; (3) follows from GORZ Thm 7 |
-| M4 | **GORZ Theorem 1**: `∀ d, J^{d,n}_γ` is hyperbolic for all large `n`, and `Ĵ^{d,n}_γ → H_d` (with `δ(n) = (2n)^{−1/2}`, `E(n) = γ(n+1)/γ(n)`) | `xi_gorz_mathlib` (for `gammaMathlib`), `xi_gorz` (for `gammaXi`) | **(2)**, conditional on `XiKernelHyp` only |
+| M3 | `XiKernelHyp`: `B(n) > 0` eventually and `n^{k/2}·Δ^k[log B](n) → 0` for every `k ≥ 2` | **`xiKernelHyp_holds`** (via `dlog_BXi_bound`) | **(1)** (2026-11-04; previously (4)) |
+| M4 | **GORZ Theorem 1**: `∀ d, J^{d,n}_γ` is hyperbolic for all large `n`, and `Ĵ^{d,n}_γ → H_d` (with `δ(n) = (2n)^{−1/2}`, `E(n) = γ(n+1)/γ(n)`) | **`xi_gorz_unconditional`** (= `xi_gorz_mathlib xiKernelHyp_holds`); conditional forms `xi_gorz_mathlib`, `xi_gorz` | **(1)**, unconditional |
 
-Running `#print axioms` on every name in the table (see `RamanujanTau/GORZXi/Main.lean`) gives
-`[propext, Classical.choice, Quot.sound]`. The files contain no `sorry`, no `axiom` and no `native_decide`.
-`XiKernelHyp` is a `def … : Prop` and appears only as an explicit hypothesis of `xi_gorz` and `xi_gorz_mathlib`.
+Running `#print axioms` on every name in the table (see `RamanujanTau/GORZXi/Main.lean` and
+`RamanujanTau/GORZXi/MainUncond.lean`) gives `[propext, Classical.choice, Quot.sound]`. The files contain no
+`sorry`, no `axiom` and no `native_decide`. `XiKernelHyp` is a `def … : Prop`; it is an explicit hypothesis of
+`xi_gorz` and `xi_gorz_mathlib`, and it is **proved** by `xiKernelHyp_holds`.
 
 ## Headline statements
 
@@ -65,6 +66,16 @@ def GORZXi.XiKernelHyp : Prop :=
 theorem GORZXi.xi_gorz_mathlib (hyp : XiKernelHyp) (d : ℕ) :
     (∀ i, Tendsto (fun n => (Jhat gammaMathlib (fun n => gammaMathlib (n+1) / gammaMathlib n) δXi d n).coeff i)
       atTop (𝓝 ((GORZ.H d).coeff i))) ∧ (… uniformly on compacts …) ∧
+    (∀ᶠ n in atTop, Hyperbolic (jensenSeq gammaMathlib d n))
+
+theorem GORZXi.xiKernelHyp_holds : XiKernelHyp
+
+theorem GORZXi.xi_gorz_unconditional (d : ℕ) :
+    (∀ i, Tendsto (fun n => (Jhat gammaMathlib (fun n => gammaMathlib (n + 1) / gammaMathlib n) δXi d n).coeff i)
+      atTop (𝓝 ((GORZ.H d).coeff i))) ∧
+    (∀ K : Set ℝ, IsCompact K → TendstoUniformlyOn
+      (fun n x => (Jhat gammaMathlib (fun n => gammaMathlib (n + 1) / gammaMathlib n) δXi d n).eval x)
+      (fun x => (GORZ.H d).eval x) atTop K) ∧
     (∀ᶠ n in atTop, Hyperbolic (jensenSeq gammaMathlib d n))
 ```
 
@@ -102,7 +113,51 @@ theorem GORZXi.xi_gorz_mathlib (hyp : XiKernelHyp) (d : ℕ) :
    * Near `z = 0`, `(−1+4z²)Λ(1/2+z) = 4 + (4z²−1)Λ₀(1/2+z)`. An explicit derivative chain `Gch` then yields
      every iterated derivative at `0`, and `mellin(log^m·A)(1/4) = 2F(m)` (`mellin_Am_quarter`).
 
-## The named hypothesis: numerical evidence (level 4)
+## Proof of `XiKernelHyp` (M3, level 1)
+
+The proof is elementary: no full asymptotic expansion of `F` (GORZ Theorem 7) and no log-concave measure
+theory is needed. Write `u = log t`, `x = u − c`, and `M = 2n − 2` for the base index.
+
+1. **Theta sandwich** (`XiStein.lean`). From Mathlib's `hasSum_int_evenKernel`,
+   `θ₀(t) = Σ_{k≥1} e^{−πk²t}`, so `e^{−πt} ≤ θ₀(t) ≤ 2e^{−πt}` for `t ≥ 1` (`theta0_lower`, `theta0_upper`).
+   All integrands are dominated by `K·t^N e^{−πt} ≤ K·N!·e^{−t}`, which gives integrability and decay.
+2. **Stein identity** (`stein_identity`). Differentiating `Φ = u^{M} x^{2q+1} t^{1/4} e^{−πt}` and using
+   `∫_1^∞ Φ' = 0` (Mathlib's `integral_Ioi_of_hasDerivAt_of_tendsto`; `Φ(1) = 0` because `log 1 = 0`) gives
+   `∫ ((πt − ¼)u − M) u^{M−1} x^{2q+1} t^{−3/4}e^{−πt} = (2q+1) S_q`, where
+   `S_q = ∫ u^M x^{2q} t^{−3/4}e^{−πt}`.
+3. **Pointwise inequalities** (`XiMoments.lean`). Let `c` be the root of `(πe^c − ¼)c = M` (`cRoot`, obtained by
+   the IVT on `[1, log(M+1)]`). Then `D·x = πu(e^u − e^c)x + (M/c)x²`, where `D = (πe^u − ¼)u − M`. Put
+   `λ₁ = πe^{c−1}` and `λ₂ = M/c²`. Elementary estimates of `e^u` give `λ₂ux² ≤ Dx` (`ineqI`) and
+   `λ₁ux² ≤ Dx + λ₁ux^{2R}` (`ineqII`). The second uses `|x| ≥ 1` in the far-left region `u < c − 1`, which
+   is exactly where the curvature drops to `λ₂ ≪ λ₁`.
+4. **Moment recursion** (`stein_ineqI`, `stein_ineqII`, `moment_rec`). Integrating these inequalities gives
+   `λ₂S_{q+1} ≤ (2q+1)S_q` and `λ₁S_{q+1} ≤ (2q+1)S_q + λ₁S_{2q+2}`. Since `c ≤ log(M+1)` and
+   `log(M+1)^4 ≤ (M+1)/4` eventually, we have `λ₁ ≤ λ₂²`, and then `S_q λ₁^q ≤ B_q S_0` with explicit
+   constants `B_q`. Transferring back through the sandwich gives
+   `|∫ u^M x^l t^{−3/4}θ₀| ≤ (1 + 2B_l) λ₁^{−l/2} F(M)` (`abs_rhoT_le`).
+5. **Binomial expansion** (`XiKernel.lean`). `F(M+i) = F(M)c^i Σ_{l≤L} C(i,l) μ_l`, with normalized moments
+   `μ_l` satisfying `|μ_l| ≤ (1+2B_l) ε^l`, where `ε = λ₁^{−1/2}/c` (`FXi_add`, `abs_muX_le`). The root
+   equation gives `λ₁c² ≥ Mc/e`, so `nε² ≤ 3/c → 0` (`n_epsN_sq`). This is the `1/log n` to spare.
+6. **Small-coefficient polynomials** (`XiPoly.lean`). Say `f(j) = Σ a_i j^{d_i}` on `j ≤ K` with `|a_i| ≤ Cη^{d_i}`
+   (written `SP`). This class is closed under `+`, `×` and powers, and satisfies `|Δ^k f| ≤ N C 2^k (kη)^k`
+   because `Δ^k j^d = 0` for `d < k`. Truncating the `log` series with Mathlib's
+   `abs_log_sub_add_sum_range_le` then gives `|Δ^k log(1+q)| ≤ Λη^k` for `q` with degrees `≥ 1`
+   (`abs_fd_log_SP`, `abs_dlog_of_SP`).
+7. **Assembly** (`XiUncond.lean`, `dlog_BXi_bound`). For `j ≤ k`:
+   `B(n+j) = 32C(2n,2)F(M)·c^{2j}·[A(j)E₀(j) − κE₂(j)]`, where
+   * `A(j) = C(2n+2j,2)/C(2n,2) = 1 + O(j/n) + O(j²/n²)`,
+   * `E_a(j) = Σ_{l≤2k+2} C(2j+a,l)μ_l`,
+   * `κ = c²/(32C(2n,2)) ≤ 1/n`.
+
+   Each piece is `SP` with `η = ε + 1/n`, and `W(0) ≥ 1/2`. Hence `B(n) > 0` and `|Δ^k log B(n)| ≤ Λ_k η^k`.
+   Since `√n·η → 0` (`tendsto_sqrt_etaN`), `xiKernelHyp_holds` follows.
+
+Numerical check (level 4, `scripts/gorzxi/xi7.py`, scipy): the inequalities (I), (II) and `λ₁ ≤ λ₂²` hold for
+`M = 10 … 10⁵`. The normalized moments `λ₁^q S_q/S_0` stay bounded (≈ 0.33, 0.32, 0.53, 1.22 at `M = 10⁵`), the
+θ-to-clean ratio is `1 + O(10⁻⁷)`, and `n ε²` decays (1.45, 0.74, 0.45, 0.32, 0.22, 0.16).
+
+## The named hypothesis: numerical evidence (level 4, superseded by the proof above)
+
 
 The values below were computed in mpmath (50–70 digits) from the integral formula for `F`. Scripts are in
 `scripts/gorzxi/xi3.py`–`xi6.py`.
@@ -130,23 +185,11 @@ The values below were computed in mpmath (50–70 digits) from the integral form
     `N = 25, 100, 400, 1600, 10⁴, 10⁵`, tending slowly to 1;
   * `Δ^k log γ/δ_true^k → 0` for every `k`.
 
-## What remains (M3)
+## What remains
 
-The only gap is `XiKernelHyp`, the saddle-point input. GORZ prove it via their Theorem 7, an asymptotic
-expansion of `F(n)` to all orders (paper level 3). A plausible Lean route that avoids full expansions runs as
-follows:
-
-1. In the variable `u = log t`, the density `u^s e^{u/4} θ₀(e^u)` is **strongly log-concave**, with curvature
-   `λ ≍ s/u₀`.
-2. Moment bounds for strongly log-concave measures (Brascamp–Lieb type) would give
-   `κ_m(log u) = O(s^{−m/2} u₀^{−m/2})`. That is `(log F)^{(m)}(s) = o(s^{−m/2})`, using the extra `1/log s`
-   factor.
-3. `Δ^k` would then be transferred to derivatives with `fd_chain_close`.
-4. The factor `1 − F(2n)/(32·C(2n,2)·F(2n−2))` would be handled by a Faà di Bruno bound (the repo's `gs` chain).
-
-None of the log-concave moment theory is in Mathlib. Estimate: 1500–3000 Lean lines.
-
-Not attempted: effective thresholds, and GORZ Theorem 2 (`d ≤ 8` for all `n`).
+Nothing remains for GORZ Theorem 1: `xi_gorz_unconditional` is level (1). Not attempted: effective thresholds
+(the proof gives explicit but huge constants, and the threshold in `n` comes from `cRoot → ∞` and
+`log(M+1)^4 ≤ (M+1)/4`), and GORZ Theorem 2 (`d ≤ 8` for all `n`).
 
 ## Files (`RamanujanTau/GORZXi/`)
 
@@ -161,10 +204,17 @@ Not attempted: effective thresholds, and GORZ Theorem 2 (`d ≤ 8` for all `n`).
 | `XiMellin.lean` | `Aθ`, `Bθ`, `mellin_fmodif_split`, **`completedRiemannZeta₀_eq`**, `Am`, `hasDerivAt_mellin_Am` |
 | `XiTaylor.lean` | `Lch`, `Gch`, `xiFun`, `gammaMathlib`, `mellin_Am_quarter`, **`gammaMathlib_eq`**, **`xi_gorz_mathlib`** |
 | `Main.lean` | `#print axioms` for all headline theorems |
+| `XiPoly.lean` | `SP` (small-coefficient polynomials in `j`), `abs_fd_SP`, `abs_SP_le`, **`abs_fd_log_SP`**, **`abs_dlog_of_SP`** |
+| `XiStein.lean` | `theta0_lower/upper`, integrability bounds, `rho0`, `rhoT`, `steinI`, **`stein_identity`** |
+| `XiMoments.lean` | `ineqI`, `ineqII`, `stein_ineqI/II`, `moment_rec`, `RootData`, **`abs_rhoT_le`** |
+| `XiKernel.lean` | `cRoot` (IVT), `cRoot_tendsto`, `rootData_ev`, `FXi_pos`, `muX`, **`FXi_add`**, `abs_muX_le`, `SP_choose` |
+| `XiUncond.lean` | `etaN`, `tendsto_sqrt_etaN`, `SP_E`, `SP_A`, `B_repr`, **`dlog_BXi_bound`**, **`xiKernelHyp_holds`**, **`xi_gorz_unconditional`** |
+| `MainUncond.lean` | `#print axioms` for the unconditional track |
 
 Imports: `RamanujanTau.GORZ.*` and `JensenThreshold.*`, unmodified, plus Mathlib. Nothing was added to the root
 `RamanujanTau.lean`. Build with a single process (each module takes 13–20 s once the dependencies are built):
 
 ```
 lake build RamanujanTau.GORZXi.Main
+lake build RamanujanTau.GORZXi.MainUncond
 ```

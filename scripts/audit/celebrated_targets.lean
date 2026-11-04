@@ -12,6 +12,8 @@ with no exceptions. -/
 #print axioms GORZXi.gorz_thm3
 #print axioms GORZXi.gammaMathlib_eq
 #print axioms GORZXi.xi_gorz_mathlib
+#print axioms GORZXi.xiKernelHyp_holds
+#print axioms GORZXi.xi_gorz_unconditional
 #print axioms Dragonette.dragonette
 #print axioms Dragonette.dragonette_literal
 #print axioms Dragonette.rank_parity_sign

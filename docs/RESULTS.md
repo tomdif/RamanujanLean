@@ -106,7 +106,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 
 **Added 2026-11-03** (see [STATUS](STATUS.md#results-of-2026-11-03)):
 - `TauBound.tau_isBigO_47_8_unconditional` — `τ(n) =O n^{47/8+ε}` for every ε > 0 (Kloosterman 1927), unconditional.
-- `GORZXi.xi_gorz_mathlib` (conditional on `XiKernelHyp`) — GORZ Theorem 1 for Riemann Ξ; `GORZXi.gorz_thm3` — the abstract GORZ Theorem 3 (unconditional); `GORZXi.gammaMathlib_eq` — integral formula for the Taylor coefficients of Ξ from Mathlib's completed zeta.
+- **`GORZXi.xi_gorz_unconditional`** — GORZ Theorem 1 for Riemann Ξ, unconditional (`xiKernelHyp_holds`); `GORZXi.gorz_thm3` — the abstract GORZ Theorem 3 (unconditional); `GORZXi.gammaMathlib_eq` — integral formula for the Taylor coefficients of Ξ from Mathlib's completed zeta.
 - `GORZ.jensen_eventually_hyperbolic` — for every d, `J^{d,n}` is hyperbolic for all large n (Griffin–Ono–Rolen–Zagier 2019, partition case); `GORZ.tendsto_coeff_Jhat` — renormalized Jensen polynomials → Hermite.
 - `JensenThreshold.jensen6_threshold_unconditional` / `jensen7_threshold_unconditional` — `J^{6,n}` hyperbolic ⟺ (n ≥ 610 among n ≥ 609); `J^{7,n}` likewise at 908.
 - `Dragonette.dragonette_literal` — `α(n) ~ (−1)^{n+1} e^{π√(n/6−1/144)}/(2√(n−1/24))` for `α(n) = [qⁿ]f(q) = N(0,2,n)−N(1,2,n)`.
