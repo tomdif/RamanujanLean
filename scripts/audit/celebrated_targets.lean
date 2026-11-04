@@ -70,3 +70,4 @@ with no exceptions. -/
 #print axioms RamanujanTau.Discharge.tauMatchesDiscriminant
 #print axioms RamanujanTau.Discharge.Kloosterman.stepanovKloosterman_unconditional
 #print axioms RamanujanTau.LehmerSmall.lehmer_below_214928639999
+#print axioms RamanujanTau.RankinError.rankinSelberg_power_saving_of_unfold

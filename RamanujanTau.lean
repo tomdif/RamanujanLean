@@ -596,3 +596,4 @@ import RamanujanTau.Discharge.Bridge
 import RamanujanTau.Discharge.Kloosterman
 import RamanujanTau.Discharge.AtkinInputs
 import RamanujanTau.LehmerSmall.Lehmer1947
+import RamanujanTau.RankinError.Main
