@@ -189,6 +189,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauOmegaPartial.cuspForm_partial_sum_omega
 #print axioms RamanujanTau.Subconvexity.wilton_bound
 #print axioms RamanujanTau.Subconvexity.twLambda_functional_equation
+#print axioms RamanujanTau.TauOmegaPM.tau_partial_sum_omega_pm
+#print axioms RamanujanTau.TauOmegaPM.landau_mellin
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
