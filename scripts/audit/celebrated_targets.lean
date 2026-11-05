@@ -127,6 +127,7 @@ with no exceptions. -/
 #print axioms RamanujanTau.HardyZeros.hardy_abstract
 #print axioms RamanujanTau.TauPartialSums.tau_partial_sum_bound
 #print axioms RamanujanTau.TauPartialSums.cuspForm_partial_sum_bound
+#print axioms RamanujanTau.HardyZerosGeneral.fL_infinitely_many_critical_zeros
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
