@@ -144,6 +144,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauPNT.tau_PNT_tau
 #print axioms RamanujanTau.HardyCountHafner.tauL_critical_zeros_linear
 #print axioms RamanujanTau.HardyCountHafner.mean_square_uniform
+#print axioms RamanujanTau.WienerIkehara.wienerIkehara
+#print axioms RamanujanTau.WienerIkehara.PNT_psi
+#print axioms RamanujanTau.WienerIkehara.tau_PNT_tau_deligne
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
