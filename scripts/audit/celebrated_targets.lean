@@ -138,6 +138,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.EdgeNonvanishing.tauL_ne_zero_edge
 #print axioms RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_ge
 #print axioms RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_le
+#print axioms RamanujanTau.TauPNT.tau_PNT_smoothed
+#print axioms RamanujanTau.TauPNT.continuousOn_negLogDeriv
+#print axioms RamanujanTau.TauPNT.tau_prime_sign_changes
+#print axioms RamanujanTau.TauPNT.tau_PNT_tau
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
