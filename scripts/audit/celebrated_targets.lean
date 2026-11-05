@@ -176,6 +176,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauPNTUncond.Lsym2_ne_zero_edge
 #print axioms RamanujanTau.TauPNTUncond.rs_prime_PNT
 #print axioms RamanujanTau.TauPNTUncond.landau_abscissa
+#print axioms RamanujanTau.GeneralZeros.riemann_von_mangoldt_gen
+#print axioms RamanujanTau.GeneralZeros.fL_zero_free_region
+#print axioms RamanujanTau.GeneralZeros.fL_zero_free_region_uniform
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
