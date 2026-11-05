@@ -171,6 +171,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauPNTError.tau_PNT_tau_error_uncond
 #print axioms RamanujanTau.TauPNTError.psiDelta_error_uncond
 #print axioms RamanujanTau.TauPNTError.negLogDeriv_bound
+#print axioms RamanujanTau.TauPNTUncond.tau_prime_sign_changes_uncond
+#print axioms RamanujanTau.TauPNTUncond.Rcont_ne_zero_edge
+#print axioms RamanujanTau.TauPNTUncond.Lsym2_ne_zero_edge
+#print axioms RamanujanTau.TauPNTUncond.rs_prime_PNT
+#print axioms RamanujanTau.TauPNTUncond.landau_abscissa
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
