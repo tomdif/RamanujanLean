@@ -631,5 +631,6 @@ import RamanujanTau.EdgeNonvanishing.Main
 import RamanujanTau.TauPNT.Main
 import RamanujanTau.HardyCountHafner.Main
 import RamanujanTau.WienerIkehara.Main
+import RamanujanTau.CriticalMeanSquare.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
