@@ -124,6 +124,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - **`HardyCount.tauL_critical_zeros_count`** — for every ε > 0, L(Δ,s) has ≫ T^{1/2−ε} distinct zeros on Re s = 6 with 0 < t ≤ T; `tauL_critical_zero_gaps` — every window [t₀ − Kt₀^{1/2+ε}, t₀ + Kt₀^{1/2+ε}] contains one (Hardy–Littlewood's ≫ T is not reached).
 - **`HardyCountLinear.tauL_critical_zeros_loglog`** — L(Δ,s) has ≫ T/log log T distinct zeros on Re s = 6 with 0 < t ≤ T (`tauL_critical_zeros_one_sub_eps`: ≫ T^{1−ε}); Hafner's ≫ T is not reached.
 - **`HardyCountHafner.tauL_critical_zeros_linear`** — Hafner's theorem: L(Δ,s) has ≫ T distinct zeros on Re s = 6 with 0 < t ≤ T; `mean_square_uniform` — ∫_T^{2T}|L(Δ,6+x+it)|² dt ≪ T/x uniformly for 0 < x ≤ 1.
+- **`HafnerGeneral.fL_critical_zeros_linear`** — Hafner's theorem for every nonzero level-one cusp form f with real coefficients: ≫ T distinct zeros of L(f,s) on Re s = k/2 up to height T.
 - **`CriticalMeanSquare.critical_mean_square_upper`** — ∫₀ᵀ |L(Δ,6+it)|² dt ≪ T log T (upper bound only); `weighted_parseval` — ∫|Λ(6+it)|²e^{2βt}dt = 2π∫|e^{6(u+iβ)}Δ(ie^{u+iβ})|²du for 0 ≤ β < π/2.
 - **`CriticalMeanSquareLower.critical_mean_square_isTheta`** — ∫₀ᵀ |L(Δ,6+it)|² dt ≍ T log T (lower bound `critical_mean_square_lower`).
 - **`CriticalMeanSquareAsymp.critical_mean_square_asymptotic`** — Good's theorem: (∫₀ᵀ |L(Δ,6+it)|² dt)/(T log T) → c_Δ = 2c = (6/π)(4π)¹²‖Δ‖²/11! (`rankin_normalization`: c is the constant of Σ_{n≤N} τ(n)²/n¹¹ = cN + O(N^{3/5})).

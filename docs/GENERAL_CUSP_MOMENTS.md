@@ -13,7 +13,7 @@ Build: `nice -n 10 lake build RamanujanTau.GeneralCuspMoments.Main` (exit 0).
 | Laplace form `λ^k ∫_0^∞ t^{k−1}e^{−λt}|L|² / log(1/λ) → (2π)^{k−1}2^k·12‖f‖²` | **(1) Lean, axiom-clean** |
 | exact weighted Parseval identity for `f` | **(1) Lean, axiom-clean** |
 | `f = Δ`: constant equals `CriticalMeanSquareAsymp.cDelta` | **(1) Lean, axiom-clean** |
-| (2) Hafner `N₀(T) ≫ T` for general `f` | **not done** (see Gaps) |
+| (2) Hafner `N₀(T) ≫ T` for general `f` | **done** in [HAFNER_GENERAL](HAFNER_GENERAL.md) (2026-11-05) |
 
 `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for every headline (see the end
 of `Main.lean`). No named hypotheses, no `sorry`, no `native_decide`, no `axiom`. Real
@@ -134,7 +134,7 @@ Reused unchanged (imported, not edited): `HardyZerosGeneral` (`Zc`, `Phi`, `Gc`,
 
 ## Gaps
 
-* **(2) Hafner's `N₀(T) ≫ T` for general `f` is not done.** The Δ proof
+* **(2) Hafner's `N₀(T) ≫ T` for general `f`** — *update: now proved in [HAFNER_GENERAL](HAFNER_GENERAL.md).* Original note: The Δ proof
   (`HardyCountHafner`, ~1400 lines, plus `HardyCountLinear.{Windows,Kernel,Main}` and
   `HardyCount.{Window,Contour}`) is Δ-specific in ≈2100 lines: the σ-general Fourier identity
   `Φ_σ = 2πe^{σw}f(ie^w)` for `σ = k/2 + x` (only `σ = k/2` exists in `HardyZerosGeneral`),
