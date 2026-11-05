@@ -133,6 +133,15 @@
 'RamanujanTau.RankinExact.kernel_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.RankinExact.rankinSelberg_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.RankinExact.rankinSelberg_exact_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.MeanSquare.mv_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.MeanSquare.mean_square_tauL' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.MeanSquareFull.mean_square_tauL_full' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.MeanSquareFull.norm_tauL_left_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyZeros.tauL_infinitely_many_critical_zeros' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyZeros.tauL_zeros_on_critical_line_infinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.HardyZeros.hardy_abstract' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_eulerProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_zeros_in_strip' depends on axioms: [propext, Classical.choice, Quot.sound]
