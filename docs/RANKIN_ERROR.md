@@ -297,3 +297,6 @@ Nothing for the stated theorem. Further improvements of the exponent:
   and §13.
 * D. Zagier, *The Rankin–Selberg method for automorphic functions which are not of rapid
   decay* (1981).
+
+**Update (2026-11-05).** Every δ < 2/5 is now proved by Landau's method, conditional on the
+single Γ-integral bound `KernelOneBound`. See [RANKIN_LANDAU](RANKIN_LANDAU.md).
