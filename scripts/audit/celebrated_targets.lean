@@ -154,6 +154,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.EigenformEdge.eigen_PNT
 #print axioms RamanujanTau.EigenformEdge.isNormalizedEigenform_discriminant
 #print axioms RamanujanTau.CriticalMeanSquareLower.critical_mean_square_isTheta
+#print axioms RamanujanTau.ZeroCount.zeroCount_window
+#print axioms RamanujanTau.ZeroCount.zeroCount_two_sided
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
