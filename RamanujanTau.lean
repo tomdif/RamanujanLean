@@ -647,5 +647,6 @@ import RamanujanTau.GeneralZeros.Main
 import RamanujanTau.TauSignsQuant.Main
 import RamanujanTau.MeanSquareLeft.Main
 import RamanujanTau.TauOmegaPartial.Main
+import RamanujanTau.Subconvexity.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
