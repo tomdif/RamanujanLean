@@ -300,4 +300,5 @@ Nothing for the stated theorem. Further improvements of the exponent:
 
 **Update (2026-11-05).** Every δ < 2/5 is now proved by Landau's method, and this is now **unconditional**:
 `KernelPhase.rankinSelberg_landau_uncond` (the Γ-integral bound `KernelOneBound` is proved in
-`KernelPhase`). See [RANKIN_LANDAU](RANKIN_LANDAU.md) and [KERNEL_PHASE](KERNEL_PHASE.md).
+`KernelPhase`). See [RANKIN_LANDAU](RANKIN_LANDAU.md) and [KERNEL_PHASE](KERNEL_PHASE.md). The exact `O(N^{3/5})`
+(no ε) is `RankinExact.rankinSelberg_exact`; see [RANKIN_EXACT](RANKIN_EXACT.md).
