@@ -168,6 +168,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinSelbergFE.meromorphic_Rcont
 #print axioms RamanujanTau.RankinSelbergFE.Rcont_residue_one
 #print axioms RamanujanTau.RankinSelbergFE.EpsteinStar_one_sub
+#print axioms RamanujanTau.TauPNTError.tau_PNT_tau_error_uncond
+#print axioms RamanujanTau.TauPNTError.psiDelta_error_uncond
+#print axioms RamanujanTau.TauPNTError.negLogDeriv_bound
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
