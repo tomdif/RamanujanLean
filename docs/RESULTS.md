@@ -127,6 +127,7 @@ See the [declaration ledger and remaining work](THEOREM_A.md).
 - **`CriticalMeanSquare.critical_mean_square_upper`** — ∫₀ᵀ |L(Δ,6+it)|² dt ≪ T log T (upper bound only); `weighted_parseval` — ∫|Λ(6+it)|²e^{2βt}dt = 2π∫|e^{6(u+iβ)}Δ(ie^{u+iβ})|²du for 0 ≤ β < π/2.
 - **`CriticalMeanSquareLower.critical_mean_square_isTheta`** — ∫₀ᵀ |L(Δ,6+it)|² dt ≍ T log T (lower bound `critical_mean_square_lower`).
 - **`CriticalMeanSquareAsymp.critical_mean_square_asymptotic`** — Good's theorem: (∫₀ᵀ |L(Δ,6+it)|² dt)/(T log T) → c_Δ = 2c = (6/π)(4π)¹²‖Δ‖²/11! (`rankin_normalization`: c is the constant of Σ_{n≤N} τ(n)²/n¹¹ = cN + O(N^{3/5})).
+- **`GeneralCuspMoments.fL_critical_mean_square_asymptotic`** — Good's asymptotic for every nonzero level-one cusp form f of weight k: ∫₀ᵀ |L(f,k/2+it)|² dt ~ 2c_f T log T, c_f = (3/π)(4π)^k‖f‖²/(k−1)! (no real-coefficient hypothesis).
 - **`ZeroCount.zeroCount_window`** — L(Δ,s) has ≪ log T zeros (with multiplicity) with T < Im s ≤ T+1; `zeroCount_two_sided` — cT ≤ N(T) ≤ CT log T (sharpened by `ZeroCountRvM.riemann_von_mangoldt`).
 - **`ZeroCountRvM.riemann_von_mangoldt`** — N(T) = (T/π) log(T/(2πe)) + O(log T) for the zeros of L(Δ,s) (with multiplicity, 0 < Im ≤ T); `arg_principle_rect` — the argument principle on rectangles for entire functions.
 - **`EdgeNonvanishing.tauL_ne_zero_edge`** — L(Δ, 13/2+it) ≠ 0 for every real t (Rankin/Ogg/Moreno; proved here without Sym² holomorphy or Deligne); with `tauL_ne_zero_of_ge`, `tauL_ne_zero_of_le`, all nontrivial zeros lie in 11/2 < Re s < 13/2.
