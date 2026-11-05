@@ -622,5 +622,6 @@ import RamanujanTau.RankinExact.Main
 import RamanujanTau.MeanSquare.Main
 import RamanujanTau.MeanSquareFull.Main
 import RamanujanTau.HardyZeros.Main
+import RamanujanTau.TauPartialSums.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
