@@ -31,9 +31,14 @@ Updated 2026-11-04. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Verification
 
-### Current build state (2026-11-04)
+### Current build state (2026-11-05)
 
-**Full root build completed 2026-11-04** (`lake build RamanujanTau`, 9,699 jobs, base `f3be2fe`, exit 0, no errors),
+**Full root build completed 2026-11-05** (`lake build RamanujanTau`, 9,793 jobs, base `7abbd21`, exit 0). The audit
+[celebrated_targets.lean](../scripts/audit/celebrated_targets.lean) printed only `propext`, `Classical.choice`,
+`Quot.sound` for all 120 audited declarations (output in
+[celebrated_targets.axioms.txt](verification/celebrated_targets.axioms.txt)).
+
+Earlier record: **Full root build completed 2026-11-04** (`lake build RamanujanTau`, 9,699 jobs, base `f3be2fe`, exit 0, no errors),
 after the 2026-11-03/04 campaign. The audit [celebrated_targets.lean](../scripts/audit/celebrated_targets.lean)
 (imports the whole root) then printed only `propext`, `Classical.choice`, `Quot.sound` for all 70 audited
 declarations. `RankRAt137` and `RankRAt139` were compiled in this round (`bEll_137`, `bEll_139` axiom-clean).

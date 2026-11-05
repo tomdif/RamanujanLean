@@ -63,12 +63,12 @@ Consequences (`TauModular`):
   lies between 35/6 and 23/4 and is not formalized.)
 - `DeligneBound` states Deligne's bound (`|τ(p)| ≤ 2p^{11/2}`) as a named hypothesis; its proof is not formalized
   here (it needs the Weil conjectures).
-- `LehmerConjecture` (`τ(n) ≠ 0`) is a famous open problem. The finite range `τ(n) ≠ 0` for `1 ≤ n < 21,492,863,999`
-  is proved (`LehmerSmall.lehmer_below_21492863999`; see [LEHMER_SMALL_N](docs/LEHMER_SMALL_N.md)).
+- `LehmerConjecture` (`τ(n) ≠ 0`) is a famous open problem. The finite range `τ(n) ≠ 0` for `1 ≤ n < 214,928,639,999`
+  (Lehmer 1947) is proved (`LehmerSmall.lehmer_below_214928639999`; see [LEHMER_SMALL_N](docs/LEHMER_SMALL_N.md)).
 
 Deligne and Lehmer are documented as hypotheses, not defects.
 
-**Hecke's functional equation (2026-11-04).** `HeckeL.heckeLambda_entire` and `HeckeL.heckeLambda_functional_equation`: Λ(s) = (2π)^{−s}Γ(s)L(Δ,s) is entire with Λ(12−s) = Λ(s), so L(Δ,s) is entire (`HeckeL.tauLSeries_entire`).
+**Hecke's functional equation (2026-11-04).** `HeckeL.heckeLambda_entire` and `HeckeL.heckeLambda_functional_equation`: Λ(s) = (2π)^{−s}Γ(s)L(Δ,s) is entire with Λ(12−s) = Λ(s), so L(Δ,s) is entire (`HeckeL.tauLSeries_entire`). Later (2026-11-05): convexity bound (`HeckeConvex.tauL_convexity`), all nontrivial zeros in 11/2 ≤ Re s ≤ 13/2 (`HeckeZeros.tauL_zeros_in_strip`), τ(n) = Ω(n^{11/2}) (`TauOmega.tau_omega`), and Rankin–Selberg with error O(N^{3/5}) (`RankinExact.rankinSelberg_exact`).
 
 ## Summary
 
@@ -77,8 +77,8 @@ Deligne and Lehmer are documented as hypotheses, not defects.
 | mod-691 congruence | **proved, unconditional** | — (none; `τ ∈ ℤ` now proved via `key_dvd`) |
 | general product bridge | **proved** | — (`qExpansion_discriminant_coeff`) |
 | multiplicativity | **proved** | — (`tau_mul_coprime`, via constructed `T_p`) |
-| Euler product of `L(Δ,s)` | **proved** (`Re s > 7`) | — (`LSeries_tau_eulerProduct`, Hecke bound `tau_isBigO`) |
+| Euler product of `L(Δ,s)` | **proved** (`Re s > 13/2`) | — (`HeckeZeros.tauL_eulerProduct`, via Rankin's absolute convergence `HeckeConvex.LSeriesSummable_tau_of_gt_13_2`; earlier `LSeries_tau_eulerProduct` for `Re s > 7`) |
 | sub-Hecke bound | **proved**, `O(n^{23/4+ε})` (Weil) | — (`StepanovAS.tau_isBigO_23_4_unconditional`) |
-| Deligne / Lehmer | open here | the Weil conjectures / an open problem (Lehmer proved for `n < 21,492,863,999`) |
+| Deligne / Lehmer | open here | the Weil conjectures / an open problem (Lehmer proved for `n < 214,928,639,999`) |
 
 Every question on the `τ` arc is now proved and axiom-clean, except Deligne's bound and Lehmer's conjecture.
