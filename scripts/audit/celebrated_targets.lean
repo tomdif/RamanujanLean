@@ -142,6 +142,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauPNT.continuousOn_negLogDeriv
 #print axioms RamanujanTau.TauPNT.tau_prime_sign_changes
 #print axioms RamanujanTau.TauPNT.tau_PNT_tau
+#print axioms RamanujanTau.HardyCountHafner.tauL_critical_zeros_linear
+#print axioms RamanujanTau.HardyCountHafner.mean_square_uniform
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
