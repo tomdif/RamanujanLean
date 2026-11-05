@@ -95,5 +95,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.Stirling.norm_Gamma_ratio_le_of_le
 #print axioms RamanujanTau.Stirling.rankinSelberg_power_saving_third
 #print axioms RamanujanTau.Stirling.rankinSelberg_power_saving_third_general
+#print axioms RamanujanTau.HeckeConvex.LSeriesSummable_tau_of_gt_13_2
+#print axioms RamanujanTau.HeckeConvex.tauL_convexity
+#print axioms RamanujanTau.HeckeConvex.tauL_convexity_strip
 #print axioms RamanujanTau.TauSigns.tau_sign_change_short_interval_limit
 #print axioms RamanujanTau.TauSigns.card_signChanges_ge_limit

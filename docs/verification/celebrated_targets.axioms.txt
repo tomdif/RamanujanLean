@@ -78,21 +78,36 @@
  Quot.sound]
 'RamanujanTau.RankinError.rsUnfold' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.RankinError.rankinSelberg_power_saving_84' depends on axioms: [propext, Classical.choice, Quot.sound]
-       21.42 real         3.05 user        12.00 sys
-          6642302976  maximum resident set size
-                   0  average shared memory size
-                   0  average unshared data size
-                   0  average unshared stack size
-              542624  page reclaims
-                 159  page faults
-                   0  swaps
-                   0  block input operations
-                   0  block output operations
-                   0  messages sent
-                   0  messages received
-                   0  signals received
-                  52  voluntary context switches
-               67322  involuntary context switches
-          5860352814  instructions retired
-          3859294876  cycles elapsed
-           132714496  peak memory footprint
+'RamanujanTau.TauDensity.tau_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauDensity.card_tau_ne_zero_ge_sqrt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauDensity.card_tau_ne_zero_ge_rpow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.RankinSelbergGeneral.rankinSelberg_asymptotic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.RankinSelbergGeneral.rankinSelberg_weight16' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauDensity.tau_norm_form_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauDensity.card_tau_ne_zero_ge_div_log' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauSigns.tau_sign_changes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauSigns.tau_sign_change_short_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauSigns.card_signChanges_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.RankinErrorGeneral.rankinSelberg_power_saving_general' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.RankinSharp.rankinSelberg_power_saving_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauSigns.tau_sign_change_short_interval_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauSigns.card_signChanges_ge_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.RankinSharpGeneral.rankinSelberg_power_saving_sharp_general' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.KolbergTau.instTauMod2_11' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HeckeL.heckeLambda_functional_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HeckeL.tauLSeries_entire' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HeckeL.tauLSeries_center_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Stirling.norm_Gamma_ratio_le_of_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Stirling.rankinSelberg_power_saving_third' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.Stirling.rankinSelberg_power_saving_third_general' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.HeckeConvex.LSeriesSummable_tau_of_gt_13_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HeckeConvex.tauL_convexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HeckeConvex.tauL_convexity_strip' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauSigns.tau_sign_change_short_interval_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauSigns.card_signChanges_ge_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
