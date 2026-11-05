@@ -177,3 +177,8 @@ exponent in `RankinError` (see "What remains" in `RANKIN_ERROR.md`) feeds throug
 * K. Matomäki, M. Radziwiłł, *Sign changes of Hecke eigenvalues*, GAFA 25 (2015): `≫ X` sign
   changes.
 * R. A. Rankin (1939) and A. Selberg (1940): the mean square of τ. A. Weil (1948): Kloosterman sums.
+
+
+## Update: the Hecke × Weil limit is reached (2026-11-04)
+
+With `Stirling.rankinSelberg_power_saving_third` (δ < 1/3 > 1/4), `TauSigns/Limit.lean` proves `tau_sign_change_short_interval_limit` (both signs in every `(x, x + A x^θ]`, θ > 3/4) and `card_signChanges_ge_limit` (≫ `X^{1/4−ε}` sign changes). This is the Hecke × Weil limit of the method; going further needs Deligne's bound.

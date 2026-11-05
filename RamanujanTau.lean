@@ -610,3 +610,5 @@ import RamanujanTau.RankinSharpGeneral.Main
 import RamanujanTau.KolbergTau.Main
 import RamanujanTau.HeckeL.Positivity
 import RamanujanTau.HeckeL.Growth
+import RamanujanTau.Stirling.Main
+import RamanujanTau.TauSigns.Limit

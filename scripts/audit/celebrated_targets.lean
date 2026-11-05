@@ -92,3 +92,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.HeckeL.heckeLambda_functional_equation
 #print axioms RamanujanTau.HeckeL.tauLSeries_entire
 #print axioms RamanujanTau.HeckeL.tauLSeries_center_pos
+#print axioms RamanujanTau.Stirling.norm_Gamma_ratio_le_of_le
+#print axioms RamanujanTau.Stirling.rankinSelberg_power_saving_third
+#print axioms RamanujanTau.Stirling.rankinSelberg_power_saving_third_general
+#print axioms RamanujanTau.TauSigns.tau_sign_change_short_interval_limit
+#print axioms RamanujanTau.TauSigns.card_signChanges_ge_limit
