@@ -106,6 +106,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauOmega.tau_not_isBigO
 #print axioms RamanujanTau.TauOmega.coeff_omega
 #print axioms RamanujanTau.TauOmega.coeff_not_isBigO
+#print axioms RamanujanTau.LandauSigns.landau
+#print axioms RamanujanTau.LandauSigns.coeff_sign_changes
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
