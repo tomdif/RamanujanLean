@@ -102,5 +102,7 @@ with no exceptions. -/
 #print axioms RamanujanTau.HeckeConvexGeneral.LSeriesSummable_coef
 #print axioms RamanujanTau.HeckeConvexGeneral.fL_convexity
 #print axioms RamanujanTau.HeckeConvexGeneral.fL_convexity_strip
+#print axioms RamanujanTau.TauOmega.tau_omega
+#print axioms RamanujanTau.TauOmega.tau_not_isBigO
 #print axioms RamanujanTau.TauSigns.tau_sign_change_short_interval_limit
 #print axioms RamanujanTau.TauSigns.card_signChanges_ge_limit
