@@ -619,5 +619,6 @@ import RamanujanTau.LandauSigns.Main
 import RamanujanTau.RankinLandau.Main
 import RamanujanTau.KernelPhase.Main
 import RamanujanTau.RankinExact.Main
+import RamanujanTau.MeanSquare.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

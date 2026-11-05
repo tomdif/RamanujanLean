@@ -118,6 +118,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinExact.kernel_sharp
 #print axioms RamanujanTau.RankinExact.rankinSelberg_exact
 #print axioms RamanujanTau.RankinExact.rankinSelberg_exact_general
+#print axioms RamanujanTau.MeanSquare.mv_poly
+#print axioms RamanujanTau.MeanSquare.mean_square_tauL
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
