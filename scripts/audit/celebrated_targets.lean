@@ -185,6 +185,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.MeanSquareLeft.mean_square_tauL_left
 #print axioms RamanujanTau.MeanSquareLeft.mean_square_tauL_every_line
 #print axioms RamanujanTau.MeanSquareLeft.tendsto_Qr
+#print axioms RamanujanTau.TauOmegaPartial.tau_partial_sum_omega
+#print axioms RamanujanTau.TauOmegaPartial.cuspForm_partial_sum_omega
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
