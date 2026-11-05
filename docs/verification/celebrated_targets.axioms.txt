@@ -159,6 +159,32 @@
 'RamanujanTau.EdgeNonvanishing.tauL_ne_zero_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPNT.tau_PNT_smoothed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPNT.continuousOn_negLogDeriv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPNT.tau_prime_sign_changes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPNT.tau_PNT_tau' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyCountHafner.tauL_critical_zeros_linear' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyCountHafner.mean_square_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.WienerIkehara.wienerIkehara' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.WienerIkehara.PNT_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.WienerIkehara.tau_PNT_tau_deligne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.CriticalMeanSquare.critical_mean_square_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.CriticalMeanSquare.weighted_parseval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EigenformEdge.fL_ne_zero_edge_of_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EigenformEdge.fL_ne_zero_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EigenformEdge.eigen_PNT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EigenformEdge.isNormalizedEigenform_discriminant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.CriticalMeanSquareLower.critical_mean_square_isTheta' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.ZeroCount.zeroCount_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.ZeroCount.zeroCount_two_sided' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.CriticalMeanSquareAsymp.critical_mean_square_asymptotic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.CriticalMeanSquareAsymp.rankin_normalization' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_eulerProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_zeros_in_strip' depends on axioms: [propext, Classical.choice, Quot.sound]
