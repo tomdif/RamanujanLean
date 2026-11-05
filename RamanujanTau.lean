@@ -614,4 +614,5 @@ import RamanujanTau.Stirling.Main
 import RamanujanTau.HeckeConvex.Main
 import RamanujanTau.HeckeConvexGeneral.Main
 import RamanujanTau.TauOmega.Main
+import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
