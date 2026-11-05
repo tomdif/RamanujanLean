@@ -612,4 +612,5 @@ import RamanujanTau.HeckeL.Positivity
 import RamanujanTau.HeckeL.Growth
 import RamanujanTau.Stirling.Main
 import RamanujanTau.HeckeConvex.Main
+import RamanujanTau.HeckeConvexGeneral.Main
 import RamanujanTau.TauSigns.Limit

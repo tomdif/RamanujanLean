@@ -98,5 +98,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.HeckeConvex.LSeriesSummable_tau_of_gt_13_2
 #print axioms RamanujanTau.HeckeConvex.tauL_convexity
 #print axioms RamanujanTau.HeckeConvex.tauL_convexity_strip
+#print axioms RamanujanTau.HeckeConvexGeneral.heckeLambda_functional_equation
+#print axioms RamanujanTau.HeckeConvexGeneral.LSeriesSummable_coef
+#print axioms RamanujanTau.HeckeConvexGeneral.fL_convexity
+#print axioms RamanujanTau.HeckeConvexGeneral.fL_convexity_strip
 #print axioms RamanujanTau.TauSigns.tau_sign_change_short_interval_limit
 #print axioms RamanujanTau.TauSigns.card_signChanges_ge_limit
