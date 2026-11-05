@@ -33,6 +33,8 @@ new axiom. No named hypotheses remain.
 * **Proved: `σ > 37/6 ≈ 6.1667`.** The classical theorem (Carlson 1922; H. S. A. Potter, *The mean
   values of certain Dirichlet series I*, Proc. LMS 1940) holds for every `σ > 6`.
 * **Gap: `6 < σ ≤ 37/6`.** The method below stops exactly at `37/6`.
+  **Update (2026-11-05): closed.** `MeanSquareFull.mean_square_tauL_full` proves the full range
+  `σ > 6` by the functional-equation bootstrap sketched below; see [MEAN_SQUARE_FULL](MEAN_SQUARE_FULL.md).
 
 ## Proof architecture
 
