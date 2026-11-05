@@ -640,5 +640,6 @@ import RamanujanTau.ZeroCountRvM.Main
 import RamanujanTau.GeneralCuspMoments.Main
 import RamanujanTau.ZeroFreeRegion.Main
 import RamanujanTau.HafnerGeneral.Main
+import RamanujanTau.RankinSelbergFE.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
