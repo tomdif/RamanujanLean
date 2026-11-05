@@ -624,5 +624,6 @@ import RamanujanTau.MeanSquareFull.Main
 import RamanujanTau.HardyZeros.Main
 import RamanujanTau.TauPartialSums.Main
 import RamanujanTau.HardyZerosGeneral.Main
+import RamanujanTau.HardyCount.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
