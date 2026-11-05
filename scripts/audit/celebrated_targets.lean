@@ -133,6 +133,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauPartialSumsSharp.tau_partial_sum_sharp
 #print axioms RamanujanTau.TauPartialSumsSharp.cuspForm_partial_sum_sharp
 #print axioms RamanujanTau.TauPartialSumsSharp.kernelZero_sharp
+#print axioms RamanujanTau.HardyCountLinear.tauL_critical_zeros_loglog
+#print axioms RamanujanTau.HardyCountLinear.tauL_critical_zeros_one_sub_eps
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
