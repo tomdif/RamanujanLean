@@ -158,6 +158,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.ZeroCount.zeroCount_two_sided
 #print axioms RamanujanTau.CriticalMeanSquareAsymp.critical_mean_square_asymptotic
 #print axioms RamanujanTau.CriticalMeanSquareAsymp.rankin_normalization
+#print axioms RamanujanTau.ZeroCountRvM.riemann_von_mangoldt
+#print axioms RamanujanTau.ZeroCountRvM.arg_principle_rect
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
