@@ -617,5 +617,6 @@ import RamanujanTau.TauOmega.Main
 import RamanujanTau.TauOmega.General
 import RamanujanTau.LandauSigns.Main
 import RamanujanTau.RankinLandau.Main
+import RamanujanTau.KernelPhase.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

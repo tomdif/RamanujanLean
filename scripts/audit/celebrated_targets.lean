@@ -111,6 +111,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinLandau.dual_rep
 #print axioms RamanujanTau.RankinLandau.rankinSelberg_landau
 #print axioms RamanujanTau.RankinLandau.rankinSelberg_landau_general
+#print axioms RamanujanTau.KernelPhase.kernelOneBound
+#print axioms RamanujanTau.KernelPhase.rankinSelberg_landau_uncond
+#print axioms RamanujanTau.KernelPhase.rankinSelberg_landau_61_100_uncond
+#print axioms RamanujanTau.KernelPhase.rankinSelberg_landau_general_uncond
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

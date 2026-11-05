@@ -1,5 +1,7 @@
 # Rankin–Selberg error `O(N^{1−δ})` for every `δ < 2/5` (Landau's method)
 
+> **Update 2026-11-05: unconditional.** `KernelOneBound` is proved (`KernelPhase.kernelOneBound`, a bent contour through the saddle height using only |Γ| bounds). The unconditional theorems are `KernelPhase.rankinSelberg_landau_uncond`, `rankinSelberg_landau_61_100_uncond` and `rankinSelberg_landau_general_uncond`. Sections below that describe the hypothesis as open are historical.
+
 Lean: `RamanujanTau/RankinLandau/` (9 files, ~2300 lines). Build with
 `nice -n 10 lake build RamanujanTau.RankinLandau.Main`.
 
@@ -98,7 +100,7 @@ since `|Q₁| ≍ |t|^{−2}`.
 | `dual_rep` (exact Voronoi-type formula for the Riesz mean) | (1) |
 | `exponents_ok` | (1) |
 | `landau_of_RSDataM`, `landau_RSFn`, `rankinSelberg_landau_general`, `rankinSelberg_landau`, `rankinSelberg_landau_61_100` | (2) conditional on `KernelOneBound m` (an argument; `#print axioms` = propext, Classical.choice, Quot.sound) |
-| `KernelOneBound m` itself | (3) literature + (4) numerics |
+| `KernelOneBound m` itself | **(1), proved 2026-11-05** as `KernelPhase.kernelOneBound` (m ≥ 1), sharp form `kernelOne_sharp` (‖J₁(y)‖ ≤ C y^{9/8}), see [KERNEL_PHASE](KERNEL_PHASE.md) |
 
 ## 5. What remains
 

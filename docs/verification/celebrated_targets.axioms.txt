@@ -124,6 +124,12 @@
 'RamanujanTau.RankinLandau.dual_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.RankinLandau.rankinSelberg_landau' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.RankinLandau.rankinSelberg_landau_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.KernelPhase.kernelOneBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.KernelPhase.rankinSelberg_landau_uncond' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.KernelPhase.rankinSelberg_landau_61_100_uncond' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.KernelPhase.rankinSelberg_landau_general_uncond' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_eulerProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_zeros_in_strip' depends on axioms: [propext, Classical.choice, Quot.sound]
