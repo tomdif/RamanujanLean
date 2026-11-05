@@ -638,5 +638,6 @@ import RamanujanTau.ZeroCount.Main
 import RamanujanTau.CriticalMeanSquareAsymp.Main
 import RamanujanTau.ZeroCountRvM.Main
 import RamanujanTau.GeneralCuspMoments.Main
+import RamanujanTau.ZeroFreeRegion.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

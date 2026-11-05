@@ -161,6 +161,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.ZeroCountRvM.riemann_von_mangoldt
 #print axioms RamanujanTau.ZeroCountRvM.arg_principle_rect
 #print axioms RamanujanTau.GeneralCuspMoments.fL_critical_mean_square_asymptotic
+#print axioms RamanujanTau.ZeroFreeRegion.tauL_zero_free_region
+#print axioms RamanujanTau.ZeroFreeRegion.tauL_zero_free_region_uniform
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
