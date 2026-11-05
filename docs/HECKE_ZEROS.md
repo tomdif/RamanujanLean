@@ -42,9 +42,10 @@ critical strip `11/2 ≤ Re s ≤ 13/2`.
 * **Non-vanishing on the edges `Re s = 13/2` (equivalently `Re s = 11/2`).** This is the
   prime-number-theorem-type statement for `L(Δ,s)`; the standard proof needs analytic properties of the
   symmetric square `L(Sym² Δ, s)` (Shimura 1975 holomorphy; Ogg 1969, Moreno 1974 / Jacquet–Shalika 1976
-  non-vanishing on the edge). Not attempted. With it, the zeros would lie in the **open** strip
-  `11/2 < Re s < 13/2`.
+  non-vanishing on the edge). **Update (2026-11-05): proved without Sym² or Deligne** in
+  [EDGE_NONVANISHING](EDGE_NONVANISHING.md) (`EdgeNonvanishing.tauL_ne_zero_edge`); with
+  `tauL_ne_zero_of_ge` / `tauL_ne_zero_of_le` the nontrivial zeros lie in the **open** strip `11/2 < Re s < 13/2`.
 * **Zero-free region / RH for L(Δ,s)** (`Re s = 6` for all non-trivial zeros): open (GRH).
-* **Existence/counting of zeros** (Riemann–von Mangoldt `N(T) ~ (T/π) log(T/2πe)`-type formula): not done.
+* **Existence/counting of zeros** (Riemann–von Mangoldt `N(T) ~ (T/π) log(T/2πe)`-type formula): not done. (Existence on the critical line is now proved, with ≫ T/log log T zeros up to T: [HARDY_ZEROS](HARDY_ZEROS.md), [HARDY_COUNT_LINEAR](HARDY_COUNT_LINEAR.md).)
 * The trivial zeros `s = −n` are simple and are exactly the real zeros (`tauL_real_eq_zero_iff`,
   `HeckeL/Positivity.lean`); multiplicity is not formalized.

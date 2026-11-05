@@ -142,6 +142,23 @@
  Classical.choice,
  Quot.sound]
 'RamanujanTau.HardyZeros.hardy_abstract' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPartialSums.tau_partial_sum_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPartialSums.cuspForm_partial_sum_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyZerosGeneral.fL_infinitely_many_critical_zeros' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.HardyCount.tauL_critical_zero_gaps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyCount.tauL_critical_zeros_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPartialSumsSharp.tau_partial_sum_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPartialSumsSharp.cuspForm_partial_sum_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.TauPartialSumsSharp.kernelZero_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyCountLinear.tauL_critical_zeros_loglog' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.HardyCountLinear.tauL_critical_zeros_one_sub_eps' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'RamanujanTau.EdgeNonvanishing.tauL_ne_zero_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_eulerProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RamanujanTau.HeckeZeros.tauL_zeros_in_strip' depends on axioms: [propext, Classical.choice, Quot.sound]

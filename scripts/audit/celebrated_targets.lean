@@ -135,6 +135,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauPartialSumsSharp.kernelZero_sharp
 #print axioms RamanujanTau.HardyCountLinear.tauL_critical_zeros_loglog
 #print axioms RamanujanTau.HardyCountLinear.tauL_critical_zeros_one_sub_eps
+#print axioms RamanujanTau.EdgeNonvanishing.tauL_ne_zero_edge
+#print axioms RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_ge
+#print axioms RamanujanTau.EdgeNonvanishing.tauL_ne_zero_of_le
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
