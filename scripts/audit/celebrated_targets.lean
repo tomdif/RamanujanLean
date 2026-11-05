@@ -149,6 +149,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.WienerIkehara.tau_PNT_tau_deligne
 #print axioms RamanujanTau.CriticalMeanSquare.critical_mean_square_upper
 #print axioms RamanujanTau.CriticalMeanSquare.weighted_parseval
+#print axioms RamanujanTau.EigenformEdge.fL_ne_zero_edge_of_ne
+#print axioms RamanujanTau.EigenformEdge.fL_ne_zero_edge
+#print axioms RamanujanTau.EigenformEdge.eigen_PNT
+#print axioms RamanujanTau.EigenformEdge.isNormalizedEigenform_discriminant
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
