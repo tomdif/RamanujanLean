@@ -100,7 +100,7 @@ convexity strip, because it needs `σ > 11/2` for integrability.
 
 ## 5. Gaps
 
-- The exponent is `181/30 + ε`, not `35/6`. See §3.
+- The exponent is `181/30 + ε`, not `35/6`. See §3. **Update (2026-11-05):** improved to `59/10 + ε` in [TAU_PARTIAL_SUMS_SHARP](TAU_PARTIAL_SUMS_SHARP.md).
 - The `ε` comes from the convexity bound (`fC_bound` degenerates as `ε → 0`).
 - Not attempted:
   - a conditional version under a Deligne-type short-sum hypothesis (this route would give
