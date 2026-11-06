@@ -321,3 +321,112 @@ Reused: `HeckeL` (`heckeLambda`, FE, `heckeLambda_bdd_strip`, `heckeLambda_eq`, 
 - V. Blomer, *Shifted convolution sums and subconvexity bounds for automorphic L-functions*,
   IMRN 2004; V. Blomer, G. Harcos, *The spectral decomposition of shifted convolution sums*,
   Duke Math. J. 144 (2008).
+
+---
+
+## 2026-11-06 (II): t-derivative of the weight (`RamanujanTau/HeckeAFE2/`)
+
+Build: `nice -n 10 lake build RamanujanTau.HeckeAFE2.Main` exits 0. The module has 3 files and
+618 lines. All 6 headlines print `[propext, Classical.choice, Quot.sound]`. There is no
+`sorry`, `axiom` or `native_decide`.
+
+**Status.**
+* Item (a) of the follow-up brief is done for **j = 1**.
+* Item (b), the twisted second moment conditional on `SCS2`, is **not** done.
+* The fallback, the untwisted mean value derived from the AFE in Lean, is **not** done.
+* The reasons are given below.
+
+### Headlines (`namespace RamanujanTau.HeckeAFE2`, level 1)
+
+```lean
+-- Psi.lean
+theorem norm_digamma_sub_log_le {z : ℂ} (hz : 2 ≤ z.re) :
+    ‖digamma z - log z‖ ≤ 40 / (z.re - 1 + |z.im|)
+theorem norm_digamma_diff_le {x : ℝ} (hx : -1 ≤ x) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ t y : ℝ,
+      ‖digamma ((6 + t * I) + ((x : ℂ) + y * I)) - digamma (6 + t * I)‖ ≤
+        C * (1 + |y|) ^ 2 / (1 + |t|)
+-- Deriv.lean   (Fi x ξ t y = Γ(6+it+u) ξ^{−u} e^{u²}/u,  u = x+iy)
+theorem hasDerivAt_Phi (hx : -1 ≤ x) (hx0 : x ≠ 0) (hξ : 0 < ξ) (t₀ : ℝ) :
+    HasDerivAt (fun t => ∫ y : ℝ, Fi x ξ t y) (∫ y : ℝ, Fi' x ξ t₀ y) t₀
+theorem hasDerivAt_Vline (hx : -1 ≤ x) (hx0 : x ≠ 0) (hξ : 0 < ξ) (t : ℝ) :
+    HasDerivAt (Vline x ξ) (Dline x ξ t) t
+  -- Vline x ξ t = (2π)⁻¹ ∫ Fi / Γ(6+it) = WGam (6+it) ξ x / Γ(6+it)
+  -- Dline x ξ t = (2π)⁻¹ ∫ i(ψ(6+it+u) − ψ(6+it)) Fi x ξ t y dy / Γ(6+it)
+theorem norm_Dline_le (hx : -1 ≤ x) (hx0 : x ≠ 0) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ t ξ : ℝ, 0 < ξ → ‖Dline x ξ t‖ ≤ K * (Tq t / ξ) ^ x / (1 + |t|)
+theorem V_deriv_bound {A : ℝ} (hA : 0 ≤ A) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ t ξ : ℝ, 0 < ξ →
+      HasDerivAt (fun w : ℝ => V (6 + w * I) ξ) (deriv (fun w : ℝ => V (6 + w * I) ξ) t) t ∧
+      ‖deriv (fun w : ℝ => V (6 + w * I) ξ) t‖ ≤ C / (1 + |t|) * (1 + ξ / (1 + |t|)) ^ (-A)
+```
+
+### Proof
+
+1. **The saving 1/t comes from the ψ-difference.** Write
+   ψ(z) − ψ(s) = (log z − log s) + (ψ(z) − log z) − (ψ(s) − log s).
+   * The first bracket is handled by the mean-value inequality on the segment [s, z], which lies
+     in Re > 0, with |1/w| ≤ 2(1+|y|)/(1+|t|) there.
+   * The other two brackets are O(1/|z|), by `norm_digamma_sub_log_le`. Its proof generalizes the
+     repo's `ZeroCountRvM.norm_digamma_six_sub_log_le`, via ψ = log + Σ e_j and
+     |e_j(z)| ≤ 20|z+j|^{−2}.
+2. **Differentiating under the integral.**
+   * Use `hasDerivAt_integral_of_dominated_loc_of_deriv_le` on the ball |t − t₀| < 1.
+   * The domination is crude but enough: |Γ′(z)| = |ψ(z)||Γ(z)| ≤ (|z| + π + 10)·Γ(6+x), times
+     a Gaussian.
+   * The quotient rule then gives Φ′ − iψ(s)Φ = ∫ i(ψ(s+u) − ψ(s))Γ(s+u)K. The pole at u = 0
+     has been cancelled by the difference ψ(s+u) − ψ(s).
+3. **Bounding the derivative.**
+   * `norm_Dline_le` is the analogue of `W_line_bound`, with one extra factor
+     C(1+|y|)²/(1+|t|).
+   * Since V(6+it, ξ) equals `Vline x ξ t` for every x > 0 (`WGam_shift`) and equals
+     1 + `Vline (-1) ξ t` (`WGam_residue`), its derivative can be computed on any line.
+     Line x = A+1 handles large ξ, and line x = −1 handles small ξ. `combine_bound` merges the
+     two regimes.
+
+Numerical check (level 4): `scripts/hecke_afe/deriv_check.gp` uses centred differences.
+
+| t | max_r (1+t)\|∂_tV\| | max_r (1+t)\|∂_tV\|(1+r)² |
+|---|---|---|
+| 10 | 0.363 | 21.3 |
+| 10² | 0.507 | 27.5 |
+| 10³ | 0.521 | 29.1 |
+| 10⁴ | 0.523 | 29.2 |
+
+Both quantities are bounded in t, as the theorem predicts.
+
+### What is still missing, and the honest size of (b)
+
+* **j ≥ 2.** Integration by parts in ∫ V_t(m)V̄_t(n) w(t/T)(hn/km)^{it} dt needs about A/ε
+  derivatives, to dispose of every pair with |log(hn/km)| ≥ T^{−1+ε}. Proposed route:
+  * Cauchy estimates for g = ψ − log on discs of radius |z|/2 give g^{(k)} = O(|z|^{−1−k}).
+  * Hence the k-th t-derivative of L(t) = log Γ(s+u) − log Γ(s) is O((1+|y|)^{k+1}/(1+|t|)^k).
+  * Faà di Bruno then gives ∂_t^j(Γ(s+u)/Γ(s)) = R·P_j(L′, …, L^{(j)}).
+  * About 400–600 lines. The j = 1 file above is the template.
+* **(b) the twisted second moment, conditional on `SCS2`.** Not attempted in Lean.
+  * Still needed: separation of variables and t-integration by parts (needs j ≥ 2); the diagonal
+    hn = km with its exact main term; the off-diagonal via `SCS2`; and the ε-cross terms by
+    stationary phase.
+  * Estimate unchanged: 3–5k lines.
+* **The main term, paper level, not checked in Lean or numerically.** For coprime h, k define
+  D_{h,k}(s) = Σ_r λ(hr)λ(kr) r^{−s} (Re s > 1).
+  * D_{h,k} has a simple pole at s = 1, coming from L(Δ×Δ, s) = ζ(s)L(Sym²Δ, s)/ζ(2s) and
+    local factors at p | hk.
+  * Write D_{h,k}(1+v) = R₋₁/v + R₀ + O(v).
+  * Then ∫|L(6+it)|²(h/k)^{it}w(t/T)dt = (1/√(hk)) ∫ w(t/T)[R₋₁·(log(t²/(4π²)) + κ) + 2R₀] dt
+    + O(T^{1−δ}(hk)^C).
+  * Here κ is a Γ-constant that comes from the shifted moment at α = β = 0. It is not
+    determined here.
+  * For h = k = 1, R₋₁ = c (Rankin's constant, `rankinC`), so the leading term is
+    2c·T log T·∫w/T. This is consistent with `cDelta = 2c` in `CriticalMeanSquareAsymp`.
+* **The untwisted case h = k = 1 via the AFE (the fallback).** This is also not short.
+  * One cannot freeze the t-dependent weights on t-blocks. The j = 1 bound makes the
+    block-freezing error O(H·T^{−1/2}), which forces H ≲ T^{1/2}. The Montgomery–Vaughan error
+    O(Σ n|a_n|²) = O(T) per block then exceeds the block's main term H log T.
+  * So even h = k = 1 needs the off-diagonal and ε-cross-term analysis, i.e. j ≥ 2 integration by
+    parts and stationary phase. It is about 2–3k lines.
+  * The Lean mean-square asymptotic with constant 2c already exists by the ray/Karamata route
+    (`CriticalMeanSquareAsymp`). The AFE-diagonal cross-check is numerical (§4.4 above).
+
+Files: `HeckeAFE2/Psi.lean` (169 lines), `HeckeAFE2/Deriv.lean` (432), `HeckeAFE2/Main.lean`
+(17), `scripts/hecke_afe/deriv_check.gp` and `.out`.
