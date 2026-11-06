@@ -250,3 +250,63 @@ Hall–Tenenbaum-type theorem plus the mollifier bookkeeping: estimated 3–5k l
 target on the way is the two-sided Selberg lemma Σ_{n≤N}α(n)²/n ≍ (log N)^{1/4}: the lower bound
 should follow from `mertens2_bound` by a standard truncated-Euler-product argument (not checked),
 estimated 0.3–0.5k lines.
+
+## 7. 2026-11-06 (later): Mertens rate, two-sided Selberg lemma, logarithmic mean values (`RamanujanTau/SelbergCoeffs3/`)
+
+Build: `nice -n 10 lake build RamanujanTau.SelbergCoeffs3.Main` (exit 0, about 700 lines).
+
+* All 6 headlines print `[propext, Classical.choice, Quot.sound]`.
+* There is no sorry, no new axiom and no native_decide.
+
+| statement | Lean name | level |
+|---|---|---|
+| \|Σ_{p≤N} λ(p)²/p − log log N − c_Δ\| ≤ C/log N for N ≥ 2 | `mertens2_rate` | 1 (unconditional) |
+| f ≥ 0 multiplicative, f(p^k) ≤ B, Σ_{p≤M} f(p)/p ≤ κ log log M + C ⇒ Σ_{n≤N} f(n)/n ≤ e^{C+2B}(log N)^κ | `logmean_upper` | 1 |
+| the same for real signed f, with \|f\| in the hypotheses (bounds \|Σ f(n)/n\|; no cancellation) | `logmean_upper_abs` | 1 |
+| f ≥ 0, κ ≥ 0, f(p) ≤ 2, Σ_{p≤M} f(p)log p/p ≤ A log M, Σ_{p≤M} f(p)/p ≥ κ log log M − C ⇒ Σ_{n≤N} f(n)/n ≥ c(log N)^κ | `logmean_lower` | 1 |
+| **c(log N)^{1/4} ≤ Σ_{n≤N} α(n)²/n ≤ C(log N)^{1/4}** | `selberg_two_sided [DeligneBound]` | 2 |
+
+### Proofs in brief
+
+* **Mertens rate.** Use `TT_decomp`. The tail Σ_{k>N} h_k is bounded through finite telescoping
+  sums (1/k² ≤ 1/(k−1) − 1/k, and w_k − w_{k+1}) followed by a limit. Then
+  0 ≤ log log(N+1) − log log N ≤ 1/log N, and \|P(N) − log(N+1)\| ≤ E + 1.
+* **Upper bound.** Mathlib's `EulerProduct.summable_and_hasSum_smoothNumbers_prod_primesBelow_tsum`
+  needs only *local* summability. Each local factor satisfies 1 + f(p)/p + 2B/p² ≤ exp(…).
+* **Lower bound.** Restrict to squarefree numbers built from the primes ≤ M, with N ≥ M^K. The
+  identity ∏(1+u) = Σ_{S⊆P}∏_S u is Mathlib's `prod_one_add`, and S ↦ ∏S is injective by
+  `Nat.primeFactors_prod`.
+  * The tail ∏S > N is removed by Rankin's trick with δ = 1/log M. Using p^δ − 1 ≤ e·δ log p
+    gives tail ≤ e^{−K+eA}·∏(1+u) ≤ ½∏(1+u).
+  * Then 1 + u ≥ e^{u−u²} on [0,1] (from `Real.exp_bound'`).
+  * Finally choose M = `Nat.findGreatest (· ^ K ≤ N) N`.
+* **The Selberg lemma.** f = α², κ = 1/4, with the inputs `mertens1_prime` and `mertens2_bound`.
+  Deligne enters only through \|α(p^k)\| ≤ 1. The upper bound now has the clean shape
+  (log N)^{1/4}, improving the earlier (log N + 1)^{1/4} in `sum_alpha_sq_div_le`.
+
+### Route (b) is retracted, and the Q⁰ status
+
+§6 proposed a Hall–Tenenbaum-type theorem: for real f with Σ_{p≤x} f(p)/p = κ log log x + O(1)
+and κ < 0, Σ_{n≤x} f(n)/n ≪ (log x)^κ. **This should not be expected to follow from
+Mertens-type hypotheses.**
+
+* Take f = μ, so κ = −1. The statement would give Σ_{n≤x} μ(n)/n ≪ 1/log x. That is a
+  prime-number-theorem-with-error statement, and the hypotheses are only Mertens-strength.
+  * In Beurling generalized-integer systems, Chebyshev/Mertens-type bounds can hold while the PNT
+    fails. I recall this but have not checked it in detail.
+  * For natural means, the Hall–Tenenbaum constant K = 0.3286 < 1 shows that real signed f only
+    gets a fraction of the full saving.
+* What *is* proved is the sharp theorem for f ≥ 0 (both directions), plus the trivial signed
+  bound (`logmean_upper_abs`), which gives no saving from cancellation.
+* Consequence for (QF), the bound Q⁰ ≪ 1/log y: the needed (log y)^{−1/2} savings come from
+  cancellation in the coefficients of R(1+s)^{−1/2} (branch point at s = 0). They require
+  **route (a)**: a zero-free region for ζ·L(Sym²Δ) left of Re s = 1, then Selberg–Delange
+  contour integration.
+  * The repo has only edge non-vanishing.
+  * The non-negative theorems proved here supply all the *size* inputs (Σα²/n ≍ (log)^{1/4},
+    Mertens with rate). The cancellation input is the remaining gap.
+* Rough cost of route (a), level 2 on `[DeligneBound]`:
+  * a classical zero-free region for L(Sym²Δ) (de la Vallée Poussin type, using
+    L(Sym²×Sym²)-positivity): about 2–4k lines;
+  * Selberg–Delange with a Hankel contour: about 2–3k lines;
+  * the mollifier bookkeeping: about 1–2k lines.

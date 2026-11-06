@@ -252,6 +252,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergCoeffs2.mertens1_prime
 #print axioms RamanujanTau.SelbergCoeffs2.mertens2
 #print axioms RamanujanTau.SelbergCoeffs2.mertens2_bound
+#print axioms RamanujanTau.SelbergCoeffs3.mertens2_rate
+#print axioms RamanujanTau.SelbergCoeffs3.selberg_two_sided
+#print axioms RamanujanTau.SelbergCoeffs3.logmean_upper
+#print axioms RamanujanTau.SelbergCoeffs3.logmean_lower
 #print axioms RamanujanTau.HeckeAFE.heckeLambda_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe_line
