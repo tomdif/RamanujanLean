@@ -1,5 +1,7 @@
 # Mean square of `∑_{n≤x} τ(n)` at the critical exponent `25/2` (unconditional, Lean)
 
+> **Update (2026-11-05):** the truncated Voronoi formula (L² form), the Cramér limit X^{−25/2}∫₁^X S² → B/(50π²) and exact Ω±(x^{23/4}) are proved in `VoronoiTrunc`; see [VORONOI_TRUNC](VORONOI_TRUNC.md).
+
 Lean: `RamanujanTau/Voronoi/` (6 files, about 1600 lines). No `sorry`, no `native_decide`, no new
 axiom, no named hypothesis. Build with `nice -n 10 lake build RamanujanTau.Voronoi.Main` (exit 0).
 `#print axioms` on every headline gives `[propext, Classical.choice, Quot.sound]`.

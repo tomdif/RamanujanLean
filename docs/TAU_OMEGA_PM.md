@@ -1,5 +1,7 @@
 # `∑_{n≤x} τ(n) = Ω±(x^β)` for every `β < 28/5`: sign changes at height beyond `x^{11/2}`
 
+> **Update (2026-11-05):** the truncated Voronoi formula (L² form), the Cramér limit X^{−25/2}∫₁^X S² → B/(50π²) and exact Ω±(x^{23/4}) are proved in `VoronoiTrunc`; see [VORONOI_TRUNC](VORONOI_TRUNC.md).
+
 Lean: `RamanujanTau/TauOmegaPM/` (3 files, about 915 lines). No `sorry`, no `native_decide`, no new
 axiom, no named hypothesis. Build with `nice -n 10 lake build RamanujanTau.TauOmegaPM.Main`
 (exit 0). `#print axioms` on every headline gives `[propext, Classical.choice, Quot.sound]`.

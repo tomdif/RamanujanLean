@@ -206,6 +206,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.SCSProof.tauL_subconvex
 #print axioms RamanujanTau.SCSProof.shiftedConvolutionBound_3_5
 #print axioms RamanujanTau.SCSProof.tauL_subconvex_3_5
+#print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
+#print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
+#print axioms RamanujanTau.VoronoiTrunc.tau_cramer
+#print axioms RamanujanTau.VoronoiTrunc.tau_omega_pm_exact
+#print axioms RamanujanTau.VoronoiTrunc.tau_partial_sum_omega_pm_exact
+#print axioms RamanujanTau.VoronoiTrunc.kernel_asymp
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

@@ -1,5 +1,7 @@
 # Cramér–Tong mean square of `∑_{n≤x} τ(n)` with the exact constant (Lean)
 
+> **Update (2026-11-05):** the truncated Voronoi formula (L² form), the Cramér limit X^{−25/2}∫₁^X S² → B/(50π²) and exact Ω±(x^{23/4}) are proved in `VoronoiTrunc`; see [VORONOI_TRUNC](VORONOI_TRUNC.md).
+
 Lean: `RamanujanTau/CramerMeanSquare/` (8 files, about 2000 lines). No `sorry`, no
 `native_decide`, no new axiom, no named hypothesis. Build with
 `nice -n 10 lake build RamanujanTau.CramerMeanSquare.Main` (exit 0). `#print axioms` on every
