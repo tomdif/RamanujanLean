@@ -78,7 +78,7 @@ S(x)/x^{11/2} ≪ x^{1/4}N^{1/4} + x^{1/2}N^{−1/2} + E(√(x/N)).             
   `D(h) = x^{1/2}h^{−1/2}`, `h = x^{(1−θ)/2}`). The pointwise Voronoi formula and Riesz differencing
   are the same method seen from two sides. Correction to that doc: an improvement `θ = 3/5 − δ`
   gives `η = 2/5 − δ/4`, not `δ/3`.
-- `η = 1/3` would need `θ ≤ 1/3`. The Rankin–Selberg error term is (from memory) `Ω(x^{3/8})`,
+- `η = 1/3` would need `θ ≤ 1/3`. The Rankin–Selberg error term is `Ω(x^{3/8})` (proved: `RankinOmega.rankinSelberg_error_omega`),
   the generic degree-4 mean-square lower bound. So no Rankin–Selberg error term, however sharp,
   reaches `1/3` through Cauchy–Schwarz. The best conceivable is `1/4 + 3/32 = 11/32`.
 - Higher moments, as a remark. Suppose `Σ_{n≤x}|α(n)|^{2j} ≪ x^{1+ε}` (this needs `sym^j`

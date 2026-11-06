@@ -237,6 +237,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.VoronoiPointwise.abs_tau_le_rpow'
 #print axioms RamanujanTau.VoronoiPointwise.tau_voronoi_pointwise_deligne
 #print axioms RamanujanTau.VoronoiPointwise.tau_partial_sum_35_6
+#print axioms RamanujanTau.RankinOmega.rankinSelberg_error_omega
+#print axioms RamanujanTau.RankinOmega.rankinSelberg_error_not_isLittleO
+#print axioms RamanujanTau.RankinOmega.tau_rankin_omega
+#print axioms RamanujanTau.RankinOmega.cuspForm_rankin_omega_nat
+#print axioms RamanujanTau.RankinOmega.zeta_mean_sq
+#print axioms RamanujanTau.RankinOmega.zeta_formula
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

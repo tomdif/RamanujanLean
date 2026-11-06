@@ -659,5 +659,6 @@ import RamanujanTau.VoronoiTrunc.Main
 import RamanujanTau.VoronoiTruncGeneral.Main
 import RamanujanTau.VoronoiTruncComplete.Main
 import RamanujanTau.VoronoiPointwise.Main
+import RamanujanTau.RankinOmega.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
