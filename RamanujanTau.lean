@@ -657,6 +657,7 @@ import RamanujanTau.SCSSharp.Main
 import RamanujanTau.SCSSharp2.Main
 import RamanujanTau.SubconvexGeneral.Main
 import RamanujanTau.SubconvexGeneral2.Main
+import RamanujanTau.SubconvexGeneral3.Main
 import RamanujanTau.VoronoiTrunc.Main
 import RamanujanTau.VoronoiTruncGeneral.Main
 import RamanujanTau.VoronoiTruncComplete.Main

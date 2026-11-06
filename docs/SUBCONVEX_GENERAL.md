@@ -199,3 +199,33 @@ theorem fL_subconvex_eigenform {f} (hf : IsNormalizedEigenform f) : … -- same 
 
 * **Exponent.** Porting `SCSSharp2` (gcd Kloosterman and the `1/21` retune) would give `δ = 1/134` for every `f`. That work is now mechanical: copy `Point21`/`Rmean21`/`Asum21`/`Final21` on top of the `Geo*`/`Tau*` files.
 * **Complex coefficients.** The theorem needs real coefficients, so it covers all eigenforms but not an arbitrary `f`. To remove that, see §3.
+
+## 7. Update (2026-11-06): `SCS_f(1/21, 1/21)` and `δ = 1/134` for every eigenform
+
+**Status: level 1 (Lean, axiom-clean, no hypotheses).**
+
+* Directory: `RamanujanTau/SubconvexGeneral3/`, 6 files, about 1.0k lines.
+* It imports `SubconvexGeneral`, `SubconvexGeneral2` and `SCSSharp2` (for `KloostGcd`, `ηt`, `Asum21`), and modifies none of them.
+* Build: `nice -n 10 lake build RamanujanTau.SubconvexGeneral3.Main` exits 0.
+* Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+* A grep finds no `sorry`, `admit`, `native_decide` or `axiom`.
+
+```lean
+theorem scsf_general21 (f : CuspForm 𝒮ℒ (k : ℤ)) (hreal : ∀ n, (coef f n).im = 0) :
+    SCSf f (1 / 21) (1 / 21)
+theorem fL_subconvex_general134 (f) (hreal) : ∃ C, 0 ≤ C ∧ ∀ t : ℝ,
+    ‖fL f ((((k : ℝ) / 2 : ℝ) : ℂ) + t * I)‖ ≤ C * (1 + |t|) ^ (1 / 2 - 1 / 134 : ℝ)
+theorem fL_subconvex_eigenform134 {f} (hf : IsNormalizedEigenform f) : … -- same bound
+```
+
+So the `Δ` exponent `δ = 1/134` (`SCSSharp2.tauL_subconvex_sharp2`) now holds for every normalized Hecke eigenform of level one. With `u = 1/66`, `δ₂(1/21, 1/21, 1/66) = 1/134`.
+
+| file | ported from | change against `SubconvexGeneral2` |
+|---|---|---|
+| `GeoPoint21` | `SCSSharp2.Point21` | `norm_tsum_Iγ_le_gcd (1/400) (2/21)`; `t = Y^{1/1000}`, `ε = t⁹⁹/2`; `h^{1/21}` in place of `√h`; saving `99/1000` (`pointwise_GF21`) |
+| `TauRiesz21` | `SCSSharp2.Rmean21` | `L = x^{1−2/39}`; `RmeanT_bound21 : ≪ h^{1/21} x^{k−1/21}` |
+| `TauAsum21` | `SCSSharp2.Asum21` | `rankin_shortT21` (exponent `1−1/21`); `AsumT_bound_large21` (cut `x^{1/273}`, `13!`) |
+| `TauFinal21` | `SCSSharp2.Final21` | Abel summation with `B = η`: for `t < h`, `(t+h)^{1/2} ≤ 2h^{η}(N+h)^{1/2−η}` (`shS_bound21`, `scsf_of_pointwise21`) |
+| `Main` | — | `scsf_general21` (`k < 12` and odd `k`: `f = 0`), `fL_subconvex_general134`, `fL_subconvex_eigenform134` |
+
+Remaining gap (unchanged): an arbitrary `f` with complex coefficients (§3). For further exponent gains, the sheared box of `SCS_SHARP2.md` §4 applies verbatim in weight `k`.

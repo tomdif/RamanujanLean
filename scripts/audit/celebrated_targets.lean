@@ -225,6 +225,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.SubconvexGeneral2.scsf_general
 #print axioms RamanujanTau.SubconvexGeneral2.fL_subconvex_general
 #print axioms RamanujanTau.SubconvexGeneral2.fL_subconvex_eigenform
+#print axioms RamanujanTau.SubconvexGeneral3.pointwise_GF21
+#print axioms RamanujanTau.SubconvexGeneral3.scsf_general21
+#print axioms RamanujanTau.SubconvexGeneral3.fL_subconvex_general134
+#print axioms RamanujanTau.SubconvexGeneral3.fL_subconvex_eigenform134
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer
