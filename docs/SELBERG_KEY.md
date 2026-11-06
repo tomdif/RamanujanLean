@@ -566,3 +566,147 @@ theorem ibp_twice {g g' g'' : ℝ → ℂ} {A B ω : ℝ} (hω : ω ≠ 0) (hAB 
 The total is about 2–2.4k lines, and it is entirely analytic: the only arithmetic input is the
 already-proved `scs2_general`. After M2 the remaining work is M3 (diagonal Mellin evaluation)
 and M4 (`SKSplitHyp' ⇐ SKQFHyp`).
+
+---
+
+## 2026-11-06 (fourth pass): M2.0–M2.3, M2.4 core and M2.5a done; `offLag_bound` NOT yet (`SelbergKey4/`)
+
+    nice -n 10 lake build RamanujanTau.SelbergKey4.Main      # exit 0
+
+* All 23 `#print axioms` in `SelbergKey4/Main.lean` give `[propext, Classical.choice, Quot.sound]`.
+* `grep` finds no `sorry`, `admit`, `native_decide` or `axiom` in `RamanujanTau/SelbergKey4/`.
+* 7 files, 1370 lines. No committed file was modified; `RamanujanTau.lean` does not import the module.
+
+**Status.** The off-diagonal clause of `SKSplitHyp'` is **not** proved yet. All the analytic
+single-term inputs are done (level 1), and so is the arithmetic core of the near-term
+partial summation. What is missing is the summation over the lattice (§3 below).
+
+### 1. What is proved (level 1)
+
+**M2.0 `Phase.lean`: the phase U(u,u+v).**
+
+```lean
+theorem Ush_eq (u v : ℝ) : Ush u (u + v) = (2 * π : ℂ) ^ ((v : ℂ) * I) * (eG u * conj (eG (u + v)))
+  -- eG u = Γ(6+iu)/|Γ(6+iu)|
+theorem hasDerivAt_eG (u : ℝ) : HasDerivAt eG (I * (psR u : ℂ) * eG u) u      -- psR u = Re ψ(6+iu)
+theorem hasDerivAt_Ulag (v u : ℝ) : HasDerivAt (Ulag v) (I * (dlt v u : ℂ) * Ulag v u) u
+  -- Ulag v u = Ush u (u+v), dlt v u = Re ψ(6+iu) − Re ψ(6+i(u+v))
+theorem hasDerivAt_Ulag1 (v u : ℝ) : HasDerivAt (fun w => I * (dlt v w : ℂ) * Ulag v w)
+    ((I * (dlt1 v u : ℂ) - (dlt v u : ℂ) ^ 2) * Ulag v u) u
+theorem Ulag_bounds : ∃ C ≥ 0, ∀ u v, |v| ≤ 1 → ‖Ulag v u‖ = 1 ∧
+    ‖I * dlt v u * Ulag v u‖ ≤ C / (1 + |u|) ∧ ‖(I * dlt1 v u - dlt v u ^ 2) * Ulag v u‖ ≤ C / (1 + |u|) ^ 2
+```
+
+The second-derivative bound uses the *difference* ψ′(6+i(u+v)) − ψ′(6+iu) ≪ (1+|u|)^{−2}
+(`HeckeAFE3.norm_iteratedDeriv_digamma_diff_le`). The bound ψ′ ≪ 1/u alone would be too weak:
+it would give ∫|g″| ≍ 1 in M2.2 instead of 1/T.
+
+**M2.1 `Window.lean`.** Φ = `ContDiffBump` at 7/4 with radii 3/4 < 1, and φ_T(t) = Φ(t/T).
+
+```lean
+theorem admissible_phiT (hT : 0 < T) : SelbergKey.Admissible T (T / 2) (3 * T) (phiT T)
+lemma hasDerivAt_phiT  : HasDerivAt (phiT T) (Phi1 (t / T) / T) t
+lemma hasDerivAt_phiT1 : HasDerivAt (fun t => Phi1 (t / T) / T) (Phi2 (t / T) / T ^ 2) t
+lemma phiT_zero_outside (hT : 0 < T) (ht : t ∉ Icc (3/4*T) (11/4*T)) : Phi (t/T) = 0 ∧ Phi1 (t/T) = 0 ∧ Phi2 (t/T) = 0
+lemma Phi_bounds : ∃ M ≥ 0, ∀ s, |Phi s| ≤ M ∧ |Phi1 s| ≤ M ∧ |Phi2 s| ≤ M
+```
+
+**M2.2 `FarTerm.lean`: one off-diagonal t-integral.** Here gT T x v ξ t = φ_T(t)·U(t+x, t+x+v)·W̃_{t+x,t+x+v}(ξ).
+
+```lean
+theorem farTerm_bound (A : ℝ) (hA : 0 ≤ A) :
+    ∃ C ≥ 0, ∀ T x v ξ ω, 1 ≤ T → 0 ≤ x → x ≤ 1 → |v| ≤ 1 → 0 < ξ →
+      ‖∫ t in (T/2)..(3*T), gT T x v ξ t * cexp ((ω * t : ℝ) * I)‖ ≤ C * T * (1 + ξ / T^2) ^ (-A) ∧
+      (ω ≠ 0 → ‖∫ …‖ ≤ C / (ω ^ 2 * T) * (1 + ξ / T^2) ^ (-A))
+```
+
+The proof goes through a small C² calculus: the structure `C2 f f' f''`, `C2.mul` (Leibniz), and
+`C2.comp_add`.
+
+* `FW_package`: U·W̃ is C² with ‖(UW̃)^{(j)}‖ ≤ C(1+|u|)^{−j}(1+ξ/(T(u)T(u+v)))^{−A} for j ≤ 2.
+* `R_le` localizes this to u ∈ [0, 4T].
+* `gT2_bound` gives ‖g″‖ ≤ C T^{−2}(1+ξ/T²)^{−A}.
+* `SelbergKey3.ibp_twice` then finishes the proof.
+
+The case j = 0 of the W̃-derivative (`hasDerivAt_Wv0`) was missing from `SelbergKey3`. It is
+added here.
+
+**M2.3 `XiDeriv.lean`: ξ∂_ξ W̃.**
+
+* On the line Re z = x, ∂_ξ[ξ^{−z}e^{z²}/z] = −ξ^{−1}ξ^{−z}e^{z²} (`hasDerivAt_Kf_xi`): the 1/z
+  drops out.
+* So ξ∂_ξ W̃ = −Vl x, with Vl x = ∫R(u)R(−(u+v))(2π)^{−1}ξ^{−z}e^{z²}dy. This holds on both
+  lines x = A+1 and x = −1, and the two values agree by `HasDerivAt.unique`.
+* `norm_Vl_le` gives ‖Vl x‖ ≤ K(T(u)T(u+v)/ξ)^x, and `combine_r` joins the two lines.
+
+```lean
+theorem Wxi_bound (hA : 0 ≤ A) : ∃ C ≥ 0, ∀ u v ξ, 0 < ξ →
+    HasDerivAt (fun ξ' => Wsh u (u + v) ξ') (-(Vl (A + 1) v ξ u / ξ)) ξ ∧
+    ‖(ξ : ℂ) * -(Vl (A + 1) v ξ u / ξ)‖ ≤ C * (1 + ξ / (Tq u * Tq (u + v))) ^ (-A)
+```
+
+This needs no condition on v.
+
+**M2.4, arithmetic core (`Line.lean`): line partial sums are box sums.** Along
+P m − Q n = k (P, Q ≥ 1), both m and n increase. Hence
+
+```lean
+theorem lineSum_eq_shiftSum2 (hP : 1 ≤ P) (hQ : 1 ≤ Q) (k : ℤ) (M : ℕ) :
+    lineSum P Q k M = shiftSum2 P Q k (Nbox P Q k M)        -- Nbox = max(M, ⌊(PM−k)/Q⌋₊) ≤ M + PM + |k|
+theorem abs_lineSum_le : ∃ C ≥ 0, ∀ P Q k M, 1 ≤ P → 1 ≤ Q → k ≠ 0 →
+    |lineSum P Q k M| ≤ C * (M + P*M + |k|) ^ (1 - 1/21) * |k| ^ (1/21) * (P*Q) ^ 12      -- scs2_general
+theorem norm_sum_mul_le_abel (h c : ℕ → ℂ) (N : ℕ) (hB : ∀ n ≤ N, ‖∑ i ∈ range n, c i‖ ≤ B) :
+    ‖∑ i ∈ range N, h i * c i‖ ≤ B * (‖h (N-1)‖ + ∑ i ∈ range (N-1), ‖h (i+1) - h i‖)
+```
+
+Here lineSum P Q k M = Σ_{1≤m≤M} λ(m)λ((Pm−k)/Q), summed over the m for which the quotient is a
+positive integer. This settles the question raised in the third pass of how to feed a
+one-variable partial summation from the *box* sums of `scs2_general`. No new SCS input is needed.
+
+**M2.5a `Term.lean`: one term of the exact expansion, windowed.** With ω = log(bdn/(acm))
+(`omg`) and ξ = 4π²mn:
+
+```lean
+theorem term_eq (a b c d) (hm : 1 ≤ m) (hn : 1 ≤ n) (u v : ℝ) :
+    Ush u (u+v) * (eph a b u * eph c d (u+v) * sTerm u (u+v) (m,n)) =
+      kap4 c d m n v * (FW v (4π²mn) u * cexp ((omg a b c d m n * u : ℝ) * I))
+theorem norm_kap4 : ‖kap4 c d m n v‖ = |τ(m)| * |τ(n)| * (m*n) ^ (-6)
+theorem term_integral_bound (hA : 0 ≤ A) : ∃ C ≥ 0, ∀ a b c d m n T x v, 1 ≤ m → 1 ≤ n → 1 ≤ T →
+    0 ≤ x → x ≤ 1 → |v| ≤ 1 →
+    ‖∫ t in (T/2)..(3T), φ_T(t) * (Ush (t+x) (t+x+v) * (eph a b (t+x) * eph c d (t+x+v) * sTerm (t+x) (t+x+v) (m,n)))‖
+      ≤ |τ(m)τ(n)|(mn)^{−6} * (C (1 + 4π²mn/T²)^{−A}) * min T (if ω = 0 then T else 1/(ω² T))
+```
+
+These are exactly the summands of `OffLag`, once `lag_split` and `Sl_sub_diagS` have been
+applied and the window φ_T is used on [A, B] = [T/2, 3T].
+
+### 2. A correction to the third-pass plan (paper)
+
+Two points need changing.
+
+* **Near terms must exclude small m.** For 1 ≤ |k| ≤ K₀ the weight is
+  H_k(m) ≍ (T/m)·min(1, (Pm)²/(T k)²). For m ≤ T^{1−ε} the far-term bound already gives
+  ≪ T^{1−2ε}y⁴/k². Partial summation over all m ≥ 1 would instead give a boundary term of size
+  ≍ k·T at m ≍ 1, which is no saving. So split by m:
+  * m ≤ T^{1−ε}: far bound;
+  * T^{1−ε} < m ≤ T^{1+ε}: Abel summation, with `abs_lineSum_le` giving the saving T^{−1/21}
+    (up to T^{ε}y^{O(1)}K₀^{O(1)});
+  * mn > T^{2+ε}: the decay (1+ξ/T²)^{−A}.
+* **The trivial bound is not enough.** Summing the far bound trivially over all off-diagonal
+  terms gives ≍ T log T·y^{O(1)}. The target is T h²/√K = T K^{3/2}/log²T. So the k ≤ K₀ terms
+  *must* get the SCS saving, and K₀ = T^{δ} for a small δ (≤ 1/50, say). Summing the far terms
+  over m, n uses Σ_{m≤X}|λ(m)|² ≪ X (Rankin–Selberg, available as
+  `RankinSelbergGeneral.rankinSelberg_asymptotic_discriminant`) and Cauchy–Schwarz. Deligne is
+  not needed.
+
+### 3. What remains for `offLag_bound` (estimate 1.2–1.8k lines)
+
+| # | step | content |
+|---|---|---|
+| R1 | swap Σ' and ∫∫∫ | `lagInt (OffLag β y) (phiT T) (T/2) (3T) h` = 2Re Σ_{abcd} wc wc Σ'_{p ∉ diag} ∫∫∫ φ_T·(term). Use `lag_split`, `Sl_sub_diagS`, and `intervalIntegral.hasSum_integral_of_dominated_convergence` three times. Domination by `norm_sTerm_le`, where 1/\|Γ(6+iu)Γ(6−iu′)\| is bounded on the compact u-range. Note h = K/log T ≤ 1 for large T, so \|v\| ≤ 1. About 300 lines |
+| R2 | far sum | Σ over m, n with \|bdn − acm\| = k, \|k\| > K₀ or m ≤ T^{1−ε}, of `term_integral_bound`. Use \|ω\| ≥ \|k\|/(2y²·max(m,n)·…) (`Real.log` ratio bound) and Σ\|τ(m)\|²m^{−11} ≪ X (Rankin–Selberg) with Cauchy–Schwarz. Result ≪ T^{1−δ′}y^{O(1)}. About 400 lines |
+| R3 | near sum | For fixed (a,b,c,d), k ∈ [1, K₀] and m ∈ (T^{1−ε}, T^{1+ε}]: H_k(m) = (mn)^{−1/2}·(the `term_integral_eq` integral). Its variation Σ\|H(m+1) − H(m)\| is ≪ k·T^{ε}, from `Wxi_bound` (ξ-derivative), ∂_ω of the t-integral (≤ T²·\|gT\|) and the m-derivative of (mn)^{−1/2}. Then `norm_sum_mul_le_abel` + `abs_lineSum_le`. Result ≪ K₀^{O(1)}T^{1−1/21+O(ε)}y^{O(1)}. About 500 lines |
+| R4 | assembly | Choose ε, δ, K₀, θ small (θ ≤ 1/81600 is plenty). For T ≥ T₀(K), T^{1−η}y^{O(1)} ≤ T h²/√K. This gives `offLag_bound`, and then `skSplitHyp'_of_diag : (diagonal clause for phiT) → SKSplitHyp' θ` is immediate from `admissible_phiT` (the window is now fixed, so the diagonal clause must be stated for φ_T, A = T/2, B = 3T). About 200 lines |
+
+Evidence levels: everything in §1 is level 1. §2 and §3 are level 3 (paper). The diagonal
+clause itself remains M3/M4 (level 3, numerically supported at level 4 by the second pass).
