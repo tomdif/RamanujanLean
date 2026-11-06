@@ -660,6 +660,7 @@ import RamanujanTau.SubconvexGeneral2.Main
 import RamanujanTau.SubconvexGeneral3.Main
 import RamanujanTau.CuspConj.Main
 import RamanujanTau.HafnerProportion.Main
+import RamanujanTau.SelbergCoeffs.Main
 import RamanujanTau.HeckeAFE.Main
 import RamanujanTau.HeckeAFE2.Main
 import RamanujanTau.HeckeAFE3.Main
