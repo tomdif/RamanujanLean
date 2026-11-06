@@ -378,6 +378,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.HafnerBridge2.twisted_asymp
 #print axioms RamanujanTau.HafnerBridge2.diag_of_QF
 #print axioms RamanujanTau.HafnerBridge2.mv2_of_QF
+#print axioms RamanujanTau.QFProof.J_bound
+#print axioms RamanujanTau.QFProof.yv_smooth
+#print axioms RamanujanTau.QFProof.chol_rhoP
+#print axioms RamanujanTau.QFProof.qfHyp_of
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
