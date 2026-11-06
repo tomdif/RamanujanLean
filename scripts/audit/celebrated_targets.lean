@@ -375,6 +375,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.HafnerMV2.mv2_of_diag
 #print axioms RamanujanTau.HafnerBridge.lam_bound
 #print axioms RamanujanTau.HafnerBridge.one_le_Dp
+#print axioms RamanujanTau.HafnerBridge2.twisted_asymp
+#print axioms RamanujanTau.HafnerBridge2.diag_of_QF
+#print axioms RamanujanTau.HafnerBridge2.mv2_of_QF
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

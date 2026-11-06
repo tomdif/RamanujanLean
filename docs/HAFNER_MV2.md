@@ -151,3 +151,109 @@ All of the following must hold uniformly in `h₁k₁ ≤ y⁴`, with polynomial
 * Then sum over `h, k ≤ y²` with `|c| ≤ d(h)√h`. The errors are `≪ T^{1−η'} y^{A'}`, which is power-saving for small θ.
 
 Estimate 1.5–2.5k lines.
+
+---
+
+## 2026-11-06 (later still): `HafnerBridge2/` — `DiagHyp θ ⇐ QFHyp` proved; (MV2) `⇐ QFHyp`
+
+**Status.** The bridge is done. Items (a)–(c) are proved in Lean, axiom-clean, with no hypothesis
+other than `QFHyp` itself.
+
+    nice -n 10 lake build RamanujanTau.HafnerBridge2.Main      # exit 0
+
+* Every `#print axioms` (12 names, `HafnerBridge2/Main.lean`) gives `[propext, Classical.choice, Quot.sound]`.
+* `grep` finds no `sorry`, `admit`, `native_decide` or `axiom`.
+* 10 new files, about 2.5k lines. No committed file was modified. `HafnerBridge/QF.lean` (the `QFHyp`
+  statement) is unchanged and used as is.
+
+### Headlines (`RamanujanTau/HafnerBridge2/Assemble.lean`)
+
+```lean
+theorem diag_of_QF {θ : ℝ} (hθ0 : 0 < θ) (hθ : θ ≤ 1 / 260) (hQ : QFHyp) : DiagHyp θ
+
+theorem mv2_of_QF {θ : ℝ} (hθ0 : 0 < θ) (hθ : θ ≤ 1 / 81600) (hQ : QFHyp) :
+    ∃ B T₀ : ℝ, ∀ T : ℝ, T₀ ≤ T →
+      (∫ u in T..(3 * T), ‖tauL (6 + u * I) * Mc (bSel ⌊T ^ θ⌋₊) ⌊T ^ θ⌋₊ (6 + u * I) ^ 2‖ ^ 2) ≤ B * T
+```
+
+`mv2_of_QF` is `HafnerMV2.mv2_of_diag ∘ diag_of_QF`. So the (MV2) conjunct of `SelbergMollHyp` is now
+reduced to the purely arithmetic `QFHyp`: `Q⁰(y) ≪ 1/log y` and `Q¹(y) ≪ 1`.
+
+### Method
+
+**(a)+(b): the uniform twisted Rankin asymptotic.** This is `Twisted.twisted_asymp`. There is `Z` such that for all
+coprime `h, k ≥ 1`:
+
+    |Σ_{r≤N} λ(hr)λ(kr)/r − r₀ρ(h)ρ(k) log N − K₁(h,k)| ≤ E N^{−1/5},   E + |r₀ρρ| + |K₁| ≤ Z (hk)⁴,
+
+where `K₁ = γ_Δ ρ(h)ρ(k) + r₀(ρ₁(h)ρ(k) + ρ(h)ρ₁(k))`.
+
+* *Local algebra* (`Lam.lean`). We work in `ℝ⟦X⟧` with `D_p = Σ λ(p^j)² X^j` and
+  `U_{p,a} = Σ λ(p^{j+a})λ(p^j) X^j`.
+  * From the Hecke recursion, `D_p · (1 − bX + bX² − X³) = 1 + X`, where `b = λ_p² − 1` (`Dps_mul_P`).
+    So `e_p = D_p⁻¹ = P/(1+X)` has `|coeff_j e_p| ≤ 4 + 2λ_p²` uniformly in `j`.
+  * Set `g_{p,a} = U_{p,a} e_p`, so that `g·D = U`.
+* *Peeling one prime* (`Twisted.T_peel`). Write `h = p^a h'` with `p ∤ h'k`. Then
+  `λ(hr)λ(kr) = Σ_{p^j ∣ r} g_j λ(h'r/p^j)λ(kr/p^j)`. This uses Mordell multiplicativity and `g·D = U`.
+* *Analytic step* (`Peel.peel_asymp`). If `A_F(N) = c log N + K + O(E N^{−1/5})`, then the convolution
+  `f = g ⊛_p F` has `A_f(N) = cG log N + (KG − cG₁) + O((2E + 3|c| + |K|) S N^{−1/5})`, where
+  `S = Σ (1 + j log p)|g_j| p^{−4j/5}`.
+* *Evaluation* (`Eval.lean`). At `X = 1/p` we get `G = ρ_p(a)` and `G₁ = −ρ_p'(a)`. The second comes
+  from `θ = X d/dX` with `θ(fg) = θf·g + f·θg` and `θ(e·D) = 0`. This is exactly the `ρ₁` of `QF.lean`;
+  item (b) is therefore definitional.
+* *Uniformity* (`Eval.Sg_le`, `Twisted.fiveS_le`).
+  * `S ≤ 6C⁴W₀ p^{3a}`, using `|λ(n)| ≤ C n^{11/40}` (no Deligne).
+  * Primes `p ≥ P₀ = ⌈30C⁴W₀⌉ + 1` cost `p^{4a}`. Primes below `P₀` cost an extra factor `P₀`.
+  * Hence the constant is `Z₀ P₀^{P₀} (hk)⁴`.
+* *Induction.* Strong induction on `hk`, peeling the least prime of `h`, or of `k` by symmetry. The
+  base case is `GoodSecondTerm.AA_asymp`.
+
+**(c): the `V`-smoothing and the `P̃` average.**
+
+* *Smoothing* (`Smooth.abs_Dsum_sub_le`). Any sequence with `Σ_{m<k} f(m) = c log k + K + O(E k^{−1/5})`
+  satisfies
+
+      Σ f(m) V(2 log(m+1) − L) = cL + 2K + O((E + 2|c| + |K|)(1+|L|)e^{−L/10}).
+
+  This is the `DiagD2` argument with nonnegativity removed. The boundary constant `2K` comes from
+  `∫g = 2` and `∫u g = 0`, which is the symmetry `V(v) + V(−v) = 2`.
+* *The `MainTw` sequence* (`Pair.logAsym_fseq`).
+  * `f(m) = ι_k(m+1)ι_h(m+1)/(m+1)` has partial sums `[h,k]⁻¹ A_{h₁,k₁}(⌊N/[h,k]⌋)`.
+  * Its constants are `c/ℓ` and `(K − c log ℓ)/ℓ`, with error `(2E + 2|c| + |K|)ℓ`.
+* *The `P̃` average* (`Wint.lean`).
+  * `Ptil(Λ, 0, X, H) = Wint X H (WV Λ)`.
+  * The `m`-sum and the `t`-integrals are interchanged by dominated convergence (`hasSum_Wint`).
+  * `Φ(t) = Σ_m f(m) V(…)` is continuous (Weierstrass).
+* *One pair* (`PairBound.pair_eval`).
+  * `MainTw(h,k) = 2√(hk) W(h,k)`, with
+    `|W − (2r₀/[h,k])(q₀ I₁ + q₁ I₀)| ≤ Z (hk)⁵ (X+H)^{9/10}`.
+  * Here `I₀ = Wint 1`, `I₁ = Wint log(t/2π)`, `q₀ = ρ(h₁)ρ(k₁)`, and `q₁` is the `Q¹` summand.
+  * This uses `log(h₁k₁) = 2 log[h,k] − log hk` and `r₀ · gamR = γ_Δ` (from `r₀ > 0`, via
+    `RankinError.petNormSq_pos`).
+* *Assembly* (`Assemble.diag_decomp`).
+  * `κ · 2√(h_p h_q) = cP(p) cP(q)`.
+  * Regrouping `Σ_{p∈[1,y]²} β(p₁)β(p₂) F(p₁p₂) = Σ_{h≤y²} c(h) F(h)` gives
+    `DiagSum = 2r₀(Q⁰(y) I₁ + Q¹(y) I₀) + R`, with `|R| ≤ Z y^{26}(X+H)^{9/10}`.
+* *`diag_of_QF`.*
+  * `I₀ ≤ X + H ≤ 6T` and `I₁ ≤ 6T log(6T)`.
+  * `log y ≥ (θ/2) log T` once `T^θ ≥ 2(|y₀| + 4)`.
+  * Hence `|DiagSum| ≤ (12 r₀ B (4/θ + 1) + 6Z) T`, using `26θ ≤ 1/10`.
+
+### Numerical check
+
+`scripts/hafner_bridge/twisted_rankin.gp` (PARI, `nbthreads = 1`, output in `twisted_rankin.out`)
+tests (a) with `τ` up to `1.2·10⁶`. The tested pairs `(h₁,k₁)` are `(1,1)`, `(1,2)`, `(2,3)`, `(1,4)`,
+`(3,4)`, `(1,6)` and `(5,1)`.
+
+* `S(x) − r₀ρρ log x` agrees with the predicted `K₁ = r₀(ρ₁ρ + ρρ₁) + γ_Δρρ` to `10⁻⁶`–`10⁻⁴`, the
+  size of the expected fluctuation.
+* Example: for `(2,3)` the predicted `K₁` is `−0.15721693` and `S(2·10⁵) − r₀ρρ log x` is `−0.15721780`.
+* It also confirms `λ(h₁r)λ(k₁r) = λ(h₁k₁r)λ(r)` for coprime `h₁, k₁`.
+
+### Remaining
+
+1. **`QFHyp` itself** is the only open input to (MV2). It is the Selberg–Delange target of
+   `RamanujanTau/SelbergDelange3/`, the other agent's work.
+2. The (SK) conjunct of `SelbergMollHyp` is untouched, as before.
+3. The exponents are crude: `(hk)⁵` per pair, `y^{26}` in total, and `θ ≤ 1/260` for `DiagHyp`. The
+   (MV2) range `θ ≤ 1/81600` is still set by `mv2_of_diag`.
