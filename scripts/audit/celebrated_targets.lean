@@ -193,6 +193,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.TauOmegaPM.landau_mellin
 #print axioms RamanujanTau.SubconvexityCond.tauL_subconvex_of_SCS
 #print axioms RamanujanTau.SubconvexityCond.shiftedConvolutionBound_trivial
+#print axioms RamanujanTau.Voronoi.tau_log_mean_square
+#print axioms RamanujanTau.Voronoi.tau_mean_square_upper
+#print axioms RamanujanTau.Voronoi.tau_mellin_identity
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
