@@ -695,5 +695,6 @@ import RamanujanTau.QFProof3.Main
 import RamanujanTau.QFProof4.Main
 import RamanujanTau.SelbergKey.Main
 import RamanujanTau.SelbergKey2.Main
+import RamanujanTau.SelbergKey3.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

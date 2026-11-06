@@ -480,3 +480,89 @@ theorem Wsh_bound  (hA : 0 ≤ A) : ∃ C ≥ 0, ∀ u u' ξ > 0, ‖Wsh u u' ξ
 
 
 Note: `scripts/selberg_key/zgrid.txt` (2.6 MB of Z-values) is not committed; regenerate it with `zgrid.gp` (under a minute).
+
+---
+
+## 2026-11-06 (third pass): M1(c) done; M2 checkpoint (`SelbergKey3/`)
+
+    nice -n 10 lake build RamanujanTau.SelbergKey3.Main      # exit 0
+
+* All 12 `#print axioms` give `[propext, Classical.choice, Quot.sound]`.
+* There is no `sorry`, `admit`, `native_decide` or `axiom`.
+* 3 files, 474 lines: `LagDeriv.lean`, `IBP.lean`, `Main.lean`.
+
+### M1(c) `LagDeriv.lean`: all u-derivatives of the lag weight (level 1)
+
+```lean
+theorem Wlag_iteratedDeriv_bound {j : ℕ} (hj : 1 ≤ j) {A : ℝ} (hA : 0 ≤ A) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ u v ξ : ℝ, |v| ≤ 1 → 0 < ξ →
+      HasDerivAt (iteratedDeriv j (fun w : ℝ => Wsh w (w + v) ξ))
+        (iteratedDeriv (j + 1) (fun w : ℝ => Wsh w (w + v) ξ) u) u ∧
+      ‖iteratedDeriv j (fun w : ℝ => Wsh w (w + v) ξ) u‖ ≤
+        C / (1 + |u|) ^ j * (1 + ξ / (Tq u * Tq (u + v))) ^ (-A)
+```
+
+So u ↦ W̃_{u,u+v}(ξ) is C^∞, and ∂_u^j W̃ ≪_{j,A} (1+|u|)^{−j}(1+ξ/(T(u)T(u+v)))^{−A}, uniformly in
+the lag |v| ≤ 1. The j = 0 case is `SelbergKey2.Wsh_bound`.
+
+The route is `HeckeAFE3.DerivJ` applied to the **product** symbol R(u,y)·R(−(u+v),y), where R is
+the Γ-ratio `HeckeAFE3.Rf`:
+
+* **Derivatives of the second factor.** For R(−(u+v)), `iteratedDeriv_Rf_neg` uses Mathlib's
+  `iteratedDeriv_comp_neg` and `iteratedDeriv_comp_sub_const`.
+* **Leibniz.** `iteratedDeriv_Pf` applies `iteratedDeriv_fun_mul`.
+* **Symbol bound.** `norm_Pd_le` is `HeckeAFE3.norm_Rd_le` at u and at −(u+v), combined with
+  (1+|u+v|) ≥ (1+|u|)/2 for |v| ≤ 1.
+* **Under the integral.** `hasDerivAt_intPd` and `iteratedDeriv_Wl` use dominated
+  differentiation, with local Gaussian domination as in `DerivJ`.
+* **One line.** `norm_intPd_le`: ≪ (T(u)T(u+v)/ξ)^x(1+|u|)^{−j}.
+* **Combining two lines.** The line x = A+1 (`Wsh_eq_Wl_pos`, via `W2sh_shift`) and the line
+  x = −1 (`Wsh_eq_one_add_Wl`, via `W2sh_residue`; the constant 1 has zero derivative) are joined
+  by `combine_r`.
+
+### M2 building block `IBP.lean` (level 1)
+
+```lean
+theorem ibp_twice {g g' g'' : ℝ → ℂ} {A B ω : ℝ} (hω : ω ≠ 0) (hAB : A ≤ B)
+    (hg : ∀ t, HasDerivAt g (g' t) t) (hg' : ∀ t, HasDerivAt g' (g'' t) t) (hg''c : Continuous g'')
+    (hA : g A = 0) (hB : g B = 0) (hA' : g' A = 0) (hB' : g' B = 0) :
+    ‖∫ t in A..B, g t * cexp ((ω * t : ℝ) * I)‖ ≤ (ω ^ 2)⁻¹ * ∫ t in A..B, ‖g'' t‖
+```
+
+### M2: status and the precise remaining plan (NOT done)
+
+**Choice of route.** M2 goes by integration by parts and `scs2_general`. Reusing
+`TwistedMoment`'s GoodSeq / averaging machinery was ruled out, for three reasons:
+
+* that machinery runs on `GoodSecondTerm`'s *approximated* AFE weight V(log mn − 2log(t/2π)),
+  not on the exact Γ-ratio weight W̃ of the lag expansion;
+* it handles only real sequences with the **symmetric** twist cos(t log(n/m)). The lag product
+  carries the complex factor n^{iv} and the phase U(u,u+v), so the antisymmetric sin-twist also
+  appears (Gap 2 of `TWISTED_MOMENT.md`);
+* its averaging identities assume a t-independent amplitude. Here U·W̃ depends on u.
+
+**Why two integrations by parts are enough.** The off-diagonal frequencies are
+ω = log(bdn/acm) with bdn − acm = k ≠ 0 an integer, so |ω| ≍ |k|/(acm).
+
+* A term with |k| > K₀ is bounded by `ibp_twice` by ≪ (ac)²T/k² per m-row.
+* Summed over m, n and k > K₀, these give ≪ T·y^{O(1)}/K₀.
+* The terms with 1 ≤ |k| ≤ K₀ are shifted convolution sums Σ_m λ(m)λ((acm+k)/bd)·H_k(m), which
+  are handled by partial summation against `SCS2Coprime.scs2_general`. They give
+  ≪ K₀ T^{1−η} y^{B}.
+* Taking K₀ = T^{η/2} gives a power saving T^{1−η/2}y^{O(1)}. That is far below the (1/√K)T h²
+  required, for small θ and large T.
+
+**Remaining sub-lemmas, with estimates.**
+
+| # | lemma | est. lines |
+|---|---|---|
+| M2.0 | **Phase U(u,u+v).** U′ = iδU with δ = Re ψ(6+iu) − Re ψ(6+i(u+v)), and U″ = (iδ′ − δ²)U, with \|δ\|, \|δ′\| ≪ (1+\|u\|)^{−1}. Inputs: `HasDerivAt.norm_sq` for ‖Γ(6+iu)‖, `HeckeAFE2.norm_digamma_diff_le`, `HeckeAFE3.norm_iteratedDeriv_digamma_le` | 200 |
+| M2.1 | **The window.** A concrete smooth admissible φ_T(t) = Φ(t/T) (`ContDiffBump`), with \|φ_T^{(j)}\| ≪ T^{−j}, supported in [T/2, 3T], and φ_T ≥ 1 on [T,2T] | 150 |
+| M2.2 | **One far term.** For \|ω\| > 0: \|∫φ_T(t−x)·U·W̃_{t,t+v}(ξ)e^{itω}dt\| ≪ T^{−1}ω^{−2}(1+ξ/T²)^{−A}. Inputs: `ibp_twice`, M2.0, M2.1, `Wlag_iteratedDeriv_bound` (j ≤ 2), `Wsh_bound` | 250 |
+| M2.3 | **ξ-derivative of W̃.** ξ∂_ξW̃ ≪ (1+ξ/T²)^{−A}; the line integral picks up an extra factor z. This is needed for partial summation in m | 150 |
+| M2.4 | **Near terms.** Partial summation of Σ_m λ(m)λ((acm+k)/bd)H_k(m) against `scs2_general`, giving ≪ (T+k)^{1−η}(ab)^{B}·sup(\|H\|+m\|H′\|) | 400 |
+| M2.5 | **Assembly.** Swap Σ' with the triple integral (dominated convergence, `norm_sTerm_le`); sum over the y⁴ quadruples, using \|β\| ≤ √n; split k ≤ K₀ / k > K₀; set K₀ = T^{η/2}, θ small; and the tail mn ≫ T^{2+ε} via `Wsh_bound`. The result is the off-diagonal clause of `SKSplitHyp'` | 800–1200 |
+
+The total is about 2–2.4k lines, and it is entirely analytic: the only arithmetic input is the
+already-proved `scs2_general`. After M2 the remaining work is M3 (diagonal Mellin evaluation)
+and M4 (`SKSplitHyp' ⇐ SKQFHyp`).
