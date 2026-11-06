@@ -422,6 +422,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergKey5.inner_offLag_eq
 #print axioms RamanujanTau.SelbergKey5.offLag_bound_of_quad
 #print axioms RamanujanTau.SelbergKey5.skSplitHyp'_of_diag
+#print axioms RamanujanTau.SelbergKey6.sum_lam_sq_mul_le
+#print axioms RamanujanTau.SelbergKey6.abs_log_sub_ge
 #print axioms RamanujanTau.SelbergKeyDiag.lag_conv
 #print axioms RamanujanTau.SelbergKeyDiag.lagInt_le_of_approx
 #print axioms RamanujanTau.SelbergKeyDiag.diagHypT_of_SKQF

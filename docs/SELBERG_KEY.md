@@ -893,3 +893,64 @@ analytically continuing R(s), and it reuses the `HafnerBridge2` machinery:
    (|λ(n)| ≤ Cn^{11/40}). This forces θ small, as everywhere else. ~400 lines.
 
 Estimate: about 2–2.2k lines for M3. M5 (`SKQFHyp` itself) is unchanged.
+
+---
+
+## 2026-11-06 (sixth pass): R2 building blocks only; `QuadOffHyp` NOT proved (`SelbergKey6/`)
+
+    nice -n 10 lake build RamanujanTau.SelbergKey6.Main      # exit 0
+
+* Both `#print axioms` give `[propext, Classical.choice, Quot.sound]`.
+* `grep` finds no `sorry`, `admit`, `native_decide` or `axiom` in the directory.
+* 2 files, 84 lines.
+
+The context budget of this session ran out before R2 + R3 could be written. `QuadOffHyp η B`,
+and with it the unconditional `offLag_bound`, are **still open**. Two R2 building blocks are done
+(level 1):
+
+```lean
+theorem sum_lam_sq_mul_le : ∃ A ≥ 0, ∀ (G : ℕ → ℝ) N, (∀ m, 0 ≤ G m) → (∀ m, G (m+1) ≤ G m) →
+    ∑ i ∈ range N, lam (i+1) ^ 2 * G (i+1) ≤ A * ∑ i ∈ range N, G (i+1)
+theorem abs_log_sub_ge (hX : 0 < X) (hY : 0 < Y) : |X - Y| / max X Y ≤ |Real.log X - Real.log Y|
+```
+
+* The first is Rankin–Selberg against a non-increasing weight: Abel summation twice, applied to
+  the partial sums of λ² and of 1. It is the device for the far part, via
+  |λ(m)λ(n)| ≤ (λ(m)² + λ(n)²)/2: for fixed m, n ↦ ℓ is injective.
+* The second gives |ω| ≥ |ℓ|/max(bdn, acm).
+
+### Simpler route for the near part than the fifth-pass plan (level 3)
+
+Do **not** take ω- or ξ-derivatives of the t-integral J. Instead:
+
+1. Split the off-diagonal p-set into Near ∪ Far, where
+   Near = {(m,n) on Pm − Qn = ℓ : 1 ≤ |ℓ| ≤ K₀, M₁ < m ≤ M₂}, with M₁ = T^{1−ε}, M₂ = T^{1+ε}.
+   * Near is **finite**. So Σ_{Near}∫Fq = ∫Σ_{Near}Fq(·,t) needs only `integral_finsetSum`.
+2. **Near.** For each fixed t and ℓ, the inner sum is Σ_m c_ℓ(m)·h_t(m), with
+   c_ℓ(m) = `lineTerm P Q ℓ m` (= λ(m)λ(n) on the line, 0 off it). Here
+   h_t(m) = φ_T(t)U·(phases)·(mñ)^{−1/2}·e^{iu·log(Qñ/(Pm))}·e^{iv log(dñ/c)}·W̃_{u,u+v}(4π²mñ),
+   with ñ = (Pm − ℓ)/Q real.
+   * Its m-derivative is ≪ (|ℓ|T/m² + 1/m + (ξ∂_ξW̃)/m)·|h|. This uses `SelbergKey4.Wxi_bound`
+     and nothing else.
+   * So Σ_{M₁<m≤M₂}|Δh| ≪ |ℓ|T/M₁²·√(Q/P) + 1/M₁.
+   * `SelbergKey4.norm_sum_mul_le_abel` + `abs_lineSum_le` then give
+     ≪ |ℓ|^{1+1/21}T^{−1/21+O(ε)}(PQ)^{13} per t.
+   * After ∫dt and Σ_{|ℓ|≤K₀}: ≪ K₀^{2+1/21}T^{1−1/21+O(ε)}(PQ)^{13}.
+3. **Far.** Bound termwise with `SelbergKey4.term_integral_bound`:
+   min(T, 1/(ω²T))(1+mn/T²)^{−A}, with |ω| ≥ |ℓ|/max(Pm,Qn) (`abs_log_sub_ge`).
+   * Split |λλ| ≤ (λ(m)²+λ(n)²)/2, sum over the partner variable for each fixed m (resp. n),
+     and apply `sum_lam_sq_mul_le` to the resulting non-increasing majorant.
+   * Sub-cases and their sizes:
+     * |ℓ| > K₀: ≪ y⁴T^{1+2ε}/K₀;
+     * m ≤ M₁: ≪ y⁴T^{1−2ε+o(1)};
+     * m > M₂: W̃-decay, ≪ T^{−A ε}.
+4. **Parameters.** ε = 1/400, K₀ = T^{1/200}, A = 10. These give η = 1/50 and B = 14.
+   Then 4θ(1+B) < η for θ < 1/3000, so θ ≤ 1/81600 is fine.
+
+Estimate for the rest: about 900–1300 lines.
+
+* Near part: re-indexing Near by (ℓ, m) via `lineTerm`, the real-variable derivative of h_t,
+  and Abel. About 500 lines.
+* Far part: about 400 lines.
+* Assembly into `QuadOffHyp (1/50) 14`: about 150 lines.
+* Then `offLag_bound_of_quad` gives the unconditional off-diagonal clause.

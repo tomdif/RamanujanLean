@@ -699,6 +699,7 @@ import RamanujanTau.SelbergKey2.Main
 import RamanujanTau.SelbergKey3.Main
 import RamanujanTau.SelbergKey4.Main
 import RamanujanTau.SelbergKey5.Main
+import RamanujanTau.SelbergKey6.Main
 import RamanujanTau.SelbergKeyDiag.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
