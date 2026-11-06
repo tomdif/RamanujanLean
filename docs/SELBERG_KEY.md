@@ -819,3 +819,77 @@ Evidence levels:
 * §1 and §2: level 1 (Lean, axiom-clean).
 * `offLag_bound_of_quad` and `skSplitHyp'_of_diag`: level 2, on `QuadOffHyp` (and `DiagHypT`).
 * §3: level 3 (paper).
+
+---
+
+## 2026-11-06 (diagonal pass): M4 done; M3 reduced to one named analytic statement (`SelbergKeyDiag/`)
+
+    nice -n 10 lake build RamanujanTau.SelbergKeyDiag.Main      # exit 0
+
+* All 10 `#print axioms` in `Main.lean` give `[propext, Classical.choice, Quot.sound]`.
+* No `sorry`, `admit`, `native_decide` or `axiom`; no warnings in these files. 7 files, 794 lines.
+* No committed file was modified (this section is appended). Not imported from `RamanujanTau.lean`.
+* Imports, read-only: `SelbergKey4.Window` (`phiT`), `SelbergKey5.Reduce` (`DiagHypT`, `QuadOffHyp`,
+  `skSplitHyp'_of_diag`).
+
+### Headlines
+
+```lean
+-- M3 output, as a named hypothesis (pure analysis; y = ⌊T^θ⌋, L = log(u/2π))
+def DiagApproxHyp (θ : ℝ) : Prop :=
+  ∃ C δ T₁ : ℝ, 0 ≤ C ∧ 0 < δ ∧ ∀ T, T₁ ≤ T → ∀ u ∈ Icc (T/2) (4*T), ∀ v, v ≠ 0 → |v| ≤ 1 →
+    |DiagLag (βSel y) y u v - 2 * (Av y v (log (u / (2*π)))).re| ≤ C * (|v| * ‖Sv y v‖ + T ^ (-δ))
+
+theorem diagLag_bound_of_SKQF (hS : SKQFHyp θ) (hD : DiagApproxHyp θ) :
+    ∃ D ≥ 0, ∀ K ≥ 1, ∃ T₀, ∀ T ≥ T₀, ∀ φ A B, Continuous φ → (∀ t, 0 ≤ φ t) → (∀ t, φ t ≤ 1) →
+      T/2 ≤ A → A ≤ B → B ≤ 3*T → lagInt (DiagLag (βSel y) y) φ A B (K/log T) ≤ D/√K * T * (K/log T)^2
+theorem diagHypT_of_SKQF (hS : SKQFHyp θ) (hD : DiagApproxHyp θ) : SelbergKey5.DiagHypT θ
+theorem sk_of_SKQF (hB : 0 ≤ B) (hθ0 : 0 ≤ θ) (hηθ : 4*θ*(1+B) < η)
+    (hS : SKQFHyp θ) (hD : DiagApproxHyp θ) (hO : SelbergKey5.QuadOffHyp η B) : SKSplitHyp' θ
+theorem tauL_positive_proportion_of_SKQF (0 < θ ≤ 1/81600) (0 ≤ B) (4θ(1+B) < η)
+    (QFHyp) (SKQFHyp θ) (DiagApproxHyp θ) (QuadOffHyp η B) : ∃ c T₀, 0 < c ∧ … c·N(3T) ≤ N₀(3T)
+```
+
+`D = 6D₀ + 3`, where D₀ is the constant of `SKQFHyp` (ii). The window is the `φ_T` of
+`SelbergKey4.Window` on [T/2, 3T], as for the off-diagonal side (`SelbergKey5`).
+
+**Mismatch with the requested `diagHypT_of_SKQF : SKQFHyp θ → DiagHypT θ`.** The headline
+needs the extra named hypothesis `DiagApproxHyp θ`, i.e. M3 is **not** discharged. Everything
+downstream of the pointwise diagonal evaluation (M4) is unconditional.
+
+### What is proved (level 1)
+
+| file | content |
+|---|---|
+| `Conv.lean` | `lag_conv`: ∫₀ʰ∫₀ʰ a(x′−x) = ∫_{−h}^{h}(h−\|v\|)a(v) for any `a` integrable on (−h, h] (Fubini with kernel 1_{(0,h]}(x)1_{(0,h]}(x+v)), plus integrability of the outer integrand |
+| `Meas.lean` | v ↦ N_p(a,1−iv), D_p(1−iv) continuous (M-test, `HafnerBridge.summable_Np`); `rhoC(m,1−iv)`, 𝒮, 𝒜(·,L) measurable; 𝒮⁰ continuous. Non-vanishing of D_p is not needed |
+| `Generic.lean` | `lagInt_le_of_approx`: G continuous, \|G(t+x,x′−x) − a(x′−x, ℓ(t))\| ≤ ε for x ≠ x′, and \|∫(h−\|v\|)a(v,ℓ(t))\| ≤ M ⟹ lagInt G φ A B h ≤ (B−A)(M+εh²) for any continuous 0 ≤ φ ≤ 1. The approximant may be singular at v = 0 (as 𝒜 is) |
+| `Reduce.lean` | `abs_reAv_sub_le`: \|Re𝒜(v,L₁) − Re𝒜(v,L₂)\| ≤ \|L₁−L₂\|·\|𝒮(v)\|·(\|γ_R\|\|v\| + r₀). With clause (i) this moves L from log((t+x)/2π) to log(t/2π) at cost O(hB/T), so **no** φ(u−x) → φ(u) shift is needed. Then `diagLag_bound_of_SKQF`: the error ε(T) = C(hB + T^{−δ}) + 4(h/T)B(r₀+\|γ_R\|) → 0, and clause (ii) supplies M = 2D₀h²/√K |
+| `Assemble.lean` | `diagHypT_of_SKQF`, `sk_of_SKQF` (via `SelbergKey5.skSplitHyp'_of_diag`), `tauL_positive_proportion_of_SKQF` |
+| `DiagIndex.lean` | M3 step 1: `diagS_eq_tsum_ray`: for a,b,c,d ≥ 1 the diagonal {n·bd = m·ac} is exactly the ray (m,n) = (Q₁r, P₁r), so diagS = Σ_r sTerm(Q₁r, P₁r) |
+
+### What remains: M3 = `DiagApproxHyp θ` (level 3 + level 4 numerics, §§3 and 2026-11-06 later)
+
+The numerical end-to-end check (`corr.out`, `skdirect.out`) supports `DiagApproxHyp` directly:
+it compares DiagLag-dominated lag correlations with 2Re𝒜. A **real-variable route** avoids
+analytically continuing R(s), and it reuses the `HafnerBridge2` machinery:
+
+1. *(done)* Ray reindexing. Still to do: normalize the ray term to κ·e_v·λ(Q₁r)λ(P₁r)r^{−1+iv}W̃(4π²P₁Q₁r²),
+   using the identities u-phase = 1 and √(abcd·P₁Q₁) = [ac,bd] (cpow algebra, ~150 lines).
+2. Peeling at the level of coefficients: λ(P₁r)λ(Q₁r) = Σ_{m∣r, m (P₁Q₁)-smooth} G(m)λ(r/m)², with
+   Σ_m G(m)m^{−s} = ρ(P₁,s)ρ(Q₁,s) for Re s = 1 (iterate `HafnerBridge2.T_peel`; the coefficient
+   bounds are `abs_gseq_le`). ~400 lines.
+3. Base sum by partial summation against `GoodSecondTerm.AA_asymp`:
+   Σ_n λ(n)²n^{−1+iv}W̃(βn²) = γ_R W̃(β) + r₀∫₁^∞x^{iv−1}W̃(βx²)dx − iv·ε(v) + O((β/T²)^{c}),
+   where ε(v) = ∫₁^∞E(x)x^{iv−1}dx is bounded. Summed over m with G(m)m^{−1+iv}, the ε-term is
+   **exactly** the |v|·\|𝒮(v)\| term of `DiagApproxHyp`. This is why the structural form R·ρ·ρ, and not a
+   per-(P₁,Q₁) Laurent bound, is needed. Needs ξ∂_ξW̃ bounds (`SelbergKey4.XiDeriv`, `Wxi_bound`). ~500 lines.
+4. Mellin evaluation: ∫₁^∞x^{iv−1}W̃(βx²)dx = [G(iv/2)β^{−iv/2}e^{−v²/4} − 1]/(iv) + O((β/T²)^{1/6})
+   (shift to Re z = −1/6; poles at z = 0 and z = iv/2 of G(z)α^{−z}e^{z²}/(z(2z−iv))). Pattern:
+   `W2sh_residue`, but with two poles. ~400 lines.
+5. Phases: U = (u/2π)^{−iv}(1+O(\|v\|/u)) and U·G(iv/2)(4π²)^{−iv/2} = 1 + O(v²/u) (Stirling /
+   digamma; `SelbergKey4.Phase` has U′ = iδU with \|δ\| ≪ 1/u). ~300 lines.
+6. Assembly over the y⁴ quadruples and the smooth m: |κ| ≤ y^{O(1)}, Σ\|G(m)\|m^{−1+2c} < ∞ for small c
+   (|λ(n)| ≤ Cn^{11/40}). This forces θ small, as everywhere else. ~400 lines.
+
+Estimate: about 2–2.2k lines for M3. M5 (`SKQFHyp` itself) is unchanged.
