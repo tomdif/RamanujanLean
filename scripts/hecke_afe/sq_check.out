@@ -1,0 +1,2 @@
+NOT RUN YET (2026-11-06): the machine was busy with another agent's PARI job.
+Run: nice -n 10 gp -q scripts/hecke_afe/sq_check.gp < /dev/null

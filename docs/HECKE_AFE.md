@@ -430,3 +430,143 @@ Both quantities are bounded in t, as the theorem predicts.
 
 Files: `HeckeAFE2/Psi.lean` (169 lines), `HeckeAFE2/Deriv.lean` (432), `HeckeAFE2/Main.lean`
 (17), `scripts/hecke_afe/deriv_check.gp` and `.out`.
+
+---
+
+## 2026-11-06 (III): all t-derivatives of V, and an AFE for |L|² with no cross terms (`RamanujanTau/HeckeAFE3/`)
+
+Build: `nice -n 10 lake build RamanujanTau.HeckeAFE3.Main` exits 0. The module has 5 files and
+1136 lines. All 11 headlines print `[propext, Classical.choice, Quot.sound]`. There is no
+`sorry`, `axiom` or `native_decide`. One proof, `ISq_eq_tsum`, is elaborated under
+`set_option maxHeartbeats 1000000`.
+
+### (a) All derivatives (level 1)
+
+```lean
+-- PsiK.lean
+theorem norm_digamma_sub_le_disc {z w : ℂ} (hz : 5 ≤ z.re) (hw : ‖w - z‖ ≤ ‖z‖ / 4) :
+    ‖digamma w - digamma z‖ ≤ 18
+theorem norm_iteratedDeriv_digamma_le {k : ℕ} (hk : 1 ≤ k) {z : ℂ} (hz : 5 ≤ z.re) :
+    ‖iteratedDeriv k digamma z‖ ≤ 18 * k.factorial * 4 ^ k / ‖z‖ ^ k
+theorem norm_iteratedDeriv_digamma_diff_le {x : ℝ} (hx : -1 ≤ x) (k : ℕ) :
+    ∃ D : ℝ, 0 ≤ D ∧ ∀ t y : ℝ,
+      ‖iteratedDeriv k digamma ((6 + t * I) + ((x : ℂ) + y * I)) -
+          iteratedDeriv k digamma (6 + t * I)‖ ≤ D * (1 + |y|) ^ (k + 2) / (1 + |t|) ^ (k + 1)
+-- Leibniz.lean   (Rf x t y = Γ(6+it+u)/Γ(6+it); Rd = explicit Leibniz recursion)
+theorem iteratedDeriv_Rf (hx : -1 ≤ x) (y : ℝ) (m : ℕ) :
+    ∀ t, iteratedDeriv m (fun t => Rf x t y) t = Rd x m t y
+theorem norm_Rd_le (hx : -1 ≤ x) (m : ℕ) : ∃ B : ℝ, 0 ≤ B ∧ ∀ t y : ℝ,
+    ‖Rd x m t y‖ ≤ B * (1 + |y|) ^ (3 * m) / (1 + |t|) ^ m * ‖Rf x t y‖
+-- DerivJ.lean
+theorem iteratedDeriv_Vline (hx : -1 ≤ x) (hx0 : x ≠ 0) (hξ : 0 < ξ) (j : ℕ) :
+    iteratedDeriv j (Vline x ξ) = fun t => ∫ y : ℝ, Rd x j t y * Kf x ξ y
+theorem V_iteratedDeriv_bound {j : ℕ} (hj : 1 ≤ j) {A : ℝ} (hA : 0 ≤ A) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ t ξ : ℝ, 0 < ξ →
+      HasDerivAt (iteratedDeriv j (fun w : ℝ => V (6 + w * I) ξ))
+        (iteratedDeriv (j + 1) (fun w : ℝ => V (6 + w * I) ξ) t) t ∧
+      ‖iteratedDeriv j (fun w : ℝ => V (6 + w * I) ξ) t‖ ≤
+        C / (1 + |t|) ^ j * (1 + ξ / (1 + |t|)) ^ (-A)
+```
+
+For j = 0 the bound is `V_bound` (HeckeAFE). For j = 1 the bound is also proved separately in
+`HeckeAFE2.V_deriv_bound`.
+
+**Route.** This is the Cauchy-estimate plus Faà di Bruno route announced in (II). The ψ step is
+done with ψ itself rather than with ψ − log.
+
+1. **ψ is bounded on a large disc.** On the disc ‖w − z‖ ≤ ‖z‖/4 with Re z ≥ 5, one has
+   ‖w + r‖ ≥ ‖z‖/2 for every real r ≥ 0 (`disc_far`). So the disc stays away from (−∞, 0], even
+   when Re w < 0. Shift by N = ⌈‖z‖/4⌉ + 1 and write
+   ψ(w) − ψ(z) = [ψ(w+N) − ψ(z+N)] − Σ_{n<N} (1/(w+n) − 1/(z+n)).
+   The first bracket is ≤ 1/2 + 16, using the mean-value inequality for log and
+   ψ = log + O(1) on Re ≥ 6. The finite sum is ≤ N/‖z‖ ≤ 1.
+2. **Cauchy estimate.** Mathlib's `norm_iteratedDeriv_le_of_forall_mem_sphere_norm_le`, on a
+   circle of radius ‖z‖/4, gives ψ^{(k)}(z) ≪ ‖z‖^{−k}.
+3. **The extra power of 1/t.** The mean-value inequality on the segment [s, s+u] gives
+   ψ^{(k)}(s+u) − ψ^{(k)}(s) ≪ (1+|y|)^{k+2}/(1+|t|)^{k+1}. This is one power of t better than
+   the individual terms.
+4. **Leibniz recursion.** R′ = ℓR with ℓ = i(ψ(s+u) − ψ(s)). The real-variable chain rule
+   (`iteratedDeriv_line`) and Mathlib's `iteratedDeriv_mul` give ∂^{m+1}R = Σ C(m,i) ℓ^{(i)}∂^{m−i}R.
+   This is the explicit recursion `Rd`. Strong induction then gives the symbol bound
+   ∂^m R ≪ (1+|y|)^{3m}(1+|t|)^{−m}|R|.
+5. **Under the integral.** Differentiate under the Mellin integral j times. The domination near
+   t₀ uses the Stirling lower bound for |Γ(6+it)|. Continuity in y of `Rd` gives measurability.
+   As in (II), work on the line x = A+1 for large ξ and on the line x = −1 for small ξ.
+
+Numerics for j = 1 are in (II). The higher-j bounds were not checked numerically separately.
+
+### (b) The untwisted mean value: an AFE for |L|² with no ε cross terms (level 1)
+
+Approximating |S₁ + εS₂|² produces the ε(t)-cross terms, which require stationary phase. Instead,
+apply the residue machinery to the **even** entire function P(z) = Λ(s+z)Λ(12−s+z). Hecke's
+equation applied twice gives P(−z) = P(z).
+
+```lean
+-- Square.lean
+theorem heckeLambda_sq_afe (s : ℂ) {c : ℝ} (hc : 0 < c) : heckeLambda s ^ 2 = 2 * ISq s c
+  -- ISq s c = (2π)⁻¹ ∫ Λ(s+z)Λ(12−s+z) e^{z²}/z dy,  z = c+iy
+theorem ISq_eq_tsum {s : ℂ} {c : ℝ} (hc : 0 < c) (hs1 : 7 < s.re + c) (hs2 : 7 < 12 - s.re + c) :
+    ISq s c = ∑' p : ℕ × ℕ, tauC p.1 * tauC p.2 * ((2 * π * p.1 : ℝ) : ℂ) ^ (-s) *
+      ((2 * π * p.2 : ℝ) : ℂ) ^ (-(12 - s)) * W2 s (4 * π ^ 2 * p.1 * p.2) c
+theorem tauL_normSq_afe (t : ℝ) :
+    ((‖tauL (6 + t * I)‖ ^ 2 : ℝ) : ℂ) = 2 * ∑' p : ℕ × ℕ, tauC p.1 * tauC p.2 *
+      (p.1 : ℂ) ^ (-(6 + t * I)) * (p.2 : ℂ) ^ (-(12 - (6 + t * I))) *
+        Wsq t (4 * π ^ 2 * p.1 * p.2)
+  -- Wsq t ξ = (1/2πi)∫_{(2)} Γ(6+it+z)Γ(6−it+z)/(Γ(6+it)Γ(6−it)) ξ^{−z} e^{z²} dz/z
+```
+
+In normalized form this reads |L(6+it)|² = 2Σ_{m,n} λ(m)λ(n)(mn)^{−1/2}(n/m)^{it}W_t(4π²mn).
+* The weight W_t is Rf(t)·Rf(−t) inside the Mellin integral, i.e. a product of two symbols
+  already controlled by `norm_Rd_le`.
+* Its effective length is mn ≲ t^{2+ε}.
+* There is no root number.
+
+`scripts/hecke_afe/sq_check.gp` is a numerical check of this identity (level 4). It is written but **not yet run**: the machine's one PARI slot was taken by another agent's job.
+
+### What is left for "∫|L|² from the AFE", precisely
+
+Write w(t/T) for a smooth weight supported in [1, 2], and λ(n) = τ(n)n^{−11/2}.
+
+1. **Bounds for W_t and its derivatives.** Needed: W_t(ξ) ≪ (1+ξ/t²)^{−A},
+   W_t(ξ) − 1 ≪ (ξ/t²)^c, and ∂_t^j W_t ≪ t^{−j}(1+ξ/t²)^{−A}.
+   * This copies `W_line_bound` and `norm_intRd_le` with the product Rf(t,y)Rf(−t,y) in place
+     of Rf. The tools are Leibniz for the product, `norm_Rd_le` at ±t, and
+     `norm_Gamma_ratio_line` twice. One needs e^{π|y|} in place of e^{π|y|/2}.
+   * About 300 lines, mechanical.
+2. **Diagonal m = n.** The term is 2Σ_n λ(n)²/n ∫w(t/T)W_t(4π²n²)dt.
+   * Shift the Mellin contour to Re z = −1/2 + ε. The Dirichlet series Σλ(n)²n^{−1−2z} has a
+     simple pole at z = 0 with residue c/2 (`rankinC`).
+   * Together with the 1/z this gives a double pole, so the residue is
+     c·log(t²/(4π²)) + const. The shifted integral is O(T^{1−δ}).
+   * Inputs: the continuation of the Rankin–Selberg series slightly left of 1 with polynomial
+     growth (`RankinSelbergFE` / `RankinError`), or partial summation with Rankin's
+     Σ_{n≤x}λ(n)² = cx + O(x^{3/5}) (`RankinError`, `rankin_normalization`).
+   * Partial summation is the cheaper option, about 400 lines.
+   * Result: 2c∫w(t/T)log t dt·(1 + o(1)), i.e. the constant `cDelta = 2c`.
+3. **Off-diagonal m ≠ n.** Each term is ∫w(t/T)W_t(4π²mn)(n/m)^{it}dt.
+   * Integrate by parts A times using (a), here the bounds on ∂_t^j W_t. This bounds it by
+     ≪ T(T|log(n/m)|)^{−A}(1+mn/T²)^{−A}. That disposes of every pair with
+     |m − n| ≥ T^{ε}·max(m, n)/T.
+   * A generic IBP lemma for compactly supported smooth f is needed:
+     ∫f e^{iλt} = (i/λ)^A∫f^{(A)}e^{iλt}. About 200 lines.
+   * What remains is h = |n − m| ≤ T^{ε} with m ≍ T. That is shifted sums Σ_m λ(m)λ(m+h)F_h(m),
+     where F_h is smooth at scale T.
+   * The repo **already has** `ShiftedConvolutionBound (1/21) (1/21)` (`SCSSharp2`), with sharp
+     cutoffs. Partial summation gives O(T^{1−1/21+ε}h^{1/21}) per h, so the off-diagonal is
+     O(T^{1−δ}).
+   * About 500 lines, including partial summation against F_h with the (a)-bounds in the
+     m-variable. Those are ξ-derivative bounds, which are easier: they need no ψ.
+4. **Assembly.** ∫w(t/T)|L|² = 2c∫w(t/T)log t + O(T). Remove the weight w by a sandwich,
+   about 100 lines. This gives an AFE re-derivation of the leading term of
+   `critical_mean_square_asymptotic` (2c).
+
+Estimate: 1.5–2k lines. Steps 2 and 3 are the substance.
+
+**The twisted moment (h, k).** Insert (h/k)^{it} into the same expansion.
+* The diagonal becomes hn = km.
+* The off-diagonal becomes the two-sided sums Σ_{hn−km=ℓ}. This is exactly `SCS2` in
+  `HeckeAFE/Hyp.lean`.
+* The machinery of (a) and Square.lean applies unchanged. There are still no ε cross terms.
+
+Files: `HeckeAFE3/PsiK.lean` (273 lines), `Leibniz.lean` (215), `DerivJ.lean` (276), `Square.lean`
+(354), `Main.lean` (18); `scripts/hecke_afe/sq_check.gp` and `.out`.

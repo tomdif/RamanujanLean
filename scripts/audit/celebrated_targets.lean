@@ -251,6 +251,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.HeckeAFE2.norm_digamma_sub_log_le
 #print axioms RamanujanTau.HeckeAFE2.norm_digamma_diff_le
 #print axioms RamanujanTau.HeckeAFE2.V_deriv_bound
+#print axioms RamanujanTau.HeckeAFE3.norm_iteratedDeriv_digamma_le
+#print axioms RamanujanTau.HeckeAFE3.V_iteratedDeriv_bound
+#print axioms RamanujanTau.HeckeAFE3.heckeLambda_sq_afe
+#print axioms RamanujanTau.HeckeAFE3.tauL_normSq_afe
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer
