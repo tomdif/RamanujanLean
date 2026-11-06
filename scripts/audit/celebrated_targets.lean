@@ -384,6 +384,13 @@ with no exceptions. -/
 #print axioms RamanujanTau.QFProof.qfHyp_of
 #print axioms RamanujanTau.QFProof2.rhoP'_succ
 #print axioms RamanujanTau.QFProof2.sum_divisors_prod_local
+#print axioms RamanujanTau.SelbergKey.heckeLambda_mul_afe
+#print axioms RamanujanTau.SelbergKey.ZH_mul_ZH_afe
+#print axioms RamanujanTau.SelbergKey.sk_le_lag
+#print axioms RamanujanTau.SelbergKey.lag_split
+#print axioms RamanujanTau.SelbergKey.sk_of_split
+#print axioms RamanujanTau.SelbergKey.selbergMollHyp_of_QF_split
+#print axioms RamanujanTau.SelbergKey.tauL_positive_proportion_of_QF_split
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
