@@ -419,6 +419,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergKey4.Wxi_bound
 #print axioms RamanujanTau.SelbergKey4.abs_lineSum_le
 #print axioms RamanujanTau.SelbergKey4.term_integral_bound
+#print axioms RamanujanTau.SelbergKey5.inner_offLag_eq
+#print axioms RamanujanTau.SelbergKey5.offLag_bound_of_quad
+#print axioms RamanujanTau.SelbergKey5.skSplitHyp'_of_diag
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

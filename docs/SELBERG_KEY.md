@@ -710,3 +710,112 @@ Two points need changing.
 
 Evidence levels: everything in §1 is level 1. §2 and §3 are level 3 (paper). The diagonal
 clause itself remains M3/M4 (level 3, numerically supported at level 4 by the second pass).
+
+---
+
+## 2026-11-06 (fifth pass): R1 and R4 done; off-diagonal clause reduced to `QuadOffHyp` (`SelbergKey5/`)
+
+    nice -n 10 lake build RamanujanTau.SelbergKey5.Main      # exit 0
+
+* All 14 `#print axioms` in `SelbergKey5/Main.lean` give `[propext, Classical.choice, Quot.sound]`.
+* `grep` finds no `sorry`, `admit`, `native_decide` or `axiom` in the directory.
+* 3 files, 492 lines.
+* No committed file was modified. `SelbergKeyDiag/` was only read; it contains just `Conv.lean`
+  (`lag_conv`) and no diagonal statement yet.
+* So the diagonal hypothesis is stated here for the fixed window, as `DiagHypT θ` below.
+
+**Status.** `offLag_bound` is proved at **level 2**, conditional on the named per-quadruple bound
+`QuadOffHyp η B`.
+
+* `QuadOffHyp` is **provable** with the existing tools (§3). It is not an unprovable input. It
+  is the content of R2 and R3, which are not formalized yet.
+* `skSplitHyp'_of_diag` (`DiagHypT θ ∧ QuadOffHyp η B ⇒ SKSplitHyp' θ`) is proved, also at
+  level 2.
+
+### 1. R1 `Inner.lean`: exact reduction to single-term integrals (level 1)
+
+The windowed single term `Fq` is
+
+    Fq T x v q p t = φ_T(t)·U(t+x, t+x+v)·(b/a)^{iu}(d/c)^{i(u+v)}·[p off-diagonal]·sTerm(u, u+v, p),   u = t + x.
+
+For p off the diagonal this is exactly the integrand of `SelbergKey4.term_integral_bound`. The
+weight is `wq β q = wc(a,b)·wc(c,d)` for q = (a,b,c,d).
+
+```lean
+theorem inner_offLag_eq (β y) (hT : 0 ≤ T) (x v) :
+    ∫ t in (T/2)..(3*T), phiT T t * OffLag β y (t + x) v =
+      2 * (∑ q ∈ Q4 y, (wq β q : ℂ) * ∑' p : ℕ × ℕ, ∫ t in (T/2)..(3*T), Fq T x v q p t).re
+theorem abs_inner_offLag_le … : |…| ≤ 2 * ∑ q ∈ Q4 y, |wq β q| * ‖∑' p, ∫ … Fq T x v q p t‖
+```
+
+The proof applies `intervalIntegral.hasSum_integral_of_dominated_convergence` to the *real*
+summands f_p = 2 Re Σ_q w(q) Fq(q; p). This needs no continuity of the limit.
+
+* **Dominating function:** 2·Σ|w|·|φ_T(t)|·C₀|Γ(6+iu)Γ(6−i(u+v))|^{−1}(4π²)^{−2}·g(m)g(n), from
+  `SelbergKey2.norm_sTerm_le`.
+* **Pointwise limit:** `lag_split` + `Sl_sub_diagS` (`phi_offLag_eq`).
+* **Exchanging Re and ∫:** `reCLM.intervalIntegral_comp_comm`.
+* **Exchanging Σ' and Σ_q:** `Summable.tsum_finsetSum`, with ‖∫Fq‖ ≤ (∫Abd)·g(m)g(n).
+
+### 2. R4 `Reduce.lean`: assembly (level 1 for the reductions, level 2 on `QuadOffHyp`)
+
+```lean
+theorem lagInt_le_of_inner (hh : 0 ≤ h)
+    (hE : ∀ x ∈ Icc 0 h, ∀ x' ∈ Icc 0 h, |∫ t in A..B, φ t * G (t + x) (x' - x)| ≤ E) :
+    lagInt G φ A B h ≤ h ^ 2 * E
+lemma abs_wc_le (y) (ha : 1 ≤ a) (hb : 1 ≤ b) : |wc (βSel y) a b| ≤ 1          -- |βSel n| ≤ √n
+def QuadOffHyp (η B : ℝ) : Prop :=
+  ∃ C T₀, 0 ≤ C ∧ ∀ T ≥ T₀, ∀ q, 1 ≤ a → 1 ≤ b → 1 ≤ c → 1 ≤ d → ∀ x v, 0 ≤ x → x ≤ 1 → |v| ≤ 1 →
+    ‖∑' p : ℕ × ℕ, ∫ t in (T/2)..(3*T), Fq T x v q p t‖ ≤ C * T ^ (1 - η) * (a*b*c*d) ^ B
+theorem offLag_bound_of_quad (hB : 0 ≤ B) (hθ0 : 0 ≤ θ) (hηθ : 4*θ*(1+B) < η) (H : QuadOffHyp η B) :
+    ∀ K ≥ 1, ∃ T₀, ∀ T ≥ T₀,
+      lagInt (OffLag (βSel ⌊T^θ⌋₊) ⌊T^θ⌋₊) (phiT T) (T/2) (3*T) (K / log T) ≤ 1/√K * T * (K / log T)^2
+def DiagHypT (θ : ℝ) : Prop :=   -- the diagonal clause of SKSplitHyp' for the fixed window φ_T on [T/2, 3T]
+  ∃ D ≥ 0, ∀ K ≥ 1, ∃ T₀, ∀ T ≥ T₀,
+    lagInt (DiagLag (βSel ⌊T^θ⌋₊) ⌊T^θ⌋₊) (phiT T) (T/2) (3*T) (K / log T) ≤ D/√K * T * (K / log T)^2
+theorem skSplitHyp'_of_diag (hB : 0 ≤ B) (hθ0 : 0 ≤ θ) (hηθ : 4*θ*(1+B) < η)
+    (hD : DiagHypT θ) (H : QuadOffHyp η B) : SKSplitHyp' θ
+```
+
+**How the bound is assembled.**
+
+* For T ≥ e^K we have h = K/log T ≤ 1, so 0 ≤ x ≤ 1 and |v| ≤ 1.
+* There are y⁴ ≤ T^{4θ} quadruples, |w| ≤ 1, and (abcd)^B ≤ T^{4θB}.
+* So each inner integral is ≤ 2C·T^{1−η'}, with η' = η − 4θ(1+B) > 0, and this is ≤ T/√K
+  once T^{η'} ≥ 2C√K + 1.
+
+**Note for the diagonal agent.** `DiagHypT θ` is the exact statement needed. It uses the
+window `SelbergKey4.phiT T` (Φ(t/T), with Φ the `ContDiffBump` at 7/4 of radii 3/4 < 1), the
+range A = T/2, B = 3T, and h = K/log T.
+
+### 3. What remains: prove `QuadOffHyp η B` (R2 + R3, paper level 3; estimate 0.9–1.4k lines)
+
+The expected parameters are η = 1/21 − O(ε + δ) and B ≈ 14. Then `hηθ` holds for θ ≤ 1/2000,
+and in particular for θ ≤ 1/81600.
+
+Fix q = (a,b,c,d), P = ac, Q = bd. Every off-diagonal p = (m,n) with m, n ≥ 1 lies on exactly
+one line Pm − Qn = ℓ ≠ 0 (terms with m = 0 or n = 0 vanish). The single-term bound is
+`SelbergKey4.term_integral_bound`; through `if_neg` it applies verbatim to `Fq`.
+
+1. **Re-index.** Write Σ'_p = Σ_{ℓ≠0} Σ_m over the lines. Absolute summability of
+   p ↦ ∫Fq is already proved (`summable_integral_Fq`). Then use `tsum_fiberwise` / `HasSum.sigma`
+   along p ↦ Pm − Qn.
+2. **R2, far part.** Take the terms with |ℓ| > K₀ = T^δ, or m ≤ T^{1−ε}, or mn ≥ T^{2+ε}.
+   * Bound them termwise with `term_integral_bound`, using |ω| ≥ |ℓ|/(2·max(Pm, Qn)).
+   * Use Σ_{m≤X}|λ(m)|² ≪ X (Rankin–Selberg) and Cauchy–Schwarz along each line.
+   * Total ≪ T^{1−min(δ, ε)}(PQ)^{O(1)}.
+3. **R3, near part.** Take 1 ≤ |ℓ| ≤ K₀ and m ∈ (T^{1−ε}, T^{1+ε}).
+   * The term equals λ(m)λ(n)·H_ℓ(m), with H_ℓ(m) = (mn)^{−1/2}e^{iv log(dn/c)}e^{iωx}J(ω_m, ξ_m)
+     and n = (Pm − ℓ)/Q extended to real m.
+   * The variation Σ|H(m+1) − H(m)| ≪ ℓ T^{O(ε)}. It comes from `SelbergKey4.Wxi_bound` (ξ∂_ξW̃),
+     ∂_ω J ≤ ∫|t·gT|, and ∂_m of (mn)^{−1/2}.
+   * Then `SelbergKey4.norm_sum_mul_le_abel` + `abs_lineSum_le` (`scs2_general`) give
+     ≪ K₀^{2}T^{1−1/21+O(ε)}(PQ)^{12}.
+   * One more input is needed: identify the line sum with `lineTerm`. Here
+     `lineTerm P Q ℓ m` = λ(m)λ(n) when the line passes through (m,n), and 0 otherwise.
+
+Evidence levels:
+
+* §1 and §2: level 1 (Lean, axiom-clean).
+* `offLag_bound_of_quad` and `skSplitHyp'_of_diag`: level 2, on `QuadOffHyp` (and `DiagHypT`).
+* §3: level 3 (paper).
