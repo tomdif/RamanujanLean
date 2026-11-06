@@ -256,6 +256,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergCoeffs3.selberg_two_sided
 #print axioms RamanujanTau.SelbergCoeffs3.logmean_upper
 #print axioms RamanujanTau.SelbergCoeffs3.logmean_lower
+#print axioms RamanujanTau.Sym2ZeroFree.HH_zero_free_region
+#print axioms RamanujanTau.Sym2ZeroFree.KK_zero_free_region_uniform
+#print axioms RamanujanTau.Sym2ZeroFree.HH_ne_zero_region
+#print axioms RamanujanTau.Sym2ZeroFree.Rcont_ne_zero_region
 #print axioms RamanujanTau.HeckeAFE.heckeLambda_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe_line

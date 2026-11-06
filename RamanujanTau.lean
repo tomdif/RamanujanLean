@@ -663,6 +663,7 @@ import RamanujanTau.HafnerProportion.Main
 import RamanujanTau.SelbergCoeffs.Main
 import RamanujanTau.SelbergCoeffs2.Main
 import RamanujanTau.SelbergCoeffs3.Main
+import RamanujanTau.Sym2ZeroFree.Main
 import RamanujanTau.HeckeAFE.Main
 import RamanujanTau.HeckeAFE2.Main
 import RamanujanTau.HeckeAFE3.Main
