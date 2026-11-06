@@ -240,6 +240,14 @@ with no exceptions. -/
 #print axioms RamanujanTau.HafnerProportion.selberg_H2
 #print axioms RamanujanTau.HafnerProportion.tauL_critical_zeros_T_log_T_of_selberg
 #print axioms RamanujanTau.HafnerProportion.tauL_positive_proportion_of_selberg
+#print axioms RamanujanTau.HeckeAFE.heckeLambda_afe
+#print axioms RamanujanTau.HeckeAFE.tauL_afe
+#print axioms RamanujanTau.HeckeAFE.tauL_afe_line
+#print axioms RamanujanTau.HeckeAFE.norm_eps_line
+#print axioms RamanujanTau.HeckeAFE.V_decay
+#print axioms RamanujanTau.HeckeAFE.V_sub_one
+#print axioms RamanujanTau.HeckeAFE.tauL_afe_truncated
+#print axioms RamanujanTau.HeckeAFE.norm_tauL_le_afe
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer

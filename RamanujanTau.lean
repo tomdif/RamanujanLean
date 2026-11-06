@@ -660,6 +660,7 @@ import RamanujanTau.SubconvexGeneral2.Main
 import RamanujanTau.SubconvexGeneral3.Main
 import RamanujanTau.CuspConj.Main
 import RamanujanTau.HafnerProportion.Main
+import RamanujanTau.HeckeAFE.Main
 import RamanujanTau.VoronoiTrunc.Main
 import RamanujanTau.VoronoiTruncGeneral.Main
 import RamanujanTau.VoronoiTruncComplete.Main
