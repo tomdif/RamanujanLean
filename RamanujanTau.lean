@@ -654,5 +654,6 @@ import RamanujanTau.Voronoi.Main
 import RamanujanTau.CramerMeanSquare.Main
 import RamanujanTau.SCSProof.Main
 import RamanujanTau.VoronoiTrunc.Main
+import RamanujanTau.VoronoiTruncGeneral.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

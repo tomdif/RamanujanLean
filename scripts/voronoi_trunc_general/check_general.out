@@ -1,0 +1,31 @@
+nu=16 lam=5.0  Ik=0.001566756192  J_nu(2lam)=0.001566756192  (-1)^(nu/2)cos(2lam-pi/4)/sqrt(pi lam)=-0.2467608934
+nu=16 lam=20.0  Ik=0.005728554914  J_nu(2lam)=0.005728554707  (-1)^(nu/2)cos(2lam-pi/4)/sqrt(pi lam)=0.006973703955
+nu=16 lam=45.0  Ik=-0.07570062798  J_nu(2lam)=-0.07570077991  (-1)^(nu/2)cos(2lam-pi/4)/sqrt(pi lam)=0.02651940210
+nu=18 lam=5.0  Ik=0.0001524424859  J_nu(2lam)=0.0001524424853  (-1)^(nu/2)cos(2lam-pi/4)/sqrt(pi lam)=0.2467608934
+nu=18 lam=20.0  Ik=-0.1062818277  J_nu(2lam)=-0.1062818267  (-1)^(nu/2)cos(2lam-pi/4)/sqrt(pi lam)=-0.006973703955
+nu=18 lam=45.0  Ik=0.08464447260  J_nu(2lam)=0.08464472432  (-1)^(nu/2)cos(2lam-pi/4)/sqrt(pi lam)=-0.02651940210
+nu=16 lam=500  J_nu(2lam)*sqrt(pi lam)=0.950542   (-1)^(nu/2)cos(2lam-pi/4)=0.982354
+nu=16 lam=2000  J_nu(2lam)*sqrt(pi lam)=-1.000004   (-1)^(nu/2)cos(2lam-pi/4)=-0.999461
+nu=16 lam=8000  J_nu(2lam)*sqrt(pi lam)=-0.614700   (-1)^(nu/2)cos(2lam-pi/4)=-0.608377
+nu=18 lam=500  J_nu(2lam)*sqrt(pi lam)=-0.939443   (-1)^(nu/2)cos(2lam-pi/4)=-0.982354
+nu=18 lam=2000  J_nu(2lam)*sqrt(pi lam)=0.999976   (-1)^(nu/2)cos(2lam-pi/4)=0.999461
+nu=18 lam=8000  J_nu(2lam)*sqrt(pi lam)=0.616375   (-1)^(nu/2)cos(2lam-pi/4)=0.608377
+  *** _^_: Warning: increasing stack size to 16000000.
+k=16 a(1..4)=[1, 216, -3348, 13888]  B=2.249674  B/(4pi^2)=0.056985  Cramer const B/((4k+2)pi^2)=0.00345363
+  X=2000 N=20: mean (S-V)^2/x^(k-1/2) sign+ 0.00806  sign- 0.20714   mean S^2/x^(k-1/2)=0.05726
+  X=2000 N=60: mean (S-V)^2/x^(k-1/2) sign+ 0.00517  sign- 0.21580   mean S^2/x^(k-1/2)=0.05726
+  X=8000 N=40: mean (S-V)^2/x^(k-1/2) sign+ 0.00520  sign- 0.21216   mean S^2/x^(k-1/2)=0.05679
+  X=8000 N=120: mean (S-V)^2/x^(k-1/2) sign+ 0.00308  sign- 0.21854   mean S^2/x^(k-1/2)=0.05679
+  X=4000  X^{-(k+1/2)} int_1^X S^2 = 0.00347033
+  X=16000  X^{-(k+1/2)} int_1^X S^2 = 0.00331806
+  on [8000,16000]: max S/x^e=0.7093  min S/x^e=-0.6863  (Ingham constant 1/(2pi sqrt2)=0.1125)
+k=18 a(1..4)=[1, -528, -4284, 147712]  B=2.638299  B/(4pi^2)=0.066829  Cramer const B/((4k+2)pi^2)=0.00361237
+  X=2000 N=20: mean (S-V)^2/x^(k-1/2) sign+ 0.01051  sign- 0.23945   mean S^2/x^(k-1/2)=0.06666
+  X=2000 N=60: mean (S-V)^2/x^(k-1/2) sign+ 0.00717  sign- 0.24944   mean S^2/x^(k-1/2)=0.06666
+  X=8000 N=40: mean (S-V)^2/x^(k-1/2) sign+ 0.00663  sign- 0.25096   mean S^2/x^(k-1/2)=0.06745
+  X=8000 N=120: mean (S-V)^2/x^(k-1/2) sign+ 0.00410  sign- 0.25856   mean S^2/x^(k-1/2)=0.06745
+  X=4000  X^{-(k+1/2)} int_1^X S^2 = 0.00345900
+  X=16000  X^{-(k+1/2)} int_1^X S^2 = 0.00372478
+  on [8000,16000]: max S/x^e=0.8072  min S/x^e=-0.7602  (Ingham constant 1/(2pi sqrt2)=0.1125)
+
+[exited with code 0]
