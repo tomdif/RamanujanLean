@@ -229,6 +229,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.SubconvexGeneral3.scsf_general21
 #print axioms RamanujanTau.SubconvexGeneral3.fL_subconvex_general134
 #print axioms RamanujanTau.SubconvexGeneral3.fL_subconvex_eigenform134
+#print axioms RamanujanTau.CuspConj.cuspConj
+#print axioms RamanujanTau.CuspConj.coef_cuspConj
+#print axioms RamanujanTau.CuspConj.eq_reF_add_imF
+#print axioms RamanujanTau.CuspConj.fL_eq_re_add_im
+#print axioms RamanujanTau.CuspConj.fL_subconvex_all
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer
