@@ -209,3 +209,111 @@ Without Deligne, §6 fails: the prime-power local masses are not bounded, as in
 
 Selberg (1942); Titchmarsh §§10.9–10.16 (the ζ-case; there U(h,d) = 1_{d|h}/h and W = φ);
 Hafner, Math. Ann. 264 (1983); Granville–Koukoulopoulos, Ramanujan J. 49 (2019).
+
+---
+
+## 2026-11-06 (later): is `QFHyp` true? Numerics to y = 5000 and the local Euler factors
+
+**Conclusion: yes. `QFHyp`'s normalization is right.** `Q⁰·log y` converges to a constant of about
+2.4–2.5. It does not grow like `log log y` or `(log y)^ε`. `Q¹` is bounded, and the bound follows
+from the rigorous chain of §§4–6. Only the size of its limit is uncertain from the numerics.
+
+### Exact computation of `Q⁰` and `Q¹`
+
+* **Method.** A C program uses τ(p) from PARI (`ramanujantau`, nbthreads 1) and the exact
+  diagonalization `Q⁰ = Σ_d W(d)y_d²`. The `y_d` are accumulated over the divisors of every `h ≤ y²`.
+* **Cross-check.** At y = 30 and y = 60 it reproduces the direct double sum to all printed digits.
+* `Q¹' := Q¹ − (γ_R/r₀)Q⁰` is the part that does not involve the unknown constant `γ_R/r₀`. The
+  remaining piece `(γ_R/r₀)Q⁰` is `O(1/log y)` once `Q⁰` is.
+
+| y | log y | Q⁰ | Q⁰·log y | Q¹' |
+|---|---|---|---|---|
+| 30 | 3.40 | 0.55001 | 1.8707 | 0.3290 |
+| 60 | 4.09 | 0.48536 | 1.9872 | 0.4086 |
+| 100 | 4.61 | 0.44487 | 2.0487 | 0.4629 |
+| 200 | 5.30 | 0.39841 | 2.1109 | 0.5297 |
+| 400 | 5.99 | 0.36031 | 2.1588 | 0.5878 |
+| 800 | 6.68 | 0.32814 | 2.1935 | 0.6394 |
+| 1600 | 7.38 | 0.30083 | 2.2194 | 0.6849 |
+| 3200 | 8.07 | 0.27751 | 2.2398 | 0.7249 |
+| 5000 | 8.52 | 0.26425 | 2.2507 | 0.7481 |
+
+### Least-squares fits over y = 30…5000 (max residual)
+
+| quantity | model | fitted coefficients | max residual |
+|---|---|---|---|
+| `Q⁰ log y` | `a + b/L + c/L²` | a = 2.445 | 2.3e−3 |
+| `Q⁰ log y` | `a + b/L + c·log L/L` | a = 2.376 | 1.7e−3 |
+| `Q⁰ log y` | `a + b log log y` | — | 3.9e−2 |
+| `Q⁰ log y` | `a + b/√L` | — | 2.3e−2 |
+| `Q¹'` | `a + b/L + c·log L/L` | a ≈ 1.49 | 5.6e−4 |
+| `Q¹'` | `a + b/L + c/L²` | a ≈ 1.25 | 1.8e−3 |
+| `Q¹'` | `a + b log log y` | — | 3.4e−3 |
+
+* For `Q⁰ log y`, the `log log y` model is worse by more than an order of magnitude.
+* The increments of `log(Q⁰ log y)` per doubling of y fall off as `1/L²`, not `1/L`. That rules out
+  `(log y)^ε`.
+* For `Q¹'` the numerics alone do not exclude slow `log log` growth. The rigorous argument below
+  does exclude it.
+
+### Why the limit is finite: the local Euler factors (level 4 for every p < 20000)
+
+The proof of `Q⁰ ≪ 1/log y` is `Q⁰ ≤ c(y)²·Σ_{d≤y²}|W(d)|M_d(y)²` with `c(y) = K²(1+L)/L²`. The first
+factor is `J_bound` (Lean, level 1). So everything hinges on `Σ_{d≤y²} f(d)/d ≪ log y` with κ
+**exactly 1**: any `κ > 1` would make `Q⁰ log y` grow like `(log y)^{κ−1}`.
+
+The local claims of §6 were computed directly from the two-variable local series, with exact τ(p), for
+all 2262 primes p < 20000:
+
+| claim | observed range |
+|---|---|
+| `(m_{p,0} − 1)·p²` | between 0.04 and 7.8 (bounded) |
+| `(f(p) − λ(p)²)·p`, where `f(p) = p W_p(1) m_{p,1}²` | between 0.04 and 7.4 (bounded) |
+| `max_{2≤e≤4} m_{p,e}` | at most 1.44, and equal to 1.000 for p > 500 |
+
+* So `f(p) = λ(p)² + O(1/p)`. Mertens for `λ²` (`mertens2_bound`) then gives κ = 1.
+* With `f(p^e) ≤ B`, `logmean_upper` gives the bound.
+* `Σ_{d≤y²}|W|M²/log y` is flat at 1.28–1.38 for y = 6…30 (§6).
+
+**Q¹.** `|Q¹| ≤ c²[S₁ + L·S₀ + S₂/L]`, with:
+
+* `S₁ ≪ L²`, because `|W₁(d)| ≪ log d · W̃(d)` and `d ≤ y²`;
+* `S₂ ≪ L³`. Every local derivative term with `(i,j) ≠ (0,0)` is `O((i+j) log p · X^{i+j})`, so
+  `Σ_{p≤y} ∂m_{p,0} ≪ Σ_{p≤y} log p/p ≪ L`. No cancellation is needed here.
+
+Both bounds use only the same κ = 1 Euler product. Hence `Q¹ = O(1)`. The upward drift of `Q¹'` in
+the table is the slowly converging `O(log L/L)` correction. The upper bound is unaffected.
+
+**Predicted constant: not computed.** The limit of `Q⁰ log y` involves `C₁⁴` from `selberg_sum_fR`, and
+`C₁` is not identified (`SELBERG_DELANGE.md` §8(c)). The proof does not need it. The fitted limit is
+about 2.4–2.5.
+
+**Verdict.** `QFHyp` is consistent with all data. Its proof (§§4–6) needs only κ = 1 Euler products,
+which are verified prime by prime. Formalization continues in `RamanujanTau/QFProof2/`.
+
+### `QFProof2/` checkpoint (same day)
+
+Build: `nice -n 10 lake build RamanujanTau.QFProof2.Main` exits 0. All 4 headlines print
+`[propext, Classical.choice, Quot.sound]`. There is no sorry, axiom or native_decide.
+
+* **Gap 1 is done (level 1).**
+  * `rhoP'_zero : rhoP' p 0 = 0`.
+  * `rhoP'_succ : rhoP' p (a+1) = X·log p·λ(p)·λ(p^a)/(1+X)²`. By Hecke this equals
+    `X log p (λ_{a+1}+λ_{a−1})/(1+X)²`, the §1(a) formula.
+  * Supporting lemma `Np'_succ`.
+* **Gap 2, exchange step done (level 1).** `sum_divisors_prod_local`:
+  `Σ_{d|g} Π_{p|g} φ(p, v_p d) = Π_{p|g} Σ_{e ≤ v_p g} φ(p, e)`. The proof goes through
+  `Nat.divisors_eq_map_attach_Iic_factorization_prod_pow` and `Finset.prod_sum`.
+* **Remaining for `QDecomp`:**
+  * write `Kq h k = Π_{p | hk} X^{max(a,b)} ρ_p(|a−b|)`, from the factorizations of gcd, div and lcm;
+  * define `W` and `U` as local products, extended by the factors `= 1` at `e = 0`;
+  * combine with `chol_rhoP` and `sum_divisors_prod_local`.
+  * About 250–350 lines.
+* **Remaining for `QDecomp1`:**
+  * the product-rule (derivation) version of the same exchange;
+  * the s-derivative of `chol_rhoP`, using `rhoP'_succ`.
+  * About 300 lines.
+* Gaps 3–5 are unchanged (§7).
+
+
+Scripts for the numerics above are preserved in `scripts/qf_proof/` (`q.c`, `loc.py`).

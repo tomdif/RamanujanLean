@@ -690,5 +690,6 @@ import RamanujanTau.HafnerMV2.Main
 import RamanujanTau.HafnerBridge.Main
 import RamanujanTau.HafnerBridge2.Main
 import RamanujanTau.QFProof.Main
+import RamanujanTau.QFProof2.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

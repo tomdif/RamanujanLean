@@ -382,6 +382,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.QFProof.yv_smooth
 #print axioms RamanujanTau.QFProof.chol_rhoP
 #print axioms RamanujanTau.QFProof.qfHyp_of
+#print axioms RamanujanTau.QFProof2.rhoP'_succ
+#print axioms RamanujanTau.QFProof2.sum_divisors_prod_local
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
