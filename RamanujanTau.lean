@@ -667,5 +667,6 @@ import RamanujanTau.VoronoiPointwise.Main
 import RamanujanTau.RankinOmega.Main
 import RamanujanTau.RankinOmegaPM.Main
 import RamanujanTau.ZetaMeanSquare.Main
+import RamanujanTau.ZetaCritical.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

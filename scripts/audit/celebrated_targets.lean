@@ -280,6 +280,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.ZetaMeanSquare.zeta_mean_square_tendsto_zero
 #print axioms RamanujanTau.ZetaMeanSquare.tau_rankin_omega_pm_quarter
 #print axioms RamanujanTau.ZetaMeanSquare.cuspForm_rankin_omega_pm_quarter
+#print axioms RamanujanTau.ZetaCritical.zeta_critical_mean_square
+#print axioms RamanujanTau.ZetaCritical.zeta_critical_mean_square_bound
+#print axioms RamanujanTau.ZetaCritical.avg_mv
+#print axioms RamanujanTau.ZetaCritical.offdiag_ch_le
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
