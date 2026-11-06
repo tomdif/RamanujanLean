@@ -260,6 +260,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.Sym2ZeroFree.KK_zero_free_region_uniform
 #print axioms RamanujanTau.Sym2ZeroFree.HH_ne_zero_region
 #print axioms RamanujanTau.Sym2ZeroFree.Rcont_ne_zero_region
+#print axioms RamanujanTau.SelbergDelange.logDerivKK_bound
+#print axioms RamanujanTau.SelbergDelange.perron_shiftK
+#print axioms RamanujanTau.SelbergDelange.psiR_error
+#print axioms RamanujanTau.SelbergDelange.rs_prime_PNT_error
 #print axioms RamanujanTau.HeckeAFE.heckeLambda_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe_line
