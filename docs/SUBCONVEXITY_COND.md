@@ -1,6 +1,6 @@
 # Conditional t-aspect subconvexity for `L(Δ,s)` from a shifted-convolution bound
 
-**Update (2026-11-05): the hypothesis is discharged.** `SCSProof.shiftedConvolutionBound_of` proves `ShiftedConvolutionBound (1/2^22) 8` unconditionally, so `SCSProof.tauL_subconvex` is unconditional (level 1); see [SCS_PROOF](SCS_PROOF.md).
+**Update (2026-11-05): the hypothesis is discharged.** `SCSProof.shiftedConvolutionBound_of` proves `ShiftedConvolutionBound (1/8000) 8` unconditionally (`shiftedConvolutionBound_3_5`), so `SCSProof.tauL_subconvex_3_5` (δ = 1/832000) is unconditional (level 1); see [SCS_PROOF](SCS_PROOF.md).
 
 **Status (2026-11-05).** This is the "conditional milestone" of `docs/SUBCONVEXITY.md` §5, done in a
 form adapted to the repo. It is **evidence level 2**: Lean, axiom-clean, conditional on one named

@@ -1,12 +1,13 @@
 /-
 # Tauberian step 4: Rankin short sums and the bound for `Σ_{n≤N} τ(n)τ(n+h)`
 
-* `rankin_short`: `Σ_{a<n≤b} λ(n)² ≤ c(b−a) + 2C b^{1−ρ}`, `ρ = 2^{−22}`;
+* `rankin_short`: `Σ_{a<n≤b} λ(n)² ≤ c(b−a) + 2C b^{1−ρ}`, `ρ = 1/8000` (from the exact Rankin error `N^{3/5}`, `RankinExact`);
 * `aabs_le_lam`: `|τ(n)τ(n+h)| ≤ (λ(n)² + λ(n+h)²)/2 · (n+h)^{11}`.
 -/
 import RamanujanTau.SCSProof.Tauber3
 import RamanujanTau.SubconvexityCond.Defs
 import RamanujanTau.RankinError.RSUnfoldProof
+import RamanujanTau.RankinExact.Main
 
 set_option autoImplicit false
 
@@ -16,11 +17,13 @@ open Finset
 open RamanujanTau.SubconvexityCond RamanujanTau.RankinError RamanujanTau.EisensteinReal
 open scoped Real
 
-/-- `ρ = 2^{−22}`. -/
-noncomputable def ρ : ℝ := 1 / 2 ^ 22
+/-- `ρ = 1/8000` (the saving delivered by the analytic part; Rankin's `3/5` is not limiting). -/
+noncomputable def ρ : ℝ := 1 / 8000
 
 lemma ρ_pos : 0 < ρ := by unfold ρ; positivity
 lemma ρ_le : ρ ≤ 1 / 8000 := by unfold ρ; norm_num
+
+lemma ρ_le_two_fifths : ρ ≤ 2 / 5 := by unfold ρ; norm_num
 
 lemma lam_sq_eq (n : ℕ) : (tau n : ℝ) ^ 2 = lam n ^ 2 * (n : ℝ) ^ 11 := by
   rcases Nat.eq_zero_or_pos n with rfl | hn
@@ -49,15 +52,20 @@ lemma Slam_eq (N : ℕ) : Slam N = ∑ n ∈ Icc 1 N, ((tau n : ℝ)) ^ 2 / (n :
 /-- **Rankin short sums.** -/
 theorem rankin_short : ∃ c C : ℝ, 0 ≤ c ∧ 0 ≤ C ∧ ∀ a b : ℕ, a ≤ b →
     Slam b - Slam a ≤ c * ((b : ℝ) - a) + 2 * C * (b : ℝ) ^ (1 - ρ) := by
-  obtain ⟨C, hC⟩ := rankinSelberg_power_saving_unconditional
+  obtain ⟨C, hC35⟩ := RankinExact.rankinSelberg_exact
   set c := 3 / π * (4 * π) ^ 12 * petNormSq / (Nat.factorial 11 : ℝ)
   have hC0 : 0 ≤ C := by
-    have := hC 1 le_rfl
+    have := hC35 1 le_rfl
     simp at this
     exact le_trans (abs_nonneg _) (by simpa using this)
-  have hρ : (1 - 1 / 2 ^ 22 : ℝ) = 1 - ρ := by unfold ρ; ring
+  have hC : ∀ N : ℕ, 1 ≤ N → |∑ n ∈ Icc 1 N, ((tau n : ℝ)) ^ 2 / (n : ℝ) ^ 11 - c * N| ≤
+      C * (N : ℝ) ^ (1 - ρ) := by
+    intro N hN
+    refine (hC35 N hN).trans ?_
+    have hN1 : (1 : ℝ) ≤ N := by exact_mod_cast hN
+    have := ρ_le_two_fifths
+    exact mul_le_mul_of_nonneg_left (Real.rpow_le_rpow_of_exponent_le hN1 (by linarith)) hC0
   refine ⟨|c|, C, abs_nonneg _, hC0, fun a b hab => ?_⟩
-  rw [hρ] at hC
   have hb : ∀ N : ℕ, |Slam N - c * N| ≤ C * (N : ℝ) ^ (1 - ρ) := by
     intro N
     rcases Nat.eq_zero_or_pos N with rfl | hN

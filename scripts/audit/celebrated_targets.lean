@@ -204,6 +204,8 @@ with no exceptions. -/
 #print axioms RamanujanTau.SCSProof.shiftSum_bound
 #print axioms RamanujanTau.SCSProof.shiftedConvolutionBound_of
 #print axioms RamanujanTau.SCSProof.tauL_subconvex
+#print axioms RamanujanTau.SCSProof.shiftedConvolutionBound_3_5
+#print axioms RamanujanTau.SCSProof.tauL_subconvex_3_5
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

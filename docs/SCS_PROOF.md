@@ -1,7 +1,8 @@
 # Discharging `ShiftedConvolutionBound η B` — route analysis and proof plan
 
 **Status (2026-11-05): DONE, evidence level 1 (Lean, axiom-clean, no hypotheses).**
-`ShiftedConvolutionBound (1/2^22) 8` is proved unconditionally, hence unconditional t-aspect
+`ShiftedConvolutionBound (1/8000) 8` is proved unconditionally (the exact Rankin `N^{3/5}` error from
+`RankinExact.rankinSelberg_exact` is used; the earlier `1/2^22` version is a corollary), hence unconditional t-aspect
 subconvexity for `L(Δ,s)`.  Directory: `RamanujanTau/SCSProof/` (41 files, ≈5.4k lines).  See §6.
 
 Target: `|Σ_{n≤N} λ(n)λ(n+h)| ≤ C (N+h)^{1−η} h^B` for all `h ≥ 1`, `N` (sharp cutoff),
@@ -97,8 +98,7 @@ fibrewise.)
 * `L = x^{1−κ}`, `V = x^{2κ}/x`: all errors `≪ x^{12−κ'}h^{1/4}` for a small explicit `κ'`;
   partial summation with `(n(n+h))^{−11/2}`; `h > N^{small}` by the trivial bound.
 
-Result: `SCS(η₀, B₀)` with `η₀ ≈ 2^{−23}` (limited by the Rankin error exponent; with the classical
-`ρ = 2/5` one would get `η₀ = 1/100`-ish) and `B₀ = 1`.
+Result (as formalized): `SCS(1/8000, 8)` with the repo's exact Rankin error `N^{3/5}`.
 
 ## 4. Route comparison (Lean cost)
 
@@ -128,10 +128,12 @@ Build: `nice -n 10 lake build RamanujanTau.SCSProof.Main` exits 0; every `#print
 
 Headlines (`RamanujanTau.SCSProof`):
 
-* `instance shiftedConvolutionBound_of : ShiftedConvolutionBound (1 / 2 ^ 22) 8`, i.e.
-  `|Σ_{n≤N} λ(n)λ(n+h)| ≤ C (N+h)^{1−2^{−22}} h⁸` for all `h ≥ 1`, `N`.
-* `tauL_subconvex : ∃ δ > 0, ∃ C, ∀ t, ‖tauL (6 + t*I)‖ ≤ C * (1 + |t|) ^ (1/2 − δ)`
-  (via `SubconvexityCond.exists_subconvex_of_SCS`; `δ = subconvexDelta (2^{−22}) 8 = 2^{−22}/104`).
+* `instance shiftedConvolutionBound_3_5 : ShiftedConvolutionBound (1 / 8000) 8`, i.e.
+  `|Σ_{n≤N} λ(n)λ(n+h)| ≤ C (N+h)^{1−1/8000} h⁸` for all `h ≥ 1`, `N`.
+* `instance shiftedConvolutionBound_of : ShiftedConvolutionBound (1 / 2 ^ 22) 8` (kept; now via `.mono`).
+* `tauL_subconvex_3_5 : ∃ C ≥ 0, ∀ t, ‖tauL (6 + t*I)‖ ≤ C * (1 + |t|) ^ (1/2 − 1/832000)`
+  (`SubconvexityCond.tauL_subconvex_of_SCS`, `δ = subconvexDelta (1/8000) 8 = 1/832000`).
+* `tauL_subconvex : ∃ δ > 0, ∃ C, ∀ t, ‖tauL (6 + t*I)‖ ≤ C * (1 + |t|) ^ (1/2 − δ)` (kept).
 
 Intermediate results (all level 1):
 
@@ -149,9 +151,10 @@ Intermediate results (all level 1):
 | `Tauber1–6` | exponential-Riesz Mellin inversion `laplace_riesz`, `Rmean_bound`, `rankin_short`, `Asum_bound_large` |
 | `Final1–2` | uniform `Asum_bound`, Abel summation (`sum_mul_eq_sub_integral_mul₀'`), `shiftSum_bound` |
 
-The exponent `2^{−22}` is inherited from the repo's Rankin–Selberg error term (used only for short
-sums of `λ(n)²` in the Tauberian step); the analytic input gives a saving `x^{1/8000}` there.  With
-the classical Rankin exponent `3/5` the same proof gives `η₀ = 1/8000`.  Not optimized; Selberg's
+The Rankin–Selberg error term enters only through short sums of `λ(n)²` (`Tauber4.rankin_short`,
+now from `RankinExact.rankinSelberg_exact`, `N^{3/5} ≤ N^{1−ρ}`); with `3/5` it is no longer the
+bottleneck, and `η₀ = ρ = 1/8000` is set by the analytic part (`Rmean_bound`, saving `x^{1/8000}`,
+and the tail cut-off `L = x^{1−1/4000}`).  Not optimized; Selberg's
 `1/3` was not pursued.
 
 Literature: Selberg (1965) and Good (1981) for the shifted Dirichlet series; Weil (1948) for
