@@ -200,3 +200,85 @@ Cited from memory, not re-checked:
   * Then `card_RCos_Gamma0_le`, the ball bound `lintegral_U_ball'`, and `norm_tsum_Gamma0_Iγ_le`.
 * **Item 3 (about 600 lines):** the `Q_eq` analogue with `coeff_PsiAB`. Then the pointwise bound for `G_{a,b,ℓ}` at `bW`, with Lipschitz control via `Σ_n |τ(n) cA(a,bn+ℓ)| e^{−bnσ} ≪ (bσ)^{−12}` (Cauchy–Schwarz plus `coef_sq_laplace`).
 * **Item 4 (about 850 lines):** the Tauberian step and unsmoothing for `Σ_{bn ≤ x} τ(n)cA(a,bn+ℓ)`. Rankin short sums apply after Cauchy–Schwarz. Then Abel summation with `(mn)^{−11/2}` and `m = (bn+ℓ)/a`.
+
+## 8. Update (2026-11-06): the two-sided bound is proved for all `a, b ≥ 1` (`SCS2Coprime/Main3`)
+
+**Status: DONE. Evidence level 1 (Lean, axiom-clean, no hypotheses).**
+
+    nice -n 10 lake build RamanujanTau.SCS2Coprime.Main3      # exit 0
+
+* Every `#print axioms` in `Main3.lean` (19 names, items 2–4 and the headlines) gives
+  `[propext, Classical.choice, Quot.sound]`.
+* A grep finds no `sorry`, `admit`, `native_decide` or `axiom` in the 10 new files.
+* 10 new files, about 3.0k lines. No committed file was modified, and nothing outside
+  `RamanujanTau/SCS2Coprime/` except this section.
+
+**Headlines** (`RamanujanTau.SCS2Coprime`, `shiftSum2` is the committed `HeckeAFE.shiftSum2`):
+
+```lean
+theorem scs2_general : ∃ C : ℝ, 0 ≤ C ∧ ∀ (a b : ℕ) (ℓ : ℤ) (N : ℕ), 1 ≤ a → 1 ≤ b → ℓ ≠ 0 →
+    |shiftSum2 a b ℓ N| ≤
+      C * (N : ℝ) ^ (1 - 1 / 21 : ℝ) * |(ℓ : ℝ)| ^ (1 / 21 : ℝ) * ((a * b : ℕ) : ℝ) ^ 12
+
+theorem scs2_gcd : ∃ C : ℝ, 0 ≤ C ∧ ∀ (g a b : ℕ) (ℓ : ℤ) (N : ℕ), 1 ≤ g → 1 ≤ a → 1 ≤ b →
+    ℓ ≠ 0 → |shiftSum2 (g * a) (g * b) (g * ℓ) N| ≤
+      C * (N : ℝ) ^ (1 - 1 / 21 : ℝ) * |(ℓ : ℝ)| ^ (1 / 21 : ℝ) * ((a * b : ℕ) : ℝ) ^ 12
+
+theorem scs2_range : ∃ C : ℝ, 0 ≤ C ∧ ∀ (θ : ℝ), 0 ≤ θ → θ ≤ 1 →
+    ∀ (a b : ℕ) (ℓ : ℤ) (N : ℕ), 1 ≤ a → 1 ≤ b → ℓ ≠ 0 →
+      |(ℓ : ℝ)| ≤ (N : ℝ) ^ (1 - θ) →
+      |shiftSum2 a b ℓ N| ≤ C * (N : ℝ) ^ (1 - θ / 21) * ((a * b : ℕ) : ℝ) ^ 12
+```
+
+So the shape is `SCS2'` of §3 with `η = b = 1/21`, `B = 12`:
+`|S(a,b;ℓ,N)| ≪ N^{1−1/21} |ℓ|^{1/21} (ab)^{12}`, hence `≪ N^{1−θ/21}(ab)^{12}` for
+`|ℓ| ≤ N^{1−θ}`. The stated `SCS2 η B` (with `(N+|ℓ|)^{1−η}` and no `ℓ`-power) is **not** proved;
+by §3/§6 it is out of reach of this method for `|ℓ| ≍ N`.
+
+**Coprimality is not needed.** `Ψ_{a,b}` is `Γ₀(ab)`-invariant for every `a, b`
+(`PsiAB_smul_Gamma0`), and nothing else uses `gcd(a,b) = 1`. `scs2_gcd` only records that the committed
+gcd reduction improves `(ab)^{12}` to `(ab/g²)^{12}` and `|ℓ|` to `|ℓ|/g`. The diagonal `a = b` is
+covered too; there the committed `scs2_diag` is sharper (no `(ab)`-power).
+
+### 8a. What was done (items 2–4 of §6/§7)
+
+| file | content |
+|---|---|
+| `Holder.lean` | `tsum_coset` (`Σ_{SL₂(ℤ)} = Σ_x Σ_{Γ₀(q)}`, `x` over right cosets), `finite_RCos_Gamma0`, `tsum_enorm_ft_le_N0` (`Σ_γ‖ft(γp)‖ ≤ N₀` everywhere), `PtQ` (Poincaré series over `Γ₀(q)`), `SQ = Σ_x |P_q(x.out p)|²`, **`lintegral_SQ_le`**: `∫_{U×ℍ} S_q ≤ 2‖Σ_{h∈Γ₀(q)} I(h)‖` |
+| `Holder2.lean` | **`norm_QAB_le`**: `‖∫Ψ_{a,b} conj ft‖ ≤ ½√(c² q⁴ · 8R)·√(2‖Σ_{Γ₀(q)} I‖)`, `c = M(ab)^{−6}R⁶` |
+| `QformAB.lean` | `Q_eqAB`, **`main_term_leAB`** (copy of `SCSProof.Qform*`/`Main1` with `Ψ_{a,b}` and `cfAB`) |
+| `GboundsAB.lean` | `cR a b ℓ n = τ(n)·[a∣bn+ℓ]τ((bn+ℓ)/a)`, `Gc`, **`GAB_eq`**: `G_{a,b,ℓ}(W) = Gc(cR)(bW)`; generic Lipschitz `norm_Gc_sub_le`; **`cR_laplace`** (trivial bound via the injection `n ↦ (bn+ℓ)/a`) |
+| `PointAB.lean` | `cfAB_sub_le`, `norm_G0_leAB`, **`pointwise_parAB`** (`K` independent of `a, b`), **`pointwise_Gc`**: `‖Gc(cR)(σ+iv)‖ ≤ K ℓ^{1/21}(|2v/σ|+3) b¹² σ^{−11901/1000}` for `0<σ≤b`, `ℓσ≤b` |
+| `TauberGen.lean` | the Tauberian step for an **arbitrary** real sequence: `laplace_rieszC`, `Rmean2C_le`, **`AsumC_bound`** (pointwise input + total and short-interval `ℓ¹` bounds ⇒ `|Σ_{n≤N}c_n| ≪ x^{12−1/21}`) |
+| `RankinAB.lean` | `sum_cAR_sq_le` (Rankin along the progression), `short_cR`, `sum_cR_cs` (Cauchy–Schwarz), **`AsumAB_bound`**: `|Σ_{n≤N} cR(n)| ≤ K ℓ^{1/21}(b+1)¹²(N+1)^{12−1/21}` for `1 ≤ ℓ ≤ N+1` |
+| `AbelAB.lean` | weight `wAB(t) = t^{−11/2}((bt+ℓ)/a)^{−11/2}`, `abs_wAB'_le`, **`shiftSum2_eq`**: `S(a,b;ℓ,N) = Σ_{n≤N₁} wAB(n)cR(n)`, `N₁ = min(N, ⌊(aN−ℓ)/b⌋)` |
+| `FinalAB.lean` | Abel summation, `integrand_le`, `boundary_le`, **`shiftSum2_bound_pos`** (`ℓ ≥ 1`) |
+| `Main3.lean` | `shiftSum2_neg` (`S(a,b;−ℓ) = S(b,a;ℓ)`), the three headlines, `#print axioms` |
+
+### 8b. Where the exponents come from
+
+* **Pointwise.** Hölder over the `≤ q⁴` cosets gives `M(ab)^{−6}·q² = M(ab)^{−4} ≤ M`. The trivial
+  bounds for `cR` at `σ = bκY` are `≤ 2C₀(κY)^{−12}` uniformly in `a, b ≥ 1` (the Lipschitz factor `b`
+  from `‖bW − bW₀‖` cancels against `(bσ)^{−1}`). So `‖G_{a,b,ℓ}(W₀)‖ ≤ K ℓ^{1/21} A t⁹⁹ Y^{−12}` with
+  the **same** `K` as `SCSSharp2.pointwise_par21`. The `b¹²` in `pointwise_Gc` is only the rescaling
+  `σ_W = σ/b`, which gives `b^{11901/1000} ≤ b¹²`.
+* **Tauberian.** The chain is unchanged: `κ = 2/39`, `ι = 1/273`, `j = 13`, `η = 1/21`. The condition
+  `ℓσ ≤ b` at `σ = 1/x` holds for `ℓ ≤ x`, which is weaker than the one-sided `h ≤ x`. The short sums
+  of `τ((bn+ℓ)/a)²` run over `m`-intervals of length `≤ bD+1` with `m ≤ (b+1)x`, so Rankin costs
+  `(b+1)¹²`.
+* **Abel.** For `t ≥ ℓ`, `m(t)^{−11/2} ≤ a^{11/2}t^{−11/2}`. For `t < ℓ`, Cauchy–Schwarz gives
+  `≪ (b+1)^{1/2} ℓ^{1/21} N^{1/2−1/21} t^{−1/2}`, with `m(t) ≤ (b+1)ℓ`. For `ℓ > N` the trivial bound
+  `≪ N ≤ N^{1−1/21}ℓ^{1/21}` applies. In total this is `a^{11/2}(b+1)^{12} ≤ 2^{12}(ab)^{12}`. This
+  is not optimized: `B ≈ 6 + 1/2` looks reachable by tracking `b/a` instead of `b+1`.
+
+### 8c. Remaining / not done
+
+* **The stated `HeckeAFE.SCS2 η B` is not discharged.** Its shape `(N+|ℓ|)^{1−η}(ab)^B` is
+  method-intrinsically out of reach (§3, §6 correction).
+  * The consumer, the Hafner twisted second moment, should be restated against `scs2_range`
+    (`|ℓ| ≤ N^{1−θ}`) or against the `SCS2'` shape of `scs2_general`.
+  * That restatement touches `HeckeAFE/Hyp.lean` and its users. It was not done here, because
+    committed files were off-limits.
+* `RamanujanTau.lean`, README, STATUS and RESULTS were not edited. `Main3` is not imported by the root
+  file.
+* The exponents are not optimized (`B = 12`; `η = 1/21` is inherited from `SCSSharp2`).

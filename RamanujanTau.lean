@@ -666,6 +666,7 @@ import RamanujanTau.HeckeAFE3.Main
 import RamanujanTau.SCS2.Main
 import RamanujanTau.SCS2Coprime.Main
 import RamanujanTau.SCS2Coprime.Main2
+import RamanujanTau.SCS2Coprime.Main3
 import RamanujanTau.VoronoiTrunc.Main
 import RamanujanTau.VoronoiTruncGeneral.Main
 import RamanujanTau.VoronoiTruncComplete.Main

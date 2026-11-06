@@ -266,6 +266,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.SCS2Coprime.norm_PsiAB_le
 #print axioms RamanujanTau.SCS2Coprime.coeff_PsiAB
 #print axioms RamanujanTau.SCS2Coprime.index_Gamma0_le
+#print axioms RamanujanTau.SCS2Coprime.norm_QAB_le
+#print axioms RamanujanTau.SCS2Coprime.pointwise_Gc
+#print axioms RamanujanTau.SCS2Coprime.scs2_general
+#print axioms RamanujanTau.SCS2Coprime.scs2_range
+#print axioms RamanujanTau.SCS2Coprime.scs2_gcd
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer
