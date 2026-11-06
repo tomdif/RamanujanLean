@@ -390,6 +390,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.QFProof3.Fi_mul_F
 #print axioms RamanujanTau.QFProof3.qFactor_canon
 #print axioms RamanujanTau.QFProof3.qfHyp_of_euler
+#print axioms RamanujanTau.QFProof4.recF_eq_prod
+#print axioms RamanujanTau.QFProof4.Γc_eq_prod
+#print axioms RamanujanTau.QFProof4.Mass_le_prod
+#print axioms RamanujanTau.QFProof4.MassV_le
+#print axioms RamanujanTau.QFProof4.mv2_of_euler
 #print axioms RamanujanTau.SelbergKey.heckeLambda_mul_afe
 #print axioms RamanujanTau.SelbergKey.ZH_mul_ZH_afe
 #print axioms RamanujanTau.SelbergKey.sk_le_lag

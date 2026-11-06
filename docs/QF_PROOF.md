@@ -365,3 +365,61 @@ Build: `nice -n 10 lake build RamanujanTau.QFProof3.Main` exits 0.
    `d ≤ y² ⇒ log d ≤ 2 log y`.
 
 Item 2 was checked numerically for all p < 20000 (previous section).
+
+---
+
+## 2026-11-06 (later): `QFProof4/`. Gap 4 (multiplicativity) is done; gap 5 (local masses and Euler sums) is mapped exactly
+
+Build: `nice -n 10 lake build RamanujanTau.QFProof4.Main` exits 0.
+
+* 10 headlines, all `[propext, Classical.choice, Quot.sound]`.
+* No sorry, axiom or native_decide.
+* About 650 lines in 6 files: `RecFMult`, `LocalFi`, `GammaMult`, `GammaMultV`, `Main`.
+
+| statement | Lean name | level |
+|---|---|---|
+| `recF g n = Π_{p|n} recF g(p^{v_p n})` for g supported on prime powers | `recF_eq_prod` | 1 |
+| `Fi n = Π_{p|n} Fi(p^{v_p n})`; `recF gRm p = λ(p)²/2` | `Fi_eq_prod`, `recF_gRm_prime` | 1 |
+| `|gRm n| ≤ 3Λ(n)`, `|recF gRm (p^k)| ≤ (k+1)(k+2)/2` | `abs_gRm_le`, `abs_recF_gRm_ppow` | 2 (`[DeligneBound]`) |
+| `Γc Ud d u₁ u₂ = Π_{p∈S} γ_p(v_p d; v_p u₁, v_p u₂)` | `Γc_eq_prod` | 1 |
+| `Mass (Γc Ud) y d ≤ Π_{p ∈ primes(y!) ∪ primes(d)} T_p(v_p d)`, where `T_p = Σ_{i,j≤v_p(y!)} |γ_p|` | `Mass_le_prod` | 1 |
+| `Vd = Σ_p L'_p Π_{q≠p} L_q` and `Mass (Γc Vd) y d ≤ Σ_p T'_p Π_{q≠p} T_q` | `Vd_eq_sum`, `MassV_le` | 1 |
+| **(MV2) for Selberg's mollifier ⇐ the three `QEuler` bounds** | `mv2_of_euler` | 2 (on the bounds) |
+
+The combined headline, through `HafnerBridge2.mv2_of_QF`:
+
+```lean
+theorem mv2_of_euler {θ : ℝ} (hθ0 : 0 < θ) (hθ : θ ≤ 1 / 81600)
+    (hE : QEuler Wd (Γc Ud) 1) (hE1 : QEuler W1d (Γc Ud) 2) (hE2 : QEuler Wd (Γc Vd) 3) :
+    ∃ B T₀, ∀ T ≥ T₀, ∫_T^{3T} ‖tauL(6+iu) · Mc(bSel ⌊T^θ⌋₊)(6+iu)²‖² du ≤ B·T
+```
+
+**Remaining: gap 5, all at level 2 on `[DeligneBound]`.** About 0.8–1.2k lines. Throughout, X = 1/p,
+`C₀` is an absolute constant, and every bound is uniform in the truncation N.
+
+* **Basic inputs (Deligne):**
+  * `|α(p^a)| ≤ 1` (`abs_alpha_le_one`);
+  * `|Fi(p^k)| ≤ (k+1)(k+2)/2 · X^k` (done);
+  * `|λ(p^j)| ≤ j+1`;
+  * `0 ≤ q = (1+X)² − Xλ² ≤ (1+X)²`.
+* **The common factorized estimate.** `|γ_p(e;i,j)| ≤ X^{i+j−e} P_i P_j`, where
+  `P_i = Σ_{a≤i}(a+1)c_{i−a} ≤ (i+1)⁴` and `c_k = (k+1)(k+2)/2`.
+* **L1:** `T_p(0) ≤ 1 + C₀X²`. Exact low-order terms: γ(0,0) = 1 and γ(1,0) = γ(0,1) = λ²X²/(2(1+X)).
+  The rest, i+j ≥ 2, is at most `4X²(Σ_i P_i 2^{−i})²`.
+* **L2:** `T_p(1) ≤ |λ| + C₀X`. Here γ(1,0) = γ(0,1) = α(p) = −λ/2.
+* **L3:** `T_p(e) ≤ C₀(e+1)⁹`.
+* **L4:** `T'_p(0) ≤ (λ²/4)X log p + C₀X`. The (0,0) term vanishes, and
+  `γ'(0,1,0) = λ²X log p(1/(1+X) − 2X/(1+X)²)/4`.
+* **L5:** `T'_p(1) ≤ log p · (|λ|/2 + C₀X)`.
+* **L6:** `T'_p(e) ≤ C₀ (e+1)^{10} log p`.
+* **Pivots.** `|Wc_p(e)| ≤ W̃_p(e)` and `|wd_p(e)| ≤ C₀(e+1)W̃_p(e)`, where `W̃_p(1) = X` and
+  `W̃_p(e) = 3X^e` for e ≥ 2.
+* **Euler assembly.**
+  * Define `f = ofLocal(p,e ↦ p^e W̃_p(e) t_p(e)²)`, with `t_p(1) = |λ| + C₀X` and
+    `t_p(e) = C₀(e+1)⁹`. Then `f(p) ≤ λ² + C/p` and `f(p^e) ≤ B(e+1)^{18}`.
+  * `logmean_upper` must be reproved with polynomial growth `f(p^k) ≤ B(k+1)^m` in place of
+    `f(p^k) ≤ B`; the local tail is `Σ_{k≥2}(k+1)^m p^{−k} ≪ p^{−2}`. Together with `mertens2_bound`
+    this gives `Σ_{d≤y²} f(d)/d ≪ log y`, hence QEuler₁.
+  * QEuler₂ adds `log d ≤ 2 log y`.
+  * QEuler₃: `Mass' ≤ Π T̃ · [Σ_{p≤y} T'_p(0) + C Σ_{p|d}(e+1) log p]`. The first sum is
+    `≤ (log y + E)/4 + C₀(1 + log y)`, by `mertens1_prime` and the harmonic sum, so `Mass' ≪ log y · Π T̃`.
