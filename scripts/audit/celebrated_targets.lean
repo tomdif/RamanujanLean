@@ -255,6 +255,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.HeckeAFE3.V_iteratedDeriv_bound
 #print axioms RamanujanTau.HeckeAFE3.heckeLambda_sq_afe
 #print axioms RamanujanTau.HeckeAFE3.tauL_normSq_afe
+#print axioms RamanujanTau.SCS2.scs2_trivial
+#print axioms RamanujanTau.SCS2.shiftSum2_mul_left
+#print axioms RamanujanTau.SCS2.shiftSum2_diag
+#print axioms RamanujanTau.SCS2.scs2_diag
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer

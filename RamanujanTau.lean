@@ -663,6 +663,7 @@ import RamanujanTau.HafnerProportion.Main
 import RamanujanTau.HeckeAFE.Main
 import RamanujanTau.HeckeAFE2.Main
 import RamanujanTau.HeckeAFE3.Main
+import RamanujanTau.SCS2.Main
 import RamanujanTau.VoronoiTrunc.Main
 import RamanujanTau.VoronoiTruncGeneral.Main
 import RamanujanTau.VoronoiTruncComplete.Main
