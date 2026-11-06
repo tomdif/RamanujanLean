@@ -317,3 +317,51 @@ Build: `nice -n 10 lake build RamanujanTau.QFProof2.Main` exits 0. All 4 headlin
 
 
 Scripts for the numerics above are preserved in `scripts/qf_proof/` (`q.c`, `loc.py`).
+
+---
+
+## 2026-11-06 (later): `QFProof3/`. `QDecomp`, `QDecomp1` and `QFactor` are discharged; only the Euler bounds remain
+
+Build: `nice -n 10 lake build RamanujanTau.QFProof3.Main` exits 0.
+
+* 13 headlines, all `[propext, Classical.choice, Quot.sound]`.
+* No sorry, axiom or native_decide.
+* About 990 lines in 7 files: `Decomp`, `DChol`, `DLocal`, `Decomp1`, `Factor`, `Main`.
+* Everything below is **level 1, unconditional**.
+
+| statement | Lean name |
+|---|---|
+| `Σ_{d|g} Π_{p∈S} φ(p,v_p d) = Π_{p∈S} Σ_{e≤v_p g} φ(p,e)` for `S ⊇` primes of g | `sum_divisors_prod_local'` |
+| `Kq h k = Π_{p|hk} X^{max(a,b)} ρ_p(|a−b|)` | `Kq_prod` |
+| **`QDecomp Wd Ud`** (the explicit Cholesky data of §1(c)) | `qDecomp` |
+| s-derivative of the local LDLᵀ (abstract Hecke sequences) | `dchol_loc` |
+| the same for the actual `ρ_p`, `ρ'_p` | `dloc_sym` |
+| `Kq1 = (γ_R/r₀)Kq + Σ_p κ'_p Π_{q≠p} κ_q` | `Kq1_prod` |
+| **`QDecomp1 Wd W1d Ud Vd`** | `qDecomp1` |
+| `recF g₁ ∗ recF g₂ = recF(g₁+g₂)` and `recF 0 = δ` | `recFA_mul`, `recFA_zero_fun` |
+| `Fi ∗ (fR/n) = δ`, with `Fi = recF(ΛR/2)/n` | `Fi_mul_F` |
+| **`QFactor U (Γc U)`** for every U, with `Γc` the two-variable convolution with `Fi⊗Fi` | `qFactor_canon` |
+| **`QFHyp` ⇐ the three Euler bounds** | `qfHyp_of_euler` |
+
+`qfHyp_of_euler` has the following type:
+
+    theorem qfHyp_of_euler (hE : QEuler Wd (Γc Ud) 1) (hE1 : QEuler W1d (Γc Ud) 2)
+        (hE2 : QEuler Wd (Γc Vd) 3) : QFHyp
+
+**What remains: gaps 4 and 5, the three `QEuler` bounds (level 2 on `[DeligneBound]`).** About
+1.2–1.8k lines.
+
+1. **Multiplicativity.** Show that `fR` and `recF(ΛR/2)` are multiplicative, with local factors
+   `D_p(t)^{∓1/2}`. Then show that `Γc Ud d` and `Γc Vd d` factor over primes in the pair (u₁, u₂),
+   the latter as a derivation sum over p. Consequently
+   `Σ_{u₁,u₂≤y}|Γc_d| ≤ Π_p m_{p,v_p d}` (respectively `M̃_d(Σ_{p≤y}∂m_p + …)`).
+2. **Local mass bounds under Deligne** (§6):
+   * `m_{p,0} ≤ 1 + C/p²`, using the exact first-order cancellation `Γ(p,1) = X²λ²/(2(1+X))`;
+   * `p·W_p(1)·m_{p,1}² ≤ λ(p)² + C/p`;
+   * `m_{p,e} ≤ C`;
+   * `|wd| ≤ C(e+1)X^e`;
+   * `∂m_{p,0} ≤ C log p/p`.
+3. **Euler sums.** Apply `logmean_upper` (κ = 1) with `mertens2_bound` and `mertens1_prime`, using
+   `d ≤ y² ⇒ log d ≤ 2 log y`.
+
+Item 2 was checked numerically for all p < 20000 (previous section).

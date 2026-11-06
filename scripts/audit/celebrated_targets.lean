@@ -384,6 +384,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.QFProof.qfHyp_of
 #print axioms RamanujanTau.QFProof2.rhoP'_succ
 #print axioms RamanujanTau.QFProof2.sum_divisors_prod_local
+#print axioms RamanujanTau.QFProof3.Kq_prod
+#print axioms RamanujanTau.QFProof3.qDecomp
+#print axioms RamanujanTau.QFProof3.qDecomp1
+#print axioms RamanujanTau.QFProof3.Fi_mul_F
+#print axioms RamanujanTau.QFProof3.qFactor_canon
+#print axioms RamanujanTau.QFProof3.qfHyp_of_euler
 #print axioms RamanujanTau.SelbergKey.heckeLambda_mul_afe
 #print axioms RamanujanTau.SelbergKey.ZH_mul_ZH_afe
 #print axioms RamanujanTau.SelbergKey.sk_le_lag
