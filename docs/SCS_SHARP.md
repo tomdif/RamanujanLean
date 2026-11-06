@@ -1,5 +1,7 @@
 # Sharpening the shifted-convolution bound: `SCS(1/22, 1/2)` and `δ = 1/231`
 
+> **Update (2026-11-06):** sharpened to SCS(1/21, 1/21) and δ = 1/134 in `SCSSharp2.tauL_subconvex_sharp2`; see [SCS_SHARP2](SCS_SHARP2.md).
+
 **Status (2026-11-06): DONE, evidence level 1 (Lean, axiom-clean, no hypotheses).**
 Directory `RamanujanTau/SCSSharp/` (9 files, about 1.85k lines). It imports `SCSProof` and
 `SubconvexityCond` and modifies neither.

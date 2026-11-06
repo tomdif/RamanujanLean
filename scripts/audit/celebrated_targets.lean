@@ -210,6 +210,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.SCSSharp.shiftedConvolutionBound_sharp
 #print axioms RamanujanTau.SCSSharp.tauL_subconvex_of_SCS'
 #print axioms RamanujanTau.SCSSharp.tauL_subconvex_sharp
+#print axioms RamanujanTau.SCSSharp2.card_divisors_le_rpow
+#print axioms RamanujanTau.SCSSharp2.shiftedConvolutionBound_sharp2
+#print axioms RamanujanTau.SCSSharp2.tauL_subconvex_of_SCS2
+#print axioms RamanujanTau.SCSSharp2.tauL_subconvex_sharp2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer

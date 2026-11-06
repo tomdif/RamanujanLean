@@ -1,5 +1,7 @@
 # Discharging `ShiftedConvolutionBound η B` — route analysis and proof plan
 
+> **Update (2026-11-06):** sharpened to SCS(1/21, 1/21) and δ = 1/134 in `SCSSharp2.tauL_subconvex_sharp2`; see [SCS_SHARP2](SCS_SHARP2.md).
+
 > **Update (2026-11-06):** sharpened to SCS(1/22, 1/2) and δ = 1/231 in `SCSSharp.tauL_subconvex_sharp`; see [SCS_SHARP](SCS_SHARP.md).
 
 **Status (2026-11-05): DONE, evidence level 1 (Lean, axiom-clean, no hypotheses).**
