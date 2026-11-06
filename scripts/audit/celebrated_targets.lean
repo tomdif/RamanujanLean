@@ -199,6 +199,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.CramerMeanSquare.tau_cramer_log
 #print axioms RamanujanTau.CramerMeanSquare.tau_cramer_constant
 #print axioms RamanujanTau.CramerMeanSquare.tau_mean_square_uniform
+#print axioms RamanujanTau.SCSProof.norm_kloosterman_hh_le
+#print axioms RamanujanTau.SCSProof.pointwise_G
+#print axioms RamanujanTau.SCSProof.shiftSum_bound
+#print axioms RamanujanTau.SCSProof.shiftedConvolutionBound_of
+#print axioms RamanujanTau.SCSProof.tauL_subconvex
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

@@ -1,5 +1,7 @@
 # t-aspect subconvexity for `L(Δ, s)`: feasibility, the chosen route, and what is built
 
+> **Update (2026-11-05):** subconvexity is now proved unconditionally (`SCSProof.tauL_subconvex`, δ = 2^{−22}/104) by a different route than b1–b4 below, which [SCS_PROOF](SCS_PROOF.md) shows cannot work as stated.
+
 **Status (2026-11-05).** Subconvexity, `|L(Δ,6+it)| ≪ (1+|t|)^{1/2−δ}` for some `δ > 0`, is
 **not proved**, neither unconditionally nor under `[DeligneBound]`. Deligne's bound does not help;
 §6 explains why. This document gives:

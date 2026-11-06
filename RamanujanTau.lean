@@ -652,5 +652,6 @@ import RamanujanTau.TauOmegaPM.Main
 import RamanujanTau.SubconvexityCond.Main
 import RamanujanTau.Voronoi.Main
 import RamanujanTau.CramerMeanSquare.Main
+import RamanujanTau.SCSProof.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
