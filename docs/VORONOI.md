@@ -222,4 +222,4 @@ unconditional, Deligne-free, Mellin–Landau route used here was not checked aga
 literature, and no novelty claim is made.
 
 
-The PARI check script for the numerics above is `scripts/voronoi/mean_square_check.gp`.
+The PARI script used for the numerics above was not preserved (session scratchpad); the numerics are evidence level (4) only.
