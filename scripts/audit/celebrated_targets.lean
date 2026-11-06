@@ -222,6 +222,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.VoronoiTruncGeneral.cusp_omega_pm_exact
 #print axioms RamanujanTau.VoronoiTruncGeneral.eigenform_omega_pm_exact
 #print axioms RamanujanTau.VoronoiTruncGeneral.kernel_asymp_even
+#print axioms RamanujanTau.VoronoiTruncComplete.cusp_omega_pm_exact'
+#print axioms RamanujanTau.VoronoiTruncComplete.cusp_re_omega_pm
+#print axioms RamanujanTau.VoronoiTruncComplete.cusp_im_omega_pm
+#print axioms RamanujanTau.VoronoiTruncComplete.cusp_cramer_complex
+#print axioms RamanujanTau.VoronoiTruncComplete.cusp_voronoi_truncated_L2_complex
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

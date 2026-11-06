@@ -1,5 +1,7 @@
 # Truncated Voronoi in `L²`, the Cramér limit and exact `Ω±` for every level-one cusp form
 
+> **Update (2026-11-06):** the complex-coefficient and a(1) = 0 gaps are closed in `VoronoiTruncComplete`; see [VORONOI_TRUNC_COMPLETE](VORONOI_TRUNC_COMPLETE.md).
+
 Lean: `RamanujanTau/VoronoiTruncGeneral/` (10 files, about 3550 lines). No `sorry`, no `native_decide`,
 no new axiom, no named hypothesis. Build with `nice -n 10 lake build RamanujanTau.VoronoiTruncGeneral.Main`
 (exit 0). `#print axioms` on every headline gives `[propext, Classical.choice, Quot.sound]`.
