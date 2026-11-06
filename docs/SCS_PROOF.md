@@ -1,5 +1,7 @@
 # Discharging `ShiftedConvolutionBound η B` — route analysis and proof plan
 
+> **Update (2026-11-06):** sharpened to SCS(1/22, 1/2) and δ = 1/231 in `SCSSharp.tauL_subconvex_sharp`; see [SCS_SHARP](SCS_SHARP.md).
+
 **Status (2026-11-05): DONE, evidence level 1 (Lean, axiom-clean, no hypotheses).**
 `ShiftedConvolutionBound (1/8000) 8` is proved unconditionally (the exact Rankin `N^{3/5}` error from
 `RankinExact.rankinSelberg_exact` is used; the earlier `1/2^22` version is a corollary), hence unconditional t-aspect
