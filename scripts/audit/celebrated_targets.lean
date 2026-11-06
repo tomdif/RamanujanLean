@@ -268,6 +268,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.RankinOmegaPM.tau_rankin_omega_pm
 #print axioms RamanujanTau.RankinOmegaPM.cuspForm_rankin_omega_pm
 #print axioms RamanujanTau.RankinOmegaPM.landau_mellin_strip
+#print axioms RamanujanTau.ZetaMeanSquare.riemannZeta_conj
+#print axioms RamanujanTau.ZetaMeanSquare.zeta_mean_value_uniform
+#print axioms RamanujanTau.ZetaMeanSquare.zeta_mean_square_tendsto
+#print axioms RamanujanTau.ZetaMeanSquare.zeta_mean_square_tendsto_zero
+#print axioms RamanujanTau.ZetaMeanSquare.tau_rankin_omega_pm_quarter
+#print axioms RamanujanTau.ZetaMeanSquare.cuspForm_rankin_omega_pm_quarter
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
