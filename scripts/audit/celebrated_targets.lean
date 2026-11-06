@@ -234,6 +234,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.CuspConj.eq_reF_add_imF
 #print axioms RamanujanTau.CuspConj.fL_eq_re_add_im
 #print axioms RamanujanTau.CuspConj.fL_subconvex_all
+#print axioms RamanujanTau.HafnerProportion.selberg_zeros
+#print axioms RamanujanTau.HafnerProportion.mollified_first_moment
+#print axioms RamanujanTau.HafnerProportion.selberg_H1
+#print axioms RamanujanTau.HafnerProportion.selberg_H2
+#print axioms RamanujanTau.HafnerProportion.tauL_critical_zeros_T_log_T_of_selberg
+#print axioms RamanujanTau.HafnerProportion.tauL_positive_proportion_of_selberg
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer
