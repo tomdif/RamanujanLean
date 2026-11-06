@@ -259,6 +259,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.SCS2.shiftSum2_mul_left
 #print axioms RamanujanTau.SCS2.shiftSum2_diag
 #print axioms RamanujanTau.SCS2.scs2_diag
+#print axioms RamanujanTau.SCS2Coprime.tsum_IγQ_eq
+#print axioms RamanujanTau.SCS2Coprime.norm_tsum_Gamma0_Iγ_le
+#print axioms RamanujanTau.SCS2Coprime.lintegral_unfold_inv
+#print axioms RamanujanTau.SCS2Coprime.PsiAB_smul_Gamma0
+#print axioms RamanujanTau.SCS2Coprime.norm_PsiAB_le
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer

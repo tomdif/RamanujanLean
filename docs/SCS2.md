@@ -123,3 +123,52 @@ Cited from memory, not re-checked:
 * Blomer, "Shifted convolution sums and subconvexity bounds for automorphic L-functions", IMRN 2004: `η` close to `1/2 − θ`, polynomial in `a, b`;
 * Blomer–Harcos, "The spectral decomposition of shifted convolution sums", Duke 2008;
 * Weil (1948) for Kloosterman sums.
+
+## 6. Update (2026-11-06): coprime case — stage 1 done, stage 2 started (`RamanujanTau/SCS2Coprime/`)
+
+**Status: checkpoint. Evidence level 1 for the pieces listed below. `SCS2'` for coprime `a ≠ b` is not yet proved.**
+
+* Build: `nice -n 10 lake build RamanujanTau.SCS2Coprime.Main` exits 0.
+* Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+* A grep finds no `sorry`, `admit` or `native_decide`.
+* 6 files, about 600 lines.
+
+**Stage 1: `Γ₀(q)` infrastructure (reusable, done).**
+
+* `Bruhat0`. The Bruhat layers of `SCSProof` are indexed by the lower-left entry `c = γ₁₀`, because `slEquiv` parametrizes by the left column and `T^k` keeps it fixed.
+  * Hence `tsum_IγQ_eq`: `Σ_{γ ∈ SL₂(ℤ), q∣γ₁₀} I(γ) = Σ_{q∣c} T(c)`.
+  * The layer bounds `‖T(c)‖ ≤ gK(|c|)` hold layer by layer. So `norm_tsum_IγQ_le_gK` and `norm_tsum_IγQ_le_gcd` hold with the **same constants as for `SL₂(ℤ)`, uniformly in `q`**:
+
+        ‖Σ_{q∣γ₁₀} I(γ)‖ ≤ C h^β ε³ Y^{−3/2−2δ}.
+
+  * This is a slight under-use: a further gain `q^{−1/2}` from `c ≡ 0 (q)` is available but not needed.
+* `Gamma0`: `mem_Gamma0_iff : γ ∈ Γ₀(q) ↔ q ∣ γ₁₀`, `tsum_Gamma0_Iγ`, and `norm_tsum_Gamma0_Iγ_le`. The last is the `‖P_q‖²` input for `Γ₀(q)\(ℍ×ℍ)`.
+* `Unfold`: there is **no fundamental domain**. For any subgroup `H ≤ SL₂(ℤ)`:
+  * `cosetEquiv : H × (H\SL₂(ℤ)) ≃ SL₂(ℤ)`, `(h, x) ↦ h·x.out`;
+  * `lintegral_unfold_sub`: `Σ_x ∫_{U×ℍ} Σ_{h∈H} Ξ(h x.out p) = 2∫Ξ`;
+  * `lintegral_unfold_inv`: the same with an `H`-invariant factor `Φ`.
+
+  The integral over `Γ₀(q)\(ℍ×ℍ)` is replaced by `Σ_x ∫_{U×ℍ} (·)∘x.out`. This avoids the geometric construction of `⋃γᵢU` and the measure-zero overlaps (estimated at 500 lines in §4). It also needs no finite index for the `ℝ≥0∞` identities.
+
+**Stage 2: `Ψ_{a,b}` (started).** In `TwoPointAB`:
+
+* `scl_smul`: `a(γz) = γ'_a(az)` with `γ'_a = [[A, aB],[C/a, D]]`, for `a ∣ C`;
+* `PsiAB_smul` / `PsiAB_smul_Gamma0`: `Ψ_{a,b}(z,w) = (z−w̄)¹²Δ(az)conj Δ(bw)` is invariant under `γ` with `a, b ∣ γ₁₀`, in particular under `Γ₀(ab)`;
+* `norm_PsiAB_le`: `‖Ψ_{a,b}‖ ≤ M (ab)^{−6} Dh⁶`.
+
+**Remaining for `SCS2'`** (estimate about 2.2k lines, 2–3 sessions):
+
+1. The diagonal horocycle coefficient `∫₀¹Ψ_{a,b}(x+iy, x+yζ)e(−ℓx)dx = (y(i−ζ̄))¹² e^{−2πℓy} Σ_{am−bn=ℓ} τ(m)τ(n)e^{−bn·2πy(1+iζ̄)}`. This is a double q-expansion with `∫₀¹e(kx)dx = [k=0]`. About 250 lines.
+2. The Hölder/unfolding step on `Γ₀(q)\(ℍ×ℍ)`: copy `CS3`/`CS4`/`NormQ` with `Σ_x ∫_U (·)∘x.out`.
+   * The ball measure becomes `[SL₂:Γ₀(q)]·8R`. The index needs a finiteness/size bound: Mathlib has `Gamma0` of finite index; `≤ q²` suffices.
+   * About 500 lines.
+3. The `Q_eq`-type identity and the pointwise bound for `G_{a,b}`, with `(ab)`-powers. About 600 lines.
+4. The Tauberian step along the progression `a ∣ bn+ℓ`, and Abel summation with `(mn)^{−11/2}`. About 900 lines.
+
+**Correction to §3 (the `b < η` claim).** The recommendation "`b < η` by a parameter change" is **wrong**.
+
+* For `|ℓ| = h ≤ N`, the Abel range `t < h` contributes `≍ h` with no cancellation. The pointwise bound only reaches lengths at least `h`.
+* So `|S| ≪ N^{1−η}h^{b} + h`. This fits the shape `N^{1−η}|ℓ|^b` only if `b ≥ η` (via `(t+h)^{1/2} ≤ (2h)^{η}(N+h)^{1/2−η}`, as in `TauFinal21`).
+* Hence `b = η` is optimal for this method, and `scs2_diag` (`b = η = 1/21`) is already the best diagonal statement.
+* `SCS2' η b B` with `b < η` would need spectral input for `|ℓ| ≍ N`.
+* For Hafner the right hypothesis is `b = η` together with the range restriction `|ℓ| ≤ N^{1−θ}`, giving `N^{1−θη}(ab)^B`.
