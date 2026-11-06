@@ -253,3 +253,82 @@ Here `Ssum f x = Σ_{n≤x} f(n)/n` and `Err g κ c₀ y = Σ_{m≤y} g(m)/m −
 
 Granville–Koukoulopoulos, Ramanujan J. 49 (2019); Wirsing, Math. Ann. 143 (1961);
 Tenenbaum, *Introduction…*, III.3 (Wirsing / Levin–Fainleib).
+
+## 8. 2026-11-06 (later): applying the theorem to `R(s)^{−1/2}`, the `(log x)^κ` form, and the Selberg sum (`RamanujanTau/SelbergDelange3/`)
+
+Build: `nice -n 10 lake build RamanujanTau.SelbergDelange3.Main`. It exits 0.
+
+* The module has 9 files, about 1280 lines.
+* All 13 headlines print `[propext, Classical.choice, Quot.sound]`.
+* There is no sorry, no new axiom and no native_decide.
+* **Everything here is level 1.** `DeligneBound` is not used. The planned level-2 dependence
+  turned out to be unnecessary: the density bound for `|f|` needs only Chebyshev for `|ΛR|`
+  (`cheb_LamR`) and Mertens for `|ΛR|`, both unconditional.
+
+| statement | Lean name |
+|---|---|
+| `Σ_{m≤N} vR(m)/m = log N + c_v + O(1/log N)` | `mertens_vR_err` |
+| `Σ_{m≤y} ΛR(m)/m = log y + c + O(1/log y)`, real `y ≥ 1` | `mertens_LamR_err` |
+| `recF g`: `recF g · log = g ∗ recF g`, `recF g 1 = 1` | `recF_log` |
+| `\|recF g\| ≤ recF \|g\|`, and `recF \|g\| ≥ 0` | `abs_recF_le` |
+| `F ≥ 0`, `Σ G(m)/m ≤ σ log z + A` ⇒ `Σ_{n≤y} F(n)/n ≪ (log y)^σ` | `logmean_upper_nonneg` |
+| the same, plus `Σ_{m≤z} G ≤ A₂z` ⇒ `Σ_{n≤y} F(n) ≪ y(log y)^{σ−1}` | `density_nonneg` |
+| `fR := recF(−ΛR/2)`, the coefficients of `R^{−1/2}`; `fR(p) = −λ(p)²/2` | `fR`, `fR_prime` |
+| `Σ_{n≤y} \|fR(n)\| ≪ y(log y)^{−1/2}` | `density_fR` |
+| **`Σ_{n≤x} fR(n)/n = C₁(log x)^{−1/2} + O((1+log(1+log x))(log x)^{−3/2})`** | `logmean_fR_log` (and `logmean_fR`, the `(log x − c₀)` form) |
+| `logmean_LSD` with main term `C₁(log x)^κ` | `logmean_LSD_log` |
+| **`Σ_{n≤x}(fR(n)/n)log(x/n) = 2C₁(log x − c₀)^{1/2} + O((1+log(1+log x))(log x)^{−1/2})`** | `selberg_sum_fR` |
+
+**Proofs in brief.**
+
+* **Mertens with error.**
+  * Abel summation `Σ vR/m = H_N + D(N)/(N+1) + Σ D(m)/(m(m+1))`, where `D = ψ_R − id`.
+  * `psiR_error` gives `|D(m)| ≤ Km e^{−b√log m}` for all m, and `e^{−b√v} ≤ C/(1+v)²`.
+  * The tail is handled by telescoping `1/(1+log m)`.
+  * `H_N − log N − γ ∈ (0, 1/N)` uses Mathlib's `eulerMascheroniSeq` bounds.
+  * The square part `Σ sqL/m` has tail `≪ N^{−1/8}`.
+* **Density.**
+  * Majorize by `recF|ΛR|/2`.
+  * `key_identity` with `R ≤ 0` makes `Î(t)(t−A)^{−3/2}` non-increasing. The proof uses
+    `image_le_of_deriv_right_le_deriv_boundary`.
+  * Chebyshev: `Σ F log n ≤ A₂ N Σ F/n`.
+  * Split at `√y`.
+* **`(log x)^κ` form.** The mean-value theorem (`Convex.norm_image_sub_le_of_norm_hasDerivWithin_le`)
+  gives `|(t−c₀)^κ − t^κ| ≤ |κ|M|c₀|t^{κ−1}`.
+* **Selberg sum.** `I = 2(t−c₀)S − 2R`.
+
+### (c) The constant `C₁`: not identified, and `QFHyp` does not need it
+
+* **Not done.** The formula `C₁ = r₀^{1/2}/Γ(1/2) · (…)` and `C₁ ≠ 0` are not proved.
+* **`QFHyp` does not need them.** It is an *upper bound*:
+  `QFHyp : ∃ B y₀, ∀ y ≥ y₀, |Q0 y| ≤ B/log y ∧ |Q1 y| ≤ B`, in
+  `RamanujanTau/HafnerBridge/QF.lean`.
+  * In Selberg's argument the saving comes from the size `(log y)^{−1/2}` of each smoothed
+    `R^{−1/2}`-type sum, for example `selberg_sum_fR/log y ≍ (log y)^{−1/2}`.
+  * Squared and summed against the diagonal weights, this gives `(log y)^{−1}`.
+  * Only `|C₁| < ∞` and the error terms enter. No cancellation between main terms is required.
+
+### What `QFHyp` (HafnerBridge/QF.lean) still needs from this side
+
+The form has `c = βSel ∗ βSel`, where `βSel y n = α(n)(1 − log n/log y)` and α is the coefficient
+sequence of **`L(Δ,s)^{−1/2}`**, not of `R^{−1/2}`. It carries the weights `ρ(h₁)ρ(k₁)/[h,k]`.
+
+1. **Diagonalization.** Write `Q⁰ = Σ_d w(d) y_d²`, where y_d is a ρ-twisted sum over `d | h`
+   (`SELBERG_COEFFS` §3). The multiplicative functions in y_d have prime values
+   `α(p)ρ_p(1) = −λ(p)²/(2(1+1/p))`-type. These have κ = −1/2 like `fR`; they are not `fR` itself.
+   * `logmean_LSD` applies to each such function once its `Λ_f` satisfies `hM` and `hC`.
+   * `hM` follows from `mertens_LamR_err` plus absolutely convergent corrections. That requires
+     Deligne-type bounds for the `ρ_p` corrections, so this step is level 2.
+2. **Uniformity in d.** This is the main remaining gap. `logmean_LSD` has *existential* constants
+   (`C₁`, `K₁`, `X₀`). Bounding `Σ_d w(d)y_d²` needs the asymptotics **uniformly in d ≤ y²**, with
+   `K₁` controlled by a fixed function of d (for example `Π_{p|d}(1+O(1/p))`) and `X₀` absent.
+   * The proof is effective step by step: `X₀ = exp(2|c₀|+2)` and `K₁` is explicit in `B`, `K`,
+     `σ`, `κ`, `c₀`.
+   * The limit `C` (from `limit_of_deriv_bound`) is bounded by `|ψ(a₀)| + 2D/β·G(a₀)`.
+   * So a uniform version is a bookkeeping refactor: restate `logmean_LSD` with explicit `K₁`, and
+     make the inputs `hM` and `hC` uniform in d. Estimate 0.4–0.8k lines.
+3. **The Selberg-smoothing combinatorics** from y_d bounds to `Q⁰ ≪ 1/log y` and `Q¹ ≪ 1`
+   (Titchmarsh §10.13–10.16). Estimate 1–1.5k lines.
+
+**Deliverable on this side:** `Q0 y ≪ 1/log y` and `Q1 y ≪ 1` exactly as in `HafnerBridge.QFHyp`,
+at level 2 on `[DeligneBound]`, after items 1–3. Total estimate 2–3k lines.

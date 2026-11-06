@@ -267,6 +267,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergDelange2.key_identity
 #print axioms RamanujanTau.SelbergDelange2.limit_of_deriv_bound
 #print axioms RamanujanTau.SelbergDelange2.logmean_LSD
+#print axioms RamanujanTau.SelbergDelange3.mertens_LamR_err
+#print axioms RamanujanTau.SelbergDelange3.fR_prime
+#print axioms RamanujanTau.SelbergDelange3.density_fR
+#print axioms RamanujanTau.SelbergDelange3.logmean_fR_log
+#print axioms RamanujanTau.SelbergDelange3.logmean_LSD_log
+#print axioms RamanujanTau.SelbergDelange3.selberg_sum_fR
 #print axioms RamanujanTau.HeckeAFE.heckeLambda_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe_line
