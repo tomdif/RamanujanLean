@@ -264,6 +264,9 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergDelange.perron_shiftK
 #print axioms RamanujanTau.SelbergDelange.psiR_error
 #print axioms RamanujanTau.SelbergDelange.rs_prime_PNT_error
+#print axioms RamanujanTau.SelbergDelange2.key_identity
+#print axioms RamanujanTau.SelbergDelange2.limit_of_deriv_bound
+#print axioms RamanujanTau.SelbergDelange2.logmean_LSD
 #print axioms RamanujanTau.HeckeAFE.heckeLambda_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe_line

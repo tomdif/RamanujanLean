@@ -171,3 +171,85 @@ after this checkpoint: the zero-free region, `KK'/KK` bounds, and the RS-PNT wit
 * Granville–Koukoulopoulos, *Beyond the LSD method for the partial sums of multiplicative
   functions*, Ramanujan J. 49 (2019).
 * Hafner, Math. Ann. 264 (1983); Selberg (1942).
+
+## 7. 2026-11-06 (later): a real-variable Selberg–Delange theorem for log means (`RamanujanTau/SelbergDelange2/`)
+
+Build: `nice -n 10 lake build RamanujanTau.SelbergDelange2.Main`. It exits 0.
+
+* The module has 6 files, about 860 lines.
+* All 5 headlines print `[propext, Classical.choice, Quot.sound]`.
+* There is no sorry, no new axiom and no native_decide.
+* **Level 1.** The theorem is standalone: its analytic inputs are explicit hypotheses
+  (theorem arguments), not axioms or classes.
+
+```lean
+theorem logmean_LSD (f g : ArithmeticFunction ℝ) {κ c₀ σ B K : ℝ} (hκ : -1 < κ) (hσ0 : 0 < σ)
+    (hσ1 : σ < 1) (hσκ : σ ≤ 1 + κ) (hB : 0 ≤ B) (hK : 0 ≤ K)
+    (hconv : ∀ n : ℕ, 0 < n → f n * Real.log n = (g * f) n)                      -- g = Λ_f
+    (hM : ∀ y : ℝ, 1 ≤ y → |Err g κ c₀ y| ≤ B / (1 + Real.log y))                -- Mertens w/ error
+    (hC : ∀ y : ℝ, 1 ≤ y → ∑ n ∈ Finset.Ioc 0 ⌊y⌋₊, |f n| ≤ K * y * (1 + Real.log y) ^ (σ - 1)) :
+    ∃ C₁ K₁ X₀ : ℝ, ∀ x : ℝ, X₀ ≤ x →
+      |Ssum f x - C₁ * (Real.log x - c₀) ^ κ| ≤ K₁ * (1 + Real.log (1 + Real.log x)) * Real.log x ^ (κ - 1)
+```
+
+Here `Ssum f x = Σ_{n≤x} f(n)/n` and `Err g κ c₀ y = Σ_{m≤y} g(m)/m − κ log y − c₀`.
+
+**What κ = −1/2 needs.** For f = coefficients of `R^{−1/2}`, the inputs are:
+
+* κ = −1/2 and σ = 1/2. The constraint `σ ≤ 1+κ` holds with equality.
+* The result is `Σ_{n≤x} f(n)/n = C₁(log x − c₀)^{−1/2} + O((log x)^{−3/2} log log x)`.
+
+### Proof (Granville–Koukoulopoulos / Wirsing style, no contour, no complex log)
+
+1. **`key_identity`.** Use `f log = Λ_f ∗ f` and Mathlib's `sum_Ioc_mul_eq_sum_sum` (the
+   hyperbola swap). Then
+
+       (log x − c₀)S(x) = (1+κ)I(x) + R(x),
+
+   where `I(x) = Σ(f(n)/n)log(x/n)` and `R(x) = Σ(f(n)/n)E(x/n)`. The proof is exact
+   finite-sum algebra.
+2. **`weight_bound`.** `|R| ≤ B·Σ|f(n)|/n/(1+log(x/n))`. Split n by `j = ⌊log(x/n)⌋`. Block j
+   contributes `≤ eK(1+t−j)^{σ−1}/(1+j)`. Then
+
+       Σ_j ≤ 2(2+t)^{σ−1}(1+log(1+t)) + (2/σ)(2+t)^{σ−1}
+
+   by harmonic numbers and Bernoulli.
+3. **`Ihat_hasDeriv`.** In `t = log x`, `Î(t) = Σ(f(n)/n)max(t−log n, 0)` is continuous with right
+   derivative `Ŝ`.
+   * Hence `ψ = Î(t)(t−c₀)^{−(1+κ)}` has right derivative `R̂(t)(t−c₀)^{−2−κ}`, which is
+     `≪ (1+log(1+t))t^{−β−1}` with `β = 2+κ−σ ≥ 1`.
+4. **`limit_of_deriv_bound`.** Use Mathlib's `image_norm_le_of_norm_deriv_right_le_deriv_boundary'`
+   against `G(t) = (1+log(1+t))t^{−β}`, then a Cauchy sequence. This gives
+   `ψ = C + O(G)`.
+5. **Assembly.** `S = ((1+κ)Î + R̂)/(t−c₀)` with `Î = ψ(t−c₀)^{1+κ}`.
+
+### Gaps
+
+* **The constant is not identified.** `C₁` exists, but the formula
+  `C₁ = (1/Γ(κ+1))·∏_p(1−1/p)^κ Σ_k f(p^k)/p^k` is not proved, and `C₁ ≠ 0` is not proved.
+  * Route: an Abelian argument. Insert the asymptotic into
+    `Σf(n)n^{−1−σ} = σ∫S(e^t)e^{−σt}dt`. This gives `C₁Γ(κ+1)σ^{−κ}`; compare with the Euler
+    product as σ → 0⁺. Estimate 300–500 lines.
+  * Whether (QF) needs the value depends on whether the main terms must cancel exactly. That is
+    to be checked in the Q⁰ bookkeeping.
+* **`(log x − c₀)^κ` versus `(log x)^κ`.** The two differ by `O((log x)^{κ−1})`. This is a
+  mean-value lemma, about 50 lines.
+* **Not done: the application to `R^{−1/2}`.** It needs, at level 2 on Deligne:
+  1. f from `Λ_f := −ΛR/2` by the recursion `f(n) = (1/log n)Σ_{d|n,d>1}Λ_f(d)f(n/d)`, so that
+     `hconv` holds by construction.
+  2. `hM` from `psiR_error` by partial summation:
+     `Σ_{m≤y} vR(m)/m = log y + c + O(e^{−b√log y})`, minus the square part
+     `2Σ_{k≤√y}Λ(k)/k²`.
+  3. `hC` for `|f|`. Majorize: `|f| ≤ f̃`, where `f̃ log = |Λ_f| ∗ f̃`, by induction. Then
+     * a non-negative Gronwall bound `Σf̃(n)/n ≪ (log x)^{1/2}`, by the same `key_identity`
+       method with inequalities;
+     * the Chebyshev step `Σ_{n≤y}f̃(n) log n ≤ A y Σ_{k≤y}f̃(k)/k`, using `|Λ_f| ≤ 3Λ` (Deligne);
+     * a split at `y/log²y`.
+
+  Estimate 0.8–1.2k lines.
+* **Q⁰ items 1 and 3 (§4) are untouched.**
+
+### Literature
+
+Granville–Koukoulopoulos, Ramanujan J. 49 (2019); Wirsing, Math. Ann. 143 (1961);
+Tenenbaum, *Introduction…*, III.3 (Wirsing / Levin–Fainleib).
