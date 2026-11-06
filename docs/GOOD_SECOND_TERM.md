@@ -185,3 +185,63 @@ genuine and arithmetic.
   `∫₀ᵀ|L(f,k/2+it)|² = 2c T(log(T/2πe) + C) + O((T log T)^{2/3})`, by spectral methods.
 - Shifted convolution sums: Selberg (1965); Good; Jutila; Blomer (2004). The δ-method: Duke,
   Friedlander and Iwaniec.
+
+---
+
+## 7. 2026-11-06: `OffDiagHyp (1/600)` discharged; Good's asymptotic is unconditional
+
+**Status.** Builds with `lake build RamanujanTau.GoodSecondTerm2.Main` (exit 0). Every headline
+depends only on `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, `axiom`, `admit` or
+`native_decide` in `RamanujanTau/GoodSecondTerm2/` (15 files, about 3100 lines).
+
+### Headlines (namespace `RamanujanTau.GoodSecondTerm2`)
+
+- `good_second_term`: for all `T ≥ 16`,
+  `|∫₀ᵀ ‖L(Δ,6+it)‖² dt − (2c₀ T log(T/2π) + (2γ_Δ − 2c₀)T)| ≤ C T^{599/600}`.
+  This is unconditional.
+- `offDiagHyp_unconditional : GoodSecondTerm.OffDiagHyp (1/600)`. It is derived from
+  `good_second_term` and `good_reduction`.
+- `good_second_term_large`: the same bound for `T ≥ 2^300`. Here the constant comes from the
+  analysis. The range `[16, 2^300]` is handled by compactness.
+
+### Method
+
+The only arithmetic input is `SCSSharp2.shiftedConvolutionBound_sharp2`, through `scs_partial`.
+
+1. **Smoothing in `u`.**
+   - A bound for `Off(T)` pointwise in `T` cannot be proved. The `T`-boundary term of the
+     first-derivative test for near-diagonal pairs gives `T log T`.
+   - Instead, `I(u) = ∫₀ᵘ|L|²` is monotone. This gives
+     `avg_{[T−H,T]} I ≤ I(T) ≤ avg_{[T,T+H]} I` with `H = T^{299/300}`.
+   - `avgOff_eq` shows that `(1/H)∫_T^{T+H} Off(u) du = Σ_p zz T H p`. The per-pair weight is
+     `P̃ = ∫_{16}^T e^{itλ}W + (1/H)∫_T^{T+H}(T+H−t)e^{itλ}W`.
+2. **Per-pair estimate (`norm_Ptil_le`).**
+   - Two integrations by parts give `‖P̃‖ ≤ W(16)/|λ| + (7Φ + 3W(T+H)/H)/λ²`.
+   - The `1/H` comes from the averaged boundary term.
+   - The bound `∫|φ'| ≤ 2 sup φ` uses unimodality of `φ = W'`.
+3. **Regions** of pairs `m < n`, with `h = n − m`. The `n < m` half follows by conjugate symmetry
+   (`zz_swap`).
+   - Far pairs (`n ≥ 2m+1`) are product-summable.
+   - The near region with small `m` (`m < M₀`) contributes `O(M₀)` by Rankin.
+   - The near region with large `h` (`h ≥ h₂`) contributes `O(T^{1+δ'}/h₂)`.
+   - The SCS region `S₊ = {m ≥ M₀, h < h₂}` is handled by Abel summation of `λ(m)λ(m+h)` against
+     the smooth weight `rr t h x` inside the `t`-integral. It contributes
+     `O((T+H) h^{1/21}(M₀^{−1/42} + (T+H)h M₀^{−43/42}))` per `h` (`norm_Spart_h`, `off_avg_bound`).
+4. **Parameters (`avgOff_le`).**
+   - `H = T^{299/300}`, `M₀ = ⌊H⌋`, `h₂ = ⌊T^{1/150}⌋`, `ε = 1/600`, `T ≥ 2^300`.
+   - The resulting exponents are `599/600`, `12389/12600` and `12515/12600`. All are at most
+     `599/600`.
+5. **Main term.** The main term is Lipschitz with constant `2|c₀|(log 2T + 1) + |2γ_Δ − 2c₀|`
+   (`mainF_lip`). Its effect on the sandwich is `O(H log T) = O(T^{599/600})`.
+
+### Files (`RamanujanTau/GoodSecondTerm2/`)
+
+Bounds, IBP, Rankin2, SCSAbel, Pair, NonS, Sums, Regions, SPart, OffBound, OffTotal, Avg, Param,
+Final, Main.
+
+### Remarks
+
+- The exponent `599/600` is not optimized. The bottleneck is the SCS saving `1/21` together with
+  the `M₀^{−1/42}` loss from Abel summation with a `t`-dependent weight.
+- The `9/10` in `good_reduction` was not improved. It is dominated by `599/600`, so improving it
+  would not change the final exponent.

@@ -340,6 +340,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.GoodSecondTerm.AA_asymp
 #print axioms RamanujanTau.GoodSecondTerm.good_reduction
 #print axioms RamanujanTau.GoodSecondTerm.good_second_term_of_offdiag
+#print axioms RamanujanTau.GoodSecondTerm2.scs_partial
+#print axioms RamanujanTau.GoodSecondTerm2.avgOff_le
+#print axioms RamanujanTau.GoodSecondTerm2.offDiagHyp_unconditional
+#print axioms RamanujanTau.GoodSecondTerm2.good_second_term
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
