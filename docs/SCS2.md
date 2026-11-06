@@ -172,3 +172,31 @@ Cited from memory, not re-checked:
 * Hence `b = η` is optimal for this method, and `scs2_diag` (`b = η = 1/21`) is already the best diagonal statement.
 * `SCS2' η b B` with `b < η` would need spectral input for `|ℓ| ≍ N`.
 * For Hafner the right hypothesis is `b = η` together with the range restriction `|ℓ| ≤ N^{1−θ}`, giving `N^{1−θη}(ab)^B`.
+
+## 7. Update (2026-11-06): stage 2, item 1 done (horocycle coefficient); coset count
+
+**Status: checkpoint. Evidence level 1 for the pieces below. `SCS2'` for coprime `a ≠ b` is not yet proved.**
+
+* Build: `nice -n 10 lake build RamanujanTau.SCS2Coprime.Main2` exits 0.
+* Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+* A grep finds no `sorry`, `admit` or `native_decide`.
+* 4 new files, about 340 lines. No committed file was modified.
+
+* `Fourier.lean`:
+  * `integral_cexp_int`: `∫₀¹e(kx)dx = [k=0]`;
+  * **`fourier_Delta_scl`**: `∫₀¹ Δ(a(x+iy)) e(−Nx) dx = cA(a,N) e^{−2πNy}`, with `cA(a,N) = τ(N/a)` if `a ∣ N`, `N ≥ 0`, else `0`.
+* `CoeffAB.lean`: **`coeff_PsiAB`**
+
+      ∫₀¹ Ψ_{a,b}(x+iy, x+yζ) e(−ℓx) dx = (y(i−ζ̄))¹² e^{−2πℓy} G_{a,b,ℓ}(2πy(1+iζ̄)),
+      G_{a,b,ℓ}(W) = Σ_n τ(n) cA(a, bn+ℓ) e^{−bnW}.
+
+  The nonzero terms are exactly `am = bn + ℓ`. So the Laplace transform of the two-sided sum appears at the complex point `bW`. This is item 1 of §6.
+* `Index.lean`: `index_Gamma0_le : [SL₂(ℤ):Γ₀(q)] ≤ q⁴` and `card_RCos_Gamma0_le`. These go through `Γ(q) ≤ Γ₀(q)` and `|SL₂(ℤ/q)| ≤ q⁴`, and supply the coset count for the Hölder step (item 2).
+
+**Remaining** (estimate about 1.9k lines). The exact target shape stays as §6, `|S(a,b;ℓ,N)| ≪ N^{1−1/21}|ℓ|^{1/21}(ab)^B`, hence `≪ N^{1−θ/21}(ab)^B` for `|ℓ| ≤ N^{1−θ}`.
+
+* **Item 2 (about 450 lines):** the Hölder step `‖∫Ψ_{a,b} conj ft‖ ≤ ½ √(q⁴(M(ab)^{−6}R⁶)²·8R) · √(2‖Σ_{Γ₀(q)} I‖)`.
+  * It uses `lintegral_unfold_inv` with `Φ = |Ψ_{a,b}|²·1_{supp}`, which is `Γ₀(q)`-invariant by `PsiAB_smul_Gamma0` and the invariance of `Dh`.
+  * Then `card_RCos_Gamma0_le`, the ball bound `lintegral_U_ball'`, and `norm_tsum_Gamma0_Iγ_le`.
+* **Item 3 (about 600 lines):** the `Q_eq` analogue with `coeff_PsiAB`. Then the pointwise bound for `G_{a,b,ℓ}` at `bW`, with Lipschitz control via `Σ_n |τ(n) cA(a,bn+ℓ)| e^{−bnσ} ≪ (bσ)^{−12}` (Cauchy–Schwarz plus `coef_sq_laplace`).
+* **Item 4 (about 850 lines):** the Tauberian step and unsmoothing for `Σ_{bn ≤ x} τ(n)cA(a,bn+ℓ)`. Rankin short sums apply after Cauchy–Schwarz. Then Abel summation with `(mn)^{−11/2}` and `m = (bn+ℓ)/a`.
