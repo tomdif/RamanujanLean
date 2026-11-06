@@ -685,5 +685,6 @@ import RamanujanTau.ZetaAFE.Main
 import RamanujanTau.GoodSecondTerm.Main
 import RamanujanTau.GoodSecondTerm2.Main
 import RamanujanTau.TwistedMoment.Main
+import RamanujanTau.HafnerMV2.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

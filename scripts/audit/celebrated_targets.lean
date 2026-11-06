@@ -363,6 +363,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.TwistedMoment.prefix_eq
 #print axioms RamanujanTau.TwistedMoment.twist_reindex
 #print axioms RamanujanTau.TwistedMoment.twisted_moment
+#print axioms RamanujanTau.HafnerMV2.normSq_Mc_sq
+#print axioms RamanujanTau.HafnerMV2.avg_err
+#print axioms RamanujanTau.HafnerMV2.sharp_le
+#print axioms RamanujanTau.HafnerMV2.mv2_of_diag
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
