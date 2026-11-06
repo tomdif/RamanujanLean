@@ -78,3 +78,76 @@ def DiagHyp (θ : ℝ) : Prop :=
    * The Selberg–Delange agent should target the §3 form. `DiagHyp` is the interface on this side.
 2. The (SK) conjunct of `SelbergMollHyp` is untouched.
 3. `θ ≤ 1/81600` is far from optimal. It is inherited from `(hk)^{33}` and `1/600`.
+
+---
+
+## 2026-11-06 (later): `HafnerBridge/` — `QFHyp` stated (checkpoint)
+
+**Status.** `QFHyp` is defined in Lean and its local factors are shown to be well defined. The
+bridge `DiagHyp θ ⇐ QFHyp` is **not yet proved**; this section is a clean checkpoint.
+
+    nice -n 10 lake build RamanujanTau.HafnerBridge.Main      # exit 0
+
+* All `#print axioms` give `[propext, Classical.choice, Quot.sound]`.
+* `grep` finds no `sorry`, `admit`, `native_decide` or `axiom`.
+* 3 files: `QF.lean`, `Local.lean`, `Main.lean`.
+
+### The statement (`RamanujanTau/HafnerBridge/QF.lean`; keep stable)
+
+The objects, with `λ = SubconvexityCond.lam`:
+
+* `D_p = Σ_j λ(p^j)² p^{−j}`.
+* `N_p(a) = Σ_j λ(p^{j+a})λ(p^j) p^{−j}`.
+* `D_p'`, `N_p'(a)`: the same series with an extra `−j log p`.
+* `ρ_p(a) = N_p/D_p`.
+* `ρ_p'(a) = (N_p' D_p − N_p D_p')/D_p²`.
+* `ρ(m) = Π_{p^a∥m} ρ_p(a)` (`rho`).
+* `ρ₁(m) = Σ_{p^a∥m} ρ_p'(a) Π_{q≠p} ρ_q` (`rho1`), i.e. `d/ds ρ(m,s)|_{s=1}`.
+* `r₀ = c0` (`r0`), `γ_R/r₀ = gammaD/c0` (`gamR`).
+* `c = b ∗ b` with `b = βSel y` (`cS`).
+* `h₁ = h/(h,k)`, `k₁ = k/(h,k)`.
+
+The forms:
+
+    Q0 y = Σ_{h,k≤y²} c(h)c(k)/[h,k] · ρ(h₁)ρ(k₁)
+    Q1 y = Σ_{h,k≤y²} c(h)c(k)/[h,k] · ( ρ(h₁)ρ(k₁)(γ_R/r₀ − ½log(h₁k₁)) + ρ₁(h₁)ρ(k₁) + ρ(h₁)ρ₁(k₁) )
+    QFHyp :≡ ∃ B y₀, ∀ y ≥ y₀, |Q0 y| ≤ B / log y ∧ |Q1 y| ≤ B
+
+**Normalisation (derived).**
+
+* `DiagSum(X) = Σ_{h,k} c(h)c(k)/[h,k] Σ_r λ(h₁r)λ(k₁r) r^{−1} P̃(log(h₁k₁r²), 0, X, H)`, using
+  `x = [h,k]r` in `MainTw`.
+* For each `t`, `Σ_r λ(h₁r)λ(k₁r)/r · V(log(h₁k₁r²) − 2log(t/2π))` is a Mellin integral with kernel
+  `e^{w²}(h₁k₁)^{−w}(t/2π)^{2w} D(1+2w) dw/w`.
+* Its residue at `w = 0` is `r₀[ρρ(log(t/2π) − ½log h₁k₁) + ρ₁ρ + ρρ₁] + γ_R ρρ`. This uses
+  `D(1+2w) = R(1+2w)ρ(h₁,1+2w)ρ(k₁,1+2w)` and `R(s) = r₀/(s−1) + γ_R + …`.
+* Hence `DiagSum(X) ≈ r₀ ∫^X (Q0·log(t/2π) + Q1) dt` (`P̃`-weighted). Under `QFHyp` this is
+  `≪ X(log X/log y + 1) ≪_θ X`, which is `DiagHyp`.
+
+### Proved (`Local.lean`, unconditional)
+
+* `lam_bound`: `|λ(n)| ≤ C n^{11/40}`, from `TauPNTUncond.tau_le_uniform`.
+* `term_bound`, `summable_Np`, `summable_Np'`, `summable_Dp`, `summable_Dp'`: the local series converge
+  with ratio `p^{−9/20}`.
+* `one_le_Dp`: `D_p ≥ 1`. So `ρ`, `ρ₁` are genuine and not junk `tsum`s.
+
+### Remaining for `DiagHyp θ ⇐ QFHyp`
+
+All of the following must hold uniformly in `h₁k₁ ≤ y⁴`, with polynomial loss:
+
+* **(a)** `Σ_{r≤x} λ(h₁r)λ(k₁r)/r = r₀ρ(h₁)ρ(k₁) log x + K₁(h₁,k₁) + O(x^{−η}(h₁k₁)^A)`, with
+  `K₁ = r₀(ρ₁ρ + ρρ₁) + γ_R ρρ`. The **constant term** is required, not just the leading term: the
+  companion `Q1` needs it exactly.
+  * Route: write `r = s·m` with `s | (h₁k₁)^∞` and `(m, h₁k₁) = 1`, so
+    `λ(h₁r)λ(k₁r) = λ(h₁s)λ(k₁s)λ(m)²`.
+  * Then use `Σ_{m≤x,(m,q)=1} λ(m)²/m = r₀∏_{p|q}D_p^{−1} log x + γ_q + O(x^{−1/5}q^ε)`, coprime
+    sieving of `AA_asymp`.
+  * Sum over `s` using `term_bound` for convergence.
+  * Identify the Euler products with `ρ`, `ρ₁`.
+* **(b)** `ρ₁` arises as the `log s` moment of the `s`-sum. This needs the local identity
+  `Σ_j (j log p)λ(p^{j+a})λ(p^j)p^{−j} = −N_p'(a)` (definitional) and the product rule over `p | h₁k₁`.
+* **(c)** Partial summation of (a) against `V(2 log r + log h₁k₁ − L)`, then the `P̃` average.
+  The symmetric `V` (`V(v) + V(−v) = 1`) makes the boundary constant vanish.
+* Then sum over `h, k ≤ y²` with `|c| ≤ d(h)√h`. The errors are `≪ T^{1−η'} y^{A'}`, which is power-saving for small θ.
+
+Estimate 1.5–2.5k lines.
