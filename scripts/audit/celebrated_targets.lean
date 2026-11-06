@@ -227,6 +227,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.VoronoiTruncComplete.cusp_im_omega_pm
 #print axioms RamanujanTau.VoronoiTruncComplete.cusp_cramer_complex
 #print axioms RamanujanTau.VoronoiTruncComplete.cusp_voronoi_truncated_L2_complex
+#print axioms RamanujanTau.VoronoiPointwise.tau_voronoi_pointwise_short
+#print axioms RamanujanTau.VoronoiPointwise.tau_voronoi_pointwise
+#print axioms RamanujanTau.VoronoiPointwise.tau_partial_sum_pointwise
+#print axioms RamanujanTau.VoronoiPointwise.abs_tau_le_rpow'
+#print axioms RamanujanTau.VoronoiPointwise.tau_voronoi_pointwise_deligne
+#print axioms RamanujanTau.VoronoiPointwise.tau_partial_sum_35_6
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

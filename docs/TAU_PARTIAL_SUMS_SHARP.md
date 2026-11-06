@@ -114,7 +114,7 @@ The order only has to be large enough that the phase-free top kernel costs nothi
    spectral methods).
 
 Neither is in the repository. An improvement of Rankin's `3/5` (for example Huang 2021,
-`3/5 − 1/560`) would give `2/5 − δ/3`. No shortcut was found that reaches `1/3` unconditionally
+`3/5 − 1/560`) would give `2/5 − δ/4` (corrected 2026-11-06; see [VORONOI_POINTWISE](VORONOI_POINTWISE.md) §2, which also proves `35/6` conditionally on `DeligneBound`). No shortcut was found that reaches `1/3` unconditionally
 from the existing infrastructure.
 
 I did not verify the literature attribution of an unconditional `x^{(k−1)/2+1/3}`. The previous
