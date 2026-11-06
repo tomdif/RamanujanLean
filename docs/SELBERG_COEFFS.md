@@ -172,3 +172,81 @@ Estimate to finish milestone 3 in the strong sense (QF), at level 2 on `[Deligne
   Math. Ann. 264 (1983) 21–37.
 - R. A. Rankin, *Contributions to the theory of Ramanujan's function τ(n)…*, Proc. Camb. Phil.
   Soc. 35 (1939); A. Selberg, *Bemerkungen über eine Dirichletsche Reihe…* (1940).
+
+## 6. 2026-11-06: Rankin–Selberg Mertens theorems (`RamanujanTau/SelbergCoeffs2/`)
+
+Build: `nice -n 10 lake build RamanujanTau.SelbergCoeffs2.Main` (exit 0, about 920 lines).
+
+* All 10 headlines print `[propext, Classical.choice, Quot.sound]`.
+* There is no sorry, no new axiom and no native_decide.
+* **Everything below is level 1 and unconditional: `DeligneBound` is not used.**
+
+| statement | Lean name |
+|---|---|
+| λ(n)² log n = Σ_{dm=n} ΛR(d)λ(m)², where ΛR = vR − 2Λ(√n)·1_{n=□} | `rsb_mul_log` (complex form `logMul_rsB_eq`) |
+| Σ_{n≤N} \|ΛR(n)\| ≤ BN | `cheb_LamR` |
+| Σ_{n not prime} \|ΛR(n)\|/n < ∞ | `summable_LamR_nonprime` |
+| ΛR(p) = λ(p)² log p | `LamR_prime` |
+| \|Σ_{n≤N} ΛR(n)/n − log N\| ≤ E for N ≥ 1 | `mertens1_LamR` |
+| **\|Σ_{p≤N} λ(p)² log p/p − log N\| ≤ E for N ≥ 1** | `mertens1_prime` |
+| **Σ_{p≤N} λ(p)²/p − log log N → c_Δ** | `mertens2`, with `cMertens = 1 + Σ_k h_k` |
+| \|Σ_{p≤N} λ(p)²/p − log log N\| ≤ C for all N | `mertens2_bound` |
+
+### Route (Mertens' 1874 argument)
+
+1. **Log-derivative identity.**
+   * R(s) = exp(Σ cR(n)n^{−s})/ζ(2s) holds by the repo's `HH_exp` and `HH_eq`.
+   * Differentiating gives −R′/R = L(vR, s) − 2L(Λ, 2s).
+   * Coefficients are then compared with Mathlib's `LSeries.eq_of_LSeries_eventually_eq`.
+2. **Summation by parts.**
+   * Put S(N) = Σ_{n≤N} λ(n)² log n and F(N) = Σ_{n≤N} λ(n)². The repo's `rs_partial`
+     (`RankinExact`) gives F(N) = cN + O(N^{3/5}).
+   * Summation by parts (`abel_Ioc`) gives S(N) = F(N) log N + O(N) = cN log N + O(N).
+3. **Convolution.**
+   * Writing S(N) = Σ_d ΛR(d)F(N/d) gives S(N) = cN Σ_{d≤N} ΛR(d)/d + O(N^{3/5}Σ\|ΛR(d)\|d^{−3/5}).
+   * The last sum is ≪ N^{2/5}, by Chebyshev and the majorization lemma `sum_mul_le_of_partial`.
+   * The constant is positive: c > 0 by `RankinError.petNormSq_pos`.
+4. **Mertens II.** Summation by parts against 1/log k. The remainder terms h_k satisfy
+   \|h_k\| ≤ 1/(k² log²2) + E(1/log k − 1/log(k+1)), which is summable.
+
+**Prime powers without Deligne.** The terms Σ_{p, k≥2} vR(p^k)/p^k < ∞ come from the repo's
+`summable_vR_nonprime`. Its input is the unconditional bound \|τ(p^k)\| p^{−11k/2} ≪ p^{11k/40}
+(`TauPNTUncond.weil_uu`, Rankin plus the Satake parameters). The square part 2Λ(√n) is trivial.
+So **no prime-power term needs `DeligneBound`.**
+
+**Not done (cheap follow-up).** The explicit rate Σ_{p≤N}λ(p)²/p = log log N + c_Δ + O(1/log N).
+All the ingredients are present (tail of Σh_k ≪ 1/N + E/log N, and \|PP(N)/log(N+1) − 1\| ≪ 1/log N).
+Only the tsum-tail bookkeeping is missing, about 150 lines.
+
+### Task 2: the Q⁰ bound for (MV2). NOT DONE. This corrects §3–§4.
+
+§3/§4 above said that Selberg's elementary route needs only a Mertens error term. **That was too
+optimistic.** Mertens is now proved, with O(1) error at the log-density level, and the analysis
+below shows what (QF) actually needs.
+
+**Structure of the form.** Q⁰(c) = Σ_d w(d)·y_d² with y_d = Σ_{d\|h} c(h)ρ(h/d)/h-type sums,
+where c = b∗b and b = α·(1 − log n/log y). The generating function of c·ρ is
+
+    Σ_{a,b} α(a)α(b)ρ(ab) a^{−1−s₁} b^{−1−s₂} ≈ R(1+s₁)^{−1/2} R(1+s₂)^{−1/2} · H(s₁,s₂).
+
+Here H is holomorphic near 0 under Deligne. The factor R(1+s)^{−1/2} ~ (s/r₀)^{1/2} has a
+**branch point** at s = 0, and (QF) needs the sharp saving (log y)^{−1/2} from *each* factor.
+
+**What that saving requires.** Either
+
+* (a) a **zero-free region** for ζ(s)L(Sym²Δ,s) to the left of Re s = 1, so that R^{−1/2} is
+  defined there, followed by Selberg–Delange contour integration. This is Selberg's actual
+  ζ-argument (Titchmarsh §10.13 uses ζ ≠ 0 in σ ≥ 1 − A/log t). The repo has only non-vanishing
+  *on* Re s = 1 (`Lsym2_ne_zero_edge`, `Rcont_ne_zero_edge`); **or**
+* (b) a real-variable **Hall–Tenenbaum / Halász log-density mean-value theorem**: for real
+  multiplicative f with Σ_{p≤x} f(p)/p = −½ log log x + O(1), one has Σ_{n≤x} f(n)/n ≪ (log x)^{−1/2}.
+  * Applied to f = α·ρ and its log-weighted variants.
+  * This needs exactly `mertens2_bound` (now available) and \|f(p^k)\| ≤ 1-type bounds
+    (`DeligneBound`).
+  * It still needs the two-variable smoothing analysis and the companion forms.
+
+Route (b) is the realistic Lean route, conditional on `[DeligneBound]`. It would add a
+Hall–Tenenbaum-type theorem plus the mollifier bookkeeping: estimated 3–5k lines. A simpler sanity
+target on the way is the two-sided Selberg lemma Σ_{n≤N}α(n)²/n ≍ (log N)^{1/4}: the lower bound
+should follow from `mertens2_bound` by a standard truncated-Euler-product argument (not checked),
+estimated 0.3–0.5k lines.

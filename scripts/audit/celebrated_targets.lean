@@ -248,6 +248,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergCoeffs.selberg_diag
 #print axioms RamanujanTau.SelbergCoeffs.selbergHyp_of_moll_uncond
 #print axioms RamanujanTau.SelbergCoeffs.tauL_positive_proportion_of_moll
+#print axioms RamanujanTau.SelbergCoeffs2.rsb_mul_log
+#print axioms RamanujanTau.SelbergCoeffs2.mertens1_prime
+#print axioms RamanujanTau.SelbergCoeffs2.mertens2
+#print axioms RamanujanTau.SelbergCoeffs2.mertens2_bound
 #print axioms RamanujanTau.HeckeAFE.heckeLambda_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe
 #print axioms RamanujanTau.HeckeAFE.tauL_afe_line
