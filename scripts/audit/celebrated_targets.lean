@@ -397,6 +397,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergKey.sk_of_split
 #print axioms RamanujanTau.SelbergKey.selbergMollHyp_of_QF_split
 #print axioms RamanujanTau.SelbergKey.tauL_positive_proportion_of_QF_split
+#print axioms RamanujanTau.SelbergKey2.continuous_DiagLag
+#print axioms RamanujanTau.SelbergKey2.Wsh_decay
+#print axioms RamanujanTau.SelbergKey2.Wsh_bound
+#print axioms RamanujanTau.SelbergKey2.tauL_positive_proportion_of_QF_split'
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

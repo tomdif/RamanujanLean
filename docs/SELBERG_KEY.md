@@ -331,3 +331,152 @@ reduced to `QFHyp`.
   D. R. Heath-Brown, *Asymptotic mean square of the product of the Riemann zeta-function and a
   Dirichlet polynomial*, J. reine angew. Math. 357 (1985). Also V. Blomer, *Shifted convolution
   sums and subconvexity bounds for automorphic L-functions*, IMRN 2004.
+
+---
+
+## 2026-11-06 (later): `SKQFHyp` checked numerically; M1 (a)+(b) done (`SelbergKey2/`)
+
+### 1. Numerical truth check of `SKQFHyp` (level 4): it checks out
+
+Scripts are in `scripts/selberg_key/`, with outputs in `*.out`. All are single-threaded and
+niced; PARI runs with `nbthreads = 1`.
+
+| script | what it does |
+|---|---|
+| `taup.gp` | writes `taup.txt`, the values τ(p) for p ≤ 40000 |
+| `sk.c` | computes 𝒮(v) and 𝒮⁰(v) exactly for Selberg's β = α(1 − log n/log y) on a v-grid, output `S_y<y>.txt` |
+| `post.py` | clauses (i) and (ii) |
+| `extrap.py` | y → ∞ extrapolation |
+| `zgrid.gp` | the actual Hardy Z of Δ on [400, 803], step 0.01 |
+| `corr.py`, `skdirect.py` | end-to-end checks against the actual Z |
+
+**How `sk.c` reduces the work.** The phase (P₁d/c) equals ad/g, so
+𝒮(v) = Σ_{P,Q≤y²} x_v(P)x_v(Q) g^{1−iv}/(PQ)·ρ(P₁,1−iv)ρ(Q₁,1−iv), where
+x_v(P) = Σ_{ac=P}β(a)β(c)a^{iv}. The local factors ρ_p(k, 1−iv) are summed directly as series
+with 90 terms.
+
+**Cross-check.** At v = 0, `sk.c` reproduces `scripts/qf_proof/q.c` exactly: Q⁰ = 0.7002506533
+(y = 10) and 0.5500071003 (y = 30). This is an independent code path.
+
+**Clause (i).** max_{|v|≤h}|𝒮(v)| lies between 0.40 and 0.74 for every (y, θ, K) tested, and it
+decreases with y. For example 𝒮(0) = Q⁰ = 0.398 at y = 200.
+
+**Clause (ii).** The tests use y = 30, 60, 100, 200 and θ = 1/4, 1/10, 1/20, with
+log T = log y/θ, h = K/log T, and L scanned over [log T − log 4π, log T] (41 values).
+
+* At fixed (K, θ), max_L|I|/h² converges as y → ∞. Fitting I/h² = A + B/ℓ + C/ℓ² with ℓ = log y,
+  the quadratic and linear fits agree to about 2%. This is consistent with the scaling argument:
+  with v = w/ℓ, I/h² becomes a function of (K, θ) alone.
+* The K-dependence of the limit A(K, θ) (`extrap.out`):
+
+  | θ | K = 1 | 2 | 4 | 8 | 16 | 32 | 64 |
+  |---|---|---|---|---|---|---|---|
+  | 1/4  | 4.42 | 4.03 | 2.94 | 1.67 | 0.98 | – | – |
+  | 1/10 | 9.98 | 9.17 | 6.80 | 3.72 | 2.10 | 1.19 | – |
+  | 1/20 | 19.2 | 17.7 | 13.2 | 7.13 | 3.90 | 2.13 | 1.20 |
+
+* So √K·A(K) is bounded: its maximum is about 5.9, 13.6 and 26 at K ≈ 4 for the three θ, i.e.
+  D(θ) ≈ 1.4/θ. At large K, A(K) decays like (log K)/K: K·A grows only logarithmically. This is
+  *faster* than the 1/√K that (ii) requires.
+* **Verdict: (ii) holds with room to spare; it is neither false nor mis-normalized.**
+* Without the mollifier (y = 1) the same quantity is πr₀/h + O(1), i.e. ≍ log T/K. That is 1.7
+  times the mollified value at y = 30 and 2.4 times at y = 200, and the gap grows with T. The y = 1 case of (ii) fails, as it
+  should.
+
+**End-to-end check of the four-variable 𝒜 formula against the real Z(t)** (`corr.out`,
+`skdirect.out`, T = 400).
+
+* *Lag correlations.* Measured (1/T)∫_T^{2T}F(u)F(u+v)du, with F = Z·|M_y|², against
+  2⟨Re𝒜(v, log(u/2π))⟩_u for y = 1, 3, 5, 10 and v ∈ [0, 2.8].
+  * The agreement is within about 0.1–0.2 in absolute terms, against values up to 5.1. For example,
+    at y = 10 and v = 0 the measured value is 3.725 and the prediction 3.780.
+  * The y-dependence matches: at v = 0, y = 1 → 10 moves the measured value 5.12 → 3.73 and the
+    prediction 5.08 → 3.78.
+  * Ratios near the zeros of C(v) are naturally noisy.
+* *The integrated Selberg quantity.* Measured (1/T)∫_T^{2T}I(t)² against the 𝒜-prediction, both
+  divided by h², for y = 1…10 and K = 1, 2, 4, 8: the ratio lies in 0.96–1.05 in every case.
+* This confirms, numerically, all of the following:
+  * the lag AFE;
+  * the diagonal Mellin evaluation of §3, including the z = iv/2 residue;
+  * the Laurent data r₀ = 0.384084, γ_R = 0.796028;
+  * the 2Re factor and the (h−|v|) kernel;
+  * that the off-diagonal is small (a few percent already at T = 400).
+
+**Caveat.** The asymptotic regime is reached only through extrapolation. ℓ = log y ≤ 5.3, and
+Q⁰·log y = 2.11 at y = 200, whereas the QF agent reports about 2.45 at y = 5000. The fits are
+stable, but a y = 1000 run of `sk.c` (about 1 h) would tighten them.
+
+### 2. M1 in Lean (`RamanujanTau/SelbergKey2/`, level 1)
+
+    nice -n 10 lake build RamanujanTau.SelbergKey2.Main      # exit 0
+
+* All 14 `#print axioms` give `[propext, Classical.choice, Quot.sound]`.
+* There is no `sorry`, `admit`, `native_decide` or `axiom`.
+* 3 files, 579 lines. `SelbergKey/` is unchanged.
+
+**M1(a) `Cont.lean`: the regularity clause is removed.**
+
+```lean
+theorem continuous_W2sh_line (hξ : 0 < ξ) : Continuous fun q : ℝ × ℝ => W2sh (6 + q.1 * I) (6 - q.2 * I) ξ 2
+theorem continuous_sTerm (p : ℕ × ℕ) : Continuous fun q : ℝ × ℝ => sTerm q.1 q.2 p
+theorem norm_sTerm_le (u u' : ℝ) (p : ℕ × ℕ) :
+    ‖sTerm u u' p‖ ≤ (C0 / ‖Gamma (6 + u * I) * Gamma (6 - u' * I)‖ * (4 * π ^ 2) ^ (-(2:ℝ))) * (gt p.1 * gt p.2)
+theorem continuous_diagS (a b c d : ℕ) : Continuous fun q : ℝ × ℝ => diagS a b c d q.1 q.2
+theorem continuous_DiagLag (β : ℕ → ℝ) (y : ℕ) : Continuous (Function.uncurry (DiagLag β y))
+def SKSplitHyp' (θ : ℝ) : Prop      -- SKSplitHyp without the continuity clause
+theorem splitHyp_of_splitHyp' : SKSplitHyp' θ → SKSplitHyp θ
+theorem tauL_positive_proportion_of_QF_split' (hθ0 : 0 < θ) (hθ : θ ≤ 1/81600)
+    (hQ : QFHyp) (hS : SKSplitHyp' θ) : ∃ c T₀, 0 < c ∧ ∀ T ≥ T₀, ∃ S, (… critical zeros …) ∧ c * zeroCount (3T) ≤ S.card
+```
+
+The proofs:
+
+* **Continuity of W.** Dominated convergence: the bound |Γ(w)| ≤ Γ(Re w) makes the integrand
+  ≤ Γ(8)²ξ^{−2}e⁴/2·e^{−y²}, uniformly in (u, u′).
+* **Continuity of the diagonal sum.** The Weierstrass M-test (`continuousOn_tsum`) on closed
+  balls, using the minimum of |Γ(6+iu)Γ(6−iu′)| on the compact ball.
+
+`SKSplitHyp'` now consists of the two integral clauses only (diagonal and off-diagonal).
+
+**M1(b) `WBound.lean`: uniform bounds for the lag weight.** Here T(t) = ‖3/2 + it‖ ≍ 1+|t|.
+
+```lean
+theorem W2sh_shift   : W2sh a b ξ c₁ = W2sh a b ξ c₂          -- 0 < c₁ ≤ c₂, Re a + c₁, Re b + c₁ > 0
+theorem W2sh_residue : W2sh a b ξ c - W2sh a b ξ (-c') = Gamma a * Gamma b   -- 0 < c' < Re a, Re b
+theorem W2sh_line_bound (hx : -9/2 ≤ x) (hx0 : x ≠ 0) : ∃ K ≥ 0, ∀ u u' ξ > 0,
+    ‖W2sh (6 + u*I) (6 - u'*I) ξ x‖ ≤ K * (Tq u * Tq u' / ξ) ^ x * (‖Γ(6+iu)‖ * ‖Γ(6+iu')‖)
+theorem Wsh_decay  (hA : 0 < A) : ∃ C ≥ 0, ∀ u u' ξ > 0, ‖Wsh u u' ξ‖ ≤ C * (Tq u * Tq u' / ξ) ^ A
+theorem Wsh_sub_one (0 < c ≤ 9/2) : ∃ C ≥ 0, ∀ u u' ξ > 0, ‖Wsh u u' ξ - 1‖ ≤ C * (ξ / (Tq u * Tq u')) ^ c
+theorem Wsh_bound  (hA : 0 ≤ A) : ∃ C ≥ 0, ∀ u u' ξ > 0, ‖Wsh u u' ξ‖ ≤ C * (1 + ξ / (Tq u * Tq u')) ^ (-A)
+```
+
+* All constants are uniform in u, u′ ∈ ℝ, hence in the lag v = u′ − u.
+* The Stirling input is `HeckeAFE.norm_Gamma_ratio_line`, applied at t = u and t = −u′. Each gives
+  a factor e^{π|y|/2}, so the product carries e^{π|y|}, which is absorbed by `poly_exp_bound2`.
+* The effective length of the lag series is therefore mn ≲ T(u)T(u′)·T^ε. Since |v| ≤ h this is
+  the same as for |L|², so the off-diagonal ranges are those of `TwistedMoment`.
+
+### 3. What is left
+
+* **M1(c), not done.** The bounds ∂_u^j W̃_{u,u+v}(ξ) ≪_j T(u)^{−j}(1+ξ/T(u)²)^{−A}, uniform in
+  |v| ≤ 1.
+  * Route: Leibniz for the product R(u,y)·R(−(u+v),y) of the two Γ-ratio symbols, then
+    `HeckeAFE3.norm_Rd_le` at both arguments, then the `DerivJ` line integrals at x = A+1 and
+    x = −1, exactly as `HeckeAFE3.V_iteratedDeriv_bound`.
+  * The u-derivative of the phase U(u, u+v) is i(ψ-difference)·U = O(|v|/u). That is
+    `HeckeAFE2.norm_digamma_diff_le`.
+  * About 400–500 lines. It is needed only for the integration-by-parts route of M2.
+* **M2 (the off-diagonal clause of `SKSplitHyp'`), not started.** The plan is unchanged; the
+  inputs now in place are `Wsh_bound`, `summable_sTerm` and `norm_sTerm_le`. Two ways to finish:
+  * Re-run `TwistedMoment`'s generic `GoodSeq` machinery with the lag weight. The obstacle is that
+    the weight now depends on (u, u′) jointly, whereas `GoodSecondTerm2` uses the t-symmetric
+    V(Λ − 2log(t/2π)).
+  * Integration by parts in u (needs M1(c)), followed by `SCS2Coprime.scs2_general` partial
+    summation over acm − bdn = ℓ.
+  * Estimate 1.5–3k lines either way.
+* After M1(c)+M2, M3 (diagonal Mellin evaluation) and M4 (`SKSplitHyp' ⇐ SKQFHyp`), the
+  positive proportion would be at level 2 on `QFHyp ∧ SKQFHyp θ`. Both of these hypotheses now
+  have numerical support (level 4).
+
+
+Note: `scripts/selberg_key/zgrid.txt` (2.6 MB of Z-values) is not committed; regenerate it with `zgrid.gp` (under a minute).
