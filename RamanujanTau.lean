@@ -693,6 +693,7 @@ import RamanujanTau.QFProof.Main
 import RamanujanTau.QFProof2.Main
 import RamanujanTau.QFProof3.Main
 import RamanujanTau.QFProof4.Main
+import RamanujanTau.QFProof5.Main
 import RamanujanTau.SelbergKey.Main
 import RamanujanTau.SelbergKey2.Main
 import RamanujanTau.SelbergKey3.Main

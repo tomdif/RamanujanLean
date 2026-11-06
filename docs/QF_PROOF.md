@@ -423,3 +423,78 @@ theorem mv2_of_euler {θ : ℝ} (hθ0 : 0 < θ) (hθ : θ ≤ 1 / 81600)
   * QEuler₂ adds `log d ≤ 2 log y`.
   * QEuler₃: `Mass' ≤ Π T̃ · [Σ_{p≤y} T'_p(0) + C Σ_{p|d}(e+1) log p]`. The first sum is
     `≤ (log y + E)/4 + C₀(1 + log y)`, by `mertens1_prime` and the harmonic sum, so `Mass' ≪ log y · Π T̃`.
+
+---
+
+## 2026-11-06 (later): `QFProof5/`. Gap 5 is closed: `QFHyp` and (MV2) hold under `[DeligneBound]` alone
+
+Build: `nice -n 10 lake build RamanujanTau.QFProof5.Main` exits 0.
+
+* 17 headlines, all `[propext, Classical.choice, Quot.sound]`.
+* No sorry, axiom or native_decide.
+* About 1.6k lines in 7 files: `Sums`, `Basic`, `Conv`, `Local`, `Euler`, `Assemble`, `Main`.
+* Everything is **level 2 on `[DeligneBound]` only**: the repo class `τ(p)² ≤ 4p^{11}` at primes. The
+  combinatorial lemmas `Sums` and `conv2_le` are level 1.
+
+```lean
+theorem qfHyp_deligne [DeligneBound] : RamanujanTau.HafnerBridge.QFHyp
+theorem mv2_deligne [DeligneBound] {θ : ℝ} (hθ0 : 0 < θ) (hθ : θ ≤ 1 / 81600) :
+    ∃ B T₀ : ℝ, ∀ T : ℝ, T₀ ≤ T →
+      (∫ u in T..(3 * T), ‖tauL (6 + u * I) * Mc (bSel ⌊T ^ θ⌋₊) ⌊T ^ θ⌋₊ (6 + u * I) ^ 2‖ ^ 2) ≤ B * T
+```
+
+Both are obtained from `qfHyp_of_euler` and `mv2_of_euler` applied to `qEuler1`, `qEuler2` and `qEuler3`.
+
+### How the §6 plan was simplified
+
+1. **One convolution inequality replaces the `P_i ≤ (i+1)⁴` bookkeeping.** Every local mass is
+   bounded with a weight `w`:
+
+       Σ_{i,j≤N} w^{i+j}|γ_K(e;i,j)| ≤ (Σ_{a,b≤N} w^{a+b}|K(a+b,e)|) · (Σ_k w^k|Fi(p^k)|)²   (`wmass_le`)
+
+   This uses `|α| ≤ 1` and a two-variable Cauchy-product bound (`conv2_le`).
+   * `|Fi(p^k)| ≤ C(k+2,2)X^k` and `wX ≤ 1/2` give `Σ_k w^k|Fi| ≤ 8`, by Mathlib's
+     `hasSum_choose_mul_geometric_of_norm_lt_one`.
+   * The kernels obey `|L(n,e)| ≤ (n+1)²X^{n−e}` and `|L'(n,e)| ≤ log p (n+1)²X^{n−e}`, which
+     uses `|λ(p^j)| ≤ j+1` (`VoronoiPointwise.cheb_bound`), `|ρ_p(n)| ≤ n+1` and `|ρ'_p(n)| ≤ n log p`.
+   * Then `(a+b+1)² ≤ (a+1)²(b+1)²` factorizes the kernel sum.
+2. **Weight `w = p/2` for e = 0, 1; weight 1 for general e.**
+   * With `w = p/2`, the terms with `i+j ≥ 2` cost `w^{−2} = 4X²` times a uniform constant.
+   * `split_low` peels off the three terms (0,0), (1,0), (0,1), which are computed exactly:
+     `γ(0;1,0) = λ²X²/(2(1+X))`, `γ(1;1,0) = α(p) = −λ/2`, `γ'(1;1,0) = −λ log p/4`, and
+     `|γ'(0;1,0)| ≤ λ²X log p/4 + 2X`.
+   * For e = 1, `X^{a+b−1} = p·X^aX^b` gives the extra X.
+   * For general e, `X^{a+b−e} ≤ X^{a−e}X^{b−e}` (truncated subtraction) gives polynomial growth in e.
+3. **The local masses, uniform in the truncation N** (X = 1/p, λ = λ(p)):
+
+   | label | statement | Lean name |
+   |---|---|---|
+   | L1 | `T_p(0) ≤ 1 + 65540X²` | `Tl_zero_le` |
+   | L2 | `T_p(1) ≤ |λ| + 65536X` | `Tl_one_le` |
+   | L3 | `T_p(e) ≤ 16384(e+1)⁶` | `Tl_le` |
+   | L4 | `T'_p(0) ≤ λ²X log p/2 + 65540X` | `TlV_zero_le` |
+   | L5 | `T'_p(1) ≤ log p(|λ|/2 + 65536X)` | `TlV_one_le` |
+   | L6 | `T'_p(e) ≤ 16384 log p (e+1)⁶` | `TlV_le` |
+
+   The pivots satisfy `|W_p(e)| ≤ X^e` (`abs_Wc_le`) and `|wd_p(e)| ≤ 8(e+1)X^e` (`abs_wd_le`).
+   Hence `|W(d)| ≤ 1/d` and `|W₁(d)| ≤ (|γ_R| + 16 log d)/d`.
+4. **No polynomial `logmean_upper` is needed.**
+   * `logmean_geo` takes the hypothesis `f(p^k) ≤ B(3/2)^k` for k ≥ 2. The local tail is then
+     geometric with ratio `3/(2p) ≤ 3/4`, so it is at most `9B/p²`.
+   * `(e+1)^{12} ≤ (100/3)^{12}(3/2)^e` follows from Bernoulli with `1.03^{12} ≤ 3/2`.
+   * The majorant is `f = ofLocal(tt²)` with `tt(1) = |λ| + 65536X` and `tt(e) = 16384(e+1)⁶`.
+     Then `f(p) ≤ λ² + K/p`, and `mertens2_bound` gives κ = 1 (`euler_fT`).
+5. **Assembly.**
+   * Primes `q ≤ y` with `q ∤ d` contribute at most `Π(1 + 65540/q²) ≤ e^{65540}` (`prod_Tl_le`).
+   * QEuler₃ uses `MassV_le` and needs `Σ_{p≤y} V₀(p) ≪ log y`. This comes from `mertens1_prime`
+     (the `λ² log p/p` part) together with `harmonic_le_one_add_log` (the `1/p` part).
+   * The other contribution is `Σ_{p|d}(v_p d + 1) log p ≤ 2 log d ≤ 4 log y`.
+
+**Evidence level.** `QFHyp`, and hence Hafner's (MV2) for Selberg's mollifier at `θ ≤ 1/81600`, are
+now **level 2 on `[DeligneBound]` only**.
+
+**Remaining gaps.**
+
+* None on the QF route.
+* The constants are huge (e^{65540}) but explicit, and immaterial.
+* Without Deligne, L1–L6 fail, as noted in §6 and `SELBERG_COEFFS.md` §2.
