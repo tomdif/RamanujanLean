@@ -356,6 +356,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.GoodSecondTerm2.avgOff_le
 #print axioms RamanujanTau.GoodSecondTerm2.offDiagHyp_unconditional
 #print axioms RamanujanTau.GoodSecondTerm2.good_second_term
+#print axioms RamanujanTau.TwistedMoment.gavgOff_le
+#print axioms RamanujanTau.TwistedMoment.prefix_eq
+#print axioms RamanujanTau.TwistedMoment.twist_reindex
+#print axioms RamanujanTau.TwistedMoment.twisted_moment
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
