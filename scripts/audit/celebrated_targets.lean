@@ -316,6 +316,13 @@ with no exceptions. -/
 #print axioms RamanujanTau.ZetaAFE.ingham_rpow
 #print axioms RamanujanTau.ZetaAFE.zeta_mean_square_ingham
 #print axioms RamanujanTau.ZetaAFE.zeta_mean_square_ingham_littleo
+#print axioms RamanujanTau.GoodSecondTerm.afe_exact_delta
+#print axioms RamanujanTau.GoodSecondTerm.delta_afe
+#print axioms RamanujanTau.GoodSecondTerm.gamma_ratio_delta
+#print axioms RamanujanTau.GoodSecondTerm.norm_digamma_second
+#print axioms RamanujanTau.GoodSecondTerm.AA_asymp
+#print axioms RamanujanTau.GoodSecondTerm.good_reduction
+#print axioms RamanujanTau.GoodSecondTerm.good_second_term_of_offdiag
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

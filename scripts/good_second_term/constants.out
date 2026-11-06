@@ -1,0 +1,9 @@
+  ***   Warning: new maximum stack size = 2000011264 (1907.359 Mbytes).
+  *** mfcoefs: Warning: increasing stack size to 16000000.
+lfuncheckfeq(sym2) = -67
+c0 = L(sym2,1)/zeta(2) = 0.38408405446817036992636710674931703817
+gamma_D = Laurent constant of D at 1 = 0.79602825584793044651331756509910255024
+partial sum check sum_{n<=N} a(n)^2/n - c0 log N (N=30000) = 0.79606436433933977881593483437082903434
+int_0^T |L(Delta,6+it)|^2 = 2 c0 T log(T/2pi) + (2gD-2c0) T + o(T):  2c0 = 0.76816810893634073985273421349863407634   2gD-2c0 = 0.82388840275952015317390091669957102413
+as 2c0 T log T + c1 T:  c1 = -0.58791014780161629257133525507736335415
+Good's form 2c0 T (log(T/(2 pi e)) + C): C = gD/c0 = 2.0725365882480250672091398071296294874

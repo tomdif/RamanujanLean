@@ -675,5 +675,6 @@ import RamanujanTau.RankinOmegaPM.Main
 import RamanujanTau.ZetaMeanSquare.Main
 import RamanujanTau.ZetaCritical.Main
 import RamanujanTau.ZetaAFE.Main
+import RamanujanTau.GoodSecondTerm.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
