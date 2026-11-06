@@ -164,3 +164,38 @@ Reused unchanged by import:
 * Weil (1948) for Kloosterman sums.
 
 These are cited from memory and have not been re-checked.
+
+## 6. Update (2026-11-06): gap 1 closed, unconditional `δ = 1/180` for every eigenform
+
+**Status: level 1 (Lean, axiom-clean, no hypotheses).**
+
+* Directory: `RamanujanTau/SubconvexGeneral2/`, 13 files, about 2.4k lines.
+* It imports `SubconvexGeneral`, `SCSProof` and `SCSSharp`, and modifies none of them.
+* Build: `nice -n 10 lake build RamanujanTau.SubconvexGeneral2.Main` exits 0.
+* Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+* A grep finds no `sorry`, `admit` or `native_decide`.
+
+```lean
+theorem pointwise_GF (f : CuspForm 𝒮ℒ (k : ℤ)) (hk : 12 ≤ k) (hev : Even k) :
+    ∃ K, 0 ≤ K ∧ ∀ h : ℕ, 1 ≤ h → ∀ σ v : ℝ, 0 < σ → σ ≤ 1 → (h : ℝ) * σ ≤ 1 →
+      ‖GhF f h ((σ : ℂ) + v * I)‖ ≤ K * Real.sqrt h * (|2 * v / σ| + 3) * σ ^ (-(k : ℝ) + 12 / 125)
+theorem scsf_of_pointwise (f) (hk : 12 ≤ k) (hreal : ∀ n, (coef f n).im = 0) (hpw : …) :
+    SCSf f (1 / 22) (1 / 2)
+theorem scsf_general (f) (hreal) : SCSf f (1 / 22) (1 / 2)
+theorem fL_subconvex_general (f) (hreal) : ∃ C, 0 ≤ C ∧ ∀ t : ℝ,
+    ‖fL f ((((k : ℝ) / 2 : ℝ) : ℂ) + t * I)‖ ≤ C * (1 + |t|) ^ (1 / 2 - 1 / 180 : ℝ)
+theorem fL_subconvex_eigenform {f} (hf : IsNormalizedEigenform f) : … -- same bound
+```
+
+**What was ported.** This is the weight-`k` copy of the `SCSSharp` chain, so the exponents are `SCS(1/22, 1/2)` and not `SCSSharp2`'s `1/21`. The weight-independence claim of §2 is confirmed in Lean: `η`, `B`, `s`, the `A`-loss and the Tauberian parameters are those of `SCSSharp`, and only the constants depend on `k` and `f`. Then `δ₂(1/22, 1/2, 1/89) = 1/180`.
+
+| file group | content |
+|---|---|
+| `Geo*` (pointwise) | `GeoCS`: unfolding/Hölder for `Ψ_f`. `GeoQform`: `cfF`, `QF_eq`. `GeoGbounds`: `abs_laplace_leF`, Lipschitz `norm_GhF_sub_le`. `GeoMainTerm`: `main_term_leF`, `cfF_sub_le`. `GeoPoint`: `norm_G0_leF`, `pointwise_parF` (`k = 2m`, `R^m` against `(YA/2)^{2m}`), `pointwise_GF` |
+| `Tau*` (Tauberian side) | `TauBasic`: `aT = Re a(n)·Re a(n+h)`, `rankin_shortT` from `rankinSelberg_exact_general`. `TauRiesz`: `laplace_rieszT`, `RmeanT_bound`. `TauAsum`: `AsumT_bound_large`. `TauFinal`: Abel weight `t^{−(k−1)/2}(t+h)^{−(k−1)/2}`, `AsumT_cs`, `scsf_of_pointwise` |
+| assembly | `OddWeight`: `eq_zero_of_odd` (via `−1 ∈ SL₂(ℤ)`) and `scsf_of_eq_zero`. `Main`: `scsf_general`, `fL_subconvex_general`, `fL_subconvex_eigenform` |
+
+**Remaining gaps.**
+
+* **Exponent.** Porting `SCSSharp2` (gcd Kloosterman and the `1/21` retune) would give `δ = 1/134` for every `f`. That work is now mechanical: copy `Point21`/`Rmean21`/`Asum21`/`Final21` on top of the `Geo*`/`Tau*` files.
+* **Complex coefficients.** The theorem needs real coefficients, so it covers all eigenforms but not an arbitrary `f`. To remove that, see §3.

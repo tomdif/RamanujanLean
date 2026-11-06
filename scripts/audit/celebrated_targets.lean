@@ -220,6 +220,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.SubconvexGeneral.approx_fL
 #print axioms RamanujanTau.SubconvexGeneral.PsiF_smul
 #print axioms RamanujanTau.SubconvexGeneral.coeff_PsiF
+#print axioms RamanujanTau.SubconvexGeneral2.pointwise_GF
+#print axioms RamanujanTau.SubconvexGeneral2.scsf_of_pointwise
+#print axioms RamanujanTau.SubconvexGeneral2.scsf_general
+#print axioms RamanujanTau.SubconvexGeneral2.fL_subconvex_general
+#print axioms RamanujanTau.SubconvexGeneral2.fL_subconvex_eigenform
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer
