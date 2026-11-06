@@ -214,6 +214,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.SCSSharp2.shiftedConvolutionBound_sharp2
 #print axioms RamanujanTau.SCSSharp2.tauL_subconvex_of_SCS2
 #print axioms RamanujanTau.SCSSharp2.tauL_subconvex_sharp2
+#print axioms RamanujanTau.SubconvexGeneral.fL_subconvex_of_SCSf
+#print axioms RamanujanTau.SubconvexGeneral.fL_subconvex_eigen_of_SCSf
+#print axioms RamanujanTau.SubconvexGeneral.fL_discriminant_subconvex
+#print axioms RamanujanTau.SubconvexGeneral.approx_fL
+#print axioms RamanujanTau.SubconvexGeneral.PsiF_smul
+#print axioms RamanujanTau.SubconvexGeneral.coeff_PsiF
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2
 #print axioms RamanujanTau.VoronoiTrunc.voronoi_truncated_L2_rate
 #print axioms RamanujanTau.VoronoiTrunc.tau_cramer
