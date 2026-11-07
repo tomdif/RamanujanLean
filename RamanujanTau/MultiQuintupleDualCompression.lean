@@ -19,8 +19,10 @@ dual vector.
 This is the arithmetic reduction needed before applying sparse
 roots-of-unity rigidity: a shell of `V` supported vectors has cyclotomic
 weight `V`, not `8*V`.  Its compressed phases are themselves divisible by
-three, reducing the root order to `2*p`; for an even complete shell, the
-first possible non-pairing weight is consequently `2*p`.
+three, reducing the root order to `2*p`. The general even-weight argument
+below gives opposite-phase balance below weight `2*p`. For complete Watson
+shells, the stronger twisted antipodal law removes that weight restriction;
+see `MultiQuintuplePhasePairing`.
 -/
 import RamanujanTau.MultiQuintupleDualPerfect
 

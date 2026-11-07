@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-01",
+  "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
+  "working_tree_changes": true,
+  "sha256": {
+    "RamanujanTau/MultiQuintuplePhasePairing.lean": "7cdee58fc41b48018bab9456cda0ab286aeace9cb8a3de817eeefac8536a52c8",
+    "RamanujanTau/MultiQuintupleDualCompression.lean": "33b768286270b0e22ecb0c7287655b5e2bccf8d84268acb498f43c26cd147179",
+    "scripts/audit/multi_quintuple.lean": "13cad2396d67317f5802f9786e9f80ae394d6ee829d83a9ca68c5398e8052ca1",
+    "scripts/attack_phase_rigidity.py": "59ed3707a7876836f73eadb535023304a79f58ae8550f686079c8255bc84b8e0",
+    "scripts/check_phase_pairing.py": "a38f05e76d5a0b3574f4f192dfb76af25caf510eae361c04098d4c48af26ce1f",
+    "docs/verification/phase_pairing_arithmetic.json": "bc580b316c4aa6b78c7e0427da507baabd747468a63fca319d0a1bd708162959",
+    "docs/verification/phase_rigidity_search.json": "74b5a9809256a916fb53205c481a2cf326a6627d72e641397171125e80f0d3bc"
+  },
+  "full_build": {
+    "command": "lake build",
+    "jobs": 9294,
+    "passed": true
+  },
+  "axiom_audit": {
+    "command": "lake env lean scripts/audit/multi_quintuple.lean",
+    "declarations": 6,
+    "new_declarations": 5,
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "passed": true
+  },
+  "independent_controls": {
+    "command": "python3 scripts/check_phase_pairing.py --output docs/verification/phase_pairing_arithmetic.json",
+    "synthetic_cases": 240,
+    "negative_pgon_controls": 6,
+    "nonlinear_artificial_phase_control": true,
+    "independent_enumeration_comparisons": 7,
+    "passed": true
+  },
+  "sampled_search": {
+    "attempted": 350,
+    "completed": 292,
+    "skipped": 58,
+    "largest_completed_prime": 196821127,
+    "mismatches": 0,
+    "coherence_checks": 149,
+    "coherence_failures": 0,
+    "phase_tests": 17566,
+    "sample_not_census": true
+  },
+  "formal_boundary": {
+    "unbounded_opposite_phase_balance_proved": true,
+    "prime_root_coefficient_criterion_proved": true,
+    "antipodal_multiplicity_balance_proved": true,
+    "root_power_factorization_proved": true,
+    "universal_linear_coherence_proved": false,
+    "analytic_poisson_bridge_formalized": false,
+    "universal_root_vanishing_converse_proved": false,
+    "mathematical_novelty_claim": false
+  },
+  "repository_check": {
+    "command": "python3 scripts/check_repository.py",
+    "lean_files": 940,
+    "markdown_files": 25,
+    "links": 220,
+    "passed": true
+  },
+  "diff_check_passed": true
+}

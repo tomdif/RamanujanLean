@@ -1,0 +1,31 @@
+import RamanujanTau.BosonicAdjoint
+
+#print axioms BosonicOscillator.factorialWeight_pos
+#print axioms BosonicOscillator.factorialWeight_raise
+#print axioms BosonicOscillator.star_root
+#print axioms BosonicOscillator.root_sq
+#print axioms BosonicOscillator.root_ne_zero
+#print axioms BosonicOscillator.root_mul
+#print axioms BosonicOscillator.normalizer_ne_zero
+#print axioms BosonicOscillator.normalizer_raise
+#print axioms BosonicOscillator.normalizedBasis
+#print axioms BosonicOscillator.normalizedBasis_apply
+#print axioms BosonicOscillator.normalizedBasis_repr_coeff
+#print axioms BosonicOscillator.normalizedBasis_repr_ne_zero
+#print axioms BosonicOscillator.create_normalizedBasis
+#print axioms BosonicOscillator.annihilate_normalizedBasis_raise
+#print axioms BosonicOscillator.annihilate_normalizedBasis_zero
+#print axioms BosonicOscillator.hamiltonian_normalizedBasis
+#print axioms BosonicOscillator.normalized_coordinate_adjoint
+#print axioms BosonicOscillator.normalizedShellIsometry
+#print axioms BosonicOscillator.normalized_repr_map_energySpace
+#print axioms BosonicOscillator.normalizedShellEquiv
+#print axioms BosonicOscillator.normalizedShellEquiv_apply
+#print axioms BosonicOscillator.normalizedShellEquiv_basis
+#print axioms BosonicOscillator.normalizedShellEquiv_symm_basis
+#print axioms BosonicOscillator.annihilate_mem_energySpace
+#print axioms BosonicOscillator.createShell_basis_coord
+#print axioms BosonicOscillator.annihilateShell_basis_coord
+#print axioms BosonicOscillator.annihilateShell_eq_adjoint
+#print axioms BosonicOscillator.shell_inner_adjoint
+#print axioms BosonicOscillator.normalizedShell_finrank

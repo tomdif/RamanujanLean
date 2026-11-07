@@ -1,0 +1,61 @@
+{
+ "date": "2026-11-02T01:30:08.443562+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs; unchanged tracked inputs are supplied by base_commit.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "theorem": "RamanujanTau.FiniteArithmetic.Rank607Final.rEll_607 : ∀ m, 2 ≤ m → RamanujanTau.BLBound.rEll 607 m = 25",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9378,
+  "sorry_warnings": 0
+ },
+ "module_build": {
+  "command": "lake build RamanujanTau.FiniteArithmetic.Rank607Final",
+  "seconds": 108,
+  "peak_resident_bytes": 17813635072,
+  "note": "Check extended through L(53) on 2026-11-02 (previously L(51), 79 s)."
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/rank607_final.lean",
+  "exit_code": 0,
+  "declarations": 7,
+  "report": "docs/verification/rank607_final.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "controls": {
+  "negative_control": "Stating finalCheck = false is rejected. Lean aborts with a stack overflow while reporting the failure (exit 134), not a clean error message.",
+  "independent_values": "Python replay from the rows, using the coordinate recursion of scripts/generate_rank607_coords.py, reproduces all 625 entries of docs/verification/rank607-uniform-n2.json. The earlier replay shares no series code with this route, which starts from Euler's pentagonal theorem."
+ },
+ "trusted_inputs": "Lean kernel with GMP-accelerated Nat arithmetic. decide +kernel relies on that acceleration being correct. Generated coordinates and untrusted reductions are all checked.",
+ "scope": {
+  "proved": "The least number of generators of the stable module Lam 607 m (2m-1) is 25 for every m>=2.",
+  "not_proved": [
+   "The Smith profile [m×24, m-1] for m>=3.",
+   "Exceptional primes other than 607."
+  ],
+  "boylan_webb": "Boylan-Webb, section 6.1, report r_607(m)=R_607-1=24 for all m>=1. They write rank over Z/l^m Z and do not define it for a non-free module; their Lemma 4.1 uses a matrix in GL_r(A), which presumes freeness. The results conflict only if their rank means generator count. Not yet reviewed by an expert or raised with the authors.",
+  "see_also": "docs/verification/rank607_structure.json proves the module at m=2 is (Z/607^2)^24 ⊕ Z/607."
+ },
+ "review": "Machine-checked; no human expert review.",
+ "sha256": {
+  "RamanujanTau/FiniteArithmetic/PackedSeries.lean": "70e3bd29056b2c431cf5b1b6d033030dd4e7768be233562327fe4dc910cfc9cf",
+  "RamanujanTau/FiniteArithmetic/Rank607Program.lean": "d2f5f4419268acd88340f06cbaad33f7c7254b2b3cf9cc1f11dddb9ff0e1e9b7",
+  "RamanujanTau/FiniteArithmetic/Rank607Identities.lean": "6dd24f7cc2afdbffd5953c25db5ad28211331fc69fe29a40357bcc7b632755cc",
+  "RamanujanTau/FiniteArithmetic/Rank607Series.lean": "392e1e843f97cd2d19032eec6203409481678922843229495ca521cd82c4d8b9",
+  "RamanujanTau/FiniteArithmetic/Rank607Coords.lean": "49632764a5fc0a5430cb16d255f552a80344cf56cba49e03e7bcd6bf58fb11b7",
+  "RamanujanTau/FiniteArithmetic/Rank607Check.lean": "c6f3243294005edb166b8e553ede2e9eb7d3b0194d898e247e3d93290e572f2e",
+  "RamanujanTau/FiniteArithmetic/Rank607Final.lean": "b0cc255178ce25b36bf9a3aab45bb69281a293a52cb634157471b9b35eb77dbd",
+  "RamanujanTau/FiniteArithmetic/Rank607Witness.lean": "97e244409674774b0c29e0254951f2f7d893ecd072bb32480c2467353b5e4c5d",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "scripts/audit/rank607_final.lean": "2fc7feefa2082110d23902bcecd1a7a64e5d2dca8ad92037b4502fe2b0ce1226",
+  "scripts/rank607_dump.lean": "8d79e891caf1c330e969918fc3f21fe842ce51baff9683f8b000366fc58e873e",
+  "scripts/generate_rank607_coords.py": "5f809b2a16d86802384903bfa7640fe463150a7c09a78e0463659983439dd707",
+  "docs/verification/rank607_final.axioms.txt": "95cda36b226c999288124a312cde5aa81a1c6334a215c6b0f350551521f92fdb"
+ }
+}

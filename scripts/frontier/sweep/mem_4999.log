@@ -1,0 +1,19 @@
+{'l': 4999, 'd': 416, 'R': 208, 'thmA': True, 'd_l_zero': True, 'ss0': True, 'krylov': 208, 'sqfree': True, 'okU': True, 'okD': True, 't_series': 4.01, 't_basis': 58.44, 'secs': 63.1}
+       63.39 real        63.08 user         0.20 sys
+           574980096  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               50383  page reclaims
+                   1  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                5370  involuntary context switches
+        887539453666  instructions retired
+        225189456444  cycles elapsed
+           557171528  peak memory footprint

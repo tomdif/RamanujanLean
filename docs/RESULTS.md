@@ -6,7 +6,204 @@ Module paths in this catalog are relative to `RamanujanTau/` unless stated other
 Named hypotheses are part of a theorem's statement; an axiom audit does not discharge them.
 The research notes are indexed separately in [the documentation guide](README.md).
 
+## Theorem A: all-prime ordinarity on the prescribed level-six eigenspace
+
+`TheoremA/BinaryOrdinarity.lean` proves
+`U_ne_zero_of_binary_sign_eigenvalues` for every prime ℓ ≥ 13 and every
+field of characteristic ℓ. A nonzero series in the weight-ℓ−3 integral
+level-six model with eigenvalues (q/ℓ)q^{(ℓ−5)/2} for U_q, q = 2,3,
+cannot be killed by U_ℓ. `ReducedLevelSixOrdinarity.lean` transfers this
+to reductions of actual complex level-six modular forms over embedded
+coefficient rings. The two initial eigenvalue formulas remain explicit;
+filtration and weight-six lifting are no longer hypotheses.
+
+`TheoremA/WeightSixIdentity.lean` proves
+`classicalWeightSixAnnihilator_eq_zero`: (U₃+9)(U₂²+6U₂+32)=0 on the
+actual complex cusp space S₆(Γ₀(6)). It also proves
+`weightSix_finrank_eq_three` and an explicit linear equivalence between this
+space and its first three positive q-coefficients.
+
+The proof constructs three actual eta quotient cusp forms. It verifies their
+transformations on a proved generating set for Γ₀(6), holomorphy, vanishing
+at every cusp, and their integer Fourier coefficients through q⁹. The
+coefficient bound in `LevelSixSturm.lean` and the finite certificate in
+`WeightSixCertificate.lean` then establish the full operator identity.
+No old/new decomposition or dimension formula is assumed.
+
+`LevelSixModularSturm.lean` proves that the first k+1 coefficients determine
+every level-six modular form of nonnegative integral weight k. The general
+eta certificate in `EtaQuotientForms.lean` allows nonnegative cusp rates.
+`WeightTwoForms.lean` and `WeightTwoQExpansion.lean` construct actual forms
+A, B, C with integral Fourier expansions and AC=B², including the identity
+over ℤ. `WeightTwoCoordinates.lean` proves dim M₂(Γ₀(6)) = 3, reconstruction
+from the first three coefficients, and descent over any coefficient ring
+embedded in ℂ.
+
+`EvenWeightForms.lean` constructs a uniform eta basis with leading terms
+1,q,…,q²ⁿ. `EvenWeightCoordinates.lean` proves dim M₂ₙ(Γ₀(6)) = 2n+1,
+integer reconstruction, and descent in every even weight. `EvenWeightProducts.lean`
+proves the multiplication rule and generation by A,B,C with unique normal
+monomials AᵃBᵇCᶜ, b < 2. `BinarySeries.lean` and `BinaryModel.lean` identify
+this model with homogeneous binary polynomials of degree 2n; evaluation is
+injective in each even degree over every commutative ring.
+
+`LevelSixSerre.lean` constructs the actual Serre derivative, using Cauchy's
+estimate to verify boundedness at every cusp. `EvenWeightSerre.lean` proves
+that 12θ−kE₂ preserves the integral model and raises its weight by two in
+every coefficient ring.
+
+`BinaryEisenstein.lean` proves the explicit E₄ and E₆ binary formulas and
+full series identities. `BinaryPullback.lean` proves weight-preserving
+substitution and no common projective zero. `BinaryHasse.lean` identifies
+the Hasse invariant and companion, proves their expansions are 1 and E₂,
+and characterizes equal expansions in one weight class as Hasse-power multiples.
+`BinaryBaseChange.lean` and `HasseSeparation.lean` prove projective separation
+and coprimality on both affine charts over every characteristic-ℓ field, ℓ ≥ 5.
+
+`BinaryTheta.lean` constructs a homogeneous numerator with expansion 12θ.
+`BinaryDivisibility.lean` proves `hasse_dvd_theta_iff` away from weights zero
+modulo ℓ and `hasse_dvd_iff_lower_expansion`: a Hasse factor is exactly the
+ability to lower weight by ℓ−1 without changing the full series.
+`BinaryFiltration.lean` defines the least representing half-weight in one
+class modulo (ℓ−1)/2 and proves the theta step and drop laws.
+`BinaryFiltrationCycle.lean` proves `theta_four_binaryRep`: if a nonzero
+weight-ℓ−3 series is killed by U_ℓ, its fourth theta iterate has a
+weight-six representation. This does not assume a general Katz comparison
+or independence of expansions across different weight classes.
+
+`BadPrimeForms.lean` and `BadPrimeQExpansion.lean` construct actual U_p on
+Γ₀(N) for every integral weight and prime p dividing nonzero N, prove the
+coefficient-extraction formula, and prove the operators commute.
+`IntegralCusp.lean` and `ClassicalWeightSix.lean` transport the weight-six
+identity through any coefficient ring embedded in ℂ to its residue rings.
+Consequently `eq_zero_of_reduced_weightSix_eigenpair` excludes a nonzero
+(4,9) eigenvector in every such reduced cusp space of characteristic at least five.
+
+`BadPrimeModular.lean` extends the actual bad-prime operators and expansion
+identities to the full modular-form space. `ModularWeightSixData.lean`
+kernel-checks two 7×7 matrices against coefficients through q¹⁸.
+`ModularWeightSixAction.lean` proves these are the actual operators on the
+integral basis. `ModularWeightSixIdentity.lean` proves
+(U₂−1)(U₂−32)(U₃+9)(U₂²+6U₂+32)=0 throughout the weight-six model over
+every coefficient ring. It evaluates to −108864 at (4,9), which is nonzero
+in characteristic ℓ ≥ 13. This supplies the contradiction in the
+all-prime ordinarity theorem without a cusp-lifting assumption.
+
+`NewClass.lean` derives those eigenvalues from the Atkin–Lehner signs, and
+`newform_coeff_ell_ne_zero` proves unconditionally that a normalized
+T_ℓ-eigenform in the class has a unit ℓ-th coefficient above ℓ.
+`SignLattice.latticeT_det_not_dvd` proves T_ℓ invertible modulo ℓ on the integer
+sign lattice. `ThetaLift.theoremA_unconditional` and `ThetaLift.X_injective_unconditional` prove the half-integral
+and Boylan–Webb forms, and `ThetaLift.aadModularity` proves Theorem 1.1 of
+Ahlgren–Andersen–Dicks. `BLBound.bEll_le` and `BLBound.dEll_eq_zero` give b_ℓ(m) ≤ 2m−1 and d_ℓ = 0
+for every prime ℓ ≥ 13. `BLBound.rank_Xbar_pow` gives rank X̄^k = ⌊(ℓ+12)/24⌋, and `BLBound.rEll_le` gives the known
+Folsom–Kent–Ono bound r_ℓ(m) ≤ ⌊(ℓ+12)/24⌋ for these primes. `BLBound.partition_recurrence` gives the congruence with
+⌊(ℓ+12)/24⌋ terms, modulo ℓ^m, for all b ≥ 2m−1. `BLBound.ahlgren_boylan` proves the Ahlgren–Boylan theorem: no prime ℓ ≥ 13
+has a congruence p(ℓn+β) ≡ 0 with β < ℓ, and `BLBound.ramanujan_congruence_iff` completes the classification over all primes: only (ℓ,β) = (5,4), (7,5), (11,6). `BLBound.rc_lift` is the Rankin–Cohen lift of θ, computing U/ℓ on [g, E_{ℓ−1}]₁ modulo ℓ. `ThetaLift.gen_modular` proves modularity of the Shimura lift of G/η^j on Γ₀(6) for general j and weight, and `TheoremA.dvd_coeff_hEight_of_binary_kernel` shows a U_p-kernel in weight p−5 of the sign class forces p ∣ a_p(h₈). `BLBound.class_sep` is Swinnerton-Dyer's independence of weight classes, and `BLBound.rEll_eq_one` gives r_ℓ(m) = 1 for 13 ≤ ℓ < 36.
+See the [declaration ledger and remaining work](THEOREM_A.md).
+
 ## Results at a glance
+
+**Added 2026-11-03** (see [STATUS](STATUS.md#results-of-2026-11-03)):
+- `TauBound.tau_isBigO_47_8_unconditional` — `τ(n) =O n^{47/8+ε}` for every ε > 0 (Kloosterman 1927), unconditional (superseded by the 35/6 and 23/4 entries below).
+- **`GORZXi.xi_gorz_unconditional`** — GORZ Theorem 1 for Riemann Ξ, unconditional (`xiKernelHyp_holds`); `GORZXi.gorz_thm3` — the abstract GORZ Theorem 3 (unconditional); `GORZXi.gammaMathlib_eq` — integral formula for the Taylor coefficients of Ξ from Mathlib's completed zeta.
+- `GORZ.jensen_eventually_hyperbolic` — for every d, `J^{d,n}` is hyperbolic for all large n (Griffin–Ono–Rolen–Zagier 2019, partition case); `GORZ.tendsto_coeff_Jhat` — renormalized Jensen polynomials → Hermite.
+- `GORZXiEff.gamma_eq_mom` — the Taylor coefficients of Ξ as moments of Riemann's Φ; **`GORZXiEff.turan_gamma_unconditional`** — the Turán inequalities for the Taylor coefficients of Ξ for every n (Csordas–Norfolk–Varga), unconditional.
+- `RankinSharpGeneral.rankinSelberg_power_saving_sharp_general` — for every level-one cusp form and every δ < 1/5, `|Σ_{n≤N}|a_f(n)|²/n^{k−1} − c_f N| ≤ C_f N^{1−δ}` (supersedes `RankinErrorGeneral.rankinSelberg_power_saving_general`, exponent 1/84).
+- **`RankinSelbergGeneral.rankinSelberg_asymptotic`** — the Rankin–Selberg asymptotic for every level-one cusp form f: `(1/N)Σ_{n≤N}|a_f(n)|²/n^{k−1} → (3/π)(4π)^k‖f‖²/(k−1)!`; `rankinSelberg_weight16` … `rankinSelberg_weight26` for ΔE₄, ΔE₆, ΔE₈, ΔE₁₀, ΔE₁₄.
+- **`Stirling.rankinSelberg_power_saving_third`** — `|Σ_{n≤N} τ(n)²/n¹¹ − cN| ≤ C N^{1−δ}` for every δ < 1/3, and for every level-one cusp form (`…_third_general`); `Stirling.norm_Gamma_ratio_le_of_le` — `|Γ(α+it)/Γ(β+it)| ≤ C|β+it|^{α−β}`; `Stirling.norm_Gamma_le_stirling` / `stirling_le_norm_Gamma` — two-sided Stirling bounds in vertical strips.
+- **`RankinSharp.rankinSelberg_power_saving_sharp`** — `|Σ_{n≤N} τ(n)²/n¹¹ − cN| ≤ C N^{1−δ}` for every δ < 1/5 (supersedes the 1/84 exponent; Rankin's is 2/5).
+- **`RankinError.rankinSelberg_power_saving_84`** — `|Σ_{n≤N} τ(n)²/n¹¹ − cN| ≤ C·N^{1−1/84}`, unconditional power-saving error (Rankin's is 2/5).
+- **`RankinSelbergFE.RStar_one_sub`** — the Rankin–Selberg functional equation R*(1−s) = R*(s) for R*(s) = 2π^{−s}Γ(s)Γ(s+11)(4π)^{−s−11}ζ(2s)Σ τ(n)²n^{−11−s}, with R* holomorphic off {0,1}, simple poles of residue ±‖Δ‖² (`RStar_eq`, `RStar_residue_one`); `meromorphic_Rcont` — Σ τ(n)²n^{−11−s} is meromorphic on ℂ, with `Rcont_residue_one` (residue (3/π)(4π)¹²‖Δ‖²/11!); `EpsteinStar_one_sub` — E*(z,1−s) = E*(z,s) for the completed real-analytic Eisenstein series.
+- **`EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional`** — the Rankin–Selberg asymptotic `Σ_{n≤N} τ(n)²/n¹¹ ~ (3/π)(4π)¹²‖Δ‖²/11!·N`, unconditional; `horocycleLimit_zagier` — horocycle equidistribution for |Δ|²y¹².
+- `EisensteinReal.karamata` — Karamata's Tauberian theorem for power series with nonnegative coefficients; `rankinSelberg_asymptotic_of_horocycle` (conditional on `HorocycleLimit`).
+- `RankinSelberg.rankinSelberg_two_sided` — `c₁N ≤ Σ_{n≤N} τ(n)²/n¹¹ ≤ c₂N`: the order of magnitude in Rankin–Selberg.
+- **`MeanSquare.mean_square_tauL`** — Carlson–Potter mean value: (1/T)∫₀ᵀ|L(Δ,σ+it)|² dt → Σ τ(n)² n^{−2σ} for every σ > 37/6 (the classical range is σ > 6); `MeanSquare.mv_poly` — ∫₀ᵀ|Σ_{n≤N} b_n n^{−it}|² dt = TΣ|b_n|² + O(log N·Σ n|b_n|²).
+- **`MeanSquareFull.mean_square_tauL_full`** — the Carlson–Potter mean square on the full classical range σ > 6, by a functional-equation bootstrap (thresholds y_n = 1/(6+4n) → 0); `MeanSquareFull.norm_tauL_left_le` — ‖L(Δ,6−y+iu)‖ ≤ 6e¹⁰(1+|u|)^{2y}‖L(Δ,6+y+iu)‖ for 0 ≤ y ≤ 1/2.
+- **`MeanSquareLeft.mean_square_tauL_left`** — for every σ < 6, ∫₀ᵀ |L(Δ,σ+it)|² dt ~ (2π)^{4σ−24} RS(24−2σ) T^{25−4σ}/(25−4σ); `mean_square_tauL_every_line` — the mean square on every vertical line (σ > 6, σ = 6, σ < 6); `tendsto_Qr` — |Γ(b+it)|/(|Γ(a+it)| t^{b−a}) → 1.
+- **`HardyZeros.tauL_infinitely_many_critical_zeros`** — Hardy's theorem for L(Δ,s): ∀ T, ∃ t > T, L(Δ,6+it) = 0 (also `tauL_zeros_on_critical_line_infinite`); `HardyZeros.hardy_abstract` — Hardy's argument for any even real Z with Fourier–Laplace transform vanishing to all orders at the edge π/2.
+- **`HardyZerosGeneral.fL_infinitely_many_critical_zeros`** — Hardy's theorem for every nonzero level-one cusp form f of weight k with real coefficients: infinitely many zeros of L(f,s) on Re s = k/2 (k ≡ 2 mod 4, root number −1, included).
+- **`HardyCount.tauL_critical_zeros_count`** — for every ε > 0, L(Δ,s) has ≫ T^{1/2−ε} distinct zeros on Re s = 6 with 0 < t ≤ T; `tauL_critical_zero_gaps` — every window [t₀ − Kt₀^{1/2+ε}, t₀ + Kt₀^{1/2+ε}] contains one (Hardy–Littlewood's ≫ T is not reached).
+- **`HardyCountLinear.tauL_critical_zeros_loglog`** — L(Δ,s) has ≫ T/log log T distinct zeros on Re s = 6 with 0 < t ≤ T (`tauL_critical_zeros_one_sub_eps`: ≫ T^{1−ε}); Hafner's ≫ T is not reached.
+- **`HardyCountHafner.tauL_critical_zeros_linear`** — Hafner's theorem: L(Δ,s) has ≫ T distinct zeros on Re s = 6 with 0 < t ≤ T; `mean_square_uniform` — ∫_T^{2T}|L(Δ,6+x+it)|² dt ≪ T/x uniformly for 0 < x ≤ 1.
+- **`HafnerGeneral.fL_critical_zeros_linear`** — Hafner's theorem for every nonzero level-one cusp form f with real coefficients: ≫ T distinct zeros of L(f,s) on Re s = k/2 up to height T.
+- **`CriticalMeanSquare.critical_mean_square_upper`** — ∫₀ᵀ |L(Δ,6+it)|² dt ≪ T log T (upper bound only); `weighted_parseval` — ∫|Λ(6+it)|²e^{2βt}dt = 2π∫|e^{6(u+iβ)}Δ(ie^{u+iβ})|²du for 0 ≤ β < π/2.
+- **`CriticalMeanSquareLower.critical_mean_square_isTheta`** — ∫₀ᵀ |L(Δ,6+it)|² dt ≍ T log T (lower bound `critical_mean_square_lower`).
+- **`CriticalMeanSquareAsymp.critical_mean_square_asymptotic`** — Good's theorem: (∫₀ᵀ |L(Δ,6+it)|² dt)/(T log T) → c_Δ = 2c = (6/π)(4π)¹²‖Δ‖²/11! (`rankin_normalization`: c is the constant of Σ_{n≤N} τ(n)²/n¹¹ = cN + O(N^{3/5})).
+- **`GeneralCuspMoments.fL_critical_mean_square_asymptotic`** — Good's asymptotic for every nonzero level-one cusp form f of weight k: ∫₀ᵀ |L(f,k/2+it)|² dt ~ 2c_f T log T, c_f = (3/π)(4π)^k‖f‖²/(k−1)! (no real-coefficient hypothesis).
+- **`ZeroCount.zeroCount_window`** — L(Δ,s) has ≪ log T zeros (with multiplicity) with T < Im s ≤ T+1; `zeroCount_two_sided` — cT ≤ N(T) ≤ CT log T (sharpened by `ZeroCountRvM.riemann_von_mangoldt`).
+- **`ZeroCountRvM.riemann_von_mangoldt`** — N(T) = (T/π) log(T/(2πe)) + O(log T) for the zeros of L(Δ,s) (with multiplicity, 0 < Im ≤ T); `arg_principle_rect` — the argument principle on rectangles for entire functions.
+- **`GeneralZeros.riemann_von_mangoldt_gen`** — for every nonzero level-one cusp form f with first nonzero coefficient a_f(n₀): N_f(T) = (T/π) log(T/(2πe·n₀)) + O(log T). `fL_zero_free_region` — for every normalized eigenform, zeros with |Im ρ| ≥ t₀ satisfy Re ρ ≤ (k+1)/2 − c/log|Im ρ| (unconditional); all heights conditional on L(f,(k+1)/2) ≠ 0.
+- **`EdgeNonvanishing.tauL_ne_zero_edge`** — L(Δ, 13/2+it) ≠ 0 for every real t (Rankin/Ogg/Moreno; proved here without Sym² holomorphy or Deligne); with `tauL_ne_zero_of_ge`, `tauL_ne_zero_of_le`, all nontrivial zeros lie in 11/2 < Re s < 13/2.
+- **`ZeroFreeRegion.tauL_zero_free_region_uniform`** — de la Vallée-Poussin region for L(Δ,s): every nontrivial zero s satisfies 11/2 + c/log(|Im s|+2) ≤ Re s ≤ 13/2 − c/log(|Im s|+2); unconditional, no exceptional zero.
+- **`TauPNT.tau_PNT_smoothed`** — unconditional smoothed PNT for τ: Σ_p τ(p)p^{−11/2} log p · p^{−σ} has a finite limit as σ → 1⁺. **Conditional (level 2):** `tau_prime_sign_changes` [DeligneBound] — τ(p) > 0 and τ(p) < 0 for infinitely many primes; `tau_PNT_tau` [DeligneBound, WienerIkeharaHyp] — Σ_{p<N} τ(p) log p = o(N^{13/2}).
+- **`WienerIkehara.wienerIkehara`** — the Wiener–Ikehara Tauberian theorem (continuous boundary extension form), discharging `WienerIkeharaHyp`; port of PrimeNumberTheoremAnd (Apache-2.0). Corollaries: `PNT_psi` — the prime number theorem ψ(x)/x → 1; `tau_PNT_tau_deligne` [DeligneBound] — Σ_{p<N} τ(p) log p = o(N^{13/2}).
+- **`TauPNTError.tau_PNT_tau_error_uncond`** — unconditional PNT for τ with de la Vallée-Poussin error: Σ_{p<N} τ(p) log p ≪ N^{13/2} exp(−b√log N) (no Deligne); `psiDelta_error_uncond` — Σ_{n≤x} Λ_Δ(n) ≪ x exp(−b√log x); `negLogDeriv_bound` — ‖L'/L(Δ,s)‖ ≪ log²(|t|+2) for σ ≥ 13/2 − c/log(|t|+2) (normalized).
+- **`TauPNTUncond.tau_prime_sign_changes_uncond`** — unconditionally, τ(p) > 0 for infinitely many primes and τ(p) < 0 for infinitely many primes; `Rcont_ne_zero_edge` — L(Δ×Δ,1+it) ≠ 0 (t ≠ 0); `Lsym2_ne_zero_edge` — L(Sym²Δ,1+it) ≠ 0 (L(Sym²Δ,s) := ζ(2s)R(s)/ζ(s)); `rs_prime_PNT` — Σ_{p<N} τ(p)² log p / p¹¹ ~ N.
+- **`TauSignsQuant.tau_pos_count_frequently`** (and `_neg_`) — unconditionally, for every θ < 9/20, #{p < x : τ(p) > 0} ≥ x^θ for arbitrarily large x (same for τ(p) < 0); **conditional (level 2):** `tau_pos_count_deligne` [DeligneBound] — #{p < N : τ(p) > 0}·log N ≥ N/12 for large N.
+- **`EigenformEdge.fL_ne_zero_edge_of_ne`** — for every normalized level-one Hecke eigenform f (`IsNormalizedEigenform`), L(f,(k+1)/2+it) ≠ 0 for all t ≠ 0. **Conditional (level 2):** `fL_ne_zero_edge`, `fL_zeros_in_strip`, `eigen_PNT_smoothed` on the real point L(f,(k+1)/2) ≠ 0; `eigen_PNT`, `eigen_prime_sign_changes` additionally on `[DeligneBoundF f]`.
+- **`TauPartialSums.tau_partial_sum_bound`** — Σ_{n≤x} τ(n) ≪_ε x^{181/30+ε} (below the trivial x^{13/2}; improved to 59/10 in `TauPartialSumsSharp`; 35/6 is proved conditionally on `DeligneBound` in `VoronoiPointwise.tau_partial_sum_35_6`); `cuspForm_partial_sum_bound` — x^{(k−1)/2+8/15+ε} for every level-one cusp form.
+- **`TauPartialSumsSharp.tau_partial_sum_sharp`** — Σ_{n≤x} τ(n) ≪_ε x^{59/10+ε}, unconditionally (no Deligne); `cuspForm_partial_sum_sharp` — x^{(k−1)/2+2/5+ε} for every level-one cusp form; `kernelZero_sharp` — the degree-2 Landau kernel J₀(y) ≪ y^{k/2−1/4}.
+- **`TauOmegaPartial.tau_partial_sum_omega`** — Σ_{n≤x} τ(n) = Ω(x^{23/4}): ∃ c > 0, |Σ_{n≤x} τ(n)| ≥ c x^{23/4} for arbitrarily large x; `cuspForm_partial_sum_omega` — Ω(x^{(k−1)/2+1/4}) for every nonzero level-one cusp form.
+- **`TauOmegaPM.tau_partial_sum_omega_pm`** — Ω± for partial sums of τ: for every β < 28/5 and every c, Σ_{n≤x} τ(n) < −c x^β and > c x^β for arbitrarily large x (the exact exponent 23/4 is reached in `VoronoiTrunc.tau_omega_pm_exact`); `landau_mellin` — Landau's theorem for Mellin transforms of nonnegative functions.
+- **`Voronoi.tau_log_mean_square`** — with S(x) = Σ_{n≤x} τ(n): c log X ≤ ∫₁^X S(x)² x^{−25/2} dx ≤ C log X; `tau_mean_square_upper` — ∫₁^X S² ≪ X^{25/2} log X; `tau_mean_square_omega` — ∫₁^X S² ≥ cX^{25/2} infinitely often; `tau_critical_mean_square_convergent` — ∫₁^∞ S²x^{−2σ−1} < ∞ for σ > 23/4. (Truncated Voronoi: see `VoronoiTrunc` below.)
+- **`VoronoiTrunc.voronoi_truncated_L2`** — truncated Voronoi formula in L²: X^{−25/2}∫_X^{2X}(S(x) − x^{23/4}/(π√2) Σ_{n≤X^θ} τ(n)n^{−25/4}cos(4π√(nx) − π/4))² → 0 (0 < θ ≤ 1/4); **`tau_cramer`** — X^{−25/2}∫₁^X S² → B/(50π²); **`tau_omega_pm_exact`** — Ω±(x^{23/4}): for c < 1/(2π√2) and all large X, S exceeds c x^{23/4} and falls below −c x^{23/4} in [X, 2X]. No Deligne. See [VORONOI_TRUNC](VORONOI_TRUNC.md).
+- **`VoronoiTruncGeneral.cusp_voronoi_truncated_L2`, `cusp_cramer`, `cusp_omega_pm_exact`** — the same three for every nonzero level-one cusp form f of weight k with real coefficients: truncated Voronoi in L² (phase −π/4 for all even k), X^{−k−1/2}∫₁^X S_f² → Σa(n)²n^{−k−1/2}/((4k+2)π²), and Ω±(x^{(k−1)/2+1/4}) when a(1) ≠ 0 (`eigenform_omega_pm_exact` for normalized Hecke eigenforms). See [VORONOI_TRUNC_GENERAL](VORONOI_TRUNC_GENERAL.md).
+- **`VoronoiTruncComplete.cusp_cramer_complex`, `cusp_voronoi_truncated_L2_complex`, `cusp_omega_pm_exact'`, `cusp_re_omega_pm`, `cusp_im_omega_pm`** — the restrictions removed: complex coefficients (Cramér limit for \|S_f\|², L² Voronoi), and Ω± from the first nonzero coefficient (no a(1) ≠ 0). See [VORONOI_TRUNC_COMPLETE](VORONOI_TRUNC_COMPLETE.md).
+- **`VoronoiPointwise.tau_voronoi_pointwise`** — pointwise truncated Voronoi, unconditional: \|S(x) − V_N(x)\| ≪ x^{121/20+ε}N^{−1/4} for N ≤ x^{3/5}. **Conditional (level 2, [DeligneBound]): `tau_voronoi_pointwise_deligne`** — \|S − V_N\| ≪ x^{6+ε}N^{−1/2} for N ≤ x^{1/3}, and **`tau_partial_sum_35_6`** — Σ_{n≤x} τ(n) ≪ x^{35/6+ε}. See [VORONOI_POINTWISE](VORONOI_POINTWISE.md).
+- **`CramerMeanSquare.tau_cramer_log`** — Cramér–Tong: ∫₁^X S(x)² x^{−25/2} dx ~ (B/(4π²)) log X, B = Σ τ(n)²n^{−25/2}; `tau_cramer_constant` — if X^{−25/2}∫₁^X S² converges, its limit is B/(50π²) (existence proved in `VoronoiTrunc.tau_cramer`); `tau_mean_square_uniform` — the mean value of |L(Δ,σ+it)|² uniformly for σ ∈ [31/5, 25/4].
+- **`Subconvexity.wilton_bound`** — Wilton (1929): ‖Σ_{n≤M} τ(n)e(nα)‖ ≤ C M⁶ log(1+2M) uniformly in α; `twLambda_functional_equation` — for a·ā ≡ 1 mod q, the completed additive twist satisfies Λ(−ā/q, 12−s) = Λ(a/q, s). (Subconvexity is proved in `SCSProof`, below.)
+- **Conditional (level 2): `SubconvexityCond.tauL_subconvex_of_SCS`** [ShiftedConvolutionBound η B] — |L(Δ,6+it)| ≪ (1+|t|)^{1/2−η/(10B+24)}; the hypothesis is the arithmetic bound |Σ_{n≤N} λ(n)λ(n+h)| ≪ (N+h)^{1−η}h^B (Selberg 1965 / Good give η < 1/3; not formalized).
+- **`SCSProof.tauL_subconvex`** — unconditional t-aspect subconvexity: \|L(Δ,6+it)\| ≪ (1+\|t\|)^{1/2−1/832000} (`tauL_subconvex_3_5`), from **`SCSProof.shiftedConvolutionBound_3_5`**: \|Σ_{n≤N} λ(n)λ(n+h)\| ≪ (N+h)^{1−1/8000}h⁸ (Rankin's exact 3/5 error as input)
+- **`SCSSharp.tauL_subconvex_sharp`** — \|L(Δ,6+it)\| ≪ (1+\|t\|)^{1/2−1/231}, from **`shiftedConvolutionBound_sharp`**: \|Σ_{n≤N} λ(n)λ(n+h)\| ≪ (N+h)^{1−1/22}h^{1/2}, and the reduction `tauL_subconvex_of_SCS'` (δ = η/(5B+8)). See [SCS_SHARP](SCS_SHARP.md).
+- **`SCSSharp2.tauL_subconvex_sharp2`** — \|L(Δ,6+it)\| ≪ (1+\|t\|)^{1/2−1/134}, from **`shiftedConvolutionBound_sharp2`**: \|Σ_{n≤N} λ(n)λ(n+h)\| ≪ (N+h)^{1−1/21}h^{1/21} (gcd-form Weil bound) and the reduction `tauL_subconvex_of_SCS2`. See [SCS_SHARP2](SCS_SHARP2.md).
+- **Conditional (level 2): `SubconvexGeneral.fL_subconvex_of_SCSf`** [SCSf f η B] — for every real-coefficient level-one cusp form (so every normalized eigenform), ‖L(f, k/2+it)‖ ≪ (1+\|t\|)^{1/2−η/((1+u)(4B+6+2η))}; unconditional at f = Δ (`fL_discriminant_subconvex`, δ = 1/134).
+- **`SubconvexGeneral2.fL_subconvex_eigenform`** — unconditional t-aspect subconvexity for every normalized Hecke eigenform of level one (indeed every real-coefficient cusp form, `fL_subconvex_general`): ‖L(f, k/2+it)‖ ≪ (1+\|t\|)^{1/2−1/180}, via `scsf_general`: \|Σ_{n≤N} λ_f(n)λ_f(n+h)\| ≪ (N+h)^{1−1/22}h^{1/2}; sharpened to 1/134 in **`SubconvexGeneral3.fL_subconvex_eigenform134`** (`scsf_general21`: SCS(1/21, 1/21) for every real-coefficient f).
+- **`CuspConj.fL_subconvex_all`** — ‖L(f, k/2+it)‖ ≪ (1+\|t\|)^{1/2−1/134} for **every** level-one cusp form f; `cuspConj` — the conjugate cusp form f^ρ(z) = conj f(−z̄) with coefficients conj a(n); `eq_reF_add_imF` — f = Re f + i·Im f with real-coefficient cusp forms. See [CUSP_CONJ](CUSP_CONJ.md).
+- **Conditional (level 2): `HafnerProportion.tauL_positive_proportion_of_selberg`** [SelbergHyp] — a positive proportion of the zeros of L(Δ,s) lie on Re s = 6 (N₀(T) ≫ T log T); the hypothesis is the mollified second moment plus Selberg's key lemma. Unconditional ingredients: `selberg_zeros` (abstract Selberg method), `mollified_first_moment`, `selberg_H1`, `selberg_H2`. See [HAFNER_PROPORTION](HAFNER_PROPORTION.md).
+- **`HafnerFinal.tauL_positive_proportion_deligne`** [DeligneBound] — **Hafner's theorem for Δ**: a positive proportion of the nontrivial zeros of L(Δ,s) lie on the critical line Re s = 6 (∃ c > 0: at least c·N(3T) distinct critical zeros of height ≤ 3T), assuming only Deligne's bound τ(p)² ≤ 4p¹¹ at primes. Selberg's mollifier method, fully formalized: mollified second moment (QFProof*), Selberg's key lemma (SelbergKey*, SelbergKeyDiag*), and its arithmetic input via a strip contour (SKQFProof, SvStrip A–E). See [HAFNER_PROPORTION](HAFNER_PROPORTION.md), [SKQF_PROOF](SKQF_PROOF.md).
+- **Conditional (level 2): `HafnerFinal.tauL_positive_proportion_deligne_SKQF`** [DeligneBound] — a positive proportion of the nontrivial zeros of L(Δ,s) lie on Re s = 6, assuming only Deligne's bound at primes and `SKQFHyp θ` (Selberg's arithmetic key-lemma estimate for his mollifier; purely arithmetic, numerically confirmed). Proved along the way: the mollified second moment (`QFProof5.mv2_deligne`), and the off-diagonal (`SelbergKey7.quadOffHyp`) and diagonal (`SelbergKeyDiag2.diagApproxHyp_small`) of Selberg's key lemma. See [SELBERG_KEY](SELBERG_KEY.md), [QF_PROOF](QF_PROOF.md).
+- **`SelbergCoeffs.lamN_mul_alpha_mul_alpha`** — the Dirichlet coefficients α of L(Δ,s)^{−1/2}, with \|α(n)\| ≤ √n (`abs_alpha_le_sqrt`); conditional on `DeligneBound`: \|α(n)\| ≤ 1 (`abs_alpha_le_one`) and Selberg's Σ_{n≤N} α(n)²/n ≪ (log N)^{1/4} (`sum_alpha_sq_div_le`). **`SelbergCoeffs2.mertens2`** — Mertens' second theorem for Rankin–Selberg: Σ_{p≤N} λ(p)²/p = log log N + c_Δ + o(1), unconditional (`mertens1_prime`: Σ_{p≤N} λ(p)²log p/p = log N + O(1)); error O(1/log N) in `SelbergCoeffs3.mertens2_rate`; `selberg_two_sided` [DeligneBound] — Σ_{n≤N} α(n)²/n ≍ (log N)^{1/4}; `logmean_upper`/`logmean_lower` — Σ_{n≤N} f(n)/n ≍ (log N)^κ for nonnegative multiplicative f with Σ_{p≤x} f(p)/p = κ log log x + O(1). See [SELBERG_COEFFS](SELBERG_COEFFS.md).
+- **`Sym2ZeroFree.HH_ne_zero_region`** — de la Vallée Poussin zero-free region for ζ(s)L(Sym²Δ,s): nonzero for Re s > 1 − c/log(\|Im s\|+3), s ≠ 1, at all heights (no exceptional zero); also for the continued Rankin–Selberg function (`Rcont_ne_zero_region`). Unconditional, no Deligne. See [SYM2_ZERO_FREE](SYM2_ZERO_FREE.md).
+- **`SelbergDelange.psiR_error`** — prime number theorem for the Rankin–Selberg convolution with classical error: Σ_{n≤x} \|α_p^k+β_p^k\|² log p [n = p^k] = x + O(x exp(−b√log x)), unconditional; `rs_prime_PNT_error` [DeligneBound] — Σ_{p≤x} λ(p)² log p = x + O(x exp(−b√log x)); `logDerivKK_bound` — ‖K′/K‖ ≪ log²t in the zero-free region. **`SelbergDelange2.logmean_LSD`** — real-variable Selberg–Delange for logarithmic means (Wirsing/Granville–Koukoulopoulos style, no contour): Σ_{n≤x} f(n)/n = C₁(log x − c₀)^κ + O((log x)^{κ−1} log log x) for every real κ > −1 under a Mertens-type hypothesis on Λ_f. See [SELBERG_DELANGE](SELBERG_DELANGE.md).
+- **`HeckeAFE.tauL_afe`** — exact smoothed approximate functional equation for L(Δ,s) in 5 < Re s < 7, with weights uniform in t (`V_decay`, `V_sub_one`) and root number \|ε(6+it)\| = 1; **`tauL_afe_truncated`** — L(Δ,6+it) = S₁ + εS₂ + O((1+\|t\|)^{−B}) with sums of length (1+\|t\|)^{1+η}; `HeckeAFE2.V_deriv_bound` — ∂_tV_{6+it}(ξ) ≪ (1+\|t\|)^{−1}(1+ξ/(1+\|t\|))^{−A}; `norm_digamma_sub_log_le` — \|ψ(z) − log z\| ≤ 40/(Re z − 1 + \|Im z\|); `HeckeAFE3.V_iteratedDeriv_bound` — all t-derivatives; **`SCS2Coprime.scs2_general`** — two-sided shifted convolution sums: \|Σ_{m,n≤N, am−bn=ℓ} λ(m)λ(n)\| ≪ N^{1−1/21}\|ℓ\|^{1/21}(ab)^{12} for all a, b ≥ 1, ℓ ≠ 0 (`scs2_range`: ≪ N^{1−θ/21}(ab)^{12} for \|ℓ\| ≤ N^{1−θ}); see [SCS2](SCS2.md); `tauL_normSq_afe` — exact AFE \|L(Δ,6+it)\|² = 2Σ τ(m)τ(n)m^{−6−it}n^{−6+it}W_t(4π²mn). See [HECKE_AFE](HECKE_AFE.md).
+- **`GoodSecondTerm.good_reduction`** — unconditional: ∫₀ᵀ\|L(Δ,6+it)\|² = 2c₀T log(T/2π) + (2γ_Δ − 2c₀)T + OffInt(T) + O(T^{9/10}), with γ_Δ the Rankin–Selberg Laurent constant; **`GoodSecondTerm2.good_second_term`** — Good's theorem with second term, unconditional: ∫₀ᵀ\|L(Δ,6+it)\|² = 2c₀T log(T/2π) + (2γ_Δ − 2c₀)T + O(T^{599/600}) (`offDiagHyp_unconditional`).
+- **`TwistedMoment.twisted_moment`** — symmetrised twisted second moment of L(Δ,s) with power saving: (1/H)∫_X^{X+H}∫_{16}^u \|L(Δ,6+it)\|²((h/k)^{it} + (k/h)^{it}) = (exact smoothed diagonal) + O((hk)^{33}X^{599/600}), H = X^{299/300}, all h, k ≥ 1. See [TWISTED_MOMENT](TWISTED_MOMENT.md).
+- **Conditional (level 2): `HafnerMV2.mv2_of_diag`** [DiagHyp θ] — Hafner's mollified second moment ∫_T^{3T}\|L(Δ,6+iu)M(6+iu)²\|² ≤ BT for Selberg's mollifier, θ ≤ 1/81600; the off-diagonal is handled unconditionally by `twisted_moment`, only the smoothed diagonal is assumed; **`HafnerBridge2.mv2_of_QF`** reduces it further to the purely arithmetic `QFHyp`, using `twisted_asymp` — Σ_{r≤N} λ(hr)λ(kr)/r = r₀ρ(h)ρ(k)log N + γ_Δρρ + r₀(ρ₁ρ + ρρ₁) + O((hk)⁴N^{−1/5}) uniformly in coprime h, k (unconditional). **Conditional on `DeligneBound` only (level 2): `QFProof5.mv2_deligne`** — Hafner's mollified second moment ∫_T^{3T}\|L(Δ,6+iu)M(6+iu)²\|² ≪ T for Selberg's mollifier of length T^θ, θ ≤ 1/81600 (via `qfHyp_deligne`). See [HAFNER_MV2](HAFNER_MV2.md), [QF_PROOF](QF_PROOF.md). See [GOOD_SECOND_TERM](GOOD_SECOND_TERM.md). See [SUBCONVEX_GENERAL](SUBCONVEX_GENERAL.md). (two-point Poincaré series on Γ\(ℍ×ℍ) + Weil; no Deligne). See [SCS_PROOF](SCS_PROOF.md).
+- **`RankinExact.rankinSelberg_exact`** — Rankin's theorem: |Σ_{n≤N} τ(n)²/n¹¹ − cN| ≤ C N^{3/5}, with the exact exponent; `rankinSelberg_exact_general` gives the same for every level-one cusp form.
+- **`RankinOmega.rankinSelberg_error_omega`** — the Rankin–Selberg error is Ω(N^{3/8}): \|Σ_{n≤N} τ(n)²/n¹¹ − cN\| ≥ c'N^{3/8} for arbitrarily large N; `cuspForm_rankin_omega_nat` for every nonzero level-one cusp form; `zeta_mean_sq` — ∫_T^{2T}\|ζ(u−it)\|² ≪ T uniformly for u ∈ [3/4, 1]. See [RANKIN_OMEGA](RANKIN_OMEGA.md).
+- **`RankinOmegaPM.tau_rankin_omega_pm`** — the Rankin–Selberg error changes sign at scale x^β: Ω±(x^β) for every β < 3/20; `tau_rankin_mellin_mean_sq_lower` — ∫₁^∞ R²x^{−2σ−1} ≫ 1/(σ − 3/8); `tau_rankin_log_mean_sq_omega` — ∫₁^X R²x^{−7/4} ≫ log X infinitely often; `landau_mellin_strip` — Landau's theorem needing analyticity only on a strip about the real axis. Every level-one cusp form. See [RANKIN_OMEGA_PM](RANKIN_OMEGA_PM.md).
+- **`ZetaMeanSquare.zeta_mean_square_tendsto`** — Hardy–Littlewood: (1/T)∫₁^T \|ζ(σ+it)\|² dt → ζ(2σ) for every 1/2 < σ ≤ 1; `zeta_mean_value_uniform` — uniformly on [σ₀, 1] with error O(T^{3/2−σ} + T^{2−2σ}log²T); `riemannZeta_conj` — ζ(s̄) = conj ζ(s).
+- **`ZetaCritical.zeta_critical_mean_square`** — Hardy–Littlewood (1918): ∫₀ᵀ \|ζ(1/2+it)\|² dt ~ T log T; `zeta_critical_mean_square_bound` — error ≤ C·T√(log T). See [ZETA_CRITICAL](ZETA_CRITICAL.md).
+- **`ZetaAFE.zeta_mean_square_ingham`** — Ingham (1926): ∫₀ᵀ \|ζ(1/2+it)\|² dt = T log(T/2π) + (2γ−1)T + O_ε(T^{1/2+ε}); `zeta_afe` — approximate functional equation for \|ζ(1/2+it)\|² with error O(t^{c−1}), c > 1/2; `afe_exact` — its exact contour form. See [ZETA_AFE](ZETA_AFE.md). **`tau_rankin_omega_pm_quarter`** — the Rankin–Selberg error is Ω±(x^β) for every β < 1/4 (every cusp form). See [ZETA_MEAN_SQUARE](ZETA_MEAN_SQUARE.md).
+- **`KernelPhase.rankinSelberg_landau_uncond`** — Rankin–Selberg error O(N^{1−δ}) for every δ < 2/5 (Rankin 1939 via Landau's method), unconditional; `rankinSelberg_landau_61_100_uncond` gives O(N^{61/100}), and `rankinSelberg_landau_general_uncond` gives every level-one cusp form. Inputs: `RankinLandau.dual_rep` (exact dual expansion) and `KernelPhase.kernelOne_sharp` (‖J₁(y)‖ ≤ C y^{9/8}).
+- `HeckeL.heckeLambda_functional_equation` — Hecke: Λ(s) = (2π)^{−s}Γ(s)L(Δ,s) is entire, bounded in vertical strips, and Λ(12−s) = Λ(s); `HeckeL.tauLSeries_entire` — L(Δ,s) is entire; `HeckeL.tauLSeries_center_pos` — L(Δ,6) > 0.
+- **`HeckeConvex.tauL_convexity`** — convexity bound ‖L(Δ,6+it)‖ ≤ C_ε(1+|t|)^{1/2+ε} (strip version `tauL_convexity_strip`); **`HeckeConvex.LSeriesSummable_tau_of_gt_13_2`** — Rankin 1939: L(Δ,s) converges absolutely for Re s > 13/2 without Deligne.
+- **`HeckeConvexGeneral.fL_convexity`** — for every f ∈ S_k(SL₂(ℤ)): Hecke's functional equation Λ(f,k−s) = i^kΛ(f,s) (`heckeLambda_functional_equation`), absolute convergence of L(f,s) for Re s > (k+1)/2 (`LSeriesSummable_coef`), and ‖L(f,k/2+it)‖ ≪ (1+|t|)^{1/2+ε}.
+- **`TauOmega.tau_omega`** — |τ(n)| ≥ c·n^{11/2} infinitely often; `tau_not_isBigO`: τ(n) ≠ O(n^{11/2−δ}) for every δ > 0 (Deligne's exponent is optimal), from the Rankin–Selberg lower bound.
+- `TauOmega.coeff_omega` / `coeff_not_isBigO` — the same for every nonzero f ∈ S_k(SL₂(ℤ)): |a_f(n)| ≥ c·n^{(k−1)/2} infinitely often.
+- **`LandauSigns.landau`** — Landau's theorem: a Dirichlet series with nonnegative coefficients that agrees with an entire function to the right of some line converges absolutely everywhere (not in Mathlib). **`LandauSigns.coeff_sign_changes`** — every nonzero f ∈ S_k(SL₂(ℤ)) with real coefficients has a_f(n) > 0 and a_f(n) < 0 for infinitely many n.
+- **`HeckeZeros.tauL_zeros_in_strip`** — every zero of L(Δ,s) other than 0, −1, −2, … has 11/2 ≤ Re s ≤ 13/2; with the Euler product L(Δ,s) = ∏_p(1 − τ(p)p^{−s} + p^{11−2s})^{−1} on Re s > 13/2 (`tauL_eulerProduct`), non-vanishing there (`tauL_ne_zero_of_gt`), and the symmetries s ↦ 12 − s, s ↦ s̄.
+- `TauSigns.tau_sign_changes` — τ(n) changes sign infinitely often; `TauSigns.tau_sign_change_short_interval_limit` — both signs occur in every (x, x + A x^{θ}], θ > 3/4; `TauSigns.card_signChanges_ge_limit` — ≫ X^{1/4−ε} sign changes up to X; `TauSigns.hecke_partial_sum` — Σ_{n≤M} τ(n) = O(M^{6+ε}).
+- `KolbergTau.tau_mod2048_one_mod8` — Kolberg's congruence τ(n) ≡ σ₁₁(n) mod 2¹¹ for n ≡ 1 mod 8; instance `TauMod2_11`.
+- `TauDensity.tau_eq_zero_iff` — τ(n) = 0 iff some prime p with τ(p) = 0 divides n to an odd power; `TauDensity.card_tau_ne_zero_ge_sqrt` — at least ⌊√N⌋ of the n ≤ N have τ(n) ≠ 0. `TauDensity.tau_norm_form_ne_zero` — τ(x²+691y²) ≠ 0; `TauDensity.card_tau_ne_zero_ge_div_log` — at least N/(585103(1+log N)) of the n ≤ N have τ(n) ≠ 0.
+- `LehmerSmall.lehmer_below_214928639999` — `τ(n) ≠ 0` for all `1 ≤ n < 214928639999`, exactly Lehmer's 1947 bound (supersedes `lehmer_below_74627999`, `lehmer_below_258710399`, `lehmer_below_21492863999`; see [LEHMER_SMALL_N](LEHMER_SMALL_N.md)); `LehmerSmall.tau_prime_pow_ne_zero` — `τ(p) ≠ 0 ⇒ τ(pᵏ) ≠ 0`; `tau_mod7_all`, `tau_mod25_all`, `tau_mod3_all` — Ramanujan-type congruences for every n.
+- **`StepanovAS.weilPrimeBound`** — Weil's bound `|S(1,b;p)| ≤ 2√p` for every prime p and b ≢ 0; **`StepanovAS.tau_isBigO_23_4_unconditional`** — `τ(n) = O(n^{23/4+ε})` (Weil 1948).
+- `Stepanov.hasseWeil_charSum_le` — Stepanov's bound `|Σ_{x∈F_p} χ(f(x))| ≤ 12m²√p` for squarefree f of degree m; `Stepanov.hasse_elliptic` — Hasse's theorem up to the constant, `|#{y² = f(x)} − p| ≤ 108√p` for squarefree cubics; `Stepanov.saliePrimeBound` and `tau_isBigO_35_6_unconditional` — `τ(n) = O(n^{35/6+ε})`.
+- `KloostermanL.kloosterman_L_rational` — rationality of the Kloosterman L-function over any finite field: L(T) = 1 + K₁T + qT², so K_r = −(α^r+β^r); `tau_isBigO_23_4_of_stepanov` — Weil's τ bound from the named Stepanov hypothesis.
+- `WeilKloosterman.norm_kloosterman_primePow_le_sqrt` — `|S(1,n;p^k)| ≤ 6√(p^k)` for every prime p and k ≥ 2; `tau_isBigO_23_4_of_weil` — Weil's `τ(n) = O(n^{23/4+ε})` from the named prime bound `WeilPrimeBound`.
+- `JensenThreshold.jensen6_threshold_unconditional` / `jensen7_threshold_unconditional` — `J^{6,n}` hyperbolic ⟺ (n ≥ 610 among n ≥ 609); `J^{7,n}` likewise at 908.
+- `Dragonette.dragonette_literal` — `α(n) ~ (−1)^{n+1} e^{π√(n/6−1/144)}/(2√(n−1/24))` for `α(n) = [qⁿ]f(q) = N(0,2,n)−N(1,2,n)`.
+- `AtkinSporadic.Weaver.ono_13_unconditional`, `weaver_17_unconditional` — `13 ∣ p(157525693n+111247)`, `17 ∣ p(48037937n+1122838)`; `Atkin13.atkin_13_unconditional` — `13 ∣ p(17303n+237)` (Atkin 1968), via `HalfHecke.etaHecke_11_168`.
+- `Andrews.alpha_sign`, `Andrews.rank_parity_sign_all` — `0 < (−1)^{n+1}α(n)` for every `n ≥ 1`: even-rank minus odd-rank partitions of `n` has sign `(−1)^{n+1}`.
+- **`MockCusp.andrews_1966_sqrt_log_unconditional`** — Andrews' 1966 theorem exactly as stated: α(n) = his printed main term over k ≤ √n + O(√n log n), unconditional (`MockCusp.HbSharp_holds`; the cruder `andrews_1966_unconditional` has error O(n log n)).
+- `MockCusp.Hb_odd` — `‖f(q)‖ ≤ C‖z‖^{−3/2}` near every odd-denominator root of unity (uniform in h, K), the odd half of `Hb`.
+- `Andrews66.andrews_1966_printed_isBigO_of_Hb` (conditional on `Hb`) — Andrews' 1966 theorem with his printed main term over k ≤ √n: `α(n) − andrewsPrinted n = O(√n log n)`.
+- `AtkinTwisted.G1.atkin_13_89` etc. — 16 twisted mod-13 families for Q < 500, e.g. `13 ∣ p(9164597n+39275)`, `13 ∣ p(658489n+6788)`; `AtkinTwisted.eigen_all` — twisted series is a T(Q²)-eigenform mod 13 for every prime 5 ≤ Q < 500, Q ≠ 13.
+- `GaussSign.gaussQuad_eval` — Gauss's sign: `Σ_{r mod N} e(r²/N) = √N` (N ≡ 1 mod 4) or `i√N` (N ≡ 3 mod 4) for every odd N; `GaussSign.etaHecke_all` — T(Q²) stabilizes η⁻¹S_k for every prime Q ≥ 5.
+- `Andrews66.andrews_k1_isBigO` — `α(n) − (−1)^{n+1}·√24/√(24n−1)·sinh(π√(24n−1)/12) = O(exp(π√(n/6) − √(24n)/(2450π)))`: Andrews' first term with a power saving.
+- `OnoWeaverMore.L<ℓ>.ono_ℓ_Q`, `atkin_ℓ_Q` — 81 congruence families mod ℓ ∈ {13,17,19,23,29,31} for every hit prime Q < 500, e.g. `L19.atkin_19_13_progression`: `19 ∣ p(41743n+669)`; `L29.atkin_29_17_progression`: `29 ∣ p(142477n+31778)`.
+- `BWSharpAll.tendsto_bEll` — `b_ℓ(m) → ∞` for every prime ℓ ≥ 13.
 
 | Theorem | Statement |
 |---|---|
@@ -31,8 +228,13 @@ The research notes are indexed separately in [the documentation guide](README.md
 | **Watson's fifth-order relations** (Ramanujan's last letter; Watson 1937) | `χ₀(q) = 2F₀(q) − φ₀(−q)`, `f₀(q) + ϑ₄(q)G(q) = 2φ₀(−q²)`, `f₀(q) − ϑ₄(q)G(q) = 2qψ(q²)H(q⁴) − 2(F₀(q²)−1)` (`Watson.chi0_R1_watson`, `Watson.watson_2_0`, `Watson.watson_3_0`) |
 | **Ramanujan's first series for `1/π`** (1914) | `Σ_{n≥0} (6n+1)((1/2)_n)³/(n!³4ⁿ) = 4/π` (`RamanujanPi.ramanujan_first_pi_series`); also `Σ (−1)ⁿ(6n+1)((1/2)_n)³/(n!³8ⁿ) = 2√2/π` (`RamanujanPi.ramanujan_pi_series`) |
 | **Rademacher's exact formula** (1937) | `p(n) = Σ_{k≥1} A_k(n)·(π/12k)^{3/2}·2π·4(u_k cosh u_k − sinh u_k)/(√π u_k³ k)`, `u_k = (π/k)√((2/3)(n−1/24))`, as a convergent series (`Rademacher.rademacher_dedekind`). Here `A_k(n) = Σ_{(h,k)=1} e^{πi s(h,k) − 2πinh/k}` is Rademacher's Kloosterman sum, with `s(h,k)` the Dedekind sum. Dedekind's reciprocity law is proved too (`Rademacher.dsum_reciprocity`) |
-| **Log-concavity of `p(n)`** (DeSalvo–Pak 2015) | `p(n−1)p(n+1) < p(n)²` for every `n ≥ 26`, and it fails at every odd `n ≤ 25` (`LogConcave.partition_logConcave`, `logConcave_fails`). The proof uses an explicit Lehmer-type bound `|p(n) − Ke^U(U−1)/(2U³)| ≤ Ke^{U/2}`, read off Rademacher's series |
+| **Log-concavity of `p(n)`** (DeSalvo–Pak 2015) | `p(n−1)p(n+1) < p(n)²` for every `n ≥ 26`, and it fails at every odd `n ≤ 25` (`LogConcave.partition_logConcave`, `logConcave_fails`). The proof uses an explicit Lehmer-type bound `\|p(n) − Ke^U(U−1)/(2U³)\| ≤ Ke^{U/2}`, read off Rademacher's series |
 | **The Hardy–Ramanujan asymptotic formula** (1918) | `p(n) ~ e^{π√(2n/3)}/(4n√3)` for the honest partition count `p(n) = #(Nat.Partition n)` (`HardyRamanujan.hardy_ramanujan_isEquivalent`; ratio form `hardy_ramanujan`) |
+| **Partition entropy and Cardy saddle normalization** | For the same count, `log p(n) − π√(2n/3) + log n → −log(4√3)` and `log p(n)/√n → π√(2/3)` (`HardyRamanujan.entropy_log_correction`, `entropy_sqrt_limit`). The saddle at `C=1/12`, `E=n≥1` has this leading exponent (`partition_cardy_leading`, `partition_saddle_minimum`). No black-hole state identification is asserted. |
+| **Colored partition entropy and reciprocal discriminant** | For each fixed natural `k>0`, `log p_k(n)/√n → π√(2/3)√k`, where `p_k` is an actual finite count (`ColoredPartitions.entropy_sqrt_limit`). The generating-series coefficient bridge is exact. At 24 colors, `d(n)=p_24(n+1)` gives the nonnegative-charge coefficients of `1/Δ`, and `log d(n)/√n → 4π` (`degeneracy_entropy`); its ratio to the Cardy leading term at `C=2` tends to 1 (`degeneracy_cardy_ratio`). |
+| **Bosonic occupation numbers and shell dimensions** | `BosonicOccupation.stateEquivPartition` identifies finite-support occupation arrays of energy `N` with `k`-colored partitions of `N`. The complex shell space has an occupation-number orthonormal basis and dimension `p_k(N)` (`occupationBasis`, `shell_finrank`). With 24 species and specified charge `energy−1`, `charge_finrank` gives dimension `p_24(n+1)` and `charge_entropy` gives its log-dimension divided by `√n` tending to `4π`. |
+| **Algebraic oscillator relations and spectrum** | The polynomial representation has `[A_a,C_b]=δ_ab I`, commuting creation operators and commuting annihilation operators, and `[H,C_a]=ω_a C_a`, `[H,A_a]=−ω_a A_a` (`BosonicOscillator.annihilate_create`, `create_create`, `annihilate_annihilate`, `hamiltonian_create`, `hamiltonian_annihilate`). `energySpaceEquivShell` identifies the actual energy eigenspaces with the finite occupation shells; `chargeEigenspace_entropy` proves the `4π` limit for the eigenspaces of the specified `H−I`. |
+| **Normalized finite-shell Hilbert adjoints** | The polynomial basis `X^d/√(∏_a d_a!)` has creation coefficient `√(d_a+1)` and annihilation coefficient `√d_a`. The independently defined polynomial operators restrict to finite energy shells, and `BosonicOscillator.annihilateShell_eq_adjoint` proves `annihilateShell a n = (createShell a n).adjoint`. The shell dimensions remain `p_k(n)` (`normalizedShell_finrank`). |
 | **Atkin–O'Brien-type congruences for ℓ = 13, 17, 19, 23 valid at `b = m`** | ∃ κ ∈ ℤ_ℓ: `ℓ^m ∣ p((ℓ^{m+2}n+1)/24) − κ·p((ℓ^m n+1)/24)` for all m ≥ 1 and n ≥ 0 with `24 ∣ ℓ^m n + 1` (`OrdQuot.atkin_obrien_13/17/19/23`, no additional operator-bound hypotheses). Uses formal layers for formal groups of elliptic curves, Lubin quotients, the canonical subgroup, Katz expansions, Igusa, Deligne, Ramanujan's ODEs, Vélu, the Tate curve and Hecke operators. See [the proof record](ATKIN_OBRIEN_PROOF.md). The displayed theorem proves sufficiency at `b = m`; minimality is a separate assertion. **Awaiting expert review.** |
 | **Ramanujan's conjecture for powers of 11** (Atkin 1967) | `24m ≡ 1 (mod 11ʳ)`, `r ≥ 1` ⟹ `11ʳ ∣ p(m)` (`Atkin11.ramanujan_pow11_unconditional`). All three Atkin–Gordon inputs are proved: the degree-11 modular equation for `φ = q⁵E(q¹²¹)/E(q)` (`modeq_proved`), the curve relation R2 (`r2_proved`) and the 55 seed rows (`Atkin11Seed.seeds_proved`) |
 | **Ramanujan's value `R(e^{−2π})`** (first letter to Hardy, 1913) | `e^{−2π/5}(q;q⁵)_∞(q⁴;q⁵)_∞/((q²;q⁵)_∞(q³;q⁵)_∞) = √((5+√5)/2) − (√5+1)/2` at `q = e^{−2π}` (`RRValue.rogers_ramanujan_value`) |
@@ -46,7 +248,8 @@ The research notes are indexed separately in [the documentation guide](README.md
 | **Ramanujan's theta functions** | `φ(q)=Σq^{n²}`, `ψ(q)=Σq^{n(n+1)/2}`, `f(−q)=(q;q)_∞`, with product forms |
 | **Canonical quintuple family** | For every odd `p ≥ 5`, `∏_{i=1}^{(p-1)/2}Q(qⁱ,qᵖ)` vanishes in every nonsquare class mod `p` |
 | **Three quintuple products (`p=7`)** | `[q^{7n+r}] Q(q,q⁷)Q(q²,q⁷)Q(q³,q⁷) = 0` for `r=3,5,6` |
-| **Root--Vanishing boundary** | Uniform short roots force vanishings; eight-coset theta/Walsh encoding isolates the exact spectral-coherence converse |
+| **Infinite sparse quintuple family** | For `p=9t²+15t+7`, `[q^{pN+3t+3}] Q(q,qᵖ)Q(q^{3t+2},qᵖ)Q(q^{3t+3},qᵖ)=0` for all natural `t,N`, including composite p |
+| **Root--Vanishing classification** | For every admissible sparse triple and canonical residue, persistent vanishing is equivalent to an exact projective root certificate |
 
 
 Build instructions and current verification status are maintained in the [overview](../README.md) and [status page](STATUS.md).
@@ -735,6 +938,119 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
 * **Major arc** (`Major`, `Param`). Take `t = π/√(6n)`, `A = nt`, `θ = tv/√A`. The exponent is exactly `2A − v²/(1 + iv/√A)`, and dominated convergence gives the integral `→ √π`.
 * **Assembly** (`Bounds`, `Main`). The normalizing factor times the main term is exactly `J_n/√π`; both error terms are `O(n e^{−c√n})`.
 
+**[Partition entropy](../RamanujanTau/HardyRamanujan/Entropy.lean) and
+[Cardy saddle algebra](../RamanujanTau/CardySaddle.lean).**
+For the actual partition count, `HardyRamanujan.entropy_log_correction` proves
+`log p(n) − π√(2n/3) + log n → −log(4√3)` as natural `n → ∞`.
+`entropy_sqrt_limit` gives `log p(n)/√n → π√(2/3)`. These are standard
+corollaries of the preceding asymptotic, with no additional hypotheses.
+For real `C,E≥0` and `β>0`, `Cardy.saddle_sub_leading` identifies the difference
+between `2π²C/β + βE` and `2π√(2CE)` as a square. At `C=1/12`, `E=n≥1`,
+`HardyRamanujan.partition_saddle_minimum` proves the minimum is attained at
+`β=π/√(6n)`, and `partition_cardy_leading` identifies its value with `π√(2n/3)`.
+`entropy_cardy_log_correction` combines the normalization with the coefficient
+asymptotic. The algebra is ported from the separate unifiedtheory repository;
+the partition-count asymptotic is proved here. This does not construct DMZ
+mock Jacobi coefficients or derive a black-hole area law. See the
+[research record](CYLINDRIC_RESEARCH.md#what-unifiedtheory-contributes-to-black-hole-work).
+
+**[Colored partitions](../RamanujanTau/ColoredPartitions.lean) and
+[their leading entropy](../RamanujanTau/ColoredPartitionEntropy.lean).**
+`ColoredPartitions.Partition k n` is the finite type of an ordered tuple of
+ordinary partitions whose sizes sum to `n`; `count k n` is its cardinality.
+For every natural `k,n`, `coeff_series` identifies this count with the `n`th
+coefficient of `partitionGF^k`. `qExpansion_discriminant_mul_series` proves
+`qExpansion(Δ) * map(series 24) = X` for the actual analytic modular
+discriminant, identifying the regular series as `q/Δ`.
+
+For any fixed `k>0`, `entropy_sqrt_limit` proves
+`log(count k n)/√n → π√(2/3)√k`. The proof combines the lower bound
+`p(floor(n/k))^k ≤ count k n` with an exponential upper bound on the finite
+convolution; Cauchy–Schwarz controls the sum of the square roots of its indices.
+The one-unit shift in `degeneracy n = count 24 (n+1)` is included in
+`degeneracy_entropy`, which proves `log(degeneracy n)/√n → 4π`.
+`degeneracy_cardy_ratio` proves that this logarithm divided by
+`Cardy.leadingEntropy 2 n` tends to 1. There are no unproved asymptotic
+hypotheses. These are leading limits, without a colored logarithmic correction
+or a quantitative remainder. Physical state identification, the area law, and
+the quarter-BPS mock Jacobi extension are not formalized by these theorems.
+Use the standalone import `RamanujanTau.ColoredPartitionEntropy`.
+
+**[Bosonic occupation model](../RamanujanTau/BosonicOccupation.lean).**
+`Occupation k` consists of `k` finitely supported arrays of nonnegative
+integer occupations, with mode zero excluded. Energy is `sum_i sum_m m*N(i,m)`.
+`stateEquivPartition k N` gives an explicit bijection between energy-`N`
+occupation states and colored partitions. `state_zero_above_energy` derives
+the cutoff `N(i,m)=0` for `m>N`, and `state_occupation_bound` proves
+`N(i,m)≤N/m` for positive modes. The vacuum is the unique zero-energy state.
+
+`ShellSpace k N` is the finite complex Hilbert space on this basis;
+`shell_finrank` gives dimension `p_k(N)`. Its formal graded dimension series
+is the colored partition series, and `discriminant_mul_shellSeries` proves
+that the analytic discriminant's q-expansion times the 24-species series is `X`.
+For the specified charge `energy−1`, `ChargeSpace n` has dimension
+`p_24(n+1)` (`charge_finrank`), with `log(dim)/√n → 4π` (`charge_entropy`)
+and ratio to the Cardy leading term at `C=2` tending to 1 (`charge_cardy_ratio`).
+The vacuum offset is an input. A full oscillator representation, an infinite
+operator trace, string duality, and a gravitational area law are not proved.
+Use the standalone import `RamanujanTau.BosonicOccupation`; see its
+[verification record](verification/bosonic_occupation.json).
+
+**[Algebraic oscillators](../RamanujanTau/BosonicOscillator.lean) and
+[their energy eigenspaces](../RamanujanTau/BosonicSpectrum.lean).**
+`Space k` is the complex polynomial ring with variables indexed by species
+and positive mode. `occupationEquiv` identifies all monomial exponents with
+the preceding occupation arrays, and `energy_toOccupation` identifies their
+weighted degrees with the preceding energy function. Multiplication by a
+variable defines `create`; its partial derivative defines `annihilate`.
+The three canonical commutation relations hold on every polynomial state.
+`hamiltonian_occupation` makes every occupation monomial an eigenvector with
+the correct energy; the Hamiltonian commutators give the mode energy shifts.
+
+`EnergySpace k N` is the Hamiltonian's actual eigenvalue-`N` subspace.
+`mem_energySpace` characterizes it by its monomial support, and
+`energySpaceEquivShell` gives a linear equivalence to the earlier finite
+Hilbert shell. Thus `energySpace_finrank` proves dimension `p_k(N)`.
+With the explicitly specified `chargeOperator=H−I`, the nonnegative charge
+eigenspace has dimension `p_24(n+1)` (`chargeEigenspace_finrank`), whose
+log-dimension divided by `√n` tends to `4π` (`chargeEigenspace_entropy`).
+Its ratio to the Cardy leading term at `C=2` tends to 1.
+
+This is an algebraic representation in an unnormalized monomial basis.
+The equivalence is linear; no isometry, creation/annihilation adjoint relation,
+Hilbert completion, or unbounded self-adjoint operator is asserted. The
+vacuum shift, physical state identification, and gravitational interpretation
+retain their earlier boundaries. Use `import RamanujanTau.BosonicSpectrum`;
+see the [verification record](verification/bosonic_spectrum.json).
+
+**[Factorial normalization](../RamanujanTau/BosonicNormalization.lean) and
+[finite-shell adjoints](../RamanujanTau/BosonicAdjoint.lean).**
+`factorialWeight d` is the product of occupation factorials; it is strictly
+positive and multiplies by `d(a)+1` when one particle is added at mode `a`.
+`normalizedBasis` rescales each polynomial monomial by the inverse square
+root of this weight. `create_normalizedBasis` and
+`annihilate_normalizedBasis_raise` prove the square-root occupation amplitudes;
+`annihilate_normalizedBasis_zero` handles an unoccupied mode.
+`normalized_coordinate_adjoint` proves conjugate-transpose coordinates for
+the existing creation and annihilation operators on the entire algebraic basis.
+
+`normalizedShellEquiv` identifies each polynomial energy eigenspace with
+finite Euclidean coordinates in these normalized monomials. Its inverse sends
+the orthonormal coordinate basis to those monomials
+(`normalizedShellEquiv_symm_basis`). `normalizedShellIsometry` identifies the
+coordinate space isometrically with the earlier occupation shell.
+`createShell a n` and `annihilateShell a n` are transported restrictions of the
+original operators between energies `n` and `n+frequency(a)`.
+`annihilateShell_eq_adjoint` proves their actual Hilbert adjoint equality, and
+`shell_inner_adjoint` states the inner-product identity for all shell vectors.
+`normalizedShell_finrank` preserves the exact colored partition dimensions.
+
+This completes the finite-shell adjoint step. It does not prove the domains
+or adjoints of unbounded operators on an infinite Hilbert completion, nor
+derive the vacuum offset or a physical black-hole interpretation. Use
+`import RamanujanTau.BosonicAdjoint`; see the
+[verification record](verification/bosonic_adjoint.json).
+
 **`MockTheta3*.lean`: the third-order mock theta function and the deathbed letter.**
 * **`MockTheta3`.** `f(q) = Σ q^{n²}/(−q;q)ₙ²` is the rank generating function at `z = −1`. So `[qⁿ]f = N(0,2,n) − N(1,2,n)`.
 * **`MockTheta3Watson`.** Watson's identities `2φ(−q) − f(q) = b(q)` and `f(q) + 4ψ(−q) = b(q)`, with `b(q) = (q;q²)_∞ Σ_ℤ(−1)ⁿq^{n²}`.
@@ -748,11 +1064,15 @@ algebra gives `ψ = (q²;q²)_∞/(q;q²)_∞`. `MockTheta5ThetaIdentities.lean`
 
 ### Bounds for τ
 
-* **Hecke's bound** `RamanujanTau.tau_isBigO : τ(n) = O(n⁶)` (`TauHeckeBound.lean`), from Mathlib's
+* **Hecke's bound** `RamanujanTau.tau_isBigO : τ(n) = O(n⁶)` (`TauLSeries.lean`; real-valued form `tau_isBigO_real` in `TauHeckeBound.lean`), from Mathlib's
   `CuspFormClass.qExpansion_isBigO` through the Δ bridge.
 * **Small cases, kernel-checked** (`TauSmallChecks.lean`, `decide +kernel`): Ramanujan's conjecture
   `τ(p)² ≤ 4p¹¹` for all primes `p < 50` (`ramanujan_bound_lt50`) and Lehmer's `τ(n) ≠ 0` for `n < 30`
   (`lehmer_lt30`). Deligne's theorem itself (étale cohomology of Kuga–Sato varieties) is out of reach of current Mathlib.
+* **Sub-Hecke bounds (2026-11-03/04), unconditional:** `TauBound.tau_isBigO_47_8_unconditional` (Kloosterman, 47/8),
+  `Stepanov.tau_isBigO_35_6_unconditional` (Salié, 35/6), and the current best,
+  `StepanovAS.tau_isBigO_23_4_unconditional` (Weil, `τ(n) = O(n^{23/4+ε})`). Lehmer's non-vanishing is now proved
+  for `n < 214,928,639,999 (Lehmer 1947)` (`LehmerSmall.lehmer_below_214928639999`).
 
 ### `MTC/` — the Mock Theta Conjectures (Hickerson–Mortenson route)
 ```lean
@@ -812,212 +1132,556 @@ transcribed in `docs/watson1937_R1_proof.md`.
   `field_simp; ring` over atoms `(q^r;q^{80})_∞`. The Lean file is generated by a script.
 * **Assembly** (`Final`): R1 at `q²`, plus (2₀), (3₀), MTC₀ and the theta identity, give the χ₀ identity.
 
-### Multi-quintuple-product vanishing research
+### Multi-quintuple products: complete admissible triple classification
 
-[`RESEARCH_MULTI_QUINTUPLE.md`](../RESEARCH_MULTI_QUINTUPLE.md) records a reproducible investigation of the
-2026 triple- and quadruple-quintuple-product coefficient-vanishing examples.  The exact integer scanner
-`scripts/quintuple_vanishing_scan.py` reproduces all five published examples and finds the first obstruction
-to the tempting condition `Σ iₛ² ≡ 0 (mod p)`: `(p;i,j,k)=(71;1,4,14)` is isotropic, but every residue class
-has a nonzero coefficient already by `q⁴⁶³`.  `MultiQuintupleVanishing.lean` proves the branch-uniform
-completed-square identity for arbitrary finite products, isolating the quadratic lattice that a future
-sign-reversing affine involution must preserve.  `MultiQuintupleP7.lean` proves the first exact
-triple theorem: the new `(p;i,j,k)=(7;1,2,3)` case vanishes in the quadratic nonresidues `3,5,6 (mod 7)`.
-`MultiQuintuplePochhammer.lean` supplies the reusable formal `(qᵃ;qᵈ)∞` and the paper's five-factor
-`Q(qⁱ,qᵖ)` specialization.  `MultiQuintupleCanonical.lean` proves the symbolic factorization
-`∏_{i=1}^{(p-1)/2} Q(qⁱ,qᵖ) = φ(−q)(qᵖ;qᵖ)∞^((p-5)/2)(q²ᵖ;q²ᵖ)∞` for every odd `p ≥ 5`, and hence
-all nonsquare residue-class vanishings (all quadratic nonresidues when `p` is prime).
-This is a theorem about the actual product rather than a surrogate target.  No unproved general sparse
-vanishing statement is asserted as a theorem.
+[`MultiQuintupleFullConverse.lean`](../RamanujanTau/MultiQuintupleFullConverse.lean)
+proves the classification for the actual infinite product
+`Q(qⁱ,qᵖ) Q(qʲ,qᵖ) Q(qᵏ,qᵖ)`.
+The hypotheses are exactly `AdmissibleSparseTriple p i j k` and `R < p`:
+p is prime, p≠3, 0<i<j<k, 2k<p, and p divides i²+j²+k².
 
-The sparse-triple investigation has also produced a sharper, explicitly conjectural classification.
-An isotropic triple is reflective exactly when its projective normal `(i,j,k)` appears to have an
-integral lift `w` of norm `p` or `2p`.  `scripts/paley_spinor_scan.py` finds zero mismatches across 596
-projective classes through `p=401`; 328 classes have such roots and are reflective/hits, while 268 have
-neither.  `MultiQuintupleRootReflection.lean` proves the general forward theorem: every short projective
-root produces an integral Householder reflection.  For `(p;i,j,k)=(71;1,11,34)`, the opaque matrix is
-simply reflection in `w=(6,-5,-9)`, with `||w||²=2p` and `w≡6(i,j,k) (mod p)`.
-`MultiQuintuplePaleySpinor.lean` also proves that the projective invariant is a Legendre elliptic
-`j`-invariant and kernel-checks the residue-`61` affine branch certificate.
-`MultiQuintupleRootConverse.lean` proves the converse for primitive rational Householder
-reflections: the normal has norm `p` or `2p` and is a projective lift.  The coherent-cancellation
-setting needed here is now handled completely downstream: rational involution classification
-produces a Householder or negative Householder map, and the theta arithmetic forces its primitive
-normal and branch target.  This does not classify arbitrary lattice automorphisms; the stronger
-claim that every noncentral automorphism is itself a reflection is false in the order-12 `J=0`
-classes, which also contain rotations.
-`MultiQuintupleRootBranch.lean` proves the
-universal positive and negative eight-branch matchings for every direct short root.
-`MockTheta5QuintIdentity.lean` proves the full formal quintuple product identity, and
-`MultiQuintupleBilateralBridge.lean` proves the exact coefficient interface
-`[q^k] Q(q^i,q^p) = quintBilateralCoeff p i k` for `0<i` and `2i<p`.
-`MultiQuintupleCancellation.lean` now flattens the actual three-factor coefficient into one finite
-bilateral branch box and proves both positive and sign-corrected negative short-root progressions
-vanish by a fixed-point-free sign-reversing involution.  It also gives a reflection-theoretic proof
-of the `7n+3` triple progression.  `MultiQuintupleProjectiveCancellation.lean` then supplies a
-reusable exponent-involution assembly, transports the non-direct projective root
-`(6,-5,-9) ≡ 6(1,11,34) (mod 71)` through all eight affine residue cosets, and proves the actual
-`71n+61` coefficient family zero.  It also instantiates the direct norm-`2p` root `(1,6,11)` to
-prove the actual `79n+9` family.  `MultiQuintupleRootVanishingEquivalence.lean` now proves uniform
-transport for every projective short root: the exact quotient and target-residue laws, positive
-and sign-corrected negative eight-branch closure, two abstract pairing-to-coefficient bridges,
-and a unified theorem making the entire predicted progression of the actual triple product zero.
-It also proves that the positive and negative target congruences are necessary for projective
-coordinate closure under explicit Bezout invertibility hypotheses.  The new
-`MultiQuintupleRootVanishingClassification.lean` proves that a coefficient vanishes exactly when
-its positive and negative finite branch supports have equal size, equivalently when an abstract
-sign-reversing support bijection exists.  Persistent progression vanishing is exactly shellwise
-sign balance, and the full bare Root--Vanishing biconditional is reduced to one explicitly named
-rigidity proposition: every such abstract shellwise balance must arise from one coherent short-root
-involution.  The unrestricted proposition is now formally disproved: `Q(q^3,q^9)^3` is supported
-only on exponents divisible by three, hence vanishes throughout `9N+1`, but no projective-root
-target can exist at `p=9`.  More generally, a new theorem proves this imprimitive-scale vanishing
-mechanism whenever the modulus and all three indices have a common divisor not dividing the target
-residue.  It now proves the stronger exact identity
-`Q(q^(g*i),q^(g*p)) = Q(q^i,q^p)|_(q→q^g)`, coefficient-by-coefficient descent, and the complete
-dichotomy: every scaled persistent zero is either automatically off support or descends to a
-primitive persistent zero.  Conditional on the explicitly named primitive rigidity conjecture,
-this becomes an end-to-end classification by automatic support or a projective root.
-`MultiQuintupleLocalSupport.lean` goes beyond common scaling: for every odd divisor `d` of `p`
-that divides `3i`, `3j`, and `3k`, the support lies in the eight subset-sum classes
-`b1*i+b2*j+b3*k (mod d)`.  Missing any of those classes proves an entire progression zero; in
-particular it formally proves the mixed family `Q(q,q^15) Q(q^3,q^15)^2` vanishes in `15N+2`.
-For prime `p ≥ 5` and nonzero canonical indices this local obstruction is impossible, cleanly
-isolating the corrected prime, pairwise-distinct, isotropic rigidity statement—and the corresponding
-general arbitrary-automorphism classification—as the remaining open problem rather than an assumption.
-`MultiQuintupleThetaCosets.lean` now gives that frontier an exact spectral form.  The eight Watson
-branch choices are shifted cosets of `(6pℤ)^3`; square completion identifies coefficient degree
-`K` with the common norm shell `24pK+Σ(6i_s-p)^2`, and the triple product is exactly the top-parity
-Walsh projection of their eight theta components.  Full Walsh inversion recovers every component
-from all eight character projections, while a separate theorem proves that the single parity
-projection is not injective.  This rules out the tempting but invalid shortcut from one scalar
-theta identity directly to componentwise equality.
-`MultiQuintupleThetaRigidity.lean` proves that the progression shells fill the complete affine
-residue fiber and formalizes the right global object: one rational orthogonal involution acting
-coherently on every shell.  It proves that such an involution forces persistent cancellation and
-completely classifies its rational linear part as a Householder reflection or its negative.  The
-new `MultiQuintupleThetaArithmetic.lean` proves that every vector of the homogeneous index-`p`
-congruence lattice is a difference of two Watson points in the same affine fiber.  Consequently
-every coherent involution preserves that full lattice integrally, including the three `p e_s`
-test vectors.  Its rational Householder line can always be primitively normalized over the
-integers, with an explicit square-Bézout certificate, and the primitive squared norm is forced to
-be one of `1`, `2`, `p`, or `2p`.  It then excludes the norm-`1` and norm-`2`
-signed-coordinate/permutation stabilizers, sharpens the list to `p` or `2p`, proves that the
-primitive normal is a projective lift of `(i,j,k)`, and uses one coherently transported Watson
-point plus an exhaustive `ZMod 3` theorem to force the correct positive/negative branch and its
-exact target congruence.  Consequently every coherent admissible theta involution now yields a
-complete `ProjectiveRootTargetCertificate`; arithmetic classification is closed.  Conversely, an
-explicit rational Householder or negative-Householder map, together with the universal eight-branch
-matching, constructs one coherent theta involution from every such certificate.  Thus projective-root
-targets and coherent involutions are exactly equivalent on admissible data.  At the proposition
-level, spectral coherence is now proved logically equivalent to both theta-coset rigidity and the
-corrected Root--Vanishing rigidity conjecture.  The sole remaining reverse-direction frontier is
-therefore exact: obtain one fixed rational orthogonal involution from equality of the positive- and
-negative-parity four-coset representation counts along the progression.
-`MultiQuintupleThetaCharacter.lean` removes one more layer of packaging.  If the affine Watson
-index is `m=3n+b`, its sign is the shifted nontrivial character modulo three: `+1` on residue
-zero, `-1` on residue one, and zero on residue two.  The eight signed branches are therefore
-proved equal to one ternary theta series weighted by the product of these three characters, and
-that character theta series is proved equal to the actual stabilized triple product.  This is the
-natural scalar object for a finite Weil-representation, Hecke, or cusp-order separation theorem.
-`MultiQuintupleThetaWitness.lean` gives an equivalent but operationally different route: every
-admissible residue must have either a finite projective-root certificate or one finite nonzero
-coefficient witnessing failure of persistent vanishing.  This root-or-witness dichotomy is proved
-equivalent to spectral coherence and corrected Root--Vanishing rigidity, so a universal effective
-witness bound would close the conjecture without reconstructing an isometry from an infinite theta
-identity.  The reproducible `witness-scan` now checks this dichotomy through `p<=2600`: across
-18,704 projective classes and 31,479,496 residue problems it finds 4,910 root certificates and
-31,474,586 coefficient witnesses, with no unresolved residue or root/nonzero conflict; the latest
-first witness occurs at progression index 541, for `p=2557`.  Every first witness in the entire
-census satisfies the clean linear cutoff `N <= p/4`.  The Lean definition
-`AdmissibleQuarterCutoffRootOrProductWitness` now records that precise target and proves that it
-would imply corrected rigidity, while deliberately not asserting the still-unproved universal
-cutoff.
+```lean
+import RamanujanTau.MultiQuintupleFullConverse
 
-There is now a third, Poisson-dual route implemented by the exact `dual-shell-scan`.  A dual vector
-is an integral lift `w congruent lambda*(i,j,k) (mod p)`.  Its signed eight-branch Fourier amplitude
-is a sum of `6p`-th roots of unity, decided exactly over `Q(zeta_3)(zeta_p)`, and its individual
-Watson support factors as
+open Ramanujan.MultiQuintuple
 
-```text
-zeta^C * product_s (1-zeta^delta_s),
-delta_s = 2*w_s - 6*w_3*(3*k)^(-1)*i_s  (mod 6p).
+example {p i j k R : ℕ}
+    (ha : AdmissibleSparseTriple p i j k) (hR : R < p) :
+    HasProjectiveRootTarget p i j k R ↔ PersistentTripleVanishing p i j k R :=
+  admissible_root_vanishing_equivalence ha hR
 ```
 
-Thus support is residue-independent, while changing the target residue multiplies each vector by
-one explicit affine phase.  Poisson separation says that a persistently vanishing progression must
-cancel on every complete supported dual norm shell.  The exact census through `p<=1000` finds that
-the common zeros of the first four such shells are precisely the projective-root targets: 3,172
-projective classes and 2,055,986 residues, with no mismatch or incomplete shell.  Fewer shells are
-exactly inadequate as a diagnostic: false common zeros occur with one shell at `p=71`, two at
-`p=191`, and three at `p=709`.  Extending the search decisively disproves the tempting universal
-four-shell conjecture at `p=1439`, and the five-shell replacement already fails at `p=1523`.
-For `(p;i,j,k;R)=(1439;1,63,391;229)`, the first four complete shell phase counters are literally
-empty, there is no short-root target, and the fifth shell is nonzero.  The reproducible
-`dual-candidate` command prints the complete vectors and exact phase counters, while
-`MultiQuintupleDualShellCounterexample.lean` kernel-checks primality, isotropy, and the absence of
-every norm-`p` or norm-`2p` projective lift.  Thus the valid Poisson route requires a
-parameter-dependent separation bound; no fixed small shell count is promoted as a breakthrough
-theorem.
-
-The corrected candidate is **spanning-shell rigidity**.  Order the complete supported dual norm
-shells and stop at the first shell whose cumulative vectors span rational three-space.  Common
-cancellation through that datum-dependent shell should force a projective-root target.  This rule
-explains every fixed-cutoff failure: its cancelling prefix is still confined to a line or plane,
-and the first spanning shell detects the false zero.  The exact `dual-span-scan` finds no mismatch
-through `p<=3000` (24,741 projective classes and 48,334,107 residues), including all classes at
-`p=1439` and `p=1523`.  More importantly, the stopping shell is unconditionally finite:
-`MultiQuintupleDualSpanning.lean` proves that `(p,p,p)`, `(p,p,-p)`, and `(p,-p,p)` are always
-supported, have norm `3p^2`, and determinant `-4p^3`.  Hence supported vectors span by norm
-`3p^2`.  The existence and bound are theorems; the rigidity implication and analytic Poisson bridge
-remain the exact proof frontier.
-
-The proof-oriented refinement is the first **perfect and lattice-generating** cutoff.
-`MultiQuintupleDualPhase.lean` proves that an antipodal pair is controlled by the single linear
-phase congruence `2u+q*w3*(2R-i-j-k)=0 (mod p)`.  `MultiQuintupleDualPerfect.lean` then supplies six
-universally supported vectors by norm `6p^2` whose tensors `w*w^T` span all ternary quadratic forms;
-any rational linear map preserving their six norms is proved orthogonal.  Three of them generate
-`p*Z^3`, and a supported scalar-one projective lift always exists with norm at most `3p^2`, so
-the union generates the full projective dual lattice.  Thus a finite orthogonal-reconstruction
-window is proved to exist by `6p^2`.  The remaining finite lemma is exact and combinatorial:
-promote aggregate shell phase cancellation in that window to one coherent vector pairing.  The
-exact `dual-perfect-scan` tests that promotion through `p<=3000`: all 6,039 common-zero residues
-have a unique phase-reversing vector pairing, every pairing extends to an orthogonal involution of
-the full dual lattice, and every recovered map is exactly its predicted signed Householder map.
-
-The exact `root-scan` command independently reconstructs the selected sign, predicted residue,
-root reflection, and affine certificate.  The stronger census through `p<=1000` covers 3,172
-projective classes with no automorphism/root or root/certificate mismatches; all 88 extra residues
-that were merely silent through depth 160 acquire a nonzero witness by depth 256.
-
-`MultiQuintupleDualCompression.lean` now removes the apparent eight-term cyclotomic complexity from
-the dual frontier.  For a projective lift `w_s=lambda*a_s+p*z_s` and
-`3*q*k=1+p*t`, it proves the exact identity
+`PersistentTripleVanishing` means every coefficient at degree pN+R is zero,
+for all natural N. `HasProjectiveRootTarget` is the existence of an integer
+certificate with v=(i,j,k), e∈{1,2}, w≡λv modulo p, w·w=ep, v·w=pu,
+and ce=2, together with the target condition
 
 ```text
-delta_s = 2*p*(z_s-3*z_3*q*a_s-lambda*a_s*t).
+2λR ≡ sum(w) − 6u                         (mod p), if ep ≡ 1 (mod 3),
+cλ(2λR − sum(w) + 6u) ≡ 12                (mod p), if ep ≡ 2 (mod 3).
 ```
 
-Support is therefore equivalent to the reduced factor being nonzero modulo three, so every
-supported `delta_s` is `+2p` or `-2p` modulo `6p`.  Algebraically, the full amplitude of one vector
-compresses to
+The norm condition forces w to be a short nonzero vector. A short vector alone
+is insufficient: its target condition must select R. The formal certificate
+is defined in
+[`MultiQuintupleRootVanishingClassification.lean`](../RamanujanTau/MultiQuintupleRootVanishingClassification.lean).
+
+| Public theorem | Result |
+|---|---|
+| `admissible_root_vanishing_converse` | Persistent vanishing supplies a projective root certificate |
+| `admissible_root_vanishing_equivalence` | The complete equivalence for every admissible triple and canonical residue |
+| `admissibleRootVanishingRigidity_proved` | Discharges the original corrected rigidity proposition |
+
+#### How the proof is assembled
+
+| Stage | Checked result and entry point |
+|---|---|
+| Actual coefficients | [Bilateral bridge](../RamanujanTau/MultiQuintupleBilateralBridge.lean) and [primal Gaussian](../RamanujanTau/MultiQuintuplePrimalGaussian.lean) identify the product coefficients with the signed lattice sum |
+| Poisson transform | [Watson Poisson](../RamanujanTau/MultiQuintupleWatsonPoisson.lean) retains all eight branch signs; [Fourier amplitudes](../RamanujanTau/MultiQuintupleWatsonFourierAmplitude.lean) identify the transformed terms exactly |
+| Norm shells | [Gaussian cancellation](../RamanujanTau/MultiQuintupleDualGaussianCancellation.lean) proves absolute convergence and separates each complete norm shell |
+| Phase partners | [Canonical phases](../RamanujanTau/MultiQuintupleCanonicalPhaseCharacter.lean) and [dual shell partners](../RamanujanTau/MultiQuintupleDualShellPartners.lean) derive opposite partners using the actual Watson phases |
+| Integral generation | [Universal short generation](../RamanujanTau/MultiQuintupleUniversalShortGeneration.lean) proves that supported vectors of squared norm < p²/2 generate the projective dual lattice over ℤ, for p≠13 |
+| Large and finite ranges | [Reduced-basis geometry](../RamanujanTau/MultiQuintupleLargePrimeGeneration.lean) handles p≥1250; [finite generators](../RamanujanTau/MultiQuintupleFiniteGenerators.lean) check complete normalized-line coverage below 1250 |
+| Exceptional modulus | [Converse at thirteen](../RamanujanTau/MultiQuintupleConverseThirteen.lean) settles all admissible triples and residues at p=13 |
+| Root extraction | [Short dual converse](../RamanujanTau/MultiQuintupleShortDualConverse.lean) constructs one orthogonal involution, preserves the integral lattice and phases, and extracts the exact target |
+
+The finite tables cover 201 primes from 7 through 1249 and check 14,369
+short-generator certificates. Modulus 13 is excluded from the generation
+conclusion and handled by six root certificates and 20 nonzero product
+coefficients. The small mod-three box is checked for all 468 nonsingular
+ternary Gram forms. The cutoff 1250 is a sufficient bound; no minimality
+claim is made. Python supplies reproducible data; Lean checks the arithmetic
+and proves that the certificates concern the required lattices and products.
+
+The published snapshot passed **9,336 build jobs** and the expanded
+**251-declaration multi-quintuple axiom audit**, with dependencies confined to
+`propext`, `Classical.choice`, and `Quot.sound`.
+The [verification record](verification/full_converse_lean.json) distinguishes
+that snapshot from the larger development worktree; the
+[raw axiom report](verification/full_converse_lean.axioms.txt) lists all audited
+results. See the [certificate guide](FINITE_ARITHMETIC.md#multi-quintuple-classification-certificates)
+for build, audit, regeneration, and independent-check commands.
+
+#### Related results and exact scope
+
+* [Canonical family](../RamanujanTau/MultiQuintupleCanonical.lean): for every
+  odd p≥5, the full canonical quintuple product factors into a theta series
+  and a tail supported on multiples of p, giving all nonsquare-class
+  vanishings. At p=7 this includes residues 3, 5, and 6.
+* [Infinite sparse family](../RamanujanTau/MultiQuintupleEisensteinFamily.lean):
+  for p=9t²+15t+7, the indices (1,3t+2,3t+3) vanish at pN+3t+3 for every
+  natural t,N. This separate sufficient theorem also permits composite p.
+* [Projective cancellation](../RamanujanTau/MultiQuintupleProjectiveCancellation.lean)
+  includes the actual 71N+61 and 79N+9 families. The general equivalence
+  identifies which admissible residues have such a certificate.
+* The unrestricted converse is false: the proved p=9 common-scale example
+  vanishes off support without a projective root. [Local support](../RamanujanTau/MultiQuintupleLocalSupport.lean)
+  also gives mixed composite-modulus vanishings. Repeated indices, arbitrary
+  composite moduli, and four-factor products are outside the classification's
+  stated hypotheses.
+* Isotropy alone is insufficient. The research scan finds nonzero witnesses
+  in every residue for (71;1,4,14); the theorem requires the full root target.
+
+The [research record](../RESEARCH_MULTI_QUINTUPLE.md) preserves the experiments,
+failed fixed-shell conjectures, and earlier conditional reductions. The analytic
+bridge and admissible converse are complete. The proposed N≤⌊p/4⌋ first-witness
+bound, first-spanning and first-perfect cutoff criteria, and the separate
+arbitrary-automorphism paper argument remain distinct follow-up questions.
+Historical JSON records retain the proof status at the time of their creation.
+
+### Four-factor classification at 41 and a delayed triple witness
+
+[`MultiQuintupleFourFortyOneConverse.lean`](../RamanujanTau/MultiQuintupleFourFortyOneConverse.lean)
+proves that, for every R<41, all coefficients of
+`Q(q,q⁴¹) Q(q⁴,q⁴¹) Q(q⁵,q⁴¹) Q(q⁹,q⁴¹)` at 41N+R vanish
+if and only if R is 21, 25, 26, or 30.
+`four41_residue_or_witness` supplies a nonzero coefficient with N≤5 in
+all 37 other residues; `four41_finite_test_iff` therefore turns the first
+six terms into an exact test for this fixed product.
+
+The proof uses the general actual-product coefficient bridge in
+[FourCancellation](../RamanujanTau/MultiQuintupleFourCancellation.lean),
+explicit sign-reversing affine involutions in
+[FourFortyOne](../RamanujanTau/MultiQuintupleFourFortyOne.lean), and
+kernel-checked finite witnesses. This settles the four-factor example
+presented as experimental in [Daniels–Huber–McLaughlin–Ye, §5](https://arxiv.org/html/2606.06701v1#S5).
+It does not classify all four-factor products or establish priority over
+subsequent work.
+
+[`MultiQuintupleWitness103.lean`](../RamanujanTau/MultiQuintupleWitness103.lean)
+proves `first_witness103`: for `Q(q,q¹⁰³) Q(q²²,q¹⁰³) Q(q³⁷,q¹⁰³)`, the
+coefficients at 103N+63 are zero for N<23 and equal −1 at N=23. This gives
+an exact benchmark for the proposed quarter-prime bound, which remains open.
+
+### A second quadratic four-factor family
+
+[MultiQuintupleFourBinary](../RamanujanTau/MultiQuintupleFourBinary.lean)
+proves permanent coefficient zeros for indices `(2m,4m,n,3n)` at p=2m²+n²,
+with positive m,n, 8m<p, 6n<p, 3 dividing m, 5 dividing n, and gcd(30m,p)=1.
+The two residue conditions are R≡3m+2n−30 and R≡3m+2n modulo p.
+The proof constructs two exponent-preserving, sign-reversing involutions on
+the actual Watson coefficient sums; it requires no primality assumption.
+
+[MultiQuintupleFourBinaryFamily](../RamanujanTau/MultiQuintupleFourBinaryFamily.lean)
+proves the unconditional specialization `m=15t+3, n=5` for every natural t:
+modulus `450t²+180t+43`, indices `(30t+6,60t+12,5,15)`, and zero residues
+`45t+19` and `45t−11` (replace the latter by 32 at t=0).
+Lean proves that the moduli strictly increase and that the residues are
+distinct and canonical. Every even t gives a modulus that is not a sum of
+two integer squares. Thus an unbounded set of these examples lies outside
+the earlier sum-of-two-squares moduli. At 43 the guaranteed zeros are 19 and 32.
+
+The [verification record](verification/four_binary.json) records the full
+build, 20-declaration axiom audit, and independent comparison of 259,467
+coefficients. A universal four-factor coefficient converse remains open.
+
+### Kernel-checked obstructions to four-factor witness bounds
+
+[FourWitness17](../RamanujanTau/MultiQuintupleFourWitness17.lean) proves that
+the coefficients at 17N+5 for indices `(2,3,5,8)` are zero for N<7 and equal
+1 at N=7. [FourWitnessBound](../RamanujanTau/MultiQuintupleFourWitnessBound.lean)
+then proves `fourWitnessLinearBound_ge`: any real constant c giving a bound
+N≤cp for all nonvanishing progressions of admissible prime-modulus four-tuples
+must satisfy **c≥7/17**. Both c=1/4 and c=2/5 are ruled out. Sufficiency and
+asymptotic optimality are not asserted.
+
+[FourWitness2521](../RamanujanTau/MultiQuintupleFourWitness2521.lean) proves
+that residue 2273 for `(2521;1,35,36,71)` first becomes nonzero at N=632,
+with coefficient 1. This lies in the expanded reflection family and exceeds
+even the rounded-up quarter cutoff 631. The proof certifies completeness of
+a finite list and checks cancellation of 5,091 terms in 82 kernel-checked
+slices. The [verification record](verification/four_witnesses.json) records
+the build, audit, and independent arithmetic replay.
+
+The original triple-product conjecture remains open and is unaffected.
+The [earlier calculation](verification/four_quarter_counterexample.json)
+additionally gives first witness N=631 for residue 67 at 2521; that residue
+has not been separately formalized.
+
+### Four congruence families and a converse for the reflection maps
+
+[MultiQuintupleFourReflection](../RamanujanTau/MultiQuintupleFourReflection.lean)
+proves infinite coefficient vanishing at `p=m²+n²` when **any one** of
+`m,n,m−n,m+n` is divisible by nine, with explicit size and coprimality
+conditions. The four residue criteria and complete hypotheses are in the
+[research statement](../RESEARCH_MULTI_QUINTUPLE.md#four-congruence-families-and-an-exact-reflection-criterion).
+The theorem includes the four zero progressions **9,13,55,64 at 97**, as well
+as composite moduli. The coefficient converse at 97 is not yet formalized.
+
+[MultiQuintupleFourReflectionCriterion](../RamanujanTau/MultiQuintupleFourReflectionCriterion.lean)
+proves an exact converse for branch compatibility of the sixteen specified
+reflection maps. A compatible map exists exactly in the four congruence
+cases above, provided the norm is a unit modulo nine. This classifies these
+maps; it does not prove that all coefficient vanishing arises from them.
+
+The [verification record](verification/four_reflection.json) contains the full
+build and axiom audit. The [independent finite check](verification/four_reflection_check.json)
+compares 152,284 coefficients across 37 parameter pairs and records a separate
+finite search for converse witnesses. Its finite quarter-bound observations
+do not extend to all parameters: the counterexample at 2521 above lies in
+this congruence family.
+
+### Two-parameter four-factor theorem and classification at 53
+
+[MultiQuintupleFourPlane](../RamanujanTau/MultiQuintupleFourPlane.lean)
+proves infinite coefficient vanishing for factors indexed by `(m−n,n,m,m+n)`
+at modulus `p=m²+n²`, subject to explicit size and coprimality conditions and
+`9 | m+n`. Four linear congruences specify the zero progressions. The theorem
+also covers composite moduli, including 65 and 365. See the
+[precise hypotheses and residue formulas](../RESEARCH_MULTI_QUINTUPLE.md#two-parameter-plane-theorem).
+
+[MultiQuintupleFourFiftyThreeConverse](../RamanujanTau/MultiQuintupleFourFiftyThreeConverse.lean)
+proves the complete classification for the product `(53;5,2,7,9)`:
+its persistent zero residues are exactly **29,31,36,38**. Every other residue
+has a nonzero witness with N≤8, so testing the first nine terms is exact for
+this product. The general four-factor converse remains open.
+
+The [verification record](verification/four_plane.json) includes the full
+build and dedicated axiom audit. An [independent calculation](verification/four_plane_check.json)
+also compares 45,926 exact coefficients across 11 parameter pairs.
+
+### An infinite four-factor family
+
+[FourFamily](../RamanujanTau/MultiQuintupleFourFamily.lean) proves
+`coeff_four_family_zero` for every pair t,N of natural numbers. Set
 
 ```text
-zeta^E(w) * (1-zeta^(2p))^3,
+p = 5184t²+720t+41,
+F_t(q) = Q(q^(72t+1),q^p) Q(q^(72t+5),q^p) Q(q^(72t+9),q^p) Q(q^4,q^p).
 ```
 
-for one explicit phase `E(w)`.  A shell with `V` vectors consequently has roots-of-unity weight
-`V`, not `8V`.  A second Lean theorem proves `3 | E(w)`, so these are actually `2p`-th roots.
-Cubic three-cycles are impossible.  Because every complete shell is antipodally closed, its weight
-is even.  Lam--Leung's theorem (and a new kernel-checked constant-bucket arithmetic lemma) then
-shows that every vanishing shell of weight strictly below `2p` consists entirely of opposite phase
-pairs: non-pairing `p`-gons would have to occur in an even number.  The exact perfect-shell scanner
-now uses this compressed representation and cross-checks it against the original expanded
-amplitudes on every common zero,
-and separately reports any non-pairing cancellation.  Thus the finite frontier has been reduced to
-a universal sub-`2p` shell-weight bound followed by coherence of the forced opposite-phase matching.
-Through `p<=3000`, the largest compressed shell weight is only `24`, no selected shell reaches
-weight `2p`, and all 6,039 common-zero residues have zero expanded/compressed disagreements and zero
-non-pairing cancellations.
+The coefficient at pN+R is zero for each of
+
+```text
+R = 2592t²+468t+21, 3240t²+477t+25,
+    1944t²+459t+26, 2592t²+468t+30.
+```
+
+Lean also proves that the moduli increase strictly and that the four residues
+are distinct and less than p. No primality assumption is made. The case t=0
+recovers the four zeros at 41; t=1 has composite modulus 5945. This theorem
+guarantees those four progressions and does not exclude additional ones for
+t>0. The proof checks polynomial affine involutions on all sixteen Watson
+branches, uniformly in t. See the [research derivation](../RESEARCH_MULTI_QUINTUPLE.md#an-infinite-four-factor-family)
+and [verification record](verification/four_family.json).
+
+### Checked finite seed models and the numerical 607 minor
+
+[SeedSurvival](../RamanujanTau/FiniteArithmetic/SeedSurvival.lean) proves the
+cubic idempotent correction in arbitrary rings and survival from a checked
+left inverse. [SeedModels](../RamanujanTau/FiniteArithmetic/SeedModels.lean)
+applies the latter to the saved matrices and seeds at primes 233, 257, 307,
+401, and 607, for every iteration count. The arithmetic identification with
+the partition operator is not a premise proved by those finite checks.
+
+[Rank607Witness](../RamanujanTau/FiniteArithmetic/Rank607Witness.lean) checks
+an elimination matrix times the saved minor equals an upper triangular matrix.
+The last diagonal entry is 607·308; the other 24 entries are one. Thus the
+saved minor's determinant is nonzero modulo 607². `actual_rank_of_entries`
+proves `rEll 607 m = 25` for every m≥2 under the hypothesis that its entries
+agree with the actual partition-series matrix. See the
+[verification record](verification/four_directions.json).
+
+[Rank607Final](../RamanujanTau/FiniteArithmetic/Rank607Final.lean) discharges that
+hypothesis, so `rEll_607` is unconditional: **`rEll 607 m = 25` for every m≥2.**
+A kernel program packs each 61,308-term prefix into one integer with base-2⁶⁴
+lanes, so the kernel multiplies it with GMP. Every reduction is checked rather
+than trusted, by `a = r + Q·c` and a bitwise lane bound
+([PackedSeries](../RamanujanTau/FiniteArithmetic/PackedSeries.lean)). The series come
+from Euler's pentagonal theorem: Δ gives E₂ through θΔ = E₂Δ, and E₂ gives E₄ through
+Ramanujan's equation ([Rank607Identities](../RamanujanTau/FiniteArithmetic/Rank607Identities.lean)).
+The induction through L(51) uses `partition_two_eq_of_coeff_prefix`. See the
+[verification record](verification/rank607_final.json).
+
+Boylan–Webb §6.1 report r₆₀₇(m)=24 for all m≥1 but do not define rank for a non-free module. `rEll` is the least number of generators, so the two statements conflict only under that reading. At precision two, `Rank607Structure.lamEquiv` proves Λ^odd(3, 2) ≅ (ℤ/607²)²⁴ ⊕ ℤ/607: 25 generators, 24 of them free (invariant factors 1²⁴, 607). So BW's 24 is right at m=2 if their rank counts free summands, and wrong if it counts generators. At m=1, `Rank607One.lamEquiv1` proves Λ^odd(1, 1) ≅ (ℤ/607)²⁴ and `rEll_607_one` gives r₆₀₇(1)=24, agreeing with BW under either reading. `Rank607Threshold.bEll_607_two` proves the threshold b₆₀₇(2)=3=2m−1. The profile `[m×24, m−1]` for m≥3 is computed but not proved in Lean. Expert review is still needed before this is described as a correction.
+
+### Boylan–Webb's threshold at 13, 17, 19, 23
+
+[SmallThreshold](../RamanujanTau/FiniteArithmetic/SmallThreshold.lean) proves
+b_ℓ(m) ≤ 2⌊m/2⌋+1 for every m ≥ 1 and b_ℓ(m) ≥ 3 for m ≥ 2, at ℓ = 13, 17, 19, 23.
+Hence b_ℓ(2) = b_ℓ(3) = 3. The upper bound comes from the unconditional
+Atkin–O'Brien recurrence ℓ^b ∣ L(b+2) − κL(b) (`AtkinOBrienFinal.L_padic`), through
+`BLBound.mem_bSet_of_scalar`. The lower bound shows that no scalar c satisfies
+ℓ² ∣ L(3) − cL(1). The certificate is a nonzero 2×2 determinant of the partition numbers
+p(ℓm − e₁), p(ℓ³m − e₃), m = 1, 2, modulo ℓ²; the kernel computes them from a certified prefix
+([PartitionPrefix](../RamanujanTau/FiniteArithmetic/PartitionPrefix.lean)). Numerics give
+b_ℓ(m) = 2⌊m/2⌋+1 for all m tested.
+
+The next step is also proved at all four primes:
+[SmallThresholdFive](../RamanujanTau/FiniteArithmetic/SmallThresholdFive.lean) shows b_ℓ(m) ≥ 5
+for m ≥ 4, so b_ℓ(4) = b_ℓ(5) = 5 (`SmallThresholdFive.bEll_13`, …, `bEll_23`). No scalar c
+satisfies ℓ⁴ ∣ L(5) − cL(3). The certificate is the determinant
+p(ℓ³−e₃)·p(2ℓ⁵−e₅) − p(2ℓ³−e₃)·p(ℓ⁵−e₅) mod ℓ⁴: 26364, 29478, 6859, 121670 at ℓ = 13, 17, 19, 23
+(each vanishes mod ℓ³, as the recurrence requires). The kernel reads the partition numbers from
+certified prefixes mod ℓ⁴ of 541,470 / 1,833,983 / 2,991,954 / 6,704,525 terms
+(`PartitionPrefix.pgfPrefixG`). The pentagonal polynomial is built by halving, with no reductions.
+The inverse comes from an untrusted Newton iteration and is checked by one product with
+widened lanes. The module checks in about 70 s and 8.5 GB. (The partition-number route stops here,
+since m ≥ 6 would need about 2ℓ⁷ terms; the all-m result below uses a different method.)
+
+### Exactness of Atkin–O'Brien at 13, 17, 19, 23, and b_ℓ(m) = 2⌊m/2⌋+1
+
+[AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean) proves b_ℓ(m) = 2⌊m/2⌋+1 for every
+m ≥ 1 at ℓ = 13, 17, 19, 23 (`AtkinExact.bEll_13`, …, `bEll_23`). The input is exactness of the
+Atkin–O'Brien recurrence: for every b ≥ 1 and every scalar c, ℓ^(b+1) ∤ L(b+2) − cL(b)
+(`ExactAtkin13.exact`, …, `ExactAtkin23.exact`). The proved sufficient index b = m is thus minimal.
+
+The proof is a finite model of the error dynamics ([ExactAtkin](../RamanujanTau/FiniteArithmetic/ExactAtkin.lean)).
+Write L(b+2) − κL(b) = ℓ^b g_b. Then g_b lies in the offset-2 Katz envelope, T_b g_b = ℓ g_{b+1}
+with T_b ∈ {U, D}, and ḡ_b is a cusp form of weight 2(ℓ−1) modulo ℓ (`env2_reduction`). Decompose
+g_b = Σ c_k B_k/E² + ℓy with y in the offset-3 envelope. The matrix bounds (UB), (DB) send the
+offset-3 envelope into one whose reduction is a constant plus a multiple of f̄ (`U_tail`, `D_tail`,
+`tail_reduce`). So coefficient functionals killing 1 and f̄ see ḡ_{b+1} through the residues mod ℓ²
+of T(B_k/E²) alone. A kernel-decided check over all c ∈ 𝔽_ℓⁿ (n = 2, 2, 3, 3) shows that ḡ_b ≠ 0
+forces ḡ_{b+1} ≠ 0 for both U and D steps (`step`). The base ḡ_1 ≠ 0 is the mod-ℓ² partition
+determinant of `SmallThreshold`. The per-prime data (prefixes of E₄, E₆, Δ, E_{ℓ−1}⁻¹, Φ modulo ℓ²
+through degree 2ℓ or 3ℓ) are generated by `scripts/boylanwebb/gen_exact_atkin.py` and checked by
+the kernel. The numerical model (U/D multipliers on the residual space) was confirmed in Python
+before formalization.
+
+In partition numbers ([AtkinExactPartition](../RamanujanTau/FiniteArithmetic/AtkinExactPartition.lean),
+`partition_13`, …, `partition_23`): for every b ≥ 1 and every c ∈ ℤ_ℓ there is n with
+24 ∣ ℓ^b n + 1 and ℓ^(b+1) ∤ p((ℓ^(b+2)n+1)/24) − c·p((ℓ^b n+1)/24). So the modulus ℓ^b in the
+Atkin–O'Brien congruence cannot be raised, whatever multiplier is used. The proof inverts the
+index map of `AtkinOBrienFinal.pser_dvd` (n = 24t − ℓ^(2⌈b/2⌉−b)) and multiplies by the unit
+η-quotient relating L(b) to Σ p(ℓ^b t − e_b) q^t. As a numerical sanity check at ℓ = 13, b = 1,
+the congruence mod 13 holds only for c ≡ 6, and every c mod 169 fails within 17 values of n.
+
+### Boylan–Webb's threshold at every prime 61 ≤ ℓ ≤ 139, at every precision
+
+`RankRAt61.bEll_61`, …, `RankRAt139.bEll_139` prove b_ℓ(m) = 2m−1 for every m ≥ 1 at
+ℓ = 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113. With the earlier files, **b_ℓ(m) is now known exactly for every m at every prime
+13 ≤ ℓ ≤ 139**. Boylan–Webb computed b_ℓ(2) for ℓ ≤ 89 and nothing beyond m = 3.
+
+From 61 on the odd recurrence has order r ≥ 3 (r = d − s, with d = dim S_{ℓ−1} and s the number
+of low coefficients killed by D). The generic order-r stack:
+
+* **Hensel lift of order r** (`lift_padic_memR`, `FiniteArithmetic/OrbitLiftR.lean`).
+* **Lower-bound criterion of order r** (`BLBound.not_mem_of_errorsR`, `BLBound/ThresholdR.lean`): r
+  functionals with unit determinant on L(2k+1), …, L(2(k+r−1)+1) and one observation seeing U G_k;
+  the coefficients are recovered with the inverse matrix (adjugate), so no rank-specific algebra.
+* **Window determinant** (`RankR.Data.det_eq`): the r×r matrix of (a_{s+1}, …, a_{s+r}) on consecutive
+  odd vectors is multiplied by the companion matrix at each step, so det_n = det₀·(det C)ⁿ.
+* `RankRMod`, `RankRLift`, `RankRError`, `RankRMain`, `RankRPacked`, with data from
+  `scripts/boylanwebb/gen_rankR.py` and one `decide +kernel` evaluation per prime (37 s at 67 to
+  about 4 min and 16 GB at 109, 113). The (q^{ℓ²};q^{ℓ²}) truncation in `PackedPrime.prelude` now
+  includes the q^{5ℓ²} and q^{7ℓ²} terms (`ea_trunc`, valid below 12ℓ²), and the lane count is a parameter.
+
+Shapes (s, r): 61–71 (2, 3); 73–83 (3, 3); 89 (3, 4); 97–107 (4, 4); 109, 113 (4, 5); 127, 131 (5, 5); 137, 139 (5, 6). Kernel time at 127–139 is 14–28 min, 16–21 GB.
+Controls at 61: a perturbed recurrence coefficient fails the Cayley–Hamilton identity, a perturbed
+Θ entry fails the θ identities, and a perturbed z entry makes `ok` evaluate to `false`.
+
+**Patterns in the certified data** (`scripts/frontier/pattern`-style PARI checks, not Lean):
+* For every ℓ = 29, …, 113, charpoly(Θ) from the certified tables equals the prediction
+  charpoly((12/ℓ)/5 · T_ℓ on S^new_{ℓ−5}(Γ₀(6)) with w₂ = −(2/ℓ), w₃ = −(3/ℓ)) of §4.4 of the research draft.
+* For every ℓ = 37, …, 113, the order-r recurrence polynomial x^r − Σ kⱼxʲ (the unit part of
+  charpoly X̄) equals charpoly((12/ℓ) · T_ℓ) on S^new_{ℓ−3}(Γ₀(6)) in the same sign class, and no other
+  weight ℓ−7, …, ℓ+3, sign class or scalar matches. This is the integral-weight form of Theorem A,
+  now confirmed on Lean-certified recurrences at 19 primes.
+* dim K̄ = s = ⌊(ℓ²−1)/(24ℓ)⌋ equals the dimension of that weight-(ℓ−5) class for every prime
+  29 ≤ ℓ ≤ 233, and no T_ℓ eigenvalue there is 0 mod ℓ.
+* ū₀ is a cyclic vector for Θ at every ℓ = 53, …, 113 (statistically weak: a random vector would pass
+  with probability about 0.8 overall). Simple θ-twists θʲL(1), θʲL(2) do not reproduce ū₀.
+
+**Finite hypotheses at 149 ≤ ℓ ≤ 257 (numerical, not Lean).** `gen_rankR.py` (exact split-FFT products, Newton
+inversion) checks every finite input of the generic Lean theorem `RankR.Data2.bEll_eq` at each prime 149 ≤ ℓ ≤ 257:
+d = s + r, the order-r Cayley–Hamilton relation, det₀ ≠ 0, det C ≠ 0, Θ invertible and ū₀ ≠ 0. All hold, with
+(s, r) rising to (10, 11) at 257. So b_ℓ(m) = 2m−1 for every m holds there numerically; the kernel check stops at
+about 139 only for memory (about 20 GB at 127 on a 36 GB machine). An earlier run failing from 191 up was a
+generator bug (pentagonal series cut at |k| ≤ 600), now fixed; data at ℓ ≤ 181 were unaffected.
+
+**G4's hypothesis, numerically.** No prime 5 ≤ ℓ ≤ 2·10⁶ divides a_ℓ(h₈) for h₈ = 6.8.a.a (previously checked to 6·10⁴).
+
+### Boylan–Webb's threshold at 53 and 59, at every precision
+
+[RankSAt53](../RamanujanTau/FiniteArithmetic/RankSAt53.lean) and
+[RankSAt59](../RamanujanTau/FiniteArithmetic/RankSAt59.lean) prove b_ℓ(m) = 2m−1 for every m ≥ 1 at
+ℓ = 53, 59 (`bEll_53`, `bEll_59`). Boylan–Webb computed b_ℓ(2) for ℓ ≤ 89 and nothing beyond m = 3.
+
+These are the first primes with dim S_{ℓ−1} = 4 and dim K̄ = 2. Because 2ℓ < δ = (ℓ²−1)/24, D kills
+a₀, a₁, a₂, so the odd series reduce into the plane a₁ = a₂ = 0 and still satisfy a second-order
+recurrence; the error is seen by two functionals and moves by a 2×2 matrix. The `Rank2` files are
+generalized to s + 2 forms with s low coefficients killed (`RankSMod`, `RankSLift`, `RankSError`,
+`RankSMain`, `RankSPacked`; s = 1 is the 37–47 case, s = 2 here):
+
+* **Recurrence.** `RankS.odd_padic2`, with the odd envelope cut out by a₁ = … = a_s = 0 (needs
+  ℓ s < δ) and the (a_{s+1}, a_{s+2})-determinant (−k₀)ⁿ·det₀ ≠ 0.
+* **Error law.** For each of the s observations obs_a (each killing U of the plane
+  a₁ = … = a_s = 0), the vector eₙ = (obs_a(U Gₙ))_a mod ℓ satisfies eₙ₊₁ = Θ eₙ
+  (`RankS.Data2.divided_step`). Θ is invertible (an inverse is checked by `decide`) and e₀ ≠ 0, so
+  eₙ ≠ 0 for every n, and at each n some obs_a sees Gₙ (`BLBound.not_mem_of_errors2_at`, the
+  one-index form of the rank-two criterion).
+* **Θ.** At 53, Θ = [[38, 18], [42, 22]], charpoly x² − 7x + 27 = (x+18)(x+28); at 59,
+  Θ = [[45, 28], [34, 28]], charpoly x² − 14x + 13 = (x+46)(x+58). Both match the independent
+  Katz-model table in [the research draft, §4.3](BL_SHARPNESS_PROOF.md#43-θ-numerics-n) and the
+  paper. The initial error vectors are (45, 35) and (52, 58).
+* **Data.** `PackedPrime.prelude` now takes the number of lane levels, so the prefixes run
+  through degree 4ℓ²+1 (11,237 at 53, 13,925 at 59) over 2¹⁴ lanes. One `decide +kernel`
+  evaluation of `RankSPacked.ok` per prime takes about 40 s.
+
+The tables are proposed by `scripts/boylanwebb/gen_rankS.py`, which also reproduces θ = 20 at 37.
+Controls: a perturbed z entry and a perturbed D-matrix entry make `ok` evaluate to `false` (the
+`decide +kernel` run aborts), and a wrong Θ entry fails the `decide` identities.
+Primes 61–71 have an order-three odd recurrence and 73 has s = 3 with order three; they are not
+covered.
+
+### Boylan–Webb's threshold at 37, 41, 43, 47, at every precision
+
+[Rank2At37](../RamanujanTau/FiniteArithmetic/Rank2At37.lean), …,
+[Rank2At47](../RamanujanTau/FiniteArithmetic/Rank2At47.lean) prove b_ℓ(m) = 2m−1 for every m ≥ 1
+at the four primes with dim S_{ℓ−1} = 3 (`bEll_37`, `bEll_41`, `bEll_43`, `bEll_47`). Boylan–Webb
+computed b_ℓ(2) for ℓ ≤ 89 and nothing beyond m = 3.
+
+At these primes the odd partition series reduce modulo ℓ into the two-dimensional plane of
+cusp forms vanishing to order two, so the order-one recurrence used at 29 and 31 does not exist.
+The proof replaces it in four generic steps.
+
+* **Recurrence.** A second-order Hensel lift (`lift_padic_mem2`) gives κ₀, κ₁ ∈ ℤ_ℓ with
+  L(2n+5) − κ₁L(2n+3) − κ₀L(2n+1) = ℓ^(n+1)Gₙ, Gₙ in the second odd envelope (`Rank2.odd_padic2`).
+  The rank-two leading-term decomposition (`Rank2.leading2`) uses that consecutive odd vectors
+  have (a₂, a₃)-determinant (−k₀)ⁿ·det₀ ≠ 0 (`Data.det_eq`).
+* **Non-membership.** `BLBound.not_mem_of_errors2`: two functionals separating L(2n+1), L(2n+3)
+  modulo ℓ and one functional obs with obs∘U killing every odd series but not U Gₙ force
+  L(2k+1) ∉ Λ^odd(2k+3, m).
+* **Error law.** X Gₙ = ℓ Gₙ₊₁, and obs(U Gₙ₊₁) ≡ θ·obs(U Gₙ) (mod ℓ) (`Rank2.Data2.divided_step`),
+  from the residues mod ℓ² of obs(Y fᵢ/E_{ℓ−1}) for a three-form basis fᵢ = Δ^j E₄^a E₆^b.
+  θ = 20, 31, 31, 17, matching the slope-one Θ eigenvalues of
+  [the research draft, §4.3](BL_SHARPNESS_PROOF.md#43-θ-numerics-n). The initial observation is
+  34, 23, 10, 35.
+* **Data.** [PackedPrime](../RamanujanTau/FiniteArithmetic/PackedPrime.lean) builds, for any prime p,
+  packed prefixes modulo p² of (q;q)⁻¹, Δ, E₄, E₆ (from E₂ = 1 + θW/W), E_{p−1}⁻¹ ≡ 1 + 2pΣσ_{p−2}(n)qⁿ,
+  and Φ_p, and proves each equal to the actual series (`prelude_spec`). One `decide +kernel`
+  evaluation of `Rank2Packed.ok` per prime (about 18 s, 6 GB) checks every lane used:
+  the Sturm data for U and D on the basis, the seed D(1), and the four mod-ℓ² observations.
+  The identities in ZMod ℓ (Cayley–Hamilton, θ, the kill relation) are checked by `decide`.
+
+The tables are proposed by `scripts/boylanwebb/gen_rank2.py`, whose independent q-series model
+reproduces the three mod-29² data values of `ErrorDynamics29.Data` (348, 725, 696). Controls
+rejected by the kernel: a perturbed z entry, a perturbed D-matrix entry, and a wrong θ.
+See the [verification record](verification/rank2_threshold.json).
+
+### Boylan–Webb's threshold at 29 and 31, at every precision
+
+[ExactThreshold](../RamanujanTau/FiniteArithmetic/ExactThreshold.lean) proves
+b₂₉(m) = b₃₁(m) = 2m−1 for every m ≥ 1 (`Exact29.bEll_29`, `Exact31.bEll_31`).
+Here b_ℓ(m) is Boylan–Webb's invariant itself (`BLBound.bEll`), not the scalar
+recurrence threshold of `Complete29`/`Complete31`. Boylan–Webb computed
+b₂₉(1,2,3) = 1,3,5. The general criterion
+([BLBound/Threshold](../RamanujanTau/BLBound/Threshold.lean)) shows that
+L(2k+1) ∉ Λ^odd(2k+3, m) for all k ≤ m−2 forces equality. An ℓ-adic error
+recurrence with one separating functional supplies that non-membership. See the
+[verification record](verification/exact_threshold.json).
+
+[PrecisionSquare](../RamanujanTau/FiniteArithmetic/PrecisionSquare.lean)
+now proves `E ≡ 1−2pS` and `Einv² ≡ 1+4pS (mod p²)` for every prime p≥5,
+where `S=Σ σ_(p−2)(n)q^n`. These are identities of the actual full Hasse
+series and its inverse, not finite truncations. They identify the denominator
+used in the reconstruction at 607 without computing B₆₀₆. They are the
+denominator input to `Rank607Final`.
+
+### Ramanujan's nested radical
+
+[NestedRadical](../RamanujanTau/NestedRadical.lean) proves the classical identity
+
+```text
+sqrt(1 + 2 sqrt(1 + 3 sqrt(1 + 4 sqrt(1 + ...)))) = 3.
+```
+
+The infinite expression is defined through finite truncations, with no
+unspecified tail. More generally, for real a>0 and x≥0, define
+
+```text
+R₀(x) = a,
+R_(N+1)(x) = sqrt(a² + x R_N(x+a)).
+```
+
+`bounds`, `error_bound`, and `tendsto_trunc` prove
+
+```text
+a ≤ R_N(x) ≤ x+a,
+0 ≤ x+a−R_N(x) ≤ x(x+a)/(x+(N+1)a),
+lim_(N→∞) R_N(x) = x+a.
+```
+
+Taking a=1 and x=2 gives `ramanujan_radical` and
+`ramanujan_radical_error`: the truncations converge to 3 and their errors
+are at most `6/(N+3)`. Here N counts the inserted multipliers:
+the first truncations are 1, √3, √5, and √(1+2√(1+3√5)).
+
+The algebraic pattern is `a²+x(x+2a)=(x+a)²`. Rationalizing one square
+root gives the exact error identity
+`(x+a−R_(N+1)(x))(x+a+R_(N+1)(x))=x(x+2a−R_N(x+a))`.
+The lower bound `R_(N+1)(x)≥a` gives a telescoping error estimate.
+Consequently, convergence is proved rather than assumed from the pattern.
+
+This is a formalization of a classical identity, with an explicit convergence
+proof. For mathematical context, see the
+[2026 discussion of Ramanujan's iteration](https://arxiv.org/html/2602.07122v1)
+and [Mukherjee's work on convergence estimates](https://arxiv.org/abs/1303.4251).
+The [verification record](verification/nested_radical.json) and
+[audit](../scripts/audit/nested_radical.lean) record the checked theorem boundary.
+
+#### Affine family and exponential error bounds
+
+[NestedRadicalAffine](../RamanujanTau/NestedRadicalAffine.lean) extends the
+proof to real parameters d>0, 0≤h≤d, and x≥0. Put
+
+```text
+C(x) = d²+(d−h)x,
+T₀(x) = sqrt(C(x)),
+T_(N+1)(x) = sqrt(C(x)+x T_N(x+h)).
+```
+
+`tendsto_affineTrunc` proves `T_N(x) → x+d`, including h=0. The following
+examples therefore have exact values:
+
+```text
+sqrt(1 + 2 sqrt(1 + 3 sqrt(1 + 4 sqrt(...)))) = 3,   d=1, h=1, x=2;
+sqrt(6 + 2 sqrt(7 + 3 sqrt(8 + 4 sqrt(...)))) = 4,   d=2, h=1, x=2;
+sqrt(13 + 2 sqrt(15 + 3 sqrt(17 + 4 sqrt(...)))) = 5, d=3, h=1, x=2.
+```
+
+The coefficient rule has a full converse about actual limits in
+[NestedRadicalClassification](../RamanujanTau/NestedRadicalClassification.lean).
+For A,B,h≥0 and d>0, define finite radicals with radicands `A+B(x+nh)`
+and multipliers `x+nh`. `linear_limit_iff` proves
+
+```text
+(For every x≥0, the finite radicals converge to x+d)
+    if and only if A=d² and B=d−h.
+```
+
+Equivalently, `exists_linear_limit_iff` says that such a positive-offset
+linear limit exists exactly when `A=(B+h)²` and `B+h>0`. Its value is then
+`x+B+h`. Continuity forces the layer identity from the asserted limits;
+`affine_identity_iff` identifies its coefficients; the quantitative family
+theorem supplies the converse. This classification requires the linear answer
+for **every starting x≥0**. It does not classify isolated radical values or
+all possible nonlinear limits.
+
+The new quantitative theorem `affine_error_bound` is
+
+```text
+0 ≤ x+d−T_N(x) ≤ (x+d) log((x+Nh+d)/d) / 2^N.
+```
+
+Its mechanism is that each square-root layer at least halves the logarithmic
+gap between the finite tail and the exact tail. The formal theorem
+`log_gap_contract` isolates that inequality for reuse. The stated error
+bound proves convergence without relying on a formal infinite substitution.
+
+For the classical radical, `ramanujan_radical_fast_error` specializes this to
+`0≤3−r_N≤3 log(N+3)/2^N`, using the same truncation convention as above.
+`ramanujan_radical_40_accuracy` certifies `0≤3−r_40<10^(-10)` using exact
+inequalities in Lean, without floating-point evaluation of the radical.
+
+For comparison, [Mukherjee, Example 4.3](https://arxiv.org/html/1303.4251v3#S4)
+derives an error estimate of order `n³/2^n` with a different depth convention.
+The logarithmic bound here is stronger than that displayed estimate; this
+comparison does not establish priority over other convergence results.
+The [follow-up record](verification/nested_radical_affine.json) and
+[16-declaration audit](../scripts/audit/nested_radical_affine.lean) cover
+the family, converse, and accuracy certificate.
 
 ### Supporting q-series infrastructure
 Bailey pairs & the Bailey chain / transform (`MockTheta5Bailey*`), the classical and bilateral Jacobi
@@ -1058,8 +1722,9 @@ Deep theorems are exposed as named typeclasses (`TauHeckeMaster`, `DeligneBound`
 [PlonkLean](https://github.com/tomdif/PlonkLean). The honest status of each:
 `TauHeckeMaster` is now a theorem: `HeckeQExp` constructs the Hecke operators `T_p` and provides an
 instance, so `TauMultiplicative` and `TauHeckeRecurrence` hold unconditionally (Mordell 1917). `TauMod691` is
-also a theorem (`TauModular`). `DeligneBound` *is* Deligne's proof of the Weil conjectures (out of reach), and
-`LehmerConjecture` is open.
+also a theorem (`TauModular`). `DeligneBound` *is* Deligne's proof of the Weil conjectures (out of reach; the best proved exponent is Weil's
+23/4, `StepanovAS.tau_isBigO_23_4_unconditional`), and `LehmerConjecture` is open (proved for
+`n < 214,928,639,999 (Lehmer 1947)`, `LehmerSmall.lehmer_below_214928639999`).
 
 - **`HeckeCore` / `HeckeForm` / `HeckeQExp`** — **the Hecke operators `T_p` on level-one cusp forms, and
   Mordell's theorem for `τ`**. For a prime `p`, `T_p f(z) = p^{k−1}f(pz) + p⁻¹Σ_{j<p} f((z+j)/p)`.

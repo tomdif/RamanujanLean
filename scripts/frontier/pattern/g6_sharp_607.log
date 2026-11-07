@@ -1,0 +1,19 @@
+{'p': 607, 'PR': 3, 'N': 3, 'dN': 152, 'd': 50, 'R': 25, 'env': {'D': (3, 3, 3), 'U': (3, 3, 3), 'e': 3, 'theta_margins': (3, 3, 2), 'theta_ok': True}, 'setup_s': 36.2, 'colbound_slack': {'U': 0, 'D': 0}, 'certified_precision': 3, 'Omega': {1: {'invariants': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'mu': 24, 'phi': 24, 'log_size': 24}, 2: {'invariants': [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1], 'mu': 25, 'phi': 24, 'log_size': 49}, 3: {'invariants': [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2], 'mu': 25, 'phi': 24, 'log_size': 74}}, 'b': {1: 1, 2: 3, 3: 5}, 'splitting_ok': True, 'dimK': 25, 'rankTheta': 25, 'charpolyTheta': '(1, [(x^17 + 121*x^16 + 541*x^15 + 153*x^14 + 473*x^13 + 300*x^12 + 472*x^11 + 424*x^10 + 262*x^9 + 584*x^8 + 460*x^7 + 297*x^6 + 389*x^5 + 236*x^4 + 125*x^3 + 171*x^2 + 423*x + 315, 1), (x^8 + 195*x^7 + 588*x^6 + 410*x^5 + 360*x^4 + 412*x^3 + 331*x^2 + 176*x + 458, 1)])', 'u0_nonzero_via_b2': True, 'total_s': 37.4}
+       37.73 real        36.15 user         1.52 sys
+           923533312  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             1118114  page reclaims
+                  38  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  16  voluntary context switches
+                3146  involuntary context switches
+        680284796782  instructions retired
+        135516508764  cycles elapsed
+           914457536  peak memory footprint

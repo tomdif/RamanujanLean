@@ -1,0 +1,48 @@
+{
+ "date": "2026-11-02T11:38:11.857263+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "theorem": "RamanujanTau.FiniteArithmetic.Rank607One.rEll_607_one : RamanujanTau.BLBound.rEll 607 1 = 24; lamEquiv1 : (Fin 24 → ZMod 607) ≃ₗ Lam 607 1 1",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9378,
+  "sorry_warnings": 0
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/rank607_one.lean",
+  "exit_code": 0,
+  "declarations": 6,
+  "report": "docs/verification/rank607_one.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "certificates": {
+  "L1_relation": "rel1Table: L(1) ≡ Σ rel1_j L(2j+3) mod 607 in all 102 coordinates",
+  "L51_relation": "tor_ok from Rank607Structure: L(51) ≡ Σ t_j L(2j+3) mod 607",
+  "inverse": "kTable K with K·A = 1 mod 607, A the leading 24×24 block of the minor"
+ },
+ "controls": {
+  "negative_control": "Rejected by decide +kernel: the L(1) relation with its first coefficient shifted by one (reported with a pretty-printer recursion limit), and A = 1."
+ },
+ "trusted_inputs": "Lean kernel with GMP-accelerated Nat arithmetic.",
+ "scope": {
+  "proved": "At l=607, m=1, the stable module Λ^odd(1,1) is free of rank 24 over Z/607, so r_607(1)=24.",
+  "boylan_webb": "Agrees with BW §6.1 at m=1 under every reading of rank."
+ },
+ "review": "Machine-checked; no human expert review.",
+ "sha256": {
+  "RamanujanTau/FiniteArithmetic/Rank607One.lean": "97a2907d4c714c1f8983c5ad6bd21cabf3268ce52d48b8af8c897e63c17e6ad2",
+  "RamanujanTau/FiniteArithmetic/Rank607Structure.lean": "27ec3441f44b94160b7efbb84fb7cca1eefd7f35f135bbcec06de773533298f5",
+  "RamanujanTau/FiniteArithmetic/Rank607Coords.lean": "49632764a5fc0a5430cb16d255f552a80344cf56cba49e03e7bcd6bf58fb11b7",
+  "scripts/generate_rank607_coords.py": "5f809b2a16d86802384903bfa7640fe463150a7c09a78e0463659983439dd707",
+  "scripts/audit/rank607_one.lean": "1f413e12c637b18510e10fec04a0480a2d6028d81d866267cebcac26ac7412cd",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "docs/verification/rank607_one.axioms.txt": "c7f6475c8964b53243f14dc412b6e840b4b3d143f3b173b7cd620ff59d6e5bb8"
+ }
+}

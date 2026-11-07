@@ -26,6 +26,14 @@ lake env lean scripts/audit/finite_arithmetic.lean
 python3 scripts/boylanwebb/check_cert29_error.py
 ```
 
+For the analytic and congruence tracks of 2026-11-03/04 (τ bounds, Rankin–Selberg,
+GORZ, Jensen, Andrews/Dragonette, Atkin/Ono–Weaver, Lehmer), run the focused build of
+the changed module, then, after a full `lake build`,
+
+```sh
+lake env lean scripts/audit/celebrated_targets.lean
+```
+
 Regeneration commands and the distinction between discovery, checking, and
 evaluation are documented in [the finite-arithmetic guide](docs/FINITE_ARITHMETIC.md).
 
@@ -46,3 +54,32 @@ Commit intended sources, reproducible certificate generators, and documented
 data. Leave unrelated local experiments, generated executables, and private
 scratch work outside a change. Do not remove another contributor's local work
 to make a working tree appear clean.
+
+## Updating theorem documentation
+
+For a completed theorem, update the overview, catalog, current status, and
+relevant research record together. Put the exact hypotheses and public Lean
+entry point before the development history. A completed general theorem does
+not automatically settle stronger cutoff conjectures or extensions outside
+its hypotheses.
+
+The admissible sparse triple classification is recorded in
+[MultiQuintupleFullConverse](RamanujanTau/MultiQuintupleFullConverse.lean).
+For changes to that proof, run its focused build and audit as well as the full
+build:
+
+```sh
+lake build RamanujanTau.MultiQuintupleFullConverse
+lake env lean scripts/audit/multi_quintuple.lean
+lake env lean scripts/audit/four_directions.lean
+lake env lean scripts/audit/four_family.lean
+lake build
+```
+
+The [certificate guide](docs/FINITE_ARITHMETIC.md#multi-quintuple-classification-certificates)
+contains the regeneration and independent-check commands. Preserve historical
+JSON and axiom reports; link them to the newer result from current documentation
+instead of rewriting their original proof status. Distinguish the checked
+publication snapshot from a larger local development worktree when recording
+build counts or source hashes. Documentation-only changes require link and
+source-hygiene checks; they do not change the recorded Lean proof audit.

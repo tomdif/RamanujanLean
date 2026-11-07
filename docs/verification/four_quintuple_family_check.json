@@ -1,0 +1,100 @@
+{
+  "arithmetic": "Python integers; direct Pochhammer factors versus Watson sums",
+  "all_checks_passed": true,
+  "cases": [
+    {
+      "t": 0,
+      "modulus": 41,
+      "indices": [
+        1,
+        5,
+        9,
+        4
+      ],
+      "zero_residues": [
+        21,
+        25,
+        26,
+        30
+      ],
+      "terms_per_progression": 7,
+      "all_coefficients_compared": 277
+    },
+    {
+      "t": 1,
+      "modulus": 5945,
+      "indices": [
+        73,
+        77,
+        81,
+        4
+      ],
+      "zero_residues": [
+        3081,
+        3742,
+        2429,
+        3090
+      ],
+      "terms_per_progression": 7,
+      "all_coefficients_compared": 39413
+    },
+    {
+      "t": 2,
+      "modulus": 22217,
+      "indices": [
+        145,
+        149,
+        153,
+        4
+      ],
+      "zero_residues": [
+        11325,
+        13939,
+        8720,
+        11334
+      ],
+      "terms_per_progression": 7,
+      "all_coefficients_compared": 147242
+    },
+    {
+      "t": 3,
+      "modulus": 48857,
+      "indices": [
+        217,
+        221,
+        225,
+        4
+      ],
+      "zero_residues": [
+        24753,
+        30616,
+        18899,
+        24762
+      ],
+      "terms_per_progression": 7,
+      "all_coefficients_compared": 323759
+    },
+    {
+      "t": 4,
+      "modulus": 85865,
+      "indices": [
+        289,
+        293,
+        297,
+        4
+      ],
+      "zero_residues": [
+        43365,
+        53773,
+        32966,
+        43374
+      ],
+      "terms_per_progression": 7,
+      "all_coefficients_compared": 568964
+    }
+  ],
+  "sha256": {
+    "check_four_quintuple_family.py": "0dd6c185c6653b0d2f97a9ace5a64dc59e29f33f9e9344ffe635a1a0efbd9202",
+    "quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

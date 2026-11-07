@@ -1,0 +1,67 @@
+{
+ "date": "2026-11-01T19:58:21.722885+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Historical records remain snapshots of their own source hashes.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "mathlib_working_tree_clean": true,
+ "proof_dependencies": "NestedRadical imports only Mathlib; the module hash and pinned clean Mathlib revision identify its proof inputs.",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9352
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/nested_radical.lean",
+  "exit_code": 0,
+  "declarations": 6,
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "theorems": [
+   "Ramanujan.NestedRadical.bounds",
+   "Ramanujan.NestedRadical.error_identity",
+   "Ramanujan.NestedRadical.error_bound",
+   "Ramanujan.NestedRadical.tendsto_trunc",
+   "Ramanujan.NestedRadical.ramanujan_radical",
+   "Ramanujan.NestedRadical.ramanujan_radical_error"
+  ],
+  "report": "docs/verification/nested_radical.axioms.txt"
+ },
+ "definition": {
+  "base": "R_0(a,x)=a",
+  "recursion": "R_(N+1)(a,x)=sqrt(a^2+x*R_N(a,x+a))"
+ },
+ "proved": {
+  "hypotheses": "a,x real; a>0; x>=0",
+  "bounds": "a <= R_N(a,x) <= x+a",
+  "error": "0 <= x+a-R_N(a,x) <= x*(x+a)/(x+(N+1)*a)",
+  "limit": "R_N(a,x) tends to x+a as N tends to infinity",
+  "classical_specialization": "a=1,x=2: limit 3, error <= 6/(N+3)"
+ },
+ "mathematical_status": "Formalization of a classical identity with a quantitative convergence proof; no novelty claim.",
+ "context_sources": [
+  "https://arxiv.org/html/2602.07122v1",
+  "https://arxiv.org/abs/1303.4251"
+ ],
+ "repository_check": {
+  "command": "python3 scripts/check_repository.py",
+  "exit_code": 0,
+  "lean_source_and_audit_files": 1001,
+  "markdown_files": 25,
+  "local_links": 353
+ },
+ "git_diff_check": "passed",
+ "sha256": {
+  "RamanujanTau/NestedRadical.lean": "7a6e79a057aaa57fe2410896d308a99001ba778afcc0ff46aec97ed56599e019",
+  "scripts/audit/nested_radical.lean": "05095ec8e4f27fa302fa7bb3bcc5ae2c0a619ab2f3a0567efb5c94e5b41a624d",
+  "docs/verification/nested_radical.axioms.txt": "fb6db5251f41e064222ba78de7effb9994ded86a09cc638001c1d35e02d582aa",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "README.md": "37f90b213db5e07b6702886106b5f437c4c9b5753d88651e76cdacbdfa0b41bb",
+  "docs/RESULTS.md": "07841d99e349089a1863e1b4c32556a515cd2ebb05d0c92d3e161a18cacee2a4",
+  "docs/STATUS.md": "83265a3395a2abb41bf291f645b66fffca8f346dbe0fa9ae8e7e0fdc14ab486a",
+  "docs/README.md": "0bc7c951dd8f6568ed3573e6c3bfc347e14b9a86c16687539005135c42c43b2c"
+ }
+}

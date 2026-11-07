@@ -1,0 +1,25 @@
+import RamanujanTau.ColoredPartitionEntropy
+
+#print axioms ColoredPartitions.count_eq_sum
+#print axioms ColoredPartitions.coeff_series
+#print axioms ColoredPartitions.count_pos
+#print axioms ColoredPartitions.sizes_card_le
+#print axioms ColoredPartitions.ordinary_count_mono
+#print axioms ColoredPartitions.balanced_lower
+#print axioms ColoredPartitions.euler_power_mul_series
+#print axioms ColoredPartitions.discriminant_mul_series
+#print axioms ColoredPartitions.qExpansion_discriminant_mul_series
+#print axioms ColoredPartitions.coeff_shifted_series
+#print axioms ColoredPartitions.sizes_sqrt_le
+#print axioms ColoredPartitions.ordinary_log_upper
+#print axioms ColoredPartitions.log_count_upper
+#print axioms ColoredPartitions.log_count_lower
+#print axioms ColoredPartitions.nat_div_tendsto
+#print axioms ColoredPartitions.nat_div_ratio
+#print axioms ColoredPartitions.balanced_entropy_limit
+#print axioms ColoredPartitions.log_succ_div_sqrt_tendsto_zero
+#print axioms ColoredPartitions.entropy_sqrt_limit
+#print axioms ColoredPartitions.entropy_twentyfour
+#print axioms ColoredPartitions.degeneracy_entropy
+#print axioms ColoredPartitions.cardy_leading_twentyfour
+#print axioms ColoredPartitions.degeneracy_cardy_ratio

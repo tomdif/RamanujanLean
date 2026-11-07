@@ -1,0 +1,298 @@
+{
+  "scope": "Finite Python-integer experiment; not a Lean theorem or universal bound",
+  "max_m": 24,
+  "all_converse_checks_passed": true,
+  "cases": [
+    {
+      "m": 5,
+      "n": 4,
+      "modulus": 41,
+      "indices": [
+        1,
+        4,
+        5,
+        9
+      ],
+      "proved_zero_residues": [
+        21,
+        25,
+        26,
+        30
+      ],
+      "search_depth": 10,
+      "nonzero_residues_checked": 37,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 5,
+        "R": 10,
+        "exponent": 215,
+        "coefficient": -1
+      }
+    },
+    {
+      "m": 7,
+      "n": 2,
+      "modulus": 53,
+      "indices": [
+        5,
+        2,
+        7,
+        9
+      ],
+      "proved_zero_residues": [
+        29,
+        31,
+        36,
+        38
+      ],
+      "search_depth": 13,
+      "nonzero_residues_checked": 49,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 8,
+        "R": 24,
+        "exponent": 448,
+        "coefficient": 1
+      }
+    },
+    {
+      "m": 8,
+      "n": 1,
+      "modulus": 65,
+      "indices": [
+        7,
+        1,
+        8,
+        9
+      ],
+      "proved_zero_residues": [
+        36,
+        37,
+        44,
+        45
+      ],
+      "search_depth": 16,
+      "nonzero_residues_checked": 61,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 8,
+        "R": 46,
+        "exponent": 566,
+        "coefficient": 1
+      }
+    },
+    {
+      "m": 14,
+      "n": 13,
+      "modulus": 365,
+      "indices": [
+        1,
+        13,
+        14,
+        27
+      ],
+      "proved_zero_residues": [
+        84,
+        201,
+        210,
+        327
+      ],
+      "search_depth": 91,
+      "nonzero_residues_checked": 361,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 77,
+        "R": 271,
+        "exponent": 28376,
+        "coefficient": -1
+      }
+    },
+    {
+      "m": 16,
+      "n": 11,
+      "modulus": 377,
+      "indices": [
+        5,
+        11,
+        16,
+        27
+      ],
+      "proved_zero_residues": [
+        87,
+        209,
+        218,
+        340
+      ],
+      "search_depth": 94,
+      "nonzero_residues_checked": 373,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 80,
+        "R": 285,
+        "exponent": 30445,
+        "coefficient": 1
+      }
+    },
+    {
+      "m": 17,
+      "n": 10,
+      "modulus": 389,
+      "indices": [
+        7,
+        10,
+        17,
+        27
+      ],
+      "proved_zero_residues": [
+        92,
+        216,
+        225,
+        349
+      ],
+      "search_depth": 97,
+      "nonzero_residues_checked": 385,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 81,
+        "R": 298,
+        "exponent": 31807,
+        "coefficient": 1
+      }
+    },
+    {
+      "m": 19,
+      "n": 8,
+      "modulus": 425,
+      "indices": [
+        11,
+        8,
+        19,
+        27
+      ],
+      "proved_zero_residues": [
+        97,
+        236,
+        245,
+        384
+      ],
+      "search_depth": 106,
+      "nonzero_residues_checked": 421,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 89,
+        "R": 336,
+        "exponent": 38161,
+        "coefficient": 1
+      }
+    },
+    {
+      "m": 20,
+      "n": 7,
+      "modulus": 449,
+      "indices": [
+        13,
+        7,
+        20,
+        27
+      ],
+      "proved_zero_residues": [
+        106,
+        249,
+        258,
+        401
+      ],
+      "search_depth": 112,
+      "nonzero_residues_checked": 445,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 96,
+        "R": 361,
+        "exponent": 43465,
+        "coefficient": 1
+      }
+    },
+    {
+      "m": 22,
+      "n": 5,
+      "modulus": 509,
+      "indices": [
+        17,
+        5,
+        22,
+        27
+      ],
+      "proved_zero_residues": [
+        113,
+        281,
+        290,
+        458
+      ],
+      "search_depth": 127,
+      "nonzero_residues_checked": 505,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 109,
+        "R": 423,
+        "exponent": 55904,
+        "coefficient": -1
+      }
+    },
+    {
+      "m": 23,
+      "n": 4,
+      "modulus": 545,
+      "indices": [
+        19,
+        4,
+        23,
+        27
+      ],
+      "proved_zero_residues": [
+        126,
+        300,
+        309,
+        483
+      ],
+      "search_depth": 136,
+      "nonzero_residues_checked": 541,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 118,
+        "R": 460,
+        "exponent": 64770,
+        "coefficient": -1
+      }
+    },
+    {
+      "m": 23,
+      "n": 22,
+      "modulus": 1013,
+      "indices": [
+        1,
+        22,
+        23,
+        45
+      ],
+      "proved_zero_residues": [
+        345,
+        543,
+        552,
+        750
+      ],
+      "search_depth": 253,
+      "nonzero_residues_checked": 1009,
+      "unresolved_residues": [],
+      "largest_first_witness": {
+        "N": 239,
+        "R": 856,
+        "exponent": 242963,
+        "coefficient": -1
+      }
+    }
+  ],
+  "sha256": {
+    "scan_four_plane_witnesses.py": "2c2f60a1f51d9a11f9655dc4ede4b011f7f4ab2dd3ff226798501b09cfe038e8",
+    "check_four_plane.py": "0d10208705f7297528ab30ad277f69a1d3711f38448dc81f408907ae80bd2c3e",
+    "quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

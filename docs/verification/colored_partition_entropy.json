@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-03",
+  "snapshot": "Development working tree, not a published commit. Existing unrelated changes are preserved.",
+  "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+  "toolchain": "leanprover/lean4:v4.30.0-rc2",
+  "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+  "mathlib_working_tree_clean": true,
+  "focused_build": {
+    "command": "lake build RamanujanTau.ColoredPartitionEntropy",
+    "exit_code": 0,
+    "jobs": 8501,
+    "new_module_warnings": 0
+  },
+  "full_build": {
+    "status": "Not run for this standalone extension; not verified",
+    "prior_attempt": "docs/verification/partition_entropy.json",
+    "note": "The prior full build was interrupted during existing prime-137 and prime-139 kernel certificates under heavy memory pressure. Root imports are unchanged."
+  },
+  "public_root_import": false,
+  "import": "RamanujanTau.ColoredPartitionEntropy",
+  "audit": {
+    "command": "lake env lean scripts/audit/colored_partition_entropy.lean",
+    "exit_code": 0,
+    "declarations": 23,
+    "report": "docs/verification/colored_partition_entropy.axioms.txt",
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "theorems": [
+      "ColoredPartitions.count_eq_sum",
+      "ColoredPartitions.coeff_series",
+      "ColoredPartitions.count_pos",
+      "ColoredPartitions.sizes_card_le",
+      "ColoredPartitions.ordinary_count_mono",
+      "ColoredPartitions.balanced_lower",
+      "ColoredPartitions.euler_power_mul_series",
+      "ColoredPartitions.discriminant_mul_series",
+      "ColoredPartitions.qExpansion_discriminant_mul_series",
+      "ColoredPartitions.coeff_shifted_series",
+      "ColoredPartitions.sizes_sqrt_le",
+      "ColoredPartitions.ordinary_log_upper",
+      "ColoredPartitions.log_count_upper",
+      "ColoredPartitions.log_count_lower",
+      "ColoredPartitions.nat_div_tendsto",
+      "ColoredPartitions.nat_div_ratio",
+      "ColoredPartitions.balanced_entropy_limit",
+      "ColoredPartitions.log_succ_div_sqrt_tendsto_zero",
+      "ColoredPartitions.entropy_sqrt_limit",
+      "ColoredPartitions.entropy_twentyfour",
+      "ColoredPartitions.degeneracy_entropy",
+      "ColoredPartitions.cardy_leading_twentyfour",
+      "ColoredPartitions.degeneracy_cardy_ratio"
+    ]
+  },
+  "counting_model": "A finite sigma type of k size indices summing to n, with one Nat.Partition of the corresponding size for each color. count k n is its Fintype.card.",
+  "coefficient_bridge": {
+    "all_colors": "coeff n (partitionGF^k) = (count k n : Z)",
+    "discriminant": "qExpansion 1 Delta_mod * map (series 24) = X",
+    "regular_series": "series 24 = q/Delta, expressed by the cleared identity",
+    "nonnegative_charge": "degeneracy n = count 24 (n+1)"
+  },
+  "entropy": {
+    "hypothesis": "Fixed natural k > 0; n tends to infinity through natural numbers.",
+    "general_limit": "log(count k n)/sqrt n tends to pi*sqrt(2/3)*sqrt k",
+    "twentyfour_shifted_limit": "log(degeneracy n)/sqrt n tends to 4*pi",
+    "cardy_ratio": "log(degeneracy n)/Cardy.leadingEntropy 2 n tends to 1",
+    "unproved_asymptotic_premises": []
+  },
+  "method": [
+    "Balanced tuples and the injection adding fixed extra ones give p(floor(n/k))^k <= count k n.",
+    "At most (n+1)^k index tuples contribute. Cauchy-Schwarz bounds the sum of their square roots by sqrt(k*n).",
+    "Uniform ordinary-partition exponential majorants come from the proved Hardy-Ramanujan entropy theorem.",
+    "Polynomial prefactors disappear after division by sqrt n; the n+1 index shift is explicitly proved."
+  ],
+  "not_proved": [
+    "Colored logarithmic correction or full multiplicative coefficient asymptotic",
+    "Explicit quantitative asymptotic remainder",
+    "Equivalence to a physical Hilbert-space state model",
+    "DMZ quarter-BPS mock Jacobi finite part, completion and coefficient asymptotic",
+    "Black-hole area law from a microscopic model"
+  ],
+  "novelty_claim": false,
+  "sha256": {
+    "RamanujanTau/ColoredPartitions.lean": "65ef84c99d5a01f3d9cef32300dc5965973ca6317bbe784a3321574fec7e2fe8",
+    "RamanujanTau/ColoredPartitionEntropy.lean": "27fc604f4ae7ff7bb263666a95f40808879d0da31fe0fe0f109e593c0e0c39b1",
+    "scripts/audit/colored_partition_entropy.lean": "034ee2443d99cb95dfb28a6b4aa4eb55588e3b121c5df6ca081cc80c0e1005a3",
+    "docs/verification/colored_partition_entropy.axioms.txt": "bce7303c0ad56d53b90431227c6660a1ab544b8c6b571fa0e1e7f9db56e166c8",
+    "RamanujanTau/HardyRamanujan/Entropy.lean": "4defd7aa0771c687a71329dcd0f88ace4d76eef6f2850890766df78d02d6a3d0",
+    "RamanujanTau/HardyRamanujan/Main.lean": "d40573c3a67b67678339283577ad8419735e71133f872a0fc2b5aef1c071cdfd",
+    "RamanujanTau/HardyRamanujan/GenFun.lean": "00b7735c4d2e8028b8178ade8256615d48661a13625e98a9e5ed4e8bebff4188",
+    "RamanujanTau/CardySaddle.lean": "7e0fd15cef1136181a3ee622096bd8c2cd82d52d11ebdadc3cf6558ea56e1739",
+    "RamanujanTau/MockTheta5PartitionCount.lean": "fb4c1fdb5ac643f0b7b76288bab9fc419787c63779af025abb14cacc458220ba",
+    "RamanujanTau/TauModular.lean": "219a6dd4f4efc62d5a87d58a015230c599765449a44cdcc5237a99e18bf5e5b3",
+    "RamanujanTau/DiscriminantQExpansion.lean": "3e1c8ff2e1ca8f7c6a9b43dec1d709370c2499576f0dc0ba9f5a67d03f63c762"
+  },
+  "repository_check": {
+    "command": "python3 scripts/check_repository.py",
+    "exit_code": 0,
+    "scope": "Temporary copy of the Git index plus the 18 intended new files across this work; actual index unchanged.",
+    "output": "Passed: 1105 Lean source/audit files, 26 Markdown files, 547 local links; project imports and source hygiene checked.\nThis is a source/documentation check, not Lean proof verification.",
+    "new_files": [
+      "RamanujanTau/Cylindric/Slices.lean",
+      "scripts/audit/cylindric_slices.lean",
+      "scripts/cylindric_positivity.py",
+      "docs/CYLINDRIC_RESEARCH.md",
+      "docs/verification/cylindric_positivity_4_5.json",
+      "docs/verification/cylindric_positivity_4_7.json",
+      "docs/verification/cylindric_slices.json",
+      "docs/verification/cylindric_slices.axioms.txt",
+      "RamanujanTau/CardySaddle.lean",
+      "RamanujanTau/HardyRamanujan/Entropy.lean",
+      "scripts/audit/partition_entropy.lean",
+      "docs/verification/partition_entropy.json",
+      "docs/verification/partition_entropy.axioms.txt",
+      "RamanujanTau/ColoredPartitions.lean",
+      "RamanujanTau/ColoredPartitionEntropy.lean",
+      "scripts/audit/colored_partition_entropy.lean",
+      "docs/verification/colored_partition_entropy.json",
+      "docs/verification/colored_partition_entropy.axioms.txt"
+    ]
+  },
+  "git_diff_check": "passed"
+}

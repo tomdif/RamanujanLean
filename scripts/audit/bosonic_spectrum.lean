@@ -1,0 +1,32 @@
+import RamanujanTau.BosonicSpectrum
+
+#print axioms BosonicOscillator.toOccupation_succ
+#print axioms BosonicOscillator.fromOccupation_apply
+#print axioms BosonicOscillator.occupationEquiv
+#print axioms BosonicOscillator.occupationBasis
+#print axioms BosonicOscillator.energy_toOccupation
+#print axioms BosonicOscillator.energy_fromOccupation
+#print axioms BosonicOscillator.create_monomial
+#print axioms BosonicOscillator.annihilate_monomial
+#print axioms BosonicOscillator.annihilate_vacuum
+#print axioms BosonicOscillator.annihilate_create
+#print axioms BosonicOscillator.create_create
+#print axioms BosonicOscillator.annihilate_annihilate
+#print axioms BosonicOscillator.hamiltonian_X
+#print axioms BosonicOscillator.hamiltonian_vacuum
+#print axioms BosonicOscillator.hamiltonian_create
+#print axioms BosonicOscillator.hamiltonian_annihilate
+#print axioms BosonicOscillator.hamiltonian_monomial_one
+#print axioms BosonicOscillator.hamiltonian_monomial
+#print axioms BosonicOscillator.hamiltonian_occupation
+#print axioms BosonicOscillator.coeff_hamiltonian
+#print axioms BosonicOscillator.mem_energySpace
+#print axioms BosonicOscillator.energySpace_eq_supported
+#print axioms BosonicOscillator.exponentStateEquiv
+#print axioms BosonicOscillator.energySpaceEquivShell
+#print axioms BosonicOscillator.energySpace_finrank
+#print axioms BosonicOscillator.create_mem_energySpace
+#print axioms BosonicOscillator.chargeEigenspace_eq
+#print axioms BosonicOscillator.chargeEigenspace_finrank
+#print axioms BosonicOscillator.chargeEigenspace_entropy
+#print axioms BosonicOscillator.chargeEigenspace_cardy_ratio

@@ -1,0 +1,180 @@
+{
+ "date": "2026-11-01T19:15:06.949077+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. The hashes pin changed tracked inputs and supporting scripts; unchanged tracked inputs are supplied by base_commit. Historical verification records are preserved.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9351
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/four_family.lean",
+  "exit_code": 0,
+  "declarations": 11,
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "report": "docs/verification/four_family.axioms.txt",
+  "theorems": [
+   "Ramanujan.MultiQuintuple.fourFamily_fiber_representation",
+   "Ramanujan.MultiQuintuple.fourFamilyPartner_weight",
+   "Ramanujan.MultiQuintuple.fourFamilyPartner_exponent",
+   "Ramanujan.MultiQuintuple.fourFamilyPartner_involutive",
+   "Ramanujan.MultiQuintuple.coeff_four_family_zero",
+   "Ramanujan.MultiQuintuple.fourFamilyP_strictMono",
+   "Ramanujan.MultiQuintuple.fourFamilyR_lt",
+   "Ramanujan.MultiQuintuple.fourFamilyR_injective",
+   "RamanujanTau.FiniteArithmetic.padicNorm_kappa_add_two_p",
+   "RamanujanTau.FiniteArithmetic.map_E_square_general",
+   "RamanujanTau.FiniteArithmetic.map_Einv_square_squared_general"
+  ]
+ },
+ "infinite_family": {
+  "theorem": "Ramanujan.MultiQuintuple.coeff_four_family_zero",
+  "parameters": "t,N in Nat; r in Fin 4",
+  "modulus": "5184*t^2+720*t+41",
+  "indices": [
+   "72*t+1",
+   "72*t+5",
+   "72*t+9",
+   "4"
+  ],
+  "zero_residues": [
+   "2592*t^2+468*t+21",
+   "3240*t^2+477*t+25",
+   "1944*t^2+459*t+26",
+   "2592*t^2+468*t+30"
+  ],
+  "actual_infinite_product": true,
+  "primality_required": false,
+  "strictly_increasing_moduli": "Lean proved",
+  "four_distinct_canonical_residues": "Lean proved",
+  "method": "Sign-reversing affine involutions on all sixteen residue-restricted Watson branches, polynomially in t",
+  "exclusion_of_further_zero_residues_for_t_positive": "open"
+ },
+ "uniform_denominator": {
+  "hypotheses": "p prime, p >= 5",
+  "sigma_series": "S = sum_{n>=0} sigma_{p-2}(n) q^n",
+  "identities_mod_p_squared": [
+   "E_(p-1) = 1 - 2*p*S",
+   "E_(p-1)^(-2) = 1 + 4*p*S"
+  ],
+  "full_series": "Lean proved",
+  "explicit_B606_evaluation_required": false,
+  "actual_rank607_matrix_entry_identification": "open"
+ },
+ "independent_check": {
+  "command": "python3 scripts/check_four_quintuple_family.py --output docs/verification/four_quintuple_family_check.json",
+  "exit_code": 0,
+  "report": "docs/verification/four_quintuple_family_check.json",
+  "parameters": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "terms_per_progression": 7,
+  "all_coefficients_compared": 1079655,
+  "arithmetic": "Python integers; direct Pochhammer factors versus Watson sums"
+ },
+ "generator": {
+  "command": "python3 scripts/generate_four_quintuple_family.py",
+  "requires": "SymPy",
+  "byte_for_byte_regeneration_passed": true,
+  "outputs": [
+   "RamanujanTau/MultiQuintupleFourFamilyData.lean",
+   "docs/verification/four_quintuple_family.json"
+  ],
+  "trusted_by_Lean": false
+ },
+ "universal_targets": {
+  "four_factor_classification": "open",
+  "all_prime_exact_partition_stabilization": "open",
+  "actual_rank607_unconditional": "open; actual entry identification remains",
+  "quarter_prime_first_witness_bound": "open"
+ },
+ "repository_check": {
+  "command": "python3 scripts/check_repository.py",
+  "exit_code": 0,
+  "lean_source_and_audit_files": 999,
+  "markdown_files": 25,
+  "local_links": 344,
+  "changed_document_heading_links": 27,
+  "git_diff_check": "passed"
+ },
+ "sha256": {
+  "CONTRIBUTING.md": "253d56666bd6c30421ef47a107d7d9f7bf60125e43ba8fd75ca4eb7f2aa82da1",
+  "README.md": "124a5b406f90fbc84ab14adc1bb38e045350a8421b02fc205ffbdf1a5b47f7f0",
+  "RESEARCH_MULTI_QUINTUPLE.md": "b976b39d6e53131b4a7d04f74b404e36c542f3c768c5c2f909aac1cdd9b6b931",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "RamanujanTau/BLBound/RankGrowth.lean": "c1b1ade2f94c4ba3cf2bf9311701fd732762617bc61970db7335aee7283c9194",
+  "RamanujanTau/FiniteArithmetic/DeterminantRank.lean": "98d67ba92cb3a05bf50fb88bd56b228837bfeeecfaa9db3fab18104477bb2fed",
+  "RamanujanTau/FiniteArithmetic/EnvelopePrecision.lean": "e322e6746ea809d3b9f8ce3da9870b60abc002f5eed6dae49decfe11e1f9dae3",
+  "RamanujanTau/FiniteArithmetic/FormalSturm.lean": "d731cc6bcb55bbcea3958ec283658990fadd772d3c4b2f7256650871ec7a1bb1",
+  "RamanujanTau/FiniteArithmetic/PrecisionSquare.lean": "35a65f0446e28b2c834ee6fbe154b735c63b4793e6feec38683a8310c2112bee",
+  "RamanujanTau/FiniteArithmetic/Rank607Witness.lean": "97e244409674774b0c29e0254951f2f7d893ecd072bb32480c2467353b5e4c5d",
+  "RamanujanTau/FiniteArithmetic/RankLifting.lean": "10c8688df35d6f9355573aa6c8d7123d3aca9400fb1b33b670a853eff3aa6a7b",
+  "RamanujanTau/FiniteArithmetic/SeedModels.lean": "73d03879cb8d41461bb64049308cb319d8b336c27b311244f6e979807f58c26b",
+  "RamanujanTau/FiniteArithmetic/SeedSurvival.lean": "8ab4cf46617aef047cf7d075b1f186e5ceb20ceac8ba5bc5016c4c9d986a6ec8",
+  "RamanujanTau/MultiQuintupleFourCancellation.lean": "b01dae3e8b976ab7fc83e99b1fa17344c5e372ff6a9cb1fb57add64a193ed628",
+  "RamanujanTau/MultiQuintupleFourFamily.lean": "a340a414da9913144bceefe50203c20912057b4f288b02725601d74a853f9360",
+  "RamanujanTau/MultiQuintupleFourFamilyData.lean": "3d503685e83ed927db11546e6a3cb45eb9a83d284b67882b5b9183ae0e1f565c",
+  "RamanujanTau/MultiQuintupleFourFortyOne.lean": "c4ef044c2524f079963fe5efeaa0e791966bceec844ecb28787205c753a61902",
+  "RamanujanTau/MultiQuintupleFourFortyOneConverse.lean": "dc5599341ac4264afed5f4e210ca56c912ade859670a3d5da0d61bc265067ee6",
+  "RamanujanTau/MultiQuintupleWitness103.lean": "59e2267d3a512a1a719fd6e968bcadad0ee84c63adfb0af3075d01be8b33d7dd",
+  "docs/BL_SHARPNESS_PROOF.md": "d6bdda2ebbfbb24dd011c8c505f2c175b26ce534e92eef4d1fca2635214a816e",
+  "docs/FINITE_ARITHMETIC.md": "d10c27e3ec6c942fae32673ffa00abe65dc4e21d715674b78d77526f635d7f62",
+  "docs/LIT_CHECK.md": "3be49e09d32f38060c9f3da6c260236a19a182be11b3a299484da7542c319d3c",
+  "docs/README.md": "4f86a7cf30368e784012c5b03c81fd634ff1fc5469e3388b15060e21165b2beb",
+  "docs/RESULTS.md": "6c94dddb15e765eaa46ffa021c58a7ad936d359194f7ebc997ba50fa7a20c461",
+  "docs/STATUS.md": "797f17c4320480e7a8a5740f987a4be3075907f9f38da48a9f8fe29cf7a50e3d",
+  "docs/verification/finite_arithmetic.axioms.txt": "5067f637c5f0f77713e183148134e0851a231b5c6d424b57b099fb7abf9bf09f",
+  "docs/verification/four_directions.axioms.txt": "8d0eb408cefbecb5a18a810383caff3892629bbe990f6776be09c12ec9f3f5b9",
+  "docs/verification/four_directions.json": "09f0318ba89c0a412b9edb29c09fb8c04fa83c734838e98d6c96ad3b5c0dae7b",
+  "docs/verification/four_family.axioms.txt": "57093bc90bb93ea4b22c7041f0b8b2cf5684b1dbb99e6520755299740b3498e5",
+  "docs/verification/four_quintuple_41.json": "6970ba8231b75abf43e418614af86e0621d2e16420a85dffa92a3ed0231c1946",
+  "docs/verification/four_quintuple_53.json": "6530d7b5167373a0dc8618c146070341b46dc0942f14dd5f02a870724788acdf",
+  "docs/verification/four_quintuple_97.json": "2d18f56935c06f73c37074c5bf9d65a7567a74e433c617d21dd3af9a0ae6b851",
+  "docs/verification/four_quintuple_family.json": "a01239bd391554e71d101a838f74e9a37cb9abd8a913f2f5181ef7b88d1d6d61",
+  "docs/verification/four_quintuple_family_check.json": "66a48c7815bdbc7cb521369bc582bcdf75031a9f8acb23e571adb2fdb7836d3a",
+  "docs/verification/quarter_bound_extended.json": "175a342f6a2f8c19d1544b7f5b6ee2cd820cde26493f8ab3aa2c15ff612550b0",
+  "docs/verification/rank607-hidden-direction.json": "f497b39f1222361a5fe2c64655650ade1393465327340e1b6f3fb748b7c34ec3",
+  "docs/verification/rank607-integer-replay.json": "cfb85eedad53be2da7a5e48245fd8af33ce56f983d44ffda5cecc68752ba3b2b",
+  "docs/verification/rank607-reconstruction.json": "82915346f4ec7a7f4cf439971362c70eaa8340ca27421796a0d7d5c56f3f7c10",
+  "docs/verification/rank607-uniform-n2.json": "c87b932f037a9b367a9df1b97a7742039d39e254492d8c132eeee0d262287a53",
+  "docs/verification/rank607-uniform-n3.json": "0b16e977100dd51397c5f224c65c7ef2ce05e45305ba47d395049afb1833ade5",
+  "docs/verification/rank607-uniform-n4.json": "794473e79481caa15db0b0463c1c0568f3e21ee33e2b26fc01c349a3c7b6c385",
+  "docs/verification/rank_growth.json": "bf74597582c8fd98e5cdb204950cf423d3e443a917889f8d229e8993620fb995",
+  "docs/verification/rank_lifting.json": "e30419637698e5e3803ceece7ecfc599b8156d59bdb26d5cf2b17790580940b5",
+  "docs/verification/rank_lifting_prediction.json": "39619ce995b6a9a83847a81f1f44315bc3f086442d4767db0af36dc3ac1c08a6",
+  "docs/verification/seed_survival_extended.json": "38dbb40149c5d8597ef2d3c541b408f9c457f93cbcf72dd700ac1e35e9430313",
+  "docs/verification/theorem_a.axioms.txt": "c61f7b88fb1531561f1794873d22f0f9b28470e1d523fc022dceefa14b6ad757",
+  "docs/verification/weight8_nonordinary.json": "4e73bfafdf50fab062c4d6752a92e0b85dccd0ac8fb320a9d2c236f78bb6e416",
+  "scripts/audit/finite_arithmetic.lean": "cbc3f617ee82baf6c45e901bbd078128f4bc3241675abb96c8524ced5fda3e7e",
+  "scripts/audit/four_directions.lean": "00b8bce9e30eec2e96bbd478ce54b5d84e1f14f37dbd24581004fd112cbc92a1",
+  "scripts/audit/four_family.lean": "06806bfbbe7de700c163eddbd9cac7c58910520ab81e3430dc01720bd843738e",
+  "scripts/audit/theorem_a.lean": "333179706206f4ba9625096d7de2d454db1955797743741aa0fea4dbb60fabf9",
+  "scripts/check_four_quintuple_certificate.py": "7a4ba2f0c2205e3b9dbb4a4a79fb133719ecf4725401daab37c7a81343884d44",
+  "scripts/check_four_quintuple_family.py": "0dd6c185c6653b0d2f97a9ace5a64dc59e29f33f9e9344ffe635a1a0efbd9202",
+  "scripts/four_quintuple_certificates.py": "73031a0d94e8874fd3e85ae693697208f871f77d91ded758c25ca6bbf8fb3c5c",
+  "scripts/frontier/pattern/check_rank607_hidden_direction.py": "c378ad51e3f78265f76f3c6e56b0b942322090d32229992bd8e1697d5e1ba116",
+  "scripts/frontier/pattern/check_rank_lift_witness.py": "3243322916e043e6b340761e5610c18035001ae5e5950c4d1af4dce8bd9469f4",
+  "scripts/frontier/pattern/katzmat.py": "4aa1eaffa5290b8a4574c14df4794b5127954405f5379f09e6dd529a356a06a6",
+  "scripts/frontier/pattern/predict_rank_lifts.py": "ba8658c69283385433c4bc3768c31e61508c82777f94a6f592b26cd9bf993779",
+  "scripts/frontier/pattern/rank_lift_check.py": "583c2db001e5cbcd518ba58f63bea66883f7ee20fcbf4c6dfaad72fc7b347a4f",
+  "scripts/frontier/pattern/scan_weight8_nonordinary.gp": "1b03fee49ef37ddab484b34645396c909a4db8e0913354a55539a1f29d2a7196",
+  "scripts/frontier/pattern/seed_survival_scan.py": "459a7eba21623adebc870bb601a64f7c1ff87a60cbde8ca3b4078844c8b5ab9c",
+  "scripts/frontier/pattern/verify_rank607_series.py": "6b687b34b2cef75a875a2ad4a5a335bbcbaebf9a18d989798552a4225859689b",
+  "scripts/generate_four_quintuple_family.py": "337e112f2281de8ca5286d155bdd5d1ed9f805667cdd28a52f4adcdbfb55b65a",
+  "scripts/generate_rank607_witness.py": "f175960fc8c6e0f1c2c53d6b654bea1e40fd4dbb761746370dfa3fa31b0f431b",
+  "scripts/generate_seed_model_certificates.py": "99a378df34bc054d04d8c572de3ca8aa86e8ad532661aebfed2748d3797784ff",
+  "scripts/paley_spinor_scan.py": "f0e39c279ad8879fecaa38de992775ed719f9b838d005de0fc51b3cae952db1d",
+  "scripts/quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c",
+  "scripts/scan_quarter_witness_bound.py": "881f04b62c4e2e35a0823465cfc74b985320fcf7eab34a85579a3599d5061a5a"
+ }
+}

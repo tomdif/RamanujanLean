@@ -1,0 +1,154 @@
+/-
+# Averaged horizontal sides: `∫_T^{2T} ∫_6^{σ₁} |L(Δ,σ+it)| dσ dt ≪ T`
+
+From the uniform mean square (`MeanSquare.mean_square_uniform`, `∫_T^{2T}|L(6+x+it)|² ≤ CT/x`):
+
+* for `6 < σ ≤ 7` (`x = σ − 6`), `|L| ≤ √x |L|² + 1/√x` pointwise, hence
+  `∫_T^{2T} |L(σ+it)| dt ≤ (C+1) T x^{−1/2}`;
+* for `7 ≤ σ ≤ σ₁`, `|L(σ+it)| ≤ D` (absolute convergence);
+* Fubini, and `∫_6^7 (σ−6)^{−1/2} dσ = 2`.
+
+The singularity `x^{−1/2}` is integrable: this is exactly where the `1/x` (rather than, say,
+`1/x²`) in the mean square is needed.
+-/
+import RamanujanTau.HardyCountHafner.MeanSquare
+
+set_option autoImplicit false
+
+namespace RamanujanTau.HardyCountHafner
+
+open Complex MeasureTheory Set Filter Topology
+open RamanujanTau.HeckeL RamanujanTau.HeckeConvex
+open scoped Real
+
+/-- The horizontal-side integrand `F(t) = ∫_6^{σ₁} |L(σ+it)| dσ`. -/
+noncomputable def Fh (σ₁ t : ℝ) : ℝ := ∫ σ in (6 : ℝ)..σ₁, ‖tauL ((σ : ℂ) + t * I)‖
+
+lemma continuous_normL : Continuous fun p : ℝ × ℝ => ‖tauL ((p.1 : ℂ) + p.2 * I)‖ :=
+  (tauLSeries_entire.continuous.comp (by fun_prop)).norm
+
+lemma continuous_Fh (σ₁ : ℝ) : Continuous (Fh σ₁) := by
+  have h : Continuous (Function.uncurry fun t σ : ℝ => ‖tauL ((σ : ℂ) + t * I)‖) := by
+    have h1 : Continuous fun p : ℝ × ℝ => ‖tauL ((p.2 : ℂ) + p.1 * I)‖ :=
+      (tauLSeries_entire.continuous.comp (by fun_prop)).norm
+    exact h1
+  exact intervalIntegral.continuous_parametric_intervalIntegral_of_continuous' h 6 σ₁
+
+lemma Fh_nonneg {σ₁ : ℝ} (h : 6 ≤ σ₁) (t : ℝ) : 0 ≤ Fh σ₁ t :=
+  intervalIntegral.integral_nonneg h fun _ _ => norm_nonneg _
+
+/-- Mean of `|L(σ+it)|` for `6 < σ ≤ 7`. -/
+lemma mean_abs_near (C : ℝ)
+    (hC : ∀ x : ℝ, 0 < x → x ≤ 1 → ∀ T : ℝ, 1 ≤ T →
+      ∫ t in Icc T (2 * T), ‖tauL (((6 + x : ℝ) : ℂ) + t * I)‖ ^ 2 ≤ C * T / x)
+    {σ T : ℝ} (hσ : 6 < σ) (hσ7 : σ ≤ 7) (hT : 1 ≤ T) :
+    ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ≤ (C + 1) * T * (σ - 6) ^ (-(1 / 2) : ℝ) := by
+  set x : ℝ := σ - 6 with hx
+  have hx0 : 0 < x := by rw [hx]; linarith
+  have hx1 : x ≤ 1 := by rw [hx]; linarith
+  have hσx : σ = 6 + x := by rw [hx]; ring
+  have hTpos : 0 < T := by linarith
+  set s : ℝ := Real.sqrt x with hs
+  have hspos : 0 < s := Real.sqrt_pos.mpr hx0
+  have hss : s * s = x := Real.mul_self_sqrt hx0.le
+  have hsx : x ^ (-(1 / 2) : ℝ) = s⁻¹ := by
+    rw [hs, Real.sqrt_eq_rpow, Real.rpow_neg hx0.le]
+  have hs1 : s ≤ 1 := by rw [hs]; exact Real.sqrt_le_one.mpr hx1
+  have hm := hC x hx0 hx1 T hT
+  rw [← hσx] at hm
+  have hcont : Continuous fun t : ℝ => ‖tauL ((σ : ℂ) + t * I)‖ :=
+    (tauLSeries_entire.continuous.comp (by fun_prop)).norm
+  have hpt : ∀ t ∈ Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ≤
+      s * ‖tauL ((σ : ℂ) + t * I)‖ ^ 2 + s⁻¹ := by
+    intro t _
+    set a := ‖tauL ((σ : ℂ) + t * I)‖
+    have h1 : 0 ≤ (s * a - 1) ^ 2 := sq_nonneg _
+    have : a * s ≤ s * s * a ^ 2 + 1 := by nlinarith
+    rw [show s * a ^ 2 + s⁻¹ = (s * s * a ^ 2 + 1) / s by field_simp]
+    rw [le_div_iff₀ hspos]; linarith
+  have hvol : volume.real (Icc T (2 * T)) = T := by
+    rw [Real.volume_real_Icc_of_le (by linarith)]; ring
+  calc ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖
+      ≤ ∫ t in Icc T (2 * T), (s * ‖tauL ((σ : ℂ) + t * I)‖ ^ 2 + s⁻¹) :=
+        setIntegral_mono_on hcont.integrableOn_Icc
+          (((hcont.pow 2).const_mul s).add continuous_const).integrableOn_Icc measurableSet_Icc hpt
+    _ = s * (∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ^ 2) + s⁻¹ * T := by
+        rw [integral_add ((hcont.pow 2).const_mul s).integrableOn_Icc
+          (continuous_const.integrableOn_Icc), integral_const_mul, setIntegral_const, hvol,
+          smul_eq_mul]
+        ring
+    _ ≤ s * (C * T / x) + s⁻¹ * T := by
+        have := mul_le_mul_of_nonneg_left hm hspos.le; linarith
+    _ = (C + 1) * T * s⁻¹ - (s⁻¹ * T) * (1 - 1) := by
+        rw [← hss]; field_simp; ring
+    _ = (C + 1) * T * x ^ (-(1 / 2) : ℝ) := by rw [hsx]; ring
+
+/-- **Averaged horizontal sides**: `∫_T^{2T} F ≤ C T`. -/
+theorem horizontal_mean {σ₁ : ℝ} (h7 : 7 ≤ σ₁) : ∃ C : ℝ, 0 ≤ C ∧ ∀ T : ℝ, 1 ≤ T →
+    ∫ t in Icc T (2 * T), Fh σ₁ t ≤ C * T := by
+  obtain ⟨C, hC0, hC⟩ := mean_square_uniform
+  obtain ⟨D, hD0, hD⟩ := tauL_bounded_of_gt (σ := 7) (by norm_num)
+  refine ⟨2 * (C + 1) + D * (σ₁ - 7), by nlinarith, fun T hT => ?_⟩
+  have hTpos : 0 < T := by linarith
+  set μ : Measure ℝ := volume.restrict (Icc T (2 * T)) with hμ
+  have hvol : volume.real (Icc T (2 * T)) = T := by
+    rw [Real.volume_real_Icc_of_le (by linarith)]; ring
+  -- Fubini
+  have hint : Integrable (Function.uncurry fun (σ t : ℝ) => ‖tauL ((σ : ℂ) + t * I)‖)
+      ((volume.restrict (uIoc 6 σ₁)).prod μ) := by
+    rw [hμ, Measure.prod_restrict]
+    have hc : ContinuousOn (Function.uncurry fun (σ t : ℝ) => ‖tauL ((σ : ℂ) + t * I)‖)
+        (Icc 6 σ₁ ×ˢ Icc T (2 * T)) := continuous_normL.continuousOn
+    refine (hc.integrableOn_compact (isCompact_Icc.prod isCompact_Icc)).mono_set ?_
+    rw [uIoc_of_le (by linarith)]
+    exact prod_mono Ioc_subset_Icc_self le_rfl
+  have hswap := intervalIntegral_integral_swap hint
+  have hF : ∫ t in Icc T (2 * T), Fh σ₁ t =
+      ∫ σ in (6 : ℝ)..σ₁, ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ := by
+    rw [hswap]; rfl
+  rw [hF]
+  have hG : Continuous fun σ : ℝ => ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ := by
+    have := continuous_normL
+    exact continuous_parametric_integral_of_continuous (by fun_prop) isCompact_Icc
+  rw [← intervalIntegral.integral_add_adjacent_intervals (b := 7)
+    (hG.intervalIntegrable _ _) (hG.intervalIntegrable _ _)]
+  -- the part `7 ≤ σ ≤ σ₁`
+  have h2 : ∫ σ in (7 : ℝ)..σ₁, ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ≤
+      D * (σ₁ - 7) * T := by
+    have hb : ∀ σ ∈ Icc (7 : ℝ) σ₁, ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ≤ D * T := by
+      intro σ hσ
+      have hbd : ∀ t ∈ Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ≤ D := fun t _ =>
+        hD _ (by simp; linarith [hσ.1])
+      calc ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ≤ ∫ t in Icc T (2 * T), D :=
+            setIntegral_mono_on
+              ((tauLSeries_entire.continuous.comp (by fun_prop)).norm.integrableOn_Icc)
+              continuous_const.integrableOn_Icc measurableSet_Icc hbd
+        _ = D * T := by rw [setIntegral_const, hvol, smul_eq_mul, mul_comm]
+    calc ∫ σ in (7 : ℝ)..σ₁, ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖
+        ≤ ∫ σ in (7 : ℝ)..σ₁, D * T :=
+          intervalIntegral.integral_mono_on h7 (hG.intervalIntegrable _ _)
+            intervalIntegrable_const hb
+      _ = D * (σ₁ - 7) * T := by rw [intervalIntegral.integral_const, smul_eq_mul]; ring
+  -- the part `6 < σ ≤ 7`
+  have h1 : ∫ σ in (6 : ℝ)..7, ∫ t in Icc T (2 * T), ‖tauL ((σ : ℂ) + t * I)‖ ≤
+      2 * (C + 1) * T := by
+    have hri : IntervalIntegrable (fun σ : ℝ => (C + 1) * T * (σ - 6) ^ (-(1 / 2) : ℝ))
+        volume 6 7 := by
+      have := (intervalIntegral.intervalIntegrable_rpow' (a := 0) (b := 1)
+        (r := (-(1 / 2) : ℝ)) (by norm_num)).comp_sub_right 6
+      simp only [show (0 : ℝ) + 6 = 6 by norm_num, show (1 : ℝ) + 6 = 7 by norm_num] at this
+      exact this.const_mul _
+    have hval : ∫ σ in (6 : ℝ)..7, (C + 1) * T * (σ - 6) ^ (-(1 / 2) : ℝ) = 2 * (C + 1) * T := by
+      rw [intervalIntegral.integral_const_mul, intervalIntegral.integral_comp_sub_right
+        (fun σ : ℝ => σ ^ (-(1 / 2) : ℝ)), integral_rpow (Or.inl (by norm_num))]
+      norm_num
+      ring
+    rw [← hval]
+    refine intervalIntegral.integral_mono_on_of_le_Ioo (by norm_num)
+      (hG.intervalIntegrable _ _) hri fun σ hσ => ?_
+    exact mean_abs_near C hC hσ.1 hσ.2.le hT
+  have hDT : 0 ≤ D * (σ₁ - 7) * T := by have : 0 ≤ σ₁ - 7 := by linarith
+                                        positivity
+  nlinarith
+
+end RamanujanTau.HardyCountHafner

@@ -1,0 +1,6 @@
+'RamanujanTau.FiniteArithmetic.Rank607Threshold.bEll_607_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Threshold.L1_not_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Threshold.not_bij_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Threshold.tri_indep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Threshold.phi_kill' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.Rank607Threshold.phi_L1' depends on axioms: [propext, Classical.choice, Quot.sound]

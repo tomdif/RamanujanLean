@@ -11,6 +11,27 @@ Module paths below are relative to `RamanujanTau/`.
 | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) | Proved exact starting threshold at every precision |
 | [Evaluate29Powers](../RamanujanTau/FiniteArithmetic/Evaluate29Powers.lean) | Executable recurrence from two actual starting residues |
 | [WeightedTilings](../RamanujanTau/FiniteArithmetic/WeightedTilings.lean) | A second counting problem with an identified finite representation |
+| [FormalSturm](../RamanujanTau/FiniteArithmetic/FormalSturm.lean) | Finite coefficient determination over rings, including prime powers |
+| [EnvelopePrecision](../RamanujanTau/FiniteArithmetic/EnvelopePrecision.lean) | Proved reconstruction of actual partition iterates modulo prime squares |
+| [PrecisionSquare](../RamanujanTau/FiniteArithmetic/PrecisionSquare.lean) | Exact Hasse series and its inverse squared modulo p², for every prime p≥5 |
+| [DeterminantRank](../RamanujanTau/FiniteArithmetic/DeterminantRank.lean) | Generator bounds from nonzero determinants; conditional prime-607 target |
+| [RankLifting](../RamanujanTau/FiniteArithmetic/RankLifting.lean) | A divided-relation criterion predicting when a hidden direction becomes visible |
+| [Rank607Witness](../RamanujanTau/FiniteArithmetic/Rank607Witness.lean) | Checked determinant of the saved matrix; `actual_rank_of_entries` reduces the rank to entry identification |
+| [PackedSeries](../RamanujanTau/FiniteArithmetic/PackedSeries.lean) | Power-series prefixes packed into one integer, with certified lane-parallel reduction for kernel evaluation |
+| [Rank607Final](../RamanujanTau/FiniteArithmetic/Rank607Final.lean) | Entry identification at 607; unconditional `rEll_607` |
+| [Rank607Structure](../RamanujanTau/FiniteArithmetic/Rank607Structure.lean) | The module at 607 modulo 607²: `lamEquiv : (ℤ/607²)²⁴ × ℤ/607² ⧸ (607) ≃ Λ^odd(3,2)` |
+| [Rank607One](../RamanujanTau/FiniteArithmetic/Rank607One.lean) | The module at 607 modulo 607: `lamEquiv1 : (ℤ/607)²⁴ ≃ Λ^odd(1,1)` and `rEll_607_one` |
+| [Rank607Threshold](../RamanujanTau/FiniteArithmetic/Rank607Threshold.lean) | `bEll_607_two`: b₆₀₇(2) = 3, since L(1) ∉ Λ^odd(3,2) |
+| [ExactThreshold](../RamanujanTau/FiniteArithmetic/ExactThreshold.lean) | `bEll_29`, `bEll_31`: b_ℓ(m) = 2m−1 for every m at ℓ = 29, 31, via `BLBound.not_mem_of_errors` ([Threshold](../RamanujanTau/BLBound/Threshold.lean)) |
+| [PartitionPrefix](../RamanujanTau/FiniteArithmetic/PartitionPrefix.lean) | Certified packed prefix of the partition generating function modulo any Q ≤ 2²¹ |
+| [SmallThreshold](../RamanujanTau/FiniteArithmetic/SmallThreshold.lean) | b_ℓ(m) ≤ 2⌊m/2⌋+1 and b_ℓ(2) = b_ℓ(3) = 3 at ℓ = 13, 17, 19, 23 |
+| [SmallThresholdFive](../RamanujanTau/FiniteArithmetic/SmallThresholdFive.lean) | b_ℓ(4) = b_ℓ(5) = 5 at ℓ = 13, 17, 19, 23 (up to 6.7M partition numbers mod ℓ⁴) |
+| [AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean) | b_ℓ(m) = 2⌊m/2⌋+1 for all m at ℓ = 13, 17, 19, 23; Atkin–O'Brien index exact (finite error model mod ℓ², `ExactAtkin`) |
+| [RankRPacked](../RamanujanTau/FiniteArithmetic/RankRPacked.lean) | b_ℓ(m) = 2m−1 for all m at every prime 61 ≤ ℓ ≤ 139 (`RankRAt61` … `RankRAt139`): order-r recurrence (`OrbitLiftR`, `BLBound/ThresholdR`, `RankRMod`, `RankRLift`, `RankRError`, `RankRMain`), window determinant det₀·(det C)ⁿ |
+| [RankSPacked](../RamanujanTau/FiniteArithmetic/RankSPacked.lean) | b_ℓ(m) = 2m−1 for all m at ℓ = 53, 59 (`RankSAt53`, `RankSAt59`): the rank-two model with s + 2 forms and s observations (`RankSMod`, `RankSLift`, `RankSError`, `RankSMain`), error vector moved by an invertible s × s matrix Θ |
+| [Rank2Packed](../RamanujanTau/FiniteArithmetic/Rank2Packed.lean) | b_ℓ(m) = 2m−1 for all m at ℓ = 37, 41, 43, 47 (`Rank2At37`…`Rank2At47`), from one packed mod-ℓ² kernel evaluation per prime (`PackedPrime`) and the rank-two error model (`Rank2Mod`, `Rank2Lift`, `Rank2Error`, `Rank2Main`) |
+| [AtkinExactPartition](../RamanujanTau/FiniteArithmetic/AtkinExactPartition.lean) | the same exactness for partition numbers: ℓ^(b+1) ∤ p((ℓ^(b+2)n+1)/24) − c·p((ℓ^b n+1)/24) for some n, every b ≥ 1 and c ∈ ℤ_ℓ |
+| [SeedModels](../RamanujanTau/FiniteArithmetic/SeedModels.lean) | All-iterate survival in five checked finite models; arithmetic identification remains |
 | [Audit](../scripts/audit/finite_arithmetic.lean) | Axiom dependencies and executable examples |
 
 
@@ -81,6 +102,14 @@ the scalar law and its initial value. `CertifyError29.lean` identifies those obs
 the actual 29-adic operator, including the weight-28 Eisenstein denominator at precision 841.
 The original experimental scalar orbit starting at `8` remains a separate example in the audit.
 
+**Prime 31 — kernel verified** (`FiniteArithmetic/Complete31.lean`): the same theorems hold at ℓ = 31, the other prime with
+one stable term and a two-dimensional cusp space. For every `m ≥ 1` and positive `B`, a scalar works from `b = B` onward modulo `31^m`
+if and only if **`B ≥ 2m−1`**. The basis is `f = Δ²E₆`, `g = 29ΔE₄³E₆ + 14Δ²E₆`, with `U(Δ⁴⁰) = 10f`, `Uf = g`, `U(Δ⁴⁰g) = 30f`
+and `U(Δ⁴⁰f) = 29f` modulo 31. The observation is `λ(F) = 29[q²]F − 2[q]F`, and the divided error has residue `24·2^n (mod 31)`.
+Regenerate with `gen_cert31.py`, `gen_cert31_image.py` and `gen_cert31_error.py` in `scripts/boylanwebb`; `check_cert31_error.py`
+independently checks its 17 products and 521 blocks. The files are per-prime ports of the prime-29 modules, not a general theorem:
+`Cert31.lean` alone took about 49 minutes to check.
+
 After building, run the kernel checks and the executable demonstration:
 
 ```sh
@@ -103,3 +132,194 @@ memory, and completed products are reused by later builds. Each block retains on
 the coefficient precision needed after its final shift.
 `python3 scripts/boylanwebb/check_cert29_error.py` independently checks all 16 products
 and 429 blocks using packed-integer multiplication. Lean's kernel remains the proof authority.
+
+## Multi-quintuple classification certificates
+
+The [full admissible triple theorem](../RamanujanTau/MultiQuintupleFullConverse.lean)
+uses finite certificates for its short-generation argument and its exceptional
+modulus-13 case. It also proves the analytic bridge to actual infinite-product
+coefficients. These inputs are part of an unconditional theorem under the
+stated admissibility and residue hypotheses.
+
+| Certificate | Coverage | Lean entry point |
+|---|---|---|
+| Small isotropic box | All 468 nonsingular symmetric ternary Gram forms over F₃ | [SmallIsotropicBox](../RamanujanTau/MultiQuintupleSmallIsotropicBox.lean) |
+| Short dual generators | 14,369 certificates; normalized-line coverage across 201 primes from 7 through 1249, excluding 13 from the generation conclusion | [FiniteGenerators](../RamanujanTau/MultiQuintupleFiniteGenerators.lean) and its eight `Block` imports |
+| Modulus 13 | Two canonical triples, six root certificates, and 20 nonzero coefficients | [ConverseThirteen](../RamanujanTau/MultiQuintupleConverseThirteen.lean) |
+
+Determinant gcd calculations certify generation over ℤ. The Lean framework
+also proves normalization and completeness of the finite coverage. For p≥1250,
+[LargePrimeGeneration](../RamanujanTau/MultiQuintupleLargePrimeGeneration.lean)
+proves generation geometrically, so no finite prime sweep stands in for that
+infinite range. The cutoff is sufficient, not claimed minimal.
+
+Build and audit from the repository root:
+
+```sh
+lake build RamanujanTau.MultiQuintupleFullConverse
+lake env lean scripts/audit/multi_quintuple.lean
+lake build
+```
+
+Regenerate the Lean tables from their documented inputs:
+
+```sh
+python3 scripts/generate_small_isotropic_box.py
+python3 scripts/generate_lean_short_generators.py
+git diff --exit-code -- RamanujanTau/MultiQuintupleSmallIsotropicBox.lean \
+  RamanujanTau/MultiQuintupleFiniteGenerators.lean \
+  RamanujanTau/MultiQuintupleFiniteGenerators
+```
+
+The first command deterministically constructs the mod-three box. The second
+reads [short_watson_generators.json](verification/short_watson_generators.json)
+and writes the normalized row tables. Both generators are untrusted producers:
+`decide +kernel` checks their finite arithmetic inside Lean. Keep the eight
+certificate blocks stable while editing downstream proofs so completed kernel
+checks can be reused. A fresh check can take substantial time and memory.
+
+The independent standard-library Python checker can be run separately:
+
+```sh
+python3 scripts/check_short_watson_generators.py \
+  docs/verification/short_watson_generators.json \
+  --output /tmp/short-watson-generators-check.json
+```
+
+Its `lean_checked: false` field identifies the independent checker's method.
+The [full Lean record](verification/full_converse_lean.json) and
+[axiom report](verification/full_converse_lean.axioms.txt) establish the formal
+status. The published proof snapshot passed 9,336 build jobs and 251 audited
+multi-quintuple declarations. Regeneration was checked byte for byte.
+
+
+## Four-direction follow-up certificates
+
+The [current status](STATUS.md#four-direction-follow-up-2026-11-01) distinguishes
+actual-product theorems from finite-model results and open universal claims.
+Build and audit the new results with:
+
+```sh
+lake build RamanujanTau.MultiQuintupleFourFortyOneConverse RamanujanTau.MultiQuintupleWitness103 RamanujanTau.FiniteArithmetic.Rank607Witness RamanujanTau.FiniteArithmetic.SeedModels
+lake env lean scripts/audit/four_directions.lean
+lake build RamanujanTau.MultiQuintupleFourFamily RamanujanTau.FiniteArithmetic.PrecisionSquare
+lake env lean scripts/audit/four_family.lean
+lake env lean scripts/audit/four_plane.lean
+lake env lean scripts/audit/four_reflection.lean
+lake env lean scripts/audit/four_binary.lean
+lake env lean scripts/audit/four_witnesses.lean
+python3 scripts/check_four_reflection.py
+python3 scripts/check_four_plane.py
+python3 scripts/check_four_binary.py --output /tmp/four-binary-check.json
+```
+
+Regenerate the numerical matrix certificates (Python-FLINT is needed for the
+seed inverses) and compare the resulting Lean sources:
+
+```sh
+python3 scripts/generate_rank607_witness.py
+python3 scripts/generate_seed_model_certificates.py
+```
+
+The 607 checker proves `E*M=U`, upper triangularity, and a nonzero product of
+diagonal entries. No determinant expansion or external arithmetic oracle is
+trusted. The hypothesis in `actual_rank_of_entries` identifies M with the
+actual infinite partition iterates. `Rank607Final` discharges it with a separate kernel
+evaluation; regenerate its untrusted coordinate table with
+`python3 scripts/generate_rank607_coords.py`. The check needs about 18 GB of memory. Each saved seed model similarly has a kernel-checked
+left inverse and nonzero seed. Its survival for all powers is proved, but
+identifying the model with the actual second-order partition operator remains
+an arithmetic obligation.
+
+Discover and independently verify the four-factor certificates:
+
+```sh
+python3 scripts/four_quintuple_certificates.py --prime 41 --indices 1,4,5,9 --output /tmp/four41.json
+python3 scripts/check_four_quintuple_certificate.py docs/verification/four_quintuple_41.json --negative-control
+python3 scripts/check_four_quintuple_certificate.py docs/verification/four_quintuple_53.json --negative-control
+python3 scripts/check_four_quintuple_certificate.py docs/verification/four_quintuple_97.json --negative-control
+```
+
+The discoverer uses Python-FLINT; the independent identity checker uses only
+the standard library. The Lean modules separately prove the complete actual
+four-factor classifications at 41 and 53, and the infinite zero progressions
+at 97. The coefficient converse at 97 is not yet formalized.
+
+The all-parameter theorem in
+[FourFamily](../RamanujanTau/MultiQuintupleFourFamily.lean) separately proves
+four zero progressions for p=5184t²+720t+41, without a primality premise.
+Regenerate its polynomial affine maps with SymPy, then compare the actual
+Pochhammer products against Watson sums using only Python integers:
+
+```sh
+python3 scripts/generate_four_quintuple_family.py
+python3 scripts/check_four_quintuple_family.py --output /tmp/four-family-check.json
+```
+
+The generator reproduces
+[FourFamilyData](../RamanujanTau/MultiQuintupleFourFamilyData.lean) and the
+[symbolic data](verification/four_quintuple_family.json) byte for byte. Lean
+checks every polynomial identity for all t; the generator is outside the
+trusted proof. The [independent finite check](verification/four_quintuple_family_check.json)
+compares all coefficients through seven terms of each progression for t=0,…,4.
+
+The second quadratic family in
+[FourBinaryFamily](../RamanujanTau/MultiQuintupleFourBinaryFamily.lean) proves
+two zero progressions at p=450t²+180t+43 for every natural t. Its
+[audit](verification/four_binary.axioms.txt) covers 20 declarations, including
+the proof that every even t gives a modulus outside integer sums of two squares.
+The [independent check](verification/four_binary_check.json) compares 259,467
+coefficients across 17 pairs using direct Pochhammer multiplication and Watson
+sums. The all-N result comes from Lean's affine involution proof.
+
+Reproduce the four-factor witness-bound counterexample and the broader finite
+search using only Python's standard library:
+
+```sh
+python3 scripts/check_four_quarter_counterexample.py --output /tmp/four-quarter-counterexample.json
+python3 scripts/check_four_witnesses.py --output /tmp/four-witnesses-check.json
+python3 scripts/scan_four_quintuple_frontier.py --output /tmp/four-frontier.json
+```
+
+The [counterexample](verification/four_quarter_counterexample.json) at
+`(2521;1,35,36,71)` compares two Watson term enumerators and two factorizations
+of the convolution. It establishes first witnesses N=631 and 632, beyond
+⌊2521/4⌋=630, by exact integer computation. Residue 2273 now also has an
+actual-product Lean proof of first witness N=632; residue 67 remains
+computational. A second Lean proof at `(17;2,3,5,8;R=5)` gives first witness
+N=7 and implies the necessary universal linear-bound constant c≥7/17.
+These results concern four factors; the original triple-product conjecture
+remains open. The [frontier search](verification/four_quintuple_frontier.json)
+tests all 3,174 distinct canonical isotropic tuples at primes through 71 and
+retains 289 products with zero candidates through N=2p. Those finite candidates
+require further proof.
+
+Regenerate the large witness certificate with
+`python3 scripts/generate_four2521_certificate.py`. Lean checks all 82 slices
+against their defining bounded enumeration with `decide +kernel`, then checks
+the sorted signed lists. The proof bounds every contributing integer and uses
+the residue equation to recover the fourth branch uniquely, so no unchecked
+completeness assumption is present. The
+[independent checker](../scripts/check_four_witnesses.py) also verifies that
+regeneration matches the saved Lean file byte for byte.
+
+For the 607 reconstruction, `map_E_square_general` and
+`map_Einv_square_squared_general` prove, for every prime p≥5,
+`E ≡ 1−2pS` and `Einv² ≡ 1+4pS (mod p²)`, where
+`S=Σ σ_(p−2)(n)q^n`. This uses von Staudt–Clausen and the square-zero
+identity p²=0 in the coefficient ring. It removes a Bernoulli-number
+calculation from the denominator identification; the actual matrix entries
+still require certification.
+
+Reproduce the bounded searches with Python-FLINT:
+
+```sh
+python3 scripts/frontier/pattern/seed_survival_scan.py --output /tmp/seed-survival.json
+python3 scripts/scan_quarter_witness_bound.py --output /tmp/quarter-bound.json
+```
+
+The seed scan checks Katz depths 3 and 4 at five primes. Agreement at both
+depths is evidence, not an identification proof. The quarter-bound scan tests
+all canonical triples through 151 and 800 sampled projective rescalings up to
+3000 with a fixed random seed. Neither finite range proves an all-prime theorem.
+The prime-103 first-witness benchmark has a separate actual-product Lean proof.

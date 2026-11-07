@@ -1,0 +1,188 @@
+{
+ "date": "2026-11-01T18:19:33.345644+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree; base_commit alone does not contain these changes. Source hashes below pin the new and previously local Lean inputs.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9348
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/four_directions.lean",
+  "exit_code": 0,
+  "declarations": 23,
+  "allowed_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "report": "docs/verification/four_directions.axioms.txt",
+  "theorems": [
+   "Ramanujan.MultiQuintuple.coeff_quad_eq_finiteBox",
+   "Ramanujan.MultiQuintuple.coeff_quad_eq_zero_of_expInvolution",
+   "Ramanujan.MultiQuintuple.four41Partner_weight",
+   "Ramanujan.MultiQuintuple.four41Partner_exponent",
+   "Ramanujan.MultiQuintuple.four41Partner_involutive",
+   "Ramanujan.MultiQuintuple.coeff_four_quintuple_p41_zero",
+   "Ramanujan.MultiQuintuple.coeff_four41_eq_short",
+   "Ramanujan.MultiQuintuple.four41_residue_or_witness",
+   "Ramanujan.MultiQuintuple.four41_persistent_vanishing_iff",
+   "Ramanujan.MultiQuintuple.four41_finite_test_iff",
+   "Ramanujan.MultiQuintuple.first_witness103",
+   "RamanujanTau.FiniteArithmetic.cubic_idempotent_lift",
+   "RamanujanTau.FiniteArithmetic.matrix_seed_survives",
+   "RamanujanTau.FiniteArithmetic.SeedModels.survives233",
+   "RamanujanTau.FiniteArithmetic.SeedModels.survives257",
+   "RamanujanTau.FiniteArithmetic.SeedModels.survives307",
+   "RamanujanTau.FiniteArithmetic.SeedModels.survives401",
+   "RamanujanTau.FiniteArithmetic.SeedModels.survives607",
+   "RamanujanTau.FiniteArithmetic.Rank607Witness.elimination_checked",
+   "RamanujanTau.FiniteArithmetic.Rank607Witness.upper_triangular",
+   "RamanujanTau.FiniteArithmetic.Rank607Witness.diagonal_nonzero",
+   "RamanujanTau.FiniteArithmetic.Rank607Witness.determinant_nonzero",
+   "RamanujanTau.FiniteArithmetic.Rank607Witness.actual_rank_of_entries"
+  ]
+ },
+ "four_factors": {
+  "p41_actual_product_classification": "Lean proved",
+  "indices": [
+   1,
+   4,
+   5,
+   9
+  ],
+  "exact_vanishing_residues": [
+   21,
+   25,
+   26,
+   30
+  ],
+  "other_residues": 37,
+  "other_residue_witness_bound": 5,
+  "independent_affine_checks": {
+   "primes": [
+    41,
+    53,
+    97
+   ],
+   "identities_each": 32,
+   "corrupted_translation_rejected": true
+  },
+  "universal_classification": "open"
+ },
+ "sharpness": {
+  "primes": [
+   233,
+   257,
+   307,
+   401,
+   607
+  ],
+  "katz_depths": [
+   3,
+   4
+  ],
+  "dimensions": [
+   9,
+   10,
+   12,
+   16,
+   25
+  ],
+  "matrix_and_seed_agree_between_depths": true,
+  "finite_model_survival_all_iterates": "Lean proved",
+  "actual_operator_identification": "open",
+  "all_prime_seed_survival": "open"
+ },
+ "rank607": {
+  "saved_matrix_determinant_nonzero_mod_p_squared": "Lean proved",
+  "kernel_checked_triangular_last_entry": 186956,
+  "actual_rank_for_all_m_at_least_two": "Lean proved conditional on entrywise identification",
+  "actual_entry_identification": "open",
+  "independent_determinant_checks": "passed at all three saved cutoffs"
+ },
+ "quarter_bound": {
+  "exact_tested_triples": 5339,
+  "all_canonical_triples_through_151": 4539,
+  "sampled_projective_rescalings": 800,
+  "sample_prime_max": 3000,
+  "violations": 0,
+  "actual_product_benchmark": "Lean proved: at (103;1,22,37), R=63, coefficients N=0..22 vanish and N=23 is -1",
+  "universal_bound": "open"
+ },
+ "generators_reproduce_byte_for_byte": [
+  "scripts/generate_rank607_witness.py",
+  "scripts/generate_seed_model_certificates.py"
+ ],
+ "repository_check": {
+  "command": "python3 scripts/check_repository.py",
+  "exit_code": 0,
+  "lean_source_and_audit_files": 995,
+  "markdown_files": 25,
+  "local_links": 320,
+  "changed_document_heading_links": 24,
+  "git_diff_check": "passed"
+ },
+ "sha256": {
+  "CONTRIBUTING.md": "68889e1bd523099b6a01e5c33a0ab0e60d77b77e25f2251a0f674eae54ddef99",
+  "README.md": "021d3ed824a3a6416db3d0038e9a2d77d748548207761ca23168e326d907ed78",
+  "RESEARCH_MULTI_QUINTUPLE.md": "e0f86d182aaeb73fcf0bb656db94ba38db8479454d9aaac1e7281b1eb2e58589",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "RamanujanTau/BLBound/RankGrowth.lean": "c1b1ade2f94c4ba3cf2bf9311701fd732762617bc61970db7335aee7283c9194",
+  "RamanujanTau/FiniteArithmetic/DeterminantRank.lean": "98d67ba92cb3a05bf50fb88bd56b228837bfeeecfaa9db3fab18104477bb2fed",
+  "RamanujanTau/FiniteArithmetic/EnvelopePrecision.lean": "e322e6746ea809d3b9f8ce3da9870b60abc002f5eed6dae49decfe11e1f9dae3",
+  "RamanujanTau/FiniteArithmetic/FormalSturm.lean": "d731cc6bcb55bbcea3958ec283658990fadd772d3c4b2f7256650871ec7a1bb1",
+  "RamanujanTau/FiniteArithmetic/Rank607Witness.lean": "97e244409674774b0c29e0254951f2f7d893ecd072bb32480c2467353b5e4c5d",
+  "RamanujanTau/FiniteArithmetic/RankLifting.lean": "10c8688df35d6f9355573aa6c8d7123d3aca9400fb1b33b670a853eff3aa6a7b",
+  "RamanujanTau/FiniteArithmetic/SeedModels.lean": "73d03879cb8d41461bb64049308cb319d8b336c27b311244f6e979807f58c26b",
+  "RamanujanTau/FiniteArithmetic/SeedSurvival.lean": "8ab4cf46617aef047cf7d075b1f186e5ceb20ceac8ba5bc5016c4c9d986a6ec8",
+  "RamanujanTau/MultiQuintupleFourCancellation.lean": "b01dae3e8b976ab7fc83e99b1fa17344c5e372ff6a9cb1fb57add64a193ed628",
+  "RamanujanTau/MultiQuintupleFourFortyOne.lean": "c4ef044c2524f079963fe5efeaa0e791966bceec844ecb28787205c753a61902",
+  "RamanujanTau/MultiQuintupleFourFortyOneConverse.lean": "dc5599341ac4264afed5f4e210ca56c912ade859670a3d5da0d61bc265067ee6",
+  "RamanujanTau/MultiQuintupleWitness103.lean": "59e2267d3a512a1a719fd6e968bcadad0ee84c63adfb0af3075d01be8b33d7dd",
+  "docs/BL_SHARPNESS_PROOF.md": "53d2c000bebcc50791a80b28caeb565cdbae49cc04c47567586c8ce6c808cb07",
+  "docs/FINITE_ARITHMETIC.md": "1b1ee9f41bf21d57ed134c5f5eb832b2cafde11beafdb6e120830e7ee59c34a5",
+  "docs/LIT_CHECK.md": "3be49e09d32f38060c9f3da6c260236a19a182be11b3a299484da7542c319d3c",
+  "docs/README.md": "5b8c0dcec36be98d290674ed41d0880da629c1505f305a4cf45b6b1dbe4bdbb0",
+  "docs/RESULTS.md": "2447bff79675194e292bf1db09093a7e1f913285826815e4abaae86f69dfa6d7",
+  "docs/STATUS.md": "6c1366757272be84a764dc3c6b15f6717d5c768c5431b3715317bce7ba65515e",
+  "docs/verification/finite_arithmetic.axioms.txt": "5067f637c5f0f77713e183148134e0851a231b5c6d424b57b099fb7abf9bf09f",
+  "docs/verification/four_directions.axioms.txt": "8d0eb408cefbecb5a18a810383caff3892629bbe990f6776be09c12ec9f3f5b9",
+  "docs/verification/four_quintuple_41.json": "6970ba8231b75abf43e418614af86e0621d2e16420a85dffa92a3ed0231c1946",
+  "docs/verification/four_quintuple_53.json": "6530d7b5167373a0dc8618c146070341b46dc0942f14dd5f02a870724788acdf",
+  "docs/verification/four_quintuple_97.json": "2d18f56935c06f73c37074c5bf9d65a7567a74e433c617d21dd3af9a0ae6b851",
+  "docs/verification/quarter_bound_extended.json": "175a342f6a2f8c19d1544b7f5b6ee2cd820cde26493f8ab3aa2c15ff612550b0",
+  "docs/verification/rank607-hidden-direction.json": "f497b39f1222361a5fe2c64655650ade1393465327340e1b6f3fb748b7c34ec3",
+  "docs/verification/rank607-integer-replay.json": "cfb85eedad53be2da7a5e48245fd8af33ce56f983d44ffda5cecc68752ba3b2b",
+  "docs/verification/rank607-reconstruction.json": "82915346f4ec7a7f4cf439971362c70eaa8340ca27421796a0d7d5c56f3f7c10",
+  "docs/verification/rank607-uniform-n2.json": "c87b932f037a9b367a9df1b97a7742039d39e254492d8c132eeee0d262287a53",
+  "docs/verification/rank607-uniform-n3.json": "0b16e977100dd51397c5f224c65c7ef2ce05e45305ba47d395049afb1833ade5",
+  "docs/verification/rank607-uniform-n4.json": "794473e79481caa15db0b0463c1c0568f3e21ee33e2b26fc01c349a3c7b6c385",
+  "docs/verification/rank_growth.json": "bf74597582c8fd98e5cdb204950cf423d3e443a917889f8d229e8993620fb995",
+  "docs/verification/rank_lifting.json": "e30419637698e5e3803ceece7ecfc599b8156d59bdb26d5cf2b17790580940b5",
+  "docs/verification/rank_lifting_prediction.json": "39619ce995b6a9a83847a81f1f44315bc3f086442d4767db0af36dc3ac1c08a6",
+  "docs/verification/seed_survival_extended.json": "38dbb40149c5d8597ef2d3c541b408f9c457f93cbcf72dd700ac1e35e9430313",
+  "docs/verification/theorem_a.axioms.txt": "c61f7b88fb1531561f1794873d22f0f9b28470e1d523fc022dceefa14b6ad757",
+  "docs/verification/weight8_nonordinary.json": "4e73bfafdf50fab062c4d6752a92e0b85dccd0ac8fb320a9d2c236f78bb6e416",
+  "scripts/audit/finite_arithmetic.lean": "cbc3f617ee82baf6c45e901bbd078128f4bc3241675abb96c8524ced5fda3e7e",
+  "scripts/audit/four_directions.lean": "00b8bce9e30eec2e96bbd478ce54b5d84e1f14f37dbd24581004fd112cbc92a1",
+  "scripts/audit/theorem_a.lean": "333179706206f4ba9625096d7de2d454db1955797743741aa0fea4dbb60fabf9",
+  "scripts/check_four_quintuple_certificate.py": "7a4ba2f0c2205e3b9dbb4a4a79fb133719ecf4725401daab37c7a81343884d44",
+  "scripts/four_quintuple_certificates.py": "73031a0d94e8874fd3e85ae693697208f871f77d91ded758c25ca6bbf8fb3c5c",
+  "scripts/frontier/pattern/check_rank607_hidden_direction.py": "c378ad51e3f78265f76f3c6e56b0b942322090d32229992bd8e1697d5e1ba116",
+  "scripts/frontier/pattern/check_rank_lift_witness.py": "3243322916e043e6b340761e5610c18035001ae5e5950c4d1af4dce8bd9469f4",
+  "scripts/frontier/pattern/katzmat.py": "4aa1eaffa5290b8a4574c14df4794b5127954405f5379f09e6dd529a356a06a6",
+  "scripts/frontier/pattern/predict_rank_lifts.py": "ba8658c69283385433c4bc3768c31e61508c82777f94a6f592b26cd9bf993779",
+  "scripts/frontier/pattern/rank_lift_check.py": "583c2db001e5cbcd518ba58f63bea66883f7ee20fcbf4c6dfaad72fc7b347a4f",
+  "scripts/frontier/pattern/scan_weight8_nonordinary.gp": "1b03fee49ef37ddab484b34645396c909a4db8e0913354a55539a1f29d2a7196",
+  "scripts/frontier/pattern/seed_survival_scan.py": "459a7eba21623adebc870bb601a64f7c1ff87a60cbde8ca3b4078844c8b5ab9c",
+  "scripts/frontier/pattern/verify_rank607_series.py": "6b687b34b2cef75a875a2ad4a5a335bbcbaebf9a18d989798552a4225859689b",
+  "scripts/generate_rank607_witness.py": "f175960fc8c6e0f1c2c53d6b654bea1e40fd4dbb761746370dfa3fa31b0f431b",
+  "scripts/generate_seed_model_certificates.py": "99a378df34bc054d04d8c572de3ca8aa86e8ad532661aebfed2748d3797784ff",
+  "scripts/paley_spinor_scan.py": "f0e39c279ad8879fecaa38de992775ed719f9b838d005de0fc51b3cae952db1d",
+  "scripts/quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c",
+  "scripts/scan_quarter_witness_bound.py": "881f04b62c4e2e35a0823465cfc74b985320fcf7eab34a85579a3599d5061a5a"
+ }
+}

@@ -1,0 +1,25 @@
+{
+  "status": "bounded exact evidence, not a proof",
+  "small_prime_max": 151,
+  "all_canonical_triples": 4539,
+  "random_projective_rescalings": 800,
+  "random_seed": 20261101,
+  "total": 5339,
+  "worst": {
+    "p": 103,
+    "indices": [
+      1,
+      22,
+      37
+    ],
+    "R": 63,
+    "first": [
+      23,
+      -1
+    ],
+    "ratio": 0.22330097087378642
+  },
+  "violations": [],
+  "seconds": 101.299485206604,
+  "sample_prime_max": 3000
+}

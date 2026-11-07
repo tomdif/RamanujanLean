@@ -1,0 +1,26 @@
+'Ramanujan.MultiQuintuple.coeff_eisensteinFamily_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.prime_phase_sum_zero_iff_coefficients_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.prime_phase_sum_zero_iff_bucket_balance' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.antipodal_zero_bucket_balance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.antipodal_shell_sum_zero_iff_pair_balance' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.antipodal_shell_amplitude_zero_iff_pair_balance' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.projective_lift_norm_quotient_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.projective_lift_dot_quotient_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.phase_norm_identity_or_reflection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.phase_reflection_preserves_polarization' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.phase_zero_parameter_forces_zero_norm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.short_equal_norm_translate_unique' depends on axioms: [propext, Classical.choice, Quot.sound]

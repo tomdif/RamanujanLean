@@ -1,0 +1,17 @@
+import RamanujanTau.MultiQuintupleFourWitnessBound
+import RamanujanTau.MultiQuintupleFourWitness2521
+
+#print axioms Ramanujan.MultiQuintuple.coeff_four17_eq_short
+#print axioms Ramanujan.MultiQuintuple.first_witness_four17
+#print axioms Ramanujan.MultiQuintuple.four17_cutoff_six_fails
+#print axioms Ramanujan.MultiQuintuple.witness2521_signed_balance
+#print axioms Ramanujan.MultiQuintuple.witness2521_complete_eq
+#print axioms Ramanujan.MultiQuintuple.coeff_four2521_eq_completed
+#print axioms Ramanujan.MultiQuintuple.witness2521_entries_eval
+#print axioms Ramanujan.MultiQuintuple.coeff_four2521_first_range
+#print axioms Ramanujan.MultiQuintuple.first_witness_four2521
+#print axioms Ramanujan.MultiQuintuple.four2521_quarter_plus_one_fails
+#print axioms Ramanujan.MultiQuintuple.four2521_parameters
+#print axioms Ramanujan.MultiQuintuple.fourWitnessLinearBound_ge
+#print axioms Ramanujan.MultiQuintuple.not_fourWitnessQuarterBound
+#print axioms Ramanujan.MultiQuintuple.not_fourWitnessTwoFifthsBound

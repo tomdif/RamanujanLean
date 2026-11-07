@@ -1,0 +1,4 @@
+T=  25  (1/T)int|L|^2 = 2.68047   (1/T)int D = 3.13019   ratio = 0.8563   2c*avg log(t/2pi) = 1.35758
+T=  50  (1/T)int|L|^2 = 3.49917   (1/T)int D = 3.80314   ratio = 0.9201   2c*avg log(t/2pi) = 1.89003
+T= 100  (1/T)int|L|^2 = 4.04501   (1/T)int D = 4.34811   ratio = 0.9303   2c*avg log(t/2pi) = 2.42248
+T= 200  (1/T)int|L|^2 = 4.44059   (1/T)int D = 4.87745   ratio = 0.9104   2c*avg log(t/2pi) = 2.95494

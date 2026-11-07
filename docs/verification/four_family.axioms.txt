@@ -1,0 +1,13 @@
+'Ramanujan.MultiQuintuple.fourFamily_fiber_representation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourFamilyPartner_weight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourFamilyPartner_exponent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourFamilyPartner_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.coeff_four_family_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourFamilyP_strictMono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourFamilyR_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourFamilyR_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.padicNorm_kappa_add_two_p' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.map_E_square_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RamanujanTau.FiniteArithmetic.map_Einv_square_squared_general' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

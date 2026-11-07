@@ -50,5 +50,7 @@ to the same eigenform: `a_ℓ = 0` unless `ℓ ≡ 1 (mod 12)`, and for example 
 | N(d) | 24 | 93 | 205 | 380 | 609 | 907 | 1268 | 1700 | 2209 | 2786 | 3454 | 4193 | 5017 |
 
 `d ≤ 5` agree with the proved values (Chen–Jia–Wang; Larson–Wagner). For `d ≥ 6` these are numerical
-thresholds. A proof for a fixed `d` needs effective Jensen-to-Hermite estimates; our Rademacher-limit error
+thresholds. (Later: `d = 6, 7` are proved in Lean, `JensenThreshold.jensen6_threshold_unconditional` and
+`jensen7_threshold_unconditional`, i.e. last failures 609 and 907, first-good-from 610 and 908 in the
+Larson–Wagner convention; see [JENSEN_THRESHOLDS](JENSEN_THRESHOLDS.md). `d ≥ 8` remain numerical.) A proof for a fixed `d` needs effective Jensen-to-Hermite estimates; our Rademacher-limit error
 bound (`LogConcaveTail`) is the right input.

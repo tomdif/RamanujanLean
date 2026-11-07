@@ -33,6 +33,10 @@ jobs:
           cmp RamanujanTau/FiniteArithmetic/Cert29Error.lean "$RUNNER_TEMP/cert29-error/Cert29Error.lean"
           cmp RamanujanTau/FiniteArithmetic/Cert29ErrorData.lean "$RUNNER_TEMP/cert29-error/Cert29ErrorData.lean"
           diff -ru RamanujanTau/FiniteArithmetic/Cert29ErrorProducts "$RUNNER_TEMP/cert29-error/Cert29ErrorProducts"
+      - name: Reproduce the level-six eta certificates
+        run: |
+          python3 scripts/frontier/pattern/gen_eta_generator_data.py
+          git diff --exit-code -- RamanujanTau/TheoremA/EtaGeneratorData.lean RamanujanTau/TheoremA/EtaCuspData.lean
       - name: Check whitespace
         run: git diff --check HEAD^ HEAD
         if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'

@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-01",
+  "cases": [
+    {
+      "t": 0,
+      "modulus": 7,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "zero_residue": 3,
+      "progression_terms_checked": 21,
+      "all_coefficients_compared": 144
+    },
+    {
+      "t": 1,
+      "modulus": 31,
+      "indices": [
+        1,
+        5,
+        6
+      ],
+      "zero_residue": 6,
+      "progression_terms_checked": 21,
+      "all_coefficients_compared": 627
+    },
+    {
+      "t": 2,
+      "modulus": 73,
+      "indices": [
+        1,
+        8,
+        9
+      ],
+      "zero_residue": 9,
+      "progression_terms_checked": 21,
+      "all_coefficients_compared": 1470
+    },
+    {
+      "t": 3,
+      "modulus": 133,
+      "indices": [
+        1,
+        11,
+        12
+      ],
+      "zero_residue": 12,
+      "progression_terms_checked": 21,
+      "all_coefficients_compared": 2673
+    },
+    {
+      "t": 4,
+      "modulus": 211,
+      "indices": [
+        1,
+        14,
+        15
+      ],
+      "zero_residue": 15,
+      "progression_terms_checked": 21,
+      "all_coefficients_compared": 4236
+    },
+    {
+      "t": 5,
+      "modulus": 307,
+      "indices": [
+        1,
+        17,
+        18
+      ],
+      "zero_residue": 18,
+      "progression_terms_checked": 21,
+      "all_coefficients_compared": 6159
+    }
+  ],
+  "arithmetic": "Python integers; direct factors versus bilateral Watson sums",
+  "all_checks_passed": true,
+  "sha256": {
+    "check_eisenstein_family.py": "0f8da83ecdcc257873f5dd1846e207199ab4f4dcb8d01247458c3dd064221117",
+    "quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

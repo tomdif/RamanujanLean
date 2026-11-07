@@ -1,0 +1,3690 @@
+{
+  "scope": "Finite scan only; distinct canonical indices with sum of squares divisible by the prime",
+  "prime_limit": 71,
+  "tuples_checked": 3174,
+  "surviving_candidate_products": 289,
+  "records": [
+    {
+      "prime": 5,
+      "tuples_checked": 0,
+      "early_candidate_products": 0,
+      "deep_search_N": 10,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 7,
+      "tuples_checked": 0,
+      "early_candidate_products": 0,
+      "deep_search_N": 14,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 11,
+      "tuples_checked": 0,
+      "early_candidate_products": 0,
+      "deep_search_N": 22,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 13,
+      "tuples_checked": 3,
+      "early_candidate_products": 1,
+      "deep_search_N": 26,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 17,
+      "tuples_checked": 6,
+      "early_candidate_products": 5,
+      "deep_search_N": 34,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            2,
+            4,
+            8
+          ],
+          "zero_candidates": [
+            2,
+            8,
+            9,
+            15
+          ]
+        },
+        {
+          "indices": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "zero_candidates": [
+            1,
+            4,
+            13,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 19,
+      "tuples_checked": 9,
+      "early_candidate_products": 0,
+      "deep_search_N": 38,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 23,
+      "tuples_checked": 11,
+      "early_candidate_products": 0,
+      "deep_search_N": 46,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 29,
+      "tuples_checked": 35,
+      "early_candidate_products": 7,
+      "deep_search_N": 58,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            3,
+            7,
+            12
+          ],
+          "zero_candidates": [
+            12,
+            14,
+            17,
+            19
+          ]
+        },
+        {
+          "indices": [
+            1,
+            4,
+            10,
+            12
+          ],
+          "zero_candidates": [
+            2,
+            5,
+            24,
+            27
+          ]
+        },
+        {
+          "indices": [
+            2,
+            5,
+            6,
+            14
+          ],
+          "zero_candidates": [
+            6,
+            14,
+            15,
+            23
+          ]
+        },
+        {
+          "indices": [
+            2,
+            5,
+            8,
+            9
+          ],
+          "zero_candidates": [
+            11,
+            12,
+            23,
+            24
+          ]
+        },
+        {
+          "indices": [
+            3,
+            7,
+            8,
+            9
+          ],
+          "zero_candidates": [
+            2,
+            4,
+            15,
+            20
+          ]
+        },
+        {
+          "indices": [
+            4,
+            10,
+            11,
+            13
+          ],
+          "zero_candidates": [
+            1,
+            5,
+            20,
+            24
+          ]
+        },
+        {
+          "indices": [
+            6,
+            11,
+            13,
+            14
+          ],
+          "zero_candidates": [
+            5,
+            14,
+            20,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 31,
+      "tuples_checked": 45,
+      "early_candidate_products": 0,
+      "deep_search_N": 62,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 37,
+      "tuples_checked": 90,
+      "early_candidate_products": 19,
+      "deep_search_N": 74,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            2,
+            5,
+            9
+          ],
+          "zero_candidates": [
+            18,
+            27
+          ]
+        },
+        {
+          "indices": [
+            1,
+            4,
+            8,
+            17
+          ],
+          "zero_candidates": [
+            2,
+            35
+          ]
+        },
+        {
+          "indices": [
+            1,
+            7,
+            13,
+            15
+          ],
+          "zero_candidates": [
+            5,
+            32
+          ]
+        },
+        {
+          "indices": [
+            1,
+            14,
+            16,
+            18
+          ],
+          "zero_candidates": [
+            8,
+            15
+          ]
+        },
+        {
+          "indices": [
+            2,
+            3,
+            8,
+            16
+          ],
+          "zero_candidates": [
+            9,
+            30
+          ]
+        },
+        {
+          "indices": [
+            2,
+            4,
+            10,
+            18
+          ],
+          "zero_candidates": [
+            17,
+            18
+          ]
+        },
+        {
+          "indices": [
+            2,
+            7,
+            11,
+            14
+          ],
+          "zero_candidates": [
+            19,
+            22
+          ]
+        },
+        {
+          "indices": [
+            3,
+            5,
+            11,
+            17
+          ],
+          "zero_candidates": [
+            13,
+            24
+          ]
+        },
+        {
+          "indices": [
+            3,
+            6,
+            10,
+            15
+          ],
+          "zero_candidates": [
+            17,
+            24
+          ]
+        },
+        {
+          "indices": [
+            3,
+            12,
+            13,
+            14
+          ],
+          "zero_candidates": [
+            18,
+            19
+          ]
+        },
+        {
+          "indices": [
+            4,
+            5,
+            6,
+            16
+          ],
+          "zero_candidates": [
+            7,
+            34
+          ]
+        },
+        {
+          "indices": [
+            4,
+            9,
+            14,
+            15
+          ],
+          "zero_candidates": [
+            6,
+            31
+          ]
+        },
+        {
+          "indices": [
+            5,
+            8,
+            10,
+            12
+          ],
+          "zero_candidates": [
+            21,
+            24
+          ]
+        },
+        {
+          "indices": [
+            6,
+            7,
+            12,
+            17
+          ],
+          "zero_candidates": [
+            14,
+            23
+          ]
+        },
+        {
+          "indices": [
+            6,
+            9,
+            11,
+            13
+          ],
+          "zero_candidates": [
+            1,
+            5
+          ]
+        },
+        {
+          "indices": [
+            7,
+            8,
+            9,
+            18
+          ],
+          "zero_candidates": [
+            13,
+            24
+          ]
+        },
+        {
+          "indices": [
+            10,
+            13,
+            16,
+            17
+          ],
+          "zero_candidates": [
+            1,
+            26
+          ]
+        },
+        {
+          "indices": [
+            11,
+            12,
+            15,
+            18
+          ],
+          "zero_candidates": [
+            3,
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 41,
+      "tuples_checked": 125,
+      "early_candidate_products": 35,
+      "deep_search_N": 82,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            3,
+            9,
+            14
+          ],
+          "zero_candidates": [
+            14,
+            20,
+            27,
+            33
+          ]
+        },
+        {
+          "indices": [
+            1,
+            4,
+            5,
+            9
+          ],
+          "zero_candidates": [
+            21,
+            25,
+            26,
+            30
+          ]
+        },
+        {
+          "indices": [
+            1,
+            5,
+            8,
+            19
+          ],
+          "zero_candidates": [
+            9,
+            32
+          ]
+        },
+        {
+          "indices": [
+            1,
+            5,
+            13,
+            16
+          ],
+          "zero_candidates": [
+            21,
+            22
+          ]
+        },
+        {
+          "indices": [
+            1,
+            8,
+            9,
+            10
+          ],
+          "zero_candidates": [
+            4,
+            6,
+            14,
+            37
+          ]
+        },
+        {
+          "indices": [
+            1,
+            8,
+            12,
+            18
+          ],
+          "zero_candidates": [
+            2,
+            39
+          ]
+        },
+        {
+          "indices": [
+            1,
+            13,
+            17,
+            19
+          ],
+          "zero_candidates": [
+            32,
+            40
+          ]
+        },
+        {
+          "indices": [
+            2,
+            3,
+            7,
+            15
+          ],
+          "zero_candidates": [
+            19,
+            28
+          ]
+        },
+        {
+          "indices": [
+            2,
+            3,
+            10,
+            16
+          ],
+          "zero_candidates": [
+            7,
+            38
+          ]
+        },
+        {
+          "indices": [
+            2,
+            5,
+            16,
+            17
+          ],
+          "zero_candidates": [
+            7,
+            32
+          ]
+        },
+        {
+          "indices": [
+            2,
+            6,
+            13,
+            18
+          ],
+          "zero_candidates": [
+            3,
+            14,
+            27,
+            38
+          ]
+        },
+        {
+          "indices": [
+            2,
+            8,
+            10,
+            18
+          ],
+          "zero_candidates": [
+            3,
+            19,
+            24,
+            40
+          ]
+        },
+        {
+          "indices": [
+            2,
+            9,
+            10,
+            15
+          ],
+          "zero_candidates": [
+            1,
+            5
+          ]
+        },
+        {
+          "indices": [
+            2,
+            16,
+            18,
+            20
+          ],
+          "zero_candidates": [
+            28,
+            29,
+            37,
+            38
+          ]
+        },
+        {
+          "indices": [
+            3,
+            5,
+            13,
+            17
+          ],
+          "zero_candidates": [
+            19,
+            24
+          ]
+        },
+        {
+          "indices": [
+            3,
+            11,
+            14,
+            17
+          ],
+          "zero_candidates": [
+            1,
+            9,
+            32,
+            40
+          ]
+        },
+        {
+          "indices": [
+            3,
+            12,
+            14,
+            15
+          ],
+          "zero_candidates": [
+            17,
+            21,
+            22,
+            26
+          ]
+        },
+        {
+          "indices": [
+            3,
+            15,
+            16,
+            17
+          ],
+          "zero_candidates": [
+            37,
+            39
+          ]
+        },
+        {
+          "indices": [
+            4,
+            5,
+            12,
+            15
+          ],
+          "zero_candidates": [
+            15,
+            18,
+            29,
+            32
+          ]
+        },
+        {
+          "indices": [
+            4,
+            5,
+            16,
+            20
+          ],
+          "zero_candidates": [
+            5,
+            7,
+            28,
+            30
+          ]
+        },
+        {
+          "indices": [
+            4,
+            6,
+            9,
+            20
+          ],
+          "zero_candidates": [
+            20,
+            21
+          ]
+        },
+        {
+          "indices": [
+            4,
+            6,
+            11,
+            14
+          ],
+          "zero_candidates": [
+            22,
+            27
+          ]
+        },
+        {
+          "indices": [
+            4,
+            7,
+            9,
+            10
+          ],
+          "zero_candidates": [
+            15,
+            38
+          ]
+        },
+        {
+          "indices": [
+            4,
+            11,
+            18,
+            20
+          ],
+          "zero_candidates": [
+            3,
+            28
+          ]
+        },
+        {
+          "indices": [
+            6,
+            7,
+            9,
+            11
+          ],
+          "zero_candidates": [
+            2,
+            10
+          ]
+        },
+        {
+          "indices": [
+            6,
+            7,
+            10,
+            15
+          ],
+          "zero_candidates": [
+            14,
+            35
+          ]
+        },
+        {
+          "indices": [
+            6,
+            7,
+            13,
+            19
+          ],
+          "zero_candidates": [
+            4,
+            5,
+            36,
+            37
+          ]
+        },
+        {
+          "indices": [
+            6,
+            11,
+            13,
+            17
+          ],
+          "zero_candidates": [
+            3,
+            19,
+            24,
+            40
+          ]
+        },
+        {
+          "indices": [
+            7,
+            12,
+            15,
+            19
+          ],
+          "zero_candidates": [
+            6,
+            8,
+            29,
+            31
+          ]
+        },
+        {
+          "indices": [
+            7,
+            16,
+            19,
+            20
+          ],
+          "zero_candidates": [
+            5,
+            20,
+            27,
+            39
+          ]
+        },
+        {
+          "indices": [
+            8,
+            10,
+            11,
+            17
+          ],
+          "zero_candidates": [
+            9,
+            21,
+            24,
+            36
+          ]
+        },
+        {
+          "indices": [
+            8,
+            12,
+            13,
+            19
+          ],
+          "zero_candidates": [
+            9,
+            30
+          ]
+        },
+        {
+          "indices": [
+            8,
+            14,
+            18,
+            20
+          ],
+          "zero_candidates": [
+            30,
+            40
+          ]
+        },
+        {
+          "indices": [
+            11,
+            12,
+            14,
+            20
+          ],
+          "zero_candidates": [
+            37,
+            39
+          ]
+        },
+        {
+          "indices": [
+            12,
+            14,
+            18,
+            19
+          ],
+          "zero_candidates": [
+            10,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 43,
+      "tuples_checked": 147,
+      "early_candidate_products": 21,
+      "deep_search_N": 86,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            2,
+            8,
+            19
+          ],
+          "zero_candidates": [
+            4,
+            39
+          ]
+        },
+        {
+          "indices": [
+            1,
+            3,
+            11,
+            16
+          ],
+          "zero_candidates": [
+            10,
+            37
+          ]
+        },
+        {
+          "indices": [
+            1,
+            4,
+            12,
+            21
+          ],
+          "zero_candidates": [
+            40,
+            42
+          ]
+        },
+        {
+          "indices": [
+            1,
+            9,
+            14,
+            18
+          ],
+          "zero_candidates": [
+            20,
+            23
+          ]
+        },
+        {
+          "indices": [
+            2,
+            4,
+            5,
+            16
+          ],
+          "zero_candidates": [
+            19,
+            30
+          ]
+        },
+        {
+          "indices": [
+            2,
+            6,
+            11,
+            21
+          ],
+          "zero_candidates": [
+            10,
+            31
+          ]
+        },
+        {
+          "indices": [
+            2,
+            7,
+            15,
+            18
+          ],
+          "zero_candidates": [
+            6,
+            37
+          ]
+        },
+        {
+          "indices": [
+            3,
+            5,
+            9,
+            10
+          ],
+          "zero_candidates": [
+            20,
+            35
+          ]
+        },
+        {
+          "indices": [
+            3,
+            6,
+            14,
+            19
+          ],
+          "zero_candidates": [
+            7,
+            36
+          ]
+        },
+        {
+          "indices": [
+            3,
+            7,
+            12,
+            20
+          ],
+          "zero_candidates": [
+            9,
+            34
+          ]
+        },
+        {
+          "indices": [
+            4,
+            7,
+            13,
+            14
+          ],
+          "zero_candidates": [
+            23,
+            28
+          ]
+        },
+        {
+          "indices": [
+            4,
+            8,
+            10,
+            11
+          ],
+          "zero_candidates": [
+            27,
+            28
+          ]
+        },
+        {
+          "indices": [
+            5,
+            6,
+            12,
+            15
+          ],
+          "zero_candidates": [
+            19,
+            32
+          ]
+        },
+        {
+          "indices": [
+            5,
+            17,
+            19,
+            20
+          ],
+          "zero_candidates": [
+            11,
+            18
+          ]
+        },
+        {
+          "indices": [
+            6,
+            10,
+            18,
+            20
+          ],
+          "zero_candidates": [
+            10,
+            27
+          ]
+        },
+        {
+          "indices": [
+            7,
+            9,
+            17,
+            21
+          ],
+          "zero_candidates": [
+            2,
+            35
+          ]
+        },
+        {
+          "indices": [
+            8,
+            14,
+            15,
+            17
+          ],
+          "zero_candidates": [
+            10,
+            33
+          ]
+        },
+        {
+          "indices": [
+            8,
+            16,
+            20,
+            21
+          ],
+          "zero_candidates": [
+            33,
+            37
+          ]
+        },
+        {
+          "indices": [
+            9,
+            13,
+            15,
+            16
+          ],
+          "zero_candidates": [
+            4,
+            41
+          ]
+        },
+        {
+          "indices": [
+            10,
+            12,
+            13,
+            19
+          ],
+          "zero_candidates": [
+            17,
+            26
+          ]
+        },
+        {
+          "indices": [
+            11,
+            13,
+            17,
+            18
+          ],
+          "zero_candidates": [
+            10,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 47,
+      "tuples_checked": 184,
+      "early_candidate_products": 0,
+      "deep_search_N": 94,
+      "deep_candidate_products": []
+    },
+    {
+      "prime": 53,
+      "tuples_checked": 286,
+      "early_candidate_products": 13,
+      "deep_search_N": 106,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            11,
+            12,
+            23
+          ],
+          "zero_candidates": [
+            4,
+            17,
+            38,
+            51
+          ]
+        },
+        {
+          "indices": [
+            1,
+            22,
+            23,
+            24
+          ],
+          "zero_candidates": [
+            11,
+            22,
+            37,
+            49
+          ]
+        },
+        {
+          "indices": [
+            2,
+            5,
+            7,
+            9
+          ],
+          "zero_candidates": [
+            29,
+            31,
+            36,
+            38
+          ]
+        },
+        {
+          "indices": [
+            2,
+            7,
+            22,
+            24
+          ],
+          "zero_candidates": [
+            7,
+            8,
+            37,
+            38
+          ]
+        },
+        {
+          "indices": [
+            3,
+            13,
+            16,
+            19
+          ],
+          "zero_candidates": [
+            2,
+            4,
+            26,
+            33
+          ]
+        },
+        {
+          "indices": [
+            3,
+            16,
+            17,
+            20
+          ],
+          "zero_candidates": [
+            16,
+            27,
+            28,
+            39
+          ]
+        },
+        {
+          "indices": [
+            4,
+            5,
+            9,
+            14
+          ],
+          "zero_candidates": [
+            2,
+            12,
+            16,
+            51
+          ]
+        },
+        {
+          "indices": [
+            4,
+            10,
+            14,
+            18
+          ],
+          "zero_candidates": [
+            15,
+            23,
+            40,
+            48
+          ]
+        },
+        {
+          "indices": [
+            6,
+            13,
+            19,
+            21
+          ],
+          "zero_candidates": [
+            3,
+            8,
+            47,
+            52
+          ]
+        },
+        {
+          "indices": [
+            6,
+            15,
+            21,
+            26
+          ],
+          "zero_candidates": [
+            9,
+            34,
+            44,
+            52
+          ]
+        },
+        {
+          "indices": [
+            8,
+            10,
+            18,
+            25
+          ],
+          "zero_candidates": [
+            16,
+            19,
+            32,
+            35
+          ]
+        },
+        {
+          "indices": [
+            8,
+            17,
+            20,
+            25
+          ],
+          "zero_candidates": [
+            9,
+            15,
+            30,
+            36
+          ]
+        },
+        {
+          "indices": [
+            11,
+            12,
+            15,
+            26
+          ],
+          "zero_candidates": [
+            7,
+            24,
+            27,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 59,
+      "tuples_checked": 406,
+      "early_candidate_products": 29,
+      "deep_search_N": 118,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            2,
+            5,
+            18
+          ],
+          "zero_candidates": [
+            13,
+            54
+          ]
+        },
+        {
+          "indices": [
+            1,
+            3,
+            13,
+            23
+          ],
+          "zero_candidates": [
+            20,
+            43
+          ]
+        },
+        {
+          "indices": [
+            1,
+            9,
+            27,
+            29
+          ],
+          "zero_candidates": [
+            8,
+            33
+          ]
+        },
+        {
+          "indices": [
+            1,
+            12,
+            20,
+            24
+          ],
+          "zero_candidates": [
+            2,
+            57
+          ]
+        },
+        {
+          "indices": [
+            2,
+            4,
+            10,
+            23
+          ],
+          "zero_candidates": [
+            26,
+            39
+          ]
+        },
+        {
+          "indices": [
+            2,
+            6,
+            13,
+            26
+          ],
+          "zero_candidates": [
+            14,
+            47
+          ]
+        },
+        {
+          "indices": [
+            2,
+            11,
+            19,
+            24
+          ],
+          "zero_candidates": [
+            9,
+            52
+          ]
+        },
+        {
+          "indices": [
+            3,
+            5,
+            6,
+            15
+          ],
+          "zero_candidates": [
+            29,
+            44
+          ]
+        },
+        {
+          "indices": [
+            3,
+            9,
+            10,
+            20
+          ],
+          "zero_candidates": [
+            21,
+            50
+          ]
+        },
+        {
+          "indices": [
+            3,
+            22,
+            27,
+            28
+          ],
+          "zero_candidates": [
+            13,
+            24
+          ]
+        },
+        {
+          "indices": [
+            4,
+            7,
+            12,
+            26
+          ],
+          "zero_candidates": [
+            9,
+            54
+          ]
+        },
+        {
+          "indices": [
+            4,
+            8,
+            13,
+            20
+          ],
+          "zero_candidates": [
+            32,
+            39
+          ]
+        },
+        {
+          "indices": [
+            4,
+            11,
+            21,
+            22
+          ],
+          "zero_candidates": [
+            29,
+            34
+          ]
+        },
+        {
+          "indices": [
+            5,
+            10,
+            25,
+            28
+          ],
+          "zero_candidates": [
+            6,
+            43
+          ]
+        },
+        {
+          "indices": [
+            5,
+            14,
+            17,
+            27
+          ],
+          "zero_candidates": [
+            12,
+            47
+          ]
+        },
+        {
+          "indices": [
+            6,
+            10,
+            12,
+            29
+          ],
+          "zero_candidates": [
+            29,
+            30
+          ]
+        },
+        {
+          "indices": [
+            6,
+            18,
+            19,
+            20
+          ],
+          "zero_candidates": [
+            2,
+            4
+          ]
+        },
+        {
+          "indices": [
+            7,
+            8,
+            14,
+            24
+          ],
+          "zero_candidates": [
+            32,
+            35
+          ]
+        },
+        {
+          "indices": [
+            7,
+            9,
+            22,
+            25
+          ],
+          "zero_candidates": [
+            20,
+            39
+          ]
+        },
+        {
+          "indices": [
+            7,
+            16,
+            21,
+            27
+          ],
+          "zero_candidates": [
+            1,
+            54
+          ]
+        },
+        {
+          "indices": [
+            8,
+            15,
+            17,
+            22
+          ],
+          "zero_candidates": [
+            14,
+            53
+          ]
+        },
+        {
+          "indices": [
+            8,
+            16,
+            19,
+            26
+          ],
+          "zero_candidates": [
+            14,
+            45
+          ]
+        },
+        {
+          "indices": [
+            9,
+            14,
+            15,
+            18
+          ],
+          "zero_candidates": [
+            28,
+            45
+          ]
+        },
+        {
+          "indices": [
+            11,
+            14,
+            16,
+            28
+          ],
+          "zero_candidates": [
+            6,
+            53
+          ]
+        },
+        {
+          "indices": [
+            11,
+            17,
+            25,
+            26
+          ],
+          "zero_candidates": [
+            1,
+            50
+          ]
+        },
+        {
+          "indices": [
+            12,
+            19,
+            21,
+            23
+          ],
+          "zero_candidates": [
+            4,
+            55
+          ]
+        },
+        {
+          "indices": [
+            13,
+            17,
+            21,
+            24
+          ],
+          "zero_candidates": [
+            16,
+            43
+          ]
+        },
+        {
+          "indices": [
+            15,
+            16,
+            25,
+            29
+          ],
+          "zero_candidates": [
+            12,
+            33
+          ]
+        },
+        {
+          "indices": [
+            18,
+            23,
+            28,
+            29
+          ],
+          "zero_candidates": [
+            11,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 61,
+      "tuples_checked": 465,
+      "early_candidate_products": 30,
+      "deep_search_N": 122,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            4,
+            5,
+            18
+          ],
+          "zero_candidates": [
+            14,
+            57
+          ]
+        },
+        {
+          "indices": [
+            1,
+            7,
+            17,
+            24
+          ],
+          "zero_candidates": [
+            24,
+            41
+          ]
+        },
+        {
+          "indices": [
+            1,
+            12,
+            13,
+            28
+          ],
+          "zero_candidates": [
+            15,
+            46
+          ]
+        },
+        {
+          "indices": [
+            1,
+            14,
+            15,
+            26
+          ],
+          "zero_candidates": [
+            13,
+            50
+          ]
+        },
+        {
+          "indices": [
+            2,
+            5,
+            24,
+            26
+          ],
+          "zero_candidates": [
+            57,
+            59
+          ]
+        },
+        {
+          "indices": [
+            2,
+            8,
+            10,
+            25
+          ],
+          "zero_candidates": [
+            28,
+            39
+          ]
+        },
+        {
+          "indices": [
+            2,
+            9,
+            28,
+            30
+          ],
+          "zero_candidates": [
+            4,
+            39
+          ]
+        },
+        {
+          "indices": [
+            2,
+            13,
+            14,
+            27
+          ],
+          "zero_candidates": [
+            28,
+            35
+          ]
+        },
+        {
+          "indices": [
+            3,
+            7,
+            12,
+            15
+          ],
+          "zero_candidates": [
+            28,
+            49
+          ]
+        },
+        {
+          "indices": [
+            3,
+            10,
+            11,
+            21
+          ],
+          "zero_candidates": [
+            21,
+            52
+          ]
+        },
+        {
+          "indices": [
+            3,
+            16,
+            17,
+            19
+          ],
+          "zero_candidates": [
+            19,
+            52
+          ]
+        },
+        {
+          "indices": [
+            3,
+            22,
+            23,
+            25
+          ],
+          "zero_candidates": [
+            9,
+            44
+          ]
+        },
+        {
+          "indices": [
+            4,
+            7,
+            26,
+            28
+          ],
+          "zero_candidates": [
+            9,
+            42
+          ]
+        },
+        {
+          "indices": [
+            4,
+            9,
+            10,
+            13
+          ],
+          "zero_candidates": [
+            5,
+            13
+          ]
+        },
+        {
+          "indices": [
+            4,
+            11,
+            16,
+            20
+          ],
+          "zero_candidates": [
+            28,
+            45
+          ]
+        },
+        {
+          "indices": [
+            5,
+            8,
+            9,
+            14
+          ],
+          "zero_candidates": [
+            4,
+            14
+          ]
+        },
+        {
+          "indices": [
+            5,
+            20,
+            25,
+            29
+          ],
+          "zero_candidates": [
+            12,
+            35
+          ]
+        },
+        {
+          "indices": [
+            6,
+            11,
+            15,
+            17
+          ],
+          "zero_candidates": [
+            17,
+            60
+          ]
+        },
+        {
+          "indices": [
+            6,
+            14,
+            24,
+            30
+          ],
+          "zero_candidates": [
+            14,
+            37
+          ]
+        },
+        {
+          "indices": [
+            6,
+            19,
+            20,
+            22
+          ],
+          "zero_candidates": [
+            1,
+            3
+          ]
+        },
+        {
+          "indices": [
+            6,
+            23,
+            27,
+            29
+          ],
+          "zero_candidates": [
+            46,
+            56
+          ]
+        },
+        {
+          "indices": [
+            7,
+            13,
+            23,
+            30
+          ],
+          "zero_candidates": [
+            54,
+            60
+          ]
+        },
+        {
+          "indices": [
+            8,
+            18,
+            20,
+            26
+          ],
+          "zero_candidates": [
+            16,
+            45
+          ]
+        },
+        {
+          "indices": [
+            8,
+            21,
+            22,
+            29
+          ],
+          "zero_candidates": [
+            22,
+            29
+          ]
+        },
+        {
+          "indices": [
+            9,
+            16,
+            21,
+            25
+          ],
+          "zero_candidates": [
+            4,
+            59
+          ]
+        },
+        {
+          "indices": [
+            10,
+            16,
+            18,
+            28
+          ],
+          "zero_candidates": [
+            20,
+            41
+          ]
+        },
+        {
+          "indices": [
+            11,
+            18,
+            19,
+            29
+          ],
+          "zero_candidates": [
+            10,
+            47
+          ]
+        },
+        {
+          "indices": [
+            12,
+            17,
+            21,
+            23
+          ],
+          "zero_candidates": [
+            6,
+            59
+          ]
+        },
+        {
+          "indices": [
+            12,
+            22,
+            27,
+            30
+          ],
+          "zero_candidates": [
+            15,
+            26
+          ]
+        },
+        {
+          "indices": [
+            15,
+            19,
+            24,
+            27
+          ],
+          "zero_candidates": [
+            12,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 67,
+      "tuples_checked": 627,
+      "early_candidate_products": 99,
+      "deep_search_N": 134,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            2,
+            5,
+            29
+          ],
+          "zero_candidates": [
+            23,
+            42
+          ]
+        },
+        {
+          "indices": [
+            1,
+            3,
+            10,
+            15
+          ],
+          "zero_candidates": [
+            33,
+            48
+          ]
+        },
+        {
+          "indices": [
+            1,
+            4,
+            15,
+            19
+          ],
+          "zero_candidates": [
+            19,
+            60
+          ]
+        },
+        {
+          "indices": [
+            1,
+            5,
+            19,
+            22
+          ],
+          "zero_candidates": [
+            16,
+            59
+          ]
+        },
+        {
+          "indices": [
+            1,
+            7,
+            16,
+            30
+          ],
+          "zero_candidates": [
+            26,
+            41
+          ]
+        },
+        {
+          "indices": [
+            1,
+            7,
+            20,
+            32
+          ],
+          "zero_candidates": [
+            12,
+            49
+          ]
+        },
+        {
+          "indices": [
+            1,
+            7,
+            28,
+            29
+          ],
+          "zero_candidates": [
+            28,
+            29
+          ]
+        },
+        {
+          "indices": [
+            1,
+            9,
+            23,
+            27
+          ],
+          "zero_candidates": [
+            29,
+            38
+          ]
+        },
+        {
+          "indices": [
+            1,
+            9,
+            30,
+            31
+          ],
+          "zero_candidates": [
+            11,
+            40
+          ]
+        },
+        {
+          "indices": [
+            1,
+            12,
+            13,
+            17
+          ],
+          "zero_candidates": [
+            3,
+            13
+          ]
+        },
+        {
+          "indices": [
+            1,
+            13,
+            21,
+            27
+          ],
+          "zero_candidates": [
+            10,
+            59
+          ]
+        },
+        {
+          "indices": [
+            1,
+            19,
+            31,
+            33
+          ],
+          "zero_candidates": [
+            49,
+            61
+          ]
+        },
+        {
+          "indices": [
+            2,
+            3,
+            14,
+            27
+          ],
+          "zero_candidates": [
+            9,
+            62
+          ]
+        },
+        {
+          "indices": [
+            2,
+            4,
+            9,
+            10
+          ],
+          "zero_candidates": [
+            37,
+            46
+          ]
+        },
+        {
+          "indices": [
+            2,
+            5,
+            7,
+            18
+          ],
+          "zero_candidates": [
+            16,
+            65
+          ]
+        },
+        {
+          "indices": [
+            2,
+            6,
+            20,
+            30
+          ],
+          "zero_candidates": [
+            29,
+            36
+          ]
+        },
+        {
+          "indices": [
+            2,
+            7,
+            14,
+            32
+          ],
+          "zero_candidates": [
+            29,
+            36
+          ]
+        },
+        {
+          "indices": [
+            2,
+            8,
+            29,
+            30
+          ],
+          "zero_candidates": [
+            9,
+            46
+          ]
+        },
+        {
+          "indices": [
+            2,
+            9,
+            11,
+            14
+          ],
+          "zero_candidates": [
+            7,
+            11
+          ]
+        },
+        {
+          "indices": [
+            2,
+            10,
+            23,
+            29
+          ],
+          "zero_candidates": [
+            18,
+            47
+          ]
+        },
+        {
+          "indices": [
+            2,
+            13,
+            18,
+            21
+          ],
+          "zero_candidates": [
+            24,
+            55
+          ]
+        },
+        {
+          "indices": [
+            2,
+            13,
+            25,
+            26
+          ],
+          "zero_candidates": [
+            31,
+            36
+          ]
+        },
+        {
+          "indices": [
+            2,
+            24,
+            26,
+            33
+          ],
+          "zero_candidates": [
+            10,
+            37
+          ]
+        },
+        {
+          "indices": [
+            3,
+            4,
+            14,
+            28
+          ],
+          "zero_candidates": [
+            16,
+            55
+          ]
+        },
+        {
+          "indices": [
+            3,
+            6,
+            15,
+            20
+          ],
+          "zero_candidates": [
+            22,
+            59
+          ]
+        },
+        {
+          "indices": [
+            3,
+            7,
+            21,
+            29
+          ],
+          "zero_candidates": [
+            1,
+            66
+          ]
+        },
+        {
+          "indices": [
+            3,
+            9,
+            22,
+            30
+          ],
+          "zero_candidates": [
+            32,
+            33
+          ]
+        },
+        {
+          "indices": [
+            3,
+            10,
+            12,
+            22
+          ],
+          "zero_candidates": [
+            24,
+            57
+          ]
+        },
+        {
+          "indices": [
+            3,
+            10,
+            26,
+            32
+          ],
+          "zero_candidates": [
+            8,
+            49
+          ]
+        },
+        {
+          "indices": [
+            3,
+            16,
+            28,
+            31
+          ],
+          "zero_candidates": [
+            16,
+            39
+          ]
+        },
+        {
+          "indices": [
+            3,
+            17,
+            20,
+            21
+          ],
+          "zero_candidates": [
+            34,
+            43
+          ]
+        },
+        {
+          "indices": [
+            3,
+            19,
+            21,
+            23
+          ],
+          "zero_candidates": [
+            36,
+            37
+          ]
+        },
+        {
+          "indices": [
+            3,
+            23,
+            26,
+            27
+          ],
+          "zero_candidates": [
+            26,
+            33
+          ]
+        },
+        {
+          "indices": [
+            4,
+            6,
+            13,
+            28
+          ],
+          "zero_candidates": [
+            31,
+            42
+          ]
+        },
+        {
+          "indices": [
+            4,
+            7,
+            9,
+            16
+          ],
+          "zero_candidates": [
+            2,
+            16
+          ]
+        },
+        {
+          "indices": [
+            4,
+            7,
+            12,
+            27
+          ],
+          "zero_candidates": [
+            18,
+            57
+          ]
+        },
+        {
+          "indices": [
+            4,
+            8,
+            18,
+            20
+          ],
+          "zero_candidates": [
+            25,
+            56
+          ]
+        },
+        {
+          "indices": [
+            4,
+            9,
+            20,
+            21
+          ],
+          "zero_candidates": [
+            15,
+            64
+          ]
+        },
+        {
+          "indices": [
+            4,
+            10,
+            14,
+            31
+          ],
+          "zero_candidates": [
+            32,
+            37
+          ]
+        },
+        {
+          "indices": [
+            4,
+            15,
+            17,
+            26
+          ],
+          "zero_candidates": [
+            14,
+            61
+          ]
+        },
+        {
+          "indices": [
+            4,
+            18,
+            22,
+            28
+          ],
+          "zero_candidates": [
+            8,
+            59
+          ]
+        },
+        {
+          "indices": [
+            4,
+            25,
+            26,
+            31
+          ],
+          "zero_candidates": [
+            54,
+            64
+          ]
+        },
+        {
+          "indices": [
+            5,
+            6,
+            11,
+            32
+          ],
+          "zero_candidates": [
+            21,
+            46
+          ]
+        },
+        {
+          "indices": [
+            5,
+            8,
+            15,
+            17
+          ],
+          "zero_candidates": [
+            29,
+            56
+          ]
+        },
+        {
+          "indices": [
+            5,
+            8,
+            20,
+            28
+          ],
+          "zero_candidates": [
+            12,
+            59
+          ]
+        },
+        {
+          "indices": [
+            5,
+            10,
+            11,
+            25
+          ],
+          "zero_candidates": [
+            3,
+            9
+          ]
+        },
+        {
+          "indices": [
+            5,
+            13,
+            16,
+            32
+          ],
+          "zero_candidates": [
+            20,
+            47
+          ]
+        },
+        {
+          "indices": [
+            5,
+            16,
+            21,
+            22
+          ],
+          "zero_candidates": [
+            11,
+            66
+          ]
+        },
+        {
+          "indices": [
+            5,
+            21,
+            28,
+            31
+          ],
+          "zero_candidates": [
+            9,
+            44
+          ]
+        },
+        {
+          "indices": [
+            5,
+            24,
+            25,
+            28
+          ],
+          "zero_candidates": [
+            28,
+            31
+          ]
+        },
+        {
+          "indices": [
+            5,
+            26,
+            32,
+            33
+          ],
+          "zero_candidates": [
+            12,
+            25
+          ]
+        },
+        {
+          "indices": [
+            6,
+            7,
+            18,
+            23
+          ],
+          "zero_candidates": [
+            4,
+            8
+          ]
+        },
+        {
+          "indices": [
+            6,
+            8,
+            11,
+            28
+          ],
+          "zero_candidates": [
+            15,
+            60
+          ]
+        },
+        {
+          "indices": [
+            6,
+            9,
+            14,
+            25
+          ],
+          "zero_candidates": [
+            2,
+            10
+          ]
+        },
+        {
+          "indices": [
+            6,
+            12,
+            27,
+            30
+          ],
+          "zero_candidates": [
+            4,
+            57
+          ]
+        },
+        {
+          "indices": [
+            6,
+            13,
+            15,
+            21
+          ],
+          "zero_candidates": [
+            22,
+            61
+          ]
+        },
+        {
+          "indices": [
+            6,
+            20,
+            23,
+            24
+          ],
+          "zero_candidates": [
+            1,
+            3
+          ]
+        },
+        {
+          "indices": [
+            6,
+            21,
+            25,
+            29
+          ],
+          "zero_candidates": [
+            62,
+            66
+          ]
+        },
+        {
+          "indices": [
+            6,
+            25,
+            27,
+            33
+          ],
+          "zero_candidates": [
+            8,
+            39
+          ]
+        },
+        {
+          "indices": [
+            7,
+            9,
+            18,
+            22
+          ],
+          "zero_candidates": [
+            6,
+            8
+          ]
+        },
+        {
+          "indices": [
+            7,
+            12,
+            13,
+            24
+          ],
+          "zero_candidates": [
+            35,
+            46
+          ]
+        },
+        {
+          "indices": [
+            7,
+            15,
+            17,
+            24
+          ],
+          "zero_candidates": [
+            29,
+            50
+          ]
+        },
+        {
+          "indices": [
+            8,
+            11,
+            12,
+            26
+          ],
+          "zero_candidates": [
+            28,
+            51
+          ]
+        },
+        {
+          "indices": [
+            8,
+            11,
+            23,
+            31
+          ],
+          "zero_candidates": [
+            31,
+            34
+          ]
+        },
+        {
+          "indices": [
+            8,
+            13,
+            14,
+            24
+          ],
+          "zero_candidates": [
+            18,
+            63
+          ]
+        },
+        {
+          "indices": [
+            8,
+            14,
+            18,
+            32
+          ],
+          "zero_candidates": [
+            28,
+            39
+          ]
+        },
+        {
+          "indices": [
+            8,
+            15,
+            30,
+            33
+          ],
+          "zero_candidates": [
+            19,
+            32
+          ]
+        },
+        {
+          "indices": [
+            8,
+            16,
+            27,
+            31
+          ],
+          "zero_candidates": [
+            1,
+            58
+          ]
+        },
+        {
+          "indices": [
+            8,
+            18,
+            25,
+            27
+          ],
+          "zero_candidates": [
+            31,
+            36
+          ]
+        },
+        {
+          "indices": [
+            9,
+            11,
+            29,
+            30
+          ],
+          "zero_candidates": [
+            13,
+            46
+          ]
+        },
+        {
+          "indices": [
+            9,
+            12,
+            17,
+            25
+          ],
+          "zero_candidates": [
+            14,
+            65
+          ]
+        },
+        {
+          "indices": [
+            9,
+            17,
+            19,
+            26
+          ],
+          "zero_candidates": [
+            1,
+            7
+          ]
+        },
+        {
+          "indices": [
+            10,
+            11,
+            16,
+            27
+          ],
+          "zero_candidates": [
+            32,
+            45
+          ]
+        },
+        {
+          "indices": [
+            10,
+            11,
+            17,
+            19
+          ],
+          "zero_candidates": [
+            3,
+            15
+          ]
+        },
+        {
+          "indices": [
+            10,
+            16,
+            30,
+            33
+          ],
+          "zero_candidates": [
+            5,
+            46
+          ]
+        },
+        {
+          "indices": [
+            10,
+            17,
+            20,
+            22
+          ],
+          "zero_candidates": [
+            18,
+            61
+          ]
+        },
+        {
+          "indices": [
+            10,
+            23,
+            25,
+            32
+          ],
+          "zero_candidates": [
+            18,
+            37
+          ]
+        },
+        {
+          "indices": [
+            11,
+            12,
+            16,
+            22
+          ],
+          "zero_candidates": [
+            31,
+            52
+          ]
+        },
+        {
+          "indices": [
+            11,
+            15,
+            29,
+            32
+          ],
+          "zero_candidates": [
+            19,
+            36
+          ]
+        },
+        {
+          "indices": [
+            11,
+            24,
+            31,
+            33
+          ],
+          "zero_candidates": [
+            52,
+            58
+          ]
+        },
+        {
+          "indices": [
+            12,
+            14,
+            21,
+            31
+          ],
+          "zero_candidates": [
+            8,
+            59
+          ]
+        },
+        {
+          "indices": [
+            12,
+            17,
+            18,
+            28
+          ],
+          "zero_candidates": [
+            19,
+            54
+          ]
+        },
+        {
+          "indices": [
+            12,
+            19,
+            21,
+            27
+          ],
+          "zero_candidates": [
+            6,
+            65
+          ]
+        },
+        {
+          "indices": [
+            12,
+            25,
+            26,
+            30
+          ],
+          "zero_candidates": [
+            5,
+            50
+          ]
+        },
+        {
+          "indices": [
+            13,
+            16,
+            17,
+            31
+          ],
+          "zero_candidates": [
+            11,
+            58
+          ]
+        },
+        {
+          "indices": [
+            13,
+            20,
+            22,
+            32
+          ],
+          "zero_candidates": [
+            23,
+            38
+          ]
+        },
+        {
+          "indices": [
+            13,
+            24,
+            25,
+            29
+          ],
+          "zero_candidates": [
+            12,
+            47
+          ]
+        },
+        {
+          "indices": [
+            14,
+            18,
+            23,
+            31
+          ],
+          "zero_candidates": [
+            2,
+            61
+          ]
+        },
+        {
+          "indices": [
+            14,
+            19,
+            24,
+            26
+          ],
+          "zero_candidates": [
+            23,
+            46
+          ]
+        },
+        {
+          "indices": [
+            14,
+            19,
+            30,
+            33
+          ],
+          "zero_candidates": [
+            16,
+            33
+          ]
+        },
+        {
+          "indices": [
+            15,
+            16,
+            22,
+            24
+          ],
+          "zero_candidates": [
+            25,
+            50
+          ]
+        },
+        {
+          "indices": [
+            15,
+            18,
+            29,
+            33
+          ],
+          "zero_candidates": [
+            4,
+            47
+          ]
+        },
+        {
+          "indices": [
+            15,
+            19,
+            28,
+            29
+          ],
+          "zero_candidates": [
+            17,
+            42
+          ]
+        },
+        {
+          "indices": [
+            16,
+            19,
+            26,
+            28
+          ],
+          "zero_candidates": [
+            21,
+            42
+          ]
+        },
+        {
+          "indices": [
+            17,
+            18,
+            24,
+            33
+          ],
+          "zero_candidates": [
+            27,
+            30
+          ]
+        },
+        {
+          "indices": [
+            19,
+            23,
+            30,
+            32
+          ],
+          "zero_candidates": [
+            6,
+            39
+          ]
+        },
+        {
+          "indices": [
+            20,
+            22,
+            29,
+            33
+          ],
+          "zero_candidates": [
+            13,
+            32
+          ]
+        },
+        {
+          "indices": [
+            20,
+            23,
+            27,
+            33
+          ],
+          "zero_candidates": [
+            9,
+            38
+          ]
+        },
+        {
+          "indices": [
+            22,
+            23,
+            24,
+            32
+          ],
+          "zero_candidates": [
+            17,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "prime": 71,
+      "tuples_checked": 735,
+      "early_candidate_products": 35,
+      "deep_search_N": 142,
+      "deep_candidate_products": [
+        {
+          "indices": [
+            1,
+            2,
+            3,
+            25
+          ],
+          "zero_candidates": [
+            26,
+            49
+          ]
+        },
+        {
+          "indices": [
+            1,
+            17,
+            20,
+            34
+          ],
+          "zero_candidates": [
+            19,
+            46
+          ]
+        },
+        {
+          "indices": [
+            1,
+            23,
+            24,
+            32
+          ],
+          "zero_candidates": [
+            16,
+            45
+          ]
+        },
+        {
+          "indices": [
+            1,
+            23,
+            34,
+            35
+          ],
+          "zero_candidates": [
+            50,
+            62
+          ]
+        },
+        {
+          "indices": [
+            2,
+            3,
+            31,
+            34
+          ],
+          "zero_candidates": [
+            7,
+            44
+          ]
+        },
+        {
+          "indices": [
+            2,
+            4,
+            6,
+            21
+          ],
+          "zero_candidates": [
+            31,
+            52
+          ]
+        },
+        {
+          "indices": [
+            2,
+            7,
+            23,
+            25
+          ],
+          "zero_candidates": [
+            16,
+            61
+          ]
+        },
+        {
+          "indices": [
+            3,
+            4,
+            6,
+            9
+          ],
+          "zero_candidates": [
+            5,
+            11
+          ]
+        },
+        {
+          "indices": [
+            3,
+            11,
+            20,
+            31
+          ],
+          "zero_candidates": [
+            16,
+            57
+          ]
+        },
+        {
+          "indices": [
+            4,
+            8,
+            12,
+            29
+          ],
+          "zero_candidates": [
+            33,
+            46
+          ]
+        },
+        {
+          "indices": [
+            4,
+            14,
+            21,
+            25
+          ],
+          "zero_candidates": [
+            24,
+            57
+          ]
+        },
+        {
+          "indices": [
+            5,
+            10,
+            15,
+            17
+          ],
+          "zero_candidates": [
+            42,
+            49
+          ]
+        },
+        {
+          "indices": [
+            5,
+            14,
+            28,
+            29
+          ],
+          "zero_candidates": [
+            17,
+            52
+          ]
+        },
+        {
+          "indices": [
+            5,
+            18,
+            22,
+            27
+          ],
+          "zero_candidates": [
+            31,
+            46
+          ]
+        },
+        {
+          "indices": [
+            5,
+            27,
+            28,
+            33
+          ],
+          "zero_candidates": [
+            54,
+            70
+          ]
+        },
+        {
+          "indices": [
+            6,
+            8,
+            12,
+            18
+          ],
+          "zero_candidates": [
+            22,
+            69
+          ]
+        },
+        {
+          "indices": [
+            6,
+            9,
+            22,
+            31
+          ],
+          "zero_candidates": [
+            12,
+            61
+          ]
+        },
+        {
+          "indices": [
+            7,
+            11,
+            19,
+            26
+          ],
+          "zero_candidates": [
+            41,
+            42
+          ]
+        },
+        {
+          "indices": [
+            7,
+            14,
+            21,
+            33
+          ],
+          "zero_candidates": [
+            31,
+            40
+          ]
+        },
+        {
+          "indices": [
+            7,
+            19,
+            25,
+            32
+          ],
+          "zero_candidates": [
+            8,
+            59
+          ]
+        },
+        {
+          "indices": [
+            8,
+            13,
+            16,
+            24
+          ],
+          "zero_candidates": [
+            34,
+            53
+          ]
+        },
+        {
+          "indices": [
+            8,
+            21,
+            28,
+            29
+          ],
+          "zero_candidates": [
+            3,
+            64
+          ]
+        },
+        {
+          "indices": [
+            9,
+            11,
+            22,
+            33
+          ],
+          "zero_candidates": [
+            7,
+            64
+          ]
+        },
+        {
+          "indices": [
+            9,
+            12,
+            18,
+            27
+          ],
+          "zero_candidates": [
+            33,
+            50
+          ]
+        },
+        {
+          "indices": [
+            10,
+            13,
+            15,
+            28
+          ],
+          "zero_candidates": [
+            5,
+            7
+          ]
+        },
+        {
+          "indices": [
+            10,
+            17,
+            27,
+            35
+          ],
+          "zero_candidates": [
+            25,
+            36
+          ]
+        },
+        {
+          "indices": [
+            10,
+            20,
+            30,
+            34
+          ],
+          "zero_candidates": [
+            7,
+            50
+          ]
+        },
+        {
+          "indices": [
+            11,
+            19,
+            30,
+            31
+          ],
+          "zero_candidates": [
+            12,
+            51
+          ]
+        },
+        {
+          "indices": [
+            12,
+            16,
+            24,
+            35
+          ],
+          "zero_candidates": [
+            20,
+            45
+          ]
+        },
+        {
+          "indices": [
+            13,
+            15,
+            16,
+            29
+          ],
+          "zero_candidates": [
+            25,
+            56
+          ]
+        },
+        {
+          "indices": [
+            13,
+            26,
+            30,
+            32
+          ],
+          "zero_candidates": [
+            1,
+            54
+          ]
+        },
+        {
+          "indices": [
+            14,
+            19,
+            22,
+            33
+          ],
+          "zero_candidates": [
+            1,
+            68
+          ]
+        },
+        {
+          "indices": [
+            15,
+            20,
+            26,
+            30
+          ],
+          "zero_candidates": [
+            3,
+            66
+          ]
+        },
+        {
+          "indices": [
+            16,
+            23,
+            26,
+            32
+          ],
+          "zero_candidates": [
+            29,
+            34
+          ]
+        },
+        {
+          "indices": [
+            17,
+            18,
+            24,
+            35
+          ],
+          "zero_candidates": [
+            30,
+            33
+          ]
+        }
+      ]
+    }
+  ],
+  "sha256": {
+    "scan_four_quintuple_frontier.py": "92277b0e5a149baf785abf3cbe8b5b4c54b7be64146ba94f64b0a15c5537094f",
+    "quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "random_matrix_checks": 400,
+  "examples": [
+    {
+      "name": "two-mode gap depth 1",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "seed": [
+        1,
+        1
+      ],
+      "smith_exponents": [
+        0,
+        1
+      ],
+      "predicted_first_jump": 1,
+      "generator_counts": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "two-mode gap depth 2",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          26
+        ]
+      ],
+      "seed": [
+        1,
+        1
+      ],
+      "smith_exponents": [
+        0,
+        2
+      ],
+      "predicted_first_jump": 0,
+      "generator_counts": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "two-mode gap depth 3",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          126
+        ]
+      ],
+      "seed": [
+        1,
+        1
+      ],
+      "smith_exponents": [
+        0,
+        3
+      ],
+      "predicted_first_jump": 0,
+      "generator_counts": [
+        1,
+        1,
+        1,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "permanent scalar collision",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "seed": [
+        1,
+        1
+      ],
+      "smith_exponents": [
+        0,
+        null
+      ],
+      "predicted_first_jump": 0,
+      "generator_counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "seed misses second mode",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "seed": [
+        1,
+        0
+      ],
+      "smith_exponents": [
+        0,
+        null
+      ],
+      "predicted_first_jump": 0,
+      "generator_counts": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Jordan collision already cyclic",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "seed": [
+        0,
+        1
+      ],
+      "smith_exponents": [
+        0,
+        0
+      ],
+      "predicted_first_jump": 0,
+      "generator_counts": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "nonsplit first correction",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          10
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "seed": [
+        1,
+        0
+      ],
+      "smith_exponents": [
+        0,
+        1
+      ],
+      "predicted_first_jump": 1,
+      "generator_counts": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "three-mode collision",
+      "prime": 5,
+      "operator": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          6,
+          0
+        ],
+        [
+          0,
+          0,
+          31
+        ]
+      ],
+      "seed": [
+        1,
+        1,
+        1
+      ],
+      "smith_exponents": [
+        0,
+        1,
+        3
+      ],
+      "predicted_first_jump": 1,
+      "generator_counts": [
+        1,
+        2,
+        2,
+        3,
+        3
+      ]
+    }
+  ],
+  "partition_cases": [
+    {
+      "prime": 13,
+      "bound": 1,
+      "rank_mod_p": 1,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 1,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 29,
+      "bound": 1,
+      "rank_mod_p": 1,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 1,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 31,
+      "bound": 1,
+      "rank_mod_p": 1,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 1,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 47,
+      "bound": 2,
+      "rank_mod_p": 2,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 2,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 71,
+      "bound": 3,
+      "rank_mod_p": 3,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 3,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 113,
+      "bound": 5,
+      "rank_mod_p": 5,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 5,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 197,
+      "bound": 8,
+      "rank_mod_p": 8,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 8,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 607,
+      "bound": 25,
+      "rank_mod_p": 24,
+      "divided_relation_rank": 1,
+      "predicted_rank_mod_p_squared": 25,
+      "smith_comparison_passed": true
+    },
+    {
+      "prime": 859,
+      "bound": 36,
+      "rank_mod_p": 36,
+      "divided_relation_rank": 0,
+      "predicted_rank_mod_p_squared": 36,
+      "smith_comparison_passed": true
+    }
+  ],
+  "rank607": {
+    "mod_p_rank": 24,
+    "divided_relation_rank": 1,
+    "predicted_mod_p_squared_generators": 25,
+    "zero_obstruction_control_passed": true
+  },
+  "source_sha256": "ba8658c69283385433c4bc3768c31e61508c82777f94a6f592b26cd9bf993779",
+  "witness_sha256": "c87b932f037a9b367a9df1b97a7742039d39e254492d8c132eeee0d262287a53",
+  "lean_kernel_numeric_verification": false
+}

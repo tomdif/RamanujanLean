@@ -2,7 +2,10 @@
 
 > **Current status (2026-10-29): the recurrence at b = m is proved unconditionally**
 > by `OrdQuot.atkin_obrien_17/19/23` in [OrdQuot/Atkin.lean](../RamanujanTau/OrdQuot/Atkin.lean).
-> These public statements prove a sufficient starting index; they do not assert its minimality.
+> These public statements prove a sufficient starting index. Minimality is proved separately
+> (2026-11-02, uncommitted): `ExactAtkin17/19/23.exact` in
+> [AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean) show no scalar works one power higher, at every b ≥ 1;
+> [AtkinExactPartition](../RamanujanTau/FiniteArithmetic/AtkinExactPartition.lean) states this for partition numbers.
 > The conditional reductions and open lemmas below record the earlier route. See
 > [the completed proof record](ATKIN_OBRIEN_PROOF.md) and [current status](STATUS.md).
 

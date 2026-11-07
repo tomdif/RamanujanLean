@@ -1,0 +1,4 @@
+t=    10  max_r (1+t)|dV/dt| = 0.36276   max_r (1+t)|dV/dt|(1+r)^2 = 21.261
+t=   100  max_r (1+t)|dV/dt| = 0.50703   max_r (1+t)|dV/dt|(1+r)^2 = 27.465
+t=  1000  max_r (1+t)|dV/dt| = 0.52121   max_r (1+t)|dV/dt|(1+r)^2 = 29.062
+t= 10000  max_r (1+t)|dV/dt| = 0.52259   max_r (1+t)|dV/dt|(1+r)^2 = 29.235

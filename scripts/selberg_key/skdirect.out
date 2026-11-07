@@ -1,0 +1,16 @@
+y=  1 K=1 h=0.167  measured/h^2=5.1732  predicted/h^2=4.9493  ratio=1.045
+y=  1 K=2 h=0.334  measured/h^2=4.5248  predicted/h^2=4.5832  ratio=0.987
+y=  1 K=4 h=0.668  measured/h^2=3.4693  predicted/h^2=3.4322  ratio=1.011
+y=  1 K=8 h=1.335  measured/h^2=1.6639  predicted/h^2=1.6370  ratio=1.016
+y=  3 K=1 h=0.167  measured/h^2=4.9053  predicted/h^2=4.6985  ratio=1.044
+y=  3 K=2 h=0.334  measured/h^2=4.2891  predicted/h^2=4.3502  ratio=0.986
+y=  3 K=4 h=0.668  measured/h^2=3.2846  predicted/h^2=3.2564  ratio=1.009
+y=  3 K=8 h=1.335  measured/h^2=1.5740  predicted/h^2=1.5568  ratio=1.011
+y=  5 K=1 h=0.167  measured/h^2=4.3809  predicted/h^2=4.2212  ratio=1.038
+y=  5 K=2 h=0.334  measured/h^2=3.8246  predicted/h^2=3.9032  ratio=0.980
+y=  5 K=4 h=0.668  measured/h^2=2.9116  predicted/h^2=2.9092  ratio=1.001
+y=  5 K=8 h=1.335  measured/h^2=1.3905  predicted/h^2=1.3915  ratio=0.999
+y= 10 K=1 h=0.167  measured/h^2=3.7534  predicted/h^2=3.6775  ratio=1.021
+y= 10 K=2 h=0.334  measured/h^2=3.2651  predicted/h^2=3.3914  ratio=0.963
+y= 10 K=4 h=0.668  measured/h^2=2.4528  predicted/h^2=2.5055  ratio=0.979
+y= 10 K=8 h=1.335  measured/h^2=1.1601  predicted/h^2=1.2007  ratio=0.966

@@ -1,0 +1,48 @@
+{
+ "date": "2026-11-02T13:23:03.954030+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "theorems": [
+  "RamanujanTau.FiniteArithmetic.Exact29.bEll_29 : ∀ m ≥ 1, RamanujanTau.BLBound.bEll 29 m = 2 * m - 1",
+  "RamanujanTau.FiniteArithmetic.Exact31.bEll_31 : ∀ m ≥ 1, RamanujanTau.BLBound.bEll 31 m = 2 * m - 1"
+ ],
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9380,
+  "sorry_warnings": 0
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/exact_threshold.lean",
+  "exit_code": 0,
+  "declarations": 5,
+  "report": "docs/verification/exact_threshold.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "method": "BLBound.not_mem_of_errors applied to Sharp29/Sharp31.normalized_errors with the functionals Error29.obs / Error31.obs; BLBound.bEll_eq_of_not_mem converts non-membership L(2k+1) ∉ Λ^odd(2k+3,m), k ≤ m-2, into bEll = 2m-1. No new numerical certificate.",
+ "controls": {
+  "negative_control": "Rejected: bEll 31 m = 2m-3 (m ≥ 2) and bEll 31 m = 2m+1 do not follow from the proved statements."
+ },
+ "consistency": "Agrees with Boylan–Webb §6.1 computed b_29(1,2,3) = 1,3,5.",
+ "scope": {
+  "proved": "b_29(m) = b_31(m) = 2m-1 for every m >= 1, for BW's literal invariant.",
+  "not_proved": [
+   "Any prime other than 29, 31 at all m",
+   "b_607(m) for m >= 3"
+  ]
+ },
+ "review": "Machine-checked; no human expert review.",
+ "sha256": {
+  "RamanujanTau/BLBound/Threshold.lean": "bc1d17bac04f168fa00be2d1692ddfa83b09def77e6de319295958c1c23bf972",
+  "RamanujanTau/FiniteArithmetic/ExactThreshold.lean": "6045d2ac5a4fc5c8e9f0db5df06100b964cc4de0eb3b05dff1fd7e35c875b730",
+  "scripts/audit/exact_threshold.lean": "3bbb6c878c2c3c13e04f187474f8a0b83c705f237f2be4e4a716873feb981697",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "docs/verification/exact_threshold.axioms.txt": "0bedebd9b4b6248abe35e7077b3f97cea7b385fbb87cfb3ce976b2e8188ab7e7"
+ }
+}

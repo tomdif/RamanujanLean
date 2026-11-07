@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-01",
+  "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
+  "working_tree_changes": true,
+  "toolchain": "leanprover/lean4:v4.30.0-rc2",
+  "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+  "sha256": {
+    "RamanujanTau/BLBound/RankGrowth.lean": "c1b1ade2f94c4ba3cf2bf9311701fd732762617bc61970db7335aee7283c9194",
+    "scripts/frontier/pattern/rank_lift_check.py": "583c2db001e5cbcd518ba58f63bea66883f7ee20fcbf4c6dfaad72fc7b347a4f",
+    "scripts/frontier/pattern/check_rank_lift_witness.py": "3243322916e043e6b340761e5610c18035001ae5e5950c4d1af4dce8bd9469f4"
+  },
+  "full_build": {
+    "command": "lake build",
+    "jobs": 9288,
+    "passed": true
+  },
+  "axiom_audit": {
+    "command": "lake env lean scripts/audit/theorem_a.lean",
+    "declarations": 375,
+    "new_declarations": [
+      "Lam_stable_eq",
+      "precisionMap_Lam",
+      "rEll_mono",
+      "rEll_eq_bound_of_le"
+    ],
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "passed": true
+  },
+  "repository_check": {
+    "command": "python3 scripts/check_repository.py",
+    "lean_files": 933,
+    "markdown_files": 25,
+    "links": 198,
+    "passed": true
+  },
+  "rank607_experiment": {
+    "precision": 2,
+    "cutoffs": [
+      2,
+      3,
+      4
+    ],
+    "independent_basis": "Delta^t E4^a E6^b / E606^N",
+    "odd_iterates": 27,
+    "holdout_coefficients_per_cutoff": 880,
+    "witness_size": 25,
+    "det24_mod607": 112,
+    "det25_div607_mod607": 504,
+    "schur_div607_mod607": 308,
+    "checker": "scripts/frontier/pattern/check_rank_lift_witness.py",
+    "corrupted_witness_rejected": true,
+    "actual_partition_series_certified_in_lean": false
+  }
+}

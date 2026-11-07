@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-01",
+  "base_revision": "89004ebb8d462c6e0a1efb1775ee79971a3c6845",
+  "working_tree_changes": true,
+  "sha256": {
+    "RamanujanTau/FiniteArithmetic/RankLifting.lean": "10c8688df35d6f9355573aa6c8d7123d3aca9400fb1b33b670a853eff3aa6a7b",
+    "scripts/frontier/pattern/predict_rank_lifts.py": "ba8658c69283385433c4bc3768c31e61508c82777f94a6f592b26cd9bf993779",
+    "docs/verification/rank_lifting_prediction.json": "39619ce995b6a9a83847a81f1f44315bc3f086442d4767db0af36dc3ac1c08a6"
+  },
+  "full_build": {
+    "command": "lake build",
+    "jobs": 9292,
+    "passed": true
+  },
+  "axiom_audit": {
+    "command": "lake env lean scripts/audit/finite_arithmetic.lean",
+    "declarations": 76,
+    "new_declarations": 5,
+    "allowed_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "passed": true
+  },
+  "independent_arithmetic": {
+    "prediction_record": "rank_lifting_prediction.json",
+    "random_matrices": 400,
+    "synthetic_controls": 8,
+    "partition_primes": 9,
+    "prime29_checker_passed": true
+  },
+  "formal_boundary": {
+    "orbit_lattice_identity_proved": true,
+    "exact_determinant_visibility_proved": true,
+    "application_hypotheses_for_prime607_discharged": false,
+    "unconditional_prime607_rank_theorem": false
+  }
+}

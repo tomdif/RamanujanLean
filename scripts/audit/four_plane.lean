@@ -1,0 +1,18 @@
+import RamanujanTau.MultiQuintupleFourFiftyThreeConverse
+
+#print axioms Ramanujan.MultiQuintuple.quadExp2_energy
+#print axioms Ramanujan.MultiQuintuple.fourPlane_energy_raw
+#print axioms Ramanujan.MultiQuintuple.fourPlane_raw_mod_nine
+#print axioms Ramanujan.MultiQuintuple.fourPlane_bits_weight
+#print axioms Ramanujan.MultiQuintuple.fourPlane_num_zero
+#print axioms Ramanujan.MultiQuintuple.fourPlane_partner_coords
+#print axioms Ramanujan.MultiQuintuple.fourPlane_partner_energy
+#print axioms Ramanujan.MultiQuintuple.fourPlane_partner_involutive
+#print axioms Ramanujan.MultiQuintuple.fourPlane_num_dvd_of_exp
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPlane_eq_zero
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPlane_prime_eq_zero
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPlane_53
+#print axioms Ramanujan.MultiQuintuple.coeff_four53_eq_short
+#print axioms Ramanujan.MultiQuintuple.four53_residue_or_witness
+#print axioms Ramanujan.MultiQuintuple.four53_persistent_vanishing_iff
+#print axioms Ramanujan.MultiQuintuple.four53_finite_test_iff

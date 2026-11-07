@@ -1,0 +1,1 @@
+max ||omega_b|-1| = 5.6066262743570405e-14   max |(-1)^k Ab(k,n) - Andrews sign*A_2k(shifted)| over k<=22,n<60 = 1.8588588671910058e-13

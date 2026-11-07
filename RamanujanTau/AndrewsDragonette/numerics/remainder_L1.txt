@@ -1,0 +1,8 @@
+N= 2  I(N)=int|f-eps b|dx=1.5258  max=2.402  max|f|=1.14  N^(1/2)=1.41
+N= 3  I(N)=int|f-eps b|dx=1.6348  max=2.893  max|f|=1.5  N^(1/2)=1.73
+N= 4  I(N)=int|f-eps b|dx=1.9658  max=3.196  max|f|=4.73  N^(1/2)=2.00
+N= 6  I(N)=int|f-eps b|dx=2.0883  max=3.857  max|f|=40.9  N^(1/2)=2.45
+N= 8  I(N)=int|f-eps b|dx=2.4922  max=5.272  max|f|=368  N^(1/2)=2.83
+N=11  I(N)=int|f-eps b|dx=2.8163  max=7.676  max|f|=2.13e+04  N^(1/2)=3.32
+N=13  I(N)=int|f-eps b|dx=3.0168  max=8.569  max|f|=5.84e+05  N^(1/2)=3.61
+N=16  I(N)=int|f-eps b|dx=3.3900  max=9.076  max|f|=2.14e+08  N^(1/2)=4.00

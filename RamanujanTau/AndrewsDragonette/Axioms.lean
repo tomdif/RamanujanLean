@@ -1,0 +1,9 @@
+import RamanujanTau.AndrewsDragonette.Main
+import RamanujanTau.AndrewsDragonette.Obstruction
+#print axioms AndrewsDragonette.adPartial_converges_of_HKS
+#print axioms AndrewsDragonette.HKS_trivial
+#print axioms AndrewsDragonette.andrewsPrinted_eq_adPartial
+#print axioms AndrewsDragonette.not_Hb_of_neg
+#print axioms AndrewsDragonette.one_le_fA_real
+#print axioms AndrewsDragonette.tendsto_of_abel
+#print axioms AndrewsDragonette.w_sub_le

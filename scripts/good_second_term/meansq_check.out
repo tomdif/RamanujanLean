@@ -1,0 +1,5 @@
+T=50 I=119.9653 main=120.8591 I-main=-0.894 (I-main)/sqrt(T)=-0.126 | without 2nd term: (I-2c0 T log(T/2pi))/T=0.8060
+T=100 I=294.9223 main=294.9635 I-main=-0.041 (I-main)/sqrt(T)=-0.004 | without 2nd term: (I-2c0 T log(T/2pi))/T=0.8235
+T=200 I=699.4229 main=696.4177 I-main=3.005 (I-main)/sqrt(T)=0.213 | without 2nd term: (I-2c0 T log(T/2pi))/T=0.8389
+T=300 I=1150.4412 main=1138.0661 I-main=12.375 (I-main)/sqrt(T)=0.714 | without 2nd term: (I-2c0 T log(T/2pi))/T=0.8651
+T=400 I=1587.5412 main=1605.8167 I-main=-18.276 (I-main)/sqrt(T)=-0.914 | without 2nd term: (I-2c0 T log(T/2pi))/T=0.7782

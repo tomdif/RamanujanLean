@@ -1,0 +1,3 @@
+T=100 I=295.635 Ingham=292.172 diff=3.463 diff/sqrt(T)=0.346
+T=200 I=736.833 Ingham=722.974 diff=13.858 diff/sqrt(T)=0.980
+T=400 I=1729.514 Ingham=1723.208 diff=6.306 diff/sqrt(T)=0.315

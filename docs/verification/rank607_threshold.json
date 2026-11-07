@@ -1,0 +1,50 @@
+{
+ "date": "2026-11-02T11:54:28.821230+00:00",
+ "base_commit": "7987c638b3a9ed63502659d8f2baf73b05aff1b8",
+ "snapshot": "Development working tree, not a published commit. Hashes pin the listed inputs.",
+ "toolchain": "leanprover/lean4:v4.30.0-rc2",
+ "mathlib_revision": "606efcb73e7b46aebf83dde1bce4be97741aed0b",
+ "theorem": "RamanujanTau.FiniteArithmetic.Rank607Threshold.bEll_607_two : RamanujanTau.BLBound.bEll 607 2 = 3",
+ "build": {
+  "command": "lake build",
+  "exit_code": 0,
+  "jobs": 9378,
+  "sorry_warnings": 0
+ },
+ "audit": {
+  "command": "lake env lean scripts/audit/rank607_threshold.lean",
+  "exit_code": 0,
+  "declarations": 6,
+  "report": "docs/verification/rank607_threshold.axioms.txt",
+  "allowed_axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "certificates": {
+  "functional": "phiTable φ over Z/607^2 with φ·coord(L(2j+3)) = 0 for j<25 and φ·coord(L(1)) ≠ 0",
+  "independence": "tri_indep: the basis B_k = X^k G_k with G_k a unit, so coordinates are unique"
+ },
+ "controls": {
+  "negative_control": "Rejected by decide +kernel: φ perturbed at coordinate 26 (where L(3) is nonzero) no longer kills the generators; φ·coord(L(1)) = 0. A perturbation at coordinate 0 was accepted, as expected, because every L(2j+3) has coordinate 0 equal to zero; it is not a valid control."
+ },
+ "trusted_inputs": "Lean kernel with GMP-accelerated Nat arithmetic.",
+ "scope": {
+  "proved": "b_607(2) = 3, the value 2m-1 conjectured for all m.",
+  "not_proved": [
+   "b_607(m) for m>=3",
+   "Any other prime"
+  ]
+ },
+ "review": "Machine-checked; no human expert review.",
+ "sha256": {
+  "RamanujanTau/FiniteArithmetic/Rank607Threshold.lean": "11c951ddd1a53c05343e2e8c93e5ef7a588093a5cb0c15a28ca2cfec712d8566",
+  "RamanujanTau/FiniteArithmetic/Rank607Structure.lean": "27ec3441f44b94160b7efbb84fb7cca1eefd7f35f135bbcec06de773533298f5",
+  "RamanujanTau/FiniteArithmetic/Rank607Coords.lean": "49632764a5fc0a5430cb16d255f552a80344cf56cba49e03e7bcd6bf58fb11b7",
+  "scripts/generate_rank607_coords.py": "5f809b2a16d86802384903bfa7640fe463150a7c09a78e0463659983439dd707",
+  "scripts/audit/rank607_threshold.lean": "ac1da96f25bfb7a35a0c23125ab874f1593bfc5f5e05fa539637d5683f405023",
+  "RamanujanTau.lean": "45ed413b217f56a64d809328011cccce983bf267173bbe72eef1a31b5fb944e5",
+  "docs/verification/rank607_threshold.axioms.txt": "5b72abe9d4be880eb49de8cb4a3b42f707afe705006e3528975c130bc901d48e"
+ }
+}
