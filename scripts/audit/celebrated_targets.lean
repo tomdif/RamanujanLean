@@ -438,6 +438,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergKeyDiag2.diagHypT_of_SKQF'
 #print axioms RamanujanTau.SelbergKeyDiag2.tauL_positive_proportion_of_SKQF'
 #print axioms RamanujanTau.HafnerFinal.tauL_positive_proportion_deligne_SKQF
+#print axioms RamanujanTau.SKQFProof.S0v_im
+#print axioms RamanujanTau.SKQFProof.re_Av_eq
+#print axioms RamanujanTau.SKQFProof.contour_bound
+#print axioms RamanujanTau.SKQFProof.skqfHyp_of_strip
+#print axioms RamanujanTau.SKQFProof.skqfHyp_small_of_strip
+#print axioms RamanujanTau.HafnerFinal.tauL_positive_proportion_deligne_strip
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

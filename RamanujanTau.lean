@@ -704,5 +704,7 @@ import RamanujanTau.SelbergKeyDiag.Main
 import RamanujanTau.SelbergKey7.Main
 import RamanujanTau.SelbergKeyDiag2.Main
 import RamanujanTau.HafnerFinal.Main
+import RamanujanTau.SKQFProof.Main
+import RamanujanTau.HafnerFinal.Strip
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

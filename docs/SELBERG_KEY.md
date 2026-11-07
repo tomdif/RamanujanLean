@@ -1160,3 +1160,8 @@ theorem tauL_positive_proportion_of_SKQF' : ∃ θ₀ > 0, ∀ θ η B, 0 < θ �
 * **Caveat:** `θ₀` is not computed numerically. It is `1/(20(N+1))`, with `N = 4K₁ + 4K₂ + 15`
   and `K₁, K₂` the exponents with `M ≤ 2^K`. The value is tiny but positive. The positive-proportion
   statement additionally needs `θ ≤ 1/81600` and `4θ(1+B) < η`.
+
+
+## 2026-11-06 correction (numerics)
+
+The A(K,θ) table in the "SKQFHyp checks out numerically" section was computed by `scripts/selberg_key/sk.c`, whose `S0` column carries an extra factor g^{iv} (g = gcd(ac,bd)) relative to the Lean definition of 𝒮⁰. Re-run with the Lean 𝒜 (docs/SKQF_PROOF.md): clean 1/K decay (θ = 1/10, y = 200: 8.36 … 0.39 for K = 1 … 64), and the Lean 𝒜 matches the measured lag correlation of the real Z(t) slightly better (y = 10, v = 0.2: measured 2.875, Lean 2.852, code 2.938). The conclusion (SKQFHyp holds with room to spare) is unchanged.
