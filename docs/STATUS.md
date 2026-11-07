@@ -33,9 +33,9 @@ Updated 2026-11-04. [Overview](../README.md) · [Documentation guide](README.md)
 
 ### Current build state (2026-11-05)
 
-**Full root build completed 2026-11-06** (`lake build RamanujanTau`, 10,099 jobs, base `37ed36f`, exit 0). The audit
+**Full root build completed 2026-11-06** (`lake build RamanujanTau`, 10,393 jobs, base `cb1d4b3`, exit 0). The audit
 [celebrated_targets.lean](../scripts/audit/celebrated_targets.lean) printed only `propext`, `Classical.choice`,
-`Quot.sound` for all 239 audited declarations (output in
+`Quot.sound` for all 440 audited declarations (output in
 [celebrated_targets.axioms.txt](verification/celebrated_targets.axioms.txt)).
 
 Earlier record: **Full root build completed 2026-11-04** (`lake build RamanujanTau`, 9,699 jobs, base `f3be2fe`, exit 0, no errors),
