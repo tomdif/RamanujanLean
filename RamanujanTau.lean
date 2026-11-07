@@ -709,5 +709,8 @@ import RamanujanTau.HafnerFinal.Strip
 import RamanujanTau.SvStripB.Main
 import RamanujanTau.SvStripA.Main
 import RamanujanTau.SvStripC.Main
+import RamanujanTau.SvStripD.Main
+import RamanujanTau.SvStripE.Main
+import RamanujanTau.HafnerFinal.Deligne
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

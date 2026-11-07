@@ -327,3 +327,79 @@ Since `Im z ∈ [−δ₀, 0]`, the `S4` local mass `Σ_{i,j}|γz|` differs from
 * S5: combine with `yd_bound_div` and `SvC_eq_diag`.
 
 Note that `SvStripB.yd_holo` asks for entire `Γ`, but `Γz` is only holomorphic on `Im z > −1`; use `diff_YdJ` instead.
+
+## 2026-11-06 (SvStripE): S5 assembly — positive proportion from the named S4 bound (level 2)
+
+Lean: `RamanujanTau/SvStripE/` (`S4Stmt`, `Assemble`, `Main`). No sorry, no new axiom, no native_decide. All 3
+headlines print `[propext, Classical.choice, Quot.sound]`.
+
+    nice -n 10 lake build RamanujanTau.SvStripE.Main      # exit 0
+
+**The S4 statement** (`S4Stmt.lean`; the target for `SvStripD`):
+```lean
+def S4Bound (c₁ : ℝ) : Prop :=
+  ∃ A δ₀ : ℝ, 0 ≤ A ∧ 0 < δ₀ ∧ δ₀ < 1 ∧ ∀ y : ℕ, 2 ≤ y → ∀ z ∈ stripR δ₀,
+    ∑ d ∈ Icc 1 (y ^ 2), ‖WdC (1 - z * I) d‖ *
+        (∑ u₁ ∈ Ioc 0 y, ∑ u₂ ∈ Ioc 0 y, ‖Γz z d u₁ u₂‖) ^ 2 ≤
+      A * Real.exp (c₁ * |Im z| * Real.log y) * Real.log y
+```
+* At `z = 0` this is `QEuler Wd (Γc Ud) 1`.
+* It is true by the mechanism of `QFProof5`. The first-order cancellations stay exact with complex `x_p = p^{−1+iz}`:
+  * `α(p)xλ/(1+x) + Fi(p)p^{iz} = −(λ²/2)x²/(1+x)`;
+  * `α(p)p^{−iz}xλ/(1+x) + Fi(p) = −(λ²/2)p^{−1}x/(1+x)`.
+* Every remaining `p^{t}` loss multiplies to `d^{O(t)}`, `u^{O(t)}`, which is `≤ y^{O(t)}` because `d ≤ y²` and `u ≤ y`.
+* `SvStripD.s4_mass` has this shape with `c₁ = 4` and `−1/4 ≤ Im z ≤ 0`. It yields `S4Bound 4` with
+  `δ₀ = 1/4` (`MassZ` is the inner sum by definition).
+
+**Theorems.**
+* **`svCBound_of_S4 : S4Bound c₁ → SvCBound (c₁ + 4)`**, with `C = 9K²A`. The proof combines:
+  * `SvC_eq_diag`;
+  * `yd_bound_div`, squared;
+  * `(1+ℓ)²/ℓ³ ≤ 9/ℓ` for `ℓ = log y ≥ log 2 > 1/2`.
+* **`svStripHyp_of_S4 : S4Bound c₁ → SvStripHyp (c₁ + 4)`**.
+* **`tauL_positive_proportion_deligne_S4 [DeligneBound] (hc₁ : 0 ≤ c₁) (H : S4Bound c₁)`**: there are `c > 0` and `T₀`
+  such that for `T ≥ T₀` at least `c·N(3T)` zeros `6 + iγ`, `0 < γ ≤ 3T`, of `L(Δ,s)` lie on the critical line.
+  This goes through `HafnerFinal.tauL_positive_proportion_deligne_strip`. `QFProof5.qfHyp_deligne` is already
+  inside the latter via `tauL_positive_proportion_deligne_SKQF`.
+
+**Status.** With `S4Bound 4` from `SvStripD`, Hafner's positive proportion for `L(Δ,s)` is level 1 modulo
+`[DeligneBound]`. The exponent is `c' = 8`, which satisfies `8(c'+1)θ ≤ 1` for `θ ≤ 1/72`.
+
+## 2026-11-06 (SvStripD): S4, the complex local masses and the twisted Euler sum, is proved in Lean (level 2, `[DeligneBound]`)
+
+Lean: `RamanujanTau/SvStripD/` (`Generic`, `Local`, `Euler`, `Bridge`, `Final`, `Main`; 1175 lines). No sorry,
+no new axiom, no native_decide. All 16 headlines print `[propext, Classical.choice, Quot.sound]`.
+
+    nice -n 10 lake build RamanujanTau.SvStripD.Main      # exit 0
+
+**Headline.** `s4Bound_deligne [DeligneBound] : SvStripE.S4Bound 4`, with `δ₀ = 1/4`.
+
+**Chain.**
+* `Generic` (level 1): for any complex local data with `‖A_i‖ ≤ 1`, `‖F_i(k)‖ ≤ c_k X^k`,
+  `‖L(n,e)‖ ≤ κ(n+1)²X^{n−e}` and `0 < X ≤ 2/3`, the local mass `T = Σ_{i,j≤N}‖γ‖` satisfies,
+  uniformly in `N`:
+  * `TC_le_gen`: `T(e) ≤ 2125764 κ (e+1)^6`;
+  * `TC_zero_split`: `T(0) ≤ ‖γ00‖+‖γ10‖+‖γ01‖ + 4782969 κ X²`;
+  * `TC_one_split`: `T(1) ≤ low terms + 4782969 κ X`.
+
+  The weight is `w = (2/3)/X ≥ 1`. The geometric sums are taken at ratio `≤ 2/3`, which is needed
+  because `‖2^{−s}‖ = 2^{−1+t} > 1/2`.
+* `Local`: the twisted data `x = p^{−s}`, `ω = p^{−iz}`, `Fi_s(p^k) = recF gRm(p^k)x^k`, `L = LcC`.
+  * `normX_le`: `1/p ≤ X ≤ 3/5` on `−1/4 ≤ Im z ≤ 0`.
+  * Exact first-order cancellation: `γz_010 = λ²x²/(2(1+x))` and `γz_001 = (λ²/(2p))·x/(1+x)`
+    (this one uses `ωx = 1/p`).
+  * `Tz_zero_le`: `T ≤ 1 + 23914855 X²`. `Tz_one_le`: `T ≤ |λ| + 23914845 X`. `Tz_le`: `T ≤ 10628820(e+1)^6`.
+  * Pivots: `norm_W1_le`: `‖W_1‖ ≤ X + 25X²`. `norm_We_le`: `‖W_e‖ ≤ 56X^e`.
+* `Euler`: `euler_strip`. Write `X_p = p^{−1+t}`.
+  * Off `d`, the product is `≤ exp(C Σ_n n^{−3/2})`.
+  * At `p^e ∥ d`, `W T² ≤ p^{2te} g(p,e)/p^e`, with `g(p,1) = λ² + K/p` and `g(p,e) = B(3/2)^e`.
+  * `d^{2t} ≤ y^{4t}`.
+  * `euler_fZ`: `Σ_{d≤y²} f(d)/d ≪ log y`, from `logmean_geo` and `mertens2_bound`.
+* `Bridge`:
+  * `γz_bridge`: `SvStripC.γz` is the `Generic` instance.
+  * `MassZ_le_prod`: the analogue of `Mass_le_prod`, via `Γz_eq_prod`.
+  * `s4_mass`: `Σ_{d≤y²}‖W^{[s]}(d)‖ M_d² ≤ A y^{4|Im z|} log y`.
+
+**Notes.**
+* The derivative columns (`L4–L6`, `TlV`) are not needed for `SvC`, so they are not ported.
+* The constants are huge but absolute.

@@ -461,6 +461,15 @@ with no exceptions. -/
 #print axioms RamanujanTau.SvStripC.qFactorC
 #print axioms RamanujanTau.SvStripC.Yd_eq_YdJ
 #print axioms RamanujanTau.SvStripC.SvC_eq_diag
+#print axioms RamanujanTau.SvStripD.TC_le_gen
+#print axioms RamanujanTau.SvStripD.Tz_zero_le
+#print axioms RamanujanTau.SvStripD.MassZ_le_prod
+#print axioms RamanujanTau.SvStripD.s4_mass
+#print axioms RamanujanTau.SvStripD.s4Bound_deligne
+#print axioms RamanujanTau.SvStripE.svCBound_of_S4
+#print axioms RamanujanTau.SvStripE.svStripHyp_of_S4
+#print axioms RamanujanTau.SvStripE.tauL_positive_proportion_deligne_S4
+#print axioms RamanujanTau.HafnerFinal.tauL_positive_proportion_deligne
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
