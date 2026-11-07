@@ -954,3 +954,110 @@ Estimate for the rest: about 900–1300 lines.
 * Far part: about 400 lines.
 * Assembly into `QuadOffHyp (1/50) 14`: about 150 lines.
 * Then `offLag_bound_of_quad` gives the unconditional off-diagonal clause.
+
+---
+
+## 2026-11-06 (seventh pass): `QuadOffHyp (1/300) 13` PROVED; off-diagonal clause unconditional (`SelbergKey7/`)
+
+    nice -n 10 lake build RamanujanTau.SelbergKey7.Main      # exit 0
+
+* All 16 `#print axioms` in `SelbergKey7/Main.lean` give `[propext, Classical.choice, Quot.sound]`.
+* `grep` finds no `sorry`, `admit`, `native_decide` or `axiom` in the directory; no warnings in
+  these files. 8 files, about 1.7k lines.
+* No committed file was modified. Not imported from `RamanujanTau.lean`. Imports (read-only):
+  `SelbergKey6.RSMajor` (hence `SelbergKey5`, `SelbergKey4`, …) and `SelbergKeyDiag.Assemble`.
+
+**Status.** The off-diagonal clause of `SKSplitHyp'` is now **unconditional** (level 1).
+The only open input of (SK) is the diagonal: `DiagHypT θ`, or `SKQFHyp θ ∧ DiagApproxHyp θ`.
+
+### Headlines (level 1)
+
+```lean
+theorem quadOffHyp : SelbergKey5.QuadOffHyp (1 / 300) 13      -- T₀ = 4
+theorem offLag_bound {θ : ℝ} (hθ0 : 0 ≤ θ) (hθ : θ < 1 / 16800) :
+    ∀ K ≥ 1, ∃ T₀, ∀ T ≥ T₀,
+      lagInt (OffLag (βSel ⌊T^θ⌋₊) ⌊T^θ⌋₊) (phiT T) (T/2) (3*T) (K / log T) ≤ 1/√K * T * (K / log T)^2
+theorem offLag_bound_81600 (0 ≤ θ) (θ ≤ 1/81600) : (same conclusion)
+theorem skSplitHyp'_of_diagHypT (0 ≤ θ) (θ < 1/16800) (hD : DiagHypT θ) : SKSplitHyp' θ
+theorem tauL_positive_proportion_of_SKQF' (0 < θ) (θ ≤ 1/81600)
+    (QFHyp) (SKQFHyp θ) (SelbergKeyDiag.DiagApproxHyp θ) : ∃ c T₀, 0 < c ∧ … c·N(3T) ≤ #S
+```
+
+The exponents: `4θ(1+B) < η` with `η = 1/300`, `B = 13` holds for `θ < 1/16800`.
+`tauL_positive_proportion_of_SKQF'` is `SelbergKeyDiag.tauL_positive_proportion_of_SKQF` with its
+`QuadOffHyp` hypothesis discharged.
+
+### The proof (fixed quadruple, `P = ac`, `Q = bd`, `ℓ = Pm − Qn`)
+
+Parameters: ε = 1/400, δ = 1/100, σ = 2001/2000, A = 3 (in `term_integral_bound`).
+`M₁ = ⌊T^{399/400}⌋`, `M₂ = ⌊T^{401/400}⌋`, `K₀ = ⌊T^{1/100}⌋`.
+
+`Σ'_p ∫Fq = Σ_{Near} ∫Fq + Σ'_{Nearᶜ} ∫Fq` (`Summable.sum_add_tsum_compl`, using
+`summable_integral_Fq`), where
+
+    Near = {M₁ < m ≤ M₂, 1 ≤ n ≤ P M₂ + K₀, ℓ ≠ 0, |ℓ| ≤ K₀}   (finite; `nearSet`).
+
+**Far (`Far.lean`, `FarCore.lean`): `≪ (PQ)^6 T^{299/300}`.**
+Terms on the diagonal or with m·n = 0 vanish (`Fq_eq_zero`). Otherwise
+`term_integral_bound` (A = 3) and `abs_tau_mul_rpow` give `|λ(m)λ(n)|(mn)^{−1/2} D Mω`,
+with `D = (1+4π²mn/T²)^{−3} ≤ (T²/(mn))^s` (`D_le`) and `Mω = min(T, 1/(ω²T))`,
+`|ω| ≥ |ℓ|/max(Pm,Qn)` (`omg_bound`, from `abs_log_sub_ge`). Outside Near:
+`m ≤ T^{399/400}` or `m > T^{401/400}` or `|ℓ| > T^{1/100}` (`far_of_not_near`; the floors cost
+nothing). `far_pt_real` gives the majorant
+
+    256 (PQ)^6 T^{299/300} [(λ(m)²+λ(n)²)(mn)^{−σ} + λ(m)² m^{−σ} g(ℓ) + λ(n)² n^{−σ} g(ℓ)],  g(ℓ) = |ℓ|^{−3/2},
+
+by cases:
+
+| case | bound on (mn)^{−1/2} D Mω | T-exponent |
+|---|---|---|
+| off the line (2Pm ≤ Qn or 2Qn ≤ Pm): \|ω\| ≥ 1/2 | 4 T^{2σ−2} (mn)^{−σ} | 1/1000 |
+| near the line, m > T^{401/400} (s = 3) | 64 P²Q⁴ T⁵ m^{−5} ℓ^{−2} | 5 + (401/400)(σ−5) ≈ 0.9905 |
+| near the line, m ≤ T^{399/400} (s = 0) | 8 P²Q m ℓ^{−2}/T | (399/400)(1+σ) − 1 ≈ 0.9955 |
+| near the line, \|ℓ\| > T^{1/100} (s = 1) | 16 P²Q² T m^{−1} ℓ^{−2}, ℓ^{−2} ≤ T^{−1/200} g(ℓ) | 1 + (401/400)(σ−1) − 1/200 ≈ 0.9955 |
+
+On the line `(mn)^{−1/2} ≤ 2Q/m` and `m^{−σ} ≤ 4P² n^{−σ}`. The majorant is summed over every box
+`[0,N)²` (`sum_box_Maj`): Rankin–Selberg `Σ λ(m)² m^{−σ} ≤ S_σ` (`sum_lam_sq_rpow_le`, from
+`SelbergKey6.sum_lam_sq_mul_le`), `Σ n^{−σ} ≤ Z_σ`, and `Σ_n g(Pm − Qn) ≤ Σ_ℤ g` by injectivity
+(`sum_gl_le`). Then `Real.tsum_le_of_sum_le` (`far_bound`). Deligne is not used.
+
+**Near (`NearId`, `NearDeriv`, `NearAbel`, `NearBound`): `≪ (PQ)^{13} T^{1−11/2100}`.**
+
+* `integral_finsetSum` moves the finite sum inside the t-integral.
+* `Fq_eq`: an off-diagonal term is `Z(t)·λ(m)λ(n)·G_u(m,n)`, with `‖Z(t)‖ ≤ 1` and
+  `G_u(r,s) = exp(−½(log r + log s) + i(v log s + u(log s − log r)))·W̃_{u,u+v}(4π² r s)`.
+* `near_sum_eq`: the near sum is `Z(t) Σ_{1≤|ℓ|≤K₀} Σ_{M₁<m≤M₂} lineTerm(P,Q,ℓ,m)·H_ℓ(m)`, with
+  `H_ℓ(r) = G_u(r, (Pr−ℓ)/Q)` for **real** r.
+* `Hl_deriv`: for `r > 0`, `2|ℓ| ≤ r`: `‖H_ℓ(r)‖ ≤ KQ/r` and `‖H_ℓ'(r)‖ ≤ KQ(1/r² + |u||ℓ|/r³)`. The
+  W̃ part uses only `Wsh_bound` and `Wxi_bound` (ξ∂_ξW̃ ≪ 1); there are no ω- or ξ-derivatives
+  of t-integrals (the sixth-pass simplification).
+* `abel_line`: `norm_sum_mul_le_abel` with partial sums `lineSum(M₁+n) − lineSum(M₁)`, and the mean
+  value inequality on each `[m, m+1]` with `m ≥ T^{399/400}`:
+  `‖Σ‖ ≤ 2B(H₀ + M₂V)`.
+* `line_bound`: B from `abs_lineSum_le` (`scs2_general`). The T-algebra:
+  `B ≤ 3 C_L P (PQ)^{12} T^{401/420 + 1/100}` and `H₀ + M₂V ≤ 6KQ T^{−49/50}`, so one line gives
+  `≪ (PQ)^{13} T^{401/420 + 1/100 − 49/50}`.
+* `near_bound`: at most `3T^{1/100}` lines, times the t-length `5T/2`. The exponent is
+  `1 + 401/420 + 2/100 − 49/50 = 1 − 11/2100 ≤ 299/300`.
+
+### Files
+
+| file | lines | content |
+|---|---|---|
+| `Basic.lean` | 136 | `D_le`, `abs_tau_mul_rpow`, `sum_rpow_le`, `sum_lam_sq_rpow_le`, `gl`, `sum_gl_le`, `inv_sq_le_gl(_mul)` |
+| `FarCore.lean` | 432 | `Mw`, `Mw_off`, `Mw_near`, `theta_off`, `pow_trade_lo/hi`, `theta_F1/F2/F3`, `theta_near`, `far_pt_real` |
+| `Far.lean` | 288 | `M1`, `M2`, `K0`, `ell`, `nearSet`, `far_of_not_near`, `Fq_eq_zero`, `omg_bound`, `Maj`, `far_pt`, `sum_box_Maj`, `far_bound` |
+| `NearId.lean` | 180 | `Ef`, `Gf`, `Zt`, `norm_Zt_le`, `Fq_eq`, `nt`, `Hl`, `Lset`, `sum_n_eq_lineTerm`, `near_sum_eq` |
+| `NearDeriv.lean` | 200 | `Wd`, `W_consts`, `norm_cexp_Ef_le`, `rho_bounds`, `hasDerivAt_Hl`, `Hl_deriv` |
+| `NearAbel.lean` | 95 | `norm_sub_le_of_deriv`, `sum_range_shift`, `abel_line` |
+| `NearBound.lean` | 251 | `one_div_pow_le`, `two_rpow_le`, `var_T_alg`, `line_bound`, `card_Lset_le`, `near_bound` |
+| `Main.lean` | 115 | `quadOffHyp`, `offLag_bound`, `offLag_bound_81600`, `skSplitHyp'_of_diagHypT`, `tauL_positive_proportion_of_SKQF'`, 16 `#print axioms` |
+
+### What remains for (SK)
+
+The diagonal only: `DiagHypT θ` (M3/M4). `SelbergKeyDiag` reduces it to `SKQFHyp θ ∧ DiagApproxHyp θ`.
+`DiagApproxHyp` is the M3 Mellin evaluation; `SKQFHyp` is Selberg's arithmetic lemma (M5).
+Evidence levels:
+
+* everything in this section is level 1;
+* (SK) and positive proportion are level 2 on `QFHyp ∧ SKQFHyp θ ∧ DiagApproxHyp θ`.
