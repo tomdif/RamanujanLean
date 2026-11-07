@@ -433,6 +433,11 @@ with no exceptions. -/
 #print axioms RamanujanTau.SelbergKey7.offLag_bound
 #print axioms RamanujanTau.SelbergKey7.skSplitHyp'_of_diagHypT
 #print axioms RamanujanTau.SelbergKey7.tauL_positive_proportion_of_SKQF'
+#print axioms RamanujanTau.SelbergKeyDiag2.diag_pointwise
+#print axioms RamanujanTau.SelbergKeyDiag2.diagApproxHyp_small
+#print axioms RamanujanTau.SelbergKeyDiag2.diagHypT_of_SKQF'
+#print axioms RamanujanTau.SelbergKeyDiag2.tauL_positive_proportion_of_SKQF'
+#print axioms RamanujanTau.HafnerFinal.tauL_positive_proportion_deligne_SKQF
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

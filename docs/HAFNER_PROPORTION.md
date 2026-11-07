@@ -1,5 +1,7 @@
 # Positive proportion of critical zeros of L(Δ,s) (Selberg–Hafner)
 
+> **Update (2026-11-06):** `HafnerFinal.tauL_positive_proportion_deligne_SKQF` proves positive proportion from `DeligneBound` and the single arithmetic hypothesis `SKQFHyp θ`; everything else in `SelbergHyp` is now proved (see SELBERG_KEY.md, QF_PROOF.md, HAFNER_MV2.md).
+
 Module: `RamanujanTau/HafnerProportion/` (entry point `Main.lean`).
 Build: `nice -n 10 lake build RamanujanTau.HafnerProportion.Main` (exit 0). Every theorem below
 prints `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, no new axiom and no

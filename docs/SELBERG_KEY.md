@@ -1061,3 +1061,102 @@ Evidence levels:
 
 * everything in this section is level 1;
 * (SK) and positive proportion are level 2 on `QFHyp ∧ SKQFHyp θ ∧ DiagApproxHyp θ`.
+
+---
+
+## 2026-11-06 (M3 pass): the diagonal Mellin evaluation (`SelbergKeyDiag2/`), checkpoint
+
+    nice -n 10 lake build RamanujanTau.SelbergKeyDiag2.Main      # exit 0
+
+* All `#print axioms` in `Main.lean` give `[propext, Classical.choice, Quot.sound]`.
+* No `sorry`, `admit`, `native_decide` or `axiom`.
+* The real-variable route (steps 1–6 of the previous section) is followed. Steps 1–4 are done at
+  level 1. Steps 5 (phases) and 6 (assembly into `DiagApproxHyp θ`) remain.
+
+### Proved (level 1)
+
+| file | content |
+|---|---|
+| `Residue.lean` | `vline_residue_at`: for `F` holomorphic and bounded on a strip `a < 0 < b`, `∫_{(b)} − ∫_{(a)}` of `F e^{u²}/(u − iβ)` equals `2π F(iβ) e^{−β²}`. This is a pole off the real axis. Proof: write `e^{u²} = e^{(u−iβ)²}e^{2iβu+β²}`; the `dslope` part still has Gaussian decay |
+| `Mellin.lean` | `mellin_line2`: `∫₁^∞ x^{iv−1} W(a,b;αx²) dx = (2π)⁻¹ ∫_{(2)} Γ(a+z)Γ(b+z)α^{−z}e^{z²}/(z(2z−iv)) dy` (Fubini; `∫₁^∞ x^{iv−1−2z} = 1/(2z−iv)`) |
+| `Mellin2.lean` | partial fractions `1/(z(2z−iv)) = (iv)⁻¹(1/(z−iv/2) − 1/z)` and the two residues; `mellin_Wsh`: `∫₁^∞ x^{iv−1}W̃(αx²) = (G(iv/2)α^{−iv/2}e^{−v²/4} − 1)/(iv) + R` |
+| `Remainder.lean` | `norm_Rsh_le`: `\|R\| ≤ K (α/T(u)T(u'))^{1/6}` uniformly (Stirling on `Re z = −1/6`) |
+| `Base1–3.lean` | Abel summation (Mathlib `tendsto_sum_mul_atTop_nhds_one_sub_integral₀`) against `A(t) = Σ_{n≤t}λ(n)²/n = c₀ log t + γ_Δ + E(t)`, `\|E(t)\| ≪ t^{−1/5}` (`AA_asymp`), then integration by parts. `base_eval`: `Σ (λ(n)²/n) n^{iv} W̃(αn²) = γ_Δ W̃(α) + c₀J(α) − iv ε(v) + O((α/TT)^{1/20})`, where `ε(v) = ∫₁^∞ t^{iv−1}E(t)dt` depends on neither `u` nor `α`. Inputs: `Wsh_sub_one`, `SelbergKey4.Wxi_bound`, and `\|ξW̃'(ξ)\| ≪ (ξ/TT)^{1/20}` (`norm_xi_Wd_small`, from the `x = −1` line) |
+| `BaseFull.lean` | `base_full`: the base sum equals `c₀G(p)α^{−p}e^{−v²/4}/(iv) + (−c₀/(iv) + γ_Δ − iv ε(v)) + O(r^{1/20} + r^{1/6})` with `p = iv/2`, `r = α/T(u)T(u+v)`. Both residues are included and the Laurent remainder is exact (`−iv ε(v)`) |
+| `EvalC.lean` | `evC_gps`: `Σ_j g_j p^{−js} = N_p(a,s)/D_p(s)` and `D_p(s) ≠ 0` on `Re s = 1`. This is the complex version of the `HafnerBridge2` power-series evaluation (`g·D = U`, `ε·D = 1`) |
+| `Peel.lean` | `Bs_peel` (exact): `Σ_r λ(p^a h' r)λ(kr) r^{−1+iv}W̃(αr²) = Σ_j g_j p^{−j(1−iv)} · [same for h'](αp^{2j})`. Proof via `T_peel`, a double series with `Summable.tsum_comm`, and the rescaling `ft_rescale` |
+| `Induct1.lean` | the main term `Mn(h,k) = ρ(h)ρ(k)P(α) + ρ(h,1−iv)ρ(k,1−iv)L(v)` is stable under peeling (`hasSum_Mn_peel`). The point is `(αp^{2j})^{−iv/2}(p^{−(1−iv)})^j = α^{−iv/2}p^{−j}` |
+| `Induct2–3.lean` | `twisted_eval`: for all coprime `h, k ≥ 1`, uniformly in `u`, `0 < \|v\| ≤ 1`, `α > 0`, `\|Bs(h,k)(α) − Mn(h,k)(α)\| ≤ Z₀M^{ω(hk)}(hk)²·(r^{1/20} + r^{1/6})`. Strong induction on `hk`; each peel costs `Σ_j\|g_j\|p^{−2j/3} ≤ M p^{2a}` |
+| `Norm.lean` | `ray_term` and `diag_quad` (exact): `quadSum β y u (u+v) diagS = Σ_{[1,y]⁴} κ e_v · Bs(Q₁,P₁)(4π²P₁Q₁)`. The `u`-phase cancels since `bd·P₁ = ac·Q₁`, and `abcd·P₁Q₁ = [ac,bd]²` |
+
+The Laurent remainder `−iv ε(v)·ρ(·,1−iv)ρ(·,1−iv)` is carried exactly through the peeling.
+After summing over quadruples it is literally `−iv ε(v)·𝒮(v)`, the `|v|·‖𝒮‖` term of
+`DiagApproxHyp`.
+
+### Remaining for `DiagApproxHyp θ` (est. 0.6–0.8k lines)
+
+1. **Phases (step 5).**
+   * `\|U(u,u+v) − e^{−iv log(u/2π)}\| ≪ \|v\|/u`. Route: `h(s) = eG(u+s)e^{−is log u}`, with `h' = i(psR(u+s) − log u)h`, `\|psR(t) − log t\| ≪ 1/t` (`HeckeAFE2.norm_digamma_sub_log_le`), then the mean value theorem.
+   * `\|U·G(iv/2)(4π²)^{−iv/2} − 1\| ≪ v²/u`. This product equals `‖Γ(6+iw)‖²/(‖Γ(6+i(w−v/2))‖‖Γ(6+i(w+v/2))‖)` with `w = u + v/2`. Its log is a second difference of `log‖Γ(6+it)‖`, bounded via `‖ψ'(6+it)‖ ≤ 72/‖6+it‖` (`HeckeAFE3.norm_iteratedDeriv_digamma_le`).
+2. **Assembly (step 6).**
+   * Apply `diag_quad` + `twisted_eval` (with `h = Q₁`, `k = P₁`, coprime by `SelbergKeyDiag.coprime_P1_Q1`).
+   * Bound `\|ρ\|, \|ρ(·,1−iv)\| ≤ M^{ω}m²` (both are `Σ g_j x^j` with `\|x\| = 1/p`) and `\|κ\| ≤ max\|β\|⁴`.
+   * Sum `y⁴` quadruples, giving errors `y^{O(1)}((y⁴/u²)^{1/20} + 1/u)`.
+   * Choose `θ` small so that `y^{O(1)}T^{−1/10} ≤ T^{−δ}`. The statement then becomes `θ ≤ θ₀ → DiagApproxHyp θ`.
+
+**Evidence levels.** Steps 1–4: level 1. `DiagApproxHyp`: still level 3 (paper) plus level 4
+(the `corr.out` / `skdirect.out` numerics).
+
+---
+
+## 2026-11-06 (M3 complete): `DiagApproxHyp θ` proved for small θ (`SelbergKeyDiag2/`)
+
+    nice -n 10 lake build RamanujanTau.SelbergKeyDiag2.Main      # exit 0
+
+* All 28 `#print axioms` in `Main.lean` give `[propext, Classical.choice, Quot.sound]`.
+* No `sorry`, `admit`, `native_decide` or `axiom`. 22 files, about 3.1k lines.
+* No committed file was modified.
+* This supersedes the "Remaining" list of the checkpoint section above.
+
+### Headlines
+
+```lean
+theorem diag_pointwise : ∃ (C : ℝ) (N : ℕ), 0 ≤ C ∧ ∀ (y : ℕ) (u v : ℝ), 1 ≤ y → 40 ≤ u → v ≠ 0 →
+    |v| ≤ 1 → 16 * π ^ 2 * (y : ℝ) ^ 4 ≤ u ^ 2 →
+      |DiagLag (βSel y) y u v - 2 * (Av y v (Real.log (u / (2 * π)))).re| ≤
+        C * (|v| * ‖Sv y v‖ + (y : ℝ) ^ N * u ^ (-(1 / 10 : ℝ)))
+theorem diagApproxHyp_small : ∃ θ₀ > 0, ∀ θ, 0 ≤ θ → θ ≤ θ₀ → SelbergKeyDiag.DiagApproxHyp θ
+theorem diagHypT_of_SKQF' : ∃ θ₀ > 0, ∀ θ, 0 ≤ θ → θ ≤ θ₀ → SKQFHyp θ → SelbergKey5.DiagHypT θ
+theorem sk_of_SKQF' : ∃ θ₀ > 0, ∀ θ η B, 0 ≤ θ → θ ≤ θ₀ → 0 ≤ B → 4θ(1+B) < η →
+    SKQFHyp θ → SelbergKey5.QuadOffHyp η B → SKSplitHyp' θ
+theorem tauL_positive_proportion_of_SKQF' : ∃ θ₀ > 0, ∀ θ η B, 0 < θ → θ ≤ θ₀ → θ ≤ 1/81600 → 0 ≤ B →
+    4θ(1+B) < η → QFHyp → SKQFHyp θ → QuadOffHyp η B → (positive proportion of critical zeros)
+```
+
+* `θ₀ = 1/(20(N+1))`, where `N` is an explicit-in-principle exponent coming from the polynomial
+  bounds `M^{ω(m)} ≤ m^K` and `|ρ(m)|, |ρ(m,1−iv)| ≤ m^{K+2}`. Then `δ = 1/20` and `T₁ = 2000`.
+* `diagHypT_of_SKQF'` is the requested `SKQFHyp θ → DiagHypT θ`, valid for `θ ≤ θ₀`. The extra
+  hypothesis `DiagApproxHyp` of `SelbergKeyDiag` is now discharged.
+
+### New files since the checkpoint (level 1)
+
+| file | content |
+|---|---|
+| `Phase.lean` | `phase_U`: `‖U(u,u+v) − e^{−iv log(u/2π)}‖ ≤ 118\|v\|/u`. `phase_Phi`: `‖U·G(iv/2)(4π²)^{−iv/2} − 1‖ ≤ 144v²/u` for `u ≥ 40`. The product equals `‖Γ(6+iw)‖²/(‖Γ(6+i(w−v/2))‖‖Γ(6+i(w+v/2))‖)`, and its log is a second difference bounded by `ψ'` (`digamma_lip`) |
+| `Final1.lean` | `\|ρ_p(a)\|, \|N_p/D_p\| ≤ Gp(p,a) ≤ Mp^{2a}`; `\|ρ(m)\|, \|ρ(m,s)\| ≤ M^{ω(m)}m²`; `2^{ω(m)} ≤ m` |
+| `Final2.lean` | `diagLag_eq`: `DiagLag = 2Re[U(Σ_q κe(Bs_q − Mn_q) + Xm)]`; `sum_Mn`; `UXm_sub_Av`, the exact difference from `𝒜` (three terms) |
+| `Final3.lean` | `\|κ\| ≤ y²`, `P₁, Q₁ ≤ y²`, `\|𝒮⁰\|, \|𝒮\| ≤ y^{4K+14}`, `\|ε(v)\| ≤ 5C₁` |
+| `Final4.lean` | `diag_pointwise` |
+| `Final5.lean` | `diagApproxHyp_small` and the assembled headlines |
+
+### Evidence levels and what is left for (SK)
+
+* **Diagonal clause of `SKSplitHyp'`:** level 2 on `SKQFHyp θ` alone, for `θ ≤ θ₀`. M3 and M4 are level 1.
+* **Positive proportion:** level 2 on `QFHyp ∧ SKQFHyp θ ∧ QuadOffHyp η B` (the last from `SelbergKey5`).
+* **Remaining open inputs:**
+  * `SKQFHyp θ` (M5): a Selberg–Delange statement for the four-variable form, uniform in the twist; level 4 numerics.
+  * `QFHyp`.
+  * The off-diagonal `QuadOffHyp`.
+* **Caveat:** `θ₀` is not computed numerically. It is `1/(20(N+1))`, with `N = 4K₁ + 4K₂ + 15`
+  and `K₁, K₂` the exponents with `M ≤ 2^K`. The value is tiny but positive. The positive-proportion
+  statement additionally needs `θ ≤ 1/81600` and `4θ(1+B) < η`.
