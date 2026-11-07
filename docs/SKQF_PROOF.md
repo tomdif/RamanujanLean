@@ -216,3 +216,68 @@ each `z`.
 **Remaining for `SvStripHyp`:** S1 (complex `ρ`/Cholesky), S2 (twisted factorisation
 `y_d = (log y)^{−2} Σ Γ^z J_z J_0` as an exact identity), S4 (complex local masses and Euler sums,
 giving `Σ|Γ^z_d| ≪ y^{O(t)}`) and S5 (assembly). S3 is now closed.
+
+## 2026-11-06 (SvStripA): §4 steps 1–2 in Lean — complex local closed forms, holomorphy, complex Cholesky (level 1)
+
+Lean: `RamanujanTau/SvStripA/` (`Chol`, `Local`, `Decomp`, `Holo`, `Main`; 915 lines). No sorry, no new
+axiom, no native_decide. **No Deligne:** the only arithmetic input is the unconditional
+`|λ(n)| ≤ C n^{11/40}` (`HafnerBridge.lam_bound`). All 19 headlines print `[propext, Classical.choice, Quot.sound]`.
+
+    nice -n 10 lake build RamanujanTau.SvStripA.Main      # exit 0
+
+**Step 1: closed forms** (`Local.lean`). Put `x = p^{−s}`, `N_x(a) = Σ_j λ(p^{j+a})λ(p^j)x^j` and `D_x = N_x(0)`;
+`NpC p a s = N_{p^{−s}}(a)` and `DpC p s = D_{p^{−s}}`.
+* Absolute convergence holds for `‖x‖p^{11/20} < 1`, that is for **`Re s > 11/20`** (`norm_xs_lt`).
+* `Nx_succ`: `N(a+1) = λ_{a+1}D − λ_a x N(1)`.
+* `Dx_mul_P`: `D(x)(1 − (λ_p²−1)x + (λ_p²−1)x² − x³) = 1 + x`. This is `HafnerBridge2.Dps_mul_P`
+  evaluated by the complex Cauchy product.
+* So `D ≠ 0` whenever `1 + x ≠ 0` (`Dx_ne_zero`).
+* `Nx_eq_rhoPx_mul` and `NpC_div_DpC`: `N_p(a,s)/D_p(s) = ρ_p(a,x)`, where `ρ_p(a,x) := rrK x μ_p a` is
+  `1`, `λ_p/(1+x)` or `(λ_{a+2} − xλ_a)/(1+x)`.
+* `rhoC_eq_rhoCF`: `rhoC m s = rhoCF m s := Π_{p^a∥m} ρ_p(a, p^{−s})` for `Re s > 11/20`.
+* Uniform local bounds for `‖x‖ ≤ 3/5` (for example `Re s ≥ 3/4`):
+  * `norm_rhoPx_le`: `‖ρ_p(a,x)‖ ≤ (5/2)(|λ(p^a)| + |λ(p^{a−2})|)`;
+  * `norm_WcK_le`: `‖W_e‖ ≤ 7(4+‖l‖²)‖x‖^e`.
+
+**Holomorphy** (`Holo.lean`). The domain is `Ω = {Im z > −1}`, that is `Re(1−iz) > 0`. On `Ω`:
+* `diff_rhoCF`: `z ↦ ρ(m,1−iz)` is holomorphic, since it is a finite product of rational functions
+  of the entire `p^{−(1−iz)}`, and these have no pole while `‖x‖ < 1`.
+* `diff_WdC`, `diff_UdC`, `diff_KqC`: the Cholesky data and the twisted kernel are holomorphic.
+
+`SvC y z := Σ κ (P₁d/c)^{iz} ρ(P₁,1−iz) ρ(Q₁,1−iz)` (with closed-form `ρ`) satisfies:
+* `SvC_ofReal`: `SvC y v = Sv y v` for all real `v`;
+* `diff_SvC`: `SvC y` is holomorphic on `Ω`.
+
+Therefore
+```lean
+def SvCBound (c' : ℝ) : Prop :=
+  ∃ C δ₀ : ℝ, 0 ≤ C ∧ 0 < δ₀ ∧ δ₀ < 1 ∧ ∀ y : ℕ, 2 ≤ y → ∀ z ∈ stripR δ₀, ‖SvC y z‖ ≤
+    C * (1 + |z.re| * Real.log y) ^ 2 * Real.exp (c' * |z.im| * Real.log y) / Real.log y
+theorem svStripHyp_of_bound {c' : ℝ} (H : SvCBound c') : SvStripHyp c'
+```
+**The continuation part of `SvStripHyp` is now proved.** What remains is a pure size bound on an
+explicit finite sum of explicit holomorphic functions.
+
+**Step 2: complex Cholesky** (`Chol.lean`, `Decomp.lean`).
+* `cholK` is `chol_loc` over an arbitrary field.
+* `loc_cholC`: `Σ_{e≤a} W_e(x_p) L(a,e) L(a+n,e) = x_p^{a+n} ρ_p(n,x_p)`.
+* `KqC_prod`: `n^{−s}` and `ρ` factor over primes. This uses `natCast_prod_cpow`.
+* **`qDecompC`** (for `Re s > 0`):
+
+      K^{[s]}(h,k) := [h,k]^{−s} ρ(h₁,s) ρ(k₁,s) = Σ_{d|h} W^{[s]}(d) U^{[s]}(h,d) U^{[s]}(k,d),
+
+  with `U^{[s]}(h,d) = 0` unless `d | h`. Here:
+  * `W^{[s]}(d) = Π WcK(λ_p, p^{−s}, v_p d)`;
+  * `U^{[s]}(h,d) = 1_{d|h} Π L_p(v_p h, v_p d)`;
+  * `L_p(a,0) = x^aρ_p(a,x)` and `L_p(a,e) = x^{a−e}λ(p^{a−e})`.
+
+  This is the complex copy of `QFProof3.qDecomp`, with `W` and `U` holomorphic in `z` (`diff_WdC`, `diff_UdC`).
+
+**Gaps / not done here.**
+* §4 item 1, the bilinear form `𝒮(z) = Σ x_z(P)x_z(Q)K^{[1−iz]}(P,Q)` in terms of `KqC`, is not
+  stated in Lean.
+* The consistency check `KqC 1 = QFProof.Kq` (that is, `rhoPx p a (1/p) = rhoP p a`) is not stated.
+  It follows from `rhoC_eq_rhoCF` together with `QFProof.rhoP_one`/`rhoP_add_two`, but it is not
+  needed for S5.
+* S2 (`QFactor` for the twisted `Γ^z`), S4 (complex Euler sums) and the `SvCBound` estimate itself
+  remain open.

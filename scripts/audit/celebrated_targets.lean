@@ -448,6 +448,13 @@ with no exceptions. -/
 #print axioms RamanujanTau.SvStripB.Jz_bound_re
 #print axioms RamanujanTau.SvStripB.yd_bound
 #print axioms RamanujanTau.SvStripB.yd_holo
+#print axioms RamanujanTau.SvStripA.cholK
+#print axioms RamanujanTau.SvStripA.Dx_mul_P
+#print axioms RamanujanTau.SvStripA.NpC_div_DpC
+#print axioms RamanujanTau.SvStripA.qDecompC
+#print axioms RamanujanTau.SvStripA.SvC_ofReal
+#print axioms RamanujanTau.SvStripA.diff_SvC
+#print axioms RamanujanTau.SvStripA.svStripHyp_of_bound
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
