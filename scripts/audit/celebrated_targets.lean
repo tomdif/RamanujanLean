@@ -444,6 +444,10 @@ with no exceptions. -/
 #print axioms RamanujanTau.SKQFProof.skqfHyp_of_strip
 #print axioms RamanujanTau.SKQFProof.skqfHyp_small_of_strip
 #print axioms RamanujanTau.HafnerFinal.tauL_positive_proportion_deligne_strip
+#print axioms RamanujanTau.SvStripB.Jz_bound
+#print axioms RamanujanTau.SvStripB.Jz_bound_re
+#print axioms RamanujanTau.SvStripB.yd_bound
+#print axioms RamanujanTau.SvStripB.yd_holo
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip

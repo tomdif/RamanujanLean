@@ -164,3 +164,55 @@ Total about 3–3.3k lines. The end product would be
 * Selberg (1942).
 * Titchmarsh, §§10.9–10.22.
 * Hafner, Math. Ann. 264 (1983).
+
+## 2026-11-06 (SvStripB): §4 step 5, the `J_z` bound, is done in Lean (level 1)
+
+Lean: `RamanujanTau/SvStripB/` (`JTwist`, `Downstream`, `Main`; 481 lines). No sorry, no new
+axiom, no native_decide. No Deligne input. All 12 headlines print `[propext, Classical.choice, Quot.sound]`.
+
+    nice -n 10 lake build RamanujanTau.SvStripB.Main      # exit 0
+
+**Definition.** `Jz z x = Σ_{m≤x} (fR(m)/m) e^{iz log m} log(x/m)`.
+* `Jz_eq_cpow`: this equals `Σ_{m≤x} fR(m) m^{−(1−iz)} log(x/m)`, the §4 normalisation with `s = 1 − iz`.
+* `Jz_zero`: `J_0 = Isum fR`.
+
+**Headlines.**
+* `Jz_differentiable`: `z ↦ J_z(x)` is entire, since it is a finite sum.
+* `Ssum_bound`: `|Σ_{m≤u} fR(m)/m| ≤ K/√(1+log u)` for `u ≥ 1`. This comes from the first clause of
+  `selberg_sum_fR`, together with a trivial bound for small `u`.
+* `Jz_eq_integral`: Abel summation via Mathlib's `sum_mul_eq_sub_integral_mul₀`, with weight
+  `φ(u) = u^{iz}(log x − log u)` and `φ(x) = 0`:
+  `J_z(x) = −∫_{(1,x]} u^{iz}(iz log(x/u) − 1) u^{−1} S(u) du`.
+* `Jz_bound`: **`‖J_z(x)‖ ≤ K √(1+log x) (1 + ‖z‖ log x) exp(|Im z| log x)`** for all `z ∈ ℂ`
+  and `x ≥ 1`.
+  * The proof uses `∫_1^x du/(u√(1+log u)) = 2√(1+log x) − 2`.
+  * It is uniform on all of ℂ, so no strip restriction is needed.
+  * `Jz_bound_rpow` is the same statement written with `(1+log x)^{1/2}`.
+* `Jz_bound_re`: `‖J_z(x)‖ ≤ K √(1+log x)(1 + |Re z| log x) exp(2|Im z| log x)`. It uses
+  `1 + a + b ≤ (1+a)e^b`. This is the form whose polynomial factor is in `|Re z| log y`, matching
+  `SvStripHyp`.
+
+**Downstream form for step 4.** These lemmas are uniform in the kernel, so they apply to `Γ^z_d` for
+each `z`.
+* `Jz_div_bound`: `‖J_z(y/u)‖ ≤ K √(1+log y)(1+|Re z| log y) y^{2|Im z|}` for `u ∈ (0,y]`.
+* `yd_bound`, for every `Γ : ℕ → ℕ → ℂ`:
+
+      ‖Σ_{u₁,u₂≤y} Γ(u₁,u₂) J_z(y/u₁) J_0(y/u₂)‖
+          ≤ K (1+log y)(1+|Re z| log y) y^{2|Im z|} Σ_{u₁,u₂≤y} ‖Γ(u₁,u₂)‖.
+
+* `yd_bound_div`: the same bound with the `(log y)^{−2}` normalisation of `y_d`. It is the complex
+  analogue of `QFProof.abs_yv_le`.
+* `yd_holo`: if `z ↦ Γ^z(u₁,u₂)` is entire, so is the `y_d` sum.
+
+**Consequences for §4 item 6.**
+* The `J` side costs only the factor `(1 + |Re z| ℓ) y^{2t}`. That is degree 1 in `|Re z|ℓ`, while
+  `SvStripHyp` allows degree 2. It also adds 2 to `c'`.
+* The remaining degree-1 room is available to the `Γ^z` and Euler-sum side (S4).
+* No derivative or log-weighted `J_z` bound is needed: the contour argument (`contour_bound`) uses
+  only sup bounds and holomorphy.
+
+**Evidence levels.** Every statement in this section is level 1.
+
+**Remaining for `SvStripHyp`:** S1 (complex `ρ`/Cholesky), S2 (twisted factorisation
+`y_d = (log y)^{−2} Σ Γ^z J_z J_0` as an exact identity), S4 (complex local masses and Euler sums,
+giving `Σ|Γ^z_d| ≪ y^{O(t)}`) and S5 (assembly). S3 is now closed.
