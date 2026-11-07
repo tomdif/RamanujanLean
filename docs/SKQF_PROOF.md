@@ -281,3 +281,49 @@ explicit finite sum of explicit holomorphic functions.
   needed for S5.
 * S2 (`QFactor` for the twisted `Γ^z`), S4 (complex Euler sums) and the `SvCBound` estimate itself
   remain open.
+
+## 2026-11-06 (SvStripC): S2 in Lean — twisted bilinear form, diagonalization and factorization (level 1)
+
+Lean: `RamanujanTau/SvStripC/` (`Defs`, `Prod`, `Ident`, `Holo`, `Main`; 609 lines). No sorry, no new axiom,
+no native_decide, no Deligne. All 11 headlines print `[propext, Classical.choice, Quot.sound]`.
+
+    nice -n 10 lake build RamanujanTau.SvStripC.Main      # exit 0
+
+**Stable definitions (`Defs.lean`, imported by `SvStripD`).** Put `s = 1−iz` and `tw z m = m^{iz}`.
+* `Fz z m = (fR(m)/m) m^{iz}` and its Dirichlet inverse `Fiz z m = Fi(m) m^{iz}`.
+* `Gz z d v₁ v₂ = v₂^{−iz} U^{[s]}(v₁v₂,d)`.
+* **`Γz z d u₁ u₂ = Σ_{v₁|u₁,v₂|u₂} α(v₁)α(v₂) Gz z d v₁ v₂ · Fiz z (u₁/v₁) · Fi(u₂/v₂)`**.
+* The local factor `γz z p e i j = Σ_{a≤i,b≤j} α(p^a)α(p^b)(p^{−iz})^b L^{[s]}_p(a+b,e) Fi(p^{i−a})(p^{iz})^{i−a} Fi(p^{j−b})`.
+* `xz y z P = Σ_{ac=P} β(a)β(c)c^{−iz}`.
+* `SvBil y z = Σ_{P,Q≤y²} xz(P)xz(Q) K^{[s]}(P,Q)`.
+* `Yd y z d = Σ_{n₁,n₂≤y} β(n₁)β(n₂) Gz z d n₁ n₂`.
+* `YdJ y z d = (log y)^{−2} Σ_{u₁,u₂≤y} Γz z d u₁ u₂ J_z(y/u₁) J_0(y/u₂)`. This is literally the expression in
+  `SvStripB.yd_bound_div` with `Γ = Γz z d`.
+
+**Theorems.**
+* **`Γz_eq_prod`**: `Γz z d u₁ u₂ = Π_{p∈S} γz z p (v_p d)(v_p u₁)(v_p u₂)` for `d,u₁,u₂ ≠ 0` and
+  `S ⊇` the primes of `u₁u₂d`. This is the twisted copy of `QFProof4.Γc_eq_prod`.
+* **`SvC_eq_SvBil`** (all `z`): `𝒮(z) = Σ_{P,Q} x_z(P)x_z(Q)K^{[1−iz]}(P,Q)`. The term identity `term_eq` is
+  `κ e_z = β(a)β(c)c^{−iz}·β(d)β(b)b^{−iz}·[P,Q]^{−s}`, which uses `[P,Q] = P₁bd`.
+* **`SvBil_diag`** (`Im z > −1`): `SvBil = Σ_{d≤y²} W^{[s]}(d) Yd²`.
+* **`qFactorC`**: `α(n₁)α(n₂)Gz(n₁,n₂) = Σ_{u|n} Γz(u₁,u₂)F_z(n₁/u₁)F(n₂/u₂)`. It rests on `FizA_mul_FzA`: twisting by
+  the completely multiplicative `m^{iz}` preserves `Fi ∗ F = 1`.
+* **`Yd_eq_YdJ`** (`y ≥ 2`).
+* **`SvC_eq_diag`** (`y ≥ 2`, `Im z > −1`): **`𝒮(z) = Σ_{d≤y²} W^{[1−iz]}(d)·YdJ(y,z,d)²`**.
+* **`diff_Γz`, `diff_YdJ`**: holomorphy on `Im z > −1`.
+
+**How `c^{−iz}` and the `J_0` side work out.** In `Yd` the twist `c^{−iz}` (with `c = n₂`) sits inside `Gz`. Hence the
+second variable carries plain `F`/`Fi`, so only `J_0` occurs there, and the whole `z`-dependence on that side is in
+`Γz`. In particular:
+* `|tw(−z) p| = p^{Im z}`;
+* `|tw z p| = p^{−Im z}`;
+* `|x_p| = p^{−1−Im z}`.
+
+Since `Im z ∈ [−δ₀, 0]`, the `S4` local mass `Σ_{i,j}|γz|` differs from the real `QFProof4.γl` only by factors
+`p^{O(δ₀)(i+j+e)}`.
+
+**Remaining for `SvCBound`:**
+* S4 (`SvStripD`): `Σ_{d≤y²}|W^{[s]}(d)| (Σ_{u₁,u₂≤y}|Γz z d u₁ u₂|)² ≪ y^{O(t)} log y`.
+* S5: combine with `yd_bound_div` and `SvC_eq_diag`.
+
+Note that `SvStripB.yd_holo` asks for entire `Γ`, but `Γz` is only holomorphic on `Im z > −1`; use `diff_YdJ` instead.

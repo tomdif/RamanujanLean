@@ -708,5 +708,6 @@ import RamanujanTau.SKQFProof.Main
 import RamanujanTau.HafnerFinal.Strip
 import RamanujanTau.SvStripB.Main
 import RamanujanTau.SvStripA.Main
+import RamanujanTau.SvStripC.Main
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit

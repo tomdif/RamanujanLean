@@ -455,6 +455,12 @@ with no exceptions. -/
 #print axioms RamanujanTau.SvStripA.SvC_ofReal
 #print axioms RamanujanTau.SvStripA.diff_SvC
 #print axioms RamanujanTau.SvStripA.svStripHyp_of_bound
+#print axioms RamanujanTau.SvStripC.Γz_eq_prod
+#print axioms RamanujanTau.SvStripC.SvC_eq_SvBil
+#print axioms RamanujanTau.SvStripC.SvBil_diag
+#print axioms RamanujanTau.SvStripC.qFactorC
+#print axioms RamanujanTau.SvStripC.Yd_eq_YdJ
+#print axioms RamanujanTau.SvStripC.SvC_eq_diag
 #print axioms RamanujanTau.HeckeZeros.tauL_eulerProduct
 #print axioms RamanujanTau.HeckeZeros.tauL_ne_zero_of_gt
 #print axioms RamanujanTau.HeckeZeros.tauL_zeros_in_strip
