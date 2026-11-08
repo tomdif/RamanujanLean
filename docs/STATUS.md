@@ -346,7 +346,7 @@ These proofs are machine-checked and have not been reviewed by a human expert; n
 
 The long-standing hypothesis classes `TauMod7`, `TauMod25`, `TauMod23`, `TauMod27`, `TauMod2_8` and
 `TauMatchesDiscriminant` now have global instances (`Discharge.*`, `LehmerSmall.TauModInstances`); `TauMod2_11` (Kolberg, n ≡ 1 mod 8) is proved by `KolbergTau.instTauMod2_11`; only
-`DeligneBound` and `LehmerConjecture` remain hypotheses. About 40 conditional
+`DeligneBound` and `LehmerConjecture` remain hypotheses (`DeligneBound` is derived from Axiom's formalized Weil RH plus the Eichler–Shimura–Deligne realization `TauRealization` in the sibling package `RamanujanWeil`, see [HAFNER_PROPORTION](HAFNER_PROPORTION.md)). About 40 conditional
 Atkin–O'Brien variants and the uniform Stepanov bound now have unconditional corollaries. Full table:
 [DISCHARGED_HYPOTHESES](DISCHARGED_HYPOTHESES.md).
 

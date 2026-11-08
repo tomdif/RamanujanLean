@@ -205,7 +205,8 @@ four-factor products and quantitative first-witness bounds. The
 now include families at both m²+n² and 2m²+n². Complete fixed-product coefficient
 classifications are proved at 41 and 53; infinite zero progressions are also
 proved at 43 and 97. Weil's exponent 23/4 is the best formalized τ bound;
-Deligne's 11/2 is not formalized here, and Lehmer's conjecture remains open.
+Deligne's 11/2 is not formalized here (it is derived from Axiom's formalized Weil RH, assuming the
+Eichler–Shimura–Deligne realization, in the sibling package `RamanujanWeil`), and Lehmer's conjecture remains open.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for proof, certificate, and documentation
 conventions. The project is [MIT licensed](LICENSE).

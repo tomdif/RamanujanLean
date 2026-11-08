@@ -1,5 +1,7 @@
 # Positive proportion of critical zeros of L(Δ,s) (Selberg–Hafner)
 
+> **Deligne via Axiom's Weil RH (2026-11-08):** the sibling package `RamanujanWeil` (Lean v4.34, on [AxiomMath/Weil](https://github.com/AxiomMath/Weil), which formalizes Deligne's Weil RH axiom-clean) proves `RamanujanWeil.deligneBound_of_realization`: the exact `DeligneBound` proposition (τ copied verbatim) from `TauRealization` — at each prime p, a smooth proper X/𝔽_p and a 2-dimensional geometric-Frobenius-stable subspace of H¹¹(X, ℚ_ℓ) with trace τ(p) (the Eichler–Shimura–Deligne realization via the Kuga–Sato variety; not formalized). Axioms of every headline: [propext, Classical.choice, Quot.sound]. The two toolchains cannot be imported into one another, so the composition with Hafner's theorem is by matching statements, not a single Lean term.
+
 > **Update (2026-11-06, final):** `HafnerFinal.tauL_positive_proportion_deligne` proves the positive proportion of critical zeros of L(Δ,s) assuming only `[DeligneBound]`. Every `SelbergHyp` ingredient is now proved (see SKQF_PROOF.md for the last step).
 
 > **Update (2026-11-06):** `HafnerFinal.tauL_positive_proportion_deligne_SKQF` proves positive proportion from `DeligneBound` and the single arithmetic hypothesis `SKQFHyp θ`; everything else in `SelbergHyp` is now proved (see SELBERG_KEY.md, QF_PROOF.md, HAFNER_MV2.md).
