@@ -256,6 +256,11 @@ Build instructions and current verification status are maintained in the [overvi
 
 ## Part II — q-series & partition theory (headline results)
 
+**Ramanujan's forty identities for the Rogers–Ramanujan functions: 14 of 40 proved** (`RamanujanTau/Forty/`,
+docs/FORTY_IDENTITIES.md): Entries 3.1–3.12, 3.19(i), 3.28(i) of Berndt et al. (Memoirs AMS 2007), with `G`, `H`
+defined by their sum sides. Engine: exact covering systems of binary quadratic forms (Cao, arXiv:2503.11445),
+`θθ_lattice`/`qf_two`, with script-generated covers. All 40 checked numerically to q²⁰⁰.
+
 **All ten fifth-order mock theta identities of the Lost Notebook** (`RamanujanTau/MockTheta5All/`,
 docs/MOCK_THETA5_ALL.md): `mock_theta_{f0,f1,F0,F1,phi0,phi1,psi0,psi1,chi0,chi1}`, unconditional and
 axiom-clean. Andrews–Garvan route: Watson's linear relations (new: (1₀), (1₁), (2₁), (3₁), (B₁)) reduce

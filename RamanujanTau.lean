@@ -718,3 +718,16 @@ import RamanujanTau.Septic.Dissection
 import RamanujanTau.Septic.ProductForm
 import RamanujanTau.Septic.Page206
 import RamanujanTau.MockTheta5All.All
+import RamanujanTau.Forty.E02
+import RamanujanTau.Forty.E03
+import RamanujanTau.Forty.E04
+import RamanujanTau.Forty.E05
+import RamanujanTau.Forty.E06
+import RamanujanTau.Forty.E07
+import RamanujanTau.Forty.E08
+import RamanujanTau.Forty.E09
+import RamanujanTau.Forty.E10
+import RamanujanTau.Forty.E11
+import RamanujanTau.Forty.E12
+import RamanujanTau.Forty.E19
+import RamanujanTau.Forty.E28
