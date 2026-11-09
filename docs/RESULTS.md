@@ -256,8 +256,8 @@ Build instructions and current verification status are maintained in the [overvi
 
 ## Part II — q-series & partition theory (headline results)
 
-**Ramanujan's forty identities for the Rogers–Ramanujan functions: 16 of 40 proved** (`RamanujanTau/Forty/`,
-docs/FORTY_IDENTITIES.md): Entries 3.1–3.12, 3.19(i), 3.20, 3.21, 3.28(i) of Berndt et al. (Memoirs AMS 2007), with `G`, `H`
+**Ramanujan's forty identities for the Rogers–Ramanujan functions: 22 of 40 proved** (`RamanujanTau/Forty/`,
+docs/FORTY_IDENTITIES.md): Entries 3.1–3.14, 3.16(i), 3.17, 3.19(i), 3.20, 3.21, 3.25, 3.28(i), 3.30 of Berndt et al. (Memoirs AMS 2007), with `G`, `H`
 defined by their sum sides. Engine: exact covering systems of binary quadratic forms (Cao, arXiv:2503.11445),
 `θθ_lattice`/`qf_two`, with script-generated covers. All 40 checked numerically to q²⁰⁰.
 

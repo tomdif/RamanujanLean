@@ -736,3 +736,10 @@ import RamanujanTau.Forty.NgTools
 import RamanujanTau.Forty.E20
 import RamanujanTau.Forty.E21
 import RamanujanTau.Septic.SonPage206
+import RamanujanTau.Forty.NgOdd
+import RamanujanTau.Forty.E13
+import RamanujanTau.Forty.E14
+import RamanujanTau.Forty.E16
+import RamanujanTau.Forty.E17
+import RamanujanTau.Forty.E25
+import RamanujanTau.Forty.E30
