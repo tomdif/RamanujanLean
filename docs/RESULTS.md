@@ -256,6 +256,11 @@ Build instructions and current verification status are maintained in the [overvi
 
 ## Part II — q-series & partition theory (headline results)
 
+**All ten fifth-order mock theta identities of the Lost Notebook** (`RamanujanTau/MockTheta5All/`,
+docs/MOCK_THETA5_ALL.md): `mock_theta_{f0,f1,F0,F1,phi0,phi1,psi0,psi1,chi0,chi1}`, unconditional and
+axiom-clean. Andrews–Garvan route: Watson's linear relations (new: (1₀), (1₁), (2₁), (3₁), (B₁)) reduce
+each to MTC₀/MTC₁, plus seven theta identities certified by HM (1.4b) (`Theta.lean`, script-generated).
+
 **Septic theta identity, Lost Notebook Entry 1.1(i)** (`RamanujanTau/Septic/`, docs/SEPTIC_ENTRY_1_1.md):
 `φ(q)/φ(q⁴⁹) = 1 + u + v + w` with Rebák's (11) definitions (`septic_entry_1_1_i`), via the 7-dissection
 `φ(q) = φ(q⁴⁹) + 2q f(q³⁵,q⁶³) + 2q⁴ f(q²¹,q⁷⁷) + 2q⁹ f(q⁷,q⁹¹)`; product forms of all five thetas
