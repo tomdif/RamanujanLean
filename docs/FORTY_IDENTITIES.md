@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty3.lean` (all proved entries; `forty.lean`, `forty2.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty4.lean` (all proved entries; `forty.lean`–`forty3.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -72,9 +72,9 @@ generated normal-form proof, and a short final step.
 | 22 | 3.19(ii) the same `= (1/2q)(φ(−q³)φ(−q¹³) − φ(−q)φ(−q³⁹))` | ⬜ | Type III |
 | 23 | 3.20 `G(q)H(−q) + G(−q)H(q) = 2/χ²(−q²)` | ✅ `entry_3_20` (E20) | Watson: 3.21, `GH = f(−q⁵)/f(−q)` at `±q`, Lemma 23.1 `ψ²−qψ(q⁵)² = f(q,q⁴)f(q²,q³)` (Type I, `B=(1 2;−2 1)` on `f(1,q)²`, `P23_1`), square root fixed by the constant term |
 | 24 | 3.21 `G(q)H(−q) − G(−q)H(q) = 2qψ(q¹⁰)/f(−q²)` | ✅ `entry_3_21` (E21) | Watson: 3.2 and 3.3 at `±q` (`q ↦ −q` bookkeeping in `NgTools`), Lemma 7.1 at `q ↦ −q²` (`lemma71_neg`) |
-| 25 | 3.22 `G(−q)G(−q⁴) + qH(−q)H(−q⁴) = χ(q²)` | ⬜ | Type III |
-| 26 | 3.23 `G(−q²)G(−q³) + qH(−q²)H(−q³) = χ(q)χ(q⁶)/(χ(q²)χ(q³))` | ⬜ | Type III |
-| 27 | 3.24 `G(−q⁶)H(−q) − qH(−q⁶)G(−q) = χ(q²)χ(q³)/(χ(q)χ(q⁶))` | ⬜ | Type III |
+| 25 | 3.22 `G(−q)G(−q⁴) + qH(−q)H(−q⁴) = χ(q²)` | ✅ `entry_3_22` (E22) | Watson's Lemma 4.1 (`lemma41a`, `lemma41b`) substituted in 3.5, then `q ↦ −q` (Berndt et al. §25) |
+| 26 | 3.23 `G(−q²)G(−q³) + qH(−q²)H(−q³) = χ(q)χ(q⁶)/(χ(q²)χ(q³))` | ✅ `entry_3_23` (E23) | Lemma 4.1 in 3.8 (Berndt et al. (15.4)); odd part = 3.11 at `q²`; even part via (11.10) at `−q` (`star1110_neg`), `S_inj`, `q ↦ −q` |
+| 27 | 3.24 `G(−q⁶)H(−q) − qH(−q⁶)G(−q) = χ(q²)χ(q³)/(χ(q)χ(q⁶))` | ✅ `entry_3_24` (E24) | Lemma 4.1 at `q³` in 3.7 (Berndt et al. (16.5)); even part = 3.12 at `q²`; odd part via (11.10) (`P11`, 2-dissection of `f(q,q⁵)`) |
 | 28 | 3.25 `G(−q)G(q⁹) − q²H(−q)H(q⁹) = χ(−q)χ(q⁹)/χ(−q⁶)` | ✅ `entry_3_25` (E25) | Berndt et al. §28 second proof: Type I cover `(1 1;−2 3)` of `f(q⁶,q¹²)f(−q)`, quintuple at `c=−1`, product forms of `G(−q)`, `H(−q)` (`NgOdd`) |
 | 29 | 3.26 `G(q¹¹)H(−q) + q²G(−q)H(q¹¹) = …` | ⬜ | Watson |
 | 30 | 3.27(i) `U² + qV² = χ³(q)χ³(q¹¹)` (U, V with 44 and 4·11) | ⬜ | Watson |
@@ -89,7 +89,7 @@ generated normal-form proof, and a short final step.
 | 39 | 3.34 (19, 38, with `−q`) | ⬜ | Bressoud |
 | 40 | 3.35 (94, 47, with a square root) | ⬜ | modular forms only |
 
-**Proved: 22 of 40** (3.1–3.14, 3.16(i), 3.17, 3.19(i), 3.20, 3.21, 3.25, 3.28(i), 3.30).
+**Proved: 25 of 40** (3.1–3.14, 3.16(i), 3.17, 3.19(i), 3.20–3.25, 3.28(i), 3.30).
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -109,7 +109,20 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
   `(−q^c;q^M)(q^c;q^M) = (q^{2c};q^{2M})`.
 * Cao (59) appears as `R59a` and `R59b`, proved by splitting to a common modulus.
 
-## Obstacles and estimates for the rest (after round 3)
+## Round 4 notes
+
+* **Watson's Lemma 4.1** (Berndt et al. (4.23)/(4.24)) is in `W41.lean` and `W41b.lean`:
+  - `lemma41a : G·f(−q²) = f(−q⁸)(G(q¹⁶) + qH(−q⁴))`.
+  - `lemma41b : H·f(−q²) = f(−q⁸)(q³H(q¹⁶) + G(−q⁴))`.
+
+  Each is proved by a quintuple collapse at nome `q¹⁰`, two `dis2` dissections and two quintuple collapses at
+  `c = −1`, nome `q⁴⁰`, followed by `NgOdd` product forms.
+* (11.7)/(11.10) are in `R11.lean`: the 2-dissection of `f(q,q⁵)` (`L11`, `P11`). They are used as `star1110` (E24)
+  and, after `q ↦ −q`, as `star1110_neg` (E23).
+* The parity arguments ("equate the odd parts") are done without a parity operator. The known part (Entries 3.11 and
+  3.12 at `q²`) is subtracted, the remainder is matched with a product identity, and `S_inj 2` then undoes `q ↦ q²`.
+
+## Obstacles and estimates for the rest (after round 4)
 
 * **3.20 and 3.21 are done.** The `q ↦ −q` toolkit is in `NgTools.lean`: `Ng ∘ S_{2k} = S_{2k}`, `Ng ∘ S₅ = S₅ ∘ Ng`,
   `(−q;−q)_∞ = f(−q²)χ(q)`, `φ(−q)` and `ψ`.
@@ -129,7 +142,23 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
 * **3.17, 3.18, 3.19(ii)**. 3.19(ii) mixes the inequivalent forms `x²+39y²` and `3x²+13y²` with `5x²+2xy+8y²`. No
   single form represents all the needed values (checked), so it needs a multi-form combination. 3.17 and 3.18
   (Bressoud) are similar.
-* **G(−q) entries 3.22–3.24, 3.26** (3.25 and 3.30 are done). 3.23 and 3.24 follow the memoir §§26–27. They need two
+* **3.26 and 3.27(i,ii)**. Berndt et al.'s only elementary proof (§29) uses Schröter's modular equation of degree 11,
+  `(αβ)^{1/4} + ((1−α)(1−β))^{1/4} + 2^{4/3}(αβ(1−α)(1−β))^{1/12} = 1`, in terms of moduli. That equation is not in
+  the repo. 3.27 is derived from 3.26 in §29. A theta-function proof would need a substitute for that modular
+  equation.
+* **3.34** reduces to Berndt et al. (33.6) via 3.20, 3.21 (both proved) and `G(q)G(−q) = f(q⁴,q⁶)/f(−q²)` (an easy
+  product identity). (33.6) follows from:
+  - (33.7), which is `P3_17` at `q²`;
+  - the 20-coset Type I cover `B = (1 −19; 1 1)` of `φ(q)φ(q¹⁹)` (20.4)/(20.5);
+  - the 5-coset cover of `ψ(−q)ψ(−q¹⁹)` (20.6);
+  - the 2-dissections (33.10) (`dis2`).
+
+  Every ingredient is available. Estimate: about half a day.
+* **3.18, 3.19(ii)**: Cao's proofs glue sums of three different forms of determinant 31 or 39 by parity splits. This
+  needs `SummableFamily` versions of non-product form sums. `hs_split` already accepts arbitrary families, so the
+  missing piece is constructing the sums `Σ q^{Q(x)}` as families (positive-definite finiteness). Estimate: one day.
+* **3.33** (§32) uses 3.6, 3.7, 3.8 and modular-equation manipulations. Not attempted.
+* **Superseded round-3 note**, kept for reference. Its 3.22–3.24 items are now done: 3.23 and 3.24 follow the memoir §§26–27. They need two
   Type I covers of `φ(−q¹²)ψ(q)` and `f(−1,−q²⁴)ψ(q)` (Rogers' Theorem 4.5), plus 2-dissections of the negative-nome
   thetas `f(−q²,q³)`. The latter is done by applying `Ng` to a `dissect2` product identity. Estimate: about 2 h each.
   3.22 needs Watson's Lemma 4.1 (4.23) and (4.24). Each is a quintuple collapse (`quint1`/`quintm`) plus two `dis2`
