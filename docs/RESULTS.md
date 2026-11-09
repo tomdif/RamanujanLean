@@ -256,6 +256,12 @@ Build instructions and current verification status are maintained in the [overvi
 
 ## Part II — q-series & partition theory (headline results)
 
+**Septic theta identity, Lost Notebook Entry 1.1(i)** (`RamanujanTau/Septic/`, docs/SEPTIC_ENTRY_1_1.md):
+`φ(q)/φ(q⁴⁹) = 1 + u + v + w` with Rebák's (11) definitions (`septic_entry_1_1_i`), via the 7-dissection
+`φ(q) = φ(q⁴⁹) + 2q f(q³⁵,q⁶³) + 2q⁴ f(q²¹,q⁷⁷) + 2q⁹ f(q⁷,q⁹¹)`; product forms of all five thetas
+(`septic_product_forms`). The page-206 evaluation (Rebák 2023, Thm 4.1) is stated as the named Prop
+`Page206Evaluation` and checked numerically to ~60 digits, not proved (needs Son's Entry 1.1(ii)–(v), G₇).
+
 Everything here is built from a single from-scratch engine: formal power series over `ℤ`, `ℤ[z;z⁻¹]⟦q⟧`
 (the "z-outer" ring), a z-degree projection `zProj`, coefficient stabilization for infinite products, and
 a `d/dz|_{z=−1}` differentiation functional. Nothing below is imported from Mathlib — the Jacobi triple

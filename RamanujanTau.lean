@@ -714,3 +714,6 @@ import RamanujanTau.SvStripE.Main
 import RamanujanTau.HafnerFinal.Deligne
 import RamanujanTau.HeckeZeros.Main
 import RamanujanTau.TauSigns.Limit
+import RamanujanTau.Septic.Dissection
+import RamanujanTau.Septic.ProductForm
+import RamanujanTau.Septic.Page206
