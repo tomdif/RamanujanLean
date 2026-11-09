@@ -272,7 +272,9 @@ each to MTC₀/MTC₁, plus seven theta identities certified by HM (1.4b) (`Thet
 (`septic_product_forms`). **The page-206 evaluation (Rebák 2023, Thm 4.1) is proved**: `page206_unconditional` (docs/SEPTIC_PAGE206.md),
 without modular equations or G₇ — a quaternion-lattice identity Φ⁴ = a⁴+24abcd+8(b³c+c³d+d³b), two 8-dim lattice
 identities, Jacobi's transformation, interval bounds and a Singular ideal certificate forcing p = uvw = 1.
-Son's general (iii) and sextic identity remain open (`SepticSonCore`, not needed).
+Son's general identities are also proved (`SonProof.septicSonCore`: Entry 1.1(iii) and the sextic relation as
+ℤ⟦q⟧ identities, via rational isometries g = M/7 between mod-7 class lattices; docs/SEPTIC_SON.md), giving a
+second proof `page206_via_son`.
 
 Everything here is built from a single from-scratch engine: formal power series over `ℤ`, `ℤ[z;z⁻¹]⟦q⟧`
 (the "z-outer" ring), a z-degree projection `zProj`, coefficient stabilization for infinite products, and

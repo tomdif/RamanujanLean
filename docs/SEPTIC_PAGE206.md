@@ -106,3 +106,6 @@ right-hand side is 2R − 6p − 2.
 `Septic/Transform.lean`, `Quaternion.lean`, `RealTransfer.lean`, `Bounds.lean`, `Cubic.lean`, `Son.lean`,
 `Page206Proof.lean`, `Octo1.lean`, `Octo2.lean`, `Cert.lean`, `Page206Final.lean`. The audit is
 `scripts/audit/septic_page206.lean`. The oleans were built with `lake env lean F -o …` (no `lake build`).
+
+
+**Update:** `SepticSonCore` is now proved (`SonProof.septicSonCore`); see docs/SEPTIC_SON.md.

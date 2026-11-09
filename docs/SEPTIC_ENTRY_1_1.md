@@ -126,3 +126,6 @@ To compile the audit without `lake build`, the Septic oleans were produced with
 
 
 **Update:** the page-206 evaluation is now proved (`page206_unconditional`); see docs/SEPTIC_PAGE206.md.
+
+
+**Update:** `SepticSonCore` is now proved (`SonProof.septicSonCore`); see docs/SEPTIC_SON.md.
