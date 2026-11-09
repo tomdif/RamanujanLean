@@ -315,6 +315,15 @@ project imports, and that independent arithmetic. A green workflow is not eviden
 that a fresh full Lean build has completed. Reproduce the mathematical verification
 with the build and audit commands in the [overview](../README.md#build-and-verify).
 
+## Results of 2026-11-09
+
+| Track | Lean status | Remaining |
+|---|---|---|
+| Fifth-order mock theta functions | **All ten Lost Notebook identities unconditional** (`MockTheta5All/All.lean`, `mock_theta_{f0,f1,F0,F1,phi0,phi1,psi0,psi1,chi0,chi1}`) | — |
+| Septic theta identities | `septic_entry_1_1_i`; `page206_unconditional` (Rebák's Thm 4.1, corrected 7^{−3/4}); `SonProof.septicSonCore` (Entry 1.1(iii) + sextic relation) and a second p. 206 proof `page206_via_son` | — |
+| Forty identities | 25/40: 3.1–3.14, 3.16(i), 3.17, 3.19(i), 3.20–3.25, 3.28(i), 3.30, plus Watson's Lemma 4.1 | 3.34 (~½ day), 3.18/3.19(ii) (~1 day), 3.26/3.27 (Schröter degree 11), 3.33; seven modular-only entries need a level-N Sturm bound |
+| Deligne's bound | Developed in the companion repo [RamanujanWeil](https://github.com/tomdif/RamanujanWeil): proved from the Weil conjectures (AxiomMath/Weil) modulo named Deuring/Tate hypotheses (see its README) | `TateFinitenessPolAll`, `RadicialDual`, `DeuringClassLatticeAll` |
+
 ## Results of 2026-11-03
 
 | Track | Lean status | Remaining |
