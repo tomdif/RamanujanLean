@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty.lean`. Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty2.lean` (all proved entries; `forty.lean` is the round-1 audit). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -70,8 +70,8 @@ generated normal-form proof, and a short final step.
 | 20 | 3.18 `G(q³¹)H(q) − q⁶G(q)H(q³¹) = …` | ⬜ | Type III (Bressoud) |
 | 21 | 3.19(i) `{G(q)G(q³⁹)+q⁸H(q)H(q³⁹)}f(−q)f(−q³⁹) = {G(q¹³)H(q³)−q²G(q³)H(q¹³)}f(−q³)f(−q¹³)` | ✅ `entry_3_19_i` (E19) | Type II, `5x²+2xy+8y²+x+8y` |
 | 22 | 3.19(ii) the same `= (1/2q)(φ(−q³)φ(−q¹³) − φ(−q)φ(−q³⁹))` | ⬜ | Type III |
-| 23 | 3.20 `G(q)H(−q) + G(−q)H(q) = 2/χ²(−q²)` | ⬜ | Watson: 3.21 + Lemma 23.1 + square root |
-| 24 | 3.21 `G(q)H(−q) − G(−q)H(q) = 2qψ(q¹⁰)/f(−q²)` | ⬜ | Watson: 3.2 + 3.3 at `±q` + Lemma 7.1 at `−q²` (all ingredients now in Lean) |
+| 23 | 3.20 `G(q)H(−q) + G(−q)H(q) = 2/χ²(−q²)` | ✅ `entry_3_20` (E20) | Watson: 3.21, `GH = f(−q⁵)/f(−q)` at `±q`, Lemma 23.1 `ψ²−qψ(q⁵)² = f(q,q⁴)f(q²,q³)` (Type I, `B=(1 2;−2 1)` on `f(1,q)²`, `P23_1`), square root fixed by the constant term |
+| 24 | 3.21 `G(q)H(−q) − G(−q)H(q) = 2qψ(q¹⁰)/f(−q²)` | ✅ `entry_3_21` (E21) | Watson: 3.2 and 3.3 at `±q` (`q ↦ −q` bookkeeping in `NgTools`), Lemma 7.1 at `q ↦ −q²` (`lemma71_neg`) |
 | 25 | 3.22 `G(−q)G(−q⁴) + qH(−q)H(−q⁴) = χ(q²)` | ⬜ | Type III |
 | 26 | 3.23 `G(−q²)G(−q³) + qH(−q²)H(−q³) = χ(q)χ(q⁶)/(χ(q²)χ(q³))` | ⬜ | Type III |
 | 27 | 3.24 `G(−q⁶)H(−q) − qH(−q⁶)G(−q) = χ(q²)χ(q³)/(χ(q)χ(q⁶))` | ⬜ | Type III |
@@ -89,24 +89,43 @@ generated normal-form proof, and a short final step.
 | 39 | 3.34 (19, 38, with `−q`) | ⬜ | Bressoud |
 | 40 | 3.35 (94, 47, with a square root) | ⬜ | modular forms only |
 
-**Proved: 14 of 40** (3.1–3.12, 3.19(i), 3.28(i)).
+**Proved: 16 of 40** (3.1–3.12, 3.19(i), 3.20, 3.21, 3.28(i)).
+
+In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
 All 40 hold numerically to `q²⁰⁰` (`verify_forty.py`). Two of the memoir's typeset forms needed care. 3.16(ii) is a
 single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
 
-## Obstacles and estimates for the rest
+## Obstacles and estimates for the rest (after round 2)
 
-* **3.20, 3.21** (Watson). 3.21 is pure algebra from 3.2, 3.3 and Lemma 7.1 (`lemma71`) applied at `q ↦ −q²`, plus
-  `Ng` bookkeeping: `Ng ∘ S 4 = S 4`, `Ng (q;q)_∞ = f(−q²)χ(q)`, and ψ's product form via `ramF_product`. 3.20 then
-  needs Lemma 23.1 (`ψ² − qψ(q⁵)² = f(q,q⁴)f(q²,q³)`, Type I with `B=(1 2;−2 1)` on `ψ²`) and the same square-root
-  argument as 3.3. Estimate: half a day for both.
-* **3.13, 3.14, 3.16(i), 3.17, 3.18, 3.19(ii), 3.22–3.24** (Cao Type III). These need either a sum of several ECS
-  expansions of different forms, or the quintuple product (in the repo: `MultiQuintuple*`, `MockTheta5Quint*`). The
-  Type II engine extends directly to them: `split_two` already takes arbitrary formulas. Estimate: one to three hours
-  each, given Cao's data.
-* **Entries with `G(−q)`** (3.20–3.26, 3.30, 3.34). The quadratic form picks up a sign character
-  `(−1)^{Q(x)} = (−1)^{(A+d)x+(C+e)y}`. The barred-theta bridge (`θ_bar`) exists, so this is bookkeeping.
-* **3.15, 3.16(ii), 3.28(ii), 3.29, 3.31, 3.32, 3.35**. The only known proofs are by modular forms (Biagioli) or by
-  long modular-equation arguments. Doing them in this framework needs either a Sturm-type bound for eta quotients on
-  `Γ₀(N)` (not in the repo) or new theta-function proofs. Estimate: weeks. A finite coefficient check alone is not a
-  proof, so these are left open.
+* **3.20 and 3.21 are done.** The `q ↦ −q` toolkit is in `NgTools.lean`: `Ng ∘ S_{2k} = S_{2k}`, `Ng ∘ S₅ = S₅ ∘ Ng`,
+  `(−q;−q)_∞ = f(−q²)χ(q)`, `φ(−q)` and `ψ`.
+* **3.34** reduces, via 3.20 + 3.21 and `G(q)G(−q) = f(q⁴,q⁶)/f(−q²)`, to the four-product theta identity (33.6) of
+  Berndt et al. That identity mixes moduli `(10,190)`, `(8,152)`, `(40,760)` (and `(2,38)` in the memoir's proof).
+  `scripts/forty/combo.py` searched for (33.6) as a ℚ-linear combination of ECS relations. The search covered every
+  determinant-19 and 76 form tried, all sign characters, linear terms in `[−3,3]`, and covers with entries up to 10.
+  It found none. The memoir's proof also needs one-variable 2-dissections (33.10) and the identities (20.3), (20.5) and
+  (20.6). So the engine needs a 1D-dissection relation added to the search basis. Estimate: about half a day.
+* **3.13, 3.14, 3.16(i), 3.30** (Cao's Type III, "zoom out / zoom in"). Each needs specialised quintuple products
+  `f(−x²,−λx)f(−λx³)/f(−x,−λx²) = f(−λ²x³,−λx⁶) + x f(−λ,−λ²x⁹)` in theta form. The repo's quintuple product
+  (`MockTheta5.JTP.formal_quintuple_product_identity`, `thetaA*thetaB = qfac2InfL*quintTheta`) lives in
+  `ℤ[z^{±1}]⟦q⟧`. Using it needs an evaluation map `z ↦ c tᵉ` into `ℂ((t))` with a summability proof.
+  - A specialised quintuple product is not a single two-form ECS relation: the determinants `M₁M₂` of its two sides
+    differ by a non-square. This was confirmed by a search on `2x²+2xy+2y²`.
+  - Estimate: one to two days for the bridge, then about an hour per entry.
+* **3.17, 3.18, 3.19(ii)**. 3.19(ii) mixes the inequivalent forms `x²+39y²` and `3x²+13y²` with `5x²+2xy+8y²`. No
+  single form represents all the needed values (checked), so it needs a multi-form combination. 3.17 and 3.18
+  (Bressoud) are similar.
+* **G(−q) entries 3.22–3.26, 3.30**. `G(−q) = f(−q¹⁰)²/(f(q,q⁹)f(−q⁴,−q⁶))` is a quotient of two thetas, so these
+  are four-theta identities. The memoir derives 3.22 and 3.25 from 3.5 and 3.14 using Watson's 2-dissection
+  `G(q)f(−q²) = f(−q⁸)(G(q¹⁶) + qH(−q⁴))` (Lemma 4.1). That lemma itself rests on quintuple-product instances (4.26) and
+  (4.27). Same bridge as above.
+* **3.27, 3.33**: these use 3.4, 3.6–3.8 and modular-equation manipulations (memoir §§31–32). Not attempted.
+* **Modular-only entries (3.15(i,ii), 3.16(ii), 3.28(ii), 3.29, 3.31, 3.32, 3.35): scoped only.**
+  - `MTC/ThFactor.zero_count` (`Th(m)`) bounds zeros of theta functions in the elliptic variable `x` at fixed nome. It
+    does not certify identities in `q`.
+  - The only Sturm-type results are `TheoremA/LevelSixModularSturm.lean` (for genuine Mathlib `ModularForm`s on
+    `Γ₀(6)`) and `BoylanWebb/Forms.lean` (Sturm mod ℓ, level 1).
+  - Certifying these entries would need the eta quotients of levels 46–94 as `ModularForm` objects on `Γ₀(N)`: eta
+    transformation laws, behaviour at all cusps, and a level-`N` Sturm bound. None of this exists, so no entry was
+    attempted. A finite coefficient check is not a proof.

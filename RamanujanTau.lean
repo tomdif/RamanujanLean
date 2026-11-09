@@ -732,3 +732,6 @@ import RamanujanTau.Forty.E12
 import RamanujanTau.Forty.E19
 import RamanujanTau.Forty.E28
 import RamanujanTau.Septic.Page206Final
+import RamanujanTau.Forty.NgTools
+import RamanujanTau.Forty.E20
+import RamanujanTau.Forty.E21
