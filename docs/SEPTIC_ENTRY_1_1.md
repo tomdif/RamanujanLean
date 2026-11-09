@@ -123,3 +123,6 @@ real `phiR q = Σ' n:ℤ, q^{n²}`). It is unproved. Rebák's proof proceeds as 
 To compile the audit without `lake build`, the Septic oleans were produced with
 `lake env lean FILE -o .lake/build/lib/lean/RamanujanTau/Septic/<F>.olean`. None of these files is imported by
 `RamanujanTau.lean`.
+
+
+**Update:** the page-206 evaluation is now proved (`page206_unconditional`); see docs/SEPTIC_PAGE206.md.
