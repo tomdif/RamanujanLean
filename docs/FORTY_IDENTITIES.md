@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty4.lean` (all proved entries; `forty.lean`–`forty3.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty5.lean` (all proved entries and round-5 lemmas, 99 declarations; `forty.lean`–`forty4.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -67,9 +67,9 @@ generated normal-form proof, and a short final step.
 | 17 | 3.16(i) `G(q²)G(q¹³)+q³H(q²)H(q¹³) = G(q²⁶)H(q) − q⁵G(q)H(q²⁶)` | ✅ `entry_3_16_i` (E16) | Cao §3.4: form `5x²+2xy+8y²+x−5y`, four quintuple collapses, Cao (59) at `q` and `q¹³` |
 | 18 | 3.16(ii) the same equals `√(χ(−q¹³)/χ(−q) − qχ(−q)/χ(−q¹³))` | ⬜ | Berndt et al. §19 (square-root argument as in 3.3) |
 | 19 | 3.17 `G(q)G(q¹⁹)+q⁴H(q)H(q¹⁹) = …` (three χ terms) | ✅ `entry_3_17` (E17), stated with `q ↦ q²` to clear `q^{1/2}` | Cao: form `4x²+2xy+5y²+4x+y` (det-5 and det-4 covers, Cao (80)/(81)) + 2-dissection of `φ` (`MTC.dissect2`) |
-| 20 | 3.18 `G(q³¹)H(q) − q⁶G(q)H(q³¹) = …` | ⬜ | Type III (Bressoud) |
+| 20 | 3.18 `G(q³¹)H(q) − q⁶G(q)H(q³¹) = …` | ✅ `entry_3_18` (E18), stated times `2q` | Cao (Identity 18): forms `(4,1,8)`, `(2,1,16)`, `(5,2,7)` of det 31 glued through `QS` (parity splits, swap, index-2 cover) |
 | 21 | 3.19(i) `{G(q)G(q³⁹)+q⁸H(q)H(q³⁹)}f(−q)f(−q³⁹) = {G(q¹³)H(q³)−q²G(q³)H(q¹³)}f(−q³)f(−q¹³)` | ✅ `entry_3_19_i` (E19) | Type II, `5x²+2xy+8y²+x+8y` |
-| 22 | 3.19(ii) the same `= (1/2q)(φ(−q³)φ(−q¹³) − φ(−q)φ(−q³⁹))` | ⬜ | Type III |
+| 22 | 3.19(ii) the same `= (1/2q)(φ(−q³)φ(−q¹³) − φ(−q)φ(−q³⁹))` | ✅ `entry_3_19_ii` (E19ii), stated times `2q` | Cao (Identity 19-2): forms `(6,3,8)`, `(2,1,20)`, `(5,1,8)` of det 39 glued through `QS` |
 | 23 | 3.20 `G(q)H(−q) + G(−q)H(q) = 2/χ²(−q²)` | ✅ `entry_3_20` (E20) | Watson: 3.21, `GH = f(−q⁵)/f(−q)` at `±q`, Lemma 23.1 `ψ²−qψ(q⁵)² = f(q,q⁴)f(q²,q³)` (Type I, `B=(1 2;−2 1)` on `f(1,q)²`, `P23_1`), square root fixed by the constant term |
 | 24 | 3.21 `G(q)H(−q) − G(−q)H(q) = 2qψ(q¹⁰)/f(−q²)` | ✅ `entry_3_21` (E21) | Watson: 3.2 and 3.3 at `±q` (`q ↦ −q` bookkeeping in `NgTools`), Lemma 7.1 at `q ↦ −q²` (`lemma71_neg`) |
 | 25 | 3.22 `G(−q)G(−q⁴) + qH(−q)H(−q⁴) = χ(q²)` | ✅ `entry_3_22` (E22) | Watson's Lemma 4.1 (`lemma41a`, `lemma41b`) substituted in 3.5, then `q ↦ −q` (Berndt et al. §25) |
@@ -78,18 +78,18 @@ generated normal-form proof, and a short final step.
 | 28 | 3.25 `G(−q)G(q⁹) − q²H(−q)H(q⁹) = χ(−q)χ(q⁹)/χ(−q⁶)` | ✅ `entry_3_25` (E25) | Berndt et al. §28 second proof: Type I cover `(1 1;−2 3)` of `f(q⁶,q¹²)f(−q)`, quintuple at `c=−1`, product forms of `G(−q)`, `H(−q)` (`NgOdd`) |
 | 29 | 3.26 `G(q¹¹)H(−q) + q²G(−q)H(q¹¹) = …` | ⬜ | Watson |
 | 30 | 3.27(i) `U² + qV² = χ³(q)χ³(q¹¹)` (U, V with 44 and 4·11) | ⬜ | Watson |
-| 31 | 3.27(ii) `UV + q = χ²(q)χ²(q¹¹)` | ⬜ | Watson |
+| 31 | 3.27(ii) `UV + q = χ²(q)χ²(q¹¹)` | ✅ `entry_3_27_ii` (E27) | Watson (29.17): `3 × 3` elimination with Entry 3.4 at `q⁴` and Entry 3.2 at `q¹¹` |
 | 32 | 3.28(i) `U/V = χ(−q)/χ(−q¹⁷)` (U = G(q¹⁷)H(q²) − q³G(q²)H(q¹⁷), V = G(q)G(q³⁴)+q⁷H(q)H(q³⁴)) | ✅ `entry_3_28_i` (E28) | Type II, `5x²+2xy+7y²+x+7y` |
 | 33 | 3.28(ii) `U⁴V⁴ − qU²V² = …` | ⬜ | modular forms (claimed, never written; Berndt et al.) |
 | 34 | 3.29 (23, 46) | ⬜ | modular forms only (Biagioli) |
 | 35 | 3.30 `{G(q¹⁹)H(q⁴)−q³G(q⁴)H(q¹⁹)}/{G(q⁷⁶)H(−q)+q¹⁵G(−q)H(q⁷⁶)} = χ(−q²)/χ(−q³⁸)` | ✅ `entry_3_30` (E30) | Yesilyurt/Cao: form `10x²+8xy+13y²+6x+10y`, four quintuple collapses (`c=±1`), Cao (59) at `q¹⁹`, `NgOdd` |
 | 36 | 3.31 (33, 66) | ⬜ | modular forms only |
 | 37 | 3.32 (22, 11·6) | ⬜ | modular forms only |
-| 38 | 3.33 (54, 27) | ⬜ | Bressoud |
-| 39 | 3.34 (19, 38, with `−q`) | ⬜ | Bressoud |
+| 38 | 3.33 (54, 27) | ✅ `entry_3_33` (E33), denominators cleared; `entry_3_33'` quotient form | Berndt et al. §32 second proof: Entries 3.6–3.8 at `q, q², q³, q⁶, q⁹`, two `3 × 3` eliminations, 3-dissections of `φ(−q)` and `ψ(q)` (`dis3` from `θ_dissect`) |
+| 39 | 3.34 (19, 38, with `−q`) | ✅ `entry_3_34` (E34) | Berndt et al. §33: 3.20 + 3.21, `G(q)G(−q)f(−q²) = f(q⁴,q⁶)`; (33.6) from `M3_17`, the 20-coset cover `(1 −19; 1 1)` of `φ(±q)φ(±q¹⁹)`, a new Type II for `ψ(q²)ψ(q³⁸)` (form `4x²+4xy+20y²+2x−18y`, covers det 2 and 10), `dis2` |
 | 40 | 3.35 (94, 47, with a square root) | ⬜ | modular forms only |
 
-**Proved: 25 of 40** (3.1–3.14, 3.16(i), 3.17, 3.19(i), 3.20–3.25, 3.28(i), 3.30).
+**Proved: 30 of 40** (3.1–3.14, 3.16(i), 3.17, 3.18, 3.19(i,ii), 3.20–3.25, 3.27(ii), 3.28(i), 3.30, 3.33, 3.34).
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -122,7 +122,41 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
 * The parity arguments ("equate the odd parts") are done without a parity operator. The known part (Entries 3.11 and
   3.12 at `q²`) is subtracted, the remainder is matched with a product identity, and `S_inj 2` then undoes `q ↦ q²`.
 
-## Obstacles and estimates for the rest (after round 4)
+## Round 5 notes
+
+* **`QS` engine** (`QS.lean`). `QS F` is the sum over `ℤ²` of a summable function. `QS_cover` glues along any exact
+  cover (not only orthogonal ones), `qmono_cmap` gives the transformed form on each coset, `qmono_summ` shows every
+  positive definite form is summable (generic orthogonal cover `(1 −Bq; 0 A)`), and `QS_orth` gives the theta-product
+  expansion. Cao's Type III proofs (3.18, 3.19(ii)) are chains of `QS_sub` steps. The script
+  `scripts/forty/gen3.py` emits them (`gen_sub` for a change of variables or parity split, `gen_orth` for a product
+  expansion).
+* **3.34**. The memoir's (20.6) uses its Theorem 4.14. Here `ψ(q²)ψ(q³⁸)` is a Type II identity: the form
+  `4x²+4xy+20y²+2x−18y` has covers `(1 1; 0 −2)` (det 2, both cosets give `ψ(q²)ψ(q³⁸)`) and `(0 10; 1 −1)` (det 10).
+  A 20-coset cover of `θ₂(0,−1)θ₃₈(0,−1)` alone does not work: its even cosets give atoms that only cancel through a
+  further identity.
+* **3.33** uses the memoir's second proof. Both determinant eliminations are explicit `linear_combination`s (`hN33`,
+  `hM33`). `dis3` is the 3-dissection from `ALz.θ_dissect`.
+* **3.27(ii)** is pure algebra from Entries 3.2 and 3.4 (Watson's determinant (29.17); the memoir misprints its middle
+  row).
+
+## Obstacles for the rest (after round 5)
+
+* **3.26 and 3.27(i)**. Everything in Watson's proof (§29) is elementary except one step. (29.2)/(29.3) are
+  `lemma41a`/`lemma41b`. (29.5)–(29.9) are algebra with Entries 3.4, 3.20 and 3.24. Those give
+  `χ(−q²)χ(−q⁴)χ(−q²²)χ(−q⁴⁴)T(q) = U(−q⁴) + q²V(−q⁴) − 2q³`, `T(−q) − T(q) = 4q³/(…)` and
+  `1 − T(q)T(−q) + 4q²/(χ²(−q²)χ²(−q²²)) = 0`. The missing step is (29.13),
+  `T(q) + T(−q) = 2χ(q²)χ(q²²)/(χ(−q²)χ(−q²²))`. It is equivalent to (29.14),
+  `U(−q⁴) + q²V(−q⁴) = χ(q²)χ(−q⁴)χ(q²²)χ(−q⁴⁴)`. Watson gets it from Schröter's degree-11 modular equation and a
+  square root. A Cao-style route would prove (29.14) directly. After clearing `f(−q^a)` it is a four-product theta
+  identity, probably over forms of determinant 11 or 44. It is the analogue of what `QS` now does for 3.18 and 3.19(ii),
+  but no forms and covers have been found yet. Given (29.14), 3.26 follows from (29.7) and 3.27(i) from
+  (29.14)·(29.15), both by algebra. Estimate: a search with `ecs.py`/`gen3.py` over det-11/44 forms, then about half
+  a day if a gluing exists.
+* **Modular-only entries (3.15(i,ii), 3.16(ii), 3.28(ii), 3.29, 3.31, 3.32, 3.35)**: unchanged; see below. 3.16(ii)
+  has an elementary proof in Berndt et al. §19 (a square-root argument as for 3.3), so it is the next candidate.
+
+## Obstacles and estimates (after round 4, kept for reference)
+
 
 * **3.20 and 3.21 are done.** The `q ↦ −q` toolkit is in `NgTools.lean`: `Ng ∘ S_{2k} = S_{2k}`, `Ng ∘ S₅ = S₅ ∘ Ng`,
   `(−q;−q)_∞ = f(−q²)χ(q)`, `φ(−q)` and `ψ`.
