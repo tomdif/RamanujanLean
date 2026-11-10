@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty5.lean` (all proved entries and round-5 lemmas, 99 declarations; `forty.lean`–`forty4.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty6.lean` (all proved entries and the lemmas of rounds 1–6, 123 declarations, all `[propext, Classical.choice, Quot.sound]`; `forty.lean`–`forty5.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -62,10 +62,10 @@ generated normal-form proof, and a short final step.
 | 12 | 3.12 `G(q)G(q²⁴) + q⁵H(q)H(q²⁴) = χ(−q³)χ(−q¹²)/(χ(−q)χ(−q⁴))` | ✅ `entry_3_12` (E12) | Type II, `5x²+2xy+5y²+x+5y` |
 | 13 | 3.13 `G(q⁹)H(q⁴) − qG(q⁴)H(q⁹) = χ(−q)χ(−q⁶)/(χ(−q³)χ(−q¹⁸))` | ✅ `entry_3_13` (E13) | Cao Type III: form `7x²+6xy+9y²+6x`, covers `(1 3;−1 2)`, `(0 −3;1 1)`, quintuple product at `c=±1` (`ALz.quint_theta`), Cao (59) at `q⁹` |
 | 14 | 3.14 `G(q³⁶)H(q) − q⁷G(q)H(q³⁶) = χ(−q⁶)χ(−q⁹)/(χ(−q²)χ(−q³))` | ✅ `entry_3_14` (E14) | Cao (64): Type II on `5x²+4xy+8y²+3x−6y` gives the numerator of 3.13; then 3.13 |
-| 15 | 3.15(i) `G(q³)G(q⁷)+q²H(q³)H(q⁷) = G(q²¹)H(q) − q⁴G(q)H(q²¹)` | ⬜ | only known proof uses modular forms (Biagioli) |
+| 15 | 3.15(i) `G(q³)G(q⁷)+q²H(q³)H(q⁷) = G(q²¹)H(q) − q⁴G(q)H(q²¹)` | ⬜ | modular forms (Biagioli); see round-6 scoping |
 | 16 | 3.15(ii) the same equals `(1/2√q)[χ(q^{1/2})χ(−q^{3/2})χ(q^{7/2})χ(−q^{21/2}) − …]` | ⬜ | modular forms |
 | 17 | 3.16(i) `G(q²)G(q¹³)+q³H(q²)H(q¹³) = G(q²⁶)H(q) − q⁵G(q)H(q²⁶)` | ✅ `entry_3_16_i` (E16) | Cao §3.4: form `5x²+2xy+8y²+x−5y`, four quintuple collapses, Cao (59) at `q` and `q¹³` |
-| 18 | 3.16(ii) the same equals `√(χ(−q¹³)/χ(−q) − qχ(−q)/χ(−q¹³))` | ⬜ | Berndt et al. §19 (square-root argument as in 3.3) |
+| 18 | 3.16(ii) the same equals `√(χ(−q¹³)/χ(−q) − qχ(−q)/χ(−q¹³))` | ✅ `entry_3_16_ii` (E16ii; squared form), `entry_3_16_ii'` (other side), `entry_3_16_ii_unique` (the branch: unique square root with constant term 1) | Berndt et al. §19 without the operator `L`: Lemma 5.1 used through its quintuple-product components (`Q16`), Type I `(2 −13; 1 1)` on `f(1,q)φ(−q¹³)` (`P16_1`), Type II on `3x²+10xy+17y²−x+7y` (`P16_2`) |
 | 19 | 3.17 `G(q)G(q¹⁹)+q⁴H(q)H(q¹⁹) = …` (three χ terms) | ✅ `entry_3_17` (E17), stated with `q ↦ q²` to clear `q^{1/2}` | Cao: form `4x²+2xy+5y²+4x+y` (det-5 and det-4 covers, Cao (80)/(81)) + 2-dissection of `φ` (`MTC.dissect2`) |
 | 20 | 3.18 `G(q³¹)H(q) − q⁶G(q)H(q³¹) = …` | ✅ `entry_3_18` (E18), stated times `2q` | Cao (Identity 18): forms `(4,1,8)`, `(2,1,16)`, `(5,2,7)` of det 31 glued through `QS` (parity splits, swap, index-2 cover) |
 | 21 | 3.19(i) `{G(q)G(q³⁹)+q⁸H(q)H(q³⁹)}f(−q)f(−q³⁹) = {G(q¹³)H(q³)−q²G(q³)H(q¹³)}f(−q³)f(−q¹³)` | ✅ `entry_3_19_i` (E19) | Type II, `5x²+2xy+8y²+x+8y` |
@@ -83,13 +83,13 @@ generated normal-form proof, and a short final step.
 | 33 | 3.28(ii) `U⁴V⁴ − qU²V² = …` | ⬜ | modular forms (claimed, never written; Berndt et al.) |
 | 34 | 3.29 (23, 46) | ⬜ | modular forms only (Biagioli) |
 | 35 | 3.30 `{G(q¹⁹)H(q⁴)−q³G(q⁴)H(q¹⁹)}/{G(q⁷⁶)H(−q)+q¹⁵G(−q)H(q⁷⁶)} = χ(−q²)/χ(−q³⁸)` | ✅ `entry_3_30` (E30) | Yesilyurt/Cao: form `10x²+8xy+13y²+6x+10y`, four quintuple collapses (`c=±1`), Cao (59) at `q¹⁹`, `NgOdd` |
-| 36 | 3.31 (33, 66) | ⬜ | modular forms only |
-| 37 | 3.32 (22, 11·6) | ⬜ | modular forms only |
+| 36 | 3.31 (33, 66) | ✅ `entry_3_31` (E31) | Berndt et al. §31: two `3 × 3` eliminations (`NU31`, `MT31`; Entries 3.4, 3.7, 3.8) + Entry 3.32 |
+| 37 | 3.32 (22, 11·6) | ✅ `entry_3_32` (E32, E32a) | after Yesilyurt (JNT 2009) but without his 3-dissection: two Type II identities of determinant 396 (`L32T`: `8x²−4xy+50y²+2x+16y`; `L32U`: `18x²−12xy+24y²+16x+2y`), each collapsed by `quint1`/`quintm` to the same `Φ = f(q³,q⁵)f(q⁹⁹,q¹⁶⁵) − q¹⁷f(q,q⁷)f(q³³,q²³¹)` |
 | 38 | 3.33 (54, 27) | ✅ `entry_3_33` (E33), denominators cleared; `entry_3_33'` quotient form | Berndt et al. §32 second proof: Entries 3.6–3.8 at `q, q², q³, q⁶, q⁹`, two `3 × 3` eliminations, 3-dissections of `φ(−q)` and `ψ(q)` (`dis3` from `θ_dissect`) |
 | 39 | 3.34 (19, 38, with `−q`) | ✅ `entry_3_34` (E34) | Berndt et al. §33: 3.20 + 3.21, `G(q)G(−q)f(−q²) = f(q⁴,q⁶)`; (33.6) from `M3_17`, the 20-coset cover `(1 −19; 1 1)` of `φ(±q)φ(±q¹⁹)`, a new Type II for `ψ(q²)ψ(q³⁸)` (form `4x²+4xy+20y²+2x−18y`, covers det 2 and 10), `dis2` |
 | 40 | 3.35 (94, 47, with a square root) | ⬜ | modular forms only |
 
-**Proved: 30 of 40** (3.1–3.14, 3.16(i), 3.17, 3.18, 3.19(i,ii), 3.20–3.25, 3.27(ii), 3.28(i), 3.30, 3.33, 3.34).
+**Proved: 33 of 40** (3.1–3.14, 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.25, 3.27(ii), 3.28(i), 3.30–3.34).
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -139,7 +139,46 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
 * **3.27(ii)** is pure algebra from Entries 3.2 and 3.4 (Watson's determinant (29.17); the memoir misprints its middle
   row).
 
-## Obstacles for the rest (after round 5)
+## Round 6 notes
+
+* **3.16(ii)** (`E16iiA.lean`, `E16ii.lean`). The memoir's §19 multiplies two `q^{1/5}`-dissections and takes the
+  integral part `L`. That step is not needed: Lemma 5.1 is the statement that the components of the 5-dissection of
+  `f(−q^{1/5})` are `f²(−q²,−q³)/f(−q)` etc., and each component identity is one quintuple product (`quint1`). So
+  with `a₁ = f(−q⁴,−q⁶)`, `a₂ = f(−q²,−q⁸)`, `b₁ = f(−q²⁶,−q³⁹)`, `b₂ = f(−q¹³,−q⁵²)`, `A = a₁b₁ + q³a₂b₂`:
+  `a₂E₀ = f(−q¹⁰)a₁`, `a₁E₄ = f(−q¹⁰)a₂` (and the same at `q¹³`) give `A² = f(−q²)f(−q¹³)·Bk16` (`core16`).
+  `Bk16 = ψ(q)φ(−q¹³) − qf(−q)f(−q²⁶)` is the memoir's (19.17) + (19.24): a 15-coset Type I cover of `f(1,q)φ(−q¹³)`
+  and a Type II on `3x²+10xy+17y²−x+7y` (covers of det 3 with one vanishing coset, and det 15). Then
+  `X² = χ(−q¹³)/χ(−q) − qχ(−q)/χ(−q¹³)`; the square root is pinned by the constant term (`entry_3_16_ii_unique`).
+* **3.32 and 3.31** (`E32a.lean`, `E32.lean`, `E31.lean`). Scoping found Yesilyurt, *A generalization of a
+  modular identity of Rogers*, J. Number Theory 129 (2009) 1256–1271, §5: elementary proofs of 3.30, 3.31, 3.32 from a
+  generalised Rogers identity plus a 3-dissection. The 3-dissection is avoided here: with `g(q) = f(−q²,−q³)`,
+  `h(q) = f(−q,−q⁴)` and `Φ(q) = f(q³,q⁵)f(q⁹⁹,q¹⁶⁵) − q¹⁷f(q,q⁷)f(q³³,q²³¹)`, both
+  `g(q³)g(q²²) + q⁵h(q³)h(q²²) = χ(−q³)χ(−q³³)Φ` and `h(q⁶)g(q¹¹) − qg(q⁶)h(q¹¹) = χ(−q)χ(−q¹¹)Φ` hold, and each
+  is one Type II identity (forms found by a direct search over determinant 396: their det-5 covers collapse by
+  `quint1` + Cao (59) to the bracket, their det-4 covers collapse by `quintm` to `Φ`). Dividing gives 3.32. Entry
+  3.31 then follows from the memoir's §31 (`N U = 1 − qW`, `M T = −q + 1/W`, both `ring` identities plus Entries 3.4,
+  3.7, 3.8).
+
+## Obstacles for the rest (after round 6)
+
+* **3.26 and 3.27(i)** (still open). Reduction checked numerically to `q³⁰⁰`: with
+  `Br(q) = T(q)·f(q)f(−q¹¹) = f(−q²²,−q³³)f(q,−q⁴) + q²f(−q²,q³)f(−q¹¹,−q⁴⁴)` (`T` = the left side of 3.26),
+  Entry 3.26 is equivalent to the four-theta identity
+  `Br(q)·f(−q²)f(−q²²) = ψ(q)ψ(−q¹¹)φ(−q⁴)φ(−q⁴⁴) − 2q³ f(q)f(−q¹¹)f(−q⁸)f(−q⁸⁸)`, where `f(q) = (−q;−q)_∞`
+  (it uses `χ(q²)f(−q²) = φ(−q⁴)` and `χ(q)χ(−q²) = f(q)/f(−q⁴)`). Given 3.26, (29.14) and then 3.27(i) are algebra
+  (Watson §29). The right side has two terms that are not single products, so the one-`Φ` trick used for 3.31/3.32
+  does not apply. A proof needs either a 4-dimensional ECS or a multi-form `QS` gluing as in 3.18/3.19(ii). No forms
+  and covers were found in this round; the search was not run for lack of time.
+* **3.15(i,ii), 3.28(ii), 3.29, 3.35** (scoped only). Yesilyurt, *Elementary proofs of some identities of Ramanujan
+  for the Rogers–Ramanujan functions*, J. Math. Anal. Appl. 388 (2012) 420–434, proves 3.28(ii) (the last identity
+  that had no proof) and gives elementary proofs of 3.29 and 3.35. His proofs use the generalised Rogers identity of
+  the 2009 paper together with Ramanujan's modular equations of degree 23 and 47 and several of the forty identities.
+  Those modular equations are not in the repo, so these are the next candidates only if the degree-23/47 equations can
+  be written as theta identities. For 3.15 no elementary proof was located in this pass; Andrews–Berndt, *Ramanujan's
+  Lost Notebook, Part III*, Ch. 8 is said to give elementary proofs of all forty and is the reference to check. No
+  2025–2026 arXiv paper (Cao or others) giving Type I/II/III proofs of these entries was found.
+
+## Obstacles for the rest (after round 5, kept for reference)
 
 * **3.26 and 3.27(i)**. Everything in Watson's proof (§29) is elementary except one step. (29.2)/(29.3) are
   `lemma41a`/`lemma41b`. (29.5)–(29.9) are algebra with Entries 3.4, 3.20 and 3.24. Those give
