@@ -256,10 +256,12 @@ Build instructions and current verification status are maintained in the [overvi
 
 ## Part II — q-series & partition theory (headline results)
 
-**Ramanujan's forty identities for the Rogers–Ramanujan functions: 39 of 40 proved** (`RamanujanTau/Forty/`,
-docs/FORTY_IDENTITIES.md): Entries 3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.26, 3.27(i,ii), 3.28(i,ii), 3.29, 3.30–3.35 (and Watson's Lemma 4.1) of Berndt et al. (Memoirs AMS 2007), with `G`, `H`
+**Ramanujan's forty identities for the Rogers–Ramanujan functions: all 40 proved** (`RamanujanTau/Forty/`,
+docs/FORTY_IDENTITIES.md, audit `scripts/audit/forty11.lean`): every entry of Berndt et al. (Memoirs AMS 2007), with `G`, `H`
 defined by their sum sides. Engine: exact covering systems of binary quadratic forms (Cao, arXiv:2503.11445),
-`θθ_lattice`/`qf_two`, with script-generated covers. All 40 checked numerically to q²⁰⁰.
+the general form-sum gluing `QS`, the theta-form quintuple product, and Gröbner/elimination certificates. Entries
+3.15(i,ii), 3.31, 3.32 get new elementary proofs (no modular forms); 3.26/3.27(i) avoid Schröter's degree-11
+equation; Ramanujan's degree-23 and degree-47 modular equations (`M23`, `M47`) are proved as theta identities.
 
 **All ten fifth-order mock theta identities of the Lost Notebook** (`RamanujanTau/MockTheta5All/`,
 docs/MOCK_THETA5_ALL.md): `mock_theta_{f0,f1,F0,F1,phi0,phi1,psi0,psi1,chi0,chi1}`, unconditional and

@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty10.lean` (all proved entries and the lemmas of rounds 1–10, 345 declarations, all `[propext, Classical.choice, Quot.sound]` or a subset; `forty.lean`–`forty9.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty11.lean` (all 40 identities and the lemmas of rounds 1–11, 383 declarations, all `[propext, Classical.choice, Quot.sound]` or a subset; `forty.lean`–`forty10.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -63,7 +63,7 @@ generated normal-form proof, and a short final step.
 | 13 | 3.13 `G(q⁹)H(q⁴) − qG(q⁴)H(q⁹) = χ(−q)χ(−q⁶)/(χ(−q³)χ(−q¹⁸))` | ✅ `entry_3_13` (E13) | Cao Type III: form `7x²+6xy+9y²+6x`, covers `(1 3;−1 2)`, `(0 −3;1 1)`, quintuple product at `c=±1` (`ALz.quint_theta`), Cao (59) at `q⁹` |
 | 14 | 3.14 `G(q³⁶)H(q) − q⁷G(q)H(q³⁶) = χ(−q⁶)χ(−q⁹)/(χ(−q²)χ(−q³))` | ✅ `entry_3_14` (E14) | Cao (64): Type II on `5x²+4xy+8y²+3x−6y` gives the numerator of 3.13; then 3.13 |
 | 15 | 3.15(i) `G(q³)G(q⁷)+q²H(q³)H(q⁷) = G(q²¹)H(q) − q⁴G(q)H(q²¹)` | ✅ `entry_3_15_i` (E15) | new elementary proof: two Cramer eliminations with Entries 3.7–3.10 give `L₂(q)L₁(q²) = L₁(q)L₂(q²)` (`prod15a`, `prod15b`), then `D(q)L₂(q²) = L₂(q)D(q²)`, `D(0)=0` forces `D = 0` (`eq_zero_of_S2`) |
-| 16 | 3.15(ii) the same equals `(1/2√q)[χ(q^{1/2})χ(−q^{3/2})χ(q^{7/2})χ(−q^{21/2}) − …]` | ⬜ | modular forms; see round-7 notes |
+| 16 | 3.15(ii) the same equals `(1/2√q)[χ(q^{1/2})χ(−q^{3/2})χ(q^{7/2})χ(−q^{21/2}) − …]` | ✅ `entry_3_15_ii` (E15ii), stated with `q ↦ q²`; `entry_3_15_ii'` (other bracket), `entry_3_15_ii_Ng` (`A(q) − Ng A`) | new elementary proof (round 11): Cramer with Entries 3.2, 3.7–3.10, 3.15(i) at `±q`, `q²`, `±q⁷`, `q¹⁴` gives `χ²(±q)L(q²)`, `χ²(±q⁷)L(q²)` as two-term eta quotients; 3.2, 3.9, 3.10, 3.20 give the degree-7 equation; one Gröbner certificate finishes |
 | 17 | 3.16(i) `G(q²)G(q¹³)+q³H(q²)H(q¹³) = G(q²⁶)H(q) − q⁵G(q)H(q²⁶)` | ✅ `entry_3_16_i` (E16) | Cao §3.4: form `5x²+2xy+8y²+x−5y`, four quintuple collapses, Cao (59) at `q` and `q¹³` |
 | 18 | 3.16(ii) the same equals `√(χ(−q¹³)/χ(−q) − qχ(−q)/χ(−q¹³))` | ✅ `entry_3_16_ii` (E16ii; squared form), `entry_3_16_ii'` (other side), `entry_3_16_ii_unique` (the branch: unique square root with constant term 1) | Berndt et al. §19 without the operator `L`: Lemma 5.1 used through its quintuple-product components (`Q16`), Type I `(2 −13; 1 1)` on `f(1,q)φ(−q¹³)` (`P16_1`), Type II on `3x²+10xy+17y²−x+7y` (`P16_2`) |
 | 19 | 3.17 `G(q)G(q¹⁹)+q⁴H(q)H(q¹⁹) = …` (three χ terms) | ✅ `entry_3_17` (E17), stated with `q ↦ q²` to clear `q^{1/2}` | Cao: form `4x²+2xy+5y²+4x+y` (det-5 and det-4 covers, Cao (80)/(81)) + 2-dissection of `φ` (`MTC.dissect2`) |
@@ -89,8 +89,7 @@ generated normal-form proof, and a short final step.
 | 39 | 3.34 (19, 38, with `−q`) | ✅ `entry_3_34` (E34) | Berndt et al. §33: 3.20 + 3.21, `G(q)G(−q)f(−q²) = f(q⁴,q⁶)`; (33.6) from `M3_17`, the 20-coset cover `(1 −19; 1 1)` of `φ(±q)φ(±q¹⁹)`, a new Type II for `ψ(q²)ψ(q³⁸)` (form `4x²+4xy+20y²+2x−18y`, covers det 2 and 10), `dis2` |
 | 40 | 3.35 (94, 47, with a square root) | ✅ `entry_3_35` (E35g; squared form), `entry_3_35_root` / `entry_3_35_unique` (E35h; the root with constant term `2`) | Yesilyurt JMAA 2012 §5: `entry_3_35_AB` (E35b–E35); his (5.18) from `L47` in product form (`E47`) at `q`, `−q`, `q⁴` and the two even-part identities `R2`, `R3` (E35e/E35f, parity splits); `φ² = φ²(q²) + 4qψ²(q⁴)` (`phi_sq`); the degree-47 equation (5.24) `M47`; see round-10 notes |
 
-**Proved: 39 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i,ii), 3.29, 3.30–3.35).
-Open: 3.15(ii).
+**Proved: 40 of 40** (3.1–3.14, 3.15(i,ii), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i,ii), 3.29, 3.30–3.35).
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -321,9 +320,39 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
   these formulations. Every route found is a weight-2 identity among products of four thetas, which needs a
   4-dimensional lattice argument or a new idea.
 
+## Round 11 notes
+
+* **3.15(ii) is proved** (`E15iiA.lean`: abstract ring lemmas; `E15ii.lean`: instances). Statement (`q ↦ q²`):
+  `χ(q)χ(−q³)χ(q⁷)χ(−q²¹) − χ(−q)χ(q³)χ(−q⁷)χ(q²¹) = 2q{G(q⁶)G(q¹⁴) + q⁴H(q⁶)H(q¹⁴)}`. No four-theta identity
+  and no new lattice identity is needed; everything comes from proved entries. Write `p_k = χ(q^k)`, `m_k = χ(−q^k)`
+  (so `χ(−q^{2k}) = p_k m_k`) and `L = L(q²)`.
+  - *Cramer at level 3·7* (`cramer1`, `F15_1`). Entries 3.8 and 3.7 at `q²` are linear in `G(q⁶)`, `H(q⁶)`, and Entries
+    3.10 and 3.9 at `q²` are linear in `G(q¹⁴)`, `H(q¹⁴)`, with the **same** coefficient vectors `(G(q), H(q))`,
+    `(G(q⁴), H(q⁴))`. Both determinants are Entry 3.2, and the cross terms cancel in `L`:
+    `χ²(q)L(q²) = (χ(−q⁶)χ(−q⁷))/(χ(−q²)χ(−q)) + qχ(−q)χ(−q²)/(χ(−q³)χ(−q¹⁴))` (an exact ring identity:
+    `L·(G₁G₄ + qH₁H₄) = [3.7(q²)][3.10] + q[3.8][3.9(q²)]`). The same at `−q` (`cramer2`, `F15_2`, Entries 3.8, 3.10, 3.2 at
+    `−q`). For `L₂(q²) = G(q⁴²)H(q²) − q⁸G(q²)H(q⁴²)` = `L(q²)` (3.15(i) at `q²`): Entries 3.8 at `±q⁷`, 3.7 at `q¹⁴`,
+    3.9 at `±q`, 3.10 at `q²`, determinant 3.2 at `±q⁷` (`cramer3`, `cramer4`, `F15_3`, `F15_4`).
+  - *The degree-7 equation* (`cramer7`, `M7_chi`): Entries 3.10 at `±q` solve `G(q¹⁴)`, `H(q¹⁴)` with determinant
+    Entry 3.20; substituted into Entry 3.9 at `q²` and using 3.2 at `±q`:
+    `q(3.20)(3.9 at q²) = (3.10 at −q)(3.2) − (3.10)(3.2 at −q)`, i.e.
+    `χ(q)χ(q⁷) − χ(−q)χ(−q⁷) = 2q/(χ(−q²)χ(−q¹⁴))` (equivalently `f(q)f(q⁷) − f(−q)f(−q⁷) = 2qf(−q⁴)f(−q²⁸)`).
+  - *Elimination* (`alg15ii`). With `t = A(q) − A(−q) − 2qL`, the ideal of `F1`–`F4`, `M7` (localised at the
+    variables) does **not** contain `t` (Singular: dimension 5, `ideal15a.sing`), but the quotient ideal does contain
+    `g = m₃m₇³ − m₁³m₂₁` (`ideal15b.sing`): `t·g·(p₁m₁p₃m₃p₇m₇p₂₁m₂₁q) = Σ Cᵢ Fᵢ` (`cert15b.sing`, emitted by
+    `gen_alg.py` into one `linear_combination`). `g ≡ 3q (mod q²)` (`g15_ne`, via the `π2` tools of E35h), so `t = 0`.
+  - How it was found: the Jacobian of the relation set at a numerical point (`jacrank.py`, `tspan.py`, `m7span.py`)
+    showed that `t` and `M7` lie in the tangent span of the entry relations; greedy pruning gave the minimal sets.
+  Scripts: `scripts/forty/round11/` (`cramer.py`, `m7.py` numerics to `q³⁰⁰`; `ideal15.py`, `*.sing`; `gen_alg.py`).
+* Negative side results (kept for reference): the 2+2-term product forms `Ψ(q²) = (bc + qad)f(−q¹²)f(−q⁸⁴)/χ²(q)`
+  (`common3.py`) and, after `M7`, `L(q²) = m₃m₂₁/(m₂m₁₄) − q²m₁m₇/(m₆m₄₂)` versus the Cramer form (`common4.py`) have no
+  common generalized-eta multiplier making all four terms two-theta products (moduli ≤ 420 dividing 1680), so no
+  Cao-style binary proof in these formulations either; the 4-dimensional exact-cover engine was not needed and was not
+  built.
+
 ## Obstacles for the rest (after round 7)
 
-* **3.15(ii)**. Write `A(q) = χ(q)χ(−q³)χ(q⁷)χ(−q²¹) = f(q,q⁵)f(q⁷,q³⁵)/(f(−q¹²)f(−q⁸⁴))`. The entry says the odd part
+* **3.15(ii)** (resolved in round 11 by a different route; see above). Write `A(q) = χ(q)χ(−q³)χ(q⁷)χ(−q²¹) = f(q,q⁵)f(q⁷,q³⁵)/(f(−q¹²)f(−q⁸⁴))`. The entry says the odd part
   of `A` is `qL(q²)`. It is checked numerically: the odd part is `qL(q²)`, and the even part is a function of `q⁴`
   that is not an eta quotient or a two-term `GG ± HH` combination. Cleared, the entry is
   `L(s)f(−s⁶)f(−s⁴²) = Ψ(s) = f(s²,s¹⁰)f(s²⁸,s⁵⁶) + s³f(s⁴,s⁸)f(s¹⁴,s⁷⁰)` (checked numerically; `Ψ` is

@@ -1,0 +1,13 @@
+ring r=0,(z,L,p1,m1,p3,m3,p7,m7,p21,m21,q),dp;
+option(redSB);
+ideal I=L*m1**2*m3*m7*p1**3*p7 - m1**4*p1**2*q - m3**2*m7**2*p3*p7,
+L*m1**3*m7*p1**2*p3*p7 + m1**2*p1**4*q - m3*m7*p3**2*p7**2,
+L*m1*m21*m7**2*p1*p7**3 - m1**2*m21**2*p1*p21 - m7**4*p7**2*q,
+L*m1*m7**3*p1*p21*p7**2 - m1*m21*p1**2*p21**2 + m7**2*p7**4*q,
+-m1**2*m7**2*p1*p7 + m1*m7*p1**2*p7**2 - 2*q;
+poly t=-2*L*q - m1*m7*p21*p3 + m21*m3*p1*p7;
+ideal J=I,z*p1*m1*p3*m3*p7*m7*p21*m21*q-1;
+ideal SJ=std(J);
+print(reduce(t,SJ));
+print(dim(SJ));
+quit;
