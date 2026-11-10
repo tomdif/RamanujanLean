@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty7.lean` (all proved entries and the lemmas of rounds 1–7, 153 declarations, all `[propext, Classical.choice, Quot.sound]`; `forty.lean`–`forty6.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty8.lean` (all proved entries and the lemmas of rounds 1–8, 222 declarations, all `[propext, Classical.choice, Quot.sound]`; `forty.lean`–`forty7.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -80,17 +80,17 @@ generated normal-form proof, and a short final step.
 | 30 | 3.27(i) `U² + qV² = χ³(q)χ³(q¹¹)` (U, V with 44 and 4·11) | ✅ `entry_3_27_i` (E26) | Watson: (29.14) (`entry_29_14`) from 3.26 and (29.7); pulled back by `q ↦ q²`, times its `q ↦ −q` image |
 | 31 | 3.27(ii) `UV + q = χ²(q)χ²(q¹¹)` | ✅ `entry_3_27_ii` (E27) | Watson (29.17): `3 × 3` elimination with Entry 3.4 at `q⁴` and Entry 3.2 at `q¹¹` |
 | 32 | 3.28(i) `U/V = χ(−q)/χ(−q¹⁷)` (U = G(q¹⁷)H(q²) − q³G(q²)H(q¹⁷), V = G(q)G(q³⁴)+q⁷H(q)H(q³⁴)) | ✅ `entry_3_28_i` (E28) | Type II, `5x²+2xy+7y²+x+7y` |
-| 33 | 3.28(ii) `U⁴V⁴ − qU²V² = …` | ⬜ | modular forms (claimed, never written; Berndt et al.) |
-| 34 | 3.29 (23, 46) | ⬜ | modular forms only (Biagioli) |
+| 33 | 3.28(ii) `U⁴V⁴ − qU²V² = …` | ⬜ | Yesilyurt JMAA 2012 §3; his two lattice identities are proved (`E28p`, `E28m`, E28b/E28c); the algebra is open, see round-8 notes |
+| 34 | 3.29 `{G(q²)G(q²³)+q⁵H(q²)H(q²³)}{G(q⁴⁶)H(q)−q⁹G(q)H(q⁴⁶)} = χ(−q)χ(−q²³) + q + 2q²/(χ(−q)χ(−q²³))` | ✅ `entry_3_29` (E29) | Yesilyurt JMAA 2012 §4 in Cao's language: one form `7x²+12xy+15y²+5x+y`, covers det 5 and 10, signs `(−1)^x`, `(−1)^y` (E29b–E29d); degree-23 equation `M23` by a det-23 QS gluing (E29a) |
 | 35 | 3.30 `{G(q¹⁹)H(q⁴)−q³G(q⁴)H(q¹⁹)}/{G(q⁷⁶)H(−q)+q¹⁵G(−q)H(q⁷⁶)} = χ(−q²)/χ(−q³⁸)` | ✅ `entry_3_30` (E30) | Yesilyurt/Cao: form `10x²+8xy+13y²+6x+10y`, four quintuple collapses (`c=±1`), Cao (59) at `q¹⁹`, `NgOdd` |
 | 36 | 3.31 (33, 66) | ✅ `entry_3_31` (E31) | Berndt et al. §31: two `3 × 3` eliminations (`NU31`, `MT31`; Entries 3.4, 3.7, 3.8) + Entry 3.32 |
 | 37 | 3.32 (22, 11·6) | ✅ `entry_3_32` (E32, E32a) | after Yesilyurt (JNT 2009) but without his 3-dissection: two Type II identities of determinant 396 (`L32T`: `8x²−4xy+50y²+2x+16y`; `L32U`: `18x²−12xy+24y²+16x+2y`), each collapsed by `quint1`/`quintm` to the same `Φ = f(q³,q⁵)f(q⁹⁹,q¹⁶⁵) − q¹⁷f(q,q⁷)f(q³³,q²³¹)` |
 | 38 | 3.33 (54, 27) | ✅ `entry_3_33` (E33), denominators cleared; `entry_3_33'` quotient form | Berndt et al. §32 second proof: Entries 3.6–3.8 at `q, q², q³, q⁶, q⁹`, two `3 × 3` eliminations, 3-dissections of `φ(−q)` and `ψ(q)` (`dis3` from `θ_dissect`) |
 | 39 | 3.34 (19, 38, with `−q`) | ✅ `entry_3_34` (E34) | Berndt et al. §33: 3.20 + 3.21, `G(q)G(−q)f(−q²) = f(q⁴,q⁶)`; (33.6) from `M3_17`, the 20-coset cover `(1 −19; 1 1)` of `φ(±q)φ(±q¹⁹)`, a new Type II for `ψ(q²)ψ(q³⁸)` (form `4x²+4xy+20y²+2x−18y`, covers det 2 and 10), `dis2` |
-| 40 | 3.35 (94, 47, with a square root) | ⬜ | modular forms only |
+| 40 | 3.35 (94, 47, with a square root) | ⬜ | Yesilyurt's product formula `entry_3_35_AB` is proved (E35b–E35); open: the degree-47 equation (his (5.24)), see round-8 notes |
 
-**Proved: 36 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i), 3.30–3.34).
-Open: 3.15(ii), 3.28(ii), 3.29, 3.35.
+**Proved: 37 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i), 3.29, 3.30–3.34).
+Open: 3.15(ii), 3.28(ii), 3.35.
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -187,6 +187,59 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
   - So `D = L₁ − L₂` satisfies `D(q)L₂(q²) = L₂(q)D(q²)` and `D(0) = 0`. The lowest coefficient of `D` would sit at
     `n` on the left and `2n` on the right, so `D = 0` (`eq_zero_of_S2`).
   As a by-product, `L(q)L(q²) = u + q/u` with `u = χ(−q)χ(−q²¹)/(χ(−q³)χ(−q⁷))`.
+
+## Round 8 notes
+
+* **Yesilyurt's sums are Type II identities.** Source: H. Yesilyurt, *Elementary proofs of some identities of Ramanujan
+  for the Rogers–Ramanujan functions*, JMAA 388 (2012) 420–434 (proofs of 3.28(ii), 3.29, 3.35). His
+  `R(ε,δ,l,t,α,β,m,p)` ((2.18), `x = y = 1`) is
+  `Σ_{(M,J)∈ℤ²} (−1)^{εM+δJ} q^{[β(2M+t)² + α(2pJ+2mM+mt+pl)²]/(4p)}`, i.e. the binary form
+  `λM² + 2αm MJ + αp J² + …` (`λ = (αm²+β)/p`, determinant `αβ`) with its product cover of determinant `p`.
+  His Theorems 2.7/2.8 are a second orthogonal cover (determinant `p₁`) of the same form after a unimodular change of
+  variables, and his Lemmas 2.5/2.6 are quintuple collapses (`quint1`, `quintm`) of pairs of cosets. So each of his
+  identities is one `qf_two` plus collapses, exactly as for 3.30 and 3.32. `scripts/forty/round8/rsum.py` turns his
+  parameters into the form; `genw.py` is `gen.py` with a wider numeric window (large coset shifts).
+* **The degree-23 modular equation** (`E29a.lean`, `M23`): `χ(q)χ(q²³) − χ(−q)χ(−q²³) = 2q + 2q³/(χ(−q²)χ(−q⁴⁶))`,
+  i.e. `φ(−q²)φ(−q⁴⁶) − 2q³ψ(−q)ψ(−q²³) − φ(−q)φ(−q²³) = 2q f(−q)f(−q²³)` (`P23`). This is the determinant-23
+  analogue of Cao's (71) (3.18): at `t² = q`, `A − B = t²C` for `A = (4,1,6)`, `B = (2,1,12)`,
+  `C = (3,1,8)` with linear part `(1,8)`, glued by one index-2 cover of each form and three unimodular maps
+  (`m23a.py`–`m23c.py`, `gen_e29a.py`).
+* **3.29** (`E29b`–`E29`). The form `7x²+12xy+15y²+5x+y` (Yesilyurt's (4.1)) with covers `(−5 0; 2 −1)` and
+  `(−1 −9; 1 −1)`. With sign `(−1)^x` (`L29p`) the determinant-5 side is `f(−q²)f(−Q²)A(q²)` (`D5p_ι`); with sign
+  `(−1)^y` (`L29m`) it is `f(−q²)f(−Q²)A(q)A(−q)` (`D5m_ι`, uses Entry 3.21 at `Q` and `G(q)G(−q) = f(q⁴,q⁶)/f(−q²)`).
+  The determinant-10 sides are `Ye ∓ Yo` with the same two groups: `Yo = q²f(−q⁴)f(−Q⁴)A(q²)`,
+  `Ye = f(−q⁴)f(−Q⁴)A(q⁴)B(−q²)` (Entry 3.3 at `−q²`, Yesilyurt (4.4)–(4.10)). Hence his (4.13)
+  `(v + q)A(q) = B(−q)A(q²)` (`E1_29`) and the analogue of his closing remark for 23,
+  `A(q)A(−q) = (1 + 2q²/w)A(q²)` (`E2_29`), which replaces his second functional equation (4.14) (that one needs two
+  more lattice identities). With `M23`: `w·AB = (w + 2q²)(u − q)` and then 3.29.
+* **3.35, partial** (`E35b`–`E35`). Same pipeline at 47: form `10x²+6xy+15y²+12x+13y`, covers `(−5 0; 1 −1)` /
+  `(5 0; −1 1)` and `(−1 3; 0 −10)`, signs `(−1)^x` and `(−1)^{x+y}`. Proved: (5.6) (`E1_47`),
+  `A(q)A(−q) = (1 + 2q⁴/w)A(q²)` (`E2_47`; Yesilyurt's closing remark prints `2q²`, which is wrong), and
+  **`entry_3_35_AB`**: `{G(q)G(q⁹⁴)+q¹⁹H(q)H(q⁹⁴)}{G(q⁴⁷)H(q²)−q⁹G(q²)H(q⁴⁷)} = (q² + χ(q)χ(q⁴⁷))(1 + 2q⁴/(χ(−q²)χ(−q⁹⁴)))`.
+  Given this, Entry 3.35 (squared form) is equivalent to the degree-47 equation, Yesilyurt's (5.24):
+  with `L = u + v`, `T = uv = w`, `4T³ − T²L² + 2q²T²L + 8q⁴T² + 4q⁶TL + 4q⁸T − 4q¹² = 0` (sympy: the numerator of
+  `D² − q²(4v + 9q² + 8q⁴/v)`, `D = u − v − q² + 2q⁶/w`, is exactly `−(5.24)`). (5.24) itself follows from
+  - (5.18) `X₁ = ½(φ(q)φ(Q)+φ(−q)φ(−Q)) + 2q¹²ψ(q²)ψ(Q²) + q²(f(q)f(Q)+f(−q)f(−Q)) + 2q⁸f(−q⁴)f(−Q⁴)` with
+    `X₁ = Σ_{x≡y (2)} q^{(x²+47y²)/2} = φ(q²)φ(Q²) + 4q²⁴ψ(q⁴)ψ(Q⁴)` (`f(q) = (−q;−q)_∞`; checked, `m47a.py`), and
+  - `X₁² = ½(φ²(q)φ²(Q) + φ²(−q)φ²(−Q)) + 8q²⁴ψ²(q²)ψ²(Q²)` (from `φ²(q) = φ²(q²) + 4qψ²(q⁴)` and `φ(q)ψ(q²) = ψ²(q)`),
+  then eliminating `X₁` and cancelling two non-vanishing factors. The missing piece is a lattice proof of (5.18).
+  `f(q)f(Q)` is not a combination of the Cao-friendly products (least squares, `m47b.py`/`m47c.py`), but on the two
+  cosets `n ≡ m (2)`, `n ≢ m (2)` of `f(−q)f(−Q)` the forms are integral (`72m²+6mk+6k²−24m−k`, …) and `q ↦ −q` is a
+  sign character, so all five terms are `QS` of integral forms (`m47d.py`). A search for a tautological refinement
+  (index-2 and index-3 splits, depth 2, linear-algebra matching of pieces, `m47e.py`, `m47f.py`) found none.
+* **3.28(ii), partial** (`E28b`, `E28c`). The form `5x²+34xy+68y²+x` (Yesilyurt's (3.9)/(3.17)) with covers
+  `(0 −4; 1 1)` and `(1 17; 0 −5)`; sign `(−1)^{x+y}` gives `E28p`:
+  `f(−q⁸)(φ(−Q⁴)ψ(−q²) − q⁴ψ(−Q²)φ(−q⁴)) = f(−q²)f(−Q²)V(q²)ψ(−q²)` (his (3.13) at `q²`), sign `(−1)^y` gives
+  `E28m`: the same with `+` equals `f(−q²)f(−Q²)V(q)V(−q)ψ(−q²)` (his (3.21)). Open: the algebra. In terms of
+  `a₁ = χ(q)`, `a₂ = χ(−q)`, `b₁ = χ(Q)`, `b₂ = χ(−Q)`, (3.1) and (3.2) give `U(±q)`, `V(±q)`, `V(q²)` explicitly, and
+  (3.5), (3.6), (3.6) at `−q` become three polynomial relations (`e28f.py`). Singular: (3.7) and (3.8) are **not** in
+  the ideal they generate, even after multiplying by `(a₁a₂b₁b₂q)^k`, `k ≤ 4` (`round8/e28_ideal.sing`); (3.16) and (3.31) are
+  identities in this parametrisation. Yesilyurt's derivation chooses a root at (3.39) → (3.40)
+  (`(S²(q²) − X)² = 4q⁴`, `X = S(q)S(−q)S(−q²)S(q⁴)`), which an ideal computation cannot see; a Lean proof has to make
+  that choice (via a low-order coefficient) and needs his (3.2), (3.4) (with the 2-dissections (3.23)), (3.5), (3.6).
+  But even `(S²(q²)−X−2q²)(S²(q²)−X+2q²)` is not in that ideal (`round8/e28_branch.sing`), so the level-1 relations
+  from (3.1), (3.2), (3.5), (3.6) alone are not enough: (3.4) (through (3.23)) or Jacobi's `χ⁸(q) − χ⁸(−q) = 16q/χ⁸(−q²)`
+  at `q` and `Q` must enter.
 
 ## Obstacles for the rest (after round 7)
 

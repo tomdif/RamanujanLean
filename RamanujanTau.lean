@@ -763,3 +763,13 @@ import RamanujanTau.Forty.E31
 import RamanujanTau.Forty.E26a
 import RamanujanTau.Forty.E26
 import RamanujanTau.Forty.E15
+import RamanujanTau.Forty.E29a
+import RamanujanTau.Forty.E29b
+import RamanujanTau.Forty.E29c
+import RamanujanTau.Forty.E29d
+import RamanujanTau.Forty.E29
+import RamanujanTau.Forty.E28b
+import RamanujanTau.Forty.E28c
+import RamanujanTau.Forty.E35b
+import RamanujanTau.Forty.E35c
+import RamanujanTau.Forty.E35
