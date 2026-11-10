@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty8.lean` (all proved entries and the lemmas of rounds 1–8, 222 declarations, all `[propext, Classical.choice, Quot.sound]`; `forty.lean`–`forty7.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty9.lean` (all proved entries and the lemmas of rounds 1–9, 272 declarations, all `[propext, Classical.choice, Quot.sound]` or a subset; `forty.lean`–`forty8.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -80,17 +80,17 @@ generated normal-form proof, and a short final step.
 | 30 | 3.27(i) `U² + qV² = χ³(q)χ³(q¹¹)` (U, V with 44 and 4·11) | ✅ `entry_3_27_i` (E26) | Watson: (29.14) (`entry_29_14`) from 3.26 and (29.7); pulled back by `q ↦ q²`, times its `q ↦ −q` image |
 | 31 | 3.27(ii) `UV + q = χ²(q)χ²(q¹¹)` | ✅ `entry_3_27_ii` (E27) | Watson (29.17): `3 × 3` elimination with Entry 3.4 at `q⁴` and Entry 3.2 at `q¹¹` |
 | 32 | 3.28(i) `U/V = χ(−q)/χ(−q¹⁷)` (U = G(q¹⁷)H(q²) − q³G(q²)H(q¹⁷), V = G(q)G(q³⁴)+q⁷H(q)H(q³⁴)) | ✅ `entry_3_28_i` (E28) | Type II, `5x²+2xy+7y²+x+7y` |
-| 33 | 3.28(ii) `U⁴V⁴ − qU²V² = …` | ⬜ | Yesilyurt JMAA 2012 §3; his two lattice identities are proved (`E28p`, `E28m`, E28b/E28c); the algebra is open, see round-8 notes |
+| 33 | 3.28(ii) `U⁴V⁴ − qU²V² = (χ³(−q¹⁷)/χ³(−q))(1 + q²χ³(−q)/χ³(−q¹⁷))²` | ✅ `entry_3_28_ii` (E28ii), `entry_3_28_ii'` (cleared) | Yesilyurt JMAA 2012 §3: lattice identities `E28p`, `E28m` (E28b/c); his (3.1)–(3.6) as series identities (E28e/E28g); the algebra (3.29)–(3.44) in the fraction field (`alg28`, E28d); the root at (3.40) chosen mod `q³` (`hbr28`); see round-9 notes |
 | 34 | 3.29 `{G(q²)G(q²³)+q⁵H(q²)H(q²³)}{G(q⁴⁶)H(q)−q⁹G(q)H(q⁴⁶)} = χ(−q)χ(−q²³) + q + 2q²/(χ(−q)χ(−q²³))` | ✅ `entry_3_29` (E29) | Yesilyurt JMAA 2012 §4 in Cao's language: one form `7x²+12xy+15y²+5x+y`, covers det 5 and 10, signs `(−1)^x`, `(−1)^y` (E29b–E29d); degree-23 equation `M23` by a det-23 QS gluing (E29a) |
 | 35 | 3.30 `{G(q¹⁹)H(q⁴)−q³G(q⁴)H(q¹⁹)}/{G(q⁷⁶)H(−q)+q¹⁵G(−q)H(q⁷⁶)} = χ(−q²)/χ(−q³⁸)` | ✅ `entry_3_30` (E30) | Yesilyurt/Cao: form `10x²+8xy+13y²+6x+10y`, four quintuple collapses (`c=±1`), Cao (59) at `q¹⁹`, `NgOdd` |
 | 36 | 3.31 (33, 66) | ✅ `entry_3_31` (E31) | Berndt et al. §31: two `3 × 3` eliminations (`NU31`, `MT31`; Entries 3.4, 3.7, 3.8) + Entry 3.32 |
 | 37 | 3.32 (22, 11·6) | ✅ `entry_3_32` (E32, E32a) | after Yesilyurt (JNT 2009) but without his 3-dissection: two Type II identities of determinant 396 (`L32T`: `8x²−4xy+50y²+2x+16y`; `L32U`: `18x²−12xy+24y²+16x+2y`), each collapsed by `quint1`/`quintm` to the same `Φ = f(q³,q⁵)f(q⁹⁹,q¹⁶⁵) − q¹⁷f(q,q⁷)f(q³³,q²³¹)` |
 | 38 | 3.33 (54, 27) | ✅ `entry_3_33` (E33), denominators cleared; `entry_3_33'` quotient form | Berndt et al. §32 second proof: Entries 3.6–3.8 at `q, q², q³, q⁶, q⁹`, two `3 × 3` eliminations, 3-dissections of `φ(−q)` and `ψ(q)` (`dis3` from `θ_dissect`) |
 | 39 | 3.34 (19, 38, with `−q`) | ✅ `entry_3_34` (E34) | Berndt et al. §33: 3.20 + 3.21, `G(q)G(−q)f(−q²) = f(q⁴,q⁶)`; (33.6) from `M3_17`, the 20-coset cover `(1 −19; 1 1)` of `φ(±q)φ(±q¹⁹)`, a new Type II for `ψ(q²)ψ(q³⁸)` (form `4x²+4xy+20y²+2x−18y`, covers det 2 and 10), `dis2` |
-| 40 | 3.35 (94, 47, with a square root) | ⬜ | Yesilyurt's product formula `entry_3_35_AB` is proved (E35b–E35); open: the degree-47 equation (his (5.24)), see round-8 notes |
+| 40 | 3.35 (94, 47, with a square root) | ⬜ | Yesilyurt's product formula `entry_3_35_AB` is proved (E35b–E35); the level-47 eta–theta identity `L47` is proved (E35d); open: two even-part identities and the assembly of (5.18), see round-9 notes |
 
-**Proved: 37 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i), 3.29, 3.30–3.34).
-Open: 3.15(ii), 3.28(ii), 3.35.
+**Proved: 38 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i,ii), 3.29, 3.30–3.34).
+Open: 3.15(ii), 3.35.
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -240,6 +240,51 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
   But even `(S²(q²)−X−2q²)(S²(q²)−X+2q²)` is not in that ideal (`round8/e28_branch.sing`), so the level-1 relations
   from (3.1), (3.2), (3.5), (3.6) alone are not enough: (3.4) (through (3.23)) or Jacobi's `χ⁸(q) − χ⁸(−q) = 16q/χ⁸(−q²)`
   at `q` and `Q` must enter.
+
+## Round 9 notes
+
+* **3.28(ii) is proved** (`entry_3_28_ii`, quotient form; `entry_3_28_ii'`, cleared:
+  `(U⁴V⁴ − qU²V²)χ³(−q)χ³(−q¹⁷) = (χ³(−q¹⁷) + q²χ³(−q))²`). Yesilyurt's §3, organised in three layers:
+  - *Series identities* (E28e, E28g; names `Y*`), with `a1 = χ(q)`, `a2 = χ(−q)`, `b1 = χ(Q)`, `b2 = χ(−Q)`,
+    `c = a1a2 = χ(−q²)`, `d = b1b2 = χ(−Q²)`: (1.4) `Y14` and its images at `−q, q², −q², q⁴`; (3.13) `Y13A` (from
+    `E28p` by `S_inj 2`); (3.21) `Y21` (= `E28m`); (3.15) `Y15` (the `3 × 3` determinant is a ring identity, plus
+    Entries 3.2 at `±q` and 3.20); the 2-dissection of `φ` in product form `phi_dis` and his (3.23) `J23`; then (3.1)
+    `Y1`, (3.2) `Y2`, (3.3) `Y3`, (3.4) `Y4`, (3.5) `Y5`, (3.28) pulled back `P28`, (3.6) `Y6` and its images
+    `Y6m`, `Y6q2`.
+  - *Algebra* in an abstract integral domain / field: `glue1`–`glue3`, `alg4`, `alg5`, `alg27`, `alg6` (E28f; each
+    certificate checked by `scripts/forty/round9/glue.py`) and `alg28` (E28d), which runs (3.29)–(3.44) with the
+    explicit parametrisation by `a1, a2, b1, b2` (`field_simp; ring`) and is applied in `FractionRing ℤ⟦q⟧`.
+    `(3.4)` (`alg4`) needs (3.3) at `q²`, (3.1) at `q⁴` and (3.23) at `q` and `Q`, as the round-8 Singular check
+    predicted.
+  - *The branch* (3.39) → (3.40): `(S²(q²) − R)² = 4q⁴` with the explicit square root
+    `R = χ(−q²)V(q)V(−q)U(−q²)V(q⁴)/χ(−Q²)` of (3.35); the other factor
+    `(S²(q²) + 2q²)χ(−Q²) − χ(−q²)V(q)V(−q)U(−q²)V(q⁴)` is `≡ 4q² (mod q³)` (`hbr28`), computed in
+    `ℤ⟦q⟧ ⧸ (q³)` from `Pinf ≡ Pfin _ _ 2`, `S_a f ≡ f(0)` for `a ≥ 3`, `G ≡ 1 + q + q²`, `G(−q) ≡ 1 − q + q²`,
+    `G(q²) ≡ 1 + q²` (`πG`, `πNgG`, `πS2G`). `scripts/forty/round9/branch.py` has the quotients.
+* **3.35: the level-47 eta–theta identity** (E35d, `L47`). With `θ(Q) = Σ_{ℤ²} q^{Q(x,y)}`:
+  `2q²f(−q)f(−q⁴⁷) = θ(2x²+xy+6y²) − θ(3x²+xy+4y²)` (`h(−47) = 5`; the eta product is half the difference of the
+  two non-principal genus-mates). In `t` (`t² = q`): `2f(−q)f(−q⁴⁷)` is the single form `3x²+2xy+16y²+x+16y` with
+  sign `(−1)^x` (`m47u.py`), and `A − B = t⁴C` glues by index-2 covers and three unimodular maps (`m47v.py`,
+  `gen_e47.py`), exactly as `P23` for 23.
+* **3.35: reduction of Yesilyurt's (5.18)** (checked to `q⁷⁰⁰`, `m47x.py`). Put
+  `Θ1 = φ(q)φ(Q) + 4q¹²ψ(q²)ψ(Q²)`, `Θ2 = φ(q²)φ(Q²) + 2q⁶ψ(q)ψ(Q) + 4q²⁴ψ(q⁴)ψ(Q⁴)`,
+  `Θ3 = φ(q³)φ(Q³) + 2q⁴f(q²,q⁴)f(Q²,Q⁴) + 2q¹⁶f(q,q⁵)f(Q,Q⁵) + 4q³⁶ψ(q⁶)ψ(Q⁶)` (the theta series of
+  `x²+xy+12y²`, `2x²+xy+6y²`, `3x²+xy+4y²`; `Θ2`, `Θ3` are `LA47`, `LB47` at `t² = q`). Then
+  - (E) `Θ2 − Θ3 = 2q²f(−q)f(−Q)` (`L47`);
+  - (R2) `q⁶(ψ(q)ψ(Q) + ψ(−q)ψ(−Q)) = Θ3(q²) − Θ2(q⁴)` (equivalently `Θ2(q) + Θ2(−q) = 2(Θ3(q²) + Θ1(q²) − Θ2(q⁴))`);
+  - (R3) `Θ3(q) + Θ3(−q) = 2(Θ2(q²) + Θ3(q²) − Θ3(q⁴))`;
+  - `Θ2(q²) = Θ1(q⁴) + 2q¹²ψ(q²)ψ(Q²)` (termwise), `X₁ = Θ1(q²)`, `½(φ(q)φ(Q)+φ(−q)φ(−Q)) = Θ1(q⁴)`.
+  So `q²(f(q)f(Q) + f(−q)f(−Q)) = ½[(E) + Ng (E)] = Θ1(q²) − Θ2(q²) − Θ2(q⁴) + Θ3(q⁴)` and
+  `2q⁸f(−q⁴)f(−Q⁴) = Θ2(q⁴) − Θ3(q⁴)` (`S 4` of (E)); their sum is (5.18). (R2), (R3) are the Hecke relations at the
+  split prime 2 (`x even` ↦ `θ3(q²)`, `y even` ↦ `θ1(q²)`, both even ↦ `θ2(q⁴)`, and the same for `θ3`); as QS identities
+  they are tautological: the split-tree search (`tree.py`, `m47r2b.py`) solves (R2) at depth 3 (residual `2·10⁻¹¹`,
+  none at depth ≤ 2). Remaining for 3.35: integral gluings for (R2), (R3) extracted from the depth-3 solution, the
+  product forms of `L47` (bar thetas via `θ_bar`), the assembly of (5.18), `X₁² = ½(φ²(q)φ²(Q)+φ²(−q)φ²(−Q)) +
+  8q²⁴ψ²(q²)ψ²(Q²)` (a Type I for `φ²`), and the algebra (5.20)–(5.24) with the two non-vanishing factors.
+* **3.15(ii)**: not attempted beyond scoping. By the uniqueness argument of round 7 it is equivalent to
+  `M(q)M(q²) = u + q/u` for `M = Odd[A](s)/s`; since `Odd[A](s) = (A(s) − A(−s))/2` with `A` an eta quotient, this
+  is a linear relation among five weight-0 eta quotients (`A(±s)A(±s²)` and `u + q/u`). A Cao-style proof would
+  need a common denominator that turns every term into a product of two theta functions; that has not been checked.
 
 ## Obstacles for the rest (after round 7)
 
