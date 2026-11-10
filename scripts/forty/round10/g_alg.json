@@ -1,0 +1,10 @@
+{
+ "K": "2*(chip 1)^2*(Pinf 1 2)^2*(chip 47)^2*(Pinf 47 94)^2*(X)^2*((chip 1)*(chip 47) + (Pinf 1 2)*(Pinf 47 94)) + (chip 1)^2*(Pinf 1 2)^2*(chip 47)^2*(Pinf 47 94)^2*((chip 1)^2*(chip 47)^2 + (Pinf 1 2)^2*(Pinf 47 94)^2) + 4*(chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94)*(X)^8 + 4*(X)^12",
+ "M": "(chip 1)^4*(Pinf 1 2)^4*(chip 47)^4*(Pinf 47 94)^4*((chip 1)^4*(chip 47)^4 + (Pinf 1 2)^4*(Pinf 47 94)^4) + 16*(X)^24",
+ "f1": "(chip 1)^2*(Pinf 1 2)*(chip 47)^2*(Pinf 47 94) + (chip 1)*(Pinf 1 2)^2*(chip 47)*(Pinf 47 94)^2 + 2*(X)^6",
+ "f2": "(chip 1)^2*(Pinf 1 2)*(chip 47)^2*(Pinf 47 94) + (chip 1)*(Pinf 1 2)^2*(chip 47)*(Pinf 47 94)^2 - 2*(chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94)*(X)^2 + 2*(X)^6",
+ "m": "(chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94)",
+ "P": "(Pinf 2 2)*(Pinf 94 94)",
+ "K1cert": "(2 * ((chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94))^2) * h518 + ((chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94))^2 * hS4 + 4 * X^12 * ((((chip 47)*(Pinf 47 94))^2 * ((fb 94 376))) * hps + ((Pinf 2 2)) * hPs) + 2 * X^2 * ((chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94))^2 * (hV + hNV) + 4 * X^8 * ((chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94)) * hS4V",
+ "K2cert": "((chip 1)*(Pinf 1 2)*(chip 47)*(Pinf 47 94))^4 * ((2 * ((S 2 T1) + (fb 94 188)*(fb 2 4) + (fb0 188)*(fb0 4)*(X)^24)) * hX1 - (((chip 1)^2*(Pinf 2 2))^2 * sqQ + ((fb 94 188)^2 + (fb0 188)^2*(X)^47) * sq) - (((Pinf 1 2)^2*(Pinf 2 2))^2 * sqQN + ((fb 94 188)^2 - (fb0 188)^2*(X)^47) * sqN) + 4 * X^24 * (((fb 94 188)*(fb0 188)) * p6 + 2 * ((fb 2 8))^2 * p6Q)) + 16 * X^24 * ((fb 94 376)*(chip 1)^2*(Pinf 1 2)^2*(chip 47)^2*(Pinf 47 94)^2*(fb 2 8) + (Pinf 2 2)*(Pinf 94 94)) * (((fb 94 376)*(chip 47)^2*(Pinf 47 94)^2) * hps + ((Pinf 2 2)) * hPs)"
+}

@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty9.lean` (all proved entries and the lemmas of rounds 1–9, 272 declarations, all `[propext, Classical.choice, Quot.sound]` or a subset; `forty.lean`–`forty8.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty10.lean` (all proved entries and the lemmas of rounds 1–10, 345 declarations, all `[propext, Classical.choice, Quot.sound]` or a subset; `forty.lean`–`forty9.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -87,10 +87,10 @@ generated normal-form proof, and a short final step.
 | 37 | 3.32 (22, 11·6) | ✅ `entry_3_32` (E32, E32a) | after Yesilyurt (JNT 2009) but without his 3-dissection: two Type II identities of determinant 396 (`L32T`: `8x²−4xy+50y²+2x+16y`; `L32U`: `18x²−12xy+24y²+16x+2y`), each collapsed by `quint1`/`quintm` to the same `Φ = f(q³,q⁵)f(q⁹⁹,q¹⁶⁵) − q¹⁷f(q,q⁷)f(q³³,q²³¹)` |
 | 38 | 3.33 (54, 27) | ✅ `entry_3_33` (E33), denominators cleared; `entry_3_33'` quotient form | Berndt et al. §32 second proof: Entries 3.6–3.8 at `q, q², q³, q⁶, q⁹`, two `3 × 3` eliminations, 3-dissections of `φ(−q)` and `ψ(q)` (`dis3` from `θ_dissect`) |
 | 39 | 3.34 (19, 38, with `−q`) | ✅ `entry_3_34` (E34) | Berndt et al. §33: 3.20 + 3.21, `G(q)G(−q)f(−q²) = f(q⁴,q⁶)`; (33.6) from `M3_17`, the 20-coset cover `(1 −19; 1 1)` of `φ(±q)φ(±q¹⁹)`, a new Type II for `ψ(q²)ψ(q³⁸)` (form `4x²+4xy+20y²+2x−18y`, covers det 2 and 10), `dis2` |
-| 40 | 3.35 (94, 47, with a square root) | ⬜ | Yesilyurt's product formula `entry_3_35_AB` is proved (E35b–E35); the level-47 eta–theta identity `L47` is proved (E35d); open: two even-part identities and the assembly of (5.18), see round-9 notes |
+| 40 | 3.35 (94, 47, with a square root) | ✅ `entry_3_35` (E35g; squared form), `entry_3_35_root` / `entry_3_35_unique` (E35h; the root with constant term `2`) | Yesilyurt JMAA 2012 §5: `entry_3_35_AB` (E35b–E35); his (5.18) from `L47` in product form (`E47`) at `q`, `−q`, `q⁴` and the two even-part identities `R2`, `R3` (E35e/E35f, parity splits); `φ² = φ²(q²) + 4qψ²(q⁴)` (`phi_sq`); the degree-47 equation (5.24) `M47`; see round-10 notes |
 
-**Proved: 38 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i,ii), 3.29, 3.30–3.34).
-Open: 3.15(ii), 3.35.
+**Proved: 39 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i,ii), 3.29, 3.30–3.35).
+Open: 3.15(ii).
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -285,6 +285,41 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
   `M(q)M(q²) = u + q/u` for `M = Odd[A](s)/s`; since `Odd[A](s) = (A(s) − A(−s))/2` with `A` an eta quotient, this
   is a linear relation among five weight-0 eta quotients (`A(±s)A(±s²)` and `u + q/u`). A Cao-style proof would
   need a common denominator that turns every term into a product of two theta functions; that has not been checked.
+
+## Round 10 notes
+
+* **3.35 is proved** (`entry_3_35`, squared form: with `x = χ(−q)χ(−q⁴⁷)` and `AB` the product of the two brackets,
+  `(AB − x − 2q² − 2q⁴/x)² = q²(4x + 9q² + 8q⁴/x)`; `entry_3_35_root`: `AB = x + 2q² + 2q⁴/x + q r` with
+  `r² = 4x + 9q² + 8q⁴/x`, `r(0) = 2`; `entry_3_35_unique`: that `r` is the only such series). Files:
+  - `E35e`: barred thetas as products, `fb e N = f(q^e,q^{N−e}) = J_{2e,2N}J_{N,2N}/J_{e,N}`, `fb0 N = f(1,q^N)`, with
+    `θ_N(e,−1) = ι(fb e N)` (`θfb`, from `θ_bar`), `θfb0`, `S_fb`, and `q ↦ −q`: `Ng_fb_odd` (`e` odd, `N` even:
+    `fb e N ↦ J_{e,N}`), `Ng_fb_even`, `Ng_fb0`. The three theta series of discriminant `−47` in product form `T1`, `T2`,
+    `T3`, and `E47 : T2 − T3 = 2q² f(−q)f(−q⁴⁷)` (`L47` in product form).
+  - `E35f`: (R2) `T2(q) + T2(−q) = 2(T3(q²) + T1(q²) − T2(q⁴))` and (R3) `T3(q) + T3(−q) = 2(T2(q²) + T3(q²) − T3(q⁴))`.
+    No least-squares gluing is needed: both are inclusion–exclusion over the parity classes (`Q₂ ≡ xy`,
+    `Q₃ ≡ x(x+y) mod 2`). In `t` (`t² = q`) the `QS` steps are `y`-splits, `x`-splits, one swap and, for `Θ3(q²)`, the
+    index-2 cover `(1 1; −1 1)` followed by `(−1 0; 0 1)` (found by `round10/r3search.py`). The image under `q ↦ −q` is
+    read off coset by coset of the orthogonal cover: for `Θ3` the sign is `(−1)^x` on `y` even and `+1` on `y` odd, so
+    `ι S₂(Ng T3) = QS((−1)^x on y even) + t⁸ QS(y odd)` termwise from two orthogonal expansions (`LRY0m`, `LRY1`); for
+    `Θ2` the roles of `y` even/odd swap (`LRZ0`, `LRZ1m`). Generated by `round10/gen_r23.py`, `asm_f.py`.
+  - `E35g`: (5.18) as `E518` (from `E47`, `Ng E47`, `S₄ E47`, `R2`, `R3`; checked in `round10/alg47.py`);
+    `phi_sq : φ(q)² = φ(q²)² + 4qψ(q⁴)²` (two orthogonal covers of `x² + y²`) and `φ(q)ψ(q²) = ψ(q)²` give
+    `2T1(q²)² = φ²(q)φ²(Q) + φ²(−q)φ²(−Q) + 16q²⁴ψ²(q²)ψ²(Q²)`. With `u = χ(q)χ(Q)`, `v = χ(−q)χ(−Q)`, `w = uv`,
+    `P = f(−q²)f(−Q²)`: `2w²T1(q²) = P·K`, `2w⁴T1(q²)² = P²·M`, hence `K² = 2M`, and
+    `K² − 2M = (2q⁶ + uv(u+v))(2q⁶ − 2q²uv + uv(u+v))·E₄₇` with both factors `≡ 2 (mod q)`. So **`M47`**:
+    `4T³ − T²L² + 2q²T²L + 8q⁴T² + 4q⁶TL + 4q⁸T − 4q¹² = 0` (`L = u+v`, `T = uv`; Yesilyurt (5.24), Ramanujan's
+    degree-47 equation). `entry_3_35` is `entry_3_35_AB` plus `M47` (one `linear_combination`, certificate from
+    `alg47.py`).
+  - `E35h`: the branch, computed modulo `q²` (`χ(q) ≡ 1 + q`, `χ(−q) ≡ 1 − q`, `χ(±q⁴⁷) ≡ 1`), so the coefficient of
+    `q` in `AB − x − 2q² − 2q⁴/x` is `2`.
+* **3.15(ii)**: the suggested check was run and is negative. In the form
+  `(A(s) − A(−s))(A(s²) − A(−s²))Π(s²) = 4s³(χ²(−s²)χ²(−s⁴²) + s²χ²(−s⁶)χ²(−s¹⁴))` (`s² = q`, the round-7
+  uniqueness reduction), no single generalized eta quotient `E` turns all six terms, or even the four `A`-terms, into
+  products of two Jacobi thetas `f(±s^a, ±s^b)` (all moduli dividing 336; `round10/e15_common.py`). In the form
+  `L(q)f(−q⁶)f(−q⁴²) = Ψ(q)` compared with `L f(−q³)f(−q⁷)` or `L f(−q)f(−q²¹)` (two-term theta sums), there is also no
+  common multiplier (moduli ≤ 420 dividing 1680; `e15_common2.py`). So a Cao-style two-variable proof does not exist in
+  these formulations. Every route found is a weight-2 identity among products of four thetas, which needs a
+  4-dimensional lattice argument or a new idea.
 
 ## Obstacles for the rest (after round 7)
 

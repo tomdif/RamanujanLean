@@ -779,3 +779,7 @@ import RamanujanTau.Forty.E28f
 import RamanujanTau.Forty.E28d
 import RamanujanTau.Forty.E28ii
 import RamanujanTau.Forty.E35d
+import RamanujanTau.Forty.E35e
+import RamanujanTau.Forty.E35f
+import RamanujanTau.Forty.E35g
+import RamanujanTau.Forty.E35h
