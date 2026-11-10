@@ -321,7 +321,7 @@ with the build and audit commands in the [overview](../README.md#build-and-verif
 |---|---|---|
 | Fifth-order mock theta functions | **All ten Lost Notebook identities unconditional** (`MockTheta5All/All.lean`, `mock_theta_{f0,f1,F0,F1,phi0,phi1,psi0,psi1,chi0,chi1}`) | — |
 | Septic theta identities | `septic_entry_1_1_i`; `page206_unconditional` (Rebák's Thm 4.1, corrected 7^{−3/4}); `SonProof.septicSonCore` (Entry 1.1(iii) + sextic relation) and a second p. 206 proof `page206_via_son` | — |
-| Forty identities | 33/40: 3.1–3.14, 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.25, 3.27(ii), 3.28(i), 3.30–3.34, plus Watson's Lemma 4.1 (3.31, 3.32 previously had only modular-form proofs) | 3.26/3.27(i) (a four-theta identity, checked to q³⁰⁰); 3.28(ii), 3.29, 3.35 (Yesilyurt via degree-23/47 modular equations); 3.15(i,ii) |
+| Forty identities | 36/40: all but 3.15(ii), 3.28(ii), 3.29, 3.35. 3.26/3.27(i) without Schröter's degree-11 equation (a Type II identity replaces it); 3.15(i), 3.31, 3.32 without modular forms | 3.15(ii) (a 4D theta identity); 3.28(ii), 3.29, 3.35 need degree-17/23/47 modular equations as Type II identities |
 | Deligne's bound | Developed in the companion repo [RamanujanWeil](https://github.com/tomdif/RamanujanWeil): proved from the Weil conjectures (AxiomMath/Weil) modulo named Deuring/Tate hypotheses (see its README) | `TateFinitenessPolAll`, `RadicialDual`, `DeuringClassLatticeAll` |
 
 ## Results of 2026-11-03

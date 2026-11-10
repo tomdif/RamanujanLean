@@ -760,3 +760,6 @@ import RamanujanTau.Forty.E16ii
 import RamanujanTau.Forty.E32a
 import RamanujanTau.Forty.E32
 import RamanujanTau.Forty.E31
+import RamanujanTau.Forty.E26a
+import RamanujanTau.Forty.E26
+import RamanujanTau.Forty.E15

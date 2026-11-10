@@ -5,7 +5,7 @@ Source of the statements: B. C. Berndt, G. Choi, Y.-S. Choi, H. Hahn, B. P. Yeap
 40 identities). The main proof method used here is from Z. Cao, *Quadratic forms, exact covering systems, and product
 identities for theta functions*, arXiv:2503.11445 (Types I/II).
 
-Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty6.lean` (all proved entries and the lemmas of rounds 1–6, 123 declarations, all `[propext, Classical.choice, Quot.sound]`; `forty.lean`–`forty5.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
+Lean: `RamanujanTau/Forty/`. Audit: `scripts/audit/forty7.lean` (all proved entries and the lemmas of rounds 1–7, 153 declarations, all `[propext, Classical.choice, Quot.sound]`; `forty.lean`–`forty6.lean` are the earlier rounds). Numerics: `scripts/forty/verify_forty.py` checks all 40
 identities to order 200, with G and H computed from their **sum** sides. Generators: `scripts/forty/ecs.py` searches
 for exact covers; `scripts/forty/gen.py` emits the ECS definitions and the theta and product theorems.
 
@@ -62,8 +62,8 @@ generated normal-form proof, and a short final step.
 | 12 | 3.12 `G(q)G(q²⁴) + q⁵H(q)H(q²⁴) = χ(−q³)χ(−q¹²)/(χ(−q)χ(−q⁴))` | ✅ `entry_3_12` (E12) | Type II, `5x²+2xy+5y²+x+5y` |
 | 13 | 3.13 `G(q⁹)H(q⁴) − qG(q⁴)H(q⁹) = χ(−q)χ(−q⁶)/(χ(−q³)χ(−q¹⁸))` | ✅ `entry_3_13` (E13) | Cao Type III: form `7x²+6xy+9y²+6x`, covers `(1 3;−1 2)`, `(0 −3;1 1)`, quintuple product at `c=±1` (`ALz.quint_theta`), Cao (59) at `q⁹` |
 | 14 | 3.14 `G(q³⁶)H(q) − q⁷G(q)H(q³⁶) = χ(−q⁶)χ(−q⁹)/(χ(−q²)χ(−q³))` | ✅ `entry_3_14` (E14) | Cao (64): Type II on `5x²+4xy+8y²+3x−6y` gives the numerator of 3.13; then 3.13 |
-| 15 | 3.15(i) `G(q³)G(q⁷)+q²H(q³)H(q⁷) = G(q²¹)H(q) − q⁴G(q)H(q²¹)` | ⬜ | modular forms (Biagioli); see round-6 scoping |
-| 16 | 3.15(ii) the same equals `(1/2√q)[χ(q^{1/2})χ(−q^{3/2})χ(q^{7/2})χ(−q^{21/2}) − …]` | ⬜ | modular forms |
+| 15 | 3.15(i) `G(q³)G(q⁷)+q²H(q³)H(q⁷) = G(q²¹)H(q) − q⁴G(q)H(q²¹)` | ✅ `entry_3_15_i` (E15) | new elementary proof: two Cramer eliminations with Entries 3.7–3.10 give `L₂(q)L₁(q²) = L₁(q)L₂(q²)` (`prod15a`, `prod15b`), then `D(q)L₂(q²) = L₂(q)D(q²)`, `D(0)=0` forces `D = 0` (`eq_zero_of_S2`) |
+| 16 | 3.15(ii) the same equals `(1/2√q)[χ(q^{1/2})χ(−q^{3/2})χ(q^{7/2})χ(−q^{21/2}) − …]` | ⬜ | modular forms; see round-7 notes |
 | 17 | 3.16(i) `G(q²)G(q¹³)+q³H(q²)H(q¹³) = G(q²⁶)H(q) − q⁵G(q)H(q²⁶)` | ✅ `entry_3_16_i` (E16) | Cao §3.4: form `5x²+2xy+8y²+x−5y`, four quintuple collapses, Cao (59) at `q` and `q¹³` |
 | 18 | 3.16(ii) the same equals `√(χ(−q¹³)/χ(−q) − qχ(−q)/χ(−q¹³))` | ✅ `entry_3_16_ii` (E16ii; squared form), `entry_3_16_ii'` (other side), `entry_3_16_ii_unique` (the branch: unique square root with constant term 1) | Berndt et al. §19 without the operator `L`: Lemma 5.1 used through its quintuple-product components (`Q16`), Type I `(2 −13; 1 1)` on `f(1,q)φ(−q¹³)` (`P16_1`), Type II on `3x²+10xy+17y²−x+7y` (`P16_2`) |
 | 19 | 3.17 `G(q)G(q¹⁹)+q⁴H(q)H(q¹⁹) = …` (three χ terms) | ✅ `entry_3_17` (E17), stated with `q ↦ q²` to clear `q^{1/2}` | Cao: form `4x²+2xy+5y²+4x+y` (det-5 and det-4 covers, Cao (80)/(81)) + 2-dissection of `φ` (`MTC.dissect2`) |
@@ -76,8 +76,8 @@ generated normal-form proof, and a short final step.
 | 26 | 3.23 `G(−q²)G(−q³) + qH(−q²)H(−q³) = χ(q)χ(q⁶)/(χ(q²)χ(q³))` | ✅ `entry_3_23` (E23) | Lemma 4.1 in 3.8 (Berndt et al. (15.4)); odd part = 3.11 at `q²`; even part via (11.10) at `−q` (`star1110_neg`), `S_inj`, `q ↦ −q` |
 | 27 | 3.24 `G(−q⁶)H(−q) − qH(−q⁶)G(−q) = χ(q²)χ(q³)/(χ(q)χ(q⁶))` | ✅ `entry_3_24` (E24) | Lemma 4.1 at `q³` in 3.7 (Berndt et al. (16.5)); even part = 3.12 at `q²`; odd part via (11.10) (`P11`, 2-dissection of `f(q,q⁵)`) |
 | 28 | 3.25 `G(−q)G(q⁹) − q²H(−q)H(q⁹) = χ(−q)χ(q⁹)/χ(−q⁶)` | ✅ `entry_3_25` (E25) | Berndt et al. §28 second proof: Type I cover `(1 1;−2 3)` of `f(q⁶,q¹²)f(−q)`, quintuple at `c=−1`, product forms of `G(−q)`, `H(−q)` (`NgOdd`) |
-| 29 | 3.26 `G(q¹¹)H(−q) + q²G(−q)H(q¹¹) = …` | ⬜ | Watson |
-| 30 | 3.27(i) `U² + qV² = χ³(q)χ³(q¹¹)` (U, V with 44 and 4·11) | ⬜ | Watson |
+| 29 | 3.26 `G(q¹¹)H(−q) + q²G(−q)H(q¹¹) = …` | ✅ `entry_3_26` (E26), `entry_3_26'` (cleared) | Watson §29 with Schröter's degree-11 equation replaced by `M26chi` (E26a: Type II on the form of 3.4, covers det 3 and 4, + `dis2`); (29.7)–(29.9) from Lemma 4.1, 3.4, 3.20; sign by constant term |
+| 30 | 3.27(i) `U² + qV² = χ³(q)χ³(q¹¹)` (U, V with 44 and 4·11) | ✅ `entry_3_27_i` (E26) | Watson: (29.14) (`entry_29_14`) from 3.26 and (29.7); pulled back by `q ↦ q²`, times its `q ↦ −q` image |
 | 31 | 3.27(ii) `UV + q = χ²(q)χ²(q¹¹)` | ✅ `entry_3_27_ii` (E27) | Watson (29.17): `3 × 3` elimination with Entry 3.4 at `q⁴` and Entry 3.2 at `q¹¹` |
 | 32 | 3.28(i) `U/V = χ(−q)/χ(−q¹⁷)` (U = G(q¹⁷)H(q²) − q³G(q²)H(q¹⁷), V = G(q)G(q³⁴)+q⁷H(q)H(q³⁴)) | ✅ `entry_3_28_i` (E28) | Type II, `5x²+2xy+7y²+x+7y` |
 | 33 | 3.28(ii) `U⁴V⁴ − qU²V² = …` | ⬜ | modular forms (claimed, never written; Berndt et al.) |
@@ -89,7 +89,8 @@ generated normal-form proof, and a short final step.
 | 39 | 3.34 (19, 38, with `−q`) | ✅ `entry_3_34` (E34) | Berndt et al. §33: 3.20 + 3.21, `G(q)G(−q)f(−q²) = f(q⁴,q⁶)`; (33.6) from `M3_17`, the 20-coset cover `(1 −19; 1 1)` of `φ(±q)φ(±q¹⁹)`, a new Type II for `ψ(q²)ψ(q³⁸)` (form `4x²+4xy+20y²+2x−18y`, covers det 2 and 10), `dis2` |
 | 40 | 3.35 (94, 47, with a square root) | ⬜ | modular forms only |
 
-**Proved: 33 of 40** (3.1–3.14, 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.25, 3.27(ii), 3.28(i), 3.30–3.34).
+**Proved: 36 of 40** (3.1–3.14, 3.15(i), 3.16(i,ii), 3.17, 3.18, 3.19(i,ii), 3.20–3.27, 3.28(i), 3.30–3.34).
+Open: 3.15(ii), 3.28(ii), 3.29, 3.35.
 
 In the Lean statements `G(−q)` is `Ng G` and `ψ(q) = f(q,q³) = Σ_{n≥0} q^{n(n+1)/2}` is `RamanujanTau.Septic.ramF 1 3`, a sum definition whose product form `psi_chip` comes from the repo's `ramF_product`.
 
@@ -159,9 +160,56 @@ single square root over the difference. 3.22 has `G(−q⁴)`, not `G(q⁴)`.
   3.31 then follows from the memoir's §31 (`N U = 1 − qW`, `M T = −q + 1/W`, both `ring` identities plus Entries 3.4,
   3.7, 3.8).
 
-## Obstacles for the rest (after round 6)
+## Round 7 notes
 
-* **3.26 and 3.27(i)** (still open). Reduction checked numerically to `q³⁰⁰`: with
+* **The degree-11 modular equation as a Type II identity** (`E26a.lean`). The form of Entry 3.4,
+  `3x²+2xy+4y²+x+4y` with sign `(−1)^x`, also has the determinant-4 cover `(0 −4; 1 1)`. Its cosets give
+  `2f(−q²)f(−q²²) = 2ψ(q⁸)φ(q⁴⁴) − 2q²ψ(q²)ψ(q²²) + 2q¹⁰φ(q⁴)ψ(q⁸⁸)` (`L3_26`, in `ℂ((t))` with `t = q`). With
+  `φ(q) = φ(q⁴) + 2qψ(q⁸)` this is `φ(q)φ(q¹¹) − φ(−q)φ(−q¹¹) − 4q³ψ(q²)ψ(q²²) = 4q f(−q²)f(−q²²)` (`M3_26`), i.e.
+  `χ²(q)χ²(q¹¹) − χ²(−q)χ²(−q¹¹) − 4q³/(χ²(−q²)χ²(−q²²)) = 4q` (`M26chi`). This is the level-11 member of the
+  family of 3.17 (`4q·[3.4 bracket] = …`) and the exact replacement for Schröter's equation in Watson's §29.
+* **3.26** (`E26.lean`). The four-theta reduction of round 6 was not needed. (29.7) is Lemma 4.1 at `±q`, `q¹¹`
+  multiplied out; the terms with exponent `≡ 3 (mod 4)` are Entry 3.4 at `q¹⁶` and `−q⁴`
+  (`T26_expand`, `T26_expand_neg`). Hence `YZ(T(−q) − T(q)) = 4q³` (`T26_diff`), with `Y = χ(−q²)χ(−q²²)`,
+  `Z = χ(−q⁴)χ(−q⁴⁴)`. `Y²(T(q)T(−q) − 1) = 4q²` (`T26_prod`) is pure algebra: `T(q)T(−q)` minus the product of
+  Entry 3.4 at `q` and `−q` is `q²` times Entry 3.20 at `q` and `q¹¹`. With `M26chi` at `q²` these give
+  `(TYZ + 2q³)² = (χ(q²)χ(q²²)Z)²`, and the constant term picks the sign.
+* **3.27(i)**. (29.14) `U(−q⁴) + q²V(−q⁴) = χ(q²)χ(q²²)χ(−q⁴)χ(−q⁴⁴)` is (29.7) plus 3.26 (`entry_29_14`).
+  Pulled back by `S_inj 2` it is `U(−q²) + qV(−q²) = χ(q)χ(q¹¹)χ(−q²)χ(−q²²)` (`star26_plus`); its `q ↦ −q`
+  image is `star26_minus`. Their product is 3.27(i) at `−q²`, and `S_inj 2`, `Ng_Ng` undo the substitution.
+* **3.15(i)** (`E15.lean`) is new: no modular forms and no theta identity are needed. With
+  `L₁ = G(q³)G(q⁷)+q²H(q³)H(q⁷)` and `L₂ = G(q²¹)H(q) − q⁴G(q)H(q²¹)`:
+  - Entries 3.7 at `q⁷` and 3.9 at `q³` form a `2 × 2` system in `G(q²¹)`, `H(q²¹)` with determinant `−q³L₁(q²)`.
+    Cramer's rule plus Entries 3.8 and 3.10 give
+    `L₂(q)L₁(q²)·χ(−q)χ(−q³)χ(−q⁷)χ(−q²¹) = χ²(−q)χ²(−q²¹) + qχ²(−q³)χ²(−q⁷)` (`prod15a`).
+  - Entries 3.7 and 3.10 at `q³` form a system in `G(q³)`, `H(q³)` with determinant `−qL₂(q²)`. With 3.8 at `q⁷`
+    and 3.9 this gives the same right side for `L₁(q)L₂(q²)` (`prod15b`).
+  - So `D = L₁ − L₂` satisfies `D(q)L₂(q²) = L₂(q)D(q²)` and `D(0) = 0`. The lowest coefficient of `D` would sit at
+    `n` on the left and `2n` on the right, so `D = 0` (`eq_zero_of_S2`).
+  As a by-product, `L(q)L(q²) = u + q/u` with `u = χ(−q)χ(−q²¹)/(χ(−q³)χ(−q⁷))`.
+
+## Obstacles for the rest (after round 7)
+
+* **3.15(ii)**. Write `A(q) = χ(q)χ(−q³)χ(q⁷)χ(−q²¹) = f(q,q⁵)f(q⁷,q³⁵)/(f(−q¹²)f(−q⁸⁴))`. The entry says the odd part
+  of `A` is `qL(q²)`. It is checked numerically: the odd part is `qL(q²)`, and the even part is a function of `q⁴`
+  that is not an eta quotient or a two-term `GG ± HH` combination. Cleared, the entry is
+  `L(s)f(−s⁶)f(−s⁴²) = Ψ(s) = f(s²,s¹⁰)f(s²⁸,s⁵⁶) + s³f(s⁴,s⁸)f(s¹⁴,s⁷⁰)` (checked numerically; `Ψ` is
+  the odd part of `f(q,q⁵)f(q⁷,q³⁵)`, and `L(s)f(−s³)f(−s⁷)` is a two-term theta sum). This is a weight-2 (4-dimensional) identity. Searches found nothing:
+  - the one-`Φ` trick of 3.32 (the brackets `L₁/χχ`, `L₂/χχ` and `L/χ` as two-term products of moduli `(M, 7M)`,
+    `(M, 21M)`, `(M, 3M)` with `M ≤ 24`): no match;
+  - single-form Type II with two det-5 covers (det-126 forms; the only fit, `9x²+6xy+15y²`, gives identities with
+    `G(q³)G(−q⁷)`, i.e. a sign-twisted relative of 3.15(i), not (ii)).
+  Since `L` is the unique series with `L(0) = 1` and `L(q)L(q²)Π = χ²(−q)χ²(−q²¹) + qχ²(−q³)χ²(−q⁷)`
+  (`Π = χ(−q)χ(−q³)χ(−q⁷)χ(−q²¹)`), it would also suffice to prove the pure product identity
+  `Odd(A)(q)·Odd(A)(q²)·Π(q²) = q³(χ²(−q²)χ²(−q⁴²) + q²χ²(−q⁶)χ²(−q¹⁴))`. That identity is not proved.
+* **3.28(ii), 3.29, 3.35** (not attempted this round). The elimination trick of 3.15(i) needs other entries at the
+  same level. There are none at levels 17·2, 23·2 and 47·2: only 3.28(i) at level 34, and nothing at 46 or 94. The
+  route is still Yesilyurt (JMAA 2012), which needs the degree-17/23/47 modular equations as theta identities. The
+  3.17/3.26 pattern (a Type II with covers of determinants 3 or 5 and 4) is the natural source for those.
+
+## Obstacles for the rest (after round 6, kept for reference)
+
+* **3.26 and 3.27(i)** (proved in round 7 by a different route). Reduction checked numerically to `q³⁰⁰`: with
   `Br(q) = T(q)·f(q)f(−q¹¹) = f(−q²²,−q³³)f(q,−q⁴) + q²f(−q²,q³)f(−q¹¹,−q⁴⁴)` (`T` = the left side of 3.26),
   Entry 3.26 is equivalent to the four-theta identity
   `Br(q)·f(−q²)f(−q²²) = ψ(q)ψ(−q¹¹)φ(−q⁴)φ(−q⁴⁴) − 2q³ f(q)f(−q¹¹)f(−q⁸)f(−q⁸⁸)`, where `f(q) = (−q;−q)_∞`
