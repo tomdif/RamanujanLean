@@ -21,10 +21,9 @@ open scoped Classical Real Topology
 def FockEnergySpace (k n : ℕ) : Submodule ℂ (FockSpace k) where
   carrier := {x | ∀ d, exponentEnergy d ≠ n → x d = 0}
   zero_mem' := by intro d _; rfl
-  add_mem' hx hy := by
+  add_mem' {x y} hx hy := by
     intro d hd
-    change _ + _ = 0
-    rw [hx d hd, hy d hd, add_zero]
+    simp only [lp.coeFn_add, Pi.add_apply, hx d hd, hy d hd, add_zero]
   smul_mem' c x hx := by
     intro d hd
     change c * x d = 0
@@ -32,12 +31,13 @@ def FockEnergySpace (k n : ℕ) : Submodule ℂ (FockSpace k) where
 
 def extendShell {k n : ℕ} (v : NormalizedShell k n) : FockSpace k :=
   ⟨fun d => if h : exponentEnergy d = n then v ⟨d, h⟩ else 0, by
-    apply Memℓp.of_exponent_ge (p := 0) zero_le
-    apply memℓp_zero
-    apply ({d : Exponent k | exponentEnergy d = n}.toFinite).subset
+    refine (memℓp_zero ?_).of_exponent_ge zero_le
+    apply (Set.finite_range (fun d : EnergyIndex k n => d.1)).subset
     intro d hd
-    by_contra h
-    exact hd (dif_neg h)⟩
+    have h : exponentEnergy d = n := by
+      by_contra h
+      exact hd (dif_neg h)
+    exact ⟨⟨d, h⟩, rfl⟩⟩
 
 theorem extendShell_apply {k n : ℕ} (v : NormalizedShell k n) (d : Exponent k) :
     extendShell v d = if h : exponentEnergy d = n then v ⟨d, h⟩ else 0 := rfl
@@ -64,8 +64,12 @@ theorem fockShellEquiv_inner {k n : ℕ} (x y : FockEnergySpace k n) :
     inner ℂ (fockShellEquiv k n x) (fockShellEquiv k n y) = inner ℂ x y := by
   rw [PiLp.inner_apply]
   change (∑ d : EnergyIndex k n, inner ℂ (x.1 d.1) (y.1 d.1)) = inner ℂ x.1 y.1
-  rw [lp.inner_eq_tsum, ← tsum_fintype]
+  rw [lp.inner_eq_tsum]
+  rw [← tsum_fintype (L := SummationFilter.unconditional _)
+    (f := fun d : EnergyIndex k n => inner ℂ (x.1 d.1) (y.1 d.1))]
   apply tsum_subtype_eq_of_support_subset
+    (s := {d : Exponent k | exponentEnergy d = n})
+    (f := fun d : Exponent k => inner ℂ (x.1 d) (y.1 d))
   intro d hd
   change exponentEnergy d = n
   by_contra h
@@ -104,11 +108,11 @@ theorem mem_fockEnergySpace_iff {k n : ℕ} (x : FockSpace k) :
     exact congrFun hf d
   · rintro ⟨hx, h⟩ d hd
     have hc := congrArg (fun y : FockSpace k => y d) h
+    change fockHamiltonian k ⟨x, hx⟩ d = (n : ℂ) * x d at hc
     rw [fockHamiltonian_apply] at hc
-    change (exponentEnergy d : ℂ) * x d = (n : ℂ) * x d at hc
     by_contra hne
     have he := mul_right_cancel₀ hne hc
-    exact hd (by exact_mod_cast he)
+    exact hd ((Nat.cast_injective : Function.Injective (Nat.cast : ℕ → ℂ)) he)
 
 theorem fockCharge_domain_eq : fockCharge.domain = (fockHamiltonian 24).domain := by
   ext x
@@ -143,20 +147,26 @@ abbrev FockChargeSpace (n : ℕ) := FockEnergySpace 24 (n + 1)
 theorem mem_fockChargeSpace_iff (n : ℕ) (x : FockSpace 24) :
     x ∈ FockChargeSpace n ↔
       ∃ hx : x ∈ fockCharge.domain, fockCharge ⟨x, hx⟩ = (n : ℂ) • x := by
-  rw [mem_fockEnergySpace_iff]
   constructor
-  · rintro ⟨hx, he⟩
-    refine ⟨fockCharge_domain_eq.symm ▸ hx, ?_⟩
-    rw [fockCharge_eq_hamiltonian_sub]
-    change fockHamiltonian 24 ⟨x, hx⟩ - x = (n : ℂ) • x
-    rw [he, Nat.cast_add, Nat.cast_one, add_smul, one_smul]
-    abel
-  · rintro ⟨hx, he⟩
-    refine ⟨fockCharge_domain_eq ▸ hx, ?_⟩
-    have h := fockCharge_eq_hamiltonian_sub ⟨x, hx⟩
-    rw [he] at h
-    rw [Nat.cast_add, Nat.cast_one, add_smul, one_smul]
-    exact sub_eq_iff_eq_add.mp h.symm
+  · intro hx
+    obtain ⟨hdom, -⟩ := (mem_fockEnergySpace_iff x).mp hx
+    refine ⟨fockCharge_domain_eq.symm ▸ hdom, ?_⟩
+    ext d
+    rw [fockCharge_apply]
+    change ((exponentEnergy d : ℂ) - 1) * x d = (n : ℂ) * x d
+    by_cases hd : exponentEnergy d = n + 1
+    · simp [hd]
+    · rw [hx d hd, mul_zero, mul_zero]
+  · rintro ⟨hx, h⟩ d hd
+    have hc := congrArg (fun y : FockSpace 24 => y d) h
+    change fockCharge ⟨x, hx⟩ d = (n : ℂ) * x d at hc
+    rw [fockCharge_apply] at hc
+    by_contra hne
+    have he := mul_right_cancel₀ hne hc
+    have he' : (exponentEnergy d : ℂ) = (n + 1 : ℕ) := by
+      rw [Nat.cast_add, Nat.cast_one]
+      exact sub_eq_iff_eq_add.mp he
+    exact hd (by exact_mod_cast he')
 
 theorem fockChargeSpace_finrank (n : ℕ) :
     Module.finrank ℂ (FockChargeSpace n) = ColoredPartitions.degeneracy n :=

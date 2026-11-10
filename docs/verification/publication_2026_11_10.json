@@ -1,0 +1,88 @@
+{
+  "date": "2026-11-10",
+  "verified_at_utc": "2026-11-10T17:39:16.960839+00:00",
+  "status": "passed",
+  "base_commit": "2242f3cc71bcd71a897e989b4ced453fe6425eda",
+  "toolchain": "leanprover/lean4:v4.30.0-rc2",
+  "verification_command": "python3 scripts/verify_lean.py --full",
+  "full_root_build": {
+    "command": "lake build RamanujanTau",
+    "exit_code": 0,
+    "jobs": 10532,
+    "mode": "Incremental build with pinned dependencies and existing local artifacts; all required targets checked."
+  },
+  "audits": [
+    {
+      "command": "lake env lean scripts/audit/forty11.lean",
+      "exit_code": 0,
+      "declarations": 383,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output": "publication_2026_11_10.forty11.axioms.txt",
+      "output_sha256": "712b4d01ccee3d432dc94e08958613d839cc1b26ce973093f560cc2c6ac7b9af"
+    },
+    {
+      "command": "lake env lean scripts/audit/bosonic_fock.lean",
+      "exit_code": 0,
+      "declarations": 24,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output": "publication_2026_11_10.bosonic_fock.axioms.txt",
+      "output_sha256": "e5504691917bfb5aa4e53ba4b340516681bd3c9c458bdc526b98c3828cbea876"
+    },
+    {
+      "command": "lake env lean scripts/audit/celebrated_targets.lean",
+      "exit_code": 0,
+      "declarations": 472,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output": "publication_2026_11_10.celebrated_targets.axioms.txt",
+      "output_sha256": "01c5a11b76b16b3159a3a7d4dd07d54d51cc99b7cea7b7f5836a195105a53ad2"
+    }
+  ],
+  "additional_checks": [
+    {
+      "command": "python3 scripts/check_repository.py",
+      "exit_code": 0,
+      "result": "Passed: 2225 Lean source/audit files, 136 Markdown files, 765 local links; project imports and source hygiene checked.\nThis is a source/documentation check, not Lean proof verification."
+    },
+    {
+      "command": "python3 scripts/boylanwebb/check_cert29_error.py",
+      "exit_code": 0,
+      "result": "Passed: 16 products, 429 blocks, divisor formulas, Euler coefficients, shifts, linear combination, and 3 observations."
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0
+    }
+  ],
+  "scope": [
+    "All forty identities, completed occupation Hilbert space, and the headline arithmetic/analytic targets.",
+    "The root now imports BosonicFockSpectrum and Cylindric.Slices.",
+    "Axiom checks do not discharge explicit theorem hypotheses or validate mathematical interpretation; the remaining research inputs are documented separately."
+  ],
+  "source_sha256": {
+    "lean-toolchain": "ce4c4e3d87434b9663f46de25ce34b48a0cf0d392e0a320a0787b4674a2d7b61",
+    "lakefile.toml": "4cc9c10467da5f07808a41359a2818ed279da7edde8dc981a25866d1469fb9d4",
+    "lake-manifest.json": "5990cea40fe49b50761d29c7c8daf26280c92c8d33c658446eff1600cb02522d",
+    "RamanujanTau.lean": "95c9601bb59a4038c1efa7df1ee9681aa7b395dd631127f3022ca8c6ad2ca0c1",
+    "RamanujanTau/HilbertDiagonal.lean": "f6183f3fd64b6d60ef9f80783b97594ad4ec157efced264243e310c601644db7",
+    "RamanujanTau/BosonicHilbert.lean": "b5177a7af28fb0d5420b67ed198ab6679bd706a6953d78a14f757a565f58ef5a",
+    "RamanujanTau/BosonicFockSpectrum.lean": "667eec01f53fef588411db5e425a47861c44178cc7b9df3388e1017772eb6988",
+    "RamanujanTau/Cylindric/Slices.lean": "82d2d39f828017c2348716e35d368f0e6073d7c42a4c501b61b5e622dafcb50a",
+    "scripts/verify_lean.py": "14f398243a9994c1ed32b1168bc5bbfc25e7adf2fa3b4ac66051e514af8d5ff3",
+    "scripts/check_repository.py": "8f17286dbcb2c8368a902344b582e23dedbddafa514e9d53676b855ee90d928c",
+    "scripts/audit/forty11.lean": "aea8eba88a9881f75e15f8d25c36dbd46fffa6ceaba6ec5dcb550e16eaebb408",
+    "scripts/audit/bosonic_fock.lean": "2fdbd42becbb9e817799ae4c794db5afa65e2ebb60abd66d0512b12acbffa052",
+    "scripts/audit/celebrated_targets.lean": "101d2660789c68c3521b828d37362b5cfa13614e1e1ed587c8d6eaea8eded44c"
+  }
+}

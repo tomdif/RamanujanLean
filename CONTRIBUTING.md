@@ -46,7 +46,9 @@ Keep the [overview](README.md) concise. Put detailed theorem statements in the
 later proof supersedes them. Distinguish a sufficient threshold from a proved
 minimal threshold, and a finite experiment from an infinite theorem.
 
-Run `python3 scripts/check_repository.py` and `git diff --check` before publishing.
+Run `python3 scripts/verify_lean.py --full`, `python3 scripts/check_repository.py`,
+and `git diff --check` before publishing Lean changes. Documentation-only changes
+need the repository and whitespace checks.
 The repository checker validates local Markdown links, project imports, and
 proof-source hygiene. It is not a Lean parser or a proof checker.
 

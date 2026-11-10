@@ -61,8 +61,9 @@ Consequences (`TauModular`):
   `StepanovAS.weilPrimeBound`). See [TAU_SUBHECKE_BOUND](docs/TAU_SUBHECKE_BOUND.md),
   [STEPANOV](docs/STEPANOV.md), [STEPANOV_ARTIN_SCHREIER](docs/STEPANOV_ARTIN_SCHREIER.md). (Rankin's 1939 `29/5`
   lies between 35/6 and 23/4 and is not formalized.)
-- `DeligneBound` states Deligne's bound (`|τ(p)| ≤ 2p^{11/2}`) as a named hypothesis; its proof is not formalized
-  here (it needs the Weil conjectures).
+- `DeligneBound` states Deligne's bound (`|τ(p)| ≤ 2p^{11/2}`) as a named hypothesis; an unconditional proof is not complete. The companion
+  [RamanujanWeil](https://github.com/tomdif/RamanujanWeil) applies formalized Weil results,
+  with geometric realization or Deuring/Tate inputs still explicit.
 - `LehmerConjecture` (`τ(n) ≠ 0`) is a famous open problem. The finite range `τ(n) ≠ 0` for `1 ≤ n < 214,928,639,999`
   (Lehmer 1947) is proved (`LehmerSmall.lehmer_below_214928639999`; see [LEHMER_SMALL_N](docs/LEHMER_SMALL_N.md)).
 
@@ -79,6 +80,6 @@ Deligne and Lehmer are documented as hypotheses, not defects.
 | multiplicativity | **proved** | — (`tau_mul_coprime`, via constructed `T_p`) |
 | Euler product of `L(Δ,s)` | **proved** (`Re s > 13/2`) | — (`HeckeZeros.tauL_eulerProduct`, via Rankin's absolute convergence `HeckeConvex.LSeriesSummable_tau_of_gt_13_2`; earlier `LSeries_tau_eulerProduct` for `Re s > 7`) |
 | sub-Hecke bound | **proved**, `O(n^{23/4+ε})` (Weil) | — (`StepanovAS.tau_isBigO_23_4_unconditional`) |
-| Deligne / Lehmer | open here | the Weil conjectures / an open problem (Lehmer proved for `n < 214,928,639,999`) |
+| Deligne / Lehmer | open here | the remaining geometric inputs in RamanujanWeil / Lehmer’s conjecture (finite range proved for `1 ≤ n < 214,928,639,999`) |
 
 Every question on the `τ` arc is now proved and axiom-clean, except Deligne's bound and Lehmer's conjecture.

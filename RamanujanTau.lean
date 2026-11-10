@@ -1,4 +1,6 @@
 import RamanujanTau.Basic
+import RamanujanTau.BosonicFockSpectrum
+import RamanujanTau.Cylindric.Slices
 import RamanujanTau.SmallValues
 import RamanujanTau.Multiplicativity
 import RamanujanTau.HeckeRecurrence

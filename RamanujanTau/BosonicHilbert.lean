@@ -27,7 +27,7 @@ def fockBasis (k : ℕ) : HilbertBasis (Exponent k) ℂ (FockSpace k) :=
   HilbertBasis.ofRepr (LinearIsometryEquiv.refl ℂ _)
 
 theorem fockBasis_apply {k : ℕ} (d : Exponent k) : fockBasis k d = lp.single 2 d 1 := by
-  simp [fockBasis, HilbertBasis.coe_ofRepr]
+  exact (fockBasis k).repr_self d
 
 theorem fockBasis_orthonormal (k : ℕ) : Orthonormal ℂ (fockBasis k) :=
   (fockBasis k).orthonormal

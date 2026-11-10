@@ -1,5 +1,12 @@
 # Cylindric positivity and black hole research
 
+> **Update, 2026-11-10:** the completed occupation Hilbert space and its
+> self-adjoint energy operator are now covered by [Bosonic Fock space](BOSONIC_FOCK.md).
+> Earlier statements below that Hilbert completion remains unconstructed describe
+> their dated snapshots. Physical identification, the thermal trace, and the
+> mock Jacobi extension remain open.
+
+
 Research status, 2026-11-03. Exact computations verify 520 nontrivial Warnaar
 polynomials, including 492 for non-balanced profiles, with no negative
 coefficients. Six Lean lemmas establish the local normalized-slice construction.

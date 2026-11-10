@@ -1,0 +1,45 @@
+name: Lean checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  public-theorems:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Install elan
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/9605b24b08cf68b78dce0014b6fa01be1f8e2cee/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v5
+        with:
+          path: .lake
+          key: lean-public-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            lean-public-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Download pinned Mathlib artifacts
+        run: lake exe cache get
+      - name: Build and audit the forty identities and completed Fock space
+        run: python3 scripts/verify_lean.py --output-dir "$RUNNER_TEMP/lean-verification"
+      - name: Show failure details
+        if: failure()
+        run: |
+          for log in "$RUNNER_TEMP"/lean-verification/*; do
+            if [ -f "$log" ]; then tail -n 100 "$log"; fi
+          done

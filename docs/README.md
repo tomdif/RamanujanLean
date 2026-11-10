@@ -22,6 +22,7 @@ earlier open-problem and partial-formalization notes.
 | [Multi-quintuple classification](RESULTS.md#multi-quintuple-products-complete-admissible-triple-classification) | Exact theorem, scope, proof modules, and verification |
 | [Multi-quintuple development record](../RESEARCH_MULTI_QUINTUPLE.md) | Current statement followed by historical experiments, counterexamples, and the paper proof |
 | [Nested radicals](RESULTS.md#ramanujans-nested-radical) | Values 3 and 4, the affine family and full converse for linear limits, and exponential error bounds proved in Lean |
+| [Completed Fock space](BOSONIC_FOCK.md) | Hilbert completion, self-adjoint energy, finite eigenspaces, and the remaining physical scope |
 | [Contribution guide](../CONTRIBUTING.md) | Proof policy, verification commands, and documentation conventions |
 
 ## Analytic and congruence write-ups (2026-11-03/04)
@@ -32,7 +33,7 @@ earlier section is superseded. The summary table is [Results of 2026-11-03](STAT
 | Document | Topic |
 |---|---|
 | [TAU_SUBHECKE_BOUND](TAU_SUBHECKE_BOUND.md), [WEIL_KLOOSTERMAN](WEIL_KLOOSTERMAN.md), [KLOOSTERMAN_L](KLOOSTERMAN_L.md), [STEPANOV](STEPANOV.md), [STEPANOV_ARTIN_SCHREIER](STEPANOV_ARTIN_SCHREIER.md) | τ(n) = O(n^{47/8+ε}), then O(n^{35/6+ε}) (Salié), then O(n^{23/4+ε}) (Weil) |
-| [LEHMER_SMALL_N](LEHMER_SMALL_N.md) | τ(n) ≠ 0 for n < 21,492,863,999 |
+| [LEHMER_SMALL_N](LEHMER_SMALL_N.md) | τ(n) ≠ 0 for 1 ≤ n < 214,928,639,999 |
 | [RANKIN_SELBERG](RANKIN_SELBERG.md), [EISENSTEIN_REAL](EISENSTEIN_REAL.md) | Mean square of τ: order of magnitude, then the asymptotic with Zagier's constant |
 | [JENSEN_THRESHOLDS](JENSEN_THRESHOLDS.md), [GORZ_PARTITIONS](GORZ_PARTITIONS.md) | Jensen polynomials of p(n): N(6), N(7), and GORZ in every degree |
 | [GORZ_XI](GORZ_XI.md), [GORZ_XI_EFFECTIVE](GORZ_XI_EFFECTIVE.md), [GORZ_XI_D3](GORZ_XI_D3.md) | Jensen polynomials of Riemann Ξ: GORZ Theorem 1, Turán (d = 2) for every n, and the d = 3 reduction |

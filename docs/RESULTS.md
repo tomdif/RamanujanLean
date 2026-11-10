@@ -6,6 +6,20 @@ Module paths in this catalog are relative to `RamanujanTau/` unless stated other
 Named hypotheses are part of a theorem's statement; an axiom audit does not discharge them.
 The research notes are indexed separately in [the documentation guide](README.md).
 
+## Completed occupation Hilbert space
+
+`BosonicHilbert.lean` constructs square-summable occupation amplitudes and a
+dense embedding of normalized polynomial states. `fockHamiltonian_self_adjoint`
+and `fockHamiltonian_closed` prove self-adjointness and closedness on the maximal
+square-summability domain. `BosonicFockSpectrum.lean` identifies natural-energy
+eigenspaces isometrically with finite shells, retaining dimension `p_k(n)` and
+the `4π` entropy limit for the specified 24-species charge shift.
+
+See [the proof and scope](BOSONIC_FOCK.md). These theorems supersede the older
+completion limitation in the finite-shell descriptions below. They do not
+construct infinite creation/annihilation adjoints, a thermal trace, a full
+resolvent-spectrum calculation, or a physical string/gravity equivalence.
+
 ## Theorem A: all-prime ordinarity on the prescribed level-six eigenspace
 
 `TheoremA/BinaryOrdinarity.lean` proves

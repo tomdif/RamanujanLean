@@ -68,7 +68,7 @@ The product rule gives
 
     K₁(h,k) = Σ_{d|(h,k)} [ W₁(d) U(h,d)U(k,d) + W(d)(V(h,d)U(k,d) + U(h,d)V(k,d)) ],     (QDecomp1)
     W₁ = γ_R/r₀ · W + ∂_s W^{[s]},
-    V(h,d) = Σ_p [½ a_p log p · L_p − log p · X ∂_X L_p](a_p,e_p) · Π_{q≠p} L_q(a_q,e_q).
+    V(h,d) = Σ_p (½ a_p log p · L_p − log p · X ∂_X L_p)(a_p,e_p) · Π_{q≠p} L_q(a_q,e_q).
 
 Checked against the `ρ₁`-definition of `Q1` in `QF.lean` (level 4; agreement 10⁻¹¹ with finite
 differences, for 8 random pairs h, k ≤ 800).
