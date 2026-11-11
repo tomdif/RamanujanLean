@@ -29,17 +29,27 @@ def main():
         # The audit's dependency order avoids compiling all identity certificates
         # concurrently on hosted runners with limited memory.
         for target in targets:
+            print(f"Building {target}", flush=True)
             log.write(f"Building {target}\n")
             log.flush()
-            result = subprocess.run(["lake", "build", target], cwd=root,
-                                    stdout=log, stderr=subprocess.STDOUT)
-            if result.returncode:
+            # Keep diagnostics visible even if the runner terminates the job
+            # before its failure-report step can read the saved log.
+            with subprocess.Popen(["lake", "build", target], cwd=root, text=True,
+                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                  bufsize=1) as process:
+                for line in process.stdout:
+                    log.write(line)
+                    log.flush()
+                    print(line, end="", flush=True)
+                returncode = process.wait()
+            if returncode:
                 raise SystemExit(f"Build failed ({target}); see {output / 'build.log'}")
     print(f"Build passed ({len(targets)} requested targets); log: {output / 'build.log'}", flush=True)
     allowed = {"propext", "Classical.choice", "Quot.sound"}
     for name in audits:
         source = (root / "scripts/audit" / f"{name}.lean").read_text()
         expected = len(re.findall(r"^#print axioms ", source, re.M))
+        print(f"Auditing {name}", flush=True)
         result = subprocess.run(["lake", "env", "lean", f"scripts/audit/{name}.lean"],
                                 cwd=root, text=True, stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)

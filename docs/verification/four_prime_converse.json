@@ -1,6 +1,6 @@
 {
-  "verified_at_utc": "2026-11-11T15:24:41.923490+00:00",
-  "source_base_commit": "03c8362b7b9fd2d0c8054c45dfeaf153541b9399",
+  "verified_at_utc": "2026-11-11T15:47:21.993444+00:00",
+  "source_base_commit": "6c04b0e1456928680b5e983ea0a051729c151853",
   "scope": "Completed analytic necessity lemmas and finite certificates; not a full four-factor converse",
   "lean_toolchain": "leanprover/lean4:v4.30.0-rc2",
   "build": {
@@ -8,7 +8,7 @@
     "exit_code": 0,
     "jobs": 10571,
     "mode": "Incremental full root build with pinned dependencies and existing local artifacts",
-    "log_sha256": "37fcc07d5b67f05304c9a1c1987e7517a7a1b68386971ecb6b733c7de727ac8f"
+    "log_sha256": "2824bfd9909382cebdd2c4d6d3b21824a905e28c23afcc3707e7eed920d94a4d"
   },
   "audits": [
     {
@@ -111,7 +111,7 @@
     "scripts/audit/four_prime_converse.lean": "eead1d263ea9b6777bb750734a8ae8b3a3f1fc23fc844c85466892fbc2c0ca22",
     "scripts/check_four_prime_converse.py": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8",
     "scripts/generate_four_prime_converse.py": "828fe7fb3e943ab197f3c488db2b120250c6a55a031e8a5b03d5e76e28496bde",
-    "scripts/verify_lean.py": "1a9173b0dc958b57f44db1526e9e459aaf7d557a8ec0a98e3e7792f75f7df4a4",
+    "scripts/verify_lean.py": "b166e4c62bece279cf418bb843f18d06fa4cfcf40562bd75d994bceaf2709d04",
     "RamanujanTau.lean": "e38a095a029d5ebb94785143460e490d19864a8ba30bc62a81608d1b9d41d088",
     "lean-toolchain": "ce4c4e3d87434b9663f46de25ce34b48a0cf0d392e0a320a0787b4674a2d7b61",
     "lake-manifest.json": "5990cea40fe49b50761d29c7c8daf26280c92c8d33c658446eff1600cb02522d",
@@ -132,5 +132,15 @@
     "markdown_files": 136,
     "local_links": 799,
     "whitespace_check": "git diff --cached --check passed"
+  },
+  "hosted_runner_observation": {
+    "commit": "6c04b0e1456928680b5e983ea0a051729c151853",
+    "run": "https://github.com/tomdif/RamanujanLean/actions/runs/43048277770",
+    "attempts": [
+      1,
+      2
+    ],
+    "exit_code": 143,
+    "observation": "Both hosted attempts were terminated without Lean diagnostics; the failure-report step was skipped. Live build logging was added. The cause is not established."
   }
 }
