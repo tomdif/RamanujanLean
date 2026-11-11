@@ -208,11 +208,43 @@ end Mod3BranchInput
 /-- Branch sign in `ZMod 3`. -/
 def branchSign3 (b : Bool) : ZMod 3 := if b then 1 else -1
 
-set_option maxHeartbeats 0 in
+/-- Eliminate the auxiliary residue variables before checking the branch cube. -/
+private theorem directRoot_mod3_pairing (input : Mod3BranchInput)
+    (hr : 2*input.r=input.w1+input.w2+input.w3+input.p*input.h)
+    (hq : input.w1*(if input.b1 then 1 else 0)+input.w2*(if input.b2 then 1 else 0)+
+      input.w3*(if input.b3 then 1 else 0)=input.r+input.p*input.q) :
+    input.p*(input.h+2*input.q)=input.w1*branchSign3 input.b1+
+      input.w2*branchSign3 input.b2+input.w3*branchSign3 input.b3 := by
+  cases hb1 : input.b1 <;> cases hb2 : input.b2 <;> cases hb3 : input.b3 <;>
+    simp only [hb1,hb2,hb3,branchSign3,Bool.false_eq_true,if_false,if_true] at hr hq ⊢ <;>
+    linear_combination -hr-2*hq
+
+private theorem directRoot_positive_mod3_cube :
+    ∀ w1 w2 w3 : ZMod 3, ∀ b1 b2 b3 : Bool,
+      w1^2+w2^2+w3^2=1 →
+      let d := 2*(w1*branchSign3 b1+w2*branchSign3 b2+w3*branchSign3 b3)
+      let u1 := branchSign3 b1-d*w1
+      let u2 := branchSign3 b2-d*w2
+      let u3 := branchSign3 b3-d*w3
+      u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0 ∧
+        u1*u2*u3= -(branchSign3 b1*branchSign3 b2*branchSign3 b3) := by
+  decide +kernel
+
+private theorem directRoot_negative_mod3_cube :
+    ∀ w1 w2 w3 : ZMod 3, ∀ b1 b2 b3 : Bool,
+      w1^2+w2^2+w3^2=2 →
+      let d := w1*branchSign3 b1+w2*branchSign3 b2+w3*branchSign3 b3
+      let u1 := branchSign3 b1-d*w1
+      let u2 := branchSign3 b2-d*w2
+      let u3 := branchSign3 b3-d*w3
+      u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0 ∧
+        (-u1)*(-u2)*(-u3)= -(branchSign3 b1*branchSign3 b2*branchSign3 b3) := by
+  decide +kernel
+
 /-- When the root norm is `1 mod 3`, the positive Householder reflection sends
 every branch sign vector to another nonzero sign vector and reverses the product
-of its three signs.  This finite lemma exhausts the exact `3^8 * 2^3` residue
-calculation; it is a theorem of `ZMod 3`, not an experimental prime scan. -/
+of its three signs.  Eliminating the auxiliary
+residues reduces the kernel check to `3^3 * 2^3` branch/root combinations. -/
 theorem directRoot_positive_mod3 :
     ∀ input : Mod3BranchInput,
       input.e * input.p = 1 →
@@ -229,9 +261,16 @@ theorem directRoot_positive_mod3 :
       u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0
         ∧ u1 * u2 * u3
           = -(branchSign3 input.b1 * branchSign3 input.b2 * branchSign3 input.b3) := by
-  decide +kernel
+  intro input hep hnorm hce hr hq
+  have hm := directRoot_mod3_pairing input hr hq
+  have hcm : input.c*(input.h+2*input.q)=2*(input.w1*branchSign3 input.b1+
+      input.w2*branchSign3 input.b2+input.w3*branchSign3 input.b3) := by
+    linear_combination -input.c*(input.h+2*input.q)*hep+input.c*input.e*hm+
+      (input.w1*branchSign3 input.b1+input.w2*branchSign3 input.b2+
+        input.w3*branchSign3 input.b3)*hce
+  simpa only [hcm] using directRoot_positive_mod3_cube
+    input.w1 input.w2 input.w3 input.b1 input.b2 input.b3 (hnorm.trans hep)
 
-set_option maxHeartbeats 0 in
 /-- When the root norm is `2 mod 3`, the negative Householder reflection is the
 one that preserves the branch cube and reverses branch parity. -/
 theorem directRoot_negative_mod3 :
@@ -250,7 +289,16 @@ theorem directRoot_negative_mod3 :
       u1 ≠ 0 ∧ u2 ≠ 0 ∧ u3 ≠ 0
         ∧ (-u1) * (-u2) * (-u3)
           = -(branchSign3 input.b1 * branchSign3 input.b2 * branchSign3 input.b3) := by
-  decide +kernel
+  intro input hep hnorm hce hr hq
+  have hm := directRoot_mod3_pairing input hr hq
+  have hcm : input.c*(input.h+2*input.q)=(input.w1*branchSign3 input.b1+
+      input.w2*branchSign3 input.b2+input.w3*branchSign3 input.b3) := by
+    apply mul_left_cancel₀ (by decide : (2 : ZMod 3) ≠ 0)
+    linear_combination -input.c*(input.h+2*input.q)*hep+input.c*input.e*hm+
+      (input.w1*branchSign3 input.b1+input.w2*branchSign3 input.b2+
+        input.w3*branchSign3 input.b3)*hce
+  simpa only [hcm] using directRoot_negative_mod3_cube
+    input.w1 input.w2 input.w3 input.b1 input.b2 input.b3 (hnorm.trans hep)
 
 /-! ### Lifting the finite calculation to the integral branch cube -/
 
