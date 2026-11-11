@@ -1,0 +1,11 @@
+'Ramanujan.MultiQuintuple.admissible_root_vanishing_equivalence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.short_root_coordinate_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.eq_centeredRootResidue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.projectiveRootTarget_centered' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.coeff_four97_eq_short' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four97_residue_or_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four97_persistent_vanishing_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four97_finite_test_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.first_witness_four97' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1342,7 +1342,14 @@ proves infinite coefficient vanishing at `p=m²+n²` when **any one** of
 conditions. The four residue criteria and complete hypotheses are in the
 [research statement](../RESEARCH_MULTI_QUINTUPLE.md#four-congruence-families-and-an-exact-reflection-criterion).
 The theorem includes the four zero progressions **9,13,55,64 at 97**, as well
-as composite moduli. The coefficient converse at 97 is not yet formalized.
+as composite moduli. The coefficient converse at 97 is now formalized in
+[FourNinetySevenConverse](../RamanujanTau/MultiQuintupleFourNinetySevenConverse.lean):
+these are exactly the persistent zero residues, and every other residue
+has a nonzero coefficient by N=15. The cutoff is attained at residue 54,
+whose first nonzero coefficient is 1 at degree 1509. The first sixteen
+progression terms therefore give an exact finite test for this product.
+See the [review manuscript](../output/pdf/sparse-triples.pdf) and
+[verification record](verification/quintuple_review.json).
 
 [MultiQuintupleFourReflectionCriterion](../RamanujanTau/MultiQuintupleFourReflectionCriterion.lean)
 proves an exact converse for branch compatibility of the sixteen specified

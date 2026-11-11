@@ -27,6 +27,8 @@ jobs:
         run: python3 scripts/check_repository.py
       - name: Independently check the prime-29 arithmetic certificate
         run: python3 scripts/boylanwebb/check_cert29_error.py
+      - name: Check the sparse-triple classifier and modulus-97 certificates
+        run: python3 scripts/check_quintuple_review.py
       - name: Check certificate reproducibility
         run: |
           python3 scripts/boylanwebb/gen_cert29_error.py --output-dir "$RUNNER_TEMP/cert29-error"

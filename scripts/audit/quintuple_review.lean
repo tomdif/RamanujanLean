@@ -1,0 +1,12 @@
+import RamanujanTau.MultiQuintupleCenteredRoots
+import RamanujanTau.MultiQuintupleFourNinetySevenConverse
+
+#print axioms Ramanujan.MultiQuintuple.admissible_root_vanishing_equivalence
+#print axioms Ramanujan.MultiQuintuple.short_root_coordinate_bound
+#print axioms Ramanujan.MultiQuintuple.eq_centeredRootResidue
+#print axioms Ramanujan.MultiQuintuple.projectiveRootTarget_centered
+#print axioms Ramanujan.MultiQuintuple.coeff_four97_eq_short
+#print axioms Ramanujan.MultiQuintuple.four97_residue_or_witness
+#print axioms Ramanujan.MultiQuintuple.four97_persistent_vanishing_iff
+#print axioms Ramanujan.MultiQuintuple.four97_finite_test_iff
+#print axioms Ramanujan.MultiQuintuple.first_witness_four97

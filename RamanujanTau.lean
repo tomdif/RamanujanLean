@@ -264,6 +264,7 @@ import RamanujanTau.MultiQuintupleShortGeneratorEstimate
 import RamanujanTau.MultiQuintupleConverseThirteen
 -- Complete universal admissible Root–Vanishing equivalence
 import RamanujanTau.MultiQuintupleFullConverse
+import RamanujanTau.MultiQuintupleCenteredRoots
 -- Odd-divisor eight-class support sieve and mixed p=15 progression vanishing
 import RamanujanTau.MultiQuintupleLocalSupport
 -- Eight shifted ternary-coset components, Walsh inversion, and exact theta reduction
@@ -511,6 +512,7 @@ import RamanujanTau.TheoremA.WeightEightOrdinarity
 import RamanujanTau.MultiQuintupleFourFortyOneConverse
 import RamanujanTau.MultiQuintupleFourFamily
 import RamanujanTau.MultiQuintupleFourFiftyThreeConverse
+import RamanujanTau.MultiQuintupleFourNinetySevenConverse
 import RamanujanTau.MultiQuintupleFourReflectionCriterion
 import RamanujanTau.MultiQuintupleFourBinaryFamily
 import RamanujanTau.MultiQuintupleFourWitnessBound

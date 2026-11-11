@@ -1,0 +1,522 @@
+{
+  "scope": "Independent finite consistency checks; infinite conclusions are proved separately",
+  "triple_census": {
+    "prime_limit": 43,
+    "admissible_triples": 123,
+    "direct_coefficients_compared": 160812,
+    "sphere_search_and_centered_scan_agree": true
+  },
+  "four97": {
+    "direct_coefficients_compared": 1552,
+    "zero_residues": [
+      9,
+      13,
+      55,
+      64
+    ],
+    "nonzero_witnesses": [
+      {
+        "R": 0,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 1,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 2,
+        "N": 7,
+        "coefficient": -1
+      },
+      {
+        "R": 3,
+        "N": 4,
+        "coefficient": 1
+      },
+      {
+        "R": 4,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 5,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 6,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 7,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 8,
+        "N": 5,
+        "coefficient": -1
+      },
+      {
+        "R": 10,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 11,
+        "N": 6,
+        "coefficient": 1
+      },
+      {
+        "R": 12,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 14,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 15,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 16,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 17,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 18,
+        "N": 5,
+        "coefficient": -1
+      },
+      {
+        "R": 19,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 20,
+        "N": 5,
+        "coefficient": -1
+      },
+      {
+        "R": 21,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 22,
+        "N": 4,
+        "coefficient": -1
+      },
+      {
+        "R": 23,
+        "N": 4,
+        "coefficient": -1
+      },
+      {
+        "R": 24,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 25,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 26,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 27,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 28,
+        "N": 4,
+        "coefficient": 1
+      },
+      {
+        "R": 29,
+        "N": 5,
+        "coefficient": -1
+      },
+      {
+        "R": 30,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 31,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 32,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 33,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 34,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 35,
+        "N": 4,
+        "coefficient": -1
+      },
+      {
+        "R": 36,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 37,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 38,
+        "N": 13,
+        "coefficient": 1
+      },
+      {
+        "R": 39,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 40,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 41,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 42,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 43,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 44,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 45,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 46,
+        "N": 3,
+        "coefficient": -1
+      },
+      {
+        "R": 47,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 48,
+        "N": 3,
+        "coefficient": 1
+      },
+      {
+        "R": 49,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 50,
+        "N": 3,
+        "coefficient": 1
+      },
+      {
+        "R": 51,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 52,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 53,
+        "N": 1,
+        "coefficient": 2
+      },
+      {
+        "R": 54,
+        "N": 15,
+        "coefficient": 1
+      },
+      {
+        "R": 56,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 57,
+        "N": 1,
+        "coefficient": -2
+      },
+      {
+        "R": 58,
+        "N": 5,
+        "coefficient": -1
+      },
+      {
+        "R": 59,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 60,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 61,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 62,
+        "N": 6,
+        "coefficient": -2
+      },
+      {
+        "R": 63,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 65,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 66,
+        "N": 5,
+        "coefficient": -1
+      },
+      {
+        "R": 67,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 68,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 69,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 70,
+        "N": 6,
+        "coefficient": -1
+      },
+      {
+        "R": 71,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 72,
+        "N": 3,
+        "coefficient": -1
+      },
+      {
+        "R": 73,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 74,
+        "N": 12,
+        "coefficient": 1
+      },
+      {
+        "R": 75,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 76,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 77,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 78,
+        "N": 2,
+        "coefficient": 1
+      },
+      {
+        "R": 79,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 80,
+        "N": 4,
+        "coefficient": 1
+      },
+      {
+        "R": 81,
+        "N": 3,
+        "coefficient": 1
+      },
+      {
+        "R": 82,
+        "N": 2,
+        "coefficient": -1
+      },
+      {
+        "R": 83,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 84,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 85,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 86,
+        "N": 1,
+        "coefficient": -1
+      },
+      {
+        "R": 87,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 88,
+        "N": 0,
+        "coefficient": -1
+      },
+      {
+        "R": 89,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 90,
+        "N": 14,
+        "coefficient": 1
+      },
+      {
+        "R": 91,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 92,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 93,
+        "N": 4,
+        "coefficient": -1
+      },
+      {
+        "R": 94,
+        "N": 0,
+        "coefficient": 1
+      },
+      {
+        "R": 95,
+        "N": 1,
+        "coefficient": 1
+      },
+      {
+        "R": 96,
+        "N": 1,
+        "coefficient": 1
+      }
+    ],
+    "optimal_cutoff": 15,
+    "last_first_witness": {
+      "R": 54,
+      "N": 15,
+      "coefficient": 1
+    }
+  },
+  "generated_source_reproduced": true,
+  "sha256": {
+    "scripts/check_quintuple_review.py": "59e82fee832f48355a8fdd416c57a83d46694e909de152fd8dab594217bd02af",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Core.lean": "d3cb07d870ff3fca123658ab0117dae46c0cd7f1c7bab3c06202d77129280cac",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates00.lean": "57485f6131cff2ecee809584a0ceab7f67575878be1c4d0db6cf80a1fd9c2106",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates01.lean": "567ead33c5baed73c2cc4d90ab6922fd94ffae014b45439f663c33d332f3e3f8",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates02.lean": "f472b2dc40ef026c7786d8067a21f2cbfd9896df4c2515515ed0185cdc82f33d",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates03.lean": "68bc4b495303dad9742094dd26cfd563bb77055914415b816669fae6fbb560db",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates04.lean": "80aba3e6bb247ab6d3705a1fa731f010e65a9c35f4d511c1044a3a5a0ceb35cc",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates05.lean": "b37fd2a0fa7314ec81c3732987d36fcbcf7af8f9407405559e044199ae2d2291",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates06.lean": "6b44ea69082f66a570ea08029785e98b8448f67ba5fe726a4894ff6e8e4aba81",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates07.lean": "679aa6e33d899146bfa339c90363bf9a89bcd675372522b84d72760303b748ba",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates08.lean": "724025f97b629297af38dd15c1d5b2bfe6341a911ed5fe86a896f06ed4f329f5",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates09.lean": "57cfb7aeecc9226301493f7ab7ef7b3068f0e1e21a97e95fcffd3ad457dc412e",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates10.lean": "0b445c6dc10de090bc19d997c85d403dbc4127ae4e3c1c49bf3420ed9a27dbaf",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates11.lean": "0adb4dfd3b4f0086904d4fae4bec94162f42956863177532c7cebb35f2c62c4c",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates12.lean": "922c200c601378a3aa31842e59dd0e0ff829219bc5c4e7f38b1f477fe9c60e6a",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates13.lean": "0a9aef39d2acb6dd152eb15f349d504f2e4753f1cb12bd0b38318dbca871d2fd",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates14.lean": "e10d359d0c3c006faa5a1dbb147ba8fe743e5b3a6bf4e63eca1cf6216507f78c",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates15.lean": "5eca9092a3fbc3a511a570655bbd68c6f67210c492449bdbaa172d4eee5d3e7a",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates16.lean": "e012e70cf19bf792df17a8c65efe89298f54a58b2fa9fbd86e4eb12c8e64b12b",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates17.lean": "11acacf9efc92ba7514383cbd823b06baad5c35b4e89f4af125314fb22f93af0",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates18.lean": "32dad31e3889ef34caefc62f0d27262a574d175d607977a25421572efee18042",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates19.lean": "75fa4a4f5213de4319b8fd3da47f451acafbf522d53f57238ac56ba9e74bd034",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates20.lean": "bd15c8e46ba084dee40247b99bc19b60f8395be25d906ccabba59b7a6823473d",
+    "RamanujanTau/MultiQuintupleFourNinetySeven/Certificates21.lean": "37ef564e56545706a48f78a173a0a2983070b7aa8432afc858a40f725e2780a7",
+    "RamanujanTau/MultiQuintupleFourNinetySevenConverse.lean": "837f886442cac64e403ade70e8627311a20ed1279a3c77c1eb5cbb3389c407f6",
+    "scripts/classify_sparse_triple.py": "675a9b828b166239db9d902ae68652441e2446d43a1ff140ff6d92e414e23de5",
+    "scripts/generate_four97_converse.py": "35c0474c2dfaeea9added5b3dddd78359eb9cb54e46b9ed41e845c5ffac3ba29",
+    "scripts/quintuple_vanishing_scan.py": "2c9f9bd33459f1f0e33881cc38d7d4ee5ffd2252db367ed82b56d56a4b41da8c"
+  }
+}

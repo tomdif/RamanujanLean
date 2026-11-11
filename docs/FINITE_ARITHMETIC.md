@@ -242,8 +242,11 @@ python3 scripts/check_four_quintuple_certificate.py docs/verification/four_quint
 
 The discoverer uses Python-FLINT; the independent identity checker uses only
 the standard library. The Lean modules separately prove the complete actual
-four-factor classifications at 41 and 53, and the infinite zero progressions
-at 97. The coefficient converse at 97 is not yet formalized.
+four-factor classifications at 41, 53 and 97. At 97 the first sixteen terms
+are an exact finite test, and the cutoff is optimal (residue 54 first becomes
+nonzero at N=15). The [review verification](verification/quintuple_review.json)
+and [reproduction script](../scripts/verify_quintuple_review.py) cover the
+new coefficients and the centered-root classifier for admissible triples.
 
 The all-parameter theorem in
 [FourFamily](../RamanujanTau/MultiQuintupleFourFamily.lean) separately proves

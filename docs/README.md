@@ -21,6 +21,7 @@ earlier open-problem and partial-formalization notes.
 | [Atkin–O'Brien proof record](ATKIN_OBRIEN_PROOF.md) | Public theorems for 13, 17, 19, 23, followed by the historical development |
 | [Multi-quintuple classification](RESULTS.md#multi-quintuple-products-complete-admissible-triple-classification) | Exact theorem, scope, proof modules, and verification |
 | [Multi-quintuple development record](../RESEARCH_MULTI_QUINTUPLE.md) | Current statement followed by historical experiments, counterexamples, and the paper proof |
+| [Sparse-triple review manuscript](../output/pdf/sparse-triples.pdf) | Exact classification, proof outline, centered-root decision procedure, modulus-97 converse, and independent-review questions; [LaTeX source](paper/sparse-triples.tex) |
 | [Nested radicals](RESULTS.md#ramanujans-nested-radical) | Values 3 and 4, the affine family and full converse for linear limits, and exponential error bounds proved in Lean |
 | [Completed Fock space](BOSONIC_FOCK.md) | Hilbert completion, self-adjoint energy, finite eigenspaces, and the remaining physical scope |
 | [Contribution guide](../CONTRIBUTING.md) | Proof policy, verification commands, and documentation conventions |

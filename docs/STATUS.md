@@ -1,6 +1,6 @@
 # Current status
 
-Updated 2026-11-10. [Overview](../README.md) · [Documentation guide](README.md)
+Updated 2026-11-11. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Formal developments
 
@@ -32,7 +32,32 @@ Updated 2026-11-10. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Verification
 
-### Current build state (2026-11-10)
+### Quintuple review package (2026-11-11)
+
+The [review manuscript](../output/pdf/sparse-triples.pdf) presents the proved
+admissible triple classification and the questions for independent review.
+[CenteredRoots](../RamanujanTau/MultiQuintupleCenteredRoots.lean) proves that
+every root certificate is recovered from its projective scalar by centered
+residues, supporting an exact finite classifier with no coefficient cutoff.
+The Python classifier is a reference implementation, not extracted Lean code.
+
+[FourNinetySevenConverse](../RamanujanTau/MultiQuintupleFourNinetySevenConverse.lean)
+classifies the actual four-factor product `(97;5,4,9,13)`: exactly
+9,13,55,64 vanish persistently. Every other residue has a nonzero coefficient
+by N=15, and residue 54 first becomes nonzero at N=15, with value 1.
+The [verification record](verification/quintuple_review.json) records the
+build, nine-declaration axiom audit, independent lattice-certificate replay,
+and exact checks against 160,812 triple-product and 1,552 four-product
+coefficients. The uniform four-factor converse and independent priority
+review remain open.
+
+The full root build passed with 10,557 jobs. The nine review declarations
+and the public audits (383 forty-identity, 24 Fock-space, and 472 headline
+declarations) use only `propext`, `Classical.choice`, and `Quot.sound`.
+The separate 76-declaration finite-arithmetic audit and independent
+prime-29 certificate check also passed.
+
+### Earlier publication build (2026-11-10)
 
 The full root build passed (`lake build RamanujanTau`, 10,532 jobs, exit 0).
 Fresh audits checked 383 declarations for the forty identities, 24 for the
@@ -415,7 +440,7 @@ Atkin–O'Brien variants and the uniform Stepanov bound now have unconditional c
   sparse triple classification in the
   [multi-quintuple research record](../RESEARCH_MULTI_QUINTUPLE.md).
   The universal admissible converse is complete. Remaining directions include
-  a universal four-factor classification beyond the completed cases at 41 and 53
+  a universal four-factor classification beyond the completed cases at 41, 53 and 97
   and the proved parameter families,
   a universal first-witness bound, and the first-spanning
   or first-perfect cutoff criteria. The separate prime-index automorphism

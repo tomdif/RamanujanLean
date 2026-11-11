@@ -17,6 +17,21 @@ examples reported in the March and June 2026 papers and tests proposed extension
 
 ## Current theorem
 
+**Review package (2026-11-11).** The [manuscript](output/pdf/sparse-triples.pdf)
+and [LaTeX source](docs/paper/sparse-triples.tex) give the precise theorem,
+proof argument, formal source map, and comparison with the 2026 papers.
+Mathematical priority and independent human review remain outstanding.
+The [reference classifier](scripts/classify_sparse_triple.py) decides the
+zero residues by scanning the `p−1` nonzero projective scalars, without
+truncating coefficients. [CenteredRoots](RamanujanTau/MultiQuintupleCenteredRoots.lean)
+proves that each root certificate is recovered by centered residues; the
+Python program is not extracted Lean code. Run
+`python3 scripts/classify_sparse_triple.py 31 1 5 6` to obtain residues 6,16,18.
+The [reproduction script](scripts/verify_quintuple_review.py) and
+[verification record](docs/verification/quintuple_review.json) cover the
+proof audit, independent lattice replay, and 160,812 direct coefficient
+comparisons across all 123 admissible triples through 43.
+
 For natural numbers p,i,j,k,R satisfying
 
 ```text
@@ -1948,9 +1963,17 @@ the four parameter congruences are:
 | n | 10,9 | 181 | 1,9,10,19 | 10,20,101,110 |
 
 In particular, `coeff_fourReflection_97` promotes the earlier certificate at
-97 to an actual all-N Lean theorem. The full coefficient converse at 97 is
-not yet formalized; the complete Lean classifications remain those at 41
-and 53.
+97 to an actual all-N Lean theorem. The coefficient converse at 97 is now
+proved in [FourNinetySevenConverse](RamanujanTau/MultiQuintupleFourNinetySevenConverse.lean):
+the persistent zero residues are exactly 9,13,55,64. Each of the other 93
+residues has a kernel-checked nonzero coefficient by N=15. This cutoff is
+optimal: residue 54 is zero for N<15 and has coefficient 1 at N=15.
+Thus the first sixteen terms give an exact finite test for this product.
+The [generator](scripts/generate_four97_converse.py) reproduces the source;
+the [independent checker](scripts/check_quintuple_review.py) compares all
+1,552 coefficients through degree 1551 with direct Pochhammer products.
+Complete fixed-product classifications are now available at 41, 53 and 97.
+This does not prove a uniform converse for the parameter family.
 
 The [algebra](RamanujanTau/MultiQuintupleFourReflectionAlgebra.lean) pairs one
 of four short directions with one of four long directions. All sixteen maps

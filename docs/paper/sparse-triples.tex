@@ -1,0 +1,426 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,array,xurl}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\lean}[1]{{\small\nolinkurl{#1}}}
+\newcommand{\src}[1]{\href{https://github.com/tomdif/RamanujanLean/blob/main/RamanujanTau/MultiQuintuple#1}{\lean{#1}}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\title[Vanishing in triple quintuple products]{Persistent coefficient vanishing in admissible products of three quintuple products}
+\author{Thomas DiFiore}
+\date{Review draft, November 11, 2026}
+\begin{document}
+\begin{abstract}
+For a prime modulus and three distinct canonical indices whose squared sum
+is divisible by that modulus, we give a necessary and sufficient arithmetic
+criterion for an entire coefficient progression of a product of three
+quintuple products to vanish. The criterion is a short vector in a projective
+dual lattice, together with an explicit residue equation. The equivalence
+is proved in Lean. We explain the analytic and lattice steps, the finite
+certificates below the geometric threshold, and a linear scan of projective
+scalars that implements the criterion. We also give a separate, completely
+classified four-factor example at modulus 97. This is a manuscript for
+independent mathematical and priority review; it does not assert a general
+four-factor converse.
+\end{abstract}
+\maketitle
+
+\section{Statement and scope}
+Write $(a;q)_\infty=\prod_{n\ge0}(1-aq^n)$ and fix the convention
+\[
+ Q(z,q)=(z,q/z,q;q)_\infty(qz^2,q/z^2;q^2)_\infty.
+\]
+Thus $Q(q^i,q^p)$ is an integral formal power series when $0<2i<p$.
+Put
+\[
+ F_{p,v}(q)=Q(q^i,q^p)Q(q^j,q^p)Q(q^k,q^p)
+       =\sum_{n\ge0}a_{p,v}(n)q^n,\qquad v=(i,j,k).
+\]
+\begin{definition}
+The triple $(p;i,j,k)$ is \emph{admissible} if $p$ is prime, $p\ne3$,
+$0<i<j<k$, $2k<p$, and $p\mid i^2+j^2+k^2$.
+\end{definition}
+
+\begin{theorem}[Admissible triple classification]\label{thm:main}
+Suppose $(p;i,j,k)$ is admissible and $0\le R<p$.
+Then $a_{p,v}(pN+R)=0$ for every $N\ge0$ if and only if there are
+$w\in\Z^3$, $\lambda\in\Z$ and $e\in\{1,2\}$ such that
+\[
+ w\equiv\lambda v\pmod p,\qquad \norm{w}^2=ep,
+\]
+and, on setting $u=v\cdot w/p$ and $c=2/e$, one has
+\begin{align}
+ 2\lambda R&\equiv w_1+w_2+w_3-6u\pmod p,
+       &&ep\equiv1\pmod3,\label{eq:target1}\\
+ c\lambda(2\lambda R-w_1-w_2-w_3+6u)&\equiv12\pmod p,
+       &&ep\equiv2\pmod3.\label{eq:target2}
+\end{align}
+\end{theorem}
+Here $u$ is an integer by isotropy, and $\lambda$ is automatically nonzero
+modulo $p$. Indeed, $w\in p\Z^3$ and $\norm{w}^2=ep$ would imply
+$p\mid e$, which is impossible. The residue equation is part of the
+criterion: existence of a short root alone does not determine $R$.
+
+The exact formal endpoint is
+\lean{admissible_root_vanishing_equivalence} in
+\lean{RamanujanTau/MultiQuintupleFullConverse.lean}. Its hypotheses are
+precisely admissibility and $R<p$. Its vanishing predicate refers to the
+coefficients of the actual infinite products, rather than a truncated
+series or a hypothesized analytic identity.
+
+The prime and distinct-index assumptions are material. For example,
+common scaling at composite modulus can produce automatic support
+vanishings with no root of the stated kind. The repository proves such
+an obstruction at modulus 9 with three indices equal to 3. No claim about
+all triples, composite moduli, or repeated indices is made here.
+
+\section{Relation to the literature}
+Daniels, Huber, McLaughlin and Ye study two-factor products by dissection
+and lattice involutions \cite{dissection,vanishing}. Their concluding
+sections discuss higher-factor examples; in particular, the second paper
+lists the triple $(31;1,5,6)$ and the quadruple $(41;1,4,5,9)$ as
+experimental examples, and announces further work. The theorem above
+addresses an entire admissible class and includes necessity.
+Their earlier discussion also records an already proved triple example
+at modulus 13; individual triple identities are therefore not claimed
+as a new phenomenon.
+
+Chern and Tang give general coefficient-vanishing methods using theta
+series and huffing operators \cite{chern-tang}. The distinction requiring
+specialist review is whether the exact necessary-and-sufficient criterion
+of Theorem~\ref{thm:main}, under its precise admissibility conditions,
+already follows from that work or subsequent literature. Searches and
+comparisons recorded on November 11, 2026 did not identify that exact
+classification. This is evidence for further review, not a priority
+certification. The present draft makes no ``first proof'' claim.
+
+\section{Proof of the classification}
+We give the argument with the intermediate arithmetic exposed. The
+linked formal modules provide the complete details of convergence,
+summation, lattice generation and the exceptional finite range.
+
+\subsection{From coefficients to dual shells}
+Watson's identity writes one factor as
+\[
+ Q(q^i,q^p)=\sum_{n\in\Z}\bigl(q^{A_i(n)}-q^{B_i(n)}\bigr),\quad
+ A_i(n)=\frac{pn(3n-1)}2+3in,\quad B_i(n)=A_i(n)+i+pn.
+\]
+All these exponents are nonnegative for canonical indices. For a branch
+$b\in\{0,1\}^3$, the progression condition becomes
+$3v\cdot n+v\cdot b\equiv R\pmod p$.
+Define
+\[
+ L=\{x\in\Z^3:v\cdot x\equiv0\pmod p\},\quad
+ \mathcal N=pL^*=\{w\in\Z^3:w\equiv\lambda v\pmod p\}.
+\]
+Their covolumes are $p$ and $p^2$. Choose $q_0$ with
+$3kq_0\equiv1\pmod p$, and set
+\[
+ c_b\equiv q_0(R-v\cdot b)\pmod p,\qquad
+ x_b=\frac vp+\frac{2b-\mathbf1}{6}+c_b(0,0,1).
+\]
+Completing squares and applying Poisson summation to the eight Gaussian
+coset sums shows that persistent vanishing forces the amplitude sum on
+each norm shell of $\mathcal N$ to be zero. All sums involved are
+absolutely convergent at positive Gaussian parameter.
+
+For completeness, let $\zeta=e^{2\pi i/(6p)}$ and $u=v\cdot w/p$.
+The dual amplitude is
+\[
+ A_R(w)=\zeta^{C(w)}\prod_{s=1}^3(1-\zeta^{\delta_s(w)}),\quad
+ C(w)=6w_3q_0R+6u-\sum_s w_s,\quad
+ \delta_s(w)=2w_s-6w_3q_0v_s.
+\]
+It is nonzero exactly when every coordinate of $w$ is nonzero modulo 3;
+call such a vector supported. Write $t_s=\delta_s(w)/(2p)\pmod3$ and
+let $n(w)$ be the number of $t_s$ equal to 2. For supported $w$,
+\[
+ A_R(w)=(1-\zeta^{2p})^3\rho^{a(w)},\qquad
+ \rho=\zeta^3,\qquad a(w)=\frac{C(w)+pn(w)}3\pmod{2p}.
+\]
+The numerator is divisible by 3, and $a(-w)=p-a(w)$.
+The cyclotomic relation for a primitive $2p$th root, combined with this
+antipodal identity, forces equal multiplicities at phases $a$ and $a+p$.
+Consequently every supported vector has an equal-norm opposite-phase
+partner. This argument does not impose a bound on the size of a shell.
+
+\subsection{A coherent pairing below the short-vector threshold}
+Work modulo $p$, and define
+\[
+ h=\frac{v\cdot v}{p},\quad c_0=\frac{2R-\sum v_s}{3},\quad
+ D=h+c_0,\quad
+ \ell(w)=2\frac{v\cdot w}{p}+c_0\lambda(w).
+\]
+The scalar $\lambda(w)$ is uniquely determined modulo $p$.
+Expanding $w=\lambda v+pz$ gives
+\begin{align}
+ \norm{w}^2/p&=\lambda(w)\ell(w)-D\lambda(w)^2,\label{eq:norm}\\
+ 2w\cdot z/p&=\lambda(w)\ell(z)+\lambda(z)\ell(w)
+                   -2D\lambda(w)\lambda(z).\label{eq:pairing}
+\end{align}
+All pairings in $\mathcal N$ are divisible by $p$.
+
+\begin{lemma}[Short-vector uniqueness]
+If distinct integral vectors $w,w'$ have the same norm and are congruent
+modulo an odd integer $p$, then $\norm{w}^2\ge p^2/2$.
+\end{lemma}
+\begin{proof}
+Write $w'-w=pz$. Equality of norms gives
+$2w\cdot z+p\norm{z}^2=0$, so $\norm{z}^2$ is a positive even integer.
+The parallelogram identity gives $p^2\norm{z}^2\le4\norm{w}^2$.
+\end{proof}
+
+Let $S$ consist of supported vectors of norm squared less than $p^2/2$.
+For opposite partners $w,w'\in S$, the phase condition preserves
+$\ell$ modulo $p$. Their scalars are different by the lemma. Subtracting
+\eqref{eq:norm} gives
+\[
+ D(\lambda(w)+\lambda(w'))=\ell(w).
+\]
+If $S$ is nonempty then $D\ne0$: otherwise $\ell(w)=0$ and
+$\norm{w}^2/p\equiv0\pmod p$, contradicting
+$0<\norm{w}^2<p^2/2$.
+Thus partners are unique. Equation~\eqref{eq:pairing} shows that the
+partner permutation preserves dot products modulo $p^2$.
+Cauchy--Schwarz bounds the absolute difference of the two dot products
+strictly below $p^2$, so it preserves them as integers.
+
+\subsection{Integral generation, uniformly in the prime}
+For $p\ne13$, $S$ generates $\mathcal N$ over $\Z$.
+Here is the quantitative part of that assertion.
+The integral lattice with underlying module $\mathcal N$ and inner
+product $(w\cdot z)/p$ has Gram determinant $p$. Its adjugate lattice
+is identified with $L$, whose minimum squared norm is at least 3:
+norm 1 would force a zero index modulo $p$, and norm 2 would force two
+indices equal up to sign.
+
+A reduced basis has Gram--Schmidt squared lengths $A,B,C$ and
+coefficients $\mu,\nu,\xi$ satisfying
+\[
+ |\mu|,|\nu|,|\xi|\le\tfrac12,\quad ABC=p,\quad
+ B\ge\tfrac34A,\quad C\ge\tfrac34B,\quad
+ A\in\Z_{>0},\quad M=AB\in\Z_{\ge3}.
+\]
+Take coefficient vectors $(x,y,z)$ with $x,y\in\{-2,-1,0,1,2\}$,
+$z\in\{0,1\}$, which are nonzero isotropic vectors for the Gram form
+modulo 3. Their images are supported and generate $\mathcal N$.
+Indeed, reduction to $\F_3^3$ is an isomorphism, a nonzero isotropic
+vector for a sum of three squares has all coordinates nonzero, and
+the indicated box generates integrally: its reductions span, and
+differences of representatives produce $3\Z^3$.
+Their scaled squared norms are bounded by
+\[
+ C+\frac{49A+25B}{4}=\frac pM+\frac{49A+25B}{4}.
+\]
+If $M<12$, then $A\le3$, $B\le11$, giving $p/3+211/2<p/2$
+for $p\ge1250$. If $M\ge12$, the reduction inequalities give
+$A^3\le64p/27$ and $B^2\le4p/3$; hence $A\le p/80$ and
+$B\le p/30$ for $p\ge1250$. The bound is then
+$427p/960<p/2$. Returning to the unscaled norm gives the required
+strict bound $p^2/2$.
+
+Below 1250 there are 14,370 normalized canonical triples at 202 primes.
+For 14,369 of them the supplied certificate consists of at most five
+supported short vectors whose $3\times3$ minors have gcd $p^2$.
+That gcd proves integral generation, rather than rational spanning.
+Normalization, signed coordinate permutations and projective rescaling
+cover every admissible triple in this range. The exception is modulus 13.
+There the two canonical triples are $(1,3,4)$ and $(2,5,6)$.
+Their zero residues are respectively $\{2,4,10\}$ and $\{3,9,11\}$;
+six root certificates and twenty explicit nonzero coefficients settle
+both directions. All finite certificates and the coverage argument are
+checked in Lean. An independent integer-only checker is also supplied.
+
+\subsection{Extracting the root and its residue}
+For $p\ne13$, the dot-product-preserving permutation of the integral
+generating set $S$ extends uniquely to a rational orthogonal involution
+$T$, with $T(\mathcal N)=\mathcal N$ and hence $T(L)=L$.
+It is neither $I$ nor $-I$. The first is excluded by the opposite-phase
+condition. The second would force $\ell$ to vanish on $\mathcal N$,
+whereas $\ell(pe_s)=2v_s\ne0\pmod p$.
+In dimension three, $T$ is a reflection $H_w$ or its negative, for a
+primitive integral normal $w$.
+
+Set $n=w\cdot w$. Integrality on $pe_s\in L$ gives
+$n\mid2p w_s w_t$ for every $s,t$, and primitivity implies $n\mid2p$.
+The possibilities $n=1,2$ contradict admissibility. Thus $n=ep$,
+$e\in\{1,2\}$; integrality on $L$ then gives $w\equiv\lambda v\pmod p$.
+
+The phase parity on a supported vector $x$ is
+\[
+ (-1)^{a(x)}=(-1)^{\sum x_s}\chi_3(p)\chi_3(x_1x_2x_3).
+\]
+Every orthogonal matrix for a sum of three squares over $\F_3$ is a
+signed permutation. Applying this to $T$ selects $T=H_w$ when
+$ep\equiv1\pmod3$ and $T=-H_w$ when $ep\equiv2\pmod3$.
+With $c=2/e$ and $t_x=x\cdot w/p$, the reflection is
+$H_w(x)=x-ct_xw$. Preservation of $\ell$ gives $\ell(w)=0$ in
+the first case and $c\lambda\ell(w)=4$ in the second.
+Since $3\ell(w)=6u+\lambda(2R-\sum v_s)$, these are exactly
+\eqref{eq:target1} and \eqref{eq:target2}.
+
+Conversely, a root with the indicated residue equation induces the
+sign-reversing involution on the Watson branches, preserving the
+exponent in every coefficient sum. Pairwise cancellation proves
+persistent vanishing. This direction is the formal theorem
+\lean{hasProjectiveRootTarget_implies_persistentTripleVanishing}.
+Together with the exceptional computation at 13, this proves
+Theorem~\ref{thm:main}.
+
+\section{An exact finite decision procedure}
+\begin{proposition}\label{prop:scan}
+For an admissible triple, all vanishing residues can be found by scanning
+the $p-1$ nonzero scalars modulo $p$. For each scalar $\lambda$, take the
+centered representative $w_s\in[-(p-1)/2,(p-1)/2]$ of $\lambda v_s$.
+Retain $w$ if its squared norm is $p$ or $2p$, and solve the applicable
+residue equation for $R$. The resulting set is exactly the set of
+persistent zero progressions.
+\end{proposition}
+\begin{proof}
+Admissibility implies $p\ge7$. If $\norm{w}^2\le2p$, every integral
+coordinate satisfies $|w_s|\le(p-1)/2$, since
+$((p+1)/2)^2>2p$ for $p\ge7$. Thus every root in
+Theorem~\ref{thm:main} is the centered representative for its scalar.
+Conversely, every retained vector satisfies the root conditions.
+The coefficients $2\lambda$ and $2c\lambda^2$ in the two equations are
+units modulo $p$, so each root gives one residue. Apply the theorem.
+\end{proof}
+This takes $O(p)$ arithmetic operations when inverses of all nonzero
+residues are precomputed, and $O(p\log p)$ using a separate extended
+Euclidean inversion for each retained root. This counts arithmetic
+operations, not bit operations. No coefficient truncation is needed to
+decide persistent vanishing. The supplied Python implementation uses
+exact integers and modular inverses; it is a reference implementation,
+not extracted Lean code. The completeness ingredient that every certified
+root is the centered representative for its scalar is also checked in
+Lean as \lean{projectiveRootTarget_centered}. The executable's full
+input/output correspondence is the elementary argument above, rather than
+a code-extraction or refinement theorem.
+
+\section{A four-factor benchmark and the remaining converse}
+For
+\[
+ G(q)=Q(q^5,q^{97})Q(q^4,q^{97})Q(q^9,q^{97})Q(q^{13},q^{97})
+      =\sum_{n\ge0}g(n)q^n,
+\]
+the four known infinite vanishings arise from the reflection family
+$(m-n,n,m,m+n)$ with $(m,n)=(9,4)$.
+\begin{samepage}
+\begin{theorem}[Complete classification at 97]\label{thm:97}
+For $0\le R<97$,
+\[
+ (\forall N\ge0,\ g(97N+R)=0)
+ \quad\Longleftrightarrow\quad R\in\{9,13,55,64\}.
+\]
+Every other residue has a nonzero coefficient with $N\le15$.
+Moreover $g(97N+54)=0$ for $0\le N<15$, and $g(1509)=1$.
+Consequently the common cutoff 15 is optimal for this product.
+\end{theorem}
+\end{samepage}
+\begin{proof}
+The reflection theorem proves the four infinite zero progressions.
+For each of the other 93 residues, a generated exact coefficient
+certificate proves nonvanishing by $N=15$. All required degrees are at
+most 1509. Nonnegativity of the four Watson exponents and their quadratic
+growth bound every contributing integer index in $[-3,3]$.
+The resulting finite coefficient sums, the 15 preceding zero coefficients
+in residue 54, and the nonzero value at 1509 are evaluated by Lean's kernel.
+The Python generator only proposes certificates.
+\end{proof}
+
+The universal four-factor problem remains open here. In particular,
+classifying compatibility within a collection of sixteen reflection
+maps does not prove that every vanishing progression comes from one of
+those maps. A successful general converse must establish that missing
+necessity statement. A uniform quarter-prime first-witness bound cannot
+be used for four factors: the repository proves counterexamples, including
+one inside the reflection family at modulus 2521. The triple
+quarter-prime conjecture is a separate unresolved quantitative question.
+
+\section{Formal verification and review guide}
+The reference snapshot for the existing triple proof is repository commit
+\lean{8eff6d92d440bc3f6753abf32ca2a8afe187213b}, with Lean
+\texttt{4.30.0-rc2} and the dependencies pinned by \lean{lake-manifest.json}.
+The new four-factor theorem and this manuscript are tied to the source
+hashes in \lean{docs/verification/quintuple_review.json}.
+All public declarations in the dedicated audit must depend only on
+\lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}.
+An axiom audit is accompanied by statement and definition checks;
+axiom cleanliness by itself does not establish that a theorem states
+the intended mathematical claim.
+
+The principal source map, with paths relative to \lean{RamanujanTau/}, is:
+\begin{center}\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.61\textwidth}}
+\toprule
+Mathematical step & Formal module (prefix \lean{MultiQuintuple}) \\
+\midrule
+Actual products and root predicate & \src{RootVanishingClassification.lean} \\
+Poisson bridge and shell cancellation & \src{DualGaussianCancellation.lean} \\
+Phase normalization and antipodes & \src{CanonicalPhaseCharacter.lean} \\
+Opposite supported partners & \src{DualShellPartners.lean} \\
+Integral short generation & \src{UniversalShortGeneration.lean} \\
+Exceptional modulus 13 & \src{ConverseThirteen.lean} \\
+Arithmetic extraction of the root & \src{ShortDualConverse.lean} \\
+Final equivalence & \src{FullConverse.lean} \\
+Centered-root completeness & \src{CenteredRoots.lean} \\
+Four-factor converse at 97 & \src{FourNinetySevenConverse.lean} \\
+\bottomrule
+\end{tabular}
+\end{center}
+Run the reproduction script from the repository root:
+\begin{verbatim}
+python3 scripts/verify_quintuple_review.py
+python3 scripts/classify_sparse_triple.py 31 1 5 6
+\end{verbatim}
+The first command builds the relevant modules, checks the dedicated axiom
+audit, independently replays the finite lattice certificates, compares
+the reference root scan with direct products on a small exhaustive census,
+and checks the generated modulus-97 source and coefficient witnesses.
+It writes a verification record and logs. Building the entire repository
+is a separate broader check.
+
+Independent review should concentrate on the exact product convention,
+the normalization of the Fourier phase, passage from shell cancellation
+to opposite partners, integral generation rather than real spanning,
+the exhaustive normalized coverage below 1250, and extraction of the
+two residue equations. The literature comparison must also account for
+the further work announced in \cite{vanishing}.
+
+\subsection*{Assistance and publication status}
+This draft and the formal development were prepared with AI assistance.
+The draft has not undergone independent human mathematical review or
+peer review. It is prepared for that review; no journal submission,
+external correspondence or priority claim is implied.
+
+\begin{thebibliography}{9}
+\bibitem{dissection}
+T. Daniels, T. Huber, J. McLaughlin and D. Ye,
+\emph{The $p$-Dissection of a Product of Quintuple Products},
+arXiv:2603.04666 (2026),
+\url{https://arxiv.org/abs/2603.04666}.
+\bibitem{vanishing}
+T. Daniels, T. Huber, J. McLaughlin and D. Ye,
+\emph{Vanishing Coefficients in Products of Quintuple Products},
+arXiv:2606.06701 (2026),
+\url{https://arxiv.org/abs/2606.06701}.
+\bibitem{chern-tang}
+S. Chern and D. Tang,
+\emph{General coefficient-vanishing results associated with theta series},
+Advances in Applied Mathematics \textbf{159} (2024), 102742,
+\url{https://arxiv.org/abs/2208.09882}.
+\bibitem{repo}
+T. DiFiore, \emph{RamanujanLean}, source and verification records,
+\url{https://github.com/tomdif/RamanujanLean}.
+\end{thebibliography}
+\end{document}
