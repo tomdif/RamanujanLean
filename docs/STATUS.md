@@ -47,14 +47,24 @@ coefficients and rejects five deliberately corrupted certificates. The
 large-prime integer spanning identities and finite symmetry exclusions are
 also kernel checked.
 
-**Still open in Lean:** assembling the partners into a lattice involution,
-lifting the finite certificates to arbitrary parameters, and completing
+[FourPairingIsometry](../RamanujanTau/MultiQuintupleFourPairingIsometry.lean)
+now proves that these actual partners assemble into one rational orthogonal
+involution, provided the supported short vectors span. Dot-product
+preservation and uniqueness follow from arithmetic; neither coherence nor
+involutivity is assumed.
+[FourDualLattice](../RamanujanTau/MultiQuintupleFourDualLattice.lean) also
+represents every integral projective-lattice vector by a Fourier index and
+proves that the four-dimensional cubic character is preserved.
+
+**Still open in Lean:** proving integral generation for arbitrary parameters,
+showing the involution preserves both lattices, deriving its two signed
+permutation blocks, and completing
 the seven smaller coefficient classifications not already covered at
 41,53,97. The [written prime-family argument](../RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11)
 is available for review. Neither a complete uniform converse nor a
 classification of arbitrary four-tuples is claimed. The
 [verification record](verification/four_prime_converse.json) gives the
-build and dedicated 61-declaration axiom audit.
+build and dedicated 100-declaration axiom audit.
 
 ### Quintuple review package (2026-11-11)
 

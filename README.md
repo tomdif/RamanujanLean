@@ -59,7 +59,8 @@ python3 scripts/boylanwebb/check_cert29_error.py
 ```
 
 The default verifier builds and audits all forty identities and the completed
-Fock space, plus the four-factor analytic necessity and finite symmetry lemmas.
+Fock space, plus the four-factor necessity, short-vector coherence, and finite
+symmetry lemmas.
 `--full` also builds the root library and audits the celebrated
 analytic and arithmetic targets. It rejects unexpected axioms and saves build
 and audit logs under `/tmp/ramanujan-lean-verification` (override with

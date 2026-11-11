@@ -1919,8 +1919,9 @@ statement and is unaffected.
 **Status.** The argument below is for the two-parameter family at **prime**
 moduli. It is not a classification of arbitrary four-tuples or composite
 moduli. The actual-coefficient analytic bridge, opposite-phase partners,
-character reversal, norm-three rigidity, and finite symmetry lemmas are
-checked in Lean. The uniform lattice assembly is not yet formalized;
+character reversal, short-partner coherence, rational involution conditional
+on spanning, norm-three rigidity, and finite symmetry lemmas are checked in
+Lean. Integral generation and the uniform lattice classification remain open;
 the finite Python checks alone do not establish it.
 Independent mathematical and priority review remain outstanding.
 
@@ -2055,6 +2056,21 @@ on S therefore extends to a rational orthogonal involution T. Since S
 generates N integrally, `T(N)=N`, and duality gives `T(L)=L`. It preserves
 ℓ and reverses the quartic character on S.
 
+The coherence and rational extension are now formalized in
+[FourShortCoherence](RamanujanTau/MultiQuintupleFourShortCoherence.lean),
+[FourSpanningIsometry](RamanujanTau/MultiQuintupleFourSpanningIsometry.lean), and
+[FourPairingIsometry](RamanujanTau/MultiQuintupleFourPairingIsometry.lean).
+`four_persistent_vanishing_spanning_involution` starts from actual coefficient
+vanishing and constructs the involution with opposite canonical phases and
+reversed character. Its remaining extra hypothesis is rational spanning of
+the supported nonzero short Fourier vectors. It does not yet prove integral
+generation or preservation of N and L.
+[FourDualLattice](RamanujanTau/MultiQuintupleFourDualLattice.lean) now proves
+that every integral projective-lattice vector has a Fourier index and that
+this parametrization preserves the quartic cubic character. Supported
+positive short lattice vectors therefore supply the actual Fourier indices
+required by the analytic theorem.
+
 **Only finitely many blocks remain.** For p>9, the norm-three vectors of
 L are exactly `±u,±w`. Indeed, for `X=e₁·x,Y=e₂·x`, the congruence
 `mX+nY≡0` and `m²+n²≡0` imply `X²+Y²≡0 mod p`. If `||x||²=3`,
@@ -2097,7 +2113,7 @@ Reproduce the finite checks with
 ```sh
 python3 scripts/generate_four_prime_converse.py --check
 python3 scripts/check_four_prime_converse.py --self-test
-lake build RamanujanTau.MultiQuintupleFourPhaseParity
+lake build RamanujanTau.MultiQuintupleFourDualLattice
 lake build RamanujanTau.MultiQuintupleFourPrimeGeometry
 lake env lean scripts/audit/four_prime_converse.lean
 ```
@@ -2107,7 +2123,7 @@ standard library and rejects five deliberately corrupted certificates. The
 [verification record](docs/verification/four_prime_converse.json) identifies
 the completed declarations and their exact source snapshot.
 
-The remaining formal obligations are coherent lattice assembly, lifting of
+The remaining formal obligations are integral lattice assembly, lifting of
 the finite generator/symmetry data to arbitrary integer parameters, and the
 seven remaining small-prime actual-coefficient classifications. These must
 be discharged before documenting a complete Lean converse. The argument

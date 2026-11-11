@@ -1,14 +1,14 @@
 {
-  "verified_at_utc": "2026-11-11T15:47:21.993444+00:00",
-  "source_base_commit": "6c04b0e1456928680b5e983ea0a051729c151853",
-  "scope": "Completed analytic necessity lemmas and finite certificates; not a full four-factor converse",
+  "verified_at_utc": "2026-11-11T23:12:58.676221+00:00",
+  "source_base_commit": "1547cdb655227121c73b8a58c87f26bbc2fc04d1",
+  "scope": "Analytic necessity, arithmetic coherence, rational involution conditional on spanning, Fourier parametrization, and finite certificates; not a full four-factor converse",
   "lean_toolchain": "leanprover/lean4:v4.30.0-rc2",
   "build": {
-    "command": "python3 scripts/verify_lean.py --full",
+    "command": "python3 scripts/verify_lean.py",
     "exit_code": 0,
-    "jobs": 10571,
-    "mode": "Incremental full root build with pinned dependencies and existing local artifacts",
-    "log_sha256": "2824bfd9909382cebdd2c4d6d3b21824a905e28c23afcc3707e7eed920d94a4d"
+    "requested_targets": 68,
+    "mode": "Sequential incremental public-target builds with pinned dependencies and existing local artifacts; not a full root build",
+    "log_sha256": "20381771934278e97ddfd50a960168878eb17e18a2e6c1a6470e14fdf536392d"
   },
   "audits": [
     {
@@ -33,23 +33,13 @@
     },
     {
       "name": "four_prime_converse",
-      "declarations": 61,
+      "declarations": 100,
       "axioms": [
         "Classical.choice",
         "Quot.sound",
         "propext"
       ],
-      "output_sha256": "f9db2da1a7d9f58111b4f35f622490986e17f64011572dc3814f20a25e44402e"
-    },
-    {
-      "name": "celebrated_targets",
-      "declarations": 472,
-      "axioms": [
-        "Classical.choice",
-        "Quot.sound",
-        "propext"
-      ],
-      "output_sha256": "01c5a11b76b16b3159a3a7d4dd07d54d51cc99b7cea7b7f5836a195105a53ad2"
+      "output_sha256": "f6a86cf74bb8ffc785c5827733130f6df8649c5d8c5b462553dd72eacad344ae"
     }
   ],
   "dedicated_audit_output": "docs/verification/four_prime_converse.axioms.txt",
@@ -59,7 +49,15 @@
     "four_persistent_vanishing_character_partner",
     "fourPrime_generators_finite",
     "fourPrime_symmetry_finite",
-    "fourPrime_norm_three_rigidity"
+    "fourPrime_norm_three_rigidity",
+    "four_short_canonical_partners_preserve_dot",
+    "FourProjectiveLift.short_partner_unique",
+    "four_exists_linear_of_spanning_gram_family",
+    "four_short_pairing_yields_involution",
+    "four_persistent_vanishing_spanning_involution",
+    "fourDualPoint_surjective_of_projective",
+    "fourDualPoint_character",
+    "four_projective_short_lift"
   ],
   "independent_check": {
     "passed": true,
@@ -83,12 +81,14 @@
     "comparison": "Both JSON and Lean generator data reproduced exactly"
   },
   "remaining_obligations": [
-    "Coherent lattice involution and the global lattice assembly",
-    "Lift finite generator and symmetry certificates to arbitrary integer parameters",
+    "Lift finite generator certificates to integral generation for arbitrary prime-family parameters",
+    "Prove preservation of the projective and residue lattices and derive the two signed-permutation blocks",
+    "Lift finite symmetry exclusions and derive the four residue equations",
     "Formal actual-coefficient classifications for the remaining seven small-prime cases"
   ],
   "limits": [
     "No complete uniform coefficient converse is claimed",
+    "The rational involution theorem still assumes rational spanning of the supported short Fourier vectors",
     "Arbitrary four-tuples and composite-modulus necessity are outside the written prime-family argument",
     "The finite coefficient checker does not infer infinite vanishing from finite zero prefixes",
     "Independent mathematical review and literature priority review remain outstanding"
@@ -108,29 +108,34 @@
     "RamanujanTau/MultiQuintupleFourDualIndex.lean": "375af8cb1861c8a3567499b0007aca97a8498bed33c42094f6493405b271b92b",
     "RamanujanTau/MultiQuintupleFourShellPartners.lean": "a1d1ce8f14856296a4732451f8d3cee07799bedb83f1e43796c3ea207a47e36f",
     "RamanujanTau/MultiQuintupleFourPhaseParity.lean": "3c058b1c77f8fad86d8ace114eed68e049f27dd87707e70c2f8b33e44b2fa628",
-    "scripts/audit/four_prime_converse.lean": "eead1d263ea9b6777bb750734a8ae8b3a3f1fc23fc844c85466892fbc2c0ca22",
+    "scripts/audit/four_prime_converse.lean": "7a8212fb4e35869cd46d8c3d6a171486817148b663328f41b12dab2f9e1c6a8a",
     "scripts/check_four_prime_converse.py": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8",
     "scripts/generate_four_prime_converse.py": "828fe7fb3e943ab197f3c488db2b120250c6a55a031e8a5b03d5e76e28496bde",
     "scripts/verify_lean.py": "b166e4c62bece279cf418bb843f18d06fa4cfcf40562bd75d994bceaf2709d04",
-    "RamanujanTau.lean": "e38a095a029d5ebb94785143460e490d19864a8ba30bc62a81608d1b9d41d088",
+    "RamanujanTau.lean": "219e46a5a4f864e301164910513fcc011ad2a329b3ed9ffc277bc24268167aad",
     "lean-toolchain": "ce4c4e3d87434b9663f46de25ce34b48a0cf0d392e0a320a0787b4674a2d7b61",
     "lake-manifest.json": "5990cea40fe49b50761d29c7c8daf26280c92c8d33c658446eff1600cb02522d",
     "lakefile.toml": "4cc9c10467da5f07808a41359a2818ed279da7edde8dc981a25866d1469fb9d4",
     ".github/workflows/repository-checks.yml": "d840f0c4a56708d0fb5f91a6cacca96ca4926abeb6e8594781da0b8cf3ec2b11",
     ".github/workflows/lean-checks.yml": "8df9f8acf5da45d3062532d86f7dacfc2ee78ebd6522a0e2776641254e8505fd",
-    "README.md": "0a7601d51d388936091a6c6c131a92d11fe8afe468ff69e279f5403b51505a2e",
-    "RESEARCH_MULTI_QUINTUPLE.md": "3fa702ac4291794612fc895ef0a19f64b2ec496fa97b7272203eaf92ddbbd43f",
-    "docs/RESULTS.md": "664b75c7f6b54f338a86e61bbe1772199224d5b8d74cd4ec85415d08b00619be",
-    "docs/STATUS.md": "fb5c2b4836f70e86e94bc64091280341163f9c3bdfe409048d98a1c689af644c",
+    "README.md": "5508996a47bdc1351618d19aabb48ee56c35bef6b1c384ff4ebbef36946ffa31",
+    "RESEARCH_MULTI_QUINTUPLE.md": "05f973996c48bfa4b975d2144576ec84657c796ae48c085765d305d0a7c99dee",
+    "docs/RESULTS.md": "5c4662aba7eedceca2b9fc3f6021497ac66580d8201c334cd15ccc51e5e1a434",
+    "docs/STATUS.md": "0778ff025fc608d94742fdc917967141150e11924637730ca6580499293cb10f",
     "docs/verification/four_prime_converse_certificates.json": "9bcdc1bc782593d3da5909b58b587a82acb3e722f06bcc244550fd5c8843c2cf",
-    "docs/verification/four_prime_converse_checks.json": "a1d17ba2b5833ff27f04cc6300fb19eccd737427c12603a757cc61bf1cf4015c"
+    "docs/verification/four_prime_converse_checks.json": "a1d17ba2b5833ff27f04cc6300fb19eccd737427c12603a757cc61bf1cf4015c",
+    "RamanujanTau/MultiQuintupleRootBranch.lean": "66de5e9862d5c8d1439ed8cc3f9ae94e0ef6f23cd24c81798b1908478da46814",
+    "RamanujanTau/MultiQuintupleFourShortCoherence.lean": "4a5ad2f07ca3ab216376337d80bce83854645074163b9bbca602776576396ab3",
+    "RamanujanTau/MultiQuintupleFourSpanningIsometry.lean": "f09aee6356a6d3cc6fd04c3574024d85d370d0088dbc221894c27c8808d6a31d",
+    "RamanujanTau/MultiQuintupleFourPairingIsometry.lean": "c4c1421aa76fe4a9b351687b82d0ac8b42a416ef37029e6f363b9fbc0ed1049c",
+    "RamanujanTau/MultiQuintupleFourDualLattice.lean": "7a58e6a30bf62e0dd308329bb79e76cc195273896bfe9344f11a803207ae3b98"
   },
   "repository_checks": {
     "command": "python3 scripts/check_repository.py",
     "exit_code": 0,
-    "lean_sources_and_audits": 2266,
+    "lean_sources_and_audits": 2270,
     "markdown_files": 136,
-    "local_links": 799,
+    "local_links": 807,
     "whitespace_check": "git diff --cached --check passed"
   },
   "hosted_runner_observation": {
@@ -142,5 +147,127 @@
     ],
     "exit_code": 143,
     "observation": "Both hosted attempts were terminated without Lean diagnostics; the failure-report step was skipped. Live build logging was added. The cause is not established."
+  },
+  "previous_full_verification": {
+    "verified_at_utc": "2026-11-11T15:47:21.993444+00:00",
+    "source_base_commit": "6c04b0e1456928680b5e983ea0a051729c151853",
+    "build": {
+      "command": "python3 scripts/verify_lean.py --full",
+      "exit_code": 0,
+      "jobs": 10571,
+      "mode": "Incremental full root build with pinned dependencies and existing local artifacts",
+      "log_sha256": "2824bfd9909382cebdd2c4d6d3b21824a905e28c23afcc3707e7eed920d94a4d"
+    },
+    "audits": [
+      {
+        "name": "forty11",
+        "declarations": 383,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "712b4d01ccee3d432dc94e08958613d839cc1b26ce973093f560cc2c6ac7b9af"
+      },
+      {
+        "name": "bosonic_fock",
+        "declarations": 24,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "e5504691917bfb5aa4e53ba4b340516681bd3c9c458bdc526b98c3828cbea876"
+      },
+      {
+        "name": "four_prime_converse",
+        "declarations": 61,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "f9db2da1a7d9f58111b4f35f622490986e17f64011572dc3814f20a25e44402e"
+      },
+      {
+        "name": "celebrated_targets",
+        "declarations": 472,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "01c5a11b76b16b3159a3a7d4dd07d54d51cc99b7cea7b7f5836a195105a53ad2"
+      }
+    ],
+    "source_sha256": {
+      "RamanujanTau/MultiQuintuplePhaseVacancy.lean": "da50f01477434f4e2f3f54e7b74bb066e35ad2e9895d5635959cf9b78588bc06",
+      "RamanujanTau/MultiQuintupleFourPrimeGeneratorData.lean": "4e5a69fd00356748f982817ab25beaa39a6a1f41513da684d7e49d19efba2ca4",
+      "RamanujanTau/MultiQuintupleFourPrimeFinite.lean": "a6993fc96c58bdd870b8a631b56d4b69fd73e9207fb6593031e74859abd57e12",
+      "RamanujanTau/MultiQuintupleFourPrimeGeometry.lean": "2f9b303a5104d49abede0ea4d596b3294ed62b5360d04adf923e966bd6c323f1",
+      "RamanujanTau/MultiQuintupleFourGaussian.lean": "6546a5e6f8bad2306ec16cae5550752d7e34ae84e21baf90206d80825fb426ac",
+      "RamanujanTau/MultiQuintupleFourPrimalGaussian.lean": "b36cf94a0b425edfba3ef486b69c08d693cfbeaa4945862500b25f1431756241",
+      "RamanujanTau/MultiQuintupleFourWatsonPoisson.lean": "c33115c59d55127c44e0bf8f0ce7a34b1da6e5175b0646a7a37a7c1e96f9627a",
+      "RamanujanTau/MultiQuintupleFourFourier.lean": "0a04d208302f1433ec924cd4f4c466c4bb312fa8019f9dec6971b5e8fe7eab94",
+      "RamanujanTau/MultiQuintupleFourFourierShells.lean": "44931761f561f7ead7314d88f8bde514e2713ef63e50cc9121eaaf36c918a0fe",
+      "RamanujanTau/MultiQuintupleFourPhaseCompression.lean": "5498580625db96cf27184353e0898f2e586370c69616b392f6b85c02bc20073b",
+      "RamanujanTau/MultiQuintupleFourDualArithmetic.lean": "a76c60dd5849bad5f3638185f110e4d0f2e011b16b8546bb62c6f85eeec27efe",
+      "RamanujanTau/MultiQuintupleFourDualIndex.lean": "375af8cb1861c8a3567499b0007aca97a8498bed33c42094f6493405b271b92b",
+      "RamanujanTau/MultiQuintupleFourShellPartners.lean": "a1d1ce8f14856296a4732451f8d3cee07799bedb83f1e43796c3ea207a47e36f",
+      "RamanujanTau/MultiQuintupleFourPhaseParity.lean": "3c058b1c77f8fad86d8ace114eed68e049f27dd87707e70c2f8b33e44b2fa628",
+      "scripts/audit/four_prime_converse.lean": "eead1d263ea9b6777bb750734a8ae8b3a3f1fc23fc844c85466892fbc2c0ca22",
+      "scripts/check_four_prime_converse.py": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8",
+      "scripts/generate_four_prime_converse.py": "828fe7fb3e943ab197f3c488db2b120250c6a55a031e8a5b03d5e76e28496bde",
+      "scripts/verify_lean.py": "b166e4c62bece279cf418bb843f18d06fa4cfcf40562bd75d994bceaf2709d04",
+      "RamanujanTau.lean": "e38a095a029d5ebb94785143460e490d19864a8ba30bc62a81608d1b9d41d088",
+      "lean-toolchain": "ce4c4e3d87434b9663f46de25ce34b48a0cf0d392e0a320a0787b4674a2d7b61",
+      "lake-manifest.json": "5990cea40fe49b50761d29c7c8daf26280c92c8d33c658446eff1600cb02522d",
+      "lakefile.toml": "4cc9c10467da5f07808a41359a2818ed279da7edde8dc981a25866d1469fb9d4",
+      ".github/workflows/repository-checks.yml": "d840f0c4a56708d0fb5f91a6cacca96ca4926abeb6e8594781da0b8cf3ec2b11",
+      ".github/workflows/lean-checks.yml": "8df9f8acf5da45d3062532d86f7dacfc2ee78ebd6522a0e2776641254e8505fd",
+      "README.md": "0a7601d51d388936091a6c6c131a92d11fe8afe468ff69e279f5403b51505a2e",
+      "RESEARCH_MULTI_QUINTUPLE.md": "3fa702ac4291794612fc895ef0a19f64b2ec496fa97b7272203eaf92ddbbd43f",
+      "docs/RESULTS.md": "664b75c7f6b54f338a86e61bbe1772199224d5b8d74cd4ec85415d08b00619be",
+      "docs/STATUS.md": "fb5c2b4836f70e86e94bc64091280341163f9c3bdfe409048d98a1c689af644c",
+      "docs/verification/four_prime_converse_certificates.json": "9bcdc1bc782593d3da5909b58b587a82acb3e722f06bcc244550fd5c8843c2cf",
+      "docs/verification/four_prime_converse_checks.json": "a1d17ba2b5833ff27f04cc6300fb19eccd737427c12603a757cc61bf1cf4015c"
+    }
+  },
+  "root_branch_optimization": {
+    "public_statements_unchanged": true,
+    "old_input_combinations_per_lemma": 157464,
+    "reduced_input_combinations_per_lemma": 216,
+    "method": "Eliminate six auxiliary residues algebraically before the kernel check",
+    "local_measurements": {
+      "old_attempt_interrupted": true,
+      "old_attempt_elapsed_seconds": 102,
+      "old_attempt_peak_rss_bytes": 17985585152,
+      "new_build_elapsed_seconds": 18.37,
+      "new_build_peak_rss_bytes": 3480453120
+    },
+    "statement_sha256": {
+      "directRoot_positive_mod3": "cdf3c98230d68d122b0df70989af6ef082d9085ee2433d27e5020ea0b9f2f8de",
+      "directRoot_negative_mod3": "3e83a7ad8c0e1159f145a17260668b9c4417122dd7f6a05ac08276d589c12795"
+    }
+  },
+  "hosted_runner_resolution": {
+    "commit": "1547cdb655227121c73b8a58c87f26bbc2fc04d1",
+    "lean_run": "https://github.com/tomdif/RamanujanLean/actions/runs/43061805449",
+    "lean_conclusion": "success",
+    "root_branch_build_seconds": 11,
+    "repository_run": "https://github.com/tomdif/RamanujanLean/actions/runs/43061805832",
+    "repository_conclusion": "success",
+    "scope": "The root-branch optimization; the subsequent coherence modules are covered by the local target builds and audits recorded above",
+    "intervening_failure": {
+      "commit": "7eca5631a611236dd860ccba9178a4c51bf219d5",
+      "run": "https://github.com/tomdif/RamanujanLean/actions/runs/43051862126",
+      "exit_code": 143
+    }
+  },
+  "full_rebuild_attempt": {
+    "command": "python3 scripts/verify_lean.py --full",
+    "completed": false,
+    "observation": "During the shared-proof rebuild an older modulo-41 coefficient job terminated, and a shell command reported no space left on device. Remaining build processes were stopped to release memory and swap space. No full-root success is claimed for this source snapshot.",
+    "log_sha256": "17d8d17a18a75ca975d8961098de929050110ddb5e7e39e0a92bba45bc2a32fc"
   }
 }

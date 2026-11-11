@@ -1384,6 +1384,16 @@ converse follows. The [proof argument and remaining obligations](../RESEARCH_MUL
 and [verification record](verification/four_prime_converse.json) distinguish
 these completed lemmas from that open endpoint.
 
+[FourPairingIsometry](../RamanujanTau/MultiQuintupleFourPairingIsometry.lean)
+proves `four_persistent_vanishing_spanning_involution`: under the additional
+hypothesis that supported short Fourier vectors span over the rationals,
+actual coefficient vanishing yields one rational orthogonal involution with
+opposite phases and reversed character. The arithmetic proves preservation
+of every dot product and uniqueness of partners. Integral generation and
+the resulting lattice classification remain open.
+[FourDualLattice](../RamanujanTau/MultiQuintupleFourDualLattice.lean) proves
+the projective-lattice-to-Fourier parametrization and character preservation.
+
 ### Two-parameter four-factor theorem and classification at 53
 
 [MultiQuintupleFourPlane](../RamanujanTau/MultiQuintupleFourPlane.lean)

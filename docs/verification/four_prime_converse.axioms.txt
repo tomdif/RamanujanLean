@@ -89,3 +89,62 @@
 'Ramanujan.MultiQuintuple.four_persistent_vanishing_character_partner' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'Ramanujan.MultiQuintuple.directRoot_positive_mod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.directRoot_negative_mod3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourVectorNorm_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourVectorNorm_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourVectorNorm_sub' depends on axioms: [propext, Quot.sound]
+'Ramanujan.MultiQuintuple.fourDot_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four_short_dot_eq_of_square_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four_short_translate_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.dot_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.pairing_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.dot_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.dot_quotient_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.dot_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.norm_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.dot_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.short_eq_of_scalar_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.short_partner_reflection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.short_partners_preserve_dot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.FourProjectiveLift.short_partner_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.fourFourierLift_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourFourierLift_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four_short_canonical_partners_preserve_dot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.fourDot_comm' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.fourDot_add_left' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.fourDot_add_right' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.fourDot_smul_left' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.fourDot_smul_right' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.fourDot_zero_left' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.fourDot_zero_right' depends on axioms: [propext]
+'Ramanujan.MultiQuintuple.fourRatNorm_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.fourRatNorm_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four_exists_linear_of_spanning_dot_pairing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.four_exists_linear_of_spanning_gram_family' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.fourDot_intToRat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four_short_pairing_yields_involution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.four_persistent_vanishing_spanning_involution' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.fourDualPoint_surjective_of_projective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Ramanujan.MultiQuintuple.fourDualPoint_character' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Ramanujan.MultiQuintuple.four_projective_short_lift' depends on axioms: [propext, Classical.choice, Quot.sound]

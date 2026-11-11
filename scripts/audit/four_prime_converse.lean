@@ -1,4 +1,4 @@
-import RamanujanTau.MultiQuintupleFourPhaseParity
+import RamanujanTau.MultiQuintupleFourDualLattice
 import RamanujanTau.MultiQuintupleFourPrimeGeometry
 
 /-! Audit of completed lemmas; no full four-factor converse is asserted. -/
@@ -63,3 +63,42 @@ import RamanujanTau.MultiQuintupleFourPrimeGeometry
 #print axioms Ramanujan.MultiQuintuple.four_persistent_vanishing_short_partner
 #print axioms Ramanujan.MultiQuintuple.four_opposite_phase_reverses_character
 #print axioms Ramanujan.MultiQuintuple.four_persistent_vanishing_character_partner
+#print axioms Ramanujan.MultiQuintuple.directRoot_positive_mod3
+#print axioms Ramanujan.MultiQuintuple.directRoot_negative_mod3
+#print axioms Ramanujan.MultiQuintuple.fourVectorNorm_nonneg
+#print axioms Ramanujan.MultiQuintuple.fourVectorNorm_eq_zero_iff
+#print axioms Ramanujan.MultiQuintuple.fourVectorNorm_sub
+#print axioms Ramanujan.MultiQuintuple.fourDot_bounds
+#print axioms Ramanujan.MultiQuintuple.four_short_dot_eq_of_square_dvd
+#print axioms Ramanujan.MultiQuintuple.four_short_translate_unique
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.dot_base
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.pairing_eq
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.dot_identity
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.dot_quotient_eq
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.dot_dvd
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.norm_phase
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.dot_phase
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.short_eq_of_scalar_eq
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.short_partner_reflection
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.short_partners_preserve_dot
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.short_partner_unique
+#print axioms Ramanujan.MultiQuintuple.fourFourierLift_norm
+#print axioms Ramanujan.MultiQuintuple.fourFourierLift_phase
+#print axioms Ramanujan.MultiQuintuple.four_short_canonical_partners_preserve_dot
+#print axioms Ramanujan.MultiQuintuple.fourDot_comm
+#print axioms Ramanujan.MultiQuintuple.fourDot_add_left
+#print axioms Ramanujan.MultiQuintuple.fourDot_add_right
+#print axioms Ramanujan.MultiQuintuple.fourDot_smul_left
+#print axioms Ramanujan.MultiQuintuple.fourDot_smul_right
+#print axioms Ramanujan.MultiQuintuple.fourDot_zero_left
+#print axioms Ramanujan.MultiQuintuple.fourDot_zero_right
+#print axioms Ramanujan.MultiQuintuple.fourRatNorm_sub
+#print axioms Ramanujan.MultiQuintuple.fourRatNorm_eq_zero_iff
+#print axioms Ramanujan.MultiQuintuple.four_exists_linear_of_spanning_dot_pairing
+#print axioms Ramanujan.MultiQuintuple.four_exists_linear_of_spanning_gram_family
+#print axioms Ramanujan.MultiQuintuple.fourDot_intToRat
+#print axioms Ramanujan.MultiQuintuple.four_short_pairing_yields_involution
+#print axioms Ramanujan.MultiQuintuple.four_persistent_vanishing_spanning_involution
+#print axioms Ramanujan.MultiQuintuple.fourDualPoint_surjective_of_projective
+#print axioms Ramanujan.MultiQuintuple.fourDualPoint_character
+#print axioms Ramanujan.MultiQuintuple.four_projective_short_lift
