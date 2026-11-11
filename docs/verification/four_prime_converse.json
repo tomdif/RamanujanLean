@@ -1,0 +1,136 @@
+{
+  "verified_at_utc": "2026-11-11T15:24:41.923490+00:00",
+  "source_base_commit": "03c8362b7b9fd2d0c8054c45dfeaf153541b9399",
+  "scope": "Completed analytic necessity lemmas and finite certificates; not a full four-factor converse",
+  "lean_toolchain": "leanprover/lean4:v4.30.0-rc2",
+  "build": {
+    "command": "python3 scripts/verify_lean.py --full",
+    "exit_code": 0,
+    "jobs": 10571,
+    "mode": "Incremental full root build with pinned dependencies and existing local artifacts",
+    "log_sha256": "37fcc07d5b67f05304c9a1c1987e7517a7a1b68386971ecb6b733c7de727ac8f"
+  },
+  "audits": [
+    {
+      "name": "forty11",
+      "declarations": 383,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output_sha256": "712b4d01ccee3d432dc94e08958613d839cc1b26ce973093f560cc2c6ac7b9af"
+    },
+    {
+      "name": "bosonic_fock",
+      "declarations": 24,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output_sha256": "e5504691917bfb5aa4e53ba4b340516681bd3c9c458bdc526b98c3828cbea876"
+    },
+    {
+      "name": "four_prime_converse",
+      "declarations": 61,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output_sha256": "f9db2da1a7d9f58111b4f35f622490986e17f64011572dc3814f20a25e44402e"
+    },
+    {
+      "name": "celebrated_targets",
+      "declarations": 472,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output_sha256": "01c5a11b76b16b3159a3a7d4dd07d54d51cc99b7cea7b7f5836a195105a53ad2"
+    }
+  ],
+  "dedicated_audit_output": "docs/verification/four_prime_converse.axioms.txt",
+  "completed_endpoints": [
+    "four_persistent_vanishing_fourier_shells",
+    "four_persistent_vanishing_short_partner",
+    "four_persistent_vanishing_character_partner",
+    "fourPrime_generators_finite",
+    "fourPrime_symmetry_finite",
+    "fourPrime_norm_three_rigidity"
+  ],
+  "independent_check": {
+    "passed": true,
+    "residue_classes": 72,
+    "symmetry_pairs_checked": 2592,
+    "compatible_pairs": 96,
+    "maximum_generators": 12,
+    "small_prime_cases": 10,
+    "nonzero_witnesses": 498,
+    "direct_coefficients_checked": 4636,
+    "scope": "Finite certificate replay only; not the analytic or full Lean converse",
+    "corrupted_certificates_rejected": 5,
+    "certificate_sha256": "9bcdc1bc782593d3da5909b58b587a82acb3e722f06bcc244550fd5c8843c2cf",
+    "checker_sha256": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8"
+  },
+  "reproducibility": {
+    "command": "python3 scripts/generate_four_prime_converse.py --check",
+    "exit_code": 0,
+    "python": "3.9.6",
+    "python_flint": "0.6.0",
+    "comparison": "Both JSON and Lean generator data reproduced exactly"
+  },
+  "remaining_obligations": [
+    "Coherent lattice involution and the global lattice assembly",
+    "Lift finite generator and symmetry certificates to arbitrary integer parameters",
+    "Formal actual-coefficient classifications for the remaining seven small-prime cases"
+  ],
+  "limits": [
+    "No complete uniform coefficient converse is claimed",
+    "Arbitrary four-tuples and composite-modulus necessity are outside the written prime-family argument",
+    "The finite coefficient checker does not infer infinite vanishing from finite zero prefixes",
+    "Independent mathematical review and literature priority review remain outstanding"
+  ],
+  "source_sha256": {
+    "RamanujanTau/MultiQuintuplePhaseVacancy.lean": "da50f01477434f4e2f3f54e7b74bb066e35ad2e9895d5635959cf9b78588bc06",
+    "RamanujanTau/MultiQuintupleFourPrimeGeneratorData.lean": "4e5a69fd00356748f982817ab25beaa39a6a1f41513da684d7e49d19efba2ca4",
+    "RamanujanTau/MultiQuintupleFourPrimeFinite.lean": "a6993fc96c58bdd870b8a631b56d4b69fd73e9207fb6593031e74859abd57e12",
+    "RamanujanTau/MultiQuintupleFourPrimeGeometry.lean": "2f9b303a5104d49abede0ea4d596b3294ed62b5360d04adf923e966bd6c323f1",
+    "RamanujanTau/MultiQuintupleFourGaussian.lean": "6546a5e6f8bad2306ec16cae5550752d7e34ae84e21baf90206d80825fb426ac",
+    "RamanujanTau/MultiQuintupleFourPrimalGaussian.lean": "b36cf94a0b425edfba3ef486b69c08d693cfbeaa4945862500b25f1431756241",
+    "RamanujanTau/MultiQuintupleFourWatsonPoisson.lean": "c33115c59d55127c44e0bf8f0ce7a34b1da6e5175b0646a7a37a7c1e96f9627a",
+    "RamanujanTau/MultiQuintupleFourFourier.lean": "0a04d208302f1433ec924cd4f4c466c4bb312fa8019f9dec6971b5e8fe7eab94",
+    "RamanujanTau/MultiQuintupleFourFourierShells.lean": "44931761f561f7ead7314d88f8bde514e2713ef63e50cc9121eaaf36c918a0fe",
+    "RamanujanTau/MultiQuintupleFourPhaseCompression.lean": "5498580625db96cf27184353e0898f2e586370c69616b392f6b85c02bc20073b",
+    "RamanujanTau/MultiQuintupleFourDualArithmetic.lean": "a76c60dd5849bad5f3638185f110e4d0f2e011b16b8546bb62c6f85eeec27efe",
+    "RamanujanTau/MultiQuintupleFourDualIndex.lean": "375af8cb1861c8a3567499b0007aca97a8498bed33c42094f6493405b271b92b",
+    "RamanujanTau/MultiQuintupleFourShellPartners.lean": "a1d1ce8f14856296a4732451f8d3cee07799bedb83f1e43796c3ea207a47e36f",
+    "RamanujanTau/MultiQuintupleFourPhaseParity.lean": "3c058b1c77f8fad86d8ace114eed68e049f27dd87707e70c2f8b33e44b2fa628",
+    "scripts/audit/four_prime_converse.lean": "eead1d263ea9b6777bb750734a8ae8b3a3f1fc23fc844c85466892fbc2c0ca22",
+    "scripts/check_four_prime_converse.py": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8",
+    "scripts/generate_four_prime_converse.py": "828fe7fb3e943ab197f3c488db2b120250c6a55a031e8a5b03d5e76e28496bde",
+    "scripts/verify_lean.py": "1a9173b0dc958b57f44db1526e9e459aaf7d557a8ec0a98e3e7792f75f7df4a4",
+    "RamanujanTau.lean": "e38a095a029d5ebb94785143460e490d19864a8ba30bc62a81608d1b9d41d088",
+    "lean-toolchain": "ce4c4e3d87434b9663f46de25ce34b48a0cf0d392e0a320a0787b4674a2d7b61",
+    "lake-manifest.json": "5990cea40fe49b50761d29c7c8daf26280c92c8d33c658446eff1600cb02522d",
+    "lakefile.toml": "4cc9c10467da5f07808a41359a2818ed279da7edde8dc981a25866d1469fb9d4",
+    ".github/workflows/repository-checks.yml": "d840f0c4a56708d0fb5f91a6cacca96ca4926abeb6e8594781da0b8cf3ec2b11",
+    ".github/workflows/lean-checks.yml": "8df9f8acf5da45d3062532d86f7dacfc2ee78ebd6522a0e2776641254e8505fd",
+    "README.md": "0a7601d51d388936091a6c6c131a92d11fe8afe468ff69e279f5403b51505a2e",
+    "RESEARCH_MULTI_QUINTUPLE.md": "3fa702ac4291794612fc895ef0a19f64b2ec496fa97b7272203eaf92ddbbd43f",
+    "docs/RESULTS.md": "664b75c7f6b54f338a86e61bbe1772199224d5b8d74cd4ec85415d08b00619be",
+    "docs/STATUS.md": "fb5c2b4836f70e86e94bc64091280341163f9c3bdfe409048d98a1c689af644c",
+    "docs/verification/four_prime_converse_certificates.json": "9bcdc1bc782593d3da5909b58b587a82acb3e722f06bcc244550fd5c8843c2cf",
+    "docs/verification/four_prime_converse_checks.json": "a1d17ba2b5833ff27f04cc6300fb19eccd737427c12603a757cc61bf1cf4015c"
+  },
+  "repository_checks": {
+    "command": "python3 scripts/check_repository.py",
+    "exit_code": 0,
+    "lean_sources_and_audits": 2266,
+    "markdown_files": 136,
+    "local_links": 799,
+    "whitespace_check": "git diff --cached --check passed"
+  }
+}

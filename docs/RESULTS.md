@@ -1364,6 +1364,26 @@ finite search for converse witnesses. Its finite quarter-bound observations
 do not extend to all parameters: the counterexample at 2521 above lies in
 this congruence family.
 
+### Four-factor analytic necessity and finite symmetry certificates
+
+[FourPhaseParity](../RamanujanTau/MultiQuintupleFourPhaseParity.lean) proves
+`four_persistent_vanishing_character_partner`: persistent vanishing of the
+actual four-factor product forces a same-norm, opposite-phase partner with
+reversed cubic character on every supported nonzero Fourier shell below
+p²/2. The hypotheses include a prime modulus different from 2 and 3,
+canonical factor indices, and a square sum divisible by p. The proof derives
+the partners through Poisson summation and cyclotomic cancellation.
+
+For the reflection family, [FourPrimeFinite](../RamanujanTau/MultiQuintupleFourPrimeFinite.lean)
+checks integer spanning certificates in all 72 parameter classes modulo
+nine and excludes incompatible choices among 36 involutive block pairs.
+[FourPrimeGeometry](../RamanujanTau/MultiQuintupleFourPrimeGeometry.lean)
+proves the short-vector bound and norm-three rigidity. The finite data
+still require lifting and lattice assembly before a uniform coefficient
+converse follows. The [proof argument and remaining obligations](../RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11)
+and [verification record](verification/four_prime_converse.json) distinguish
+these completed lemmas from that open endpoint.
+
 ### Two-parameter four-factor theorem and classification at 53
 
 [MultiQuintupleFourPlane](../RamanujanTau/MultiQuintupleFourPlane.lean)

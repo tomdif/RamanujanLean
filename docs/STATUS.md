@@ -32,6 +32,30 @@ Updated 2026-11-11. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Verification
 
+### Four-factor necessity progress (2026-11-11)
+
+The actual-coefficient analytic bridge is complete through
+`four_persistent_vanishing_character_partner`: each supported nonzero short
+Fourier vector has an equal-norm, opposite-phase partner with reversed
+character. This includes the even-dimensional phase correction and a
+missing-phase argument replacing the triple-product antipodal argument.
+
+The finite reflection-family certificates cover 72 residue classes, 2,592
+block combinations, and 498 nonzero witnesses at the ten eligible primes
+at most 100. The independent checker compares 4,636 direct Pochhammer
+coefficients and rejects five deliberately corrupted certificates. The
+large-prime integer spanning identities and finite symmetry exclusions are
+also kernel checked.
+
+**Still open in Lean:** assembling the partners into a lattice involution,
+lifting the finite certificates to arbitrary parameters, and completing
+the seven smaller coefficient classifications not already covered at
+41,53,97. The [written prime-family argument](../RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11)
+is available for review. Neither a complete uniform converse nor a
+classification of arbitrary four-tuples is claimed. The
+[verification record](verification/four_prime_converse.json) gives the
+build and dedicated 61-declaration axiom audit.
+
 ### Quintuple review package (2026-11-11)
 
 The [review manuscript](../output/pdf/sparse-triples.pdf) presents the proved

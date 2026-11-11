@@ -14,7 +14,7 @@ def main():
     root = Path(__file__).resolve().parents[1]
     output = args.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=True)
-    audits = ["forty11", "bosonic_fock"]
+    audits = ["forty11", "bosonic_fock", "four_prime_converse"]
     if args.full:
         audits.append("celebrated_targets")
     targets = []

@@ -1789,7 +1789,7 @@ Further certificates found by the same search are:
 |---|---|---|---|
 | 41 | 1,4,5,9 | 21,25,26,30 | Full classification of this product |
 | 53 | 2,5,7,9 | 29,31,36,38 | Full classification of this product; every other residue has a witness with N≤8 |
-| 97 | 4,5,9,13 | 9,13,55,64 | Infinite zero progressions proved in Lean; exclusion of other residues is still only a finite computation |
+| 97 | 4,5,9,13 | 9,13,55,64 | Full classification of this product; every other residue has a witness with N≤15 |
 
 These examples led to indices obtained by sorting `(m−n,n,m,m+n)` at
 modulus `m²+n²`. The unrestricted parameterization is not a vanishing theorem:
@@ -1913,6 +1913,205 @@ replays the 2521 calculation. The original 37-pair observations remain valid
 finite results; their proposed extension is false.
 The original **triple-product** quarter-prime conjecture is a separate
 statement and is unaffected.
+
+### Prime reflection-family converse: proof argument (2026-11-11)
+
+**Status.** The argument below is for the two-parameter family at **prime**
+moduli. It is not a classification of arbitrary four-tuples or composite
+moduli. The actual-coefficient analytic bridge, opposite-phase partners,
+character reversal, norm-three rigidity, and finite symmetry lemmas are
+checked in Lean. The uniform lattice assembly is not yet formalized;
+the finite Python checks alone do not establish it.
+Independent mathematical and priority review remain outstanding.
+
+For `0<n<m`, prime `p=m²+n²`, `2(m+n)<p`, and `R<p`, put
+
+```text
+G(q)=Q(q^(m−n),q^p) Q(q^n,q^p) Q(q^m,q^p) Q(q^(m+n),q^p).
+```
+
+The proposed equivalence is that all coefficients of `q^(pN+R)` vanish if
+and only if **both** of the following hold:
+
+1. One of `m,n,m−n,m+n` is divisible by nine.
+2. At least one of the four residue equations in the reflection theorem
+   holds: `2R≡3m+n−18`, `2R≡3m+n`,
+   `(n−m)R≡n(m+2n−9)`, or `(m+n)R≡n(2m−n−9)` modulo p.
+
+Sufficiency is already the actual-product Lean theorem
+`coeff_fourReflection_family_zero`. Here is a necessity argument, including
+the finite certificates that make its large-prime step uniform.
+
+**The two lattices and the phase.** Write
+
+```text
+e₁=(1,0,1,1), e₂=(−1,1,0,1), u=(1,1,−1,0), w=(0,−1,−1,1),
+E=[e₁ e₂ u w],  EᵀE=3I,  v=m e₁+n e₂,  j=−n e₁+m e₂,
+L={x∈Z⁴ : v·x≡0 mod p},  N=pL*={x∈Z⁴ : x≡λv mod p}.
+```
+
+The scalar λ is unique modulo p, and `v·x/p` is integral on N. Define
+`c₀=(2R−Σvᵢ)/3` in F_p, `D=3+c₀`, and
+`ℓ(x)=2(v·x/p)+c₀λ(x)` in F_p. Expanding `x=λv+pz` gives
+
+```text
+||x||²/p = λ(x)ℓ(x)−Dλ(x)²                     (mod p),
+2x·y/p = λ(x)ℓ(y)+λ(y)ℓ(x)−2Dλ(x)λ(y)          (mod p).
+```
+
+Completing the four Watson squares and applying Poisson summation gives a
+signed amplitude on each norm shell of N. It is supported precisely where
+all four coordinates are nonzero modulo three. Choose `q` with
+`3(m+n)q≡1 mod p`. For a supported vector x set
+
+```text
+C=6x₄qR+6(v·x/p)−Σxᵢ,
+δᵢ=2xᵢ−6x₄qvᵢ,
+tᵢ=δᵢ/(2p) mod 3,
+h=#{i:tᵢ=2},
+a(x)=(C+ph+p)/3 mod 2p.
+```
+
+The phase numerator is divisible by three. With `ζ=exp(2πi/(6p))`, the
+amplitude is the nonzero common factor `(1−ζ^(2p))⁴ ζ^(−p)` times
+`ρ^a(x)`, where `ρ=ζ³`. Reduction modulo p gives `a(x)=ℓ(x)`.
+The even-dimensional antipodal law is `a(−x)=−a(x)`, so the twisted
+antipodal argument for triples cannot simply be reused.
+
+**The missing-phase replacement.** On a shell with
+`0<||x||²<p²/2`, set `e=||x||²/p` in F_p. Then `e≠0`, so λ is nonzero and
+the norm equation gives `ℓ=e/λ+Dλ`. The p−1 possible nonzero λ cannot
+represent all p phases. Choose a missing phase. Both of its opposite
+`2p`-phase buckets are empty. A vanishing sum at a primitive p-th root has
+constant integer coefficients; the empty bucket forces that constant to
+be zero. Hence every supported vector has an equal-norm opposite-phase
+partner. This replacement is formalized by
+`exists_missing_projective_phase` and
+`opposite_phase_partner_of_projective_norm` in
+[PhaseVacancy](RamanujanTau/MultiQuintuplePhaseVacancy.lean).
+
+For fixed norm, opposite phase reverses the quartic character
+`χ₃(x₁x₂x₃x₄)`: indeed `(-1)^a(x)=−(-1)^(Σxᵢ)χ₃(x₁x₂x₃x₄)` and
+`Σxᵢ≡||x||² mod 2`. The sign change is therefore a concrete constraint on
+the partner, not just cancellation of unspecified complex amplitudes.
+
+This entire analytic implication is now a Lean theorem:
+`four_persistent_vanishing_character_partner` in
+[FourPhaseParity](RamanujanTau/MultiQuintupleFourPhaseParity.lean). Its
+hypotheses concern the actual product, a prime modulus different from 2 and
+3, canonical factor indices with square sum divisible by p, and a supported
+nonzero Fourier vector below the strict p²/2 bound. It derives a supported
+partner with the same norm, opposite phase, and reversed character. The
+proof passes through four-dimensional Poisson summation, Gaussian
+uniqueness, the projective norm identity, and the missing-phase lemma.
+It does not assume a lattice pairing or an orthogonal symmetry.
+
+**Short vectors generate N for p>100.** For integer a,b,c,d write
+
+```text
+W(a,b,c,d) = E(m a−n b, n a+m b, p c, p d)/3.
+```
+
+Use `(c,d)=(1,0)` or `(0,1)`, `a²+b²≤50`, and keep the integral supported
+vectors. Their norm is
+`||W||²=p(a²+b²+p)/3 < p²/2` when p>100.
+Their integrality and character depend only on m,n modulo nine.
+
+An explicit integral basis of N is `v,j,U,V`, where
+`U=W(a₀,b₀,1,0)`, `V=W(a₁,b₁,0,1)`, and the centered residues modulo
+three are chosen as
+
+```text
+(a₀,b₀)≡(m−n,−m−n),  (a₁,b₁)≡(m+n,m−n)  (mod 3).
+```
+
+To see coverage directly, write `x=λv+pz` and apply Eᵀ. Its last two
+coordinates are p times integers c,d. Its first two coordinates have the
+form `(m a−n b,n a+m b)` with integral a,b. Integrality of x forces
+`a≡c a₀+d a₁` and `b≡c b₀+d b₁` modulo three, because `m²+n²` is a unit
+modulo three. Thus x has integral coordinates in `v,j,U,V`.
+
+For each of the 72 unit-norm parameter classes modulo nine,
+[the certificate](docs/verification/four_prime_converse_certificates.json)
+lists at most twelve supported W vectors and an integer left inverse of
+their coordinate-row matrix in that basis. Multiplying the two matrices
+gives I₄. This proves integral generation, rather than rational spanning.
+`fourPrime_generators_finite` in
+[FourPrimeFinite](RamanujanTau/MultiQuintupleFourPrimeFinite.lean) checks
+the coordinates, bound 50, support, and all inverse identities in the kernel.
+
+**One coherent lattice involution.** Let S be all supported vectors of N
+with squared norm below p²/2. Distinct equal-norm vectors congruent modulo
+odd p have squared norm at least p²/2: their difference is pz, equality of
+norms forces `||z||²` even, and the parallelogram identity applies. Thus
+opposite partners in S have different scalars. Subtracting their norm
+equations yields `D(λ+λ′)=ℓ`. If D were zero, their common nonzero e would
+be zero; hence D≠0 and the partner is unique.
+
+Substituting that reflection relation in the polarized identity preserves
+dot products modulo p². Cauchy–Schwarz bounds their difference strictly
+below p², so the dot products agree as integers. The unique partner map
+on S therefore extends to a rational orthogonal involution T. Since S
+generates N integrally, `T(N)=N`, and duality gives `T(L)=L`. It preserves
+ℓ and reverses the quartic character on S.
+
+**Only finitely many blocks remain.** For p>9, the norm-three vectors of
+L are exactly `±u,±w`. Indeed, for `X=e₁·x,Y=e₂·x`, the congruence
+`mX+nY≡0` and `m²+n²≡0` imply `X²+Y²≡0 mod p`. If `||x||²=3`,
+orthogonality of E bounds this integer between 0 and 9, so X=Y=0.
+The integral orthogonal complement is `Zu+Zw`, and its norm-three vectors
+are the asserted four. This rigidity statement is the kernel-checked
+`fourPrime_norm_three_rigidity` in
+[FourPrimeGeometry](RamanujanTau/MultiQuintupleFourPrimeGeometry.lean). Thus T preserves this plane and its orthogonal
+complement. The latter intersects L in exactly `Zv+Zj`; both vectors have
+squared norm 3p and are orthogonal.
+
+Consequently T acts by a signed permutation on each of these two rank-two
+lattices. Involutivity leaves six possibilities per block. The kernel
+theorem `fourPrime_symmetry_finite` checks all 72×36 parameter/block pairs
+on the certified short vectors. A character-reversing pair exists exactly
+when one of m,n,m−n,m+n is zero modulo nine; its long block must be one
+of the four reflections, never I or −I.
+
+Finally put `t=m/n mod p`, so `t²=−1`, `λ(v)=1`, and `λ(j)=t`.
+The phase values are `ℓ(v)=6+c₀` and `ℓ(j)=c₀t`. Their preservation under
+the four long reflections gives respectively
+
+```text
+c₀=−6,  c₀=0,  c₀(t−1)=6,  c₀(t+1)=−6.
+```
+
+These are exactly the four residue equations above. This is the necessity
+step for p>100; the pre-existing reflection theorem supplies sufficiency.
+
+**The finite remaining primes.** There are ten eligible parameter pairs
+with p≤100, at moduli 13,17,29,37,41,53,61,73,89,97. The certificate gives
+498 actual nonzero coefficient witnesses outside the predicted residues.
+The only products in this range with predicted zeros are the already
+classified cases 41,53,97. The independent checker computes 4,636
+coefficients directly from Pochhammer factors and checks every witness.
+These small-prime witness calculations are not yet all Lean certificates.
+
+Reproduce the finite checks with
+
+```sh
+python3 scripts/generate_four_prime_converse.py --check
+python3 scripts/check_four_prime_converse.py --self-test
+lake build RamanujanTau.MultiQuintupleFourPhaseParity
+lake build RamanujanTau.MultiQuintupleFourPrimeGeometry
+lake env lean scripts/audit/four_prime_converse.lean
+```
+
+The generator uses Python-FLINT; the independent checker uses only the
+standard library and rejects five deliberately corrupted certificates. The
+[verification record](docs/verification/four_prime_converse.json) identifies
+the completed declarations and their exact source snapshot.
+
+The remaining formal obligations are coherent lattice assembly, lifting of
+the finite generator/symmetry data to arbitrary integer parameters, and the
+seven remaining small-prime actual-coefficient classifications. These must
+be discharged before documenting a complete Lean converse. The argument
+above is recorded for review, not promoted to a proved classification.
 
 ### A finite frontier beyond the proved families
 

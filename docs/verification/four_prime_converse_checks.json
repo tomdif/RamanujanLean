@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "residue_classes": 72,
+  "symmetry_pairs_checked": 2592,
+  "compatible_pairs": 96,
+  "maximum_generators": 12,
+  "small_prime_cases": 10,
+  "nonzero_witnesses": 498,
+  "direct_coefficients_checked": 4636,
+  "scope": "Finite certificate replay only; not the analytic or full Lean converse",
+  "corrupted_certificates_rejected": 5,
+  "certificate_sha256": "9bcdc1bc782593d3da5909b58b587a82acb3e722f06bcc244550fd5c8843c2cf",
+  "checker_sha256": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8"
+}

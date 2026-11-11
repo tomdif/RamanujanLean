@@ -35,7 +35,7 @@ jobs:
             lean-public-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Download pinned Mathlib artifacts
         run: lake exe cache get
-      - name: Build and audit the forty identities and completed Fock space
+      - name: Build and audit public theorems and four-factor necessity lemmas
         run: python3 scripts/verify_lean.py --output-dir "$RUNNER_TEMP/lean-verification"
       - name: Show failure details
         if: failure()
