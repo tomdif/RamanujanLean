@@ -2,7 +2,7 @@
 
 Lean: `RamanujanTau/TauPNTError/` (9 files, about 2140 lines, no `sorry`, no new axiom, no
 `native_decide`). Build with `nice -n 10 lake build RamanujanTau.TauPNTError.Main`; it exits 0.
-The module is not imported from `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 **Evidence level (1).** All results are unconditional and axiom-clean. Every headline prints
 `[propext, Classical.choice, Quot.sound]`. Deligne's bound is **not** used by the final

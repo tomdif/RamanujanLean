@@ -49,7 +49,7 @@ minimal threshold, and a finite experiment from an infinite theorem.
 Run `python3 scripts/verify_lean.py --full`, `python3 scripts/check_repository.py`,
 and `git diff --check` before publishing Lean changes. Documentation-only changes
 need the repository and whitespace checks.
-The repository checker validates local Markdown links, project imports, and
+The repository checker validates local Markdown links and heading anchors, project imports, and
 proof-source hygiene. It is not a Lean parser or a proof checker.
 
 Commit intended sources, reproducible certificate generators, and documented
@@ -85,3 +85,25 @@ instead of rewriting their original proof status. Distinguish the checked
 publication snapshot from a larger local development worktree when recording
 build counts or source hashes. Documentation-only changes require link and
 source-hygiene checks; they do not change the recorded Lean proof audit.
+
+For the prime four-factor reflection-family classification, use the public verifier
+and independent checks (the lattice generator requires `python-flint`):
+
+```sh
+python3 scripts/verify_lean.py --full
+python3 scripts/check_four_prime_converse.py --self-test
+python3 scripts/generate_four_prime_converse.py --check
+python3 scripts/generate_four_prime_small.py --check
+```
+
+The exact theorem is
+[MultiQuintupleFourPrimeConverse](RamanujanTau/MultiQuintupleFourPrimeConverse.lean).
+Its [verification record](docs/verification/four_prime_converse.json) distinguishes
+the full mathematical scope from arbitrary four-tuples and composite moduli.
+
+To check the current headline declarations referenced by the documentation:
+
+```sh
+lake env lean scripts/audit/documented_headlines.lean
+python3 scripts/test_check_repository.py
+```

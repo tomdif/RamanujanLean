@@ -4,7 +4,7 @@ Lean: `RamanujanTau/RankinOmegaPM/` (7 files, about 1710 lines). Build with
 `nice -n 10 lake build RamanujanTau.RankinOmegaPM.Main` (exit 0). There is no `sorry`, no
 `native_decide`, no new axiom and no named hypothesis. `#print axioms` on all 23 listed results
 gives `[propext, Classical.choice, Quot.sound]`. **Evidence level (1)** for everything in §1.
-Deligne is not used. The directory is not imported by `RamanujanTau.lean`.
+Deligne is not used. The public entry point is included in the `RamanujanTau.lean` import graph.
 
 Notation: `R(x) = ∑_{n≤x} τ(n)²/n¹¹ − c x`. More generally `R(x) = ∑_{n≤x} |a_f(n)|²/n^{k−1} − c x`
 for a nonzero level-one cusp form `f`, or `R(x) = ∑_{n≤x} aₙ − c x` for abstract Rankin–Selberg

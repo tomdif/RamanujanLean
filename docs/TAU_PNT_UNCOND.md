@@ -5,7 +5,7 @@ and no `native_decide`, and there are no named hypotheses. Build with
 `nice -n 10 lake build RamanujanTau.TauPNTUncond.Main` (exits 0). `#print axioms` gives
 `[propext, Classical.choice, Quot.sound]` for all 19 headlines (evidence level 1).
 
-Only new files were added. The root `RamanujanTau.lean` does not import this directory.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 Notation (normalized): `λ(p) = τ(p)p^{−11/2}`, `R(s) = ∑ τ(n)² n^{−11−s}`,
 `L(s) = L(Δ, s + 11/2)`, Satake parameters `α_p, β_p`, `A_k(p) = α_p^k + β_p^k`.

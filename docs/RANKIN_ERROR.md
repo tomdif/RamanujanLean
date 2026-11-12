@@ -1,5 +1,8 @@
 # A power-saving error term for the Rankin–Selberg mean square of `τ` (`RamanujanTau/RankinError/`)
 
+> **Current status (2026-11-12).** The stronger error `O(N^{3/5})` is proved for τ and every level-one cusp form by `RankinExact.rankinSelberg_exact` and `rankinSelberg_exact_general`, without Deligne. See [RANKIN_EXACT](RANKIN_EXACT.md).
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 **Status (2026-11-04, evening).** The theorem
 
     S(N) = ∑_{n≤N} τ(n)²/n¹¹ = c·N + O(N^{1−1/84}),   c = (3/π)(4π)¹²‖Δ‖²/11! = 0.384084…,
@@ -27,8 +30,7 @@ No sorry, no new axiom, no `native_decide`. Every headline prints
 `[propext, Classical.choice, Quot.sound]`. Build only these files:
 `nice -n 10 lake build RamanujanTau.RankinError.PowerSaving84` (all 23 files of the directory,
 about 4200 lines). `RankinError/Main.lean` (unchanged) still prints the older headlines.
-Nothing outside `RankinError/` and this write-up was modified. The root file does not import
-this directory.
+`RankinError.PowerSaving84` is now included in the root import graph.
 
 **Superseded:** the conditional `rankinSelberg_power_saving_of_unfold` (evidence level 2 until
 today) is now only an intermediate step.

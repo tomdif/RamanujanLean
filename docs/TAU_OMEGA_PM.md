@@ -133,7 +133,7 @@ Reused:
 The change of variables in `integrable_of_mc` copies Mathlib's private helper lemmas from
 `MellinInversion`.
 
-The directory is not imported by `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 ## 5. Gaps
 

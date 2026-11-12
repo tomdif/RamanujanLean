@@ -1,8 +1,8 @@
 # Counting the nontrivial zeros of L(Δ,s): `T ≪ N(T) ≪ T log T` and `N(T+1) − N(T) ≪ log T`
 
 Lean: `RamanujanTau/ZeroCount/{Bounds,Jensen,Main}.lean`, namespace `RamanujanTau.ZeroCount`.
-Build: `nice -n 10 lake build RamanujanTau.ZeroCount.Main`, which exits 0. The module is not
-imported from `RamanujanTau.lean`.
+Build: `nice -n 10 lake build RamanujanTau.ZeroCount.Main`, which exits 0. The module is included in
+the root `RamanujanTau.lean` import graph.
 
 **Evidence level (1).** The results are in Lean and axiom-clean: every headline below prints
 `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, no `native_decide`, no new

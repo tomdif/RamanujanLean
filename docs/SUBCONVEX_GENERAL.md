@@ -1,5 +1,8 @@
 # t-aspect subconvexity for `L(f,s)`, every level-one cusp form `f`: audit, milestone, plan
 
+> **Current status (2026-11-12).** `CuspConj.fL_subconvex_all` proves exponent `1/2 − 1/134` for every level-one cusp form, including complex coefficients. The real-form restriction and named SCS input of the initial checkpoint have been removed; see [CUSP_CONJ](CUSP_CONJ.md).
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 **Status (2026-11-06).**
 
 * **Level 1** (Lean, axiom-clean):
@@ -228,4 +231,4 @@ So the `Δ` exponent `δ = 1/134` (`SCSSharp2.tauL_subconvex_sharp2`) now holds 
 | `TauFinal21` | `SCSSharp2.Final21` | Abel summation with `B = η`: for `t < h`, `(t+h)^{1/2} ≤ 2h^{η}(N+h)^{1/2−η}` (`shS_bound21`, `scsf_of_pointwise21`) |
 | `Main` | — | `scsf_general21` (`k < 12` and odd `k`: `f = 0`), `fL_subconvex_general134`, `fL_subconvex_eigenform134` |
 
-Remaining gap (unchanged): an arbitrary `f` with complex coefficients (§3). For further exponent gains, the sheared box of `SCS_SHARP2.md` §4 applies verbatim in weight `k`.
+The former gap for arbitrary `f` with complex coefficients (§3) is closed by `CuspConj.fL_subconvex_all`. For further exponent gains, the sheared box of `SCS_SHARP2.md` §4 applies verbatim in weight `k`.

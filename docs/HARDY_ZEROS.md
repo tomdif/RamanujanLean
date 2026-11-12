@@ -69,8 +69,7 @@ Here `tauL` is the entire continuation `(2π)^s Γ(s)⁻¹ Λ(s)` of `L(Δ,s) = 
 
 - The result is qualitative: it proves infinitely many zeros. It gives no count (such as
   Hardy–Littlewood's ≫ T, or ≫ T log T), and it says nothing about simplicity of the zeros.
-- The files are not added to `RamanujanTau.lean`, `README.md` or `docs/RESULTS.md`; the brief
-  forbids editing those.
+- `HardyZeros.Main` is included in the root import graph and the [result catalog](RESULTS.md).
 
 ## Literature
 

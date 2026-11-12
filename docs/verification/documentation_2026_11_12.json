@@ -1,0 +1,967 @@
+{
+  "date": "2026-11-12",
+  "source_base_commit": "012eb722b2c3a65ec9e8857e84d2611abb4133d6",
+  "scope": "Repository-wide documentation status, navigation, reference and artifact audit; historical development records remain explicitly historical.",
+  "coverage": {
+    ".md": 136,
+    ".tex": 2,
+    ".bib": 1,
+    ".pdf": 1
+  },
+  "proof_status": {
+    "lean_proofs_changed": false,
+    "full_root_record": "docs/verification/four_prime_converse.json",
+    "jobs": 10597,
+    "distinct_audited_declarations": 1087,
+    "note": "The full-root build and axiom audits belong to the source baseline, not a new full build in this documentation pass. Historical records and hashes are preserved."
+  },
+  "corrections": [
+    "Updated the triple and prime reflection-family summaries and manuscript, retaining arbitrary-four-tuple/composite-modulus limits.",
+    "Reconciled public import status with the root dependency graph.",
+    "Marked superseded mean-square, Rankin error, subconvexity, Hafner and septic gaps; retained Deligne as an explicit hypothesis.",
+    "Distinguished unrestricted recurrence starts from Boylan-Webb least odd indices; corrected the Lehmer headline bound.",
+    "Archived the earlier Boylan-Webb manuscript with a current-status notice, fixed bibliography compilation and completed three placeholder citations from primary metadata.",
+    "Tracked the missing gen_octo.py dependency after exact reproduction of both septic certificates.",
+    "Added Markdown heading-anchor checks and regression tests to repository CI."
+  ],
+  "checks": {
+    "repository": {
+      "command": "python3 scripts/check_repository.py",
+      "exit_code": 0,
+      "lean_source_and_audit_files": 2293,
+      "markdown_files": 136,
+      "local_links_including_anchors": 866
+    },
+    "navigation_tests": {
+      "command": "python3 scripts/test_check_repository.py",
+      "exit_code": 0,
+      "tests": 6
+    },
+    "headline_names": {
+      "command": "lake env lean scripts/audit/documented_headlines.lean",
+      "exit_code": 0,
+      "declarations": 17,
+      "output": "docs/verification/documentation_headlines.txt"
+    },
+    "reference_survey": {
+      "candidates": 1068,
+      "direct_root_checks_succeeded": 688,
+      "source_name_matches_for_abbreviated_or_private_locators": 367,
+      "remaining_syntactic_cases": 13,
+      "note": "Candidate extraction includes module locators, wildcard/name families, a structure field, an apostrophe-truncated name, and a companion-repository reference. Source-name matches are a navigation check, not an additional axiom audit or assertion that every abbreviated spelling is exported.",
+      "candidate_origin": "Initial tracked Markdown survey, followed by source-locator triage and the explicit current-headline check."
+    },
+    "prime_certificates": {
+      "passed": true,
+      "residue_classes": 72,
+      "symmetry_pairs_checked": 2592,
+      "compatible_pairs": 96,
+      "maximum_generators": 12,
+      "small_prime_cases": 10,
+      "nonzero_witnesses": 498,
+      "direct_coefficients_checked": 4636,
+      "scope": "Finite certificate replay only; not the analytic or full Lean converse",
+      "corrupted_certificates_rejected": 5,
+      "certificate_sha256": "9bcdc1bc782593d3da5909b58b587a82acb3e722f06bcc244550fd5c8843c2cf",
+      "checker_sha256": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8"
+    },
+    "prime_generators": {
+      "commands": [
+        "python3 scripts/generate_four_prime_converse.py --check",
+        "python3 scripts/generate_four_prime_small.py --check"
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "septic_generator": {
+      "command": "python3 scripts/septic/gen_octo2.py",
+      "mode": "Isolated output directory; byte-for-byte comparison to tracked Octo1.lean and Octo2.lean",
+      "exit_code": 0,
+      "matching_files": 2,
+      "helper_sha256": "089e54e0f94e50a80b002cb22a8acad7cb001b844c335561381fdd7b052b69a3"
+    },
+    "review_pdf": {
+      "command": "tectonic docs/paper/sparse-triples.tex --outdir output/pdf",
+      "exit_code": 0,
+      "pages": 7,
+      "visual_review": "All seven rendered pages inspected; no clipping, overlap, undefined references or missing glyphs observed.",
+      "overfull_boxes": 0
+    },
+    "archive_tex": {
+      "command": "tectonic docs/paper/main.tex --outdir <temporary-directory>",
+      "exit_code": 0,
+      "scope": "Compilation check only; historical draft retains typesetting/link warnings and is not distributed as a review PDF."
+    },
+    "whitespace": {
+      "command": "git diff --cached --check",
+      "exit_code": 0
+    }
+  },
+  "bibliographic_metadata_sources": [
+    {
+      "entry": "GarvanShomanov2025",
+      "url": "https://arxiv.org/abs/2504.10824"
+    },
+    {
+      "entry": "ElGuindyGhazy2024",
+      "url": "https://arxiv.org/abs/2408.04462"
+    },
+    {
+      "entry": "Webb2011",
+      "url": "https://scholarcommons.sc.edu/etd/1618/"
+    },
+    {
+      "entry": "BLMT2014",
+      "url": "https://arxiv.org/abs/1510.01202"
+    }
+  ],
+  "limits": [
+    "This audit does not establish mathematical priority or independent human proof review.",
+    "Historical bibliography pinpoint-review TODOs remain labeled; this is not an exhaustive re-reading of every cited paper.",
+    "Generated caches, binaries and unfinished scratch sources remain local and are not represented as finished proofs."
+  ],
+  "inventory": [
+    {
+      "path": "AQ_BAILEY_REACH.md",
+      "sha256": "01c0dc1cdae652602f5356377589fa0488521d95415d6a6b619fdbc32d440df4",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "5584f316251b29b27cd5c8bb5b28c08602cf47a82d606f3435b73e9d3cab8988",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "MOCKTHETA_BAILEY_ROADMAP.md",
+      "sha256": "2fbf1b98f2fe560073f68ec1b276b29f45af8bac6399e8d695357eb5e2128779",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "MOCK_THETA_METHOD.md",
+      "sha256": "af8e1714be3bd409bb36c80791bb6ac87186e3244d2bfbf751c6e9113e1c24a8",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "MTC_GAP_MAP.md",
+      "sha256": "54e314d66166cd2b61f3748c3350bcd1a0e94c0db64aa17106ad27a85b22b332",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "OPEN_QUESTIONS.md",
+      "sha256": "af90c03babd7b50797a0a949deea84bc2767175fd2736a372eb6815965fbc296",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "README.md",
+      "sha256": "483d96adb57f2745159af87ee78a78db61401527c80dc1023bb0f7eaab758758",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "RESEARCH_MULTI_QUINTUPLE.md",
+      "sha256": "9b9838e86f3c5ca98402e7a0d5b101482dbf342f24673ade13eafa0c47ca1a9b",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "ZZQ_FRAMEWORK.md",
+      "sha256": "8758f138ebd3260cbd5c1d7fb234d876b5b0a2932066e8979d1fda00ec580bd9",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/AAD_BLUEPRINT.md",
+      "sha256": "56afcc578c233b24e87aa1a5afde01f5a89d9e3dbbef05e5db162bb114660efe",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ANDREWS_1966.md",
+      "sha256": "8fc18cc9e1dc83b06c04e99aeff32d614d0160150315e024f3396c501cba1ea2",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ANDREWS_1966_ASYMPTOTIC.md",
+      "sha256": "991c144293b6919dbd478b9ccd376562dd76d9037fb3ab2f3bad15b4fb129d4c",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ANDREWS_DRAGONETTE.md",
+      "sha256": "dda3c7fc15f594b343ee4c1f1d2e3baa98ebb1a72174ab2ed5496f712e2f4f64",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ANDREWS_DRAGONETTE_EXACT.md",
+      "sha256": "e685ff17c85659f5927321fd265824da6fa34de1230501eea0841559cb8dd03c",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ATKIN13_PLAN.md",
+      "sha256": "475170754933c255d5f655cbd228968c41a338982c39eeced2e41c5dc1423906",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ATKIN_11_PLAN.md",
+      "sha256": "33554e6a6bc90899561a8b2c81cf8d3c2c667a41fcd0eff70b9ca855ff12c231",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ATKIN_OBRIEN_17_19_23.md",
+      "sha256": "298e26e061db35e8aec1aa7fb97500ff03d74d7aa7f2bceb11ce7ebb48dd434c",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ATKIN_OBRIEN_PROOF.md",
+      "sha256": "47ceaaf5184e2f6a834fdc81d3fd3e9639ed0f9f8ca8887f5d2b4c163f1bbd6b",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ATKIN_SPORADIC_CONGRUENCES.md",
+      "sha256": "7dcb6ae4d0953192058254fd5c1eaef410fcd793b4fadc620768fc1851a4516d",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ATKIN_TWISTED_ALL_Q.md",
+      "sha256": "672d6cf5114e0eb747ba50376fdf61d2f9c2905473c96b9ec9bc7e073da9293e",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/BL_PATTERN.md",
+      "sha256": "cc06ee46f61f0502cc6c89fb1bd01b9c975338eeabd5ad5c15903b385dbe450e",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/BL_SHARPNESS_PROOF.md",
+      "sha256": "a3f5387a959e63b86d79a1717fff16c26b3fb5731369b2fc3d5b9563ecf63709",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/BOSONIC_FOCK.md",
+      "sha256": "e35937ad2a1b6ab5c6ddf773c5fe81258279878dbf6558c5e832cc8d71e5b383",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/BW_SHARPNESS_ALL_PRIMES.md",
+      "sha256": "d98ca78249e8bda4eac013a66bf637c48714c5a2bc67b096c66d5e9732076174",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/CRAMER_MEAN_SQUARE.md",
+      "sha256": "d458d291260d75d43a9d63bac6bc57860683931019563a7306bf415fadbe542c",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/CRITICAL_MEAN_SQUARE.md",
+      "sha256": "48924ccce0cfa1c13093179eb9829641547a27e0830f5d944164c0eded2c6cc7",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/CRITICAL_MEAN_SQUARE_ASYMP.md",
+      "sha256": "e7b74180458a63a373e1fd6ff8d25850d68a523a94ef661ba1a3d054a7cd4c11",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/CRITICAL_MEAN_SQUARE_LOWER.md",
+      "sha256": "c6e3f64cc75352d0d90539e2bb6775ffcd8b9c0d2b318bc4303e81eab437b619",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/CUSP_CONJ.md",
+      "sha256": "4573dc8483e2caf90e8bb3ebb03c551ffb749389a60379d8051fd6c1bca1003e",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/CYLINDRIC_RESEARCH.md",
+      "sha256": "ac334c068b14f4dbd7fb0fb6cbcf17d8a824a3088606d8f681ffba7c05c10157",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/DISCHARGED_HYPOTHESES.md",
+      "sha256": "f09a7f7148e89b8122c63dd230ab8400f288bc1b434f60460b86c5f5bde2b210",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/EDGE_NONVANISHING.md",
+      "sha256": "2356d33670e194d3f4e13d260344ae7c42ebe5fafe964261e200e43ff57fbe10",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/EIGENFORM_EDGE.md",
+      "sha256": "6b371fffb6cf329bc6994277777c965668821b3b14f5f24e68c12e061fa2d86b",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/EISENSTEIN_REAL.md",
+      "sha256": "223c7e3643ea197310fd594f72febfe25fd0b62ea7eb5050093a4f29de9e320a",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/FINITE_ARITHMETIC.md",
+      "sha256": "c7ff7b7ca45de41db51732aa1a7d6ae73d80e2dc8c773373f0c876e5493ac471",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/FORTY_IDENTITIES.md",
+      "sha256": "7d68ec53c4ab6f9ac21ce1f3afa36db0d8364e94cbf559731310e244efbbcd79",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/FRONTIER_FINDINGS.md",
+      "sha256": "cf5063bdba258bc1ee6662305282d3dbd1f2986fabb7cb3f12a4c6603612875e",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GAUSS_SIGN.md",
+      "sha256": "60c2f550d4ca1699d03a6b4c9dcfbcea7f2e08619ca0374dd345e510e3b5f304",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GENERAL_CUSP_MOMENTS.md",
+      "sha256": "8ebf501fb889d22ecb6c696a3a464fd0ccba1bbb4c01fb3785c0a2b9e7ecea6e",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GENERAL_ZEROS.md",
+      "sha256": "b0bc1b7f99dfa4a53d7f7cf44a564e398fc992df34bb1587d3522e4e437a180b",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GOOD_SECOND_TERM.md",
+      "sha256": "3aa606b5685c27e7bb03055e6201f3e3d648feaf40954aaae637c542df48c06f",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GORZ_PARTITIONS.md",
+      "sha256": "0f7c52202e5b8b9d5a070a853cff40250ca7444d71b00bd1e41fcd03de0d1bc1",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GORZ_XI.md",
+      "sha256": "51c7d13d131096879bab0a6052ca97b5b0c4a25096aeb2d1ba6499021e60bde3",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GORZ_XI_D3.md",
+      "sha256": "fed5fb363e6790e512d0215ef6cedd00def4887610caba5df13867f2b90a6cf0",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/GORZ_XI_EFFECTIVE.md",
+      "sha256": "a36e3d5fe122d6ad50f6c56c6000ade1b67e8eaca25c7dce6c82cffe7e78ea81",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HAFNER_GENERAL.md",
+      "sha256": "afa71efaeee9d5a4ccca1bafadc1e6d1424800c7848f9b1477cfc48500e86234",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HAFNER_MV2.md",
+      "sha256": "45aab06ec287642078eff8cb598671c32c301e9ea1a6a7e212c8715d7ca8bbe1",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HAFNER_PROPORTION.md",
+      "sha256": "5fe2fa7f1570f0d7a113c93232f23f3236c9421eb17291f04dfa92b39dd3decd",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HALF_INTEGRAL_HECKE.md",
+      "sha256": "9c55e5ebfb1e202085f50a25ad1eb3ff3732265454610c64c334894c79e2cc11",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HARDY_COUNT.md",
+      "sha256": "6ec7fd6ca343786602e2131b5554ea6e8ca67bda2f32a93db43b44c2e2328850",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HARDY_COUNT_HAFNER.md",
+      "sha256": "4b539c0af113d224a0d5179080f29a9e962c96a1933d69003892a21e53823389",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HARDY_COUNT_LINEAR.md",
+      "sha256": "b09fa7db8f57272cfcdc8f0720d215de2691974b6d04dc43cfa3f37b2d5f0674",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HARDY_ZEROS.md",
+      "sha256": "f06be47d4999aea78af31ddb543a3eca6ffda30346d02307ead6433867778d42",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HARDY_ZEROS_GENERAL.md",
+      "sha256": "cc43e4ec89821e492a65eb77e490bb22c564cad6b6ca96ea46644b64f49c63aa",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HECKE_AFE.md",
+      "sha256": "ca7b672ee1042b345464ec445d0b5996531f9800d93957056d7f5eabf96cef08",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HECKE_CONVEXITY.md",
+      "sha256": "a24827e6842be91a1a404b0124e26e838acbceb51dc1d2848fb4a68779e74ec9",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HECKE_CONVEXITY_GENERAL.md",
+      "sha256": "475518b8105fb0327ec1171cdea9b261edb283b89f5a430edee58324abc83f9e",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HECKE_L_FUNCTION.md",
+      "sha256": "78bcbf36079965a7721db2af4caec976c25deb39d82df06e32f4132589188560",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/HECKE_ZEROS.md",
+      "sha256": "8be1c12c014d97e8b30cd73beaa2e6f996fe1d7e581bcdc6c1baaa3cd4153f12",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/JENSEN_THRESHOLDS.md",
+      "sha256": "1f9ce232a8b41aa69601c68e4fd9db6ac8203b818a66d8f2d76b8a2a674d9f62",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/KERNEL_PHASE.md",
+      "sha256": "b5844144f5c3ce95318c11e226af04de710b031113b8818a454b43d5de6356f0",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/KLOOSTERMAN_L.md",
+      "sha256": "00c779742c5cd007bc5b8f7f925cda199d0cf8e938f5e614823cabc76e6ec7aa",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/KOLBERG_TAU.md",
+      "sha256": "75d487c95c7ab34d8dd0b40e5a8e01efef86e9cf5ba068aba116ad1518a9fa5d",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/LANDAU_SIGNS.md",
+      "sha256": "cf02d1758467ae5340ac34af656bd3d75589048f3e7cd59169a21e6c190349bc",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/LEHMER_SMALL_N.md",
+      "sha256": "76addac92eb003289998017c1222f34f80aff4d99a0cba7a4661ed63decaa478",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/LIT_CHECK.md",
+      "sha256": "24b81b5869e434a69bd0cc3c35013b155a0e8fd14003471fa3d3ebf887428226",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/MEAN_SQUARE.md",
+      "sha256": "29669ea204971dd5b94728551af1c6933cf7cd890c6259ac8dbb260410f2465b",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/MEAN_SQUARE_FULL.md",
+      "sha256": "8bbb2b2dca94ef5ad626b17f5381d0e37f8aec6909d094e7f6fba1aac634e21a",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/MEAN_SQUARE_LEFT.md",
+      "sha256": "3e136238e4b44c4c225d7f536004d50191f0d1679e597071f50b1e2c36913a44",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/MOCK_THETA5_ALL.md",
+      "sha256": "f6e8848c52e3381a6b9e25651f67f4f7ca73190c99b33efbf5d16d1568a1f1ce",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/MOCK_THETA_CUSPS.md",
+      "sha256": "46c81444a5b850e443f603545c3e9fc67b748e77d6e03f1d01892b297fc793f8",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ONO_WEAVER_EXTENSIONS.md",
+      "sha256": "fb4f86543c1e73ae8ddf62bb10fa59784803f84c853e17c28c89079de1d8c70f",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/QF_PROOF.md",
+      "sha256": "616b2081dcdc0f8654e06a3606b0580f87c4a9c7d1697d132650aac8e3320fec",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RADEMACHER_PLAN.md",
+      "sha256": "c6bf7131dc7467e08a07c2a17fcda770f616806a35158994b5bc400b53764322",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_ERROR.md",
+      "sha256": "06067e186e33bf9ac51b46c1d7f0f689e012093aae9b14890268af16a389338d",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_ERROR_GENERAL.md",
+      "sha256": "4b41ae5254f875b9f18b14aadd1ddaef87bf3f32d272d22f4baaf89019cf4f72",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_EXACT.md",
+      "sha256": "9f52acb8f4a4322d56fbf439f6ece92d3f934f09f58ecc7ddadca123d40d5272",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_LANDAU.md",
+      "sha256": "111aea7b1ca41a62c51e16b3e3af285de3a6f79438d138a9705dcce5e1c1b180",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_OMEGA.md",
+      "sha256": "63d5008542a95b11c4b00efbd601dd1c90ca7db966ea5510ad626e1546ba9eb9",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_OMEGA_PM.md",
+      "sha256": "8e150a65dc121e5f50adb4d4720bec191fc138982a631cb0e51f832a9a427d6e",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_SELBERG.md",
+      "sha256": "a881dec8265b3c7d44550a4d257dc79a52536d7e9c5548497fc8649e34336b10",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_SELBERG_FE.md",
+      "sha256": "fa0a7ff5f20fa071b108f6be90a735dcdd8ed8ddf0baf3ca6ea17eb1a026f1e2",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_SELBERG_GENERAL.md",
+      "sha256": "d9df3e4c3a4a7aa9a960afa2324269bb60ea553ca6389398ee2f8bc66fbbaacb",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_SHARP.md",
+      "sha256": "f193d64eed5c9a6a645f7e8e01b0b19b9e86104e78acd872d870b9a47572fcb6",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RANKIN_SHARP_GENERAL.md",
+      "sha256": "e1c567e7446c914d33fa124598e6006ec68723eb48af6a922e9f5c5eb2e28898",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "a028c29470121f458c403a7f6b13b5f0131b29947a4cd2c7aff1ab36047ee940",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/RESULTS.md",
+      "sha256": "3435f873cecf8922bf7082575b4c4fd43fd935d4a361152dd5fb8d8f8471bafd",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SCS2.md",
+      "sha256": "70632a95fa9025d1ebd4cf1a22cef72291efd0bd9e0e545510792eac01cfba26",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SCS_PROOF.md",
+      "sha256": "a2ca1657aaa872cef6ef1fe5489e231ad9f1960f35d2dfce947a8ff0a0a84a0c",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SCS_SHARP.md",
+      "sha256": "1334509522fc0c6fa4121eb1cc0e190e4cca1d4324c909bb4f020b76bbd94dc7",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SCS_SHARP2.md",
+      "sha256": "5aabdd30bb0b4ccf922aaf8ee08a52d0102b0989434bb1cc96e23c3e79f363a6",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SELBERG_COEFFS.md",
+      "sha256": "abb90ce7fc23c0ca765648d613fffdb4768e1e934698b5630ea7ab92bb31943d",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SELBERG_DELANGE.md",
+      "sha256": "340bb6caecab59a9fdaf5d8ffed883fe34d0c9a0e1f835ab2545237583e4be04",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SELBERG_KEY.md",
+      "sha256": "05e1e9ad60f109162c383c66284d88c6a87d7d56da864bc67879ef438d85651a",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SEPTIC_ENTRY_1_1.md",
+      "sha256": "d37be769697dcc5185497be1b5a8e8f83f4c17ee4c301c8f77dd2800f74cf62d",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SEPTIC_PAGE206.md",
+      "sha256": "08a3151f99eb2c9a7e9cdfb5177e24557687ad92f7a090a36f2eef2e8c9ad289",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SEPTIC_SON.md",
+      "sha256": "c77234ecb659b25524214f1576e24e67b9bbc9f6582cdbf055f3f2b7cf50cdcd",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SKQF_PROOF.md",
+      "sha256": "25176474ce8a3074815ebada00d035372bb53059594e7a131406de6a11c575a3",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "sha256": "391355f8f8551aaee13c465daf92964235ad92c87c72a1a19334ebe5fa3b9050",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/STEPANOV.md",
+      "sha256": "f41d1f11a10a60e31875b42c202c6b18a6940eda3932d6c3f5dec85d61e2d24c",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/STEPANOV_ARTIN_SCHREIER.md",
+      "sha256": "da86b51e58f0ec64bfb5eba25b8bd7cf04fa449fe3f61544505e7b44a5afc487",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/STIRLING_RANKIN.md",
+      "sha256": "bfeba5355fa8793bc043d8a39633e8dab4f38f29ce8bd4b41f40891aabc2bf60",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SUBCONVEXITY.md",
+      "sha256": "cc6ecdb6870c5981d3473775f2c8c54f401474ed50fd5f5d9b3a57e9e07cde84",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SUBCONVEXITY_COND.md",
+      "sha256": "f09d41565c383608d645c4f40d24bab4bb8c6547c94317cc801783d0beae20f9",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SUBCONVEX_GENERAL.md",
+      "sha256": "580472194bd42fc3b08a57c79ef84c1d1c83f14c7b1c523ad2f6f4bf7c21cae5",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/SYM2_ZERO_FREE.md",
+      "sha256": "3c69ace26f3d482a7bc61391136dbb3fe6f1fbf57bc8806373858829cc2b42c0",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_NONVANISHING_DENSITY.md",
+      "sha256": "16e4629242ef6c6326dc32f371fe4835ca7e023400ba15e0adfb6ecacf0ae248",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_OMEGA.md",
+      "sha256": "abbd269609ad8cce4f4be099fa210db8d564ea3d61a51452851e86a7c5a562a5",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_OMEGA_PARTIAL.md",
+      "sha256": "e4c4afe71e5de6a2e1cb47c76e2cf2b6a46f4ee0b208a22d5e87f2291486da29",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_OMEGA_PM.md",
+      "sha256": "0ab6feaf0b4c9ea1c1c674e3646765013522e9c162b7ec63bb98492783bf38cc",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_PARTIAL_SUMS.md",
+      "sha256": "55a231fc13244c9456088472ab5e22addc89d017068146d973c60f94f6fb268e",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_PARTIAL_SUMS_SHARP.md",
+      "sha256": "be03af04457bdbc2aeae3ed8059e0453bf3642a0be452d8893a2bf8a3746a572",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_PNT.md",
+      "sha256": "92f306571e5ba8c89aaeba8f7dec655b7ebe2adf84bf2a6beea6538ef299baf9",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_PNT_ERROR.md",
+      "sha256": "43d5108e412f502632d5d05fa86a7d2524e3dd0b9bf42bfe04010c7e3350905d",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_PNT_UNCOND.md",
+      "sha256": "6ee2bdde3646652ec870e7bf2f2708c0b84e9053abb4e7be99f40aee90a5ab12",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_SIGNS_QUANT.md",
+      "sha256": "806cc49dee9cb7142054eef1eb252ab09d8897aebf7576692c4a2add6105dadc",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_SIGN_CHANGES.md",
+      "sha256": "3f61381d8dfdc49b029a6ddd38b96d906d9ba88484c8415fcb5dd407e4342ccd",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TAU_SUBHECKE_BOUND.md",
+      "sha256": "c37ba3700c93e5e40408b97c77a2c2c3cd08cfbd5145464bf9f9b28b6b755cc0",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/THEOREM_A.md",
+      "sha256": "dd5908222e031f25d0d4fbc62bd9c4b52c5c95918c32851effe2f07a13647f0c",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/TWISTED_MOMENT.md",
+      "sha256": "202c3da48829086941f5adfee5df0c475b86b7f3ae602c69f1356f8a04dd9277",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/VORONOI.md",
+      "sha256": "1897499711df18a8fc2d1adc76a75fb0202b513fa0c48a6ca4c48c566b41c85b",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/VORONOI_POINTWISE.md",
+      "sha256": "35b011e363b3fe98487588463e9b4ba6205ce5161619136385455794bb558210",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/VORONOI_TRUNC.md",
+      "sha256": "456e6462697b7c37d32dd8bc3b48d5af0cfd79b2d65adc2b38ca779e813bc50f",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/VORONOI_TRUNC_COMPLETE.md",
+      "sha256": "d650d9949485683e086f7a7f9c58206e86ae386a4641f73d200e90db2d774aee",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/VORONOI_TRUNC_GENERAL.md",
+      "sha256": "3586513ba8ab25143d8d60f433992d0a151b3c11355b20dbc7223384815c8143",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/WEIL_KLOOSTERMAN.md",
+      "sha256": "bbe6baa5f6e7fb1b86606b7c2474db445c00aa753bad838e55289c36305ca440",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/WIENER_IKEHARA.md",
+      "sha256": "fcef56d14778c0c2e0c7088111a3746fa2f03e306a39449878945efc92b6fd26",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ZERO_COUNT.md",
+      "sha256": "90b8b1228265c1443797056440c28fea391600e55c272b689fa33d1c6049861e",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ZERO_COUNT_RVM.md",
+      "sha256": "e8f4c439761519d61e838c8027c3e6b50b2742c2306149263ed1eb1f01ee9218",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ZERO_FREE_REGION.md",
+      "sha256": "8b72a94e08435817e429a3ba510ab491b015ab36476a2a3d367ee0a6a475d834",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ZETA_AFE.md",
+      "sha256": "f7e677f7b5a611876dd70577a3e1ec425516f121ae4ae42d8dfc5deb76392fe0",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ZETA_CRITICAL.md",
+      "sha256": "fb869c8be8b4abc3b642a9da2171f8a2f742f0bce99bb8c1cb24e53aacec663c",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/ZETA_MEAN_SQUARE.md",
+      "sha256": "b0a8b1d17eb91f5a34187480e34cfdb9f01677a80b1f1c8820858a8f50c90109",
+      "changed_in_audit": true,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "docs/paper/main.tex",
+      "sha256": "c82e9567cc6679849cd74bb21ab1bf6b18ae08058e2f13298ebc5d18d3bc29f1",
+      "changed_in_audit": true,
+      "role": "archived research manuscript"
+    },
+    {
+      "path": "docs/paper/refs.bib",
+      "sha256": "5c7ae297afd4e120d576ec56d694f909b790833141ee98cbf46a713e7296047b",
+      "changed_in_audit": true,
+      "role": "historical bibliography with explicit review notes"
+    },
+    {
+      "path": "docs/paper/sparse-triples.tex",
+      "sha256": "1b658157db7c84123247990e6f05f2265773e1af3886f5c546fd4d1341199257",
+      "changed_in_audit": true,
+      "role": "current review manuscript"
+    },
+    {
+      "path": "docs/watson1937_R1_proof.md",
+      "sha256": "2c53b861118791a62be87c78eb01fcf2674510f11bc92fa7dd16ad9d6cda7798",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "output/pdf/sparse-triples.pdf",
+      "sha256": "8a035e6968b431c586f62640b3ee618985f805167948ecf9aa2e5a6a40ced1bd",
+      "changed_in_audit": true,
+      "role": "current review manuscript"
+    },
+    {
+      "path": "scripts/atkintwisted/table.md",
+      "sha256": "1a1bbd45a32b15345fbc8339037190a2eb398e536afcdbe6dda6984b9b86cad1",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    },
+    {
+      "path": "scripts/onoweavermore/table.md",
+      "sha256": "79dc84e823ae66a586a52a6aa4b46f2fd57143469e69ea0d7c4ea1677e67c0e7",
+      "changed_in_audit": false,
+      "role": "current guide or dated research record"
+    }
+  ]
+}

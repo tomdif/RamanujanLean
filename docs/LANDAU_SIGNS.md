@@ -1,7 +1,7 @@
 # LandauSigns: Landau's theorem and sign changes of cusp-form coefficients
 
 Status (2026-11-05): **Lean, axiom-clean** (`[propext, Classical.choice, Quot.sound]`), 0 sorry,
-no native_decide, no new axioms. Not wired into `RamanujanTau.lean`.
+no native_decide, no new axioms. `LandauSigns.Main` is included in the root import graph.
 
 Build: `nice -n 10 lake build RamanujanTau.LandauSigns.Main`
 

@@ -9,8 +9,8 @@ no `native_decide`. Every headline prints `[propext, Classical.choice, Quot.soun
 Build only these files (about 970 lines):
 `nice -n 10 lake env lean RamanujanTau/TauSigns/Main.lean`. That needs the oleans of
 `Qualitative`, `HeckeSum`, `Window` and `Count`, which were produced with `lake env lean -o`.
-`lake build RamanujanTau.TauSigns.Main` should also work, but it was not run because it might rebuild stale upstream modules. Nothing outside `TauSigns/`,
-`scripts/tausigns/` and this write-up was modified. The root file does not import the directory.
+The public entry points `TauSigns.Main` and `TauSigns.Sharp` are now included
+in the root import graph and the full build recorded in [STATUS](STATUS.md).
 
 ## Update (2026-11-04): sharp Rankin–Selberg exponent, windows `x^{4/5+ε}`, `≫ X^{1/5−ε}`
 

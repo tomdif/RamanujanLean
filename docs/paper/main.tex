@@ -1,4 +1,5 @@
-% main.tex -- DRAFT. Not for circulation until the TODO list at the end of this file is cleared.
+% Archived research draft. See the current-status notice after the abstract.
+% Historical plans and notation below are retained for provenance, not current proof status.
 % Build:  pdflatex main && bibtex main && pdflatex main && pdflatex main
 \documentclass[11pt]{amsart}
 
@@ -72,30 +73,45 @@
 % TODO: author list, affiliation, and a disclosure statement on the use of AI assistance in the
 % development of the proofs and the formalization, as required by the target journal.
 
-\date{Draft, \today}
+\date{Archived draft; status notice updated November 12, 2026}
 
 \begin{abstract}
-For a prime $\ell\ge 5$ let $P_\ell(b)=\sum_n p\big((\ell^b n+1)/24\big)q^{n/24}$. Folsom, Kent and Ono showed that the
-$\Z/\ell^m$-modules spanned by the $P_\ell(b)$ stabilize; Boylan and Webb sharpened the stabilization index to
-$b_\ell(m)\le 2m-1$, conditionally on the vanishing of an invariant $d_\ell$ that they computed to be $0$ for $\ell<1300$.
-We report three results of different status.
-(1) For $\ell\in\{13,17,19,23\}$, which are exactly the primes $\ell\ge 13$ with $\dim S_{\ell-1}(\SL)=1$, there is a
-single $\kappa_\ell\in\Zl^\times$ such that
-$p\big((\ell^{m+2}n+1)/24\big)\equiv\kappa_\ell\, p\big((\ell^m n+1)/24\big)\pmod{\ell^m}$ for all $m\ge1$. For $\ell=13$ this is
-the Atkin--O'Brien theorem. For $\ell=17,19,23$ it improves $b_\ell(m)\le 2m-1$ to $b_\ell(m)\le m$; to our knowledge it is
-new. The theorem is verified in Lean~4 with Mathlib, with no hypotheses and only the standard axioms. The formal proof
-includes formal groups of Weierstrass curves, Lubin's quotient, the canonical subgroup, V\'elu's formulas, the Tate
-curve, Deligne's congruence for the Hasse invariant, Igusa's simple-zeros theorem and Ramanujan's differential equations.
-(2) We give a paper proof that $T_{\ell^2}$ is invertible modulo $\ell$ on $S_{(\ell-2)/2}(\SL,\nu_\eta^{-\ell})$ for every
-prime $\ell\ge 13$. It uses Yifan Yang's Shimura-type isomorphism with level-$6$ newforms and a $\theta$-cycle argument
-at weight $6$. It implies $d_\ell=0$ for all $\ell\ge 13$, which is the partition case of a conjecture of Belmont, Lee,
-Musat and Trebat-Leder, and hence $b_\ell(m)\le 2m-1$ unconditionally.
-(3) We explain Boylan and Webb's rank deficit at $\ell=607$ by a two-dimensional eigenspace of $T_{607^2}$ modulo $607$,
-and we give a cyclicity criterion for attaining the Folsom--Kent--Ono rank bound. We also report computations
-supporting $b_\ell(m)=2m-1$ for $29\le\ell\le 229$.
+This archived draft records the development of the Atkin--O'Brien
+recurrences at $13,17,19,23$, Theorem A, and Boylan--Webb stabilization.
+The original proof-status tables, proposed routes and numerical claims
+below are historical. The recurrences, their minimal unrestricted start
+$B=m$, and the literal Boylan--Webb least odd indices
+$b_\ell(m)=2\lfloor m/2\rfloor+1$ at these four primes are now proved in Lean.
+Theorem A and $b_\ell(m)\le2m-1$ for every prime $\ell\ge13$ are also
+formalized. Exact thresholds are proved through prime $139$.
+No mathematical priority claim is made by this archived draft.
 \end{abstract}
 
 \maketitle
+\section*{Current status and notation correction (2026-11-12)}
+This is a research archive, not the current review manuscript or an
+up-to-date proof-status table. The body retains earlier plans, conditional
+arguments and TODOs; these are not claims that the same gaps remain open.
+Consult \href{https://github.com/tomdif/RamanujanLean/blob/main/docs/STATUS.md}{the current status}
+and \href{https://github.com/tomdif/RamanujanLean/blob/main/docs/THEOREM_A.md}{the Theorem A guide}
+for the formal statements and verification records.
+
+The parity-free index called $b_\ell(m)$ in Definition~\ref{def:b} below
+is an experimental reconstruction, not Boylan--Webb's literal least odd
+index. In particular, claims of $b_\ell(m)=m$ or $b_\ell(m)\le m$ for
+$\ell=13,17,19,23$ in the historical body concern the unrestricted
+recurrence start $B$. The literal invariant is
+$2\lfloor m/2\rfloor+1$, as proved by the \texttt{AtkinExact} modules.
+The all-prime sharp lower bound remains open, even though the upper bound
+and every prime from $13$ through $139$ have formal proofs.
+
+At $607$ the repository now proves its defined rank is $25$ for every
+$m\ge2$. Matching that rank definition precisely to the literature remains
+an explicit review question; the older cyclicity discussion below does not
+establish a universal rank-attainment theorem. The draft's earlier
+novelty proposals and cost estimates are historical and have not been
+validated by independent specialist review.
+
 \setcounter{tocdepth}{1}
 \tableofcontents
 

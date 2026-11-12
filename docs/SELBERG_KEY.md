@@ -1,12 +1,15 @@
 # Selberg's key lemma (SK) for L(Δ,s) (2026-11-06)
 
+> **Current status (2026-11-12).** The chain now reaches `HafnerFinal.tauL_positive_proportion_deligne` under `[DeligneBound]` alone; see [HAFNER_PROPORTION](HAFNER_PROPORTION.md). `QFProof5.qfHyp_deligne` and `mv2_deligne` close the quadratic-form/MV2 inputs under that hypothesis, and `SvStripD.s4Bound_deligne` supplies the final strip bound. This does not prove Deligne or an unconditional positive-proportion theorem.
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 Lean: `RamanujanTau/SelbergKey/` (6 files, about 1.07k lines; entry point `Main.lean`).
 
     nice -n 10 lake build RamanujanTau.SelbergKey.Main      # exit 0
 
 * All 20 `#print axioms` in `Main.lean` give `[propext, Classical.choice, Quot.sound]`.
 * `grep` finds no `sorry`, `admit`, `native_decide` or `axiom` in `RamanujanTau/SelbergKey/`.
-* No committed file was modified. The module is not imported from `RamanujanTau.lean`.
+* The public entry point is included in the `RamanujanTau.lean` import graph.
 
 **Status.** (SK) is **not** proved. What is done:
 
@@ -575,7 +578,7 @@ and M4 (`SKSplitHyp' ⇐ SKQFHyp`).
 
 * All 23 `#print axioms` in `SelbergKey4/Main.lean` give `[propext, Classical.choice, Quot.sound]`.
 * `grep` finds no `sorry`, `admit`, `native_decide` or `axiom` in `RamanujanTau/SelbergKey4/`.
-* 7 files, 1370 lines. No committed file was modified; `RamanujanTau.lean` does not import the module.
+* The original `SelbergKey4` development had 7 files and 1370 lines. Its public entry point is now in the root import graph.
 
 **Status.** The off-diagonal clause of `SKSplitHyp'` is **not** proved yet. All the analytic
 single-term inputs are done (level 1), and so is the arithmetic core of the near-term
@@ -828,7 +831,7 @@ Evidence levels:
 
 * All 10 `#print axioms` in `Main.lean` give `[propext, Classical.choice, Quot.sound]`.
 * No `sorry`, `admit`, `native_decide` or `axiom`; no warnings in these files. 7 files, 794 lines.
-* No committed file was modified (this section is appended). Not imported from `RamanujanTau.lean`.
+* No committed file was modified (this section is appended). The public entry point is now included in the root import graph.
 * Imports, read-only: `SelbergKey4.Window` (`phiT`), `SelbergKey5.Reduce` (`DiagHypT`, `QuadOffHyp`,
   `skSplitHyp'_of_diag`).
 
@@ -964,7 +967,7 @@ Estimate for the rest: about 900–1300 lines.
 * All 16 `#print axioms` in `SelbergKey7/Main.lean` give `[propext, Classical.choice, Quot.sound]`.
 * `grep` finds no `sorry`, `admit`, `native_decide` or `axiom` in the directory; no warnings in
   these files. 8 files, about 1.7k lines.
-* No committed file was modified. Not imported from `RamanujanTau.lean`. Imports (read-only):
+* No committed file was modified. The public entry point is now included in the root import graph. Imports (read-only):
   `SelbergKey6.RSMajor` (hence `SelbergKey5`, `SelbergKey4`, …) and `SelbergKeyDiag.Assemble`.
 
 **Status.** The off-diagonal clause of `SKSplitHyp'` is now **unconditional** (level 1).

@@ -127,7 +127,7 @@ Reused unchanged (imported, not edited): `HardyZerosGeneral` (`Zc`, `Phi`, `Gc`,
   the same scope as `HardyZerosGeneral`, and Hecke eigenforms are covered.
 * The constant `c` is ineffective in practice and far from optimal.
 * Multiplicities are ignored, so distinct ordinates are counted.
-* Not added to `RamanujanTau.lean`, `README.md`, `docs/STATUS.md` or `docs/RESULTS.md` (per brief).
+* `HafnerGeneral.Main` is included in the root import graph and the current theorem catalog.
 
 ## Literature
 

@@ -1,5 +1,8 @@
 # Gamma ratios in vertical strips, and the Rankin–Selberg error `δ < 1/3` (`RamanujanTau/Stirling/`)
 
+> **Current status (2026-11-12).** The stronger error `O(N^{3/5})` is proved for τ and every level-one cusp form by `RankinExact.rankinSelberg_exact` and `rankinSelberg_exact_general`, without Deligne. See [RANKIN_EXACT](RANKIN_EXACT.md).
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 **Status (2026-11-04).** Two results, both at evidence level 1 (Lean, axiom-clean, no
 hypotheses). Every headline prints `[propext, Classical.choice, Quot.sound]`. There is no
 `sorry`, no new axiom and no `native_decide`.

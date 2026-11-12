@@ -1,5 +1,8 @@
 # Smoothed approximate functional equation for L(Δ, s)
 
+> **Current status (2026-11-12).** The later [twisted second-moment development](TWISTED_MOMENT.md) supplies the next analytic step. [GOOD_SECOND_TERM](GOOD_SECOND_TERM.md) records the unconditional second-term asymptotic, and [HAFNER_PROPORTION](HAFNER_PROPORTION.md) records positive proportion under Deligne alone. The AFE statements below remain valid.
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 Module: `RamanujanTau/HeckeAFE/` (entry point `Main.lean`).
 Build: `nice -n 10 lake build RamanujanTau.HeckeAFE.Main` (exit 0, 2026-11-06). Every headline
 prints `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, no `axiom` and no

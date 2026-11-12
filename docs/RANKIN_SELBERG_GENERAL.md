@@ -15,9 +15,8 @@ No sorry, no new axiom, no `native_decide`. Every headline prints
 `[propext, Classical.choice, Quot.sound]`. Build only this directory:
 `nice -n 10 lake build RamanujanTau.RankinSelbergGeneral.Main`.
 
-Nothing outside `RankinSelbergGeneral/`, this write-up and `scripts/rankinselberggeneral/` was
-modified. `EisensteinReal/`, `RankinSelberg/` and `RankinError/` are imported, not edited. The
-root file `RamanujanTau.lean` does not import this directory.
+The proof reuses `EisensteinReal/`, `RankinSelberg/` and `RankinError/`.
+`RankinSelbergGeneral.Main` is included in the `RamanujanTau.lean` import graph.
 
 | File | Lines | Content |
 |---|---|---|

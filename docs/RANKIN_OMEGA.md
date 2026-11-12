@@ -4,7 +4,7 @@ Lean: `RamanujanTau/RankinOmega/` (8 files, about 2230 lines). Build with
 `nice -n 10 lake build RamanujanTau.RankinOmega.Main` (exit 0). There is no `sorry`, no
 `native_decide`, no new axiom and no named hypothesis. `#print axioms` on every headline gives
 `[propext, Classical.choice, Quot.sound]`. **Evidence level (1).** Deligne is not used. The
-directory is not imported by `RamanujanTau.lean`.
+public entry point is included in the `RamanujanTau.lean` import graph.
 
 ## 1. Statements
 

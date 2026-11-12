@@ -4,7 +4,7 @@ Lean: `RamanujanTau/ZetaMeanSquare/` (8 files, about 1780 lines). Build with
 `nice -n 10 lake build RamanujanTau.ZetaMeanSquare.Main`, which exits 0. There is no `sorry`, no
 `native_decide`, no new axiom and no named hypothesis. `#print axioms` on all 19 listed results
 gives `[propext, Classical.choice, Quot.sound]`. **Evidence level (1)** for everything in §1.
-The directory is not imported by `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 ## 1. Statements (namespace `RamanujanTau.ZetaMeanSquare`)
 

@@ -1,8 +1,10 @@
 # How b_ℓ(m) depends on ℓ (numerical study, 2026-10-29)
 
-> **Scope:** the tables record finite computations in a truncated model. The
-> sufficient recurrence at `b = m` for 13, 17, 19, 23 is formalized separately.
-> Prime-29 all-power and exact-threshold verification is tracked in
+> **Scope (updated 2026-11-12):** the tables record finite computations in a truncated model.
+> The recurrence at `b = m` for 13, 17, 19, 23 and its minimality are now formalized.
+> Their literal Boylan–Webb least odd index is `2⌊m/2⌋+1`; the reconstructed
+> parity-free index used in these historical tables is a different definition.
+> All-power exact thresholds through prime 139 are tracked in
 > [Current status](STATUS.md). The original universal rank-attainment guess is
 > contradicted at 607; see §5.2 of [the corrected research draft](BL_SHARPNESS_PROOF.md).
 
@@ -22,7 +24,7 @@ with the proportionality version whenever the stable module is free of rank 1.
 ## Findings (d = dim S_{ℓ−1})
 | ℓ | d | m tested | b_ℓ(m) | stable module mod ℓ^m |
 |---|---|---|---|---|
-| 13, 17, 19, 23 | 1 | ≤ 16 | **m** (sufficiency at b = m proved in Lean; minimality is a separate claim) | free, rank 1 |
+| 13, 17, 19, 23 | 1 | ≤ 16 | **m** (unrestricted recurrence start; sufficiency and minimality now proved) | free, rank 1 |
 | 29, 31 | 2 | ≤ 16 | 2m−1 | free, rank 1 |
 | 37–59 | 3–4 | ≤ 16 / ≤ 9 | 2m−1 | free, rank 2 |
 | 61–229 (41 primes ≥ 29 in total) | 5–19 | ≤ 9 / 8 / 7 | 2m−1 | free, rank ⌈d/2⌉ |

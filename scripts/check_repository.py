@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Lightweight checks for tracked files; not a Lean parser or proof checker."""
 from pathlib import Path
+import html
 import re
 import subprocess
+import unicodedata
 from urllib.parse import unquote, urlsplit
 
 
@@ -56,7 +58,7 @@ def lean_code(source):
     return "".join(out)
 
 
-def markdown_prose(source):
+def markdown_unfenced(source):
     lines, fence = [], None
     for line in source.splitlines(keepends=True):
         marker = re.match(r"^\s*(`{3,}|~{3,})", line)
@@ -69,7 +71,31 @@ def markdown_prose(source):
             lines.append("\n")
         else:
             lines.append("\n" if fence else line)
-    return re.sub(r"(`+).*?\1", "", "".join(lines))
+    return "".join(lines)
+
+
+def markdown_prose(source):
+    return re.sub(r"(`+).*?\1", "", markdown_unfenced(source))
+
+
+def markdown_anchors(source):
+    """GitHub-style ATX heading slugs, including duplicates and explicit HTML IDs."""
+    source = markdown_unfenced(source)
+    anchors = set(re.findall(r'(?:id|name)=[\"\x27]([^\"\x27]+)[\"\x27]', source))
+    used = set()
+    for match in re.finditer(r"^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$", source, re.M):
+        title = re.sub(r"<[^>]*>", "", match.group(1))
+        title = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", title)
+        title = html.unescape(title).lower()
+        slug = "".join(c for c in title if c in " -_" or
+                       unicodedata.category(c)[0] in "LNM").replace(" ", "-")
+        anchor, suffix = slug, 0
+        while anchor in used:
+            suffix += 1
+            anchor = f"{slug}-{suffix}"
+        used.add(anchor)
+        anchors.add(anchor)
+    return anchors
 
 
 def main():
@@ -78,6 +104,7 @@ def main():
         ["git", "ls-files", "-z"], cwd=root).decode().split("\0")
     tracked = {name for name in names if name}
     errors = []
+    anchor_cache = {}
     modules = docs = links = 0
     for name in sorted(tracked):
         path = root / name
@@ -104,10 +131,11 @@ def main():
             for match in re.finditer(r"\[[^\]\n]*\]\(([^\s)]+)\)", prose):
                 target = match.group(1).strip("<>")
                 url = urlsplit(target)
-                if url.scheme or url.netloc or not url.path:
+                if url.scheme or url.netloc:
                     continue
                 links += 1
-                resolved = (path.parent / unquote(url.path)).resolve()
+                resolved = ((path.parent / unquote(url.path)).resolve()
+                            if url.path else path.resolve())
                 try:
                     relative = resolved.relative_to(root).as_posix()
                 except ValueError:
@@ -117,10 +145,15 @@ def main():
                     errors.append(f"{name}: broken local link: {target}")
                 elif resolved.is_file() and relative not in tracked:
                     errors.append(f"{name}: link target is not tracked: {target}")
+                elif resolved.suffix == ".md" and url.fragment:
+                    if relative not in anchor_cache:
+                        anchor_cache[relative] = markdown_anchors(resolved.read_text())
+                    if unquote(url.fragment) not in anchor_cache[relative]:
+                        errors.append(f"{name}: broken Markdown anchor: {target}")
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"Passed: {modules} Lean source/audit files, {docs} Markdown files, "
-          f"{links} local links; project imports and source hygiene checked.")
+          f"{links} local links including Markdown anchors; project imports and source hygiene checked.")
     print("This is a source/documentation check, not Lean proof verification.")
 
 

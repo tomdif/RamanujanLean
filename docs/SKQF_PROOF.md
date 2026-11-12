@@ -1,5 +1,8 @@
 # `SKQFHyp θ` (milestone M5): proof chain and Lean checkpoint (2026-11-06)
 
+> **Current status (2026-11-12).** The chain now reaches `HafnerFinal.tauL_positive_proportion_deligne` under `[DeligneBound]` alone; see [HAFNER_PROPORTION](HAFNER_PROPORTION.md). `QFProof5.qfHyp_deligne` and `mv2_deligne` close the quadratic-form/MV2 inputs under that hypothesis, and `SvStripD.s4Bound_deligne` supplies the final strip bound. This does not prove Deligne or an unconditional positive-proportion theorem.
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 Lean: `RamanujanTau/SKQFProof/` (`Real`, `Elem`, `Contour`, `Bound`, `Final`, `Assemble`, `Main`;
 about 1.15k lines). No sorry, no new axiom, no native_decide. All 8 headlines print
 `[propext, Classical.choice, Quot.sound]`.

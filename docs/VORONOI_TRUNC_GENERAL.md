@@ -5,7 +5,7 @@
 Lean: `RamanujanTau/VoronoiTruncGeneral/` (10 files, about 3550 lines). No `sorry`, no `native_decide`,
 no new axiom, no named hypothesis. Build with `nice -n 10 lake build RamanujanTau.VoronoiTruncGeneral.Main`
 (exit 0). `#print axioms` on every headline gives `[propext, Classical.choice, Quot.sound]`.
-**Evidence level (1).** Deligne is not used. The directory is not imported by `RamanujanTau.lean`.
+**Evidence level (1).** Deligne is not used. The public entry point is included in the `RamanujanTau.lean` import graph.
 
 This generalizes `RamanujanTau/VoronoiTrunc/` (`docs/VORONOI_TRUNC.md`, `τ`, weight 12) to every
 nonzero `f ∈ S_k(SL₂(ℤ))` with real coefficients. That closes the "Only `τ`" gap listed there.

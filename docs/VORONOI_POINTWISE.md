@@ -3,7 +3,7 @@
 Lean: `RamanujanTau/VoronoiPointwise/` (5 files, about 1020 lines). No `sorry`, no `native_decide`,
 no new axiom. Build with `nice -n 10 lake build RamanujanTau.VoronoiPointwise.Main` (exit 0).
 `#print axioms` on every headline gives `[propext, Classical.choice, Quot.sound]`.
-The directory is not imported by `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 Notation: `S(x) = Σ_{n≤x} τ(n)`, `α(n) = τ(n) n^{−11/2}`, and
 

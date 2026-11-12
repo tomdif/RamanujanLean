@@ -261,7 +261,7 @@ the colored logarithmic correction and quantitative remainder need additional
 work. The [verification record](verification/colored_partition_entropy.json)
 and [dedicated audit](../scripts/audit/colored_partition_entropy.lean) identify
 the checked declarations and source snapshot. Use the standalone import
-`RamanujanTau.ColoredPartitionEntropy`; the public root import is unchanged.
+`RamanujanTau.ColoredPartitionEntropy`; this was a standalone import at the original checkpoint; it is included in the later full-root builds.
 The earlier ordinary-partition verification record remains a historical
 snapshot and does not claim these later colored results.
 
@@ -319,7 +319,7 @@ to these actual finite-dimensional spaces:
 The [verification record](verification/bosonic_occupation.json) and
 [23-declaration audit](../scripts/audit/bosonic_occupation.lean) cover this
 step. Use the standalone import `RamanujanTau.BosonicOccupation`.
-The new module passes its focused build; the root import is unchanged and
+At this checkpoint the new module passed its focused build; the root import was unchanged and
 the previously recorded full-build limitation remains.
 
 This construction supplies the occupation-basis equivalence that the earlier

@@ -2,7 +2,7 @@
 
 **Status:** PROVED in Lean (q-series form, plus product forms). 0 `sorry`, no `native_decide`, no new axioms.
 Audit: `scripts/audit/septic.lean` reports `[propext, Classical.choice, Quot.sound]` for every theorem.
-The page-206 special value is stated as a named Prop and verified numerically. It is not proved.
+The page-206 special value is now proved by `Septic.page206_unconditional`; see [SEPTIC_PAGE206](SEPTIC_PAGE206.md). The general Son identities are also proved; see [SEPTIC_SON](SEPTIC_SON.md).
 
 ## Statement
 
@@ -83,10 +83,10 @@ No Jacobi triple product is needed for (i) itself.
   - p = uvw = 1 and φ⁴(q)/φ⁴(q⁷) = 7 at that point;
   - Entry 1.1(ii) [p = 8q²(−q;q²)_∞/(−q⁷;q¹⁴)_∞⁷], (iii), and (iv)/(v), at generic q.
 
-## Page 206 (Rebák Theorem 4.1): scoping
+## Page 206 (Rebák Theorem 4.1): historical route assessment
 
 The statement is fixed in Lean as `RamanujanTau.Septic.Page206Evaluation : Prop` (`Septic/Page206.lean`,
-real `phiR q = Σ' n:ℤ, q^{n²}`). It is unproved. Rebák's proof proceeds as follows:
+real `phiR q = Σ' n:ℤ, q^{n²}`). The subsequent unconditional proof is documented above. The original assessment of Rebák's route follows:
 
 1. **Lemma 2.1**, `φ(e^{−π/√n}) = n^{1/4} φ(e^{−π√n})`. **Cheap in Lean:** Mathlib's
    `jacobiTheta_S_smul` gives θ(−1/τ) = (−iτ)^{1/2} θ(τ), with `jacobiTheta τ = Σ exp(πi n² τ)`, at τ = i√n.
@@ -104,7 +104,7 @@ real `phiR q = Σ' n:ℤ, q^{n²}`). It is unproved. Rebák's proof proceeds as 
    is elementary real analysis and trigonometry. It is moderate.
 6. Reading off u = (α²p/β)^{1/7} and the others is then algebra plus `Real.rpow`.
 
-**Named gaps** (any proof of Page206Evaluation would need):
+**Inputs of this historical route** (the later lattice proof bypassed them):
 
 - **Entry 1.1(ii)–(v) (Son 2001)**: the modular-equation core.
 - **G₇ = 2^{1/4}**: or an equivalent direct evaluation p(e^{−π/√7}) = 1.

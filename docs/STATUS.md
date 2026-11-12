@@ -21,7 +21,7 @@ Updated 2026-11-12. [Overview](../README.md) · [Documentation guide](README.md)
 | Prime 29, every power | The unconditional recurrence for b ≥ 2m−1 and its evaluator from two actual seeds passed a full build and axiom audit. | [AllPowers29](../RamanujanTau/FiniteArithmetic/AllPowers29.lean) |
 | Prime-29 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1. The numerical kernel certificate, full build, and expanded axiom audit passed. | [Complete29](../RamanujanTau/FiniteArithmetic/Complete29.lean) |
 | Prime 31 exact threshold | The exact positive starting threshold B ≥ 2m−1 for actual partition counts is proved at every precision m ≥ 1, by the same method as prime 29. | [Complete31](../RamanujanTau/FiniteArithmetic/Complete31.lean) |
-| Boylan–Webb b_ℓ(m) at 13, 17, 19, 23 | **b_ℓ(m) = 2⌊m/2⌋+1 for every m ≥ 1** (`AtkinExact.bEll_13`, …, `bEll_23`). This follows from exactness of the Atkin–O'Brien recurrence at every index: for every b ≥ 1 no scalar c gives ℓ^(b+1) ∣ L(b+2) − cL(b) (`ExactAtkin13.exact`, …, `ExactAtkin23.exact`), so the starting index b_ℓ(m) = m is minimal. Method: the normalized error g_b = (L(b+2) − κL(b))/ℓ^b reduces to a cusp form of weight 2(ℓ−1) mod ℓ; the offset-3 tail of one U or D step lands in 𝔽_ℓ + 𝔽_ℓ f̄ (`ExactAtkin.tail_env`, `tail_reduce`); finitely many coefficients mod ℓ² of U(B_k/E²), D(B_k/E²) and a kernel-decided finite check propagate ḡ_b ≠ 0 (`ExactAtkin.exact_of_model`); the base case is the mod-ℓ² partition determinant. In partition numbers: for every b ≥ 1 and c ∈ ℤ_ℓ some n with 24 ∣ ℓ^b n+1 has ℓ^(b+1) ∤ p((ℓ^(b+2)n+1)/24) − c·p((ℓ^b n+1)/24) (`AtkinExactPartition.partition_13`, …, `partition_23`). Earlier partial results: `SmallThreshold`, `SmallThresholdFive`. | [AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean), [AtkinExactPartition](../RamanujanTau/FiniteArithmetic/AtkinExactPartition.lean), [ExactAtkin](../RamanujanTau/FiniteArithmetic/ExactAtkin.lean), [record](verification/atkin_exact.json) |
+| Boylan–Webb b_ℓ(m) at 13, 17, 19, 23 | **b_ℓ(m) = 2⌊m/2⌋+1 for every m ≥ 1** (`AtkinExact.bEll_13`, …, `bEll_23`). This follows from exactness of the Atkin–O'Brien recurrence at every index: for every b ≥ 1 no scalar c gives ℓ^(b+1) ∣ L(b+2) − cL(b) (`ExactAtkin13.exact`, …, `ExactAtkin23.exact`), so the unrestricted recurrence start B = m is minimal. Boylan–Webb’s literal invariant is the least odd start, hence 2⌊m/2⌋+1. Method: the normalized error g_b = (L(b+2) − κL(b))/ℓ^b reduces to a cusp form of weight 2(ℓ−1) mod ℓ; the offset-3 tail of one U or D step lands in 𝔽_ℓ + 𝔽_ℓ f̄ (`ExactAtkin.tail_env`, `tail_reduce`); finitely many coefficients mod ℓ² of U(B_k/E²), D(B_k/E²) and a kernel-decided finite check propagate ḡ_b ≠ 0 (`ExactAtkin.exact_of_model`); the base case is the mod-ℓ² partition determinant. In partition numbers: for every b ≥ 1 and c ∈ ℤ_ℓ some n with 24 ∣ ℓ^b n+1 has ℓ^(b+1) ∤ p((ℓ^(b+2)n+1)/24) − c·p((ℓ^b n+1)/24) (`AtkinExactPartition.partition_13`, …, `partition_23`). Earlier partial results: `SmallThreshold`, `SmallThresholdFive`. | [AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean), [AtkinExactPartition](../RamanujanTau/FiniteArithmetic/AtkinExactPartition.lean), [ExactAtkin](../RamanujanTau/FiniteArithmetic/ExactAtkin.lean), [record](verification/atkin_exact.json) |
 | Boylan–Webb b_ℓ(m) at 61–139 | **b_ℓ(m) = 2m−1 for every m ≥ 1 at every prime 61 ≤ ℓ ≤ 139** (`RankRAt61.bEll_61`, …, `RankRAt139.bEll_139`), so b_ℓ(m) is known for every m at every prime 13 ≤ ℓ ≤ 139. **Verification:** the [record](verification/rank2_threshold.json) (full build, 40-declaration audit) covers 37–113; all certificates through 139, including `RankRAt137`/`RankRAt139` (built 2026-11-04, ~15–18 min and ~21 GB each, `bEll_137`/`bEll_139` axiom-clean), compiled in the 2026-11-04 full root build. Order-r odd recurrence (r = 3, 4, 5): generic Hensel lift `lift_padic_memR`, criterion `BLBound.not_mem_of_errorsR` (inverse-matrix recovery), window determinant det₀·(det C)ⁿ (`RankR.Data.det_eq`), s observations with invertible s×s Θ. One kernel evaluation per prime (≤ 4 min, ≤ 16 GB). Not covered: ℓ ≥ 149 in Lean (finite hypotheses hold numerically to 257); no uniform (all-prime) proof — G5 (ū₀ ≠ 0) is open. | [RankRPacked](../RamanujanTau/FiniteArithmetic/RankRPacked.lean), [RankRMain](../RamanujanTau/FiniteArithmetic/RankRMain.lean), [record](verification/rank2_threshold.json) |
 | Boylan–Webb b_ℓ(m) at 53, 59 | **b_ℓ(m) = 2m−1 for every m ≥ 1** (`RankSAt53.bEll_53`, `RankSAt59.bEll_59`). First primes with dim S_{ℓ−1} = 4 and dim K̄ = 2: D kills a₀, a₁, a₂ (2ℓ < δ), the odd recurrence is still second order, and the error is a vector (obs₁, obs₂)(U Gₙ) moved by an invertible 2×2 matrix Θ (`RankS.Data2.divided_step`; charpolys (x+18)(x+28), (x+46)(x+58), matching the Katz-model table). Generic in the number s of killed coefficients (`RankSMod` … `RankSPacked`); one kernel evaluation per prime of packed series mod ℓ² through degree 4ℓ²+1. Primes 61–73 use the subsequent order-three modules. | [RankSPacked](../RamanujanTau/FiniteArithmetic/RankSPacked.lean), [RankSMain](../RamanujanTau/FiniteArithmetic/RankSMain.lean), [record](verification/rank2_threshold.json) |
 | Boylan–Webb b_ℓ(m) at 37, 41, 43, 47 | **b_ℓ(m) = 2m−1 for every m ≥ 1** (`Rank2At37.bEll_37`, …, `Rank2At47.bEll_47`). These are the four primes with dim S_{ℓ−1} = 3: the odd partition series span a rank-two lattice mod ℓ and dim K̄ = 1. Method: a second-order ℓ-adic recurrence L(2n+5) − κ₁L(2n+3) − κ₀L(2n+1) = ℓ^(n+1)Gₙ (`Rank2.odd_padic2`, from the generic Hensel lift `lift_padic_mem2`), the rank-two non-membership criterion `BLBound.not_mem_of_errors2`, and the error law obs(U Gₙ₊₁) ≡ θ·obs(U Gₙ) (mod ℓ) (`Rank2.Data2.divided_step`; θ = 20, 31, 31, 17). All finite data come from one kernel evaluation per prime of packed series modulo ℓ² through degree 3ℓ²+1 (`PackedPrime.prelude`, `Rank2Packed.bEll_of_ok`). BW computed b_ℓ(2) for ℓ ≤ 89 and nothing beyond m = 3. | [Rank2Packed](../RamanujanTau/FiniteArithmetic/Rank2Packed.lean), [Rank2Main](../RamanujanTau/FiniteArithmetic/Rank2Main.lean), [record](verification/rank2_threshold.json) |
@@ -31,6 +31,21 @@ Updated 2026-11-12. [Overview](../README.md) · [Documentation guide](README.md)
 | Multi-quintuple products | The canonical family, specializations, and sparse family with moduli `9t²+15t+7` are formal. The complete admissible sparse triple Root–Vanishing equivalence and the prime four-factor reflection-family classification are proved in Lean for actual infinite products. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
+
+### Documentation audit (2026-11-12)
+
+The [audit record](verification/documentation_2026_11_12.json) inventories the
+tracked documentation, corrects superseded proof gaps and import status, and
+records declaration-reference and local-link checks. The review manuscript now
+includes both the admissible triple and complete prime reflection-family
+classifications. The older Boylan–Webb manuscript is explicitly archived, with
+a correction distinguishing the unrestricted recurrence start from the least
+odd index. The missing septic generator helper is now tracked and reproduces
+the checked-in certificates.
+
+This update changes documentation and repository tooling, not Lean proofs.
+The full-root proof authority remains commit `012eb72` and the record below;
+historical verification hashes are preserved.
 
 ### Prime reflection-family classification (2026-11-12)
 
@@ -60,8 +75,9 @@ Independent mathematical and literature-priority review are outstanding.
 
 ### Quintuple review package (2026-11-11)
 
-The [review manuscript](../output/pdf/sparse-triples.pdf) presents the proved
-admissible triple classification and the questions for independent review.
+The [review manuscript](../output/pdf/sparse-triples.pdf) originally presented the
+admissible triple classification and review questions; its November 12 revision
+also includes the prime reflection-family theorem above.
 [CenteredRoots](../RamanujanTau/MultiQuintupleCenteredRoots.lean) proves that
 every root certificate is recovered from its projective scalar by centered
 residues, supporting an exact finite classifier with no coefficient cutoff.
@@ -118,8 +134,8 @@ depend only on `propext`, `Classical.choice`, and `Quot.sound`.
 The [verification record](verification/partition_entropy.json) records the
 build status, source hashes, exact normalization, and remaining physical
 identification and mock Jacobi obligations.
-The new module is available through `import RamanujanTau.HardyRamanujan.Entropy`
-and is not added to the root import graph. The full build was stopped after
+At this checkpoint the module was available through `import RamanujanTau.HardyRamanujan.Entropy`
+and was not yet in the root import graph; it is included in the later full builds above. That earlier full build was stopped after
 roughly 24 minutes while two pre-existing arithmetic certificates were still
 computing under heavy memory pressure; a successful full build is not claimed.
 

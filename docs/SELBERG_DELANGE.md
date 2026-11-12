@@ -2,7 +2,7 @@
 
 Lean: `RamanujanTau/SelbergDelange/` (6 files plus `Main.lean`). There is no `sorry`, no new
 axiom and no `native_decide`. Build with `nice -n 10 lake build RamanujanTau.SelbergDelange.Main`.
-The module is not imported from `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 **Status (checkpoint, 2026-11-06).**
 

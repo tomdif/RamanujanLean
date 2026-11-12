@@ -1,5 +1,8 @@
 # Rankin–Selberg error `O(N^{1−δ})` for every `δ < 2/5` (Landau's method)
 
+> **Current status (2026-11-12).** The exact error `O(N^{3/5})` is proved for τ and every level-one cusp form in [RANKIN_EXACT](RANKIN_EXACT.md).
+> Earlier gap lists below describe the original method or checkpoint.
+
 > **Update 2026-11-05: unconditional.** `KernelOneBound` is proved (`KernelPhase.kernelOneBound`, a bent contour through the saddle height using only |Γ| bounds). The unconditional theorems are `KernelPhase.rankinSelberg_landau_uncond`, `rankinSelberg_landau_61_100_uncond` and `rankinSelberg_landau_general_uncond`. Sections below that describe the hypothesis as open are historical.
 
 Lean: `RamanujanTau/RankinLandau/` (9 files, ~2300 lines). Build with

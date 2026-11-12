@@ -7,7 +7,8 @@ include historical plans; their dated open questions can be superseded by the
 current status at the top of the file. The admissible sparse triple converse
 is complete; the [current statement](../RESEARCH_MULTI_QUINTUPLE.md#current-theorem)
 and [verification record](verification/full_converse_lean.json) supersede its
-earlier open-problem and partial-formalization notes.
+earlier open-problem and partial-formalization notes. The [prime four-factor reflection family](../RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11)
+is also completely classified; arbitrary four-tuples and composite-modulus necessity remain open.
 
 ## Current guides
 
@@ -21,7 +22,7 @@ earlier open-problem and partial-formalization notes.
 | [Atkin–O'Brien proof record](ATKIN_OBRIEN_PROOF.md) | Public theorems for 13, 17, 19, 23, followed by the historical development |
 | [Multi-quintuple classification](RESULTS.md#multi-quintuple-products-complete-admissible-triple-classification) | Exact theorem, scope, proof modules, and verification |
 | [Multi-quintuple development record](../RESEARCH_MULTI_QUINTUPLE.md) | Current statement followed by historical experiments, counterexamples, and the paper proof |
-| [Sparse-triple review manuscript](../output/pdf/sparse-triples.pdf) | Exact classification, proof outline, centered-root decision procedure, modulus-97 converse, and independent-review questions; [LaTeX source](paper/sparse-triples.tex) |
+| [Product-classification review manuscript](../output/pdf/sparse-triples.pdf) | Triple and prime reflection-family classifications, proof outlines, centered-root decision procedure, optimal modulus-97 cutoff, and independent-review questions; [LaTeX source](paper/sparse-triples.tex) |
 | [Nested radicals](RESULTS.md#ramanujans-nested-radical) | Values 3 and 4, the affine family and full converse for linear limits, and exponential error bounds proved in Lean |
 | [Completed Fock space](BOSONIC_FOCK.md) | Hilbert completion, self-adjoint energy, finite eigenspaces, and the remaining physical scope |
 | [Contribution guide](../CONTRIBUTING.md) | Proof policy, verification commands, and documentation conventions |
@@ -46,6 +47,7 @@ earlier section is superseded. The summary table is [Results of 2026-11-03](STAT
 
 | Document | How to read it |
 |---|---|
+| [Archived Boylan–Webb manuscript](paper/main.tex) | Historical draft with a current-status and notation correction; its old proof plans and priority proposals are not current claims |
 | [Boylan–Webb sharpness draft](BL_SHARPNESS_PROOF.md) | Proposed general-prime arguments with named gaps; distinct from the prime-29 Lean construction |
 | [Prime-dependent threshold experiments](BL_PATTERN.md) | Bounded numerical results; includes the correction to universal rank attainment at 607 |
 | [Literature check](LIT_CHECK.md) | Dated definitions and literature notes; not a formal proof or a current exhaustive literature search |
@@ -65,7 +67,8 @@ earlier section is superseded. The summary table is [Results of 2026-11-03](STAT
 
 | Record | Status |
 |---|---|
-| [Full Lean proof](verification/full_converse_lean.json) and [axiom report](verification/full_converse_lean.axioms.txt) | Current proof authority: complete admissible converse; published build and audit results |
+| [Prime reflection-family proof](verification/four_prime_converse.json) and [axiom report](verification/four_prime_converse.axioms.txt) | Complete prime-family necessity and sufficiency, all small cases, independent finite checks, and the latest full-root audit |
+| [Full Lean proof](verification/full_converse_lean.json) and [axiom report](verification/full_converse_lean.axioms.txt) | Complete admissible triple converse; historical published build and audit results |
 | [Initial Lean progress](verification/short_converse_lean.json) | Historical partial formalization, superseded by the full proof |
 | [Paper argument](verification/full_converse_paper.json) | Historical computer-assisted argument and independent finite checks |
 | [Phase pairing](verification/phase_pairing.json) | Earlier algebraic result; its missing analytic and geometric connections are now proved |
@@ -95,3 +98,21 @@ The [second quadratic family](../RESEARCH_MULTI_QUINTUPLE.md#a-second-quadratic-
 proves additional infinite zero progressions starting at 43.
 Reproduction commands
 are in the [certificate guide](FINITE_ARITHMETIC.md#four-direction-follow-up-certificates).
+
+## Documentation audit
+
+The [2026-11-12 inventory and validation record](verification/documentation_2026_11_12.json)
+covers all tracked Markdown, both LaTeX manuscripts, the bibliography, and the
+rendered review PDF. Historical proof records retain their original hashes and
+evidence levels. Topic guides often shorten theorem namespaces or use
+`Module.lemma` as a source locator; the linked Lean declaration supplies the
+exact exported name and hypotheses.
+
+To rebuild the current review manuscript with Tectonic:
+
+```sh
+tectonic docs/paper/sparse-triples.tex --outdir output/pdf
+```
+
+The archived `paper/main.tex` contains earlier Boylan–Webb research plans and
+notation; its dated current-status notice explains the corrections.

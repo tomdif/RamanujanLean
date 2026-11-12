@@ -5,14 +5,15 @@
 
   `p((ℓ^{m+2}n + 1)/24) ≡ κ_ℓ · p((ℓ^m n + 1)/24)   (mod ℓ^m)`.
 
-This proves sufficiency at `b = m`, giving the upper-bound side of the proposed
-`b_ℓ(m) = m` statement; minimality is a separate assertion, now proved for all four primes by
+This proves sufficiency at unrestricted recurrence start `B = m`; minimality
+is a separate assertion, now proved for all four primes by
 `ExactAtkin{13,17,19,23}.exact` (2026-11-02; [AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean)),
 in partition form `AtkinExactPartition.partition_{13,17,19,23}`. For ℓ = 13 this is
 Atkin–O'Brien (1967). For ℓ = 17, 19, 23 it improves the sufficient index supplied by
 Boylan–Webb's `2m − 1` bound. **Status (2026-10-29): proved in Lean without additional
 operator-bound hypotheses** — `OrdQuot.atkin_obrien_13/17/19/23` in
 [OrdQuot/Atkin.lean](../RamanujanTau/OrdQuot/Atkin.lean), with standard axioms only.
+Boylan–Webb’s literal least odd index is `b_ℓ(m) = 2⌊m/2⌋+1` at these four primes.
 Expert review of the mathematical interpretation and any novelty claim remains appropriate.
 
 The dated rounds below are a development log. Their intermediate “remaining”
@@ -76,7 +77,7 @@ whole argument still needs a check by a p-adic modular-forms expert before any c
 For ℓ = 29 and 31 everything holds except step 5 (`dim S_{ℓ−1} = 2`), matching Boylan–Webb's sharp `2m − 1`.
 
 ## Numerical corroboration (scripts in `scripts/frontier/`)
-* `b_ℓ(m) = m`, exact exponent, for:
+* Unrestricted recurrence start `B = m`, exact exponent, for:
   * ℓ = 17: m ≤ 4;
   * ℓ = 19, 23: m ≤ 3;
   * ℓ = 13: m ≤ 3, reproducing A–O's `K₂ = 45`.

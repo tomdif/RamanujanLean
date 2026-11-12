@@ -3,13 +3,18 @@
 > **Current status (2026-10-29): the recurrence at b = m is proved unconditionally**
 > by `OrdQuot.atkin_obrien_17/19/23` in [OrdQuot/Atkin.lean](../RamanujanTau/OrdQuot/Atkin.lean).
 > These public statements prove a sufficient starting index. Minimality is proved separately
-> (2026-11-02, uncommitted): `ExactAtkin17/19/23.exact` in
+> (proved 2026-11-02; committed and included in the full build): `ExactAtkin17/19/23.exact` in
 > [AtkinExact](../RamanujanTau/FiniteArithmetic/AtkinExact.lean) show no scalar works one power higher, at every b ≥ 1;
 > [AtkinExactPartition](../RamanujanTau/FiniteArithmetic/AtkinExactPartition.lean) states this for partition numbers.
 > The conditional reductions and open lemmas below record the earlier route. See
 > [the completed proof record](ATKIN_OBRIEN_PROOF.md) and [current status](STATUS.md).
 
-Notation follows Boylan–Webb (BW, Trans. AMS 365 (2013)):
+**Notation correction (2026-11-12).** The historical use of `b_ℓ(m) = m` below
+refers to the unrestricted recurrence start. Boylan–Webb’s literal least odd
+index is `2⌊m/2⌋+1`, now proved by `AtkinExact.bEll_13/17/19/23`. The draft’s
+parity-free notation must not be substituted into the literal invariant.
+
+The series notation follows Boylan–Webb (BW, Trans. AMS 365 (2013)):
 * `L(0) = 1`;
 * `L(b) = L(b−1)|D` for `b` odd, `L(b) = L(b−1)|U` for `b` even, where `D(f) = (Φf)|U` and
   `Φ = η(ℓ²z)/η(z)`;

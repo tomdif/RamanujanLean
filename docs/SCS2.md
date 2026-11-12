@@ -279,6 +279,5 @@ covered too; there the committed `scs2_diag` is sharper (no `(ab)`-power).
     (`|ℓ| ≤ N^{1−θ}`) or against the `SCS2'` shape of `scs2_general`.
   * That restatement touches `HeckeAFE/Hyp.lean` and its users. It was not done here, because
     committed files were off-limits.
-* `RamanujanTau.lean`, README, STATUS and RESULTS were not edited. `Main3` is not imported by the root
-  file.
+* `SCS2Coprime.Main3` is now included in the root import graph.
 * The exponents are not optimized (`B = 12`; `η = 1/21` is inherited from `SCSSharp2`).

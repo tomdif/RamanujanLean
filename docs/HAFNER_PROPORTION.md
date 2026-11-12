@@ -11,7 +11,7 @@ Build: `nice -n 10 lake build RamanujanTau.HafnerProportion.Main` (exit 0). Ever
 prints `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, no new axiom and no
 `native_decide`.
 
-**Status.** The full theorem is **not** proved. What this module contains:
+**Original module status (historical).** The unconditional positive-proportion theorem remains open here; the later theorem above requires only `DeligneBound`. The original `HafnerProportion` module contains:
 
 * the Selberg reduction, formalized;
 * Selberg's first-moment input (H1), proved unconditionally for L(Δ,s);

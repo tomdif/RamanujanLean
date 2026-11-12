@@ -1,5 +1,8 @@
 # Hafner's (MV2) from the twisted second moment (2026-11-06)
 
+> **Current status (2026-11-12).** The chain now reaches `HafnerFinal.tauL_positive_proportion_deligne` under `[DeligneBound]` alone; see [HAFNER_PROPORTION](HAFNER_PROPORTION.md). `QFProof5.qfHyp_deligne` and `mv2_deligne` close the quadratic-form/MV2 inputs under that hypothesis, and `SvStripD.s4Bound_deligne` supplies the final strip bound. This does not prove Deligne or an unconditional positive-proportion theorem.
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 **Status.** The implication (MV2) ⇐ `DiagHyp` is proved in Lean: axiom-clean, unconditional apart
 from the named hypothesis. The further step `DiagHyp` ⇐ `QFHyp`, i.e. the Laurent / leading-coefficient
 evaluation of `MainTw`, is **not done**.

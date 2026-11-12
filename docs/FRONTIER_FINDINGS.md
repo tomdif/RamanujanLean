@@ -1,18 +1,20 @@
 # Frontier probes (2026-10-27)
 
-> **Status update (2026-10-29): historical experimental record.** The recurrence at
-> `b = m` for 13, 17, 19, 23 now has [unconditional Lean proofs](../RamanujanTau/OrdQuot/Atkin.lean).
-> Their statements establish sufficiency; experimental minimality is a separate claim.
-> The prime-29 all-power recurrence and sharpness verification are tracked in
-> [Current status](STATUS.md). The Jensen thresholds below remain bounded experiments.
+> **Current status (2026-11-12): historical experimental record.** The recurrence at
+> `b = m` for 13, 17, 19, 23 and its minimality are now proved; see
+> [Atkin exactness](../RamanujanTau/FiniteArithmetic/AtkinExact.lean).
+> The literal Boylan–Webb least odd index is `b_ℓ(m)=2⌊m/2⌋+1` at these primes.
+> The unrestricted recurrence index studied in §1 is denoted `B_rec,ℓ(m)` below.
+> Exact Boylan–Webb thresholds are proved through prime 139; see [Current status](STATUS.md).
+> Jensen degrees 6 and 7 are also proved; the higher thresholds remain finite experiments.
 
-## 1. Atkin–O'Brien beyond 13: `b_ℓ(m) = m` for ℓ = 17, 19, 23 (conjecture, strong numerics)
+## 1. Atkin–O'Brien beyond 13: `B_rec,ℓ(m) = m` for ℓ = 17, 19, 23 (conjecture, strong numerics)
 
-Notation (Boylan–Webb): `b_ℓ(m)` is the least `b` from which the generating functions `P_ℓ(b)` are
+Notation for this experiment: `B_rec,ℓ(m)` is the least unrestricted `b` from which the generating functions `P_ℓ(b)` are
 proportional mod `ℓ^m` along `b ↦ b+2`. Concretely,
 `p((ℓ^{b+2}n+1)/24) ≡ K · p((ℓ^b n+1)/24) (mod ℓ^m)` for all `n`, at `b = m`.
 
-* **Known.** Atkin–O'Brien (1967) prove `b₁₃(m) = m`. Boylan–Webb (Trans. AMS 2013) prove `b_ℓ(m) ≤ 2m − 1`
+* **Known.** Atkin–O'Brien (1967) prove the recurrence at `b=m`. Boylan–Webb (Trans. AMS 2013) prove `b_ℓ(m) ≤ 2m − 1`
   for all `ℓ ≥ 5` (assuming `d_ℓ = 0`, verified for `ℓ ≤ 1300`), and remark that this bound is sharp in all
   computed cases with `ℓ ≥ 29`. For example, `b₂₉(2) = 3` and `b₂₉(3) = 5`.
 * **New numerics** (`scripts/frontier/`, `p(n) mod 17⁵·19⁴·23⁴` for `n ≤ 10⁸` by FLINT series inversion).
@@ -27,13 +29,13 @@ proportional mod `ℓ^m` along `b ↦ b+2`. Concretely,
 | 29, 31 | ✓ | ✗ (only mod ℓ) | | |
 | 37, 41, 43, 47 | ✗ | | | |
 
-* **Pattern.** `b_ℓ(m) = m` holds exactly for `ℓ ∈ {13, 17, 19, 23}`. These are precisely the primes with
+* **Pattern.** `B_rec,ℓ(m) = m` holds exactly for `ℓ ∈ {13, 17, 19, 23}`. These are precisely the primes with
   `dim S_{ℓ−1}(SL₂(ℤ)) = 1`. For ℓ = 29 and 31, `dim S_{ℓ−1} = 2` and the Boylan–Webb bound `2m − 1` is sharp.
 * **Conjecture.** For ℓ ∈ {17, 19, 23} and all `m ≥ 1`,
   `p((ℓ^{m+2}n+1)/24) ≡ K_{ℓ,m} p((ℓ^m n+1)/24) (mod ℓ^m)`, with `ℓ ∤ K_{ℓ,m}`.
   I have not found this stated or proved in the literature (Atkin 1968 observed some instances). Proving it,
   for example by the Atkin–O'Brien / Garvan–Shomanov method at levels 17, 19 and 23 (`ATKIN13_PLAN.md`
-  pipeline), would be a new theorem.
+  pipeline), was the research proposal at this checkpoint. The recurrence is now formalized; mathematical priority is not established by this numerical search.
 
 ## 2. Dissection identities: classical
 The level-13 formula `E(Q)²/(QE(Q¹³)²) = −1 − c₀c₁/Q − c₂c₁₂ − c₅c₉` is equivalent to

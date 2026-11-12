@@ -1,4 +1,4 @@
-# Lehmer's method for small n: `τ(n) ≠ 0` for `1 ≤ n < 21 492 863 999`
+# Lehmer's method for small n: `τ(n) ≠ 0` for `1 ≤ n < 214 928 639 999`
 
 Directory: `RamanujanTau/LehmerSmall/` (8 Lean files plus one generator script; no existing file modified).
 Target function: the repo's computable `RamanujanTau.tau` (coefficients of `q∏(1−qⁿ)²⁴`), linked to

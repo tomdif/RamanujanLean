@@ -142,7 +142,7 @@ nice -n 10 lake env lean scripts/audit/mock_theta5_all.lean
 ```
 
 `Theta.lean` is the slowest file, at about 2 minutes. The others take seconds each, plus import loading.
-`RamanujanTau.lean` is not modified, so the root import does not include these files.
+`MockTheta5All.All` is included in the `RamanujanTau.lean` import graph.
 
 ## Remaining named Props
 

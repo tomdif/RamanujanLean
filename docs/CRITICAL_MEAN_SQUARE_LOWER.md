@@ -1,5 +1,8 @@
 # Lower bound for the mean square of L(Δ, s) on the critical line Re s = 6
 
+> **Current status (2026-11-12).** The sharp leading asymptotic is proved by `CriticalMeanSquareAsymp.critical_mean_square_asymptotic`; see [CRITICAL_MEAN_SQUARE_ASYMP](CRITICAL_MEAN_SQUARE_ASYMP.md). The later [Good second-term proof](GOOD_SECOND_TERM.md#7-2026-11-06-offdiaghyp-1600-discharged-goods-asymptotic-is-unconditional) also gives the second term with a power-saving error.
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 Module: `RamanujanTau/CriticalMeanSquareLower/` (entry point `Main.lean`).
 Build: `nice -n 10 lake build RamanujanTau.CriticalMeanSquareLower.Main` (exit 0).
 

@@ -1,5 +1,8 @@
 # Asymptotic mean square of L(Δ, s) on the critical line Re s = 6
 
+> **Current status (2026-11-12).** The later [Good second-term theorem](GOOD_SECOND_TERM.md) proves the second term with error `O(T^{599/600})`. [GENERAL_CUSP_MOMENTS](GENERAL_CUSP_MOMENTS.md) extends the leading asymptotic to general level-one cusp forms under its stated hypotheses.
+> Earlier gap lists below describe the original method or checkpoint.
+
 Module: `RamanujanTau/CriticalMeanSquareAsymp/` (entry point `Main.lean`).
 Build: `nice -n 10 lake build RamanujanTau.CriticalMeanSquareAsymp.Main` (exit 0).
 

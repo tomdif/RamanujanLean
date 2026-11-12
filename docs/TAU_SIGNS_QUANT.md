@@ -3,8 +3,7 @@
 Lean: `RamanujanTau/TauSignsQuant/` (4 files, 567 lines: `Density`, `Count`, `Proportion`, `Main`).
 There is no `sorry`, no new axiom and no `native_decide`. Build with
 `nice -n 10 lake build RamanujanTau.TauSignsQuant.Main` (exits 0). `#print axioms` gives
-`[propext, Classical.choice, Quot.sound]` for all 15 headlines. Only new files were added, and
-the root `RamanujanTau.lean` does not import this directory.
+`[propext, Classical.choice, Quot.sound]` for all 15 headlines. The public entry point is included in the root import graph.
 
 Notation: `λ(p) = τ(p)p^{−11/2}` (`lam`), and `ε ∈ {1, −1}`.
 

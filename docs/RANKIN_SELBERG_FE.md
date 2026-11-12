@@ -13,9 +13,7 @@ real-analytic Eisenstein series `E*(z,s) = π^{−s}Γ(s)ζ(2s)E(z,s)` for each 
 There is no sorry, no new axiom and no `native_decide`. Every headline prints
 `[propext, Classical.choice, Quot.sound]`.
 
-To build: `nice -n 10 lake build RamanujanTau.RankinSelbergFE.Main` (exits 0). The directory
-contains only new files. Nothing else was modified, and the root file does not import this
-directory.
+To build: `nice -n 10 lake build RamanujanTau.RankinSelbergFE.Main` (exits 0). The public entry point is included in the root import graph.
 
 ## Normalization
 

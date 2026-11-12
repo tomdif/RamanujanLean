@@ -2,8 +2,8 @@
 
 New Lean files: `RamanujanTau/Discharge/{Congruences,Bridge,Kloosterman,AtkinInputs}.lean`.
 Every declaration listed is axiom-clean (`#print axioms` gives only `propext`, `Classical.choice`,
-`Quot.sound`). The four modules were built with `lake build` on just these targets. The files are not yet imported
-from `RamanujanTau.lean`, so instances only take effect where these files are imported.
+`Quot.sound`). The original audit built these four targets separately. All four are now
+included in the `RamanujanTau.lean` import graph and the current full build.
 
 Evidence levels: (1) Lean, axiom-clean; (2) Lean, conditional on named hypotheses; (3) paper only; (4) numerics only.
 
@@ -51,18 +51,18 @@ Evidence levels: (1) Lean, axiom-clean; (2) Lean, conditional on named hypothese
 | `AADModularity`, `AADRaisedModularity` | TheoremA/LiftReduction | `ThetaLift.aadModularity`, `aadRaisedModularity` | `theoremA_unconditional`, `X_injective_unconditional` (existing) |
 | `GoodStep` | BLBound/SlopeCounts | `goodStep_of_prime` | existing |
 | ErrorDynamics29/31 `Data` | FiniteArithmetic | `CertifyError31.data` (and the corresponding certificate for 29) | existing |
-| **Atkin–O'Brien chain:** `UB`, `DB`, `HQ`, `HG`, `HConj`, `QuotBound`, `QuotEBound`, `QuotValBound`, `OrdEBound`, `OrdBound`, `ProdDelta` | ~40 conditional theorems: DBound/Final, VLayer/*, SharpHQ/Final, UBSharp/Final, QuotE/Combine, AtkinOBrienMain/*, AtkinOBrienFinal/Main, OrdQuot/Main, FiniteArithmetic/ExactAtkin | proofs scattered across OrdQuot/Prod, QuotE, UBSharp, ConjAlg/NoKer, SharpHQ, VLayer, `SmallThreshold.ub_db` | **new** `Discharge.AtkinInputs.{prodDelta, ordEBound, quotEBound, quotValBound, quotBound, ordBound, hConj, UB}_unconditional` (ℓ ≥ 5 prime, at `SharpHQ.φC ℓ`), `HQ_unconditional`, `DB_unconditional` (ℓ ≥ 11), `HG_unconditional`. Headlines: `OrdQuot.atkin_obrien_{13,17,19,23}` and `FiniteArithmetic.bEll_{13,17,19,23}` (existing) |
+| **Atkin–O'Brien chain:** `UB`, `DB`, `HQ`, `HG`, `HConj`, `QuotBound`, `QuotEBound`, `QuotValBound`, `OrdEBound`, `OrdBound`, `ProdDelta` | ~40 conditional theorems: DBound/Final, VLayer/*, SharpHQ/Final, UBSharp/Final, QuotE/Combine, AtkinOBrienMain/*, AtkinOBrienFinal/Main, OrdQuot/Main, FiniteArithmetic/ExactAtkin | proofs scattered across OrdQuot/Prod, QuotE, UBSharp, ConjAlg/NoKer, SharpHQ, VLayer, `SmallThreshold.ub_db` | **new** `Discharge.AtkinInputs.{prodDelta, ordEBound, quotEBound, quotValBound, quotBound, ordBound, hConj, UB}_unconditional` (ℓ ≥ 5 prime, at `SharpHQ.φC ℓ`), `HQ_unconditional`, `DB_unconditional` (ℓ ≥ 11), `HG_unconditional`. Headlines: `OrdQuot.atkin_obrien_{13,17,19,23}` and `FiniteArithmetic.AtkinExact.bEll_{13,17,19,23}` (existing) |
 | `TateKernels`, `ThetaLaw`, `EtaLaw`, `ZLaw`, `SSDetect`, `GB`, `AC` | various internal files | `TateAdd.tateKernels`, `thetaLaw`, `zLaw`, `ssDetect_of_support`, … | internal lemmas. Headlines are already unconditional |
 
 ## 3. Still open (genuinely unproved in the repo)
 
 | Hypothesis | Used in | Status / reason |
 |---|---|---|
-| `DeligneBound` (Deligne.lean) | none (no theorem takes it) | Ramanujan–Petersson conjecture, proved by Deligne via the Weil conjectures; beyond the repo. Evidence (3) + small-p `decide` checks |
-| `LehmerConjecture` | LehmerReduction (iff with prime powers) | open problem. Verified for small n by the LehmerSmall agent |
+| `DeligneBound` (Deligne.lean) | `HafnerFinal.tauL_positive_proportion_deligne` and its arithmetic inputs | Deligne’s theorem is not proved unconditionally here. The companion RamanujanWeil retains geometric inputs; see [HAFNER_PROPORTION](HAFNER_PROPORTION.md). |
+| `LehmerConjecture` | LehmerReduction (iff with prime powers) | open problem. Proved here for `1 ≤ n < 214,928,639,999`; see [LEHMER_SMALL_N](LEHMER_SMALL_N.md) |
 | `AndrewsDragonette.HKS n θ C` with θ < 1/2 | `adPartial_converges_of_HKS` | needs Kloosterman-type cancellation in the modulus aspect. Only `HKS_trivial` (θ = 1) is proved, which is too weak for convergence (needs θ < 1/2) |
 | `GORZXiD3.DLHyp` | `hot_gamma`, `jensen3_gamma` | Dimitrov–Lucas-type Lipschitz bound for `Ξ`'s Taylor data. Only `dlHyp_of_mono` reduces it to monotonicity of the Turán defect. Numerics (4) for n ≤ 3000 |
-| `DBound.HV`, `VLayer.HVQ`, `DBound.HW` | DBound/HW, DBound/Final, VLayer/Final (`atkin_obrien_ℓ'`, `''`) | **not proved**, only **bypassed** (`VLayer.DB_of_UB_HQ`). The theorems that take them are superseded by the unconditional `OrdQuot.atkin_obrien_ℓ`. Note: docs/ATKIN_OBRIEN_PROOF.md §"No hidden hypotheses" says HV and HVQ were "eventually proved". That is inaccurate: no theorem in the tree concludes `HV` or `HVQ`. The headline theorems are unaffected |
+| `DBound.HV`, `VLayer.HVQ`, `DBound.HW` | DBound/HW, DBound/Final, VLayer/Final (`atkin_obrien_ℓ'`, `''`) | **not proved**, only **bypassed** (`VLayer.DB_of_UB_HQ`). The theorems that take them are superseded by the unconditional `OrdQuot.atkin_obrien_{13,17,19,23}`. The corrected “No hidden hypotheses” section of [the proof record](ATKIN_OBRIEN_PROOF.md) distinguishes these bypassed inputs from discharged ones. No theorem here concludes `HV` or `HVQ`; the headline theorems are unaffected |
 | `UBound.GeomU` | UBound/Reduce, Final, Cp (`atkin_obrien_ℓ_geom`, `_Cp`) | not proved. Bypassed: `UB` is proved via `UBSharp.UB_of_E_C` |
 | `TauBound.HasPoincareCoeffs` | `poincareFormula_of_cuspForm` | not proved. Bypassed (see above) |
 | `E8ThetaData` (structure) | E8Eisenstein (`eq_E4`, `root_count`) | needs modularity of the E₈ theta series (Poisson summation). Not in Mathlib |

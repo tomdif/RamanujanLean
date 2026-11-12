@@ -92,7 +92,7 @@ Supporting results:
 - The Δ corollary is stated for `HeckeConvexGeneral.fL Δ`, not for `HeckeL.tauL`. The two
   agree, but that bridge is not formalized here. The direct Δ result is
   `HardyZeros.tauL_infinitely_many_critical_zeros`.
-- Not added to `RamanujanTau.lean`, `README.md` or `docs/RESULTS.md`, per the brief.
+- `HardyZerosGeneral.Main` is included in the root import graph and theorem catalog.
 
 ## Literature
 

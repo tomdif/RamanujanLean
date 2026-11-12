@@ -106,8 +106,7 @@ convexity strip, because it needs `σ > 11/2` for integrability.
   - a conditional version under a Deligne-type short-sum hypothesis (this route would give
     `11/2 + 1/2 + ε`);
   - the degree-2 dual expansion.
-- The directory is not imported by the root `RamanujanTau.lean`. README, STATUS and RESULTS are not
-  updated, per instructions.
+- `TauPartialSums.Main` is included in the root import graph and the [result catalog](RESULTS.md).
 
 ## 6. Literature
 

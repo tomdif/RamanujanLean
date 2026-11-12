@@ -3,11 +3,11 @@
 For the whole repository, including finite arithmetic and current research gaps,
 see [Current status](docs/STATUS.md). This document concerns the τ arc only.
 
-This file is the definitive accounting of every question the `τ` arc leaves open. Each is *closed* in the
-sense that matters for a formalization project: it is pinned to an exact, named missing lemma and classified
-as **reachable** (buildable on today's Mathlib) or **infrastructure-gap** (needs objects Mathlib does not yet
-have). Nothing below is asserted as an `axiom`; unreachable inputs enter proved theorems as explicit,
-named hypotheses — the same discipline used for `TauMultiplicativity`, `DeligneBound`, `LehmerConjecture`.
+This file tracks selected core questions about τ: congruences, the product bridge,
+multiplicativity, and coefficient bounds. Broader analytic extensions are recorded
+in the [topic guides](docs/README.md#analytic-and-congruence-write-ups-2026-11-0304).
+Missing mathematical inputs enter conditional theorems as explicit hypotheses,
+including `DeligneBound` and `LehmerConjecture`; they are not added axioms.
 
 ## 1. The mod-691 congruence — CLOSED (unconditional theorem proved)
 
@@ -82,4 +82,4 @@ Deligne and Lehmer are documented as hypotheses, not defects.
 | sub-Hecke bound | **proved**, `O(n^{23/4+ε})` (Weil) | — (`StepanovAS.tau_isBigO_23_4_unconditional`) |
 | Deligne / Lehmer | open here | the remaining geometric inputs in RamanujanWeil / Lehmer’s conjecture (finite range proved for `1 ≤ n < 214,928,639,999`) |
 
-Every question on the `τ` arc is now proved and axiom-clean, except Deligne's bound and Lehmer's conjecture.
+The core algebraic questions listed here are proved. Deligne's bound remains conditional in this development, and Lehmer's conjecture remains open beyond the proved finite range. This list does not exhaust the repository's analytic research questions.

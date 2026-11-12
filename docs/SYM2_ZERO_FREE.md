@@ -2,7 +2,7 @@
 
 Lean: `RamanujanTau/Sym2ZeroFree/` (4 files, about 760 lines). There is no `sorry`, no new axiom
 and no `native_decide`. Build with `nice -n 10 lake build RamanujanTau.Sym2ZeroFree.Main`; it
-exits 0. The module is not imported from `RamanujanTau.lean`.
+exits 0. The public entry point is included in the `RamanujanTau.lean` import graph.
 
 **Evidence level (1).** The results are unconditional and axiom-clean. All 16 `#print axioms` lines
 print `[propext, Classical.choice, Quot.sound]`. There are no named hypotheses. `DeligneBound` is

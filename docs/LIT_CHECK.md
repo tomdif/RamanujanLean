@@ -19,9 +19,9 @@ Trans. AMS 365 (2013) 2169–2206 (people.math.sc.edu/boylan/reprints/partition.
 
 ## BW computations (Sec. 6.1)
 - Bases computed: m=1, 13<=l<1300; m=2, 13<=l<=89; m=3, 13<=l<=29; m=4, l=13.
-- Lean (2026-11-03, uncommitted): b_l(m)=2m-1 for all m at l=37,41,43,47 (`Rank2At37.bEll_37`, ...), beyond BW's computed range m<=2.
-- Lean (2026-11-03, uncommitted): b_l(m)=2m-1 for all m at every prime 61<=l<=139 (`RankRAt61.bEll_61`, ...; order-r recurrence).
-- Lean (2026-11-03, uncommitted): b_l(m)=2m-1 for all m at l=53,59 (`RankSAt53.bEll_53`, `RankSAt59.bEll_59`; dim K=2, 2x2 error matrix).
+- Lean (proved 2026-11-03; committed and included in the full build): b_l(m)=2m-1 for all m at l=37,41,43,47 (`Rank2At37.bEll_37`, ...), beyond BW's computed range m<=2.
+- Lean (proved 2026-11-03; committed and included in the full build): b_l(m)=2m-1 for all m at every prime 61<=l<=139 (`RankRAt61.bEll_61`, ...; order-r recurrence).
+- Lean (proved 2026-11-03; committed and included in the full build): b_l(m)=2m-1 for all m at l=53,59 (`RankSAt53.bEll_53`, `RankSAt59.bEll_59`; dim K=2, 2x2 error matrix).
 - b_29(1,2,3)=1,3,5; b_53(1,2)=1,3; b_89(1,2)=1,3; b_1297(1)=1. b_7(m)=2m-2 (Watson), b_5=b_11=m.
 - r_l(1)=R_l for all l<=1297 EXCEPT l=607. The paper reports r_607(m)=R_607-1 for all m;
   this higher-precision assertion is in tension with the independent computations

@@ -1,5 +1,8 @@
 # The Rankin–Selberg mean square of τ (`RamanujanTau/RankinSelberg/`)
 
+> **Current status (2026-11-12).** The exact error `O(N^{3/5})` is proved for τ and every level-one cusp form in [RANKIN_EXACT](RANKIN_EXACT.md).
+> Earlier gap lists below describe the original method or checkpoint.
+
 > **Update (2026-11-04):** milestone 2 below (the asymptotic `∑_{n≤N} τ(n)²/n¹¹ ~ cN` with Zagier's
 > constant `c = (3/π)(4π)¹²‖Δ‖²/11!`) is now proved unconditionally,
 > `EisensteinReal.rankinSelberg_asymptotic_zagier_unconditional`, by an elementary horocycle-equidistribution

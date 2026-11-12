@@ -1,8 +1,8 @@
 # The Riemann–von Mangoldt formula for L(Δ,s)
 
 Lean: `RamanujanTau/ZeroCountRvM/*.lean`, namespace `RamanujanTau.ZeroCountRvM`.
-Build: `nice -n 10 lake build RamanujanTau.ZeroCountRvM.Main` exits 0. The module is not
-imported from `RamanujanTau.lean`.
+Build: `nice -n 10 lake build RamanujanTau.ZeroCountRvM.Main` exits 0. The module is included in
+the root `RamanujanTau.lean` import graph.
 
 **Evidence level (1).** The results are in Lean and axiom-clean. Every headline prints
 `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, no `native_decide`, no new

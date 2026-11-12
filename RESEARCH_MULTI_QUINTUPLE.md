@@ -3,23 +3,28 @@
 ## Status
 
 This track contains a formally proved infinite family and the complete Lean
-classification of admissible sparse triple vanishings.
+classifications of admissible sparse triple vanishings and the prime four-factor
+reflection family.
 [`admissible_root_vanishing_equivalence`](RamanujanTau/MultiQuintupleFullConverse.lean)
 proves the equivalence between persistent vanishing of the actual product
 coefficients and an exact projective root certificate, under
 `AdmissibleSparseTriple p i j k` and `R < p`.
 See the [verification record](docs/verification/full_converse_lean.json).
-The [four-factor follow-up](#four-factor-and-first-witness-follow-up-2026-11-01)
-settles the fixed example at 41 and records the remaining universal targets.
+The [prime reflection-family theorem](#prime-reflection-family-converse-proof-argument-2026-11-11)
+classifies every prime `p=m²+n²` satisfying `0<n<m` and `2(m+n)<p`,
+with no spanning premise or small-prime exceptions. The [latest proof record](docs/verification/four_prime_converse.json)
+contains the 10,597-job full build and 1,087-declaration audit. Arbitrary four-tuples
+and composite-modulus necessity remain open.
 Earlier frontier notes below are retained as historical research steps.
 The exact coefficient scanner in `scripts/quintuple_vanishing_scan.py` reproduces all five
 examples reported in the March and June 2026 papers and tests proposed extensions.
 
 ## Current theorem
 
-**Review package (2026-11-11).** The [manuscript](output/pdf/sparse-triples.pdf)
-and [LaTeX source](docs/paper/sparse-triples.tex) give the precise theorem,
-proof argument, formal source map, and comparison with the 2026 papers.
+**Review package (updated 2026-11-12).** The [manuscript](output/pdf/sparse-triples.pdf)
+and [LaTeX source](docs/paper/sparse-triples.tex) give the triple and prime
+four-factor reflection-family classifications, proof arguments, formal source
+map, and comparison with the 2026 papers.
 Mathematical priority and independent human review remain outstanding.
 The [reference classifier](scripts/classify_sparse_triple.py) decides the
 zero residues by scanning the `p−1` nonzero projective scalars, without
@@ -28,7 +33,7 @@ proves that each root certificate is recovered by centered residues; the
 Python program is not extracted Lean code. Run
 `python3 scripts/classify_sparse_triple.py 31 1 5 6` to obtain residues 6,16,18.
 The [reproduction script](scripts/verify_quintuple_review.py) and
-[verification record](docs/verification/quintuple_review.json) cover the
+[historical verification record](docs/verification/quintuple_review.json) cover the
 proof audit, independent lattice replay, and 160,812 direct coefficient
 comparisons across all 123 admissible triples through 43.
 
@@ -66,11 +71,12 @@ vanishing residue. The three public interfaces are
 `admissible_root_vanishing_converse`, `admissible_root_vanishing_equivalence`,
 and `admissibleRootVanishingRigidity_proved`.
 
-The published proof snapshot passed a **9,336-job full build** and a
+The original triple-proof snapshot passed a **9,336-job full build** and a
 **251-declaration multi-quintuple axiom audit**. All audited dependencies are
 among `propext`, `Classical.choice`, and `Quot.sound`. The
 [verification record](docs/verification/full_converse_lean.json) distinguishes
-this published snapshot from the larger development worktree.
+that historical snapshot from subsequent developments. The latest full-root
+verification is linked in the status summary above.
 
 * [Result catalog and Lean example](docs/RESULTS.md#multi-quintuple-products-complete-admissible-triple-classification)
 * [Completed proof outline](#complete-lean-converse-2026-11-01)
@@ -1794,8 +1800,9 @@ Further certificates found by the same search are:
 These examples led to indices obtained by sorting `(m−n,n,m,m+n)` at
 modulus `m²+n²`. The unrestricted parameterization is not a vanishing theorem:
 the same search finds no branch matching in several examples, including
-p=13,29,61. A failed matching search does not prove nonvanishing. The
-congruence-restricted two-parameter theorem and infinite family below now have Lean proofs. The universal
+p=13,29,61. The failed matching search alone did not prove nonvanishing;
+the later prime-family converse and its small-prime certificates now do. The
+congruence-restricted two-parameter theorem and infinite family below have Lean proofs. The universal
 four-factor classification remains open, and a claim of novelty in the
 literature would need a broader review.
 
@@ -2223,9 +2230,10 @@ nine. Necessity is already detected at the all-zero branch point; Lean's
 kernel checks the finite residue calculation. Sufficiency is proved on every
 integer branch, not just a finite sample.
 
-This is **not** the universal coefficient-vanishing converse. It does not show
-that arbitrary vanishing must come from one of these maps, or that arbitrary
-four-factor tuples have the form used here.
+This compatibility theorem alone did not give a coefficient-vanishing converse.
+The later [prime-family theorem](#prime-reflection-family-converse-proof-argument-2026-11-11)
+supplies necessity for this family at prime moduli. Arbitrary four-factor tuples
+and composite-modulus necessity remain outside that theorem.
 
 The [verification record](docs/verification/four_reflection.json) and
 [dedicated audit](scripts/audit/four_reflection.lean) cover the new theorems.

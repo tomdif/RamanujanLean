@@ -3,7 +3,7 @@
 Lean: `RamanujanTau/ZetaCritical/` (5 files, about 820 lines). Build with
 `nice -n 10 lake build RamanujanTau.ZetaCritical.Main`, which exits 0. There is no `sorry`, no
 `native_decide`, no new axiom and no named hypothesis. `#print axioms` on every headline gives
-`[propext, Classical.choice, Quot.sound]`. The directory is not imported by `RamanujanTau.lean`.
+`[propext, Classical.choice, Quot.sound]`. The public entry point is included in the `RamanujanTau.lean` import graph.
 
 ## 1. Statements (namespace `RamanujanTau.ZetaCritical`)
 

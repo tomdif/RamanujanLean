@@ -13,10 +13,9 @@ no `native_decide` and no new axiom. The audit is `scripts/audit/septic_page206.
 The proof uses neither Son's modular equations nor the class invariant G₇. Instead it uses three lattice
 identities: the 4-dimensional quaternion one and two 8-dimensional ones. It also uses an elimination certificate
 and crude numerical enclosures at x₀ = e^{−π/(7√7)}. Son's general q-series identities (Entry 1.1(iii) and the
-sextic relation) remain **unproved** as ℤ⟦q⟧ identities. They are stated as `SepticSonCore` (`Septic/Son.lean`)
-and used only in the alternative conditional route `page206_of_sonCore`.
-(`docs/SEPTIC_ENTRY_1_1.md` predates this and still says "not proved"; it was left untouched per the
-no-edit rule.)
+sextic relation) have also been proved as ℤ⟦q⟧ identities; see [SEPTIC_SON](SEPTIC_SON.md).
+The interface `SepticSonCore` (`Septic/Son.lean`) is used by the alternative route
+`page206_of_sonCore`; the page-206 lattice proof does not depend on it.
 
 ## Notation
 
@@ -95,13 +94,17 @@ right-hand side is 2R − 6p − 2.
 * `scripts/septic/check_page206.py` (pre-existing): Theorem 4.1 to 60 digits.
 * `scripts/septic/check_son_core.py`: checks the dissection, (A), (B) and (iii) as exact integer series to q^600.
   It also checks the six sextic relations and that (iii) lies in their ideal.
-* `scripts/septic/gen_octo.py`, `gen_octo2.py`: the 8×8 matrices, the Lagrangians and P_W; they generate
-  `Octo1/2.lean`.
+* `python3 scripts/septic/gen_octo2.py` (requires SymPy) reproduces `Octo1.lean` and
+  `Octo2.lean` from the repository root. It imports the matrices, Lagrangian analysis,
+  and polynomial helpers from `scripts/septic/gen_octo.py`; both source files are tracked.
+  The older standalone generator in `gen_octo.py` is retained for development history.
 * `scripts/septic/gen_cert.py`: Singular elimination and lift certificates. They are verified in sympy before
   emitting `Cert.lean`.
 * `scripts/septic/gen_final.py`: generates `Page206Final.lean`.
 
-## Files (all new; nothing existing was edited, and RamanujanTau.lean does not import them)
+## Files
+
+The public septic entry points are included in the root import graph.
 
 `Septic/Transform.lean`, `Quaternion.lean`, `RealTransfer.lean`, `Bounds.lean`, `Cubic.lean`, `Son.lean`,
 `Page206Proof.lean`, `Octo1.lean`, `Octo2.lean`, `Cert.lean`, `Page206Final.lean`. The audit is

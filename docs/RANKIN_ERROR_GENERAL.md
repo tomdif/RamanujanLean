@@ -1,5 +1,8 @@
 # A power-saving error term for Rankin–Selberg, every level-one cusp form (`RamanujanTau/RankinErrorGeneral/`)
 
+> **Current status (2026-11-12).** The stronger error `O(N^{3/5})` is proved for τ and every level-one cusp form by `RankinExact.rankinSelberg_exact` and `rankinSelberg_exact_general`, without Deligne. See [RANKIN_EXACT](RANKIN_EXACT.md).
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 **Status (2026-11-04).** For every level-one cusp form `f ∈ S_k(SL₂(ℤ))`, of any weight `k`,
 with q-expansion coefficients `a_f(n)`, Lean proves
 

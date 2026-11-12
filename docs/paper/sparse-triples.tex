@@ -16,9 +16,9 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title[Vanishing in triple quintuple products]{Persistent coefficient vanishing in admissible products of three quintuple products}
+\title[Vanishing in quintuple products]{Persistent coefficient vanishing in quintuple products:\\ admissible triples and a prime four-factor family}
 \author{Thomas DiFiore}
-\date{Review draft, November 11, 2026}
+\date{Review draft, November 12, 2026}
 \begin{document}
 \begin{abstract}
 For a prime modulus and three distinct canonical indices whose squared sum
@@ -28,10 +28,11 @@ quintuple products to vanish. The criterion is a short vector in a projective
 dual lattice, together with an explicit residue equation. The equivalence
 is proved in Lean. We explain the analytic and lattice steps, the finite
 certificates below the geometric threshold, and a linear scan of projective
-scalars that implements the criterion. We also give a separate, completely
-classified four-factor example at modulus 97. This is a manuscript for
-independent mathematical and priority review; it does not assert a general
-four-factor converse.
+scalars that implements the criterion. We also prove a necessary and sufficient criterion for the four-factor
+reflection family at prime moduli that are sums of two squares, and give
+the optimal nonvanishing cutoff for its modulus-97 example. This is a
+manuscript for independent mathematical and priority review. Arbitrary
+four-factor tuples and composite-modulus necessity remain outside its scope.
 \end{abstract}
 \maketitle
 
@@ -307,7 +308,53 @@ Lean as \lean{projectiveRootTarget_centered}. The executable's full
 input/output correspondence is the elementary argument above, rather than
 a code-extraction or refinement theorem.
 
-\section{A four-factor benchmark and the remaining converse}
+\begin{samepage}
+\section{The prime four-factor reflection family}
+For natural numbers $m,n$, put $p=m^2+n^2$ and
+\[
+ G_{m,n}(q)=Q(q^{m-n},q^p)Q(q^n,q^p)Q(q^m,q^p)Q(q^{m+n},q^p)
+           =\sum_{r\ge0}g_{m,n}(r)q^r.
+\]
+\begin{theorem}[Prime reflection-family classification]\label{thm:four}
+Suppose $p$ is prime, $0<n<m$, $2(m+n)<p$, and $0\le R<p$.
+Then $g_{m,n}(pN+R)=0$ for every $N\ge0$ if and only if
+\[
+ 9\mid m\quad\text{or}\quad9\mid n\quad\text{or}\quad9\mid(m-n)
+ \quad\text{or}\quad9\mid(m+n),
+\]
+and at least one of the following congruences holds modulo $p$:
+\begin{align*}
+ 2R&\equiv3m+n-18,& 2R&\equiv3m+n,\\
+ (n-m)R&\equiv n(m+2n-9),& (m+n)R&\equiv n(2m-n-9).
+\end{align*}
+\end{theorem}
+\end{samepage}
+The formal endpoint is \lean{coeff_fourReflection_prime_iff} in
+\src{FourPrimeConverse.lean}. There is no additional spanning assumption
+and no excluded small prime. The divisibility condition and the residue
+condition are both necessary.
+
+\subsection{Proof architecture}
+Sufficiency follows from explicit sign-reversing affine involutions on
+the sixteen Watson branches. For necessity, the four-dimensional Poisson
+bridge turns persistent coefficient vanishing into cancellation on shells
+of the projective dual lattice. At norm below $p^2/2$, the $p-1$ nonzero
+projective scalars leave a Fourier phase unrepresented. The missing phase
+forces cancellation to pair each supported vector with an equal-norm
+opposite-phase vector, reversing its modulo-three quartic character.
+This replaces the odd-dimensional antipodal argument used for triples.
+
+Integer generator certificates, checked in Lean, promote those partners
+to an orthogonal involution preserving both relevant lattices. Preservation
+of a distinguished short plane and its orthogonal long plane reduces the
+map to two signed-permutation blocks. An exhaustive modulo-nine calculation
+excludes the incompatible blocks and leaves precisely the divisibility
+condition above. Phase preservation then yields the four residue equations.
+The finite range is completed by actual-product coefficient certificates
+at $13,17,29,37,61,73,89$ and the existing classifications at $41,53,97$.
+The source map below separates these analytic, integral and finite steps.
+
+\subsection{An optimal cutoff at modulus 97}
 For
 \[
  G(q)=Q(q^5,q^{97})Q(q^4,q^{97})Q(q^9,q^{97})Q(q^{13},q^{97})
@@ -338,23 +385,25 @@ in residue 54, and the nonzero value at 1509 are evaluated by Lean's kernel.
 The Python generator only proposes certificates.
 \end{proof}
 
-The universal four-factor problem remains open here. In particular,
-classifying compatibility within a collection of sixteen reflection
-maps does not prove that every vanishing progression comes from one of
-those maps. A successful general converse must establish that missing
-necessity statement. A uniform quarter-prime first-witness bound cannot
+Theorem~\ref{thm:four} supplies the necessity that the earlier
+sixteen-map compatibility calculation alone did not establish. The
+classification of arbitrary four-tuples and composite-modulus necessity
+remain open here. A uniform quarter-prime first-witness bound cannot
 be used for four factors: the repository proves counterexamples, including
 one inside the reflection family at modulus 2521. The triple
 quarter-prime conjecture is a separate unresolved quantitative question.
 
 \section{Formal verification and review guide}
-The reference snapshot for the existing triple proof is repository commit
-\lean{8eff6d92d440bc3f6753abf32ca2a8afe187213b}, with Lean
+The latest full-root proof snapshot is repository commit
+\lean{012eb722b2c3a65ec9e8857e84d2611abb4133d6}, with Lean
 \texttt{4.30.0-rc2} and the dependencies pinned by \lean{lake-manifest.json}.
-The new four-factor theorem and this manuscript are tied to the source
-hashes in \lean{docs/verification/quintuple_review.json}.
-All public declarations in the dedicated audit must depend only on
-\lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}.
+The 10,597-job full build and 1,087 distinct audited declarations are
+recorded in \lean{docs/verification/four_prime_converse.json}; their axiom
+dependencies are confined to \lean{propext}, \lean{Classical.choice} and
+\lean{Quot.sound}. The earlier triple-review record
+\lean{docs/verification/quintuple_review.json} is a historical snapshot.
+The updated manuscript and documentation inventory are recorded separately
+in \lean{docs/verification/documentation_2026_11_12.json}.
 An axiom audit is accompanied by statement and definition checks;
 axiom cleanliness by itself does not establish that a theorem states
 the intended mathematical claim.
@@ -375,26 +424,41 @@ Arithmetic extraction of the root & \src{ShortDualConverse.lean} \\
 Final equivalence & \src{FullConverse.lean} \\
 Centered-root completeness & \src{CenteredRoots.lean} \\
 Four-factor converse at 97 & \src{FourNinetySevenConverse.lean} \\
+Four-dimensional phase partners & \src{FourPhaseParity.lean} \\
+Integer generator certificates & \src{FourPrimeIntegral.lean} \\
+Two planes and character exclusions & \src{FourPrimeBlockCharacters.lean} \\
+Phase and small-prime completion & \src{FourPrimePhaseBlocks.lean}, \src{FourPrimeSmallCases.lean}, \src{FourPrimeSmall89.lean} \\
+Prime-family final equivalence & \src{FourPrimeConverse.lean} \\
 \bottomrule
 \end{tabular}
 \end{center}
 Run the reproduction script from the repository root:
 \begin{verbatim}
 python3 scripts/verify_quintuple_review.py
+python3 scripts/verify_lean.py --full
+python3 scripts/check_four_prime_converse.py --self-test
+python3 scripts/generate_four_prime_converse.py --check
+python3 scripts/generate_four_prime_small.py --check
 python3 scripts/classify_sparse_triple.py 31 1 5 6
 \end{verbatim}
 The first command builds the relevant modules, checks the dedicated axiom
 audit, independently replays the finite lattice certificates, compares
 the reference root scan with direct products on a small exhaustive census,
 and checks the generated modulus-97 source and coefficient witnesses.
-It writes a verification record and logs. Building the entire repository
-is a separate broader check.
+It writes a verification record and logs. The public verifier with
+\texttt{--full} builds the entire root and runs the four public/headline
+audits. The prime-family checker independently replays the integral and
+finite obligations, including five corruption rejection controls; the
+generators check that their output reproduces the saved certificates.
 
 Independent review should concentrate on the exact product convention,
 the normalization of the Fourier phase, passage from shell cancellation
 to opposite partners, integral generation rather than real spanning,
 the exhaustive normalized coverage below 1250, and extraction of the
-two residue equations. The literature comparison must also account for
+two triple residue equations. For the four-factor theorem, review should
+also check the missing-phase argument, integral generation, preservation
+of the two planes, modulo-nine block exclusions, and small-prime coverage.
+The literature comparison must also account for
 the further work announced in \cite{vanishing}.
 
 \subsection*{Assistance and publication status}

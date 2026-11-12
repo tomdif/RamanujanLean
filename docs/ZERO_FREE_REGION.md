@@ -2,7 +2,7 @@
 
 Lean: `RamanujanTau/ZeroFreeRegion/` (7 files, about 1440 lines, no `sorry`, no new axiom, no
 `native_decide`). Build with `nice -n 10 lake build RamanujanTau.ZeroFreeRegion.Main`; it exits 0.
-The module is not imported from `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 **Evidence level (1).** The results are unconditional and axiom-clean. Every headline prints
 `[propext, Classical.choice, Quot.sound]`. There are no named hypotheses, and Deligne's bound

@@ -1,5 +1,8 @@
 # Arithmetic side of Selberg's mollifier for L(Δ,s)
 
+> **Current status (2026-11-12).** The zero-free and cancellation steps are now available in [SYM2_ZERO_FREE](SYM2_ZERO_FREE.md) and [SELBERG_DELANGE](SELBERG_DELANGE.md). The quadratic-form and positive-proportion chain is complete under `DeligneBound` alone; see [HAFNER_PROPORTION](HAFNER_PROPORTION.md).
+> Earlier gap lists below describe the original method or checkpoint.
+
 Module: `RamanujanTau/SelbergCoeffs/` (entry point `Main.lean`).
 Build: `nice -n 10 lake build RamanujanTau.SelbergCoeffs.Main` (exit 0, about 1.1k lines).
 

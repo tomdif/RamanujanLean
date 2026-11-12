@@ -3,7 +3,7 @@
 Lean: `RamanujanTau/VoronoiTrunc/` (13 files, about 4860 lines). No `sorry`, no `native_decide`,
 no new axiom, no named hypothesis. Build with `nice -n 10 lake build RamanujanTau.VoronoiTrunc.Main`
 (exit 0). `#print axioms` on every headline gives `[propext, Classical.choice, Quot.sound]`.
-**Evidence level (1).** Deligne is not used. The directory is not imported by `RamanujanTau.lean`.
+**Evidence level (1).** Deligne is not used. The public entry point is included in the `RamanujanTau.lean` import graph.
 
 This closes gap (1) of `docs/VORONOI.md` (truncated Voronoi), the open item of
 `docs/CRAMER_MEAN_SQUARE.md` (existence of `lim X^{−25/2}∫₁^X S²`), and the `23/4` gap of

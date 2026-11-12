@@ -118,8 +118,7 @@ does not enter the exponent.
 ## 6. Gaps
 
 - None for the stated theorems.
-- `RankinExact` is not imported by the root `RamanujanTau.lean`, and README/STATUS are not
-  updated, per instructions.
+- `RankinExact.Main` is included in the root import graph and the [result catalog](RESULTS.md).
 - The constant `C` is not explicit: it comes from `∃` statements such as `Qk_bound_sharp` and
   `landau_core`.
 - Not attempted:

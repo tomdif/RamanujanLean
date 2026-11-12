@@ -147,5 +147,4 @@ The generic helpers `KernelPhase.rect_diff`, `integral_symm_abs`, `integral_shif
 
   Not attempted.
 - `35/6` is not reached (§3). That needs a stronger short-sum or exponential-sum input.
-- The directory is not imported by `RamanujanTau.lean`. README, STATUS and RESULTS are not
-  updated, per instructions.
+- `TauPartialSumsSharp.Main` is included in the root import graph and the [result catalog](RESULTS.md).

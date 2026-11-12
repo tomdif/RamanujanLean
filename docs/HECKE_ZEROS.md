@@ -1,7 +1,7 @@
 # Zeros of L(Δ,s): localization to the closed critical strip
 
 Lean: `RamanujanTau/HeckeZeros/{EulerProduct,Zeros,Main}.lean` (namespace `RamanujanTau.HeckeZeros`).
-Build: `lake build RamanujanTau.HeckeZeros.Main`. Not imported from the root `RamanujanTau.lean`.
+Build: `lake build RamanujanTau.HeckeZeros.Main`. Included in the root `RamanujanTau.lean` import graph.
 
 Coordinates are unnormalized: weight 12, `tauL s = (2π)^s Γ(s)⁻¹ Λ(s)` (entire continuation,
 `HeckeL/Main.lean`), functional equation `Λ(12 − s) = Λ(s)`, critical line `Re s = 6`,

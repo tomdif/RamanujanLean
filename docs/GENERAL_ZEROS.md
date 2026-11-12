@@ -2,7 +2,7 @@
 
 Lean: `RamanujanTau/GeneralZeros/` (12 files, about 2900 lines), namespace
 `RamanujanTau.GeneralZeros`. Build: `nice -n 10 lake build RamanujanTau.GeneralZeros.Main` exits 0.
-The module is not imported from `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 **Evidence level (1).** Every headline in `Main.lean` prints
 `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, no `native_decide` and no new

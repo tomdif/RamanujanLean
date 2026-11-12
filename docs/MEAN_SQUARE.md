@@ -1,7 +1,10 @@
 # Mean values of `L(Δ,s)`: the Carlson–Potter theorem for `σ > 37/6`
 
+> **Current status (2026-11-12).** The full range `σ > 6` is proved by `MeanSquareFull.mean_square_tauL_full`; see [MEAN_SQUARE_FULL](MEAN_SQUARE_FULL.md). The `37/6` restriction below belongs to the original method.
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 Module: `RamanujanTau/MeanSquare/` (8 files, about 1600 lines). Entry point `MeanSquare/Main.lean`.
-It is not imported by the root `RamanujanTau.lean`. Build it with
+It is included in the root `RamanujanTau.lean` import graph. Build it with
 `lake build RamanujanTau.MeanSquare.Main`.
 
 Coordinates are unnormalized: `tauL` is the entire continuation of `∑ τ(n) n^{-s}`

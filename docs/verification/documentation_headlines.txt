@@ -1,0 +1,84 @@
+Ramanujan.MultiQuintuple.coeff_fourReflection_prime_iff (p m n R : ℕ) (hprime : Nat.Prime p) (hp : p = m ^ 2 + n ^ 2)
+  (hnpos : 0 < n) (hnm : n < m) (hbound : 2 * (m + n) < p) (hR : R < p) :
+  (∀ (N : ℕ),
+      (PowerSeries.coeff (p * N + R))
+          (Ramanujan.MultiQuintuple.quintupleSpecialized p (m - n) * Ramanujan.MultiQuintuple.quintupleSpecialized p n *
+              Ramanujan.MultiQuintuple.quintupleSpecialized p m *
+            Ramanujan.MultiQuintuple.quintupleSpecialized p (m + n)) =
+        0) ↔
+    (9 ∣ ↑m ∨ 9 ∣ ↑n ∨ 9 ∣ ↑m - ↑n ∨ 9 ∣ ↑m + ↑n) ∧
+      (↑p ∣ 3 * ↑m + ↑n - 18 - 2 * ↑R ∨
+        ↑p ∣ 2 * ↑R - 3 * ↑m - ↑n ∨
+          ↑p ∣ ↑n * (↑m + 2 * ↑n - 9) - (↑n - ↑m) * ↑R ∨ ↑p ∣ ↑n * (2 * ↑m - ↑n - 9) - (↑m + ↑n) * ↑R)
+Ramanujan.MultiQuintuple.admissible_root_vanishing_equivalence {p i j k R : ℕ}
+  (ha : Ramanujan.MultiQuintuple.AdmissibleSparseTriple p i j k) (hR : R < p) :
+  Ramanujan.MultiQuintuple.HasProjectiveRootTarget p i j k R ↔
+    Ramanujan.MultiQuintuple.PersistentTripleVanishing p i j k R
+RamanujanTau.MeanSquareFull.mean_square_tauL_full {σ : ℝ} (hσ : 6 < σ) :
+  Filter.Tendsto (fun T => (∫ (t : ℝ) in 0..T, ‖RamanujanTau.HeckeL.tauL (↑σ + ↑t * Complex.I)‖ ^ 2) / T) Filter.atTop
+    (nhds (∑' (n : ℕ), ↑(RamanujanTau.tau n) ^ 2 * ↑n ^ (-(2 * σ))))
+RamanujanTau.CriticalMeanSquareAsymp.critical_mean_square_asymptotic :
+  Filter.Tendsto
+    (fun T => (∫ (t : ℝ) in Set.Icc 0 T, ‖RamanujanTau.HeckeL.tauL (6 + ↑t * Complex.I)‖ ^ 2) / (T * Real.log T))
+    Filter.atTop (nhds RamanujanTau.CriticalMeanSquareAsymp.cDelta)
+RamanujanTau.GoodSecondTerm2.good_second_term :
+  ∃ C,
+    ∀ (T : ℝ),
+      16 ≤ T →
+        |(∫ (t : ℝ) in 0..T, ‖RamanujanTau.HeckeL.tauL (6 + ↑t * Complex.I)‖ ^ 2) -
+              (2 * RamanujanTau.GoodSecondTerm.c0 * (T * Real.log (T / (2 * Real.pi))) +
+                (2 * RamanujanTau.GoodSecondTerm.gammaD - 2 * RamanujanTau.GoodSecondTerm.c0) * T)| ≤
+          C * T ^ (599 / 600)
+RamanujanTau.RankinExact.rankinSelberg_exact :
+  ∃ C,
+    ∀ (N : ℕ),
+      1 ≤ N →
+        |∑ n ∈ Finset.Icc 1 N, ↑(RamanujanTau.tau n) ^ 2 / ↑n ^ 11 -
+              3 / Real.pi * (4 * Real.pi) ^ 12 * RamanujanTau.EisensteinReal.petNormSq / ↑(Nat.factorial 11) * ↑N| ≤
+          C * ↑N ^ (3 / 5)
+RamanujanTau.RankinExact.rankinSelberg_exact_general {k : ℕ}
+  (f : CuspForm (Matrix.SpecialLinearGroup.mapGL ℝ).range ↑k) :
+  ∃ C,
+    ∀ (N : ℕ),
+      1 ≤ N →
+        |∑ n ∈ Finset.Icc 1 N, RamanujanTau.RankinSelbergGeneral.coeffSq f n / ↑n ^ (k - 1) -
+              RamanujanTau.RankinSelbergGeneral.rsConst f * ↑N| ≤
+          C * ↑N ^ (3 / 5)
+RamanujanTau.CuspConj.fL_subconvex_all {k : ℕ} (f : CuspForm (Matrix.SpecialLinearGroup.mapGL ℝ).range ↑k) :
+  ∃ C,
+    0 ≤ C ∧
+      ∀ (t : ℝ), ‖RamanujanTau.HeckeConvexGeneral.fL f (↑(↑k / 2) + ↑t * Complex.I)‖ ≤ C * (1 + |t|) ^ (1 / 2 - 1 / 134)
+RamanujanTau.HardyCountHafner.tauL_critical_zeros_linear :
+  ∃ c T₀,
+    0 < c ∧
+      ∀ (T : ℝ),
+        T₀ ≤ T → ∃ S, (∀ t ∈ S, 0 < t ∧ t ≤ T ∧ RamanujanTau.HeckeL.tauL (6 + ↑t * Complex.I) = 0) ∧ c * T ≤ ↑S.card
+RamanujanTau.HafnerFinal.tauL_positive_proportion_deligne [RamanujanTau.DeligneBound] :
+  ∃ c T₀,
+    0 < c ∧
+      ∀ (T : ℝ),
+        T₀ ≤ T →
+          ∃ S,
+            (∀ γ ∈ S, 0 < γ ∧ γ ≤ 3 * T ∧ RamanujanTau.HeckeL.tauL (6 + ↑γ * Complex.I) = 0) ∧
+              c * ↑(RamanujanTau.ZeroCount.zeroCount (3 * T)) ≤ ↑S.card
+RamanujanTau.QFProof5.qfHyp_deligne [RamanujanTau.DeligneBound] : RamanujanTau.HafnerBridge.QFHyp
+RamanujanTau.QFProof5.mv2_deligne [RamanujanTau.DeligneBound] {θ : ℝ} (hθ0 : 0 < θ) (hθ : θ ≤ 1 / 81600) :
+  ∃ B T₀,
+    ∀ (T : ℝ),
+      T₀ ≤ T →
+        ∫ (u : ℝ) in T..3 * T,
+            ‖RamanujanTau.HeckeL.tauL (6 + ↑u * Complex.I) *
+                  RamanujanTau.HafnerProportion.Mc (RamanujanTau.SelbergCoeffs.bSel ⌊T ^ θ⌋₊) ⌊T ^ θ⌋₊
+                      (6 + ↑u * Complex.I) ^
+                    2‖ ^
+              2 ≤
+          B * T
+RamanujanTau.SvStripD.s4Bound_deligne [RamanujanTau.DeligneBound] : RamanujanTau.SvStripE.S4Bound 4
+RamanujanTau.Septic.page206_unconditional : RamanujanTau.Septic.Page206Evaluation
+RamanujanTau.FiniteArithmetic.AtkinExact.bEll_13 (m : ℕ) (hm : 1 ≤ m) : RamanujanTau.BLBound.bEll 13 m = 2 * (m / 2) + 1
+RamanujanTau.FiniteArithmetic.Rank607Final.rEll_607 (m : ℕ) (hm : 2 ≤ m) : RamanujanTau.BLBound.rEll 607 m = 25
+RamanujanTau.RankinErrorGeneral.RSFn.exp_decay [self : RamanujanTau.RankinErrorGeneral.RSFn] :
+  ∃ K c,
+    0 ≤ K ∧
+      0 < c ∧
+        ∀ (z : UpperHalfPlane), 1 / 2 ≤ z.im → RamanujanTau.RankinSelbergGeneral.HoroFn.G z ≤ K * Real.exp (-c * z.im)

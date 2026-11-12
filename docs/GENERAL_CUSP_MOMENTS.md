@@ -148,7 +148,7 @@ Reused unchanged (imported, not edited): `HardyZerosGeneral` (`Zc`, `Phi`, `Gc`,
    (∀ t ∈ S, 0 < t ∧ t ≤ T ∧ fL f (k/2 + t*I) = 0) ∧ c * T ≤ S.card`.
 * The secondary term `2c_f T(log(T/2πe)+C)` is not formalized (needs a rate in the horocycle
   limit and a Tauberian remainder).
-* Not added to `RamanujanTau.lean`, `README.md`, `docs/STATUS.md`, `docs/RESULTS.md` (per brief).
+* `GeneralCuspMoments.Main` is included in the root import graph and the [result catalog](RESULTS.md).
 
 ## Literature
 
@@ -157,4 +157,4 @@ Reused unchanged (imported, not edited): `HardyZerosGeneral` (`Zc`, `Phi`, `Gc`,
 - R. A. Rankin (1939), A. Selberg (1940): the constant `rsConst f`.
 - D. Zagier (1981), P. Sarnak (1981): horocycle equidistribution.
 - J. Karamata (1931): Tauberian theorem.
-- J. L. Hafner, Math. Ann. 264 (1983): `N₀(T) ≫ T` (the open item (2)).
+- J. L. Hafner, Math. Ann. 264 (1983): `N₀(T) ≫ T` (the theorem subsequently formalized in `HafnerGeneral`).

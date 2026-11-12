@@ -25,7 +25,7 @@ retain their missing mathematical inputs as explicit hypotheses.
 | Theorem A and stabilization | Unconditional Theorem A for every prime `ℓ ≥ 13`; `b_ℓ(m) ≤ 2m−1`; exact thresholds at every prime from 13 through 139 | [Theorem A](docs/THEOREM_A.md), [finite certificates](docs/FINITE_ARITHMETIC.md) |
 | Analytic number theory | Rankin–Selberg asymptotics and functional equations, critical zeros and mean squares, a τ prime number theorem, and unconditional subconvexity | [Analytic guides](docs/README.md#analytic-and-congruence-write-ups-2026-11-0304) |
 | Jensen polynomials | Eventual hyperbolicity in every degree for partitions and Riemann Ξ; all-index degree-2 Turán inequalities for Ξ; exact partition thresholds in degrees 6 and 7 | [Ξ](docs/GORZ_XI.md), [thresholds](docs/JENSEN_THRESHOLDS.md) |
-| Product classification | Complete admissible sparse triple and prime four-factor reflection-family classifications | [Triples](RESEARCH_MULTI_QUINTUPLE.md#current-theorem), [prime four-factor family](RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11), [triple review manuscript](output/pdf/sparse-triples.pdf) |
+| Product classification | Complete admissible sparse triple and prime four-factor reflection-family classifications | [Triples](RESEARCH_MULTI_QUINTUPLE.md#current-theorem), [prime four-factor family](RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11), [review manuscript](output/pdf/sparse-triples.pdf) |
 | Occupation spaces and entropy | Colored partition counts, finite-shell adjoints, completed occupation Hilbert space, self-adjoint energy operator, and `4π√n` leading entropy for the specified 24-species charge shells | [Fock-space proof](docs/BOSONIC_FOCK.md) |
 | Nested radicals | The classical values 3 and 4, a complete affine classification, and exponential error bounds | [Catalog](docs/RESULTS.md#ramanujans-nested-radical) |
 
@@ -80,8 +80,9 @@ for dated full-build records.
   develops routes to Deligne’s `11/2`, still conditional on named geometric inputs.
 - **Uniform Boylan–Webb sharpness:** the all-prime lower bound needs the seed
   nonvanishing argument and its arithmetic identification. [Current boundary](docs/BW_SHARPNESS_ALL_PRIMES.md).
-- **Further classifications:** arbitrary four-factor products, uniform witness
-  bounds, and higher-precision structure at prime 607. [Research status](docs/STATUS.md#four-direction-follow-up-2026-11-01).
+- **Further classifications:** arbitrary four-factor products, composite-modulus
+  necessity, uniform witness bounds, and higher-precision structure at prime 607.
+  The prime reflection family is complete. [Current classification](docs/STATUS.md#prime-reflection-family-classification-2026-11-12), [607 scope](docs/verification/rank607_final.json).
 - **Analytic extensions:** higher-order Turán inequalities for Ξ and the exact
   Andrews–Dragonette series. [Ξ degree 3](docs/GORZ_XI_D3.md), [exact series](docs/ANDREWS_DRAGONETTE_EXACT.md).
 - **Physical interpretation:** colored logarithmic corrections, a physical

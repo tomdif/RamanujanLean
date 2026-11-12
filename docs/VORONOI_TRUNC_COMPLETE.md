@@ -4,7 +4,7 @@ Lean: `RamanujanTau/VoronoiTruncComplete/` (3 files, about 870 lines). There is 
 `native_decide`, no new axiom and no named hypothesis. Build with
 `nice -n 10 lake build RamanujanTau.VoronoiTruncComplete.Main` (exit 0). `#print axioms` gives
 `[propext, Classical.choice, Quot.sound]` for every headline. **Evidence level (1).** Deligne is not
-used. `RamanujanTau.lean` does not import this directory.
+used. The public entry point is included in the `RamanujanTau.lean` import graph.
 
 This closes the two gaps in §5 of `docs/VORONOI_TRUNC_GENERAL.md`:
 

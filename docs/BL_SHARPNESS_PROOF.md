@@ -1,5 +1,7 @@
 # Boylan–Webb sharpness and FKO rank attainment for ℓ ≥ 29 — research draft
 
+> **Current rank update (2026-11-12).** `FiniteArithmetic.Rank607Final.rEll_607` proves the repository’s rank is 25 at every precision `m ≥ 2`; see the [verification record](verification/rank607_final.json). The numerical-only qualification in the older rank update below is superseded. Matching the rank definition to Boylan–Webb’s literature remains a review question. Exact threshold proofs now cover every prime from 13 through 139; the uniform sharpness question remains open.
+
 > **Status (2026-10-29): proposed general-prime paper arguments, not a Lean proof of
 > every claim below.** The labels [P] and [P*] describe arguments in this draft;
 > they do not certify a declaration in the kernel. G4–G6 and the higher-precision

@@ -1,7 +1,6 @@
 # Kolberg's congruence: `τ(n) ≡ σ₁₁(n) (mod 2¹¹)` for `n ≡ 1 (mod 8)` (the class `TauMod2_11`)
 
-Directory: `RamanujanTau/KolbergTau/` (`Parity.lean`, `Main.lean`; new files only, nothing existing modified,
-not imported from `RamanujanTau.lean`). Built with `lake build RamanujanTau.KolbergTau.Main`.
+Directory: `RamanujanTau/KolbergTau/` (`Parity.lean`, `Main.lean`; included in the root import graph). Built with `lake build RamanujanTau.KolbergTau.Main`.
 
 ## Headline (evidence level 1: Lean, axiom-clean)
 

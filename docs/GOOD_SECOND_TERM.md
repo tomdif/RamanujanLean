@@ -1,5 +1,8 @@
 # Good's mean square of L(Δ,s) with a second term: the χ-free AFE and the reduction to the off-diagonal
 
+> **Current status (2026-11-12).** `GoodSecondTerm2.good_second_term` proves the second-term formula with error `O(T^{599/600})`, unconditionally. Section 7 records the discharge of `OffDiagHyp (1/600)`; the initial reduction below is historical.
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 Lean: `RamanujanTau/GoodSecondTerm/` (12 files, about 1960 lines). It also reuses `RamanujanTau/ZetaAFE/`.
 
 Build with `nice -n 10 lake build RamanujanTau.GoodSecondTerm.Main`, which exits 0. There is no

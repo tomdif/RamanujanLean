@@ -129,7 +129,7 @@ Reused: `HeckeConvexGeneral` (`fL`, `coef`, `fL_entire`, `fL_eq_LSeries`,
 `exists_sum_norm_coef_le`, `summable_norm_coef_div_rpow`, `LSeriesSummable_coef`,
 `eq_zero_of_lt_twelve`, `coef_discriminant`), `RankinLandau.norm_Gamma_ratio_unif'`,
 `KernelPhase.rect_diff`, `RankinSelbergGeneral.exists_coeff_ne_zero`,
-`HardyZerosGeneral.discriminant_ne_zero'`. The directory is not imported by `RamanujanTau.lean`.
+`HardyZerosGeneral.discriminant_ne_zero'`. The public entry point is included in the `RamanujanTau.lean` import graph.
 
 ## 5. Gaps and possible extensions
 

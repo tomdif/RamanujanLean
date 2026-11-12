@@ -1,5 +1,8 @@
 # A quantitative Hardy theorem for L(Δ,s): N₀(T) ≫_ε T^{1/2−ε}
 
+> **Current status (2026-11-12).** `HardyCountHafner.tauL_critical_zeros_linear` proves `N₀(T) ≫ T` unconditionally; see [HARDY_COUNT_HAFNER](HARDY_COUNT_HAFNER.md). The stronger positive-proportion bound remains conditional on Deligne; see [HAFNER_PROPORTION](HAFNER_PROPORTION.md).
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 Module: `RamanujanTau/HardyCount/` (entry point `Main.lean`).
 Evidence level: **(1) Lean, axiom-clean.** Every headline depends only on `propext`,
 `Classical.choice` and `Quot.sound`. There are no named hypotheses, no `sorry` and no

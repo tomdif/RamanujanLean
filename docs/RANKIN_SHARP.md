@@ -1,5 +1,8 @@
 # A sharper Rankin–Selberg error exponent for `τ` (`RamanujanTau/RankinSharp/`)
 
+> **Current status (2026-11-12).** The stronger error `O(N^{3/5})` is proved for τ and every level-one cusp form by `RankinExact.rankinSelberg_exact` and `rankinSelberg_exact_general`, without Deligne. See [RANKIN_EXACT](RANKIN_EXACT.md).
+> The earlier checkpoints and gap lists below describe the development at that stage.
+
 **Status (2026-11-04).** The error exponent of `RankinError.rankinSelberg_power_saving_84`
 (`1 − 1/84`) has been improved to **any exponent above 4/5**:
 

@@ -147,7 +147,7 @@ Reused:
 - `HeckeZeros.tauL_conj`;
 - `HardyZerosGeneral.discriminant_ne_zero'`.
 
-The directory is not imported by `RamanujanTau.lean`.
+The public entry point is included in the `RamanujanTau.lean` import graph.
 
 ## 4. Gaps and what remains
 
