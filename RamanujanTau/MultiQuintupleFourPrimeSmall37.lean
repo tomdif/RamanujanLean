@@ -31,18 +31,18 @@ private lemma short_index37_two (b : Bool) (i : ℕ) (n : ℤ)
       nlinarith [sq_nonneg (n+3),sq_nonneg (n-3)]
   omega
 
-def four37Radius (K : ℕ) : ℕ := if K ≤ 149 then 0 else 1
+def fourPrimeSmall37Radius (K : ℕ) : ℕ := if K ≤ 149 then 0 else 1
 
 private lemma short_index37 (b : Bool) (i : ℕ) (n : ℤ) (K : ℕ)
     (hi : 1 ≤ i) (hiMax : i ≤ 7) (hK : K ≤ 181)
-    (he : quintExp2 b 37 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ four37Radius K+1 := by
-  unfold four37Radius
+    (he : quintExp2 b 37 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ fourPrimeSmall37Radius K+1 := by
+  unfold fourPrimeSmall37Radius
   split_ifs with h
   · exact short_index37_one b i n hi hiMax (by omega)
   · exact short_index37_two b i n hi hiMax (by omega)
 
 private lemma mem_short_box37 (K : ℕ) (hK : K ≤ 181) (x : QuadQuintBranchIndex)
-    (he : quadExp2 37 5 1 6 7 x = 2*(K : ℤ)) : x ∈ quadBox (four37Radius K) := by
+    (he : quadExp2 37 5 1 6 7 x = 2*(K : ℤ)) : x ∈ quadBox (fourPrimeSmall37Radius K) := by
   rcases x with ⟨⟨⟨⟨b1,n1⟩,⟨b2,n2⟩⟩,⟨b3,n3⟩⟩,⟨b4,n4⟩⟩
   simp only [quadExp2,pointTripleExp2,tripleQuintExp2,pointB1,pointB2,pointB3,
     pointN1,pointN2,pointN3,quadB4,quadN4] at he
@@ -57,21 +57,21 @@ private lemma mem_short_box37 (K : ℕ) (hK : K ≤ 181) (x : QuadQuintBranchInd
   have hn4 := short_index37 b4 7 n4 K (by norm_num) (by norm_num) hK (by norm_num only [Nat.cast_ofNat]; omega)
   rw [quadBox,tripleQuintBranchBox]
   exact Finset.mem_product.mpr ⟨Finset.mem_product.mpr
-    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (four37Radius K) b1 n1 hn1,
-    mem_quintBranchBox_of_natAbs_le (four37Radius K) b2 n2 hn2⟩,
-    mem_quintBranchBox_of_natAbs_le (four37Radius K) b3 n3 hn3⟩,
-    mem_quintBranchBox_of_natAbs_le (four37Radius K) b4 n4 hn4⟩
+    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (fourPrimeSmall37Radius K) b1 n1 hn1,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall37Radius K) b2 n2 hn2⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall37Radius K) b3 n3 hn3⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall37Radius K) b4 n4 hn4⟩
 
-noncomputable def four37ShortCoeff (K : ℕ) : ℤ :=
-  ∑ x ∈ quadBox (four37Radius K), quadContribution 37 5 1 6 7 K x
+noncomputable def fourPrimeSmall37ShortCoeff (K : ℕ) : ℤ :=
+  ∑ x ∈ quadBox (fourPrimeSmall37Radius K), quadContribution 37 5 1 6 7 K x
 
-lemma coeff_four37_eq_short (K : ℕ) (hK : K ≤ 181) :
+lemma coeff_fourPrimeSmall37_eq_short (K : ℕ) (hK : K ≤ 181) :
     coeff K (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
-      quintupleSpecialized 37 6 * quintupleSpecialized 37 7) = four37ShortCoeff K := by
+      quintupleSpecialized 37 6 * quintupleSpecialized 37 7) = fourPrimeSmall37ShortCoeff K := by
   rw [coeff_quad_eq_finiteBox 37 5 1 6 7 K
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)]
-  unfold four37ShortCoeff
+  unfold fourPrimeSmall37ShortCoeff
   apply Finset.sum_congr_of_eq_on_inter
   · intro x hx hnx
     by_contra hn
@@ -90,151 +90,151 @@ lemma coeff_four37_eq_short (K : ℕ) (hK : K ≤ 181) :
 
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_0 : four37ShortCoeff 0 = (1 : ℤ) := by
+private theorem coefficient37_0 : fourPrimeSmall37ShortCoeff 0 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_1 : four37ShortCoeff 1 = (-1 : ℤ) := by
+private theorem coefficient37_1 : fourPrimeSmall37ShortCoeff 1 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_2 : four37ShortCoeff 76 = (1 : ℤ) := by
+private theorem coefficient37_2 : fourPrimeSmall37ShortCoeff 76 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_3 : four37ShortCoeff 40 = (1 : ℤ) := by
+private theorem coefficient37_3 : fourPrimeSmall37ShortCoeff 40 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_4 : four37ShortCoeff 41 = (2 : ℤ) := by
+private theorem coefficient37_4 : fourPrimeSmall37ShortCoeff 41 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_5 : four37ShortCoeff 5 = (-1 : ℤ) := by
+private theorem coefficient37_5 : fourPrimeSmall37ShortCoeff 5 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_6 : four37ShortCoeff 80 = (-1 : ℤ) := by
+private theorem coefficient37_6 : fourPrimeSmall37ShortCoeff 80 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_7 : four37ShortCoeff 81 = (2 : ℤ) := by
+private theorem coefficient37_7 : fourPrimeSmall37ShortCoeff 81 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_8 : four37ShortCoeff 8 = (1 : ℤ) := by
+private theorem coefficient37_8 : fourPrimeSmall37ShortCoeff 8 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_9 : four37ShortCoeff 46 = (-2 : ℤ) := by
+private theorem coefficient37_9 : fourPrimeSmall37ShortCoeff 46 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_10 : four37ShortCoeff 47 = (-2 : ℤ) := by
+private theorem coefficient37_10 : fourPrimeSmall37ShortCoeff 47 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_11 : four37ShortCoeff 11 = (1 : ℤ) := by
+private theorem coefficient37_11 : fourPrimeSmall37ShortCoeff 11 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_12 : four37ShortCoeff 49 = (-1 : ℤ) := by
+private theorem coefficient37_12 : fourPrimeSmall37ShortCoeff 49 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_13 : four37ShortCoeff 50 = (1 : ℤ) := by
+private theorem coefficient37_13 : fourPrimeSmall37ShortCoeff 50 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_14 : four37ShortCoeff 14 = (-1 : ℤ) := by
+private theorem coefficient37_14 : fourPrimeSmall37ShortCoeff 14 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_15 : four37ShortCoeff 52 = (3 : ℤ) := by
+private theorem coefficient37_15 : fourPrimeSmall37ShortCoeff 52 = (3 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_16 : four37ShortCoeff 90 = (-1 : ℤ) := by
+private theorem coefficient37_16 : fourPrimeSmall37ShortCoeff 90 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_17 : four37ShortCoeff 165 = (2 : ℤ) := by
+private theorem coefficient37_17 : fourPrimeSmall37ShortCoeff 165 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_18 : four37ShortCoeff 18 = (-1 : ℤ) := by
+private theorem coefficient37_18 : fourPrimeSmall37ShortCoeff 18 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_19 : four37ShortCoeff 19 = (1 : ℤ) := by
+private theorem coefficient37_19 : fourPrimeSmall37ShortCoeff 19 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_20 : four37ShortCoeff 131 = (2 : ℤ) := by
+private theorem coefficient37_20 : fourPrimeSmall37ShortCoeff 131 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_21 : four37ShortCoeff 58 = (-1 : ℤ) := by
+private theorem coefficient37_21 : fourPrimeSmall37ShortCoeff 58 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_22 : four37ShortCoeff 59 = (-1 : ℤ) := by
+private theorem coefficient37_22 : fourPrimeSmall37ShortCoeff 59 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_23 : four37ShortCoeff 23 = (-1 : ℤ) := by
+private theorem coefficient37_23 : fourPrimeSmall37ShortCoeff 23 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_24 : four37ShortCoeff 24 = (1 : ℤ) := by
+private theorem coefficient37_24 : fourPrimeSmall37ShortCoeff 24 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_25 : four37ShortCoeff 25 = (-1 : ℤ) := by
+private theorem coefficient37_25 : fourPrimeSmall37ShortCoeff 25 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_26 : four37ShortCoeff 26 = (1 : ℤ) := by
+private theorem coefficient37_26 : fourPrimeSmall37ShortCoeff 26 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_27 : four37ShortCoeff 27 = (-1 : ℤ) := by
+private theorem coefficient37_27 : fourPrimeSmall37ShortCoeff 27 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_28 : four37ShortCoeff 28 = (2 : ℤ) := by
+private theorem coefficient37_28 : fourPrimeSmall37ShortCoeff 28 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_29 : four37ShortCoeff 66 = (-1 : ℤ) := by
+private theorem coefficient37_29 : fourPrimeSmall37ShortCoeff 66 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_30 : four37ShortCoeff 104 = (-1 : ℤ) := by
+private theorem coefficient37_30 : fourPrimeSmall37ShortCoeff 104 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_31 : four37ShortCoeff 31 = (-1 : ℤ) := by
+private theorem coefficient37_31 : fourPrimeSmall37ShortCoeff 31 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_32 : four37ShortCoeff 32 = (1 : ℤ) := by
+private theorem coefficient37_32 : fourPrimeSmall37ShortCoeff 32 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_33 : four37ShortCoeff 181 = (-1 : ℤ) := by
+private theorem coefficient37_33 : fourPrimeSmall37ShortCoeff 181 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_34 : four37ShortCoeff 34 = (-1 : ℤ) := by
+private theorem coefficient37_34 : fourPrimeSmall37ShortCoeff 34 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_35 : four37ShortCoeff 35 = (-1 : ℤ) := by
+private theorem coefficient37_35 : fourPrimeSmall37ShortCoeff 35 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient37_36 : four37ShortCoeff 110 = (1 : ℤ) := by
+private theorem coefficient37_36 : fourPrimeSmall37ShortCoeff 110 = (1 : ℤ) := by
   decide +kernel
 
 theorem four37_not_persistent (R : ℕ) (hR : R < 37) :
@@ -244,187 +244,187 @@ theorem four37_not_persistent (R : ℕ) (hR : R < 37) :
   · have h := hz 0
     change coeff (37*0+0) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_0] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_0] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+1) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_1] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_1] at h
     norm_num at h
   · have h := hz 2
     change coeff (37*2+2) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_2] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_2] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+3) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_3] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_3] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+4) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_4] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_4] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+5) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_5] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_5] at h
     norm_num at h
   · have h := hz 2
     change coeff (37*2+6) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_6] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_6] at h
     norm_num at h
   · have h := hz 2
     change coeff (37*2+7) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_7] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_7] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+8) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_8] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_8] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+9) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_9] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_9] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+10) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_10] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_10] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+11) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_11] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_11] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+12) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_12] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_12] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+13) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_13] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_13] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+14) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_14] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_14] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+15) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_15] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_15] at h
     norm_num at h
   · have h := hz 2
     change coeff (37*2+16) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_16] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_16] at h
     norm_num at h
   · have h := hz 4
     change coeff (37*4+17) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_17] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_17] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+18) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_18] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_18] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+19) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_19] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_19] at h
     norm_num at h
   · have h := hz 3
     change coeff (37*3+20) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_20] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_20] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+21) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_21] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_21] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+22) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_22] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_22] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+23) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_23] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_23] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+24) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_24] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_24] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+25) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_25] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_25] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+26) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_26] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_26] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+27) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_27] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_27] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+28) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_28] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_28] at h
     norm_num at h
   · have h := hz 1
     change coeff (37*1+29) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_29] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_29] at h
     norm_num at h
   · have h := hz 2
     change coeff (37*2+30) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_30] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_30] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+31) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_31] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_31] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+32) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_32] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_32] at h
     norm_num at h
   · have h := hz 4
     change coeff (37*4+33) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_33] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_33] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+34) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_34] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_34] at h
     norm_num at h
   · have h := hz 0
     change coeff (37*0+35) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_35] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_35] at h
     norm_num at h
   · have h := hz 2
     change coeff (37*2+36) (quintupleSpecialized 37 5 * quintupleSpecialized 37 1 *
       quintupleSpecialized 37 6 * quintupleSpecialized 37 7)=0 at h
-    rw [coeff_four37_eq_short _ (by norm_num),coefficient37_36] at h
+    rw [coeff_fourPrimeSmall37_eq_short _ (by norm_num),coefficient37_36] at h
     norm_num at h
 
 end Ramanujan.MultiQuintuple

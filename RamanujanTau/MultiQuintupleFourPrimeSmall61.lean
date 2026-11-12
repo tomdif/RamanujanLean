@@ -31,18 +31,18 @@ private lemma short_index61_two (b : Bool) (i : ℕ) (n : ℤ)
       nlinarith [sq_nonneg (n+3),sq_nonneg (n-3)]
   omega
 
-def four61Radius (K : ℕ) : ℕ := if K ≤ 249 then 0 else 1
+def fourPrimeSmall61Radius (K : ℕ) : ℕ := if K ≤ 249 then 0 else 1
 
 private lemma short_index61 (b : Bool) (i : ℕ) (n : ℤ) (K : ℕ)
     (hi : 1 ≤ i) (hiMax : i ≤ 11) (hK : K ≤ 383)
-    (he : quintExp2 b 61 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ four61Radius K+1 := by
-  unfold four61Radius
+    (he : quintExp2 b 61 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ fourPrimeSmall61Radius K+1 := by
+  unfold fourPrimeSmall61Radius
   split_ifs with h
   · exact short_index61_one b i n hi hiMax (by omega)
   · exact short_index61_two b i n hi hiMax (by omega)
 
 private lemma mem_short_box61 (K : ℕ) (hK : K ≤ 383) (x : QuadQuintBranchIndex)
-    (he : quadExp2 61 1 5 6 11 x = 2*(K : ℤ)) : x ∈ quadBox (four61Radius K) := by
+    (he : quadExp2 61 1 5 6 11 x = 2*(K : ℤ)) : x ∈ quadBox (fourPrimeSmall61Radius K) := by
   rcases x with ⟨⟨⟨⟨b1,n1⟩,⟨b2,n2⟩⟩,⟨b3,n3⟩⟩,⟨b4,n4⟩⟩
   simp only [quadExp2,pointTripleExp2,tripleQuintExp2,pointB1,pointB2,pointB3,
     pointN1,pointN2,pointN3,quadB4,quadN4] at he
@@ -57,21 +57,21 @@ private lemma mem_short_box61 (K : ℕ) (hK : K ≤ 383) (x : QuadQuintBranchInd
   have hn4 := short_index61 b4 11 n4 K (by norm_num) (by norm_num) hK (by norm_num only [Nat.cast_ofNat]; omega)
   rw [quadBox,tripleQuintBranchBox]
   exact Finset.mem_product.mpr ⟨Finset.mem_product.mpr
-    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (four61Radius K) b1 n1 hn1,
-    mem_quintBranchBox_of_natAbs_le (four61Radius K) b2 n2 hn2⟩,
-    mem_quintBranchBox_of_natAbs_le (four61Radius K) b3 n3 hn3⟩,
-    mem_quintBranchBox_of_natAbs_le (four61Radius K) b4 n4 hn4⟩
+    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (fourPrimeSmall61Radius K) b1 n1 hn1,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall61Radius K) b2 n2 hn2⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall61Radius K) b3 n3 hn3⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall61Radius K) b4 n4 hn4⟩
 
-noncomputable def four61ShortCoeff (K : ℕ) : ℤ :=
-  ∑ x ∈ quadBox (four61Radius K), quadContribution 61 1 5 6 11 K x
+noncomputable def fourPrimeSmall61ShortCoeff (K : ℕ) : ℤ :=
+  ∑ x ∈ quadBox (fourPrimeSmall61Radius K), quadContribution 61 1 5 6 11 K x
 
-lemma coeff_four61_eq_short (K : ℕ) (hK : K ≤ 383) :
+lemma coeff_fourPrimeSmall61_eq_short (K : ℕ) (hK : K ≤ 383) :
     coeff K (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
-      quintupleSpecialized 61 6 * quintupleSpecialized 61 11) = four61ShortCoeff K := by
+      quintupleSpecialized 61 6 * quintupleSpecialized 61 11) = fourPrimeSmall61ShortCoeff K := by
   rw [coeff_quad_eq_finiteBox 61 1 5 6 11 K
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)]
-  unfold four61ShortCoeff
+  unfold fourPrimeSmall61ShortCoeff
   apply Finset.sum_congr_of_eq_on_inter
   · intro x hx hnx
     by_contra hn
@@ -90,247 +90,247 @@ lemma coeff_four61_eq_short (K : ℕ) (hK : K ≤ 383) :
 
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_0 : four61ShortCoeff 0 = (1 : ℤ) := by
+private theorem coefficient61_0 : fourPrimeSmall61ShortCoeff 0 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_1 : four61ShortCoeff 1 = (-1 : ℤ) := by
+private theorem coefficient61_1 : fourPrimeSmall61ShortCoeff 1 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_2 : four61ShortCoeff 63 = (-1 : ℤ) := by
+private theorem coefficient61_2 : fourPrimeSmall61ShortCoeff 63 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_3 : four61ShortCoeff 64 = (2 : ℤ) := by
+private theorem coefficient61_3 : fourPrimeSmall61ShortCoeff 64 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_4 : four61ShortCoeff 126 = (1 : ℤ) := by
+private theorem coefficient61_4 : fourPrimeSmall61ShortCoeff 126 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_5 : four61ShortCoeff 5 = (-1 : ℤ) := by
+private theorem coefficient61_5 : fourPrimeSmall61ShortCoeff 5 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_6 : four61ShortCoeff 189 = (1 : ℤ) := by
+private theorem coefficient61_6 : fourPrimeSmall61ShortCoeff 189 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_7 : four61ShortCoeff 7 = (1 : ℤ) := by
+private theorem coefficient61_7 : fourPrimeSmall61ShortCoeff 7 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_8 : four61ShortCoeff 130 = (-1 : ℤ) := by
+private theorem coefficient61_8 : fourPrimeSmall61ShortCoeff 130 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_9 : four61ShortCoeff 70 = (-1 : ℤ) := by
+private theorem coefficient61_9 : fourPrimeSmall61ShortCoeff 70 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_10 : four61ShortCoeff 193 = (1 : ℤ) := by
+private theorem coefficient61_10 : fourPrimeSmall61ShortCoeff 193 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_11 : four61ShortCoeff 255 = (1 : ℤ) := by
+private theorem coefficient61_11 : fourPrimeSmall61ShortCoeff 255 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_12 : four61ShortCoeff 256 = (1 : ℤ) := by
+private theorem coefficient61_12 : fourPrimeSmall61ShortCoeff 256 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_13 : four61ShortCoeff 318 = (1 : ℤ) := by
+private theorem coefficient61_13 : fourPrimeSmall61ShortCoeff 318 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_14 : four61ShortCoeff 75 = (-1 : ℤ) := by
+private theorem coefficient61_14 : fourPrimeSmall61ShortCoeff 75 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_15 : four61ShortCoeff 137 = (-1 : ℤ) := by
+private theorem coefficient61_15 : fourPrimeSmall61ShortCoeff 137 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_16 : four61ShortCoeff 16 = (1 : ℤ) := by
+private theorem coefficient61_16 : fourPrimeSmall61ShortCoeff 16 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_17 : four61ShortCoeff 383 = (-1 : ℤ) := by
+private theorem coefficient61_17 : fourPrimeSmall61ShortCoeff 383 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_18 : four61ShortCoeff 18 = (-1 : ℤ) := by
+private theorem coefficient61_18 : fourPrimeSmall61ShortCoeff 18 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_19 : four61ShortCoeff 141 = (2 : ℤ) := by
+private theorem coefficient61_19 : fourPrimeSmall61ShortCoeff 141 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_20 : four61ShortCoeff 81 = (2 : ℤ) := by
+private theorem coefficient61_20 : fourPrimeSmall61ShortCoeff 81 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_21 : four61ShortCoeff 82 = (-1 : ℤ) := by
+private theorem coefficient61_21 : fourPrimeSmall61ShortCoeff 82 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_22 : four61ShortCoeff 22 = (-1 : ℤ) := by
+private theorem coefficient61_22 : fourPrimeSmall61ShortCoeff 22 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_23 : four61ShortCoeff 23 = (1 : ℤ) := by
+private theorem coefficient61_23 : fourPrimeSmall61ShortCoeff 23 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_24 : four61ShortCoeff 85 = (1 : ℤ) := by
+private theorem coefficient61_24 : fourPrimeSmall61ShortCoeff 85 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_25 : four61ShortCoeff 86 = (-1 : ℤ) := by
+private theorem coefficient61_25 : fourPrimeSmall61ShortCoeff 86 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_26 : four61ShortCoeff 87 = (-1 : ℤ) := by
+private theorem coefficient61_26 : fourPrimeSmall61ShortCoeff 87 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_27 : four61ShortCoeff 88 = (2 : ℤ) := by
+private theorem coefficient61_27 : fourPrimeSmall61ShortCoeff 88 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_28 : four61ShortCoeff 272 = (1 : ℤ) := by
+private theorem coefficient61_28 : fourPrimeSmall61ShortCoeff 272 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_29 : four61ShortCoeff 90 = (-1 : ℤ) := by
+private theorem coefficient61_29 : fourPrimeSmall61ShortCoeff 90 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_30 : four61ShortCoeff 213 = (1 : ℤ) := by
+private theorem coefficient61_30 : fourPrimeSmall61ShortCoeff 213 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_31 : four61ShortCoeff 153 = (1 : ℤ) := by
+private theorem coefficient61_31 : fourPrimeSmall61ShortCoeff 153 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_32 : four61ShortCoeff 154 = (-1 : ℤ) := by
+private theorem coefficient61_32 : fourPrimeSmall61ShortCoeff 154 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_33 : four61ShortCoeff 155 = (1 : ℤ) := by
+private theorem coefficient61_33 : fourPrimeSmall61ShortCoeff 155 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_34 : four61ShortCoeff 156 = (-1 : ℤ) := by
+private theorem coefficient61_34 : fourPrimeSmall61ShortCoeff 156 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_35 : four61ShortCoeff 96 = (-1 : ℤ) := by
+private theorem coefficient61_35 : fourPrimeSmall61ShortCoeff 96 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_36 : four61ShortCoeff 97 = (1 : ℤ) := by
+private theorem coefficient61_36 : fourPrimeSmall61ShortCoeff 97 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_37 : four61ShortCoeff 98 = (1 : ℤ) := by
+private theorem coefficient61_37 : fourPrimeSmall61ShortCoeff 98 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_38 : four61ShortCoeff 99 = (-1 : ℤ) := by
+private theorem coefficient61_38 : fourPrimeSmall61ShortCoeff 99 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_39 : four61ShortCoeff 39 = (-1 : ℤ) := by
+private theorem coefficient61_39 : fourPrimeSmall61ShortCoeff 39 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_40 : four61ShortCoeff 40 = (1 : ℤ) := by
+private theorem coefficient61_40 : fourPrimeSmall61ShortCoeff 40 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_41 : four61ShortCoeff 285 = (1 : ℤ) := by
+private theorem coefficient61_41 : fourPrimeSmall61ShortCoeff 285 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_42 : four61ShortCoeff 103 = (-2 : ℤ) := by
+private theorem coefficient61_42 : fourPrimeSmall61ShortCoeff 103 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_43 : four61ShortCoeff 165 = (1 : ℤ) := by
+private theorem coefficient61_43 : fourPrimeSmall61ShortCoeff 165 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_44 : four61ShortCoeff 44 = (1 : ℤ) := by
+private theorem coefficient61_44 : fourPrimeSmall61ShortCoeff 44 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_45 : four61ShortCoeff 106 = (-1 : ℤ) := by
+private theorem coefficient61_45 : fourPrimeSmall61ShortCoeff 106 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_46 : four61ShortCoeff 46 = (-1 : ℤ) := by
+private theorem coefficient61_46 : fourPrimeSmall61ShortCoeff 46 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_47 : four61ShortCoeff 108 = (1 : ℤ) := by
+private theorem coefficient61_47 : fourPrimeSmall61ShortCoeff 108 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_48 : four61ShortCoeff 109 = (1 : ℤ) := by
+private theorem coefficient61_48 : fourPrimeSmall61ShortCoeff 109 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_49 : four61ShortCoeff 49 = (-1 : ℤ) := by
+private theorem coefficient61_49 : fourPrimeSmall61ShortCoeff 49 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_50 : four61ShortCoeff 111 = (-1 : ℤ) := by
+private theorem coefficient61_50 : fourPrimeSmall61ShortCoeff 111 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_51 : four61ShortCoeff 112 = (1 : ℤ) := by
+private theorem coefficient61_51 : fourPrimeSmall61ShortCoeff 112 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_52 : four61ShortCoeff 52 = (1 : ℤ) := by
+private theorem coefficient61_52 : fourPrimeSmall61ShortCoeff 52 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_53 : four61ShortCoeff 236 = (1 : ℤ) := by
+private theorem coefficient61_53 : fourPrimeSmall61ShortCoeff 236 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_54 : four61ShortCoeff 54 = (1 : ℤ) := by
+private theorem coefficient61_54 : fourPrimeSmall61ShortCoeff 54 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_55 : four61ShortCoeff 55 = (-1 : ℤ) := by
+private theorem coefficient61_55 : fourPrimeSmall61ShortCoeff 55 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_56 : four61ShortCoeff 239 = (1 : ℤ) := by
+private theorem coefficient61_56 : fourPrimeSmall61ShortCoeff 239 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_57 : four61ShortCoeff 57 = (1 : ℤ) := by
+private theorem coefficient61_57 : fourPrimeSmall61ShortCoeff 57 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_58 : four61ShortCoeff 58 = (-1 : ℤ) := by
+private theorem coefficient61_58 : fourPrimeSmall61ShortCoeff 58 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_59 : four61ShortCoeff 59 = (-1 : ℤ) := by
+private theorem coefficient61_59 : fourPrimeSmall61ShortCoeff 59 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient61_60 : four61ShortCoeff 60 = (1 : ℤ) := by
+private theorem coefficient61_60 : fourPrimeSmall61ShortCoeff 60 = (1 : ℤ) := by
   decide +kernel
 
 theorem four61_not_persistent (R : ℕ) (hR : R < 61) :
@@ -340,307 +340,307 @@ theorem four61_not_persistent (R : ℕ) (hR : R < 61) :
   · have h := hz 0
     change coeff (61*0+0) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_0] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_0] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+1) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_1] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_1] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+2) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_2] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_2] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+3) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_3] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_3] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+4) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_4] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_4] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+5) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_5] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_5] at h
     norm_num at h
   · have h := hz 3
     change coeff (61*3+6) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_6] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_6] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+7) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_7] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_7] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+8) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_8] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_8] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+9) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_9] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_9] at h
     norm_num at h
   · have h := hz 3
     change coeff (61*3+10) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_10] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_10] at h
     norm_num at h
   · have h := hz 4
     change coeff (61*4+11) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_11] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_11] at h
     norm_num at h
   · have h := hz 4
     change coeff (61*4+12) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_12] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_12] at h
     norm_num at h
   · have h := hz 5
     change coeff (61*5+13) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_13] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_13] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+14) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_14] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_14] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+15) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_15] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_15] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+16) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_16] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_16] at h
     norm_num at h
   · have h := hz 6
     change coeff (61*6+17) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_17] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_17] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+18) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_18] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_18] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+19) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_19] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_19] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+20) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_20] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_20] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+21) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_21] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_21] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+22) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_22] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_22] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+23) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_23] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_23] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+24) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_24] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_24] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+25) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_25] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_25] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+26) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_26] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_26] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+27) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_27] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_27] at h
     norm_num at h
   · have h := hz 4
     change coeff (61*4+28) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_28] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_28] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+29) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_29] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_29] at h
     norm_num at h
   · have h := hz 3
     change coeff (61*3+30) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_30] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_30] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+31) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_31] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_31] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+32) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_32] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_32] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+33) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_33] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_33] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+34) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_34] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_34] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+35) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_35] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_35] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+36) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_36] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_36] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+37) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_37] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_37] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+38) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_38] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_38] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+39) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_39] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_39] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+40) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_40] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_40] at h
     norm_num at h
   · have h := hz 4
     change coeff (61*4+41) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_41] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_41] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+42) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_42] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_42] at h
     norm_num at h
   · have h := hz 2
     change coeff (61*2+43) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_43] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_43] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+44) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_44] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_44] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+45) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_45] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_45] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+46) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_46] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_46] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+47) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_47] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_47] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+48) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_48] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_48] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+49) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_49] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_49] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+50) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_50] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_50] at h
     norm_num at h
   · have h := hz 1
     change coeff (61*1+51) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_51] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_51] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+52) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_52] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_52] at h
     norm_num at h
   · have h := hz 3
     change coeff (61*3+53) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_53] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_53] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+54) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_54] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_54] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+55) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_55] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_55] at h
     norm_num at h
   · have h := hz 3
     change coeff (61*3+56) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_56] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_56] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+57) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_57] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_57] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+58) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_58] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_58] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+59) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_59] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_59] at h
     norm_num at h
   · have h := hz 0
     change coeff (61*0+60) (quintupleSpecialized 61 1 * quintupleSpecialized 61 5 *
       quintupleSpecialized 61 6 * quintupleSpecialized 61 11)=0 at h
-    rw [coeff_four61_eq_short _ (by norm_num),coefficient61_60] at h
+    rw [coeff_fourPrimeSmall61_eq_short _ (by norm_num),coefficient61_60] at h
     norm_num at h
 
 end Ramanujan.MultiQuintuple

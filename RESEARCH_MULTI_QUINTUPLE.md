@@ -1924,6 +1924,16 @@ spanning assumption or small-prime exceptions. Arbitrary four-tuples and
 composite-modulus necessity remain outside its scope. Independent
 mathematical and literature-priority review remain outstanding.
 
+**Limited literature comparison (2026-11-12).** Section 5 of the
+[June 2026 paper](https://arxiv.org/html/2606.06701v1#S5) reports the
+modulus-41 four-factor example as experimental and announces future work.
+The theorem here proves necessity and sufficiency throughout the specified
+prime parameter family. The examined
+[p-dissection paper](https://arxiv.org/abs/2603.04666) and
+[author publication list](https://www.wcupa.edu/sciences-mathematics/mathematics/jMcLaughlin/)
+do not supply that classification. This is a comparison with those sources,
+not an exhaustive priority search or independent review of this proof.
+
 For `0<n<m`, prime `p=m²+n²`, `2(m+n)<p`, and `R<p`, put
 
 ```text

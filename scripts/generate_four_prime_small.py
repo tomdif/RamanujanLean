@@ -60,7 +60,12 @@ private lemma short_index{p} (b : Bool) (i : ℕ) (n : ℤ) (K : ℕ)
     for w in case['witnesses']:
         out.append(f"  · have h := hz {w['N']}\n    change coeff ({p}*{w['N']}+{w['R']}) (quintupleSpecialized {p} {indices[0]} * quintupleSpecialized {p} {indices[1]} *\n      quintupleSpecialized {p} {indices[2]} * quintupleSpecialized {p} {indices[3]})=0 at h\n    rw [coeff_four{p}_eq_short _ (by norm_num),coefficient{p}_{w['R']}] at h\n    norm_num at h\n")
     out.append('\nend Ramanujan.MultiQuintuple\n')
-    return ''.join(out)
+    # The older modulus-17 witness concerns a different tuple. Give these
+    # family-specific helpers distinct names when both modules are imported.
+    source = ''.join(out)
+    for helper in (f'four{p}Radius', f'four{p}ShortCoeff', f'coeff_four{p}_eq_short'):
+        source = source.replace(helper, helper.replace(f'four{p}', f'fourPrimeSmall{p}'))
+    return source
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)

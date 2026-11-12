@@ -31,18 +31,18 @@ private lemma short_index13_two (b : Bool) (i : ℕ) (n : ℤ)
       nlinarith [sq_nonneg (n+3),sq_nonneg (n-3)]
   omega
 
-def four13Radius (K : ℕ) : ℕ := if K ≤ 39 then 0 else 1
+def fourPrimeSmall13Radius (K : ℕ) : ℕ := if K ≤ 39 then 0 else 1
 
 private lemma short_index13 (b : Bool) (i : ℕ) (n : ℤ) (K : ℕ)
     (hi : 1 ≤ i) (hiMax : i ≤ 5) (hK : K ≤ 48)
-    (he : quintExp2 b 13 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ four13Radius K+1 := by
-  unfold four13Radius
+    (he : quintExp2 b 13 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ fourPrimeSmall13Radius K+1 := by
+  unfold fourPrimeSmall13Radius
   split_ifs with h
   · exact short_index13_one b i n hi hiMax (by omega)
   · exact short_index13_two b i n hi hiMax (by omega)
 
 private lemma mem_short_box13 (K : ℕ) (hK : K ≤ 48) (x : QuadQuintBranchIndex)
-    (he : quadExp2 13 1 2 3 5 x = 2*(K : ℤ)) : x ∈ quadBox (four13Radius K) := by
+    (he : quadExp2 13 1 2 3 5 x = 2*(K : ℤ)) : x ∈ quadBox (fourPrimeSmall13Radius K) := by
   rcases x with ⟨⟨⟨⟨b1,n1⟩,⟨b2,n2⟩⟩,⟨b3,n3⟩⟩,⟨b4,n4⟩⟩
   simp only [quadExp2,pointTripleExp2,tripleQuintExp2,pointB1,pointB2,pointB3,
     pointN1,pointN2,pointN3,quadB4,quadN4] at he
@@ -57,21 +57,21 @@ private lemma mem_short_box13 (K : ℕ) (hK : K ≤ 48) (x : QuadQuintBranchInde
   have hn4 := short_index13 b4 5 n4 K (by norm_num) (by norm_num) hK (by norm_num only [Nat.cast_ofNat]; omega)
   rw [quadBox,tripleQuintBranchBox]
   exact Finset.mem_product.mpr ⟨Finset.mem_product.mpr
-    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (four13Radius K) b1 n1 hn1,
-    mem_quintBranchBox_of_natAbs_le (four13Radius K) b2 n2 hn2⟩,
-    mem_quintBranchBox_of_natAbs_le (four13Radius K) b3 n3 hn3⟩,
-    mem_quintBranchBox_of_natAbs_le (four13Radius K) b4 n4 hn4⟩
+    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (fourPrimeSmall13Radius K) b1 n1 hn1,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall13Radius K) b2 n2 hn2⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall13Radius K) b3 n3 hn3⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall13Radius K) b4 n4 hn4⟩
 
-noncomputable def four13ShortCoeff (K : ℕ) : ℤ :=
-  ∑ x ∈ quadBox (four13Radius K), quadContribution 13 1 2 3 5 K x
+noncomputable def fourPrimeSmall13ShortCoeff (K : ℕ) : ℤ :=
+  ∑ x ∈ quadBox (fourPrimeSmall13Radius K), quadContribution 13 1 2 3 5 K x
 
-lemma coeff_four13_eq_short (K : ℕ) (hK : K ≤ 48) :
+lemma coeff_fourPrimeSmall13_eq_short (K : ℕ) (hK : K ≤ 48) :
     coeff K (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
-      quintupleSpecialized 13 3 * quintupleSpecialized 13 5) = four13ShortCoeff K := by
+      quintupleSpecialized 13 3 * quintupleSpecialized 13 5) = fourPrimeSmall13ShortCoeff K := by
   rw [coeff_quad_eq_finiteBox 13 1 2 3 5 K
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)]
-  unfold four13ShortCoeff
+  unfold fourPrimeSmall13ShortCoeff
   apply Finset.sum_congr_of_eq_on_inter
   · intro x hx hnx
     by_contra hn
@@ -90,55 +90,55 @@ lemma coeff_four13_eq_short (K : ℕ) (hK : K ≤ 48) :
 
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_0 : four13ShortCoeff 0 = (1 : ℤ) := by
+private theorem coefficient13_0 : fourPrimeSmall13ShortCoeff 0 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_1 : four13ShortCoeff 1 = (-1 : ℤ) := by
+private theorem coefficient13_1 : fourPrimeSmall13ShortCoeff 1 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_2 : four13ShortCoeff 2 = (-1 : ℤ) := by
+private theorem coefficient13_2 : fourPrimeSmall13ShortCoeff 2 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_3 : four13ShortCoeff 3 = (-1 : ℤ) := by
+private theorem coefficient13_3 : fourPrimeSmall13ShortCoeff 3 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_4 : four13ShortCoeff 4 = (2 : ℤ) := by
+private theorem coefficient13_4 : fourPrimeSmall13ShortCoeff 4 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_5 : four13ShortCoeff 5 = (1 : ℤ) := by
+private theorem coefficient13_5 : fourPrimeSmall13ShortCoeff 5 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_6 : four13ShortCoeff 19 = (-2 : ℤ) := by
+private theorem coefficient13_6 : fourPrimeSmall13ShortCoeff 19 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_7 : four13ShortCoeff 7 = (-1 : ℤ) := by
+private theorem coefficient13_7 : fourPrimeSmall13ShortCoeff 7 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_8 : four13ShortCoeff 34 = (-1 : ℤ) := by
+private theorem coefficient13_8 : fourPrimeSmall13ShortCoeff 34 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_9 : four13ShortCoeff 48 = (2 : ℤ) := by
+private theorem coefficient13_9 : fourPrimeSmall13ShortCoeff 48 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_10 : four13ShortCoeff 23 = (-1 : ℤ) := by
+private theorem coefficient13_10 : fourPrimeSmall13ShortCoeff 23 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_11 : four13ShortCoeff 24 = (1 : ℤ) := by
+private theorem coefficient13_11 : fourPrimeSmall13ShortCoeff 24 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient13_12 : four13ShortCoeff 12 = (1 : ℤ) := by
+private theorem coefficient13_12 : fourPrimeSmall13ShortCoeff 12 = (1 : ℤ) := by
   decide +kernel
 
 theorem four13_not_persistent (R : ℕ) (hR : R < 13) :
@@ -148,67 +148,67 @@ theorem four13_not_persistent (R : ℕ) (hR : R < 13) :
   · have h := hz 0
     change coeff (13*0+0) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_0] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_0] at h
     norm_num at h
   · have h := hz 0
     change coeff (13*0+1) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_1] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_1] at h
     norm_num at h
   · have h := hz 0
     change coeff (13*0+2) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_2] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_2] at h
     norm_num at h
   · have h := hz 0
     change coeff (13*0+3) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_3] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_3] at h
     norm_num at h
   · have h := hz 0
     change coeff (13*0+4) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_4] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_4] at h
     norm_num at h
   · have h := hz 0
     change coeff (13*0+5) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_5] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_5] at h
     norm_num at h
   · have h := hz 1
     change coeff (13*1+6) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_6] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_6] at h
     norm_num at h
   · have h := hz 0
     change coeff (13*0+7) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_7] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_7] at h
     norm_num at h
   · have h := hz 2
     change coeff (13*2+8) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_8] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_8] at h
     norm_num at h
   · have h := hz 3
     change coeff (13*3+9) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_9] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_9] at h
     norm_num at h
   · have h := hz 1
     change coeff (13*1+10) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_10] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_10] at h
     norm_num at h
   · have h := hz 1
     change coeff (13*1+11) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_11] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_11] at h
     norm_num at h
   · have h := hz 0
     change coeff (13*0+12) (quintupleSpecialized 13 1 * quintupleSpecialized 13 2 *
       quintupleSpecialized 13 3 * quintupleSpecialized 13 5)=0 at h
-    rw [coeff_four13_eq_short _ (by norm_num),coefficient13_12] at h
+    rw [coeff_fourPrimeSmall13_eq_short _ (by norm_num),coefficient13_12] at h
     norm_num at h
 
 end Ramanujan.MultiQuintuple

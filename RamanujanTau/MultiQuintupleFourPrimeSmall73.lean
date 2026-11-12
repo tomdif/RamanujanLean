@@ -31,18 +31,18 @@ private lemma short_index73_two (b : Bool) (i : ℕ) (n : ℤ)
       nlinarith [sq_nonneg (n+3),sq_nonneg (n-3)]
   omega
 
-def four73Radius (K : ℕ) : ℕ := if K ≤ 309 then 0 else 1
+def fourPrimeSmall73Radius (K : ℕ) : ℕ := if K ≤ 309 then 0 else 1
 
 private lemma short_index73 (b : Bool) (i : ℕ) (n : ℤ) (K : ℕ)
     (hi : 1 ≤ i) (hiMax : i ≤ 11) (hK : K ≤ 705)
-    (he : quintExp2 b 73 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ four73Radius K+1 := by
-  unfold four73Radius
+    (he : quintExp2 b 73 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ fourPrimeSmall73Radius K+1 := by
+  unfold fourPrimeSmall73Radius
   split_ifs with h
   · exact short_index73_one b i n hi hiMax (by omega)
   · exact short_index73_two b i n hi hiMax (by omega)
 
 private lemma mem_short_box73 (K : ℕ) (hK : K ≤ 705) (x : QuadQuintBranchIndex)
-    (he : quadExp2 73 5 3 8 11 x = 2*(K : ℤ)) : x ∈ quadBox (four73Radius K) := by
+    (he : quadExp2 73 5 3 8 11 x = 2*(K : ℤ)) : x ∈ quadBox (fourPrimeSmall73Radius K) := by
   rcases x with ⟨⟨⟨⟨b1,n1⟩,⟨b2,n2⟩⟩,⟨b3,n3⟩⟩,⟨b4,n4⟩⟩
   simp only [quadExp2,pointTripleExp2,tripleQuintExp2,pointB1,pointB2,pointB3,
     pointN1,pointN2,pointN3,quadB4,quadN4] at he
@@ -57,21 +57,21 @@ private lemma mem_short_box73 (K : ℕ) (hK : K ≤ 705) (x : QuadQuintBranchInd
   have hn4 := short_index73 b4 11 n4 K (by norm_num) (by norm_num) hK (by norm_num only [Nat.cast_ofNat]; omega)
   rw [quadBox,tripleQuintBranchBox]
   exact Finset.mem_product.mpr ⟨Finset.mem_product.mpr
-    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (four73Radius K) b1 n1 hn1,
-    mem_quintBranchBox_of_natAbs_le (four73Radius K) b2 n2 hn2⟩,
-    mem_quintBranchBox_of_natAbs_le (four73Radius K) b3 n3 hn3⟩,
-    mem_quintBranchBox_of_natAbs_le (four73Radius K) b4 n4 hn4⟩
+    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (fourPrimeSmall73Radius K) b1 n1 hn1,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall73Radius K) b2 n2 hn2⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall73Radius K) b3 n3 hn3⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall73Radius K) b4 n4 hn4⟩
 
-noncomputable def four73ShortCoeff (K : ℕ) : ℤ :=
-  ∑ x ∈ quadBox (four73Radius K), quadContribution 73 5 3 8 11 K x
+noncomputable def fourPrimeSmall73ShortCoeff (K : ℕ) : ℤ :=
+  ∑ x ∈ quadBox (fourPrimeSmall73Radius K), quadContribution 73 5 3 8 11 K x
 
-lemma coeff_four73_eq_short (K : ℕ) (hK : K ≤ 705) :
+lemma coeff_fourPrimeSmall73_eq_short (K : ℕ) (hK : K ≤ 705) :
     coeff K (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
-      quintupleSpecialized 73 8 * quintupleSpecialized 73 11) = four73ShortCoeff K := by
+      quintupleSpecialized 73 8 * quintupleSpecialized 73 11) = fourPrimeSmall73ShortCoeff K := by
   rw [coeff_quad_eq_finiteBox 73 5 3 8 11 K
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)]
-  unfold four73ShortCoeff
+  unfold fourPrimeSmall73ShortCoeff
   apply Finset.sum_congr_of_eq_on_inter
   · intro x hx hnx
     by_contra hn
@@ -90,295 +90,295 @@ lemma coeff_four73_eq_short (K : ℕ) (hK : K ≤ 705) :
 
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_0 : four73ShortCoeff 0 = (1 : ℤ) := by
+private theorem coefficient73_0 : fourPrimeSmall73ShortCoeff 0 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_1 : four73ShortCoeff 147 = (1 : ℤ) := by
+private theorem coefficient73_1 : fourPrimeSmall73ShortCoeff 147 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_2 : four73ShortCoeff 75 = (1 : ℤ) := by
+private theorem coefficient73_2 : fourPrimeSmall73ShortCoeff 75 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_3 : four73ShortCoeff 3 = (-1 : ℤ) := by
+private theorem coefficient73_3 : fourPrimeSmall73ShortCoeff 3 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_4 : four73ShortCoeff 77 = (-1 : ℤ) := by
+private theorem coefficient73_4 : fourPrimeSmall73ShortCoeff 77 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_5 : four73ShortCoeff 5 = (-1 : ℤ) := by
+private theorem coefficient73_5 : fourPrimeSmall73ShortCoeff 5 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_6 : four73ShortCoeff 371 = (-1 : ℤ) := by
+private theorem coefficient73_6 : fourPrimeSmall73ShortCoeff 371 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_7 : four73ShortCoeff 80 = (-1 : ℤ) := by
+private theorem coefficient73_7 : fourPrimeSmall73ShortCoeff 80 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_8 : four73ShortCoeff 446 = (-2 : ℤ) := by
+private theorem coefficient73_8 : fourPrimeSmall73ShortCoeff 446 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_9 : four73ShortCoeff 155 = (-2 : ℤ) := by
+private theorem coefficient73_9 : fourPrimeSmall73ShortCoeff 155 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_10 : four73ShortCoeff 83 = (-1 : ℤ) := by
+private theorem coefficient73_10 : fourPrimeSmall73ShortCoeff 83 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_11 : four73ShortCoeff 303 = (-1 : ℤ) := by
+private theorem coefficient73_11 : fourPrimeSmall73ShortCoeff 303 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_12 : four73ShortCoeff 85 = (1 : ℤ) := by
+private theorem coefficient73_12 : fourPrimeSmall73ShortCoeff 85 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_13 : four73ShortCoeff 13 = (1 : ℤ) := by
+private theorem coefficient73_13 : fourPrimeSmall73ShortCoeff 13 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_14 : four73ShortCoeff 14 = (1 : ℤ) := by
+private theorem coefficient73_14 : fourPrimeSmall73ShortCoeff 14 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_15 : four73ShortCoeff 88 = (1 : ℤ) := by
+private theorem coefficient73_15 : fourPrimeSmall73ShortCoeff 88 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_16 : four73ShortCoeff 235 = (1 : ℤ) := by
+private theorem coefficient73_16 : fourPrimeSmall73ShortCoeff 235 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_17 : four73ShortCoeff 90 = (-1 : ℤ) := by
+private theorem coefficient73_17 : fourPrimeSmall73ShortCoeff 90 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_18 : four73ShortCoeff 164 = (-2 : ℤ) := by
+private theorem coefficient73_18 : fourPrimeSmall73ShortCoeff 164 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_19 : four73ShortCoeff 457 = (-1 : ℤ) := by
+private theorem coefficient73_19 : fourPrimeSmall73ShortCoeff 457 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_20 : four73ShortCoeff 93 = (-1 : ℤ) := by
+private theorem coefficient73_20 : fourPrimeSmall73ShortCoeff 93 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_21 : four73ShortCoeff 313 = (1 : ℤ) := by
+private theorem coefficient73_21 : fourPrimeSmall73ShortCoeff 313 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_22 : four73ShortCoeff 22 = (-1 : ℤ) := by
+private theorem coefficient73_22 : fourPrimeSmall73ShortCoeff 22 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_23 : four73ShortCoeff 96 = (-1 : ℤ) := by
+private theorem coefficient73_23 : fourPrimeSmall73ShortCoeff 96 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_24 : four73ShortCoeff 24 = (-1 : ℤ) := by
+private theorem coefficient73_24 : fourPrimeSmall73ShortCoeff 24 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_25 : four73ShortCoeff 98 = (1 : ℤ) := by
+private theorem coefficient73_25 : fourPrimeSmall73ShortCoeff 98 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_26 : four73ShortCoeff 172 = (1 : ℤ) := by
+private theorem coefficient73_26 : fourPrimeSmall73ShortCoeff 172 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_27 : four73ShortCoeff 27 = (1 : ℤ) := by
+private theorem coefficient73_27 : fourPrimeSmall73ShortCoeff 27 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_28 : four73ShortCoeff 101 = (1 : ℤ) := by
+private theorem coefficient73_28 : fourPrimeSmall73ShortCoeff 101 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_29 : four73ShortCoeff 175 = (1 : ℤ) := by
+private theorem coefficient73_29 : fourPrimeSmall73ShortCoeff 175 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_30 : four73ShortCoeff 249 = (1 : ℤ) := by
+private theorem coefficient73_30 : fourPrimeSmall73ShortCoeff 249 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_31 : four73ShortCoeff 615 = (-1 : ℤ) := by
+private theorem coefficient73_31 : fourPrimeSmall73ShortCoeff 615 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_32 : four73ShortCoeff 105 = (1 : ℤ) := by
+private theorem coefficient73_32 : fourPrimeSmall73ShortCoeff 105 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_33 : four73ShortCoeff 179 = (2 : ℤ) := by
+private theorem coefficient73_33 : fourPrimeSmall73ShortCoeff 179 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_34 : four73ShortCoeff 107 = (1 : ℤ) := by
+private theorem coefficient73_34 : fourPrimeSmall73ShortCoeff 107 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_35 : four73ShortCoeff 181 = (-1 : ℤ) := by
+private theorem coefficient73_35 : fourPrimeSmall73ShortCoeff 181 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_36 : four73ShortCoeff 109 = (-1 : ℤ) := by
+private theorem coefficient73_36 : fourPrimeSmall73ShortCoeff 109 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_37 : four73ShortCoeff 110 = (-1 : ℤ) := by
+private theorem coefficient73_37 : fourPrimeSmall73ShortCoeff 110 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_38 : four73ShortCoeff 111 = (-1 : ℤ) := by
+private theorem coefficient73_38 : fourPrimeSmall73ShortCoeff 111 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_39 : four73ShortCoeff 185 = (1 : ℤ) := by
+private theorem coefficient73_39 : fourPrimeSmall73ShortCoeff 185 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_40 : four73ShortCoeff 113 = (1 : ℤ) := by
+private theorem coefficient73_40 : fourPrimeSmall73ShortCoeff 113 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_41 : four73ShortCoeff 114 = (1 : ℤ) := by
+private theorem coefficient73_41 : fourPrimeSmall73ShortCoeff 114 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_42 : four73ShortCoeff 188 = (1 : ℤ) := by
+private theorem coefficient73_42 : fourPrimeSmall73ShortCoeff 188 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_43 : four73ShortCoeff 116 = (-1 : ℤ) := by
+private theorem coefficient73_43 : fourPrimeSmall73ShortCoeff 116 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_44 : four73ShortCoeff 263 = (-1 : ℤ) := by
+private theorem coefficient73_44 : fourPrimeSmall73ShortCoeff 263 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_45 : four73ShortCoeff 191 = (1 : ℤ) := by
+private theorem coefficient73_45 : fourPrimeSmall73ShortCoeff 191 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_46 : four73ShortCoeff 119 = (1 : ℤ) := by
+private theorem coefficient73_46 : fourPrimeSmall73ShortCoeff 119 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_47 : four73ShortCoeff 120 = (1 : ℤ) := by
+private theorem coefficient73_47 : fourPrimeSmall73ShortCoeff 120 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_48 : four73ShortCoeff 705 = (-1 : ℤ) := by
+private theorem coefficient73_48 : fourPrimeSmall73ShortCoeff 705 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_49 : four73ShortCoeff 122 = (-1 : ℤ) := by
+private theorem coefficient73_49 : fourPrimeSmall73ShortCoeff 122 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_50 : four73ShortCoeff 123 = (-2 : ℤ) := by
+private theorem coefficient73_50 : fourPrimeSmall73ShortCoeff 123 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_51 : four73ShortCoeff 51 = (-1 : ℤ) := by
+private theorem coefficient73_51 : fourPrimeSmall73ShortCoeff 51 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_52 : four73ShortCoeff 490 = (-1 : ℤ) := by
+private theorem coefficient73_52 : fourPrimeSmall73ShortCoeff 490 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_53 : four73ShortCoeff 199 = (1 : ℤ) := by
+private theorem coefficient73_53 : fourPrimeSmall73ShortCoeff 199 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_54 : four73ShortCoeff 54 = (1 : ℤ) := by
+private theorem coefficient73_54 : fourPrimeSmall73ShortCoeff 54 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_55 : four73ShortCoeff 493 = (1 : ℤ) := by
+private theorem coefficient73_55 : fourPrimeSmall73ShortCoeff 493 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_56 : four73ShortCoeff 56 = (1 : ℤ) := by
+private theorem coefficient73_56 : fourPrimeSmall73ShortCoeff 56 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_57 : four73ShortCoeff 57 = (-1 : ℤ) := by
+private theorem coefficient73_57 : fourPrimeSmall73ShortCoeff 57 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_58 : four73ShortCoeff 131 = (1 : ℤ) := by
+private theorem coefficient73_58 : fourPrimeSmall73ShortCoeff 131 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_59 : four73ShortCoeff 205 = (1 : ℤ) := by
+private theorem coefficient73_59 : fourPrimeSmall73ShortCoeff 205 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_60 : four73ShortCoeff 60 = (1 : ℤ) := by
+private theorem coefficient73_60 : fourPrimeSmall73ShortCoeff 60 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_61 : four73ShortCoeff 280 = (1 : ℤ) := by
+private theorem coefficient73_61 : fourPrimeSmall73ShortCoeff 280 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_62 : four73ShortCoeff 135 = (-1 : ℤ) := by
+private theorem coefficient73_62 : fourPrimeSmall73ShortCoeff 135 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_63 : four73ShortCoeff 63 = (-1 : ℤ) := by
+private theorem coefficient73_63 : fourPrimeSmall73ShortCoeff 63 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_64 : four73ShortCoeff 64 = (-1 : ℤ) := by
+private theorem coefficient73_64 : fourPrimeSmall73ShortCoeff 64 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_65 : four73ShortCoeff 65 = (-1 : ℤ) := by
+private theorem coefficient73_65 : fourPrimeSmall73ShortCoeff 65 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_66 : four73ShortCoeff 66 = (1 : ℤ) := by
+private theorem coefficient73_66 : fourPrimeSmall73ShortCoeff 66 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_67 : four73ShortCoeff 140 = (1 : ℤ) := by
+private theorem coefficient73_67 : fourPrimeSmall73ShortCoeff 140 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_68 : four73ShortCoeff 68 = (1 : ℤ) := by
+private theorem coefficient73_68 : fourPrimeSmall73ShortCoeff 68 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_69 : four73ShortCoeff 434 = (-1 : ℤ) := by
+private theorem coefficient73_69 : fourPrimeSmall73ShortCoeff 434 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_70 : four73ShortCoeff 435 = (-1 : ℤ) := by
+private theorem coefficient73_70 : fourPrimeSmall73ShortCoeff 435 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_71 : four73ShortCoeff 144 = (1 : ℤ) := by
+private theorem coefficient73_71 : fourPrimeSmall73ShortCoeff 144 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient73_72 : four73ShortCoeff 72 = (1 : ℤ) := by
+private theorem coefficient73_72 : fourPrimeSmall73ShortCoeff 72 = (1 : ℤ) := by
   decide +kernel
 
 theorem four73_not_persistent (R : ℕ) (hR : R < 73) :
@@ -388,367 +388,367 @@ theorem four73_not_persistent (R : ℕ) (hR : R < 73) :
   · have h := hz 0
     change coeff (73*0+0) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_0] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_0] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+1) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_1] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_1] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+2) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_2] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_2] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+3) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_3] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_3] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+4) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_4] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_4] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+5) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_5] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_5] at h
     norm_num at h
   · have h := hz 5
     change coeff (73*5+6) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_6] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_6] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+7) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_7] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_7] at h
     norm_num at h
   · have h := hz 6
     change coeff (73*6+8) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_8] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_8] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+9) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_9] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_9] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+10) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_10] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_10] at h
     norm_num at h
   · have h := hz 4
     change coeff (73*4+11) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_11] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_11] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+12) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_12] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_12] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+13) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_13] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_13] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+14) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_14] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_14] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+15) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_15] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_15] at h
     norm_num at h
   · have h := hz 3
     change coeff (73*3+16) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_16] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_16] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+17) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_17] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_17] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+18) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_18] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_18] at h
     norm_num at h
   · have h := hz 6
     change coeff (73*6+19) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_19] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_19] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+20) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_20] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_20] at h
     norm_num at h
   · have h := hz 4
     change coeff (73*4+21) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_21] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_21] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+22) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_22] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_22] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+23) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_23] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_23] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+24) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_24] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_24] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+25) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_25] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_25] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+26) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_26] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_26] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+27) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_27] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_27] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+28) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_28] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_28] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+29) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_29] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_29] at h
     norm_num at h
   · have h := hz 3
     change coeff (73*3+30) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_30] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_30] at h
     norm_num at h
   · have h := hz 8
     change coeff (73*8+31) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_31] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_31] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+32) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_32] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_32] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+33) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_33] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_33] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+34) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_34] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_34] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+35) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_35] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_35] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+36) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_36] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_36] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+37) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_37] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_37] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+38) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_38] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_38] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+39) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_39] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_39] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+40) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_40] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_40] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+41) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_41] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_41] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+42) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_42] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_42] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+43) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_43] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_43] at h
     norm_num at h
   · have h := hz 3
     change coeff (73*3+44) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_44] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_44] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+45) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_45] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_45] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+46) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_46] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_46] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+47) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_47] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_47] at h
     norm_num at h
   · have h := hz 9
     change coeff (73*9+48) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_48] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_48] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+49) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_49] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_49] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+50) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_50] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_50] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+51) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_51] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_51] at h
     norm_num at h
   · have h := hz 6
     change coeff (73*6+52) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_52] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_52] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+53) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_53] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_53] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+54) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_54] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_54] at h
     norm_num at h
   · have h := hz 6
     change coeff (73*6+55) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_55] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_55] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+56) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_56] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_56] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+57) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_57] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_57] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+58) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_58] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_58] at h
     norm_num at h
   · have h := hz 2
     change coeff (73*2+59) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_59] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_59] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+60) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_60] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_60] at h
     norm_num at h
   · have h := hz 3
     change coeff (73*3+61) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_61] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_61] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+62) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_62] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_62] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+63) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_63] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_63] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+64) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_64] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_64] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+65) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_65] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_65] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+66) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_66] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_66] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+67) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_67] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_67] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+68) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_68] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_68] at h
     norm_num at h
   · have h := hz 5
     change coeff (73*5+69) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_69] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_69] at h
     norm_num at h
   · have h := hz 5
     change coeff (73*5+70) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_70] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_70] at h
     norm_num at h
   · have h := hz 1
     change coeff (73*1+71) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_71] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_71] at h
     norm_num at h
   · have h := hz 0
     change coeff (73*0+72) (quintupleSpecialized 73 5 * quintupleSpecialized 73 3 *
       quintupleSpecialized 73 8 * quintupleSpecialized 73 11)=0 at h
-    rw [coeff_four73_eq_short _ (by norm_num),coefficient73_72] at h
+    rw [coeff_fourPrimeSmall73_eq_short _ (by norm_num),coefficient73_72] at h
     norm_num at h
 
 end Ramanujan.MultiQuintuple

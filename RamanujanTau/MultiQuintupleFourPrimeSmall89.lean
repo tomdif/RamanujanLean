@@ -31,18 +31,18 @@ private lemma short_index89_two (b : Bool) (i : ℕ) (n : ℤ)
       nlinarith [sq_nonneg (n+3),sq_nonneg (n-3)]
   omega
 
-def four89Radius (K : ℕ) : ℕ := if K ≤ 379 then 0 else 1
+def fourPrimeSmall89Radius (K : ℕ) : ℕ := if K ≤ 379 then 0 else 1
 
 private lemma short_index89 (b : Bool) (i : ℕ) (n : ℤ) (K : ℕ)
     (hi : 1 ≤ i) (hiMax : i ≤ 13) (hK : K ≤ 859)
-    (he : quintExp2 b 89 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ four89Radius K+1 := by
-  unfold four89Radius
+    (he : quintExp2 b 89 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ fourPrimeSmall89Radius K+1 := by
+  unfold fourPrimeSmall89Radius
   split_ifs with h
   · exact short_index89_one b i n hi hiMax (by omega)
   · exact short_index89_two b i n hi hiMax (by omega)
 
 private lemma mem_short_box89 (K : ℕ) (hK : K ≤ 859) (x : QuadQuintBranchIndex)
-    (he : quadExp2 89 3 5 8 13 x = 2*(K : ℤ)) : x ∈ quadBox (four89Radius K) := by
+    (he : quadExp2 89 3 5 8 13 x = 2*(K : ℤ)) : x ∈ quadBox (fourPrimeSmall89Radius K) := by
   rcases x with ⟨⟨⟨⟨b1,n1⟩,⟨b2,n2⟩⟩,⟨b3,n3⟩⟩,⟨b4,n4⟩⟩
   simp only [quadExp2,pointTripleExp2,tripleQuintExp2,pointB1,pointB2,pointB3,
     pointN1,pointN2,pointN3,quadB4,quadN4] at he
@@ -57,21 +57,21 @@ private lemma mem_short_box89 (K : ℕ) (hK : K ≤ 859) (x : QuadQuintBranchInd
   have hn4 := short_index89 b4 13 n4 K (by norm_num) (by norm_num) hK (by norm_num only [Nat.cast_ofNat]; omega)
   rw [quadBox,tripleQuintBranchBox]
   exact Finset.mem_product.mpr ⟨Finset.mem_product.mpr
-    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (four89Radius K) b1 n1 hn1,
-    mem_quintBranchBox_of_natAbs_le (four89Radius K) b2 n2 hn2⟩,
-    mem_quintBranchBox_of_natAbs_le (four89Radius K) b3 n3 hn3⟩,
-    mem_quintBranchBox_of_natAbs_le (four89Radius K) b4 n4 hn4⟩
+    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (fourPrimeSmall89Radius K) b1 n1 hn1,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall89Radius K) b2 n2 hn2⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall89Radius K) b3 n3 hn3⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall89Radius K) b4 n4 hn4⟩
 
-noncomputable def four89ShortCoeff (K : ℕ) : ℤ :=
-  ∑ x ∈ quadBox (four89Radius K), quadContribution 89 3 5 8 13 K x
+noncomputable def fourPrimeSmall89ShortCoeff (K : ℕ) : ℤ :=
+  ∑ x ∈ quadBox (fourPrimeSmall89Radius K), quadContribution 89 3 5 8 13 K x
 
-lemma coeff_four89_eq_short (K : ℕ) (hK : K ≤ 859) :
+lemma coeff_fourPrimeSmall89_eq_short (K : ℕ) (hK : K ≤ 859) :
     coeff K (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
-      quintupleSpecialized 89 8 * quintupleSpecialized 89 13) = four89ShortCoeff K := by
+      quintupleSpecialized 89 8 * quintupleSpecialized 89 13) = fourPrimeSmall89ShortCoeff K := by
   rw [coeff_quad_eq_finiteBox 89 3 5 8 13 K
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)]
-  unfold four89ShortCoeff
+  unfold fourPrimeSmall89ShortCoeff
   apply Finset.sum_congr_of_eq_on_inter
   · intro x hx hnx
     by_contra hn
@@ -90,359 +90,359 @@ lemma coeff_four89_eq_short (K : ℕ) (hK : K ≤ 859) :
 
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_0 : four89ShortCoeff 0 = (1 : ℤ) := by
+private theorem coefficient89_0 : fourPrimeSmall89ShortCoeff 0 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_1 : four89ShortCoeff 90 = (-1 : ℤ) := by
+private theorem coefficient89_1 : fourPrimeSmall89ShortCoeff 90 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_2 : four89ShortCoeff 180 = (1 : ℤ) := by
+private theorem coefficient89_2 : fourPrimeSmall89ShortCoeff 180 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_3 : four89ShortCoeff 3 = (-1 : ℤ) := by
+private theorem coefficient89_3 : fourPrimeSmall89ShortCoeff 3 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_4 : four89ShortCoeff 627 = (1 : ℤ) := by
+private theorem coefficient89_4 : fourPrimeSmall89ShortCoeff 627 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_5 : four89ShortCoeff 5 = (-1 : ℤ) := by
+private theorem coefficient89_5 : fourPrimeSmall89ShortCoeff 5 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_6 : four89ShortCoeff 95 = (-1 : ℤ) := by
+private theorem coefficient89_6 : fourPrimeSmall89ShortCoeff 95 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_7 : four89ShortCoeff 185 = (1 : ℤ) := by
+private theorem coefficient89_7 : fourPrimeSmall89ShortCoeff 185 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_8 : four89ShortCoeff 542 = (-1 : ℤ) := by
+private theorem coefficient89_8 : fourPrimeSmall89ShortCoeff 542 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_9 : four89ShortCoeff 98 = (1 : ℤ) := by
+private theorem coefficient89_9 : fourPrimeSmall89ShortCoeff 98 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_10 : four89ShortCoeff 277 = (-1 : ℤ) := by
+private theorem coefficient89_10 : fourPrimeSmall89ShortCoeff 277 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_11 : four89ShortCoeff 11 = (1 : ℤ) := by
+private theorem coefficient89_11 : fourPrimeSmall89ShortCoeff 11 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_12 : four89ShortCoeff 101 = (-1 : ℤ) := by
+private theorem coefficient89_12 : fourPrimeSmall89ShortCoeff 101 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_13 : four89ShortCoeff 636 = (-1 : ℤ) := by
+private theorem coefficient89_13 : fourPrimeSmall89ShortCoeff 636 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_14 : four89ShortCoeff 192 = (-1 : ℤ) := by
+private theorem coefficient89_14 : fourPrimeSmall89ShortCoeff 192 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_15 : four89ShortCoeff 193 = (-1 : ℤ) := by
+private theorem coefficient89_15 : fourPrimeSmall89ShortCoeff 193 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_16 : four89ShortCoeff 372 = (-1 : ℤ) := by
+private theorem coefficient89_16 : fourPrimeSmall89ShortCoeff 372 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_17 : four89ShortCoeff 106 = (-1 : ℤ) := by
+private theorem coefficient89_17 : fourPrimeSmall89ShortCoeff 106 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_18 : four89ShortCoeff 18 = (1 : ℤ) := by
+private theorem coefficient89_18 : fourPrimeSmall89ShortCoeff 18 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_19 : four89ShortCoeff 286 = (-1 : ℤ) := by
+private theorem coefficient89_19 : fourPrimeSmall89ShortCoeff 286 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_20 : four89ShortCoeff 109 = (1 : ℤ) := by
+private theorem coefficient89_20 : fourPrimeSmall89ShortCoeff 109 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_21 : four89ShortCoeff 466 = (-1 : ℤ) := by
+private theorem coefficient89_21 : fourPrimeSmall89ShortCoeff 466 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_22 : four89ShortCoeff 200 = (1 : ℤ) := by
+private theorem coefficient89_22 : fourPrimeSmall89ShortCoeff 200 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_23 : four89ShortCoeff 112 = (-1 : ℤ) := by
+private theorem coefficient89_23 : fourPrimeSmall89ShortCoeff 112 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_24 : four89ShortCoeff 24 = (-1 : ℤ) := by
+private theorem coefficient89_24 : fourPrimeSmall89ShortCoeff 24 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_25 : four89ShortCoeff 826 = (1 : ℤ) := by
+private theorem coefficient89_25 : fourPrimeSmall89ShortCoeff 826 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_26 : four89ShortCoeff 26 = (-1 : ℤ) := by
+private theorem coefficient89_26 : fourPrimeSmall89ShortCoeff 26 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_27 : four89ShortCoeff 205 = (1 : ℤ) := by
+private theorem coefficient89_27 : fourPrimeSmall89ShortCoeff 205 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_28 : four89ShortCoeff 117 = (-1 : ℤ) := by
+private theorem coefficient89_28 : fourPrimeSmall89ShortCoeff 117 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_29 : four89ShortCoeff 29 = (1 : ℤ) := by
+private theorem coefficient89_29 : fourPrimeSmall89ShortCoeff 29 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_30 : four89ShortCoeff 119 = (1 : ℤ) := by
+private theorem coefficient89_30 : fourPrimeSmall89ShortCoeff 119 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_31 : four89ShortCoeff 120 = (1 : ℤ) := by
+private theorem coefficient89_31 : fourPrimeSmall89ShortCoeff 120 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_32 : four89ShortCoeff 121 = (1 : ℤ) := by
+private theorem coefficient89_32 : fourPrimeSmall89ShortCoeff 121 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_33 : four89ShortCoeff 389 = (1 : ℤ) := by
+private theorem coefficient89_33 : fourPrimeSmall89ShortCoeff 389 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_34 : four89ShortCoeff 212 = (-1 : ℤ) := by
+private theorem coefficient89_34 : fourPrimeSmall89ShortCoeff 212 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_35 : four89ShortCoeff 124 = (-1 : ℤ) := by
+private theorem coefficient89_35 : fourPrimeSmall89ShortCoeff 124 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_36 : four89ShortCoeff 125 = (1 : ℤ) := by
+private theorem coefficient89_36 : fourPrimeSmall89ShortCoeff 125 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_37 : four89ShortCoeff 126 = (-1 : ℤ) := by
+private theorem coefficient89_37 : fourPrimeSmall89ShortCoeff 126 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_38 : four89ShortCoeff 216 = (1 : ℤ) := by
+private theorem coefficient89_38 : fourPrimeSmall89ShortCoeff 216 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_39 : four89ShortCoeff 217 = (1 : ℤ) := by
+private theorem coefficient89_39 : fourPrimeSmall89ShortCoeff 217 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_40 : four89ShortCoeff 129 = (1 : ℤ) := by
+private theorem coefficient89_40 : fourPrimeSmall89ShortCoeff 129 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_41 : four89ShortCoeff 219 = (-1 : ℤ) := by
+private theorem coefficient89_41 : fourPrimeSmall89ShortCoeff 219 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_42 : four89ShortCoeff 220 = (-1 : ℤ) := by
+private theorem coefficient89_42 : fourPrimeSmall89ShortCoeff 220 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_43 : four89ShortCoeff 221 = (1 : ℤ) := by
+private theorem coefficient89_43 : fourPrimeSmall89ShortCoeff 221 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_44 : four89ShortCoeff 133 = (-1 : ℤ) := by
+private theorem coefficient89_44 : fourPrimeSmall89ShortCoeff 133 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_45 : four89ShortCoeff 134 = (-1 : ℤ) := by
+private theorem coefficient89_45 : fourPrimeSmall89ShortCoeff 134 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_46 : four89ShortCoeff 224 = (-1 : ℤ) := by
+private theorem coefficient89_46 : fourPrimeSmall89ShortCoeff 224 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_47 : four89ShortCoeff 136 = (1 : ℤ) := by
+private theorem coefficient89_47 : fourPrimeSmall89ShortCoeff 136 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_48 : four89ShortCoeff 315 = (-1 : ℤ) := by
+private theorem coefficient89_48 : fourPrimeSmall89ShortCoeff 315 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_49 : four89ShortCoeff 227 = (1 : ℤ) := by
+private theorem coefficient89_49 : fourPrimeSmall89ShortCoeff 227 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_50 : four89ShortCoeff 139 = (1 : ℤ) := by
+private theorem coefficient89_50 : fourPrimeSmall89ShortCoeff 139 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_51 : four89ShortCoeff 229 = (1 : ℤ) := by
+private theorem coefficient89_51 : fourPrimeSmall89ShortCoeff 229 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_52 : four89ShortCoeff 230 = (-1 : ℤ) := by
+private theorem coefficient89_52 : fourPrimeSmall89ShortCoeff 230 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_53 : four89ShortCoeff 409 = (1 : ℤ) := by
+private theorem coefficient89_53 : fourPrimeSmall89ShortCoeff 409 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_54 : four89ShortCoeff 410 = (1 : ℤ) := by
+private theorem coefficient89_54 : fourPrimeSmall89ShortCoeff 410 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_55 : four89ShortCoeff 144 = (-1 : ℤ) := by
+private theorem coefficient89_55 : fourPrimeSmall89ShortCoeff 144 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_56 : four89ShortCoeff 145 = (-1 : ℤ) := by
+private theorem coefficient89_56 : fourPrimeSmall89ShortCoeff 145 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_57 : four89ShortCoeff 146 = (1 : ℤ) := by
+private theorem coefficient89_57 : fourPrimeSmall89ShortCoeff 146 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_58 : four89ShortCoeff 859 = (1 : ℤ) := by
+private theorem coefficient89_58 : fourPrimeSmall89ShortCoeff 859 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_59 : four89ShortCoeff 326 = (-2 : ℤ) := by
+private theorem coefficient89_59 : fourPrimeSmall89ShortCoeff 326 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_60 : four89ShortCoeff 683 = (1 : ℤ) := by
+private theorem coefficient89_60 : fourPrimeSmall89ShortCoeff 683 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_61 : four89ShortCoeff 239 = (1 : ℤ) := by
+private theorem coefficient89_61 : fourPrimeSmall89ShortCoeff 239 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_62 : four89ShortCoeff 151 = (-1 : ℤ) := by
+private theorem coefficient89_62 : fourPrimeSmall89ShortCoeff 151 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_63 : four89ShortCoeff 63 = (-1 : ℤ) := by
+private theorem coefficient89_63 : fourPrimeSmall89ShortCoeff 63 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_64 : four89ShortCoeff 153 = (1 : ℤ) := by
+private theorem coefficient89_64 : fourPrimeSmall89ShortCoeff 153 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_65 : four89ShortCoeff 510 = (1 : ℤ) := by
+private theorem coefficient89_65 : fourPrimeSmall89ShortCoeff 510 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_66 : four89ShortCoeff 66 = (1 : ℤ) := by
+private theorem coefficient89_66 : fourPrimeSmall89ShortCoeff 66 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_67 : four89ShortCoeff 156 = (1 : ℤ) := by
+private theorem coefficient89_67 : fourPrimeSmall89ShortCoeff 156 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_68 : four89ShortCoeff 68 = (1 : ℤ) := by
+private theorem coefficient89_68 : fourPrimeSmall89ShortCoeff 68 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_69 : four89ShortCoeff 247 = (1 : ℤ) := by
+private theorem coefficient89_69 : fourPrimeSmall89ShortCoeff 247 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_70 : four89ShortCoeff 248 = (-1 : ℤ) := by
+private theorem coefficient89_70 : fourPrimeSmall89ShortCoeff 248 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_71 : four89ShortCoeff 249 = (1 : ℤ) := by
+private theorem coefficient89_71 : fourPrimeSmall89ShortCoeff 249 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_72 : four89ShortCoeff 161 = (-2 : ℤ) := by
+private theorem coefficient89_72 : fourPrimeSmall89ShortCoeff 161 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_73 : four89ShortCoeff 73 = (-1 : ℤ) := by
+private theorem coefficient89_73 : fourPrimeSmall89ShortCoeff 73 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_74 : four89ShortCoeff 74 = (-1 : ℤ) := by
+private theorem coefficient89_74 : fourPrimeSmall89ShortCoeff 74 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_75 : four89ShortCoeff 253 = (1 : ℤ) := by
+private theorem coefficient89_75 : fourPrimeSmall89ShortCoeff 253 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_76 : four89ShortCoeff 165 = (-1 : ℤ) := by
+private theorem coefficient89_76 : fourPrimeSmall89ShortCoeff 165 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_77 : four89ShortCoeff 344 = (-1 : ℤ) := by
+private theorem coefficient89_77 : fourPrimeSmall89ShortCoeff 344 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_78 : four89ShortCoeff 78 = (1 : ℤ) := by
+private theorem coefficient89_78 : fourPrimeSmall89ShortCoeff 78 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_79 : four89ShortCoeff 168 = (1 : ℤ) := by
+private theorem coefficient89_79 : fourPrimeSmall89ShortCoeff 168 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_80 : four89ShortCoeff 169 = (1 : ℤ) := by
+private theorem coefficient89_80 : fourPrimeSmall89ShortCoeff 169 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_81 : four89ShortCoeff 81 = (-1 : ℤ) := by
+private theorem coefficient89_81 : fourPrimeSmall89ShortCoeff 81 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_82 : four89ShortCoeff 82 = (1 : ℤ) := by
+private theorem coefficient89_82 : fourPrimeSmall89ShortCoeff 82 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_83 : four89ShortCoeff 83 = (-1 : ℤ) := by
+private theorem coefficient89_83 : fourPrimeSmall89ShortCoeff 83 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_84 : four89ShortCoeff 351 = (-1 : ℤ) := by
+private theorem coefficient89_84 : fourPrimeSmall89ShortCoeff 351 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_85 : four89ShortCoeff 530 = (1 : ℤ) := by
+private theorem coefficient89_85 : fourPrimeSmall89ShortCoeff 530 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_86 : four89ShortCoeff 86 = (1 : ℤ) := by
+private theorem coefficient89_86 : fourPrimeSmall89ShortCoeff 86 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_87 : four89ShortCoeff 87 = (1 : ℤ) := by
+private theorem coefficient89_87 : fourPrimeSmall89ShortCoeff 87 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient89_88 : four89ShortCoeff 88 = (1 : ℤ) := by
+private theorem coefficient89_88 : fourPrimeSmall89ShortCoeff 88 = (1 : ℤ) := by
   decide +kernel
 
 theorem four89_not_persistent (R : ℕ) (hR : R < 89) :
@@ -452,447 +452,447 @@ theorem four89_not_persistent (R : ℕ) (hR : R < 89) :
   · have h := hz 0
     change coeff (89*0+0) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_0] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_0] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+1) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_1] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_1] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+2) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_2] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_2] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+3) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_3] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_3] at h
     norm_num at h
   · have h := hz 7
     change coeff (89*7+4) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_4] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_4] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+5) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_5] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_5] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+6) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_6] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_6] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+7) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_7] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_7] at h
     norm_num at h
   · have h := hz 6
     change coeff (89*6+8) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_8] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_8] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+9) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_9] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_9] at h
     norm_num at h
   · have h := hz 3
     change coeff (89*3+10) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_10] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_10] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+11) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_11] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_11] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+12) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_12] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_12] at h
     norm_num at h
   · have h := hz 7
     change coeff (89*7+13) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_13] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_13] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+14) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_14] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_14] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+15) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_15] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_15] at h
     norm_num at h
   · have h := hz 4
     change coeff (89*4+16) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_16] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_16] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+17) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_17] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_17] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+18) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_18] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_18] at h
     norm_num at h
   · have h := hz 3
     change coeff (89*3+19) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_19] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_19] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+20) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_20] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_20] at h
     norm_num at h
   · have h := hz 5
     change coeff (89*5+21) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_21] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_21] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+22) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_22] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_22] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+23) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_23] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_23] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+24) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_24] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_24] at h
     norm_num at h
   · have h := hz 9
     change coeff (89*9+25) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_25] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_25] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+26) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_26] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_26] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+27) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_27] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_27] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+28) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_28] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_28] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+29) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_29] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_29] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+30) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_30] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_30] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+31) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_31] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_31] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+32) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_32] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_32] at h
     norm_num at h
   · have h := hz 4
     change coeff (89*4+33) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_33] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_33] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+34) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_34] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_34] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+35) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_35] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_35] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+36) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_36] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_36] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+37) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_37] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_37] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+38) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_38] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_38] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+39) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_39] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_39] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+40) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_40] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_40] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+41) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_41] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_41] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+42) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_42] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_42] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+43) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_43] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_43] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+44) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_44] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_44] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+45) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_45] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_45] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+46) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_46] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_46] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+47) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_47] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_47] at h
     norm_num at h
   · have h := hz 3
     change coeff (89*3+48) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_48] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_48] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+49) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_49] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_49] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+50) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_50] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_50] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+51) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_51] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_51] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+52) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_52] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_52] at h
     norm_num at h
   · have h := hz 4
     change coeff (89*4+53) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_53] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_53] at h
     norm_num at h
   · have h := hz 4
     change coeff (89*4+54) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_54] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_54] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+55) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_55] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_55] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+56) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_56] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_56] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+57) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_57] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_57] at h
     norm_num at h
   · have h := hz 9
     change coeff (89*9+58) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_58] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_58] at h
     norm_num at h
   · have h := hz 3
     change coeff (89*3+59) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_59] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_59] at h
     norm_num at h
   · have h := hz 7
     change coeff (89*7+60) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_60] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_60] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+61) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_61] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_61] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+62) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_62] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_62] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+63) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_63] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_63] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+64) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_64] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_64] at h
     norm_num at h
   · have h := hz 5
     change coeff (89*5+65) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_65] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_65] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+66) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_66] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_66] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+67) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_67] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_67] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+68) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_68] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_68] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+69) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_69] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_69] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+70) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_70] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_70] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+71) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_71] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_71] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+72) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_72] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_72] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+73) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_73] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_73] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+74) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_74] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_74] at h
     norm_num at h
   · have h := hz 2
     change coeff (89*2+75) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_75] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_75] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+76) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_76] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_76] at h
     norm_num at h
   · have h := hz 3
     change coeff (89*3+77) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_77] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_77] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+78) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_78] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_78] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+79) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_79] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_79] at h
     norm_num at h
   · have h := hz 1
     change coeff (89*1+80) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_80] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_80] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+81) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_81] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_81] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+82) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_82] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_82] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+83) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_83] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_83] at h
     norm_num at h
   · have h := hz 3
     change coeff (89*3+84) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_84] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_84] at h
     norm_num at h
   · have h := hz 5
     change coeff (89*5+85) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_85] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_85] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+86) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_86] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_86] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+87) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_87] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_87] at h
     norm_num at h
   · have h := hz 0
     change coeff (89*0+88) (quintupleSpecialized 89 3 * quintupleSpecialized 89 5 *
       quintupleSpecialized 89 8 * quintupleSpecialized 89 13)=0 at h
-    rw [coeff_four89_eq_short _ (by norm_num),coefficient89_88] at h
+    rw [coeff_fourPrimeSmall89_eq_short _ (by norm_num),coefficient89_88] at h
     norm_num at h
 
 end Ramanujan.MultiQuintuple

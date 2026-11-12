@@ -31,18 +31,18 @@ private lemma short_index29_two (b : Bool) (i : ℕ) (n : ℤ)
       nlinarith [sq_nonneg (n+3),sq_nonneg (n-3)]
   omega
 
-def four29Radius (K : ℕ) : ℕ := if K ≤ 109 then 0 else 1
+def fourPrimeSmall29Radius (K : ℕ) : ℕ := if K ≤ 109 then 0 else 1
 
 private lemma short_index29 (b : Bool) (i : ℕ) (n : ℤ) (K : ℕ)
     (hi : 1 ≤ i) (hiMax : i ≤ 7) (hK : K ≤ 186)
-    (he : quintExp2 b 29 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ four29Radius K+1 := by
-  unfold four29Radius
+    (he : quintExp2 b 29 i n ≤ 2*(K : ℤ)) : n.natAbs ≤ fourPrimeSmall29Radius K+1 := by
+  unfold fourPrimeSmall29Radius
   split_ifs with h
   · exact short_index29_one b i n hi hiMax (by omega)
   · exact short_index29_two b i n hi hiMax (by omega)
 
 private lemma mem_short_box29 (K : ℕ) (hK : K ≤ 186) (x : QuadQuintBranchIndex)
-    (he : quadExp2 29 3 2 5 7 x = 2*(K : ℤ)) : x ∈ quadBox (four29Radius K) := by
+    (he : quadExp2 29 3 2 5 7 x = 2*(K : ℤ)) : x ∈ quadBox (fourPrimeSmall29Radius K) := by
   rcases x with ⟨⟨⟨⟨b1,n1⟩,⟨b2,n2⟩⟩,⟨b3,n3⟩⟩,⟨b4,n4⟩⟩
   simp only [quadExp2,pointTripleExp2,tripleQuintExp2,pointB1,pointB2,pointB3,
     pointN1,pointN2,pointN3,quadB4,quadN4] at he
@@ -57,21 +57,21 @@ private lemma mem_short_box29 (K : ℕ) (hK : K ≤ 186) (x : QuadQuintBranchInd
   have hn4 := short_index29 b4 7 n4 K (by norm_num) (by norm_num) hK (by norm_num only [Nat.cast_ofNat]; omega)
   rw [quadBox,tripleQuintBranchBox]
   exact Finset.mem_product.mpr ⟨Finset.mem_product.mpr
-    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (four29Radius K) b1 n1 hn1,
-    mem_quintBranchBox_of_natAbs_le (four29Radius K) b2 n2 hn2⟩,
-    mem_quintBranchBox_of_natAbs_le (four29Radius K) b3 n3 hn3⟩,
-    mem_quintBranchBox_of_natAbs_le (four29Radius K) b4 n4 hn4⟩
+    ⟨Finset.mem_product.mpr ⟨mem_quintBranchBox_of_natAbs_le (fourPrimeSmall29Radius K) b1 n1 hn1,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall29Radius K) b2 n2 hn2⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall29Radius K) b3 n3 hn3⟩,
+    mem_quintBranchBox_of_natAbs_le (fourPrimeSmall29Radius K) b4 n4 hn4⟩
 
-noncomputable def four29ShortCoeff (K : ℕ) : ℤ :=
-  ∑ x ∈ quadBox (four29Radius K), quadContribution 29 3 2 5 7 K x
+noncomputable def fourPrimeSmall29ShortCoeff (K : ℕ) : ℤ :=
+  ∑ x ∈ quadBox (fourPrimeSmall29Radius K), quadContribution 29 3 2 5 7 K x
 
-lemma coeff_four29_eq_short (K : ℕ) (hK : K ≤ 186) :
+lemma coeff_fourPrimeSmall29_eq_short (K : ℕ) (hK : K ≤ 186) :
     coeff K (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
-      quintupleSpecialized 29 5 * quintupleSpecialized 29 7) = four29ShortCoeff K := by
+      quintupleSpecialized 29 5 * quintupleSpecialized 29 7) = fourPrimeSmall29ShortCoeff K := by
   rw [coeff_quad_eq_finiteBox 29 3 2 5 7 K
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)]
-  unfold four29ShortCoeff
+  unfold fourPrimeSmall29ShortCoeff
   apply Finset.sum_congr_of_eq_on_inter
   · intro x hx hnx
     by_contra hn
@@ -90,119 +90,119 @@ lemma coeff_four29_eq_short (K : ℕ) (hK : K ≤ 186) :
 
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_0 : four29ShortCoeff 0 = (1 : ℤ) := by
+private theorem coefficient29_0 : fourPrimeSmall29ShortCoeff 0 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_1 : four29ShortCoeff 30 = (1 : ℤ) := by
+private theorem coefficient29_1 : fourPrimeSmall29ShortCoeff 30 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_2 : four29ShortCoeff 2 = (-1 : ℤ) := by
+private theorem coefficient29_2 : fourPrimeSmall29ShortCoeff 2 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_3 : four29ShortCoeff 3 = (-1 : ℤ) := by
+private theorem coefficient29_3 : fourPrimeSmall29ShortCoeff 3 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_4 : four29ShortCoeff 33 = (-1 : ℤ) := by
+private theorem coefficient29_4 : fourPrimeSmall29ShortCoeff 33 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_5 : four29ShortCoeff 34 = (1 : ℤ) := by
+private theorem coefficient29_5 : fourPrimeSmall29ShortCoeff 34 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_6 : four29ShortCoeff 35 = (-1 : ℤ) := by
+private theorem coefficient29_6 : fourPrimeSmall29ShortCoeff 35 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_7 : four29ShortCoeff 36 = (-1 : ℤ) := by
+private theorem coefficient29_7 : fourPrimeSmall29ShortCoeff 36 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_8 : four29ShortCoeff 8 = (1 : ℤ) := by
+private theorem coefficient29_8 : fourPrimeSmall29ShortCoeff 8 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_9 : four29ShortCoeff 9 = (1 : ℤ) := by
+private theorem coefficient29_9 : fourPrimeSmall29ShortCoeff 9 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_10 : four29ShortCoeff 68 = (1 : ℤ) := by
+private theorem coefficient29_10 : fourPrimeSmall29ShortCoeff 68 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_11 : four29ShortCoeff 40 = (-2 : ℤ) := by
+private theorem coefficient29_11 : fourPrimeSmall29ShortCoeff 40 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_12 : four29ShortCoeff 186 = (3 : ℤ) := by
+private theorem coefficient29_12 : fourPrimeSmall29ShortCoeff 186 = (3 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_13 : four29ShortCoeff 71 = (1 : ℤ) := by
+private theorem coefficient29_13 : fourPrimeSmall29ShortCoeff 71 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_14 : four29ShortCoeff 14 = (-1 : ℤ) := by
+private theorem coefficient29_14 : fourPrimeSmall29ShortCoeff 14 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_15 : four29ShortCoeff 15 = (-2 : ℤ) := by
+private theorem coefficient29_15 : fourPrimeSmall29ShortCoeff 15 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_16 : four29ShortCoeff 45 = (1 : ℤ) := by
+private theorem coefficient29_16 : fourPrimeSmall29ShortCoeff 45 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_17 : four29ShortCoeff 17 = (2 : ℤ) := by
+private theorem coefficient29_17 : fourPrimeSmall29ShortCoeff 17 = (2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_18 : four29ShortCoeff 18 = (1 : ℤ) := by
+private theorem coefficient29_18 : fourPrimeSmall29ShortCoeff 18 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_19 : four29ShortCoeff 19 = (-1 : ℤ) := by
+private theorem coefficient29_19 : fourPrimeSmall29ShortCoeff 19 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_20 : four29ShortCoeff 49 = (1 : ℤ) := by
+private theorem coefficient29_20 : fourPrimeSmall29ShortCoeff 49 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_21 : four29ShortCoeff 21 = (1 : ℤ) := by
+private theorem coefficient29_21 : fourPrimeSmall29ShortCoeff 21 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_22 : four29ShortCoeff 51 = (-2 : ℤ) := by
+private theorem coefficient29_22 : fourPrimeSmall29ShortCoeff 51 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_23 : four29ShortCoeff 23 = (-2 : ℤ) := by
+private theorem coefficient29_23 : fourPrimeSmall29ShortCoeff 23 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_24 : four29ShortCoeff 24 = (-1 : ℤ) := by
+private theorem coefficient29_24 : fourPrimeSmall29ShortCoeff 24 = (-1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_25 : four29ShortCoeff 25 = (1 : ℤ) := by
+private theorem coefficient29_25 : fourPrimeSmall29ShortCoeff 25 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_26 : four29ShortCoeff 26 = (1 : ℤ) := by
+private theorem coefficient29_26 : fourPrimeSmall29ShortCoeff 26 = (1 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_27 : four29ShortCoeff 56 = (-2 : ℤ) := by
+private theorem coefficient29_27 : fourPrimeSmall29ShortCoeff 56 = (-2 : ℤ) := by
   decide +kernel
 
 set_option maxHeartbeats 0 in
-private theorem coefficient29_28 : four29ShortCoeff 28 = (1 : ℤ) := by
+private theorem coefficient29_28 : fourPrimeSmall29ShortCoeff 28 = (1 : ℤ) := by
   decide +kernel
 
 theorem four29_not_persistent (R : ℕ) (hR : R < 29) :
@@ -212,147 +212,147 @@ theorem four29_not_persistent (R : ℕ) (hR : R < 29) :
   · have h := hz 0
     change coeff (29*0+0) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_0] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_0] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+1) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_1] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_1] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+2) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_2] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_2] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+3) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_3] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_3] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+4) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_4] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_4] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+5) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_5] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_5] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+6) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_6] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_6] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+7) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_7] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_7] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+8) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_8] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_8] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+9) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_9] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_9] at h
     norm_num at h
   · have h := hz 2
     change coeff (29*2+10) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_10] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_10] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+11) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_11] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_11] at h
     norm_num at h
   · have h := hz 6
     change coeff (29*6+12) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_12] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_12] at h
     norm_num at h
   · have h := hz 2
     change coeff (29*2+13) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_13] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_13] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+14) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_14] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_14] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+15) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_15] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_15] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+16) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_16] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_16] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+17) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_17] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_17] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+18) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_18] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_18] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+19) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_19] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_19] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+20) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_20] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_20] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+21) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_21] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_21] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+22) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_22] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_22] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+23) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_23] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_23] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+24) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_24] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_24] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+25) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_25] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_25] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+26) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_26] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_26] at h
     norm_num at h
   · have h := hz 1
     change coeff (29*1+27) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_27] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_27] at h
     norm_num at h
   · have h := hz 0
     change coeff (29*0+28) (quintupleSpecialized 29 3 * quintupleSpecialized 29 2 *
       quintupleSpecialized 29 5 * quintupleSpecialized 29 7)=0 at h
-    rw [coeff_four29_eq_short _ (by norm_num),coefficient29_28] at h
+    rw [coeff_fourPrimeSmall29_eq_short _ (by norm_num),coefficient29_28] at h
     norm_num at h
 
 end Ramanujan.MultiQuintuple

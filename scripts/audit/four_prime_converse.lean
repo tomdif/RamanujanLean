@@ -25,6 +25,8 @@ import RamanujanTau.MultiQuintupleFourPrimeSmall89
 import RamanujanTau.MultiQuintupleFourFortyOneConverse
 import RamanujanTau.MultiQuintupleFourFiftyThreeConverse
 import RamanujanTau.MultiQuintupleFourNinetySevenConverse
+-- Check coexistence with the older, different modulus-17 tuple in focused CI.
+import RamanujanTau.MultiQuintupleFourWitness17
 import RamanujanTau.MultiQuintupleFourPrimeConverse
 
 /-! Audit of the complete prime reflection-family coefficient classification. -/
@@ -219,19 +221,19 @@ import RamanujanTau.MultiQuintupleFourPrimeConverse
 #print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_necessary_large
 #print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_iff_large
 #print axioms Ramanujan.MultiQuintuple.fourPrime_small_cases
-#print axioms Ramanujan.MultiQuintuple.coeff_four13_eq_short
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPrimeSmall13_eq_short
 #print axioms Ramanujan.MultiQuintuple.four13_not_persistent
-#print axioms Ramanujan.MultiQuintuple.coeff_four17_eq_short
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPrimeSmall17_eq_short
 #print axioms Ramanujan.MultiQuintuple.four17_not_persistent
-#print axioms Ramanujan.MultiQuintuple.coeff_four29_eq_short
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPrimeSmall29_eq_short
 #print axioms Ramanujan.MultiQuintuple.four29_not_persistent
-#print axioms Ramanujan.MultiQuintuple.coeff_four37_eq_short
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPrimeSmall37_eq_short
 #print axioms Ramanujan.MultiQuintuple.four37_not_persistent
-#print axioms Ramanujan.MultiQuintuple.coeff_four61_eq_short
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPrimeSmall61_eq_short
 #print axioms Ramanujan.MultiQuintuple.four61_not_persistent
-#print axioms Ramanujan.MultiQuintuple.coeff_four73_eq_short
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPrimeSmall73_eq_short
 #print axioms Ramanujan.MultiQuintuple.four73_not_persistent
-#print axioms Ramanujan.MultiQuintuple.coeff_four89_eq_short
+#print axioms Ramanujan.MultiQuintuple.coeff_fourPrimeSmall89_eq_short
 #print axioms Ramanujan.MultiQuintuple.four89_not_persistent
 #print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_necessary_small
 #print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_iff

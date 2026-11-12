@@ -1,14 +1,15 @@
 {
-  "verified_at_utc": "2026-11-12T13:33:13.114469+00:00",
-  "source_base_commit": "235ac72cc840fedbafeb4ef6366c4ed1a046e868",
+  "verified_at_utc": "2026-11-12T14:31:19.043358+00:00",
+  "source_base_commit": "034c353a0f8d392e5ccbce9725d236c48bf6e602",
   "scope": "Complete actual-coefficient classification for the canonical prime reflection family p=m²+n²; all small primes included",
   "lean_toolchain": "leanprover/lean4:v4.30.0-rc2",
   "build": {
-    "command": "python3 scripts/verify_lean.py",
+    "command": "python3 scripts/verify_lean.py --full",
     "exit_code": 0,
-    "requested_targets": 93,
-    "mode": "Sequential incremental public-target builds with pinned dependencies; not a full root build",
-    "log_sha256": "8c86e45fddd0942a9da40412325c7ce8cbfd85de2aa0a8c25673e8837ef53b0d"
+    "requested_targets": 1,
+    "jobs": 10597,
+    "mode": "Incremental full-root build with pinned dependencies and existing local artifacts",
+    "log_sha256": "010b453895b65b59f4f74a57111dfcd94396a2cbdc821eeeeff7d81d30118595"
   },
   "audits": [
     {
@@ -39,7 +40,17 @@
         "Quot.sound",
         "propext"
       ],
-      "output_sha256": "bfb4234e4472d18652c6569fbe11f3ebcf18c10e97368a8058fed67c1e1fea90"
+      "output_sha256": "dcdf439a9d35aac643cb94a9a52abca2c1e726d52ef4d704269da94e69989080"
+    },
+    {
+      "name": "celebrated_targets",
+      "declarations": 472,
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "output_sha256": "01c5a11b76b16b3159a3a7d4dd07d54d51cc99b7cea7b7f5836a195105a53ad2"
     }
   ],
   "dedicated_audit_output": "docs/verification/four_prime_converse.axioms.txt",
@@ -101,14 +112,13 @@
   "limits": [
     "The classification is restricted to prime p=m²+n², 0<n<m, 2(m+n)<p, and R<p",
     "Arbitrary four-tuples and composite-modulus necessity are outside this theorem",
-    "Independent mathematical review and literature priority review remain outstanding",
-    "The current verification is focused; no fresh full-root success is claimed"
+    "Independent mathematical review and literature priority review remain outstanding"
   ],
   "source_sha256": {
     ".github/workflows/lean-checks.yml": "ed2762b8baad6fe6ba09446695097dba570e8eeda74353e96a1eed78b5944ef9",
     ".github/workflows/repository-checks.yml": "e636868955a44c2469b02367ec47b21bd94b439c5442eec06e822845c7eed1e9",
     "README.md": "964ffe32796a341e889bb36eb37c01f9e03acaec650bed6e14fe8a92d06bc915",
-    "RESEARCH_MULTI_QUINTUPLE.md": "146affefda6a173229da533cfe9b20566d4c2b6a74aa1de1774a74f799a003c5",
+    "RESEARCH_MULTI_QUINTUPLE.md": "93a421d13f39c8091d998102cf8f28cc95d06661979a1258db496561041804ee",
     "RamanujanTau.lean": "3540c28112fce82cacdedbc31a8a35f3a0fe0428ac16bf259b3b886d403b9828",
     "RamanujanTau/MultiQuintupleFourDualArithmetic.lean": "a76c60dd5849bad5f3638185f110e4d0f2e011b16b8546bb62c6f85eeec27efe",
     "RamanujanTau/MultiQuintupleFourDualIndex.lean": "375af8cb1861c8a3567499b0007aca97a8498bed33c42094f6493405b271b92b",
@@ -137,13 +147,13 @@
     "RamanujanTau/MultiQuintupleFourPrimePhaseBlocks.lean": "ded574a9e948156368279b56c8732b57c26a0b1ec0b7932ea6701baec0bfebfc",
     "RamanujanTau/MultiQuintupleFourPrimePlaneLattices.lean": "eaaae73c9af8686bb7a3514bab815f2da772459d55967df3c34e7c2ccc0d940d",
     "RamanujanTau/MultiQuintupleFourPrimeShortGenerators.lean": "f6dce2a531cfb06e9c9e64e396045b25a0580ccfb4384c267ff924e8374936e7",
-    "RamanujanTau/MultiQuintupleFourPrimeSmall13.lean": "effb96e537fb3b4ae976e7e749c42fc71d758151aa221a060b679b70e7fe83c1",
-    "RamanujanTau/MultiQuintupleFourPrimeSmall17.lean": "38cf22956884025f7fe165464e93cea3095ae0f8484e98d02baae6cdc7bba3ca",
-    "RamanujanTau/MultiQuintupleFourPrimeSmall29.lean": "0f6cb571f915c8728559740f88ef6e529a505021809797d2210da820d96d538e",
-    "RamanujanTau/MultiQuintupleFourPrimeSmall37.lean": "beb289be17dda3379d795510557402e9b555efdf65e9e3170a5b192fd0773bfc",
-    "RamanujanTau/MultiQuintupleFourPrimeSmall61.lean": "272729b26f7509ece399f6b413f7738e261ec4af1a8a3ca3931d4c0774b43731",
-    "RamanujanTau/MultiQuintupleFourPrimeSmall73.lean": "9d6dd49ab5e37082bb1afee8e7907f1f7d59e4c19c4b107e4e43c4daee4277fa",
-    "RamanujanTau/MultiQuintupleFourPrimeSmall89.lean": "c24c8a739fca944ac1652e10dfce705b6023b8eacf560573bef8685a2b1c042a",
+    "RamanujanTau/MultiQuintupleFourPrimeSmall13.lean": "aec9f6d18bd0a271a4cc6900f73b18f9857b81124410fa1f37d105fcfafae3e4",
+    "RamanujanTau/MultiQuintupleFourPrimeSmall17.lean": "2395b2cda70d6e9fa6c7142e3511d7516cfb2c3c82707a7e5c59cc8e22071da4",
+    "RamanujanTau/MultiQuintupleFourPrimeSmall29.lean": "d30a68471a52cc389e8c37066d18a21522dec3a003360eb0bb60c09fe25b1e1a",
+    "RamanujanTau/MultiQuintupleFourPrimeSmall37.lean": "7408f380bdb815bf7d9c76d4accca0c478fdb98999e3d010fef3db1cdafb558f",
+    "RamanujanTau/MultiQuintupleFourPrimeSmall61.lean": "a8aa201c0a7229c24a8c51c8b725ee364f0f07d59664c893326ad7539a45fbcd",
+    "RamanujanTau/MultiQuintupleFourPrimeSmall73.lean": "2a8c0116bf08645e3bbf32f09e5f44368ec0127ae086cbb1bcfb04208e554816",
+    "RamanujanTau/MultiQuintupleFourPrimeSmall89.lean": "bd4d6f0e09c8ecef6ee0e1833274b8e9e4738ba886e65a00255fecb545005092",
     "RamanujanTau/MultiQuintupleFourPrimeSmallCases.lean": "10a9ea2dce8e29ff90a48fb1e1ec79bcac9522583702bbb8c916dd9787e2bd8b",
     "RamanujanTau/MultiQuintupleFourPrimeSpanning.lean": "2d476f1765ea1d2414bb45421c3c1023a37539aa2083aa2d135f54ad6d2f20d6",
     "RamanujanTau/MultiQuintupleFourPrimeSymmetryLift.lean": "5e1f6cb1d482d75e9131bbb0a21d4d871fc1f75ef9e8f9b348bb344e9a883002",
@@ -155,17 +165,19 @@
     "RamanujanTau/MultiQuintupleRootBranch.lean": "66de5e9862d5c8d1439ed8cc3f9ae94e0ef6f23cd24c81798b1908478da46814",
     "docs/FINITE_ARITHMETIC.md": "c7ff7b7ca45de41db51732aa1a7d6ae73d80e2dc8c773373f0c876e5493ac471",
     "docs/RESULTS.md": "3435f873cecf8922bf7082575b4c4fd43fd935d4a361152dd5fb8d8f8471bafd",
-    "docs/STATUS.md": "faf82acb8d5dc21721e080ba55e594edc8d0d6e15ff7438655c2f94753666082",
+    "docs/STATUS.md": "e41830b1401027a2fd9cf70b5a9092446cf18562c70300f5c2f659f651a0770c",
+    "docs/verification/four_prime_converse.axioms.txt": "dcdf439a9d35aac643cb94a9a52abca2c1e726d52ef4d704269da94e69989080",
+    "docs/verification/four_prime_converse.headlines.axioms.txt": "01c5a11b76b16b3159a3a7d4dd07d54d51cc99b7cea7b7f5836a195105a53ad2",
     "docs/verification/four_prime_converse_certificates.json": "9bcdc1bc782593d3da5909b58b587a82acb3e722f06bcc244550fd5c8843c2cf",
     "docs/verification/four_prime_converse_checks.json": "a1d17ba2b5833ff27f04cc6300fb19eccd737427c12603a757cc61bf1cf4015c",
     "lake-manifest.json": "5990cea40fe49b50761d29c7c8daf26280c92c8d33c658446eff1600cb02522d",
     "lakefile.toml": "4cc9c10467da5f07808a41359a2818ed279da7edde8dc981a25866d1469fb9d4",
     "lean-toolchain": "ce4c4e3d87434b9663f46de25ce34b48a0cf0d392e0a320a0787b4674a2d7b61",
-    "scripts/audit/four_prime_converse.lean": "1de138e3f52ddf31539cab4548144f5752b1929afe83a23ad3c54e9c5f591ed2",
+    "scripts/audit/four_prime_converse.lean": "1778a603ce8253b2b7fdf938398a80b72971090b0d0ecf82c4794e8362b734ce",
     "scripts/check_four_prime_converse.py": "7f92381fd7deb80fb199dee7772f5fbd3988af5da614f23653cf9ea3cae330c8",
     "scripts/generate_four53_converse.py": "b0396c46e6ed2b0cae2365e3a96c986f9d87bb7843ebe17ba33ee193f0171c5f",
     "scripts/generate_four_prime_converse.py": "828fe7fb3e943ab197f3c488db2b120250c6a55a031e8a5b03d5e76e28496bde",
-    "scripts/generate_four_prime_small.py": "b535d11e3bcdfb5b52829a83c0c0605fac3772acd4998d1a46cb90a2ac75f041",
+    "scripts/generate_four_prime_small.py": "605b6780f119cd831c68a9f161d99afef88525d8601b5ad51fae551d8c444119",
     "scripts/verify_lean.py": "b166e4c62bece279cf418bb843f18d06fa4cfcf40562bd75d994bceaf2709d04"
   },
   "repository_checks": {
@@ -306,7 +318,8 @@
     "command": "python3 scripts/verify_lean.py --full",
     "completed": false,
     "observation": "During the shared-proof rebuild an older modulo-41 coefficient job terminated, and a shell command reported no space left on device. Remaining build processes were stopped to release memory and swap space. No full-root success is claimed for this source snapshot.",
-    "log_sha256": "17d8d17a18a75ca975d8961098de929050110ddb5e7e39e0a92bba45bc2a32fc"
+    "log_sha256": "17d8d17a18a75ca975d8961098de929050110ddb5e7e39e0a92bba45bc2a32fc",
+    "superseded_by": "current_full_verification"
   },
   "previous_focused_verification": {
     "commit": "235ac72cc840fedbafeb4ef6366c4ed1a046e868",
@@ -328,5 +341,148 @@
     ],
     "method": "Proved degree-dependent finite boxes; sequential kernel evaluation",
     "existing_41_53": "Public declarations unchanged; smaller proved coefficient boxes accelerate the private numerical certificates"
+  },
+  "focused_verification_before_integration_repair": {
+    "source_commit": "034c353a0f8d392e5ccbce9725d236c48bf6e602",
+    "build": {
+      "command": "python3 scripts/verify_lean.py",
+      "exit_code": 0,
+      "requested_targets": 93,
+      "mode": "Sequential incremental public-target builds with pinned dependencies; not a full root build",
+      "log_sha256": "8c86e45fddd0942a9da40412325c7ce8cbfd85de2aa0a8c25673e8837ef53b0d"
+    },
+    "audits": [
+      {
+        "name": "forty11",
+        "declarations": 383,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "712b4d01ccee3d432dc94e08958613d839cc1b26ce973093f560cc2c6ac7b9af"
+      },
+      {
+        "name": "bosonic_fock",
+        "declarations": 24,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "e5504691917bfb5aa4e53ba4b340516681bd3c9c458bdc526b98c3828cbea876"
+      },
+      {
+        "name": "four_prime_converse",
+        "declarations": 208,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "bfb4234e4472d18652c6569fbe11f3ebcf18c10e97368a8058fed67c1e1fea90"
+      }
+    ],
+    "limitation": "The focused imports did not combine the new prime-17 certificate with the older modulus-17 witness; the full-root build exposed their helper-name collision"
+  },
+  "current_full_verification": {
+    "verified_at_utc": "2026-11-12T14:31:19.043358+00:00",
+    "source_base_commit": "034c353a0f8d392e5ccbce9725d236c48bf6e602",
+    "command": "python3 scripts/verify_lean.py --full",
+    "exit_code": 0,
+    "jobs": 10597,
+    "mode": "Incremental full-root build with pinned dependencies and existing local artifacts",
+    "preparation": "Out-of-date certificate targets were rebuilt one at a time before the root build",
+    "preparation_log_sha256": "b18c1d15ae9e6ead883d5eb737a25da596d83a4d96306e9f4220f7eaf1f7c997",
+    "build_log_sha256": "010b453895b65b59f4f74a57111dfcd94396a2cbdc821eeeeff7d81d30118595",
+    "audits": [
+      {
+        "name": "forty11",
+        "declarations": 383,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "712b4d01ccee3d432dc94e08958613d839cc1b26ce973093f560cc2c6ac7b9af"
+      },
+      {
+        "name": "bosonic_fock",
+        "declarations": 24,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "e5504691917bfb5aa4e53ba4b340516681bd3c9c458bdc526b98c3828cbea876"
+      },
+      {
+        "name": "four_prime_converse",
+        "declarations": 208,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "dcdf439a9d35aac643cb94a9a52abca2c1e726d52ef4d704269da94e69989080"
+      },
+      {
+        "name": "celebrated_targets",
+        "declarations": 472,
+        "axioms": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "output_sha256": "01c5a11b76b16b3159a3a7d4dd07d54d51cc99b7cea7b7f5836a195105a53ad2"
+      }
+    ],
+    "audited_declarations": 1087,
+    "headline_audit_output": "docs/verification/four_prime_converse.headlines.axioms.txt"
+  },
+  "integration_repair": {
+    "failure": "The first current root build rejected the duplicated four17ShortCoeff declaration from the new prime-family certificate and older modulus-17 witness",
+    "failure_log_sha256": "b18c1d15ae9e6ead883d5eb737a25da596d83a4d96306e9f4220f7eaf1f7c997",
+    "fix": "The generated short-coefficient, radius, and coefficient-bridge helpers now use the fourPrimeSmall prefix; mathematical statements and numerical data are unchanged",
+    "regression_check": "The focused four_prime_converse audit imports MultiQuintupleFourWitness17 alongside the new classification",
+    "regenerated_converse_build_log_sha256": "3f392f5fc7fcba1e3ce3f3108c5f2cdca47284b5d56c2ec0e3d952b4efb17a88",
+    "resolved_by": "current_full_verification"
+  },
+  "hosted_verification_before_integration_repair": {
+    "source_commit": "034c353a0f8d392e5ccbce9725d236c48bf6e602",
+    "scope": "Focused public build and repository checks before the helper-name repair; current_full_verification records local validation of the repaired source",
+    "runs": [
+      {
+        "conclusion": "success",
+        "createdAt": "2026-11-12T13:33:49Z",
+        "databaseId": 43228490002,
+        "headSha": "034c353a0f8d392e5ccbce9725d236c48bf6e602",
+        "name": "Lean checks",
+        "status": "completed",
+        "updatedAt": "2026-11-12T14:22:11Z",
+        "url": "https://github.com/tomdif/RamanujanLean/actions/runs/43228490002"
+      },
+      {
+        "conclusion": "success",
+        "createdAt": "2026-11-12T13:33:49Z",
+        "databaseId": 43228489797,
+        "headSha": "034c353a0f8d392e5ccbce9725d236c48bf6e602",
+        "name": "Repository checks",
+        "status": "completed",
+        "updatedAt": "2026-11-12T13:34:40Z",
+        "url": "https://github.com/tomdif/RamanujanLean/actions/runs/43228489797"
+      }
+    ]
+  },
+  "literature_comparison": {
+    "checked_at": "2026-11-12",
+    "scope": "Limited primary-source comparison, not an exhaustive priority search",
+    "sources": [
+      "https://arxiv.org/html/2606.06701v1#S5",
+      "https://arxiv.org/abs/2603.04666",
+      "https://www.wcupa.edu/sciences-mathematics/mathematics/jMcLaughlin/"
+    ],
+    "finding": "The June 2026 paper reports the modulus-41 four-factor example as experimental; the examined sources do not state the uniform prime-family equivalence proved here",
+    "priority_established": false
   }
 }

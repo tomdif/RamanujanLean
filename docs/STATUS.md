@@ -47,12 +47,13 @@ classifications are kernel checked; the three existing classifications
 at 41,53,97 complete the cutoff. No additional spanning hypothesis remains.
 
 The [verification record](verification/four_prime_converse.json) contains
-the focused build, expanded axiom audit, source hashes, and finite checks.
+the focused build, full-root revalidation, axiom audits, source hashes, and finite checks.
 The independent checker replays 72 parameter classes, 2,592 block pairs,
 498 nonzero witnesses, and 4,636 direct coefficients, rejecting five
 corrupted certificates. The lattice and coefficient generators reproduce their saved output.
-A fresh full-root rebuild has not completed; the prior dated full-build
-records remain separate from these focused checks.
+The full root build passed with 10,597 jobs after rebuilding the older
+certificates sequentially. All 1,087 declarations in the four public and
+headline audits use only `propext`, `Classical.choice`, and `Quot.sound`.
 
 Arbitrary four-factor products and composite-modulus necessity remain open.
 Independent mathematical and literature-priority review are outstanding.
