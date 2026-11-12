@@ -1364,35 +1364,28 @@ finite search for converse witnesses. Its finite quarter-bound observations
 do not extend to all parameters: the counterexample at 2521 above lies in
 this congruence family.
 
-### Four-factor analytic necessity and finite symmetry certificates
+### Complete prime reflection-family classification
 
-[FourPhaseParity](../RamanujanTau/MultiQuintupleFourPhaseParity.lean) proves
-`four_persistent_vanishing_character_partner`: persistent vanishing of the
-actual four-factor product forces a same-norm, opposite-phase partner with
-reversed cubic character on every supported nonzero Fourier shell below
-p²/2. The hypotheses include a prime modulus different from 2 and 3,
-canonical factor indices, and a square sum divisible by p. The proof derives
-the partners through Poisson summation and cyclotomic cancellation.
+[FourPrimeConverse](../RamanujanTau/MultiQuintupleFourPrimeConverse.lean)
+proves `coeff_fourReflection_prime_iff` for `0<n<m`, prime `p=m²+n²`,
+`2(m+n)<p`, and `R<p`. All coefficients in progression `pN+R` of
+`Q(m−n)Q(n)Q(m)Q(m+n)` vanish exactly when both conditions hold:
 
-For the reflection family, [FourPrimeFinite](../RamanujanTau/MultiQuintupleFourPrimeFinite.lean)
-checks integer spanning certificates in all 72 parameter classes modulo
-nine and excludes incompatible choices among 36 involutive block pairs.
-[FourPrimeGeometry](../RamanujanTau/MultiQuintupleFourPrimeGeometry.lean)
-proves the short-vector bound and norm-three rigidity. The finite data
-still require lifting and lattice assembly before a uniform coefficient
-converse follows. The [proof argument and remaining obligations](../RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11)
-and [verification record](verification/four_prime_converse.json) distinguish
-these completed lemmas from that open endpoint.
+- Nine divides one of `m,n,m−n,m+n`.
+- Modulo p, one of `2R=3m+n−18`, `2R=3m+n`,
+  `(n−m)R=n(m+2n−9)`, or `(m+n)R=n(2m−n−9)` holds.
 
-[FourPairingIsometry](../RamanujanTau/MultiQuintupleFourPairingIsometry.lean)
-proves `four_persistent_vanishing_spanning_involution`: under the additional
-hypothesis that supported short Fourier vectors span over the rationals,
-actual coefficient vanishing yields one rational orthogonal involution with
-opposite phases and reversed character. The arithmetic proves preservation
-of every dot product and uniqueness of partners. Integral generation and
-the resulting lattice classification remain open.
-[FourDualLattice](../RamanujanTau/MultiQuintupleFourDualLattice.lean) proves
-the projective-lattice-to-Fourier parametrization and character preservation.
+The proof derives short Fourier partners from actual coefficient vanishing,
+extends them to an orthogonal involution using integral generation, preserves
+both integer lattices, and classifies the two plane blocks. Character
+reversal supplies the modulo-nine condition; phase preservation supplies
+the residue equations. Kernel-checked witnesses cover all ten eligible
+parameter pairs at p≤100. No spanning premise or small-prime exception remains.
+
+The [proof argument](../RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11)
+and [verification record](verification/four_prime_converse.json) record the
+scope and checks. Arbitrary four-tuples, composite-modulus necessity, and
+literature priority remain outside this theorem.
 
 ### Two-parameter four-factor theorem and classification at 53
 

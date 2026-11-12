@@ -25,7 +25,7 @@ retain their missing mathematical inputs as explicit hypotheses.
 | Theorem A and stabilization | Unconditional Theorem A for every prime `ℓ ≥ 13`; `b_ℓ(m) ≤ 2m−1`; exact thresholds at every prime from 13 through 139 | [Theorem A](docs/THEOREM_A.md), [finite certificates](docs/FINITE_ARITHMETIC.md) |
 | Analytic number theory | Rankin–Selberg asymptotics and functional equations, critical zeros and mean squares, a τ prime number theorem, and unconditional subconvexity | [Analytic guides](docs/README.md#analytic-and-congruence-write-ups-2026-11-0304) |
 | Jensen polynomials | Eventual hyperbolicity in every degree for partitions and Riemann Ξ; all-index degree-2 Turán inequalities for Ξ; exact partition thresholds in degrees 6 and 7 | [Ξ](docs/GORZ_XI.md), [thresholds](docs/JENSEN_THRESHOLDS.md) |
-| Product classification | Complete admissible sparse triple classification, fixed four-factor classifications, and infinite vanishing families | [Classification](RESEARCH_MULTI_QUINTUPLE.md#current-theorem), [review manuscript](output/pdf/sparse-triples.pdf) |
+| Product classification | Complete admissible sparse triple and prime four-factor reflection-family classifications | [Triples](RESEARCH_MULTI_QUINTUPLE.md#current-theorem), [prime four-factor family](RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11), [triple review manuscript](output/pdf/sparse-triples.pdf) |
 | Occupation spaces and entropy | Colored partition counts, finite-shell adjoints, completed occupation Hilbert space, self-adjoint energy operator, and `4π√n` leading entropy for the specified 24-species charge shells | [Fock-space proof](docs/BOSONIC_FOCK.md) |
 | Nested radicals | The classical values 3 and 4, a complete affine classification, and exponential error bounds | [Catalog](docs/RESULTS.md#ramanujans-nested-radical) |
 
@@ -59,8 +59,8 @@ python3 scripts/boylanwebb/check_cert29_error.py
 ```
 
 The default verifier builds and audits all forty identities and the completed
-Fock space, plus the four-factor necessity, short-vector coherence, and finite
-symmetry lemmas.
+Fock space, plus the complete prime four-factor reflection-family classification
+and its analytic, lattice, and finite certificate lemmas.
 `--full` also builds the root library and audits the celebrated
 analytic and arithmetic targets. It rejects unexpected axioms and saves build
 and audit logs under `/tmp/ramanujan-lean-verification` (override with

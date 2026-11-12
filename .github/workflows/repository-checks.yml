@@ -31,6 +31,10 @@ jobs:
         run: python3 scripts/check_quintuple_review.py
       - name: Check prime-family finite certificates and rejection controls
         run: python3 scripts/check_four_prime_converse.py --self-test
+      - name: Reproduce the small-prime Lean certificates
+        run: |
+          python3 scripts/generate_four_prime_small.py --check
+          python3 scripts/generate_four53_converse.py --check
       - name: Check certificate reproducibility
         run: |
           python3 scripts/boylanwebb/gen_cert29_error.py --output-dir "$RUNNER_TEMP/cert29-error"

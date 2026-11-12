@@ -4,7 +4,9 @@
 The generated Lean file checks every coefficient in the kernel; the Python
 search is not trusted by Lean. The zero direction uses the plane theorem.
 """
+import argparse
 from pathlib import Path
+import re
 from quintuple_vanishing_scan import product_coefficients
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -95,10 +97,49 @@ theorem four53_finite_test_iff (R : ℕ) (hR : R < 53) :
 
 end Ramanujan.MultiQuintuple
 ''')
-    return ''.join(out)
+    source = ''.join(out)
+    start = source.index('private lemma short_index53')
+    end = source.index('\n\nset_option maxHeartbeats 0 in')
+    fast = source[start:end]
+    for old, new in [('short_index53', 'short_index53_one'),
+                     ('mem_short_box53', 'mem_short_box53_one'),
+                     ('four53ShortCoeff', 'four53SmallCoeff'),
+                     ('coeff_four53_eq_short', 'coeff_four53_eq_small'),
+                     ('noncomputable def ', 'private noncomputable def '),
+                     ('\nlemma coeff_four53', '\nprivate lemma coeff_four53'),
+                     ('≤ 896', '≤ 438'), ('≤ 448', '≤ 219'),
+                     ('natAbs ≤ 2', 'natAbs ≤ 1'),
+                     ('-2 ≤ n ∧ n ≤ 2', '-1 ≤ n ∧ n ≤ 1'),
+                     ('n ≤ -3 ∨ 3 ≤ n', 'n ≤ -2 ∨ 2 ≤ n'),
+                     ('(n+3)', '(n+2)'), ('(n-3)', '(n-2)'),
+                     ('quadBox 1', 'quadBox 0'),
+                     ('mem_quintBranchBox_of_natAbs_le 1', 'mem_quintBranchBox_of_natAbs_le 0')]:
+        fast = fast.replace(old, new)
+    def accelerate(hit):
+        residue, degree = int(hit[2]), int(hit[3])
+        if residue == 0 or degree > 219:
+            return hit[0]
+        return (hit[1] + f'  rw [← coeff_four53_eq_short {degree} (by norm_num),'
+                f'coeff_four53_eq_small {degree} (by norm_num)]\n  decide +kernel')
+    source = re.sub(r'(private theorem coefficient53_(\d+) : four53ShortCoeff (\d+) = [^\n]+ := by\n)  decide \+kernel',
+                    accelerate, source)
+    marker = re.search(r'private theorem coefficient53_0 :[^\n]+\n  decide \+kernel\n', source)
+    assert marker
+    index = marker.end()
+    return (source[:index] + '\n-- A smaller proved coefficient box keeps the numerical checks inexpensive.\n'
+            + fast + '\n' + source[index:])
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true')
+    args = parser.parse_args()
     target = ROOT/'RamanujanTau/MultiQuintupleFourFiftyThreeConverse.lean'
-    target.write_text(generate())
-    print(target)
+    source = generate()
+    if args.check:
+        if target.read_text() != source:
+            raise SystemExit(f'Stale generated file: {target}')
+        print('Modulus-53 Lean coefficient certificates reproduced exactly.')
+    else:
+        target.write_text(source)
+        print(target)

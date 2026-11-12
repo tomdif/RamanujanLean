@@ -248,6 +248,12 @@ nonzero at N=15). The [review verification](verification/quintuple_review.json)
 and [reproduction script](../scripts/verify_quintuple_review.py) cover the
 new coefficients and the centered-root classifier for admissible triples.
 
+The complete prime reflection-family converse is now proved in
+[FourPrimeConverse](../RamanujanTau/MultiQuintupleFourPrimeConverse.lean).
+The seven additional small-prime witness modules are reproducible with
+`python3 scripts/generate_four_prime_small.py --check`; their numerical
+claims are checked by Lean's kernel against actual-product coefficient formulas.
+
 The all-parameter theorem in
 [FourFamily](../RamanujanTau/MultiQuintupleFourFamily.lean) separately proves
 four zero progressions for p=5184t²+720t+41, without a primality premise.

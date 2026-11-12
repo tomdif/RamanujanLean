@@ -1,7 +1,33 @@
 import RamanujanTau.MultiQuintupleFourDualLattice
 import RamanujanTau.MultiQuintupleFourPrimeGeometry
 
-/-! Audit of completed lemmas; no full four-factor converse is asserted. -/
+import RamanujanTau.MultiQuintupleFourPrimeIntegral
+import RamanujanTau.MultiQuintupleFourPrimeCertificateLift
+import RamanujanTau.MultiQuintupleFourPrimeShortGenerators
+import RamanujanTau.MultiQuintupleFourPrimeSpanning
+import RamanujanTau.MultiQuintupleFourPrimeInvolution
+import RamanujanTau.MultiQuintupleFourLatticePreservation
+import RamanujanTau.MultiQuintupleFourPrimeSymmetryLift
+import RamanujanTau.MultiQuintupleFourPrimePlaneLattices
+import RamanujanTau.MultiQuintupleFourPlaneBlocks
+import RamanujanTau.MultiQuintupleFourPrimeBlockCharacters
+import RamanujanTau.MultiQuintupleFourLatticePhase
+import RamanujanTau.MultiQuintupleFourPrimePhaseBlocks
+import RamanujanTau.MultiQuintupleFourPrimeConverseLarge
+import RamanujanTau.MultiQuintupleFourPrimeSmallCases
+import RamanujanTau.MultiQuintupleFourPrimeSmall13
+import RamanujanTau.MultiQuintupleFourPrimeSmall17
+import RamanujanTau.MultiQuintupleFourPrimeSmall29
+import RamanujanTau.MultiQuintupleFourPrimeSmall37
+import RamanujanTau.MultiQuintupleFourPrimeSmall61
+import RamanujanTau.MultiQuintupleFourPrimeSmall73
+import RamanujanTau.MultiQuintupleFourPrimeSmall89
+import RamanujanTau.MultiQuintupleFourFortyOneConverse
+import RamanujanTau.MultiQuintupleFourFiftyThreeConverse
+import RamanujanTau.MultiQuintupleFourNinetySevenConverse
+import RamanujanTau.MultiQuintupleFourPrimeConverse
+
+/-! Audit of the complete prime reflection-family coefficient classification. -/
 #print axioms Ramanujan.MultiQuintuple.exists_missing_projective_phase
 #print axioms Ramanujan.MultiQuintuple.opposite_phase_partner_of_balanced_bucket_sum_zero
 #print axioms Ramanujan.MultiQuintuple.opposite_phase_partner_of_projective_norm
@@ -102,3 +128,111 @@ import RamanujanTau.MultiQuintupleFourPrimeGeometry
 #print axioms Ramanujan.MultiQuintuple.fourDualPoint_surjective_of_projective
 #print axioms Ramanujan.MultiQuintuple.fourDualPoint_character
 #print axioms Ramanujan.MultiQuintuple.four_projective_short_lift
+#print axioms Ramanujan.MultiQuintuple.fourPrime_three_point
+#print axioms Ramanujan.MultiQuintuple.fourPrimeBase_cast
+#print axioms Ramanujan.MultiQuintuple.fourPrime_numerator_add
+#print axioms Ramanujan.MultiQuintuple.fourPrime_numerator_smul
+#print axioms Ramanujan.MultiQuintuple.fourPrime_raw_add
+#print axioms Ramanujan.MultiQuintuple.fourPrime_raw_smul
+#print axioms Ramanujan.MultiQuintuple.fourPrime_raw_integral
+#print axioms Ramanujan.MultiQuintuple.fourPrime_integral_coordinate_congruences
+#print axioms Ramanujan.MultiQuintuple.fourPrime_raw_coordinates_inverse
+#print axioms Ramanujan.MultiQuintuple.fourPrime_point_eq_basis
+#print axioms Ramanujan.MultiQuintuple.fourPrime_projective_numerator
+#print axioms Ramanujan.MultiQuintuple.fourPrime_projective_basis_preimage
+#print axioms Ramanujan.MultiQuintuple.fourPrimeResidue_cast9
+#print axioms Ramanujan.MultiQuintuple.fourPrimeResidue_cast3
+#print axioms Ramanujan.MultiQuintuple.fourPrime_base_residue
+#print axioms Ramanujan.MultiQuintuple.fourPrime_numerator_residue
+#print axioms Ramanujan.MultiQuintuple.fourPrime_character_residue
+#print axioms Ramanujan.MultiQuintuple.fourPrime_coordinates_residue
+#print axioms Ramanujan.MultiQuintuple.fourPrime_residue_norm_unit
+#print axioms Ramanujan.MultiQuintuple.fourPrime_generator_data
+#print axioms Ramanujan.MultiQuintuple.fourPrimeTrit_ne_zero_iff
+#print axioms Ramanujan.MultiQuintuple.fourPrime_character_integral
+#print axioms Ramanujan.MultiQuintuple.fourPrimeTrit_cast
+#print axioms Ramanujan.MultiQuintuple.fourPrime_point_character
+#print axioms Ramanujan.MultiQuintuple.fourPrime_point_supported
+#print axioms Ramanujan.MultiQuintuple.fourPrime_point_norm
+#print axioms Ramanujan.MultiQuintuple.fourPrime_point_positive
+#print axioms Ramanujan.MultiQuintuple.fourPrime_generator_short
+#print axioms Ramanujan.MultiQuintuple.four_integer_coefficients
+#print axioms Ramanujan.MultiQuintuple.fourPrime_projective_integer_generation
+#print axioms Ramanujan.MultiQuintuple.fourPrime_point_projective
+#print axioms Ramanujan.MultiQuintuple.fourPrime_projective_mem_short_span
+#print axioms Ramanujan.MultiQuintuple.fourIntToRat_add
+#print axioms Ramanujan.MultiQuintuple.fourIntToRat_int_smul
+#print axioms Ramanujan.MultiQuintuple.four_short_span_cast
+#print axioms Ramanujan.MultiQuintuple.fourPrime_short_span
+#print axioms Ramanujan.MultiQuintuple.fourPrime_family_cast
+#print axioms Ramanujan.MultiQuintuple.fourPrime_family_canonical
+#print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_involution
+#print axioms Ramanujan.MultiQuintuple.fourProjectiveModule_base
+#print axioms Ramanujan.MultiQuintuple.fourProjectiveModule_multiple
+#print axioms Ramanujan.MultiQuintuple.four_short_span_le_projective
+#print axioms Ramanujan.MultiQuintuple.fourPrime_short_span_eq_projective
+#print axioms Ramanujan.MultiQuintuple.four_linear_preserves_integer_span
+#print axioms Ramanujan.MultiQuintuple.four_projective_pairing_dvd
+#print axioms Ramanujan.MultiQuintuple.fourDot_single
+#print axioms Ramanujan.MultiQuintuple.four_involution_preserves_residue
+#print axioms Ramanujan.MultiQuintuple.fourPrime_involution_preserves_lattices
+#print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_lattice_involution
+#print axioms Ramanujan.MultiQuintuple.fourPrime_compatible_iff_finite
+#print axioms Ramanujan.MultiQuintuple.fourPrime_symmetry_necessary
+#print axioms Ramanujan.MultiQuintuple.fourPrime_long_norm
+#print axioms Ramanujan.MultiQuintuple.fourPrime_long_fixed_orthogonal
+#print axioms Ramanujan.MultiQuintuple.fourPrime_long_combination
+#print axioms Ramanujan.MultiQuintuple.fourPrime_long_orthogonal_coordinates
+#print axioms Ramanujan.MultiQuintuple.fourPrime_residue_long_coordinates
+#print axioms Ramanujan.MultiQuintuple.fourPrime_fixed_mem_residue
+#print axioms Ramanujan.MultiQuintuple.four_involution_integer_norm
+#print axioms Ramanujan.MultiQuintuple.fourPrime_fixed_images
+#print axioms Ramanujan.MultiQuintuple.fourIntToRat_neg
+#print axioms Ramanujan.MultiQuintuple.fourDot_neg_right
+#print axioms Ramanujan.MultiQuintuple.four_involution_self_adjoint
+#print axioms Ramanujan.MultiQuintuple.fourPrime_long_orthogonality_preserved
+#print axioms Ramanujan.MultiQuintuple.fourPrime_long_basis_mem_residue
+#print axioms Ramanujan.MultiQuintuple.fourPrime_long_images_integral
+#print axioms Ramanujan.MultiQuintuple.fourVectorNorm_combination
+#print axioms Ramanujan.MultiQuintuple.four_signed_symmetric_norm_one
+#print axioms Ramanujan.MultiQuintuple.four_involution_pair_block
+#print axioms Ramanujan.MultiQuintuple.fourPrime_lattice_blocks
+#print axioms Ramanujan.MultiQuintuple.fourIntToRat_injective
+#print axioms Ramanujan.MultiQuintuple.fourPairVector_plane_linear
+#print axioms Ramanujan.MultiQuintuple.four_block_pair_map
+#print axioms Ramanujan.MultiQuintuple.fourPrime_numerator_split
+#print axioms Ramanujan.MultiQuintuple.fourPrime_numerator_blocks
+#print axioms Ramanujan.MultiQuintuple.fourPrime_character_abs_le
+#print axioms Ramanujan.MultiQuintuple.four_signed_character_cast_injective
+#print axioms Ramanujan.MultiQuintuple.fourPrime_blocks_compatible
+#print axioms Ramanujan.MultiQuintuple.fourLatticePhase_add
+#print axioms Ramanujan.MultiQuintuple.fourLatticePhase_smul
+#print axioms Ramanujan.MultiQuintuple.fourLatticePhase_zero
+#print axioms Ramanujan.MultiQuintuple.FourProjectiveLift.phase_eq_fourLatticePhase
+#print axioms Ramanujan.MultiQuintuple.four_phase_preserved_of_integral_generators
+#print axioms Ramanujan.MultiQuintuple.four_short_phase_preservation
+#print axioms Ramanujan.MultiQuintuple.fourPrime_j_projective
+#print axioms Ramanujan.MultiQuintuple.fourPrime_phase_v
+#print axioms Ramanujan.MultiQuintuple.fourPrime_phase_j
+#print axioms Ramanujan.MultiQuintuple.fourPrime_phase_pair
+#print axioms Ramanujan.MultiQuintuple.fourPrime_phase_blocks_residue
+#print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_necessary_large
+#print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_iff_large
+#print axioms Ramanujan.MultiQuintuple.fourPrime_small_cases
+#print axioms Ramanujan.MultiQuintuple.coeff_four13_eq_short
+#print axioms Ramanujan.MultiQuintuple.four13_not_persistent
+#print axioms Ramanujan.MultiQuintuple.coeff_four17_eq_short
+#print axioms Ramanujan.MultiQuintuple.four17_not_persistent
+#print axioms Ramanujan.MultiQuintuple.coeff_four29_eq_short
+#print axioms Ramanujan.MultiQuintuple.four29_not_persistent
+#print axioms Ramanujan.MultiQuintuple.coeff_four37_eq_short
+#print axioms Ramanujan.MultiQuintuple.four37_not_persistent
+#print axioms Ramanujan.MultiQuintuple.coeff_four61_eq_short
+#print axioms Ramanujan.MultiQuintuple.four61_not_persistent
+#print axioms Ramanujan.MultiQuintuple.coeff_four73_eq_short
+#print axioms Ramanujan.MultiQuintuple.four73_not_persistent
+#print axioms Ramanujan.MultiQuintuple.coeff_four89_eq_short
+#print axioms Ramanujan.MultiQuintuple.four89_not_persistent
+#print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_necessary_small
+#print axioms Ramanujan.MultiQuintuple.fourPrime_vanishing_iff
+#print axioms Ramanujan.MultiQuintuple.coeff_fourReflection_prime_iff

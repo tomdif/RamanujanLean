@@ -1,6 +1,6 @@
 # Current status
 
-Updated 2026-11-11. [Overview](../README.md) · [Documentation guide](README.md)
+Updated 2026-11-12. [Overview](../README.md) · [Documentation guide](README.md)
 
 ## Formal developments
 
@@ -28,43 +28,34 @@ Updated 2026-11-11. [Overview](../README.md) · [Documentation guide](README.md)
 | Boylan–Webb b_ℓ(m) at 29 and 31 | BW's literal invariant (least odd b with X : Λ^odd(b,m) → Λ^odd(b+2,m) bijective) is b₂₉(m) = b₃₁(m) = 2m−1 for every m ≥ 1 (`Exact29.bEll_29`, `Exact31.bEll_31`). BW computed b₂₉ only for m ≤ 3. The general criterion is `BLBound.bEll_eq_of_not_mem` with the ℓ-adic test `BLBound.not_mem_of_errors`. | [ExactThreshold](../RamanujanTau/FiniteArithmetic/ExactThreshold.lean), [record](verification/exact_threshold.json) |
 | Finite operator framework | Recurrence, survival, and evaluation theorems are proved; weighted tilings supply another identified counting model. | [Finite arithmetic](FINITE_ARITHMETIC.md) |
 | Universal Theorem A | For every prime ℓ ≥ 13: the ℓ-th coefficient of a normalized eigenform in the Atkin–Lehner class is a unit above ℓ, and T_ℓ has determinant prime to ℓ on the integer sign lattice (unconditional). Injectivity of U_{ℓ²} on the half-integral space and of X̄ on V is proved unconditionally, including modularity of the explicit lifts (Ahlgren–Andersen–Dicks, Theorem 1.1): `ThetaLift.theoremA_unconditional`, `ThetaLift.aadModularity`. The upper bound b_ℓ(m) ≤ 2m−1 and the condition d_ℓ = 0 follow for every ℓ ≥ 13 (`BLBound.bEll_le`, `BLBound.dEll_eq_zero`, `BLBound.chain_stable`). Machine-checked; not yet reviewed by a human expert. | [Formalization boundary](THEOREM_A.md) |
-| Multi-quintuple products | The canonical family, specializations, and sparse family with moduli `9t²+15t+7` are formal. The complete admissible sparse triple Root–Vanishing equivalence is proved in Lean for the actual infinite products. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
+| Multi-quintuple products | The canonical family, specializations, and sparse family with moduli `9t²+15t+7` are formal. The complete admissible sparse triple Root–Vanishing equivalence and the prime four-factor reflection-family classification are proved in Lean for actual infinite products. | [Research record](../RESEARCH_MULTI_QUINTUPLE.md) |
 
 ## Verification
 
-### Four-factor necessity progress (2026-11-11)
+### Prime reflection-family classification (2026-11-12)
 
-The actual-coefficient analytic bridge is complete through
-`four_persistent_vanishing_character_partner`: each supported nonzero short
-Fourier vector has an equal-norm, opposite-phase partner with reversed
-character. This includes the even-dimensional phase correction and a
-missing-phase argument replacing the triple-product antipodal argument.
+The uniform actual-coefficient converse is complete in
+[FourPrimeConverse](../RamanujanTau/MultiQuintupleFourPrimeConverse.lean).
+For prime `p=m²+n²`, `0<n<m`, `2(m+n)<p`, and `R<p`, the theorem
+`coeff_fourReflection_prime_iff` gives exactly the modulo-nine parameter
+condition together with one of four explicit residue equations.
 
-The finite reflection-family certificates cover 72 residue classes, 2,592
-block combinations, and 498 nonzero witnesses at the ten eligible primes
-at most 100. The independent checker compares 4,636 direct Pochhammer
-coefficients and rejects five deliberately corrupted certificates. The
-large-prime integer spanning identities and finite symmetry exclusions are
-also kernel checked.
+The proof now includes integral generation, preservation of both lattices,
+the two signed-permutation blocks, their character exclusions, and phase
+preservation. The seven previously missing small-prime nonvanishing
+classifications are kernel checked; the three existing classifications
+at 41,53,97 complete the cutoff. No additional spanning hypothesis remains.
 
-[FourPairingIsometry](../RamanujanTau/MultiQuintupleFourPairingIsometry.lean)
-now proves that these actual partners assemble into one rational orthogonal
-involution, provided the supported short vectors span. Dot-product
-preservation and uniqueness follow from arithmetic; neither coherence nor
-involutivity is assumed.
-[FourDualLattice](../RamanujanTau/MultiQuintupleFourDualLattice.lean) also
-represents every integral projective-lattice vector by a Fourier index and
-proves that the four-dimensional cubic character is preserved.
+The [verification record](verification/four_prime_converse.json) contains
+the focused build, expanded axiom audit, source hashes, and finite checks.
+The independent checker replays 72 parameter classes, 2,592 block pairs,
+498 nonzero witnesses, and 4,636 direct coefficients, rejecting five
+corrupted certificates. The lattice and coefficient generators reproduce their saved output.
+A fresh full-root rebuild has not completed; the prior dated full-build
+records remain separate from these focused checks.
 
-**Still open in Lean:** proving integral generation for arbitrary parameters,
-showing the involution preserves both lattices, deriving its two signed
-permutation blocks, and completing
-the seven smaller coefficient classifications not already covered at
-41,53,97. The [written prime-family argument](../RESEARCH_MULTI_QUINTUPLE.md#prime-reflection-family-converse-proof-argument-2026-11-11)
-is available for review. Neither a complete uniform converse nor a
-classification of arbitrary four-tuples is claimed. The
-[verification record](verification/four_prime_converse.json) gives the
-build and dedicated 100-declaration axiom audit.
+Arbitrary four-factor products and composite-modulus necessity remain open.
+Independent mathematical and literature-priority review are outstanding.
 
 ### Quintuple review package (2026-11-11)
 
@@ -82,8 +73,8 @@ by N=15, and residue 54 first becomes nonzero at N=15, with value 1.
 The [verification record](verification/quintuple_review.json) records the
 build, nine-declaration axiom audit, independent lattice-certificate replay,
 and exact checks against 160,812 triple-product and 1,552 four-product
-coefficients. The uniform four-factor converse and independent priority
-review remain open.
+coefficients. This earlier record precedes the prime-family converse above;
+independent priority review remains open.
 
 The full root build passed with 10,557 jobs. The nine review declarations
 and the public audits (383 forty-identity, 24 Fock-space, and 472 headline
@@ -474,8 +465,8 @@ Atkin–O'Brien variants and the uniform Stepanov bound now have unconditional c
   sparse triple classification in the
   [multi-quintuple research record](../RESEARCH_MULTI_QUINTUPLE.md).
   The universal admissible converse is complete. Remaining directions include
-  a universal four-factor classification beyond the completed cases at 41, 53 and 97
-  and the proved parameter families,
+  a classification of arbitrary four-factor products beyond the completed
+  prime reflection family,
   a universal first-witness bound, and the first-spanning
   or first-perfect cutoff criteria. The separate prime-index automorphism
   argument remains a paper proof.
